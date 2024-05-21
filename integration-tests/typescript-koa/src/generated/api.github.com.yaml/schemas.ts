@@ -999,7 +999,7 @@ export const s_email = z.object({
   visibility: z.string().nullable(),
 })
 
-export const s_empty_object = z.object({})
+export const s_empty_object = z.any()
 
 export const s_enabled_repositories = z.enum(["all", "none", "selected"])
 
@@ -1166,7 +1166,7 @@ export const s_gpg_key = z.object({
           }),
         )
         .optional(),
-      subkeys: z.array(z.object({})).optional(),
+      subkeys: z.array(z.any()).optional(),
       can_sign: PermissiveBoolean.optional(),
       can_encrypt_comms: PermissiveBoolean.optional(),
       can_encrypt_storage: PermissiveBoolean.optional(),
@@ -3100,8 +3100,8 @@ export const s_base_gist = z.object({
   comments_url: z.string(),
   owner: s_simple_user.optional(),
   truncated: PermissiveBoolean.optional(),
-  forks: z.array(z.object({})).optional(),
-  history: z.array(z.object({})).optional(),
+  forks: z.array(z.any()).optional(),
+  history: z.array(z.any()).optional(),
 })
 
 export const s_classroom = z.object({
@@ -5098,7 +5098,7 @@ export const s_assigned_issue_event = z.object({
 export const s_authentication_token = z.object({
   token: z.string(),
   expires_at: z.string().datetime({ offset: true }),
-  permissions: z.object({}).optional(),
+  permissions: z.any().optional(),
   repositories: z.array(s_repository).optional(),
   single_file: z.string().nullable().optional(),
   repository_selection: z.enum(["all", "selected"]).optional(),
@@ -5756,8 +5756,8 @@ export const s_gist_simple = z.object({
       comments_url: z.string(),
       owner: s_nullable_simple_user.optional(),
       truncated: PermissiveBoolean.optional(),
-      forks: z.array(z.object({})).optional(),
-      history: z.array(z.object({})).optional(),
+      forks: z.array(z.any()).optional(),
+      history: z.array(z.any()).optional(),
     })
     .nullable()
     .optional(),

@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgBodySchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
@@ -2922,7 +2921,7 @@ export type GistsCheckIsStarredResponder = {
   with204(): KoaRuntimeResponse<void>
   with304(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<EmptyObject>
+  with404(): KoaRuntimeResponse<any>
 } & KoaRuntimeResponder
 
 export type GistsCheckIsStarred = (
@@ -2934,7 +2933,7 @@ export type GistsCheckIsStarred = (
   | Response<204, void>
   | Response<304, void>
   | Response<403, t_basic_error>
-  | Response<404, EmptyObject>
+  | Response<404, any>
 >
 
 export type GistsStarResponder = {
@@ -5397,7 +5396,7 @@ export type OrgsListAppInstallations = (
 >
 
 export type InteractionsGetRestrictionsForOrgResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<t_interaction_limit_response | any>
 } & KoaRuntimeResponder
 
 export type InteractionsGetRestrictionsForOrg = (
@@ -5406,7 +5405,7 @@ export type InteractionsGetRestrictionsForOrg = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
+  | Response<200, t_interaction_limit_response | any>
 >
 
 export type InteractionsSetRestrictionsForOrgResponder = {
@@ -6120,7 +6119,7 @@ export type OrgsListOutsideCollaborators = (
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_simple_user[]>>
 
 export type OrgsConvertMemberToOutsideCollaboratorResponder = {
-  with202(): KoaRuntimeResponse<EmptyObject>
+  with202(): KoaRuntimeResponse<any>
   with204(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<void>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -6136,7 +6135,7 @@ export type OrgsConvertMemberToOutsideCollaborator = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<202, EmptyObject>
+  | Response<202, any>
   | Response<204, void>
   | Response<403, void>
   | Response<404, t_basic_error>
@@ -7709,7 +7708,7 @@ export type ProjectsDeleteCard = (
 >
 
 export type ProjectsMoveCardResponder = {
-  with201(): KoaRuntimeResponse<EmptyObject>
+  with201(): KoaRuntimeResponse<any>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<{
@@ -7744,7 +7743,7 @@ export type ProjectsMoveCard = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, EmptyObject>
+  | Response<201, any>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<
@@ -7908,7 +7907,7 @@ export type ProjectsCreateCard = (
 >
 
 export type ProjectsMoveColumnResponder = {
-  with201(): KoaRuntimeResponse<EmptyObject>
+  with201(): KoaRuntimeResponse<any>
   with304(): KoaRuntimeResponse<void>
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -7925,7 +7924,7 @@ export type ProjectsMoveColumn = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<201, EmptyObject>
+  | Response<201, any>
   | Response<304, void>
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
@@ -13173,7 +13172,7 @@ export type AppsGetRepoInstallation = (
 >
 
 export type InteractionsGetRestrictionsForRepoResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<t_interaction_limit_response | any>
 } & KoaRuntimeResponder
 
 export type InteractionsGetRestrictionsForRepo = (
@@ -13182,7 +13181,7 @@ export type InteractionsGetRestrictionsForRepo = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
+  | Response<200, t_interaction_limit_response | any>
 >
 
 export type InteractionsSetRestrictionsForRepoResponder = {
@@ -18277,7 +18276,7 @@ export type AppsRemoveRepoFromInstallationForAuthenticatedUser = (
 >
 
 export type InteractionsGetRestrictionsForAuthenticatedUserResponder = {
-  with200(): KoaRuntimeResponse<t_interaction_limit_response | EmptyObject>
+  with200(): KoaRuntimeResponse<t_interaction_limit_response | any>
   with204(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
@@ -18287,7 +18286,7 @@ export type InteractionsGetRestrictionsForAuthenticatedUser = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_interaction_limit_response | EmptyObject>
+  | Response<200, t_interaction_limit_response | any>
   | Response<204, void>
 >
 
@@ -23994,7 +23993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["204", z.undefined()],
       ["304", z.undefined()],
       ["403", s_basic_error],
-      ["404", z.object({})],
+      ["404", z.any()],
     ],
     undefined,
   )
@@ -24024,7 +24023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_basic_error>(403)
         },
         with404() {
-          return new KoaRuntimeResponse<EmptyObject>(404)
+          return new KoaRuntimeResponse<any>(404)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -31952,7 +31951,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForOrgResponseValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [["200", z.union([s_interaction_limit_response, z.any()])]],
       undefined,
     )
 
@@ -31972,9 +31971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
-          >(200)
+          return new KoaRuntimeResponse<t_interaction_limit_response | any>(200)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -34403,7 +34400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsConvertMemberToOutsideCollaboratorResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.object({})],
+        ["202", z.any()],
         ["204", z.undefined()],
         ["403", z.undefined()],
         ["404", s_basic_error],
@@ -34431,7 +34428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with202() {
-          return new KoaRuntimeResponse<EmptyObject>(202)
+          return new KoaRuntimeResponse<any>(202)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)
@@ -40039,7 +40036,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsMoveCardResponseValidator = responseValidationFactory(
     [
-      ["201", z.object({})],
+      ["201", z.any()],
       ["304", z.undefined()],
       ["401", s_basic_error],
       [
@@ -40100,7 +40097,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with201() {
-          return new KoaRuntimeResponse<EmptyObject>(201)
+          return new KoaRuntimeResponse<any>(201)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -40531,7 +40528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const projectsMoveColumnResponseValidator = responseValidationFactory(
     [
-      ["201", z.object({})],
+      ["201", z.any()],
       ["304", z.undefined()],
       ["401", s_basic_error],
       ["403", s_basic_error],
@@ -40560,7 +40557,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with201() {
-          return new KoaRuntimeResponse<EmptyObject>(201)
+          return new KoaRuntimeResponse<any>(201)
         },
         with304() {
           return new KoaRuntimeResponse<void>(304)
@@ -48662,11 +48659,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const checksCreateBodySchema = z.union([
-    z.intersection(z.object({ status: z.object({}) }), z.record(z.any())),
-    z.intersection(
-      z.object({ status: z.object({}).optional() }),
-      z.record(z.any()),
-    ),
+    z.intersection(z.object({ status: z.any() }), z.record(z.any())),
+    z.intersection(z.object({ status: z.any().optional() }), z.record(z.any())),
   ])
 
   const checksCreateResponseValidator = responseValidationFactory(
@@ -58296,7 +58290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const interactionsGetRestrictionsForRepoResponseValidator =
     responseValidationFactory(
-      [["200", z.union([s_interaction_limit_response, z.object({})])]],
+      [["200", z.union([s_interaction_limit_response, z.any()])]],
       undefined,
     )
 
@@ -58316,9 +58310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
-          >(200)
+          return new KoaRuntimeResponse<t_interaction_limit_response | any>(200)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -75192,7 +75184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const interactionsGetRestrictionsForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["200", z.union([s_interaction_limit_response, z.object({})])],
+        ["200", z.union([s_interaction_limit_response, z.any()])],
         ["204", z.undefined()],
       ],
       undefined,
@@ -75210,9 +75202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<
-            t_interaction_limit_response | EmptyObject
-          >(200)
+          return new KoaRuntimeResponse<t_interaction_limit_response | any>(200)
         },
         with204() {
           return new KoaRuntimeResponse<void>(204)

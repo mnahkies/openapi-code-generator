@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
-
 export type t_AppAuthenticatorEnrollment = {
   readonly authenticatorId?: string
   readonly createdDate?: string
@@ -197,7 +195,7 @@ export type t_Schema = {
       readonly href?: string
     }
   }
-  readonly properties?: EmptyObject
+  readonly properties?: any
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {

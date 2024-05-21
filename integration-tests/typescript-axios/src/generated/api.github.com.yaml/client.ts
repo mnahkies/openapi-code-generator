@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -4503,7 +4502,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
+  ): Promise<AxiosResponse<t_interaction_limit_response | any>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
     return this.axios.request({
@@ -5412,7 +5411,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject> | AxiosResponse<void>> {
+  ): Promise<AxiosResponse<any> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -7656,7 +7655,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<AxiosResponse<any>> {
     const url = `/projects/columns/cards/${p["cardId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -7798,7 +7797,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<EmptyObject>> {
+  ): Promise<AxiosResponse<any>> {
     const url = `/projects/columns/${p["columnId"]}/moves`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -11061,11 +11060,11 @@ export class ApiClient extends AbstractAxiosClient {
       repo: string
       requestBody:
         | {
-            status: EmptyObject
+            status: any
             [key: string]: unknown | undefined
           }
         | {
-            status?: EmptyObject
+            status?: any
             [key: string]: unknown | undefined
           }
     },
@@ -14779,7 +14778,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
+  ): Promise<AxiosResponse<t_interaction_limit_response | any>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
     return this.axios.request({
@@ -21161,8 +21160,7 @@ export class ApiClient extends AbstractAxiosClient {
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<
-    | AxiosResponse<t_interaction_limit_response | EmptyObject>
-    | AxiosResponse<void>
+    AxiosResponse<t_interaction_limit_response | any> | AxiosResponse<void>
   > {
     const url = `/user/interaction-limits`
 

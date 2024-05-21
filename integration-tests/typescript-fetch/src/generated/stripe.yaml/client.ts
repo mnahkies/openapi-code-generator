@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_account,
   t_account_link,
   t_account_session,
@@ -175,7 +174,7 @@ export class ApiClient extends AbstractFetchClient {
   async getAccount(
     p: {
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -256,7 +255,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           documents?: {
             enabled: boolean
-            features?: EmptyObject
+            features?: any
           }
           notification_banner?: {
             enabled: boolean
@@ -292,7 +291,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           payouts_list?: {
             enabled: boolean
-            features?: EmptyObject
+            features?: any
           }
         }
         expand?: string[]
@@ -330,7 +329,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -831,7 +830,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteAccountsAccount(
     p: {
       account: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -855,7 +854,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1360,7 +1359,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1388,7 +1387,7 @@ export class ApiClient extends AbstractFetchClient {
       account: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1464,7 +1463,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1501,7 +1500,7 @@ export class ApiClient extends AbstractFetchClient {
       account: string
       capability: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1561,7 +1560,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       object?: "bank_account" | "card"
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1650,7 +1649,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1679,7 +1678,7 @@ export class ApiClient extends AbstractFetchClient {
       account: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1792,7 +1791,7 @@ export class ApiClient extends AbstractFetchClient {
         representative?: boolean
       }
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1959,7 +1958,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       person: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -1985,7 +1984,7 @@ export class ApiClient extends AbstractFetchClient {
       account: string
       expand?: string[]
       person: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2148,7 +2147,7 @@ export class ApiClient extends AbstractFetchClient {
         representative?: boolean
       }
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2315,7 +2314,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       person: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2341,7 +2340,7 @@ export class ApiClient extends AbstractFetchClient {
       account: string
       expand?: string[]
       person: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2523,7 +2522,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -2589,7 +2588,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteApplePayDomainsDomain(
     p: {
       domain: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2615,7 +2614,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       domain: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2651,7 +2650,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -2695,7 +2694,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       fee: string
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2753,7 +2752,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2808,7 +2807,7 @@ export class ApiClient extends AbstractFetchClient {
       id: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2884,7 +2883,7 @@ export class ApiClient extends AbstractFetchClient {
         user?: string
       }
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -2990,7 +2989,7 @@ export class ApiClient extends AbstractFetchClient {
         type: "account" | "user"
         user?: string
       }
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3018,7 +3017,7 @@ export class ApiClient extends AbstractFetchClient {
   async getBalance(
     p: {
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -3057,7 +3056,7 @@ export class ApiClient extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -3103,7 +3102,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3144,7 +3143,7 @@ export class ApiClient extends AbstractFetchClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -3190,7 +3189,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3283,7 +3282,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "inactive"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -3362,7 +3361,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3445,7 +3444,7 @@ export class ApiClient extends AbstractFetchClient {
       startTime: number
       startingAfter?: string
       valueGroupingWindow?: "hour"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3519,7 +3518,7 @@ export class ApiClient extends AbstractFetchClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -3654,7 +3653,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -3910,7 +3909,7 @@ export class ApiClient extends AbstractFetchClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -4045,7 +4044,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -4088,7 +4087,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       charge: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -4199,7 +4198,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       charge: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -4348,7 +4347,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -4429,7 +4428,7 @@ export class ApiClient extends AbstractFetchClient {
       charge: string
       expand?: string[]
       refund: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -4505,7 +4504,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "complete" | "expired" | "open"
       subscription?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5340,7 +5339,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5393,7 +5392,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       session: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5437,7 +5436,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5512,7 +5511,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       order: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5597,7 +5596,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5638,7 +5637,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       product: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5665,7 +5664,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5706,7 +5705,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       supplier: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5731,7 +5730,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       confirmationToken: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5761,7 +5760,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5802,7 +5801,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       country: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5837,7 +5836,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -5926,7 +5925,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCouponsCoupon(
     p: {
       coupon: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -5950,7 +5949,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       coupon: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6025,7 +6024,7 @@ export class ApiClient extends AbstractFetchClient {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -6164,7 +6163,7 @@ export class ApiClient extends AbstractFetchClient {
       shippingCost?: {
         shipping_rate?: string
       }
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6241,7 +6240,7 @@ export class ApiClient extends AbstractFetchClient {
         shipping_rate?: string
       }
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6297,7 +6296,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6338,7 +6337,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6462,7 +6461,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -6677,7 +6676,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6719,7 +6718,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomer(
     p: {
       customer: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6743,7 +6742,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6900,7 +6899,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -6979,7 +6978,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7047,7 +7046,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7179,7 +7178,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7295,7 +7294,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7427,7 +7426,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7509,7 +7508,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7565,7 +7564,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7608,7 +7607,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7636,7 +7635,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteCustomersCustomerDiscount(
     p: {
       customer: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7660,7 +7659,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7767,7 +7766,7 @@ export class ApiClient extends AbstractFetchClient {
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7811,7 +7810,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       paymentMethod: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7842,7 +7841,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       object?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -7975,7 +7974,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8090,7 +8089,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8281,8 +8280,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -8409,7 +8408,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8609,8 +8608,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -8710,7 +8709,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       customer: string
       subscriptionExposedId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8737,7 +8736,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8767,7 +8766,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8906,7 +8905,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       customer: string
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8932,7 +8931,7 @@ export class ApiClient extends AbstractFetchClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -8970,7 +8969,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9014,7 +9013,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       dispute: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9127,7 +9126,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9169,7 +9168,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9199,7 +9198,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9271,7 +9270,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9396,7 +9395,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9441,7 +9440,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9466,7 +9465,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9507,7 +9506,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       rateId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9544,7 +9543,7 @@ export class ApiClient extends AbstractFetchClient {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9619,7 +9618,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       link: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9701,7 +9700,7 @@ export class ApiClient extends AbstractFetchClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9785,7 +9784,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       file: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9815,7 +9814,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -9858,7 +9857,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -9919,7 +9918,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       ownership: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10095,7 +10094,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10137,7 +10136,7 @@ export class ApiClient extends AbstractFetchClient {
       transactionRefresh?: {
         after: string
       }
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10181,7 +10180,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10218,7 +10217,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -10301,7 +10300,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10341,7 +10340,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       type?: "document" | "id_number"
       verificationSession?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -10386,7 +10385,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       report: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10426,7 +10425,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -10517,7 +10516,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10662,7 +10661,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -10767,7 +10766,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteInvoiceitemsInvoiceitem(
     p: {
       invoiceitem: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10793,7 +10792,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       invoiceitem: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -10898,7 +10897,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -11039,8 +11038,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -11517,7 +11516,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -11925,7 +11924,7 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -12344,7 +12343,7 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -12408,7 +12407,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteInvoicesInvoice(
     p: {
       invoice: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -12432,7 +12431,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       invoice: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -12546,8 +12545,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -12717,7 +12716,7 @@ export class ApiClient extends AbstractFetchClient {
       invoice: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -12971,7 +12970,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -13016,7 +13015,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       authorization: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -13158,7 +13157,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -14180,7 +14179,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       cardholder: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -15199,7 +15198,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -16210,7 +16209,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       card: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17188,7 +17187,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -17340,7 +17339,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       dispute: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17510,7 +17509,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       startingAfter?: string
       status?: "active" | "inactive" | "rejected" | "review"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -17597,7 +17596,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       personalizationDesign: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17678,7 +17677,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "active" | "inactive" | "review"
       type?: "custom" | "standard"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -17721,7 +17720,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       physicalBundle: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17759,7 +17758,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -17801,7 +17800,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       settlement: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17870,7 +17869,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "deleted" | "requested" | "suspended"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17914,7 +17913,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       token: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -17978,7 +17977,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -18023,7 +18022,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -18124,7 +18123,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -18158,7 +18157,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -18201,7 +18200,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -18259,7 +18258,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       ownership: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -18329,7 +18328,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       mandate: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -18365,7 +18364,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -18427,7 +18426,7 @@ export class ApiClient extends AbstractFetchClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: EmptyObject
+                offline?: any
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -18449,11 +18448,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -18462,7 +18461,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -18478,12 +18477,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -18540,8 +18539,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -18561,7 +18560,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -18569,13 +18568,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -18605,21 +18604,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -18662,8 +18661,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?:
@@ -18863,7 +18862,7 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: EmptyObject | ""
+          interac_present?: any | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19003,7 +19002,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: any
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19118,7 +19117,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -19162,7 +19161,7 @@ export class ApiClient extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       intent: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -19210,11 +19209,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -19223,7 +19222,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -19239,12 +19238,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -19301,8 +19300,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -19322,7 +19321,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -19330,13 +19329,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -19366,21 +19365,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -19423,8 +19422,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?:
@@ -19624,7 +19623,7 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: EmptyObject | ""
+          interac_present?: any | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19764,7 +19763,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: any
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19980,7 +19979,7 @@ export class ApiClient extends AbstractFetchClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: EmptyObject
+                offline?: any
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -20006,11 +20005,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -20019,7 +20018,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -20035,12 +20034,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -20097,8 +20096,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -20118,7 +20117,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -20126,13 +20125,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -20162,21 +20161,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -20219,8 +20218,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?:
@@ -20420,7 +20419,7 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: EmptyObject | ""
+          interac_present?: any | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -20560,7 +20559,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: any
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20737,7 +20736,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -21243,7 +21242,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentLink: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -21722,7 +21721,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentLink: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -21767,7 +21766,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -22032,7 +22031,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -22289,7 +22288,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -22360,7 +22359,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentMethodDomain: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -22485,7 +22484,7 @@ export class ApiClient extends AbstractFetchClient {
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -22532,11 +22531,11 @@ export class ApiClient extends AbstractFetchClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: EmptyObject
-        afterpay_clearpay?: EmptyObject
-        alipay?: EmptyObject
+        affirm?: any
+        afterpay_clearpay?: any
+        alipay?: any
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: EmptyObject
+        amazon_pay?: any
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -22545,7 +22544,7 @@ export class ApiClient extends AbstractFetchClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: EmptyObject
+        bancontact?: any
         billing_details?: {
           address?:
             | {
@@ -22561,7 +22560,7 @@ export class ApiClient extends AbstractFetchClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: EmptyObject
+        blik?: any
         boleto?: {
           tax_id: string
         }
@@ -22578,9 +22577,9 @@ export class ApiClient extends AbstractFetchClient {
           | {
               token: string
             }
-        cashapp?: EmptyObject
+        cashapp?: any
         customer?: string
-        customer_balance?: EmptyObject
+        customer_balance?: any
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -22638,8 +22637,8 @@ export class ApiClient extends AbstractFetchClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: EmptyObject
-        grabpay?: EmptyObject
+        giropay?: any
+        grabpay?: any
         ideal?: {
           bank?:
             | "abn_amro"
@@ -22659,7 +22658,7 @@ export class ApiClient extends AbstractFetchClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: EmptyObject
+        interac_present?: any
         klarna?: {
           dob?: {
             day: number
@@ -22667,13 +22666,13 @@ export class ApiClient extends AbstractFetchClient {
             year: number
           }
         }
-        konbini?: EmptyObject
-        link?: EmptyObject
+        konbini?: any
+        link?: any
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: EmptyObject
-        oxxo?: EmptyObject
+        mobilepay?: any
+        oxxo?: any
         p24?: {
           bank?:
             | "alior_bank"
@@ -22704,21 +22703,21 @@ export class ApiClient extends AbstractFetchClient {
             | "volkswagen_bank"
         }
         payment_method?: string
-        paynow?: EmptyObject
-        paypal?: EmptyObject
-        pix?: EmptyObject
-        promptpay?: EmptyObject
+        paynow?: any
+        paypal?: any
+        pix?: any
+        promptpay?: any
         radar_options?: {
           session?: string
         }
-        revolut_pay?: EmptyObject
+        revolut_pay?: any
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: EmptyObject
+        swish?: any
         type?:
           | "acss_debit"
           | "affirm"
@@ -22762,8 +22761,8 @@ export class ApiClient extends AbstractFetchClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: EmptyObject
-        zip?: EmptyObject
+        wechat_pay?: any
+        zip?: any
       }
     } = {},
     timeout?: number,
@@ -22788,7 +22787,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       paymentMethod: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -22837,7 +22836,7 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         expand?: string[]
-        link?: EmptyObject
+        link?: any
         metadata?:
           | {
               [key: string]: string | undefined
@@ -22944,7 +22943,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -23023,7 +23022,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       payout: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23143,7 +23142,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -23251,7 +23250,7 @@ export class ApiClient extends AbstractFetchClient {
   async deletePlansPlan(
     p: {
       plan: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23275,7 +23274,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       plan: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23350,7 +23349,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -23493,7 +23492,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23536,7 +23535,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       price: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23630,7 +23629,7 @@ export class ApiClient extends AbstractFetchClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -23756,7 +23755,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23798,7 +23797,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteProductsId(
     p: {
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23822,7 +23821,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23903,7 +23902,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       product: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23970,7 +23969,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       id: string
       product: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -23998,7 +23997,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       id: string
       product: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24038,7 +24037,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -24129,7 +24128,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       promotionCode: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24199,7 +24198,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -24342,7 +24341,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       quote: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24510,7 +24509,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       quote: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24579,7 +24578,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       quote: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24620,7 +24619,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       quote: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24655,7 +24654,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -24699,7 +24698,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       earlyFraudWarning: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24739,7 +24738,7 @@ export class ApiClient extends AbstractFetchClient {
       startingAfter?: string
       value?: string
       valueList: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24810,7 +24809,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteRadarValueListItemsItem(
     p: {
       item: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24836,7 +24835,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       item: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24875,7 +24874,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -24958,7 +24957,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteRadarValueListsValueList(
     p: {
       valueList: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -24984,7 +24983,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       valueList: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -25051,7 +25050,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -25134,7 +25133,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       refund: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -25224,7 +25223,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -25938,7 +25937,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       reportRun: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -25964,7 +25963,7 @@ export class ApiClient extends AbstractFetchClient {
   async getReportingReportTypes(
     p: {
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -26000,7 +25999,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       reportType: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -26037,7 +26036,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -26079,7 +26078,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       review: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -26140,7 +26139,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       setupIntent: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -26196,7 +26195,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -26255,7 +26254,7 @@ export class ApiClient extends AbstractFetchClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: EmptyObject
+                offline?: any
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -26276,11 +26275,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26289,7 +26288,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -26305,12 +26304,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -26367,8 +26366,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -26388,7 +26387,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -26396,13 +26395,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -26432,21 +26431,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -26489,8 +26488,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?: {
@@ -26504,7 +26503,7 @@ export class ApiClient extends AbstractFetchClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           card?: {
             mandate_options?: {
               amount: number
@@ -26547,13 +26546,13 @@ export class ApiClient extends AbstractFetchClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: EmptyObject
-          link?: EmptyObject
+          card_present?: any
+          link?: any
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: any
           }
           us_bank_account?: {
             financial_connections?: {
@@ -26608,7 +26607,7 @@ export class ApiClient extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       intent: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -26654,11 +26653,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26667,7 +26666,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -26683,12 +26682,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -26745,8 +26744,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -26766,7 +26765,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -26774,13 +26773,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -26810,21 +26809,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -26867,8 +26866,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?: {
@@ -26882,7 +26881,7 @@ export class ApiClient extends AbstractFetchClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           card?: {
             mandate_options?: {
               amount: number
@@ -26925,13 +26924,13 @@ export class ApiClient extends AbstractFetchClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: EmptyObject
-          link?: EmptyObject
+          card_present?: any
+          link?: any
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: any
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27014,7 +27013,7 @@ export class ApiClient extends AbstractFetchClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: EmptyObject
+                offline?: any
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -27039,11 +27038,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -27052,7 +27051,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -27068,12 +27067,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -27130,8 +27129,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -27151,7 +27150,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -27159,13 +27158,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -27195,21 +27194,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -27252,8 +27251,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         payment_method_options?: {
           acss_debit?: {
@@ -27267,7 +27266,7 @@ export class ApiClient extends AbstractFetchClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           card?: {
             mandate_options?: {
               amount: number
@@ -27310,13 +27309,13 @@ export class ApiClient extends AbstractFetchClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: EmptyObject
-          link?: EmptyObject
+          card_present?: any
+          link?: any
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: any
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27405,7 +27404,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -27502,7 +27501,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       shippingRateToken: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -27571,7 +27570,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -27612,7 +27611,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       scheduledQueryRun: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -27746,7 +27745,7 @@ export class ApiClient extends AbstractFetchClient {
       clientSecret?: string
       expand?: string[]
       source: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -27869,7 +27868,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       mandateNotification: string
       source: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -27901,7 +27900,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       source: string
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -27943,7 +27942,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       source: string
       sourceTransaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -28001,7 +28000,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       subscription: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -28133,7 +28132,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       item: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -28225,7 +28224,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       subscriptionItem: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -28334,7 +28333,7 @@ export class ApiClient extends AbstractFetchClient {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -28550,7 +28549,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       schedule: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -28848,7 +28847,7 @@ export class ApiClient extends AbstractFetchClient {
         | "trialing"
         | "unpaid"
       testClock?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -29057,8 +29056,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -29156,7 +29155,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -29240,7 +29239,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -29440,8 +29439,8 @@ export class ApiClient extends AbstractFetchClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: EmptyObject | ""
-            sepa_debit?: EmptyObject | ""
+            konbini?: any | ""
+            sepa_debit?: any | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -29539,7 +29538,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       subscriptionExposedId: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -29734,7 +29733,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -29779,7 +29778,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "all" | "expired" | "scheduled"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30092,7 +30091,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30143,7 +30142,7 @@ export class ApiClient extends AbstractFetchClient {
   async getTaxSettings(
     p: {
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30280,7 +30279,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30308,7 +30307,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       transaction: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30352,7 +30351,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30393,7 +30392,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30425,7 +30424,7 @@ export class ApiClient extends AbstractFetchClient {
         type: "account" | "application" | "customer" | "self"
       }
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30568,7 +30567,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTaxIdsId(
     p: {
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30592,7 +30591,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30629,7 +30628,7 @@ export class ApiClient extends AbstractFetchClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30721,7 +30720,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       taxRate: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30798,7 +30797,7 @@ export class ApiClient extends AbstractFetchClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -30951,7 +30950,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalConfigurationsConfiguration(
     p: {
       configuration: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -30978,7 +30977,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -31155,7 +31154,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -31234,7 +31233,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalLocationsLocation(
     p: {
       location: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -31260,7 +31259,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       location: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -31344,7 +31343,7 @@ export class ApiClient extends AbstractFetchClient {
       serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -31420,7 +31419,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTerminalReadersReader(
     p: {
       reader: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -31446,7 +31445,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       reader: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -31681,11 +31680,11 @@ export class ApiClient extends AbstractFetchClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: EmptyObject
-          afterpay_clearpay?: EmptyObject
-          alipay?: EmptyObject
+          affirm?: any
+          afterpay_clearpay?: any
+          alipay?: any
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: EmptyObject
+          amazon_pay?: any
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -31694,7 +31693,7 @@ export class ApiClient extends AbstractFetchClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: EmptyObject
+          bancontact?: any
           billing_details?: {
             address?:
               | {
@@ -31710,12 +31709,12 @@ export class ApiClient extends AbstractFetchClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: EmptyObject
+          blik?: any
           boleto?: {
             tax_id: string
           }
-          cashapp?: EmptyObject
-          customer_balance?: EmptyObject
+          cashapp?: any
+          customer_balance?: any
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -31772,8 +31771,8 @@ export class ApiClient extends AbstractFetchClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: EmptyObject
-          grabpay?: EmptyObject
+          giropay?: any
+          grabpay?: any
           ideal?: {
             bank?:
               | "abn_amro"
@@ -31793,7 +31792,7 @@ export class ApiClient extends AbstractFetchClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: EmptyObject
+          interac_present?: any
           klarna?: {
             dob?: {
               day: number
@@ -31801,13 +31800,13 @@ export class ApiClient extends AbstractFetchClient {
               year: number
             }
           }
-          konbini?: EmptyObject
-          link?: EmptyObject
+          konbini?: any
+          link?: any
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: EmptyObject
-          oxxo?: EmptyObject
+          mobilepay?: any
+          oxxo?: any
           p24?: {
             bank?:
               | "alior_bank"
@@ -31837,21 +31836,21 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: EmptyObject
-          paypal?: EmptyObject
-          pix?: EmptyObject
-          promptpay?: EmptyObject
+          paynow?: any
+          paypal?: any
+          pix?: any
+          promptpay?: any
           radar_options?: {
             session?: string
           }
-          revolut_pay?: EmptyObject
+          revolut_pay?: any
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: EmptyObject
+          swish?: any
           type:
             | "acss_debit"
             | "affirm"
@@ -31894,8 +31893,8 @@ export class ApiClient extends AbstractFetchClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: EmptyObject
-          zip?: EmptyObject
+          wechat_pay?: any
+          zip?: any
         }
         return_url?: string
         setup_future_usage?: "off_session" | "on_session"
@@ -33553,7 +33552,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -33621,7 +33620,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteTestHelpersTestClocksTestClock(
     p: {
       testClock: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -33647,7 +33646,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       testClock: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34409,7 +34408,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       token: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34451,7 +34450,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -34528,7 +34527,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       topup: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34615,7 +34614,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -34696,7 +34695,7 @@ export class ApiClient extends AbstractFetchClient {
       id: string
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34770,7 +34769,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       transfer: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34827,7 +34826,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       id: string
       transfer: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34890,7 +34889,7 @@ export class ApiClient extends AbstractFetchClient {
       receivedCredit?: string
       startingAfter?: string
       status?: "canceled" | "posted" | "processing"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34964,7 +34963,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       creditReversal: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -34998,7 +34997,7 @@ export class ApiClient extends AbstractFetchClient {
       resolution?: "lost" | "won"
       startingAfter?: string
       status?: "canceled" | "completed" | "processing"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35073,7 +35072,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       debitReversal: string
       expand?: string[]
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35111,7 +35110,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -35224,7 +35223,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       financialAccount: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35324,7 +35323,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       financialAccount: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35421,7 +35420,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "processing" | "succeeded"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35499,7 +35498,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35568,7 +35567,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35689,7 +35688,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35748,7 +35747,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35833,7 +35832,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       outboundTransfer: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35901,7 +35900,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       startingAfter?: string
       status?: "failed" | "succeeded"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35945,7 +35944,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -35976,7 +35975,7 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startingAfter?: string
       status?: "failed" | "succeeded"
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36019,7 +36018,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36067,7 +36066,7 @@ export class ApiClient extends AbstractFetchClient {
       orderBy?: "created" | "effective_at"
       startingAfter?: string
       transaction?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36113,7 +36112,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36163,7 +36162,7 @@ export class ApiClient extends AbstractFetchClient {
             }
           | number
       }
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36209,7 +36208,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36238,7 +36237,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: EmptyObject
+      requestBody?: any
     } = {},
     timeout?: number,
     opts?: RequestInit,
@@ -36642,7 +36641,7 @@ export class ApiClient extends AbstractFetchClient {
   async deleteWebhookEndpointsWebhookEndpoint(
     p: {
       webhookEndpoint: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,
@@ -36668,7 +36667,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       expand?: string[]
       webhookEndpoint: string
-      requestBody?: EmptyObject
+      requestBody?: any
     },
     timeout?: number,
     opts?: RequestInit,

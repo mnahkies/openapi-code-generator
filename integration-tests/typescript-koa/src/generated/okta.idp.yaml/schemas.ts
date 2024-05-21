@@ -162,7 +162,7 @@ export const s_PushNotificationVerification = z.object({
 })
 
 export const s_Schema = z.object({
-  properties: z.object({}).optional(),
+  properties: z.any().optional(),
   _links: z
     .object({
       self: z.object({ href: z.string().optional() }).optional(),

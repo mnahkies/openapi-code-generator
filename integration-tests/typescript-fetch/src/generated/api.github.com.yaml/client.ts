@@ -3,7 +3,6 @@
 /* eslint-disable */
 
 import {
-  EmptyObject,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -1484,10 +1483,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<204, void>
-      | Res<304, void>
-      | Res<403, t_basic_error>
-      | Res<404, EmptyObject>
+      Res<204, void> | Res<304, void> | Res<403, t_basic_error> | Res<404, any>
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
@@ -4336,9 +4332,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
-  > {
+  ): Promise<TypedFetchResponse<Res<200, t_interaction_limit_response | any>>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -5189,10 +5183,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<202, EmptyObject>
-      | Res<204, void>
-      | Res<403, void>
-      | Res<404, t_basic_error>
+      Res<202, any> | Res<204, void> | Res<403, void> | Res<404, t_basic_error>
     >
   > {
     const url =
@@ -7368,7 +7359,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<201, EmptyObject>
+      | Res<201, any>
       | Res<304, void>
       | Res<401, t_basic_error>
       | Res<
@@ -7561,7 +7552,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<201, EmptyObject>
+      | Res<201, any>
       | Res<304, void>
       | Res<401, t_basic_error>
       | Res<403, t_basic_error>
@@ -10706,11 +10697,11 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
       requestBody:
         | {
-            status: EmptyObject
+            status: any
             [key: string]: unknown | undefined
           }
         | {
-            status?: EmptyObject
+            status?: any
             [key: string]: unknown | undefined
           }
     },
@@ -14542,9 +14533,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
-  > {
+  ): Promise<TypedFetchResponse<Res<200, t_interaction_limit_response | any>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
@@ -20966,7 +20955,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_interaction_limit_response | EmptyObject> | Res<204, void>
+      Res<200, t_interaction_limit_response | any> | Res<204, void>
     >
   > {
     const url = this.basePath + `/user/interaction-limits`

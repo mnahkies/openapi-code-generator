@@ -21,10 +21,10 @@ export const s_Azure_ResourceManager_Foundations_ActionType = z.enum([
   "Internal",
 ])
 
-export const s_Azure_ResourceManager_Foundations_ArmResourceBase = z.object({})
+export const s_Azure_ResourceManager_Foundations_ArmResourceBase = z.any()
 
 export const s_Azure_ResourceManager_Foundations_ErrorAdditionalInfo = z.object(
-  { type: z.string().optional(), info: z.object({}).optional() },
+  { type: z.string().optional(), info: z.any().optional() },
 )
 
 export const s_Azure_ResourceManager_Foundations_OperationDisplay = z.object({

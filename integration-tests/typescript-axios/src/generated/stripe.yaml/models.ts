@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
-
 export type t_account = {
   business_profile?: t_account_business_profile | null
   business_type?:
@@ -880,7 +878,7 @@ export type t_card_issuing_account_terms_of_service = {
   user_agent?: string
 }
 
-export type t_card_mandate_payment_method_details = EmptyObject
+export type t_card_mandate_payment_method_details = any
 
 export type t_cash_balance = {
   available?: {
@@ -1518,7 +1516,7 @@ export type t_connect_embedded_base_config_claim = {
   features: t_connect_embedded_base_features
 }
 
-export type t_connect_embedded_base_features = EmptyObject
+export type t_connect_embedded_base_features = any
 
 export type t_connect_embedded_payments_config_claim = {
   enabled: boolean
@@ -2093,7 +2091,7 @@ export type t_deleted_webhook_endpoint = {
   object: "webhook_endpoint"
 }
 
-export type t_destination_details_unimplemented = EmptyObject
+export type t_destination_details_unimplemented = any
 
 export type t_discount = {
   checkout_session?: string | null
@@ -2652,7 +2650,7 @@ export type t_gelato_report_document_options = {
   require_matching_selfie?: boolean
 }
 
-export type t_gelato_report_id_number_options = EmptyObject
+export type t_gelato_report_id_number_options = any
 
 export type t_gelato_selfie_report = {
   document?: string | null
@@ -2682,7 +2680,7 @@ export type t_gelato_session_email_options = {
   require_verification?: boolean
 }
 
-export type t_gelato_session_id_number_options = EmptyObject
+export type t_gelato_session_id_number_options = any
 
 export type t_gelato_session_last_error = {
   code?:
@@ -2955,9 +2953,9 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_b
     country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL"
   }
 
-export type t_invoice_payment_method_options_konbini = EmptyObject
+export type t_invoice_payment_method_options_konbini = any
 
-export type t_invoice_payment_method_options_sepa_debit = EmptyObject
+export type t_invoice_payment_method_options_sepa_debit = any
 
 export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?: t_invoice_payment_method_options_us_bank_account_linked_account_options
@@ -5914,7 +5912,7 @@ export type t_mandate_acss_debit = {
   transaction_type: "business" | "personal"
 }
 
-export type t_mandate_amazon_pay = EmptyObject
+export type t_mandate_amazon_pay = any
 
 export type t_mandate_au_becs_debit = {
   url: string
@@ -5933,11 +5931,11 @@ export type t_mandate_bacs_debit = {
   url: string
 }
 
-export type t_mandate_cashapp = EmptyObject
+export type t_mandate_cashapp = any
 
-export type t_mandate_link = EmptyObject
+export type t_mandate_link = any
 
-export type t_mandate_multi_use = EmptyObject
+export type t_mandate_multi_use = any
 
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit
@@ -5959,7 +5957,7 @@ export type t_mandate_paypal = {
   payer_id?: string | null
 }
 
-export type t_mandate_revolut_pay = EmptyObject
+export type t_mandate_revolut_pay = any
 
 export type t_mandate_sepa_debit = {
   reference: string
@@ -5981,8 +5979,8 @@ export type t_networks = {
 }
 
 export type t_notification_event_data = {
-  object: EmptyObject
-  previous_attributes?: EmptyObject
+  object: any
+  previous_attributes?: any
 }
 
 export type t_notification_event_request = {
@@ -5990,7 +5988,7 @@ export type t_notification_event_request = {
   idempotency_key?: string | null
 }
 
-export type t_offline_acceptance = EmptyObject
+export type t_offline_acceptance = any
 
 export type t_online_acceptance = {
   ip_address?: string | null
@@ -6067,7 +6065,7 @@ export type t_payment_flows_installment_options = {
   plan?: t_payment_method_details_card_installments_plan
 }
 
-export type t_payment_flows_private_payment_methods_alipay = EmptyObject
+export type t_payment_flows_private_payment_methods_alipay = any
 
 export type t_payment_flows_private_payment_methods_alipay_details = {
   buyer_id?: string
@@ -6179,7 +6177,7 @@ export type t_payment_intent_next_action = {
   redirect_to_url?: t_payment_intent_next_action_redirect_to_url
   swish_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_swish_handle_redirect_or_display_qr_code
   type: string
-  use_stripe_sdk?: EmptyObject
+  use_stripe_sdk?: any
   verify_with_microdeposits?: t_payment_intent_next_action_verify_with_microdeposits
   wechat_pay_display_qr_code?: t_payment_intent_next_action_wechat_pay_display_qr_code
   wechat_pay_redirect_to_android_app?: t_payment_intent_next_action_wechat_pay_redirect_to_android_app
@@ -6512,7 +6510,7 @@ export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
   }
 
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
-  EmptyObject
+  any
 
 export type t_payment_intent_payment_method_options_mobilepay = {
   capture_method?: "manual"
@@ -7112,11 +7110,11 @@ export type t_payment_method_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_affirm = EmptyObject
+export type t_payment_method_affirm = any
 
-export type t_payment_method_afterpay_clearpay = EmptyObject
+export type t_payment_method_afterpay_clearpay = any
 
-export type t_payment_method_amazon_pay = EmptyObject
+export type t_payment_method_amazon_pay = any
 
 export type t_payment_method_au_becs_debit = {
   bsb_number?: string | null
@@ -7130,9 +7128,9 @@ export type t_payment_method_bacs_debit = {
   sort_code?: string | null
 }
 
-export type t_payment_method_bancontact = EmptyObject
+export type t_payment_method_bancontact = any
 
-export type t_payment_method_blik = EmptyObject
+export type t_payment_method_blik = any
 
 export type t_payment_method_boleto = {
   tax_id: string
@@ -7209,13 +7207,13 @@ export type t_payment_method_card_wallet = {
   visa_checkout?: t_payment_method_card_wallet_visa_checkout
 }
 
-export type t_payment_method_card_wallet_amex_express_checkout = EmptyObject
+export type t_payment_method_card_wallet_amex_express_checkout = any
 
-export type t_payment_method_card_wallet_apple_pay = EmptyObject
+export type t_payment_method_card_wallet_apple_pay = any
 
-export type t_payment_method_card_wallet_google_pay = EmptyObject
+export type t_payment_method_card_wallet_google_pay = any
 
-export type t_payment_method_card_wallet_link = EmptyObject
+export type t_payment_method_card_wallet_link = any
 
 export type t_payment_method_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -7224,7 +7222,7 @@ export type t_payment_method_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_card_wallet_samsung_pay = EmptyObject
+export type t_payment_method_card_wallet_samsung_pay = any
 
 export type t_payment_method_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -7303,7 +7301,7 @@ export type t_payment_method_configuration = {
   zip?: t_payment_method_config_resource_payment_method_properties
 }
 
-export type t_payment_method_customer_balance = EmptyObject
+export type t_payment_method_customer_balance = any
 
 export type t_payment_method_details = {
   ach_credit_transfer?: t_payment_method_details_ach_credit_transfer
@@ -7376,14 +7374,14 @@ export type t_payment_method_details_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_details_affirm = EmptyObject
+export type t_payment_method_details_affirm = any
 
 export type t_payment_method_details_afterpay_clearpay = {
   order_id?: string | null
   reference?: string | null
 }
 
-export type t_payment_method_details_amazon_pay = EmptyObject
+export type t_payment_method_details_amazon_pay = any
 
 export type t_payment_method_details_au_becs_debit = {
   bsb_number?: string | null
@@ -7410,7 +7408,7 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_blik = EmptyObject
+export type t_payment_method_details_blik = any
 
 export type t_payment_method_details_boleto = {
   tax_id: string
@@ -7521,14 +7519,13 @@ export type t_payment_method_details_card_wallet = {
   visa_checkout?: t_payment_method_details_card_wallet_visa_checkout
 }
 
-export type t_payment_method_details_card_wallet_amex_express_checkout =
-  EmptyObject
+export type t_payment_method_details_card_wallet_amex_express_checkout = any
 
-export type t_payment_method_details_card_wallet_apple_pay = EmptyObject
+export type t_payment_method_details_card_wallet_apple_pay = any
 
-export type t_payment_method_details_card_wallet_google_pay = EmptyObject
+export type t_payment_method_details_card_wallet_google_pay = any
 
-export type t_payment_method_details_card_wallet_link = EmptyObject
+export type t_payment_method_details_card_wallet_link = any
 
 export type t_payment_method_details_card_wallet_masterpass = {
   billing_address?: t_address | null
@@ -7537,7 +7534,7 @@ export type t_payment_method_details_card_wallet_masterpass = {
   shipping_address?: t_address | null
 }
 
-export type t_payment_method_details_card_wallet_samsung_pay = EmptyObject
+export type t_payment_method_details_card_wallet_samsung_pay = any
 
 export type t_payment_method_details_card_wallet_visa_checkout = {
   billing_address?: t_address | null
@@ -7551,7 +7548,7 @@ export type t_payment_method_details_cashapp = {
   cashtag?: string | null
 }
 
-export type t_payment_method_details_customer_balance = EmptyObject
+export type t_payment_method_details_customer_balance = any
 
 export type t_payment_method_details_eps = {
   bank?:
@@ -7787,7 +7784,7 @@ export type t_payment_method_details_promptpay = {
   reference?: string | null
 }
 
-export type t_payment_method_details_revolut_pay = EmptyObject
+export type t_payment_method_details_revolut_pay = any
 
 export type t_payment_method_details_sepa_debit = {
   bank_code?: string | null
@@ -7810,7 +7807,7 @@ export type t_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_stripe_account = EmptyObject
+export type t_payment_method_details_stripe_account = any
 
 export type t_payment_method_details_swish = {
   fingerprint?: string | null
@@ -7829,14 +7826,14 @@ export type t_payment_method_details_us_bank_account = {
   routing_number?: string | null
 }
 
-export type t_payment_method_details_wechat = EmptyObject
+export type t_payment_method_details_wechat = any
 
 export type t_payment_method_details_wechat_pay = {
   fingerprint?: string | null
   transaction_id?: string | null
 }
 
-export type t_payment_method_details_zip = EmptyObject
+export type t_payment_method_details_zip = any
 
 export type t_payment_method_domain = {
   apple_pay: t_payment_method_domain_resource_payment_method_status
@@ -7919,9 +7916,9 @@ export type t_payment_method_fpx = {
     | "uob"
 }
 
-export type t_payment_method_giropay = EmptyObject
+export type t_payment_method_giropay = any
 
-export type t_payment_method_grabpay = EmptyObject
+export type t_payment_method_grabpay = any
 
 export type t_payment_method_ideal = {
   bank?:
@@ -7987,13 +7984,13 @@ export type t_payment_method_klarna = {
   dob?: t_payment_flows_private_payment_methods_klarna_dob | null
 }
 
-export type t_payment_method_konbini = EmptyObject
+export type t_payment_method_konbini = any
 
 export type t_payment_method_link = {
   email?: string | null
 }
 
-export type t_payment_method_mobilepay = EmptyObject
+export type t_payment_method_mobilepay = any
 
 export type t_payment_method_options_affirm = {
   capture_method?: "manual"
@@ -8104,7 +8101,7 @@ export type t_payment_method_options_ideal = {
   setup_future_usage?: "none" | "off_session"
 }
 
-export type t_payment_method_options_interac_present = EmptyObject
+export type t_payment_method_options_interac_present = any
 
 export type t_payment_method_options_klarna = {
   capture_method?: "manual"
@@ -8174,7 +8171,7 @@ export type t_payment_method_options_zip = {
   setup_future_usage?: "none"
 }
 
-export type t_payment_method_oxxo = EmptyObject
+export type t_payment_method_oxxo = any
 
 export type t_payment_method_p24 = {
   bank?:
@@ -8207,18 +8204,18 @@ export type t_payment_method_p24 = {
     | null
 }
 
-export type t_payment_method_paynow = EmptyObject
+export type t_payment_method_paynow = any
 
 export type t_payment_method_paypal = {
   payer_email?: string | null
   payer_id?: string | null
 }
 
-export type t_payment_method_pix = EmptyObject
+export type t_payment_method_pix = any
 
-export type t_payment_method_promptpay = EmptyObject
+export type t_payment_method_promptpay = any
 
-export type t_payment_method_revolut_pay = EmptyObject
+export type t_payment_method_revolut_pay = any
 
 export type t_payment_method_sepa_debit = {
   bank_code?: string | null
@@ -8233,7 +8230,7 @@ export type t_payment_method_sofort = {
   country?: string | null
 }
 
-export type t_payment_method_swish = EmptyObject
+export type t_payment_method_swish = any
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
@@ -8276,9 +8273,9 @@ export type t_payment_method_us_bank_account_status_details = {
   blocked?: t_payment_method_us_bank_account_blocked
 }
 
-export type t_payment_method_wechat_pay = EmptyObject
+export type t_payment_method_wechat_pay = any
 
-export type t_payment_method_zip = EmptyObject
+export type t_payment_method_zip = any
 
 export type t_payment_pages_checkout_session_after_expiration = {
   recovery?: t_payment_pages_checkout_session_after_expiration_recovery | null
@@ -9559,13 +9556,13 @@ export type t_setup_attempt_payment_method_details = {
   us_bank_account?: t_setup_attempt_payment_method_details_us_bank_account
 }
 
-export type t_setup_attempt_payment_method_details_acss_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_acss_debit = any
 
-export type t_setup_attempt_payment_method_details_amazon_pay = EmptyObject
+export type t_setup_attempt_payment_method_details_amazon_pay = any
 
-export type t_setup_attempt_payment_method_details_au_becs_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_au_becs_debit = any
 
-export type t_setup_attempt_payment_method_details_bacs_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_bacs_debit = any
 
 export type t_setup_attempt_payment_method_details_bancontact = {
   bank_code?: string | null
@@ -9578,7 +9575,7 @@ export type t_setup_attempt_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_boleto = EmptyObject
+export type t_setup_attempt_payment_method_details_boleto = any
 
 export type t_setup_attempt_payment_method_details_card = {
   brand?: string | null
@@ -9611,7 +9608,7 @@ export type t_setup_attempt_payment_method_details_card_wallet = {
   type: "apple_pay" | "google_pay" | "link"
 }
 
-export type t_setup_attempt_payment_method_details_cashapp = EmptyObject
+export type t_setup_attempt_payment_method_details_cashapp = any
 
 export type t_setup_attempt_payment_method_details_ideal = {
   bank?:
@@ -9657,15 +9654,15 @@ export type t_setup_attempt_payment_method_details_ideal = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_klarna = EmptyObject
+export type t_setup_attempt_payment_method_details_klarna = any
 
-export type t_setup_attempt_payment_method_details_link = EmptyObject
+export type t_setup_attempt_payment_method_details_link = any
 
-export type t_setup_attempt_payment_method_details_paypal = EmptyObject
+export type t_setup_attempt_payment_method_details_paypal = any
 
-export type t_setup_attempt_payment_method_details_revolut_pay = EmptyObject
+export type t_setup_attempt_payment_method_details_revolut_pay = any
 
-export type t_setup_attempt_payment_method_details_sepa_debit = EmptyObject
+export type t_setup_attempt_payment_method_details_sepa_debit = any
 
 export type t_setup_attempt_payment_method_details_sofort = {
   bank_code?: string | null
@@ -9678,7 +9675,7 @@ export type t_setup_attempt_payment_method_details_sofort = {
   verified_name?: string | null
 }
 
-export type t_setup_attempt_payment_method_details_us_bank_account = EmptyObject
+export type t_setup_attempt_payment_method_details_us_bank_account = any
 
 export type t_setup_intent = {
   application?: string | t_application | null
@@ -9724,7 +9721,7 @@ export type t_setup_intent_next_action = {
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
   redirect_to_url?: t_setup_intent_next_action_redirect_to_url
   type: string
-  use_stripe_sdk?: EmptyObject
+  use_stripe_sdk?: any
   verify_with_microdeposits?: t_setup_intent_next_action_verify_with_microdeposits
 }
 
@@ -9770,7 +9767,7 @@ export type t_setup_intent_payment_method_options_acss_debit = {
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
 
-export type t_setup_intent_payment_method_options_amazon_pay = EmptyObject
+export type t_setup_intent_payment_method_options_amazon_pay = any
 
 export type t_setup_intent_payment_method_options_card = {
   mandate_options?: t_setup_intent_payment_method_options_card_mandate_options | null
@@ -9803,9 +9800,9 @@ export type t_setup_intent_payment_method_options_card_mandate_options = {
   supported_types?: "india"[] | null
 }
 
-export type t_setup_intent_payment_method_options_card_present = EmptyObject
+export type t_setup_intent_payment_method_options_card_present = any
 
-export type t_setup_intent_payment_method_options_link = EmptyObject
+export type t_setup_intent_payment_method_options_link = any
 
 export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   custom_mandate_url?: string
@@ -9816,7 +9813,7 @@ export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
 }
 
 export type t_setup_intent_payment_method_options_mandate_options_sepa_debit =
-  EmptyObject
+  any
 
 export type t_setup_intent_payment_method_options_paypal = {
   billing_agreement_id?: string | null
@@ -11123,7 +11120,7 @@ export type t_tax_product_resource_tax_settings_status_details = {
 }
 
 export type t_tax_product_resource_tax_settings_status_details_resource_active =
-  EmptyObject
+  any
 
 export type t_tax_product_resource_tax_settings_status_details_resource_pending =
   {
