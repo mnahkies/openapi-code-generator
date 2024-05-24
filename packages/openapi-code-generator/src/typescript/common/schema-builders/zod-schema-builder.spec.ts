@@ -793,6 +793,25 @@ describe.each(testVersions)(
         )
       })
 
+      it("supports any record objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          additionalProperties: true,
+        })
+
+        expect(code).toMatchInlineSnapshot('"const x = z.record(z.any())"')
+
+        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(
+          executeParseSchema(code, {key: "string"}),
+        ).resolves.toEqual({key: "string"})
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          "Expected object, received number",
+        )
+      })
+
       it("supports record objects", async () => {
         const {code} = await getActualFromModel({
           ...base,

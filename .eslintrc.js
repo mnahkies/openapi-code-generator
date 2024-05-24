@@ -13,7 +13,11 @@ module.exports = {
   rules: {
     indent: "off",
     "linebreak-style": ["error", "unix"],
-    quotes: ["error", "double", {avoidEscape: true}],
+    quotes: [
+      "error",
+      "double",
+      {avoidEscape: true, allowTemplateLiterals: true},
+    ],
     "comma-dangle": ["error", "always-multiline"],
     semi: ["error", "never"],
     "no-unused-vars": "off",

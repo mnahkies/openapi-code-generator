@@ -868,6 +868,27 @@ describe.each(testVersions)(
         )
       })
 
+      it("supports any record objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          additionalProperties: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.object().pattern(joi.any(), joi.any()).required()"',
+        )
+
+        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(
+          executeParseSchema(code, {key: "string"}),
+        ).resolves.toEqual({key: "string"})
+        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+          '"value" must be of type object',
+        )
+      })
+
       it("supports record objects", async () => {
         const {code} = await getActualFromModel({
           ...base,
