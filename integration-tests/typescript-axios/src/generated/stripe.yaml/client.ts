@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_account,
   t_account_link,
   t_account_session,
@@ -169,7 +170,7 @@ export class ApiClient extends AbstractAxiosClient {
   async getAccount(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -254,7 +255,7 @@ export class ApiClient extends AbstractAxiosClient {
           }
           documents?: {
             enabled: boolean
-            features?: any
+            features?: EmptyObject
           }
           notification_banner?: {
             enabled: boolean
@@ -290,7 +291,7 @@ export class ApiClient extends AbstractAxiosClient {
           }
           payouts_list?: {
             enabled: boolean
-            features?: any
+            features?: EmptyObject
           }
         }
         expand?: string[]
@@ -330,7 +331,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -831,7 +832,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteAccountsAccount(
     p: {
       account: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -857,7 +858,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1368,7 +1369,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1395,7 +1396,7 @@ export class ApiClient extends AbstractAxiosClient {
       account: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1473,7 +1474,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1508,7 +1509,7 @@ export class ApiClient extends AbstractAxiosClient {
       account: string
       capability: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1568,7 +1569,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       object?: "bank_account" | "card"
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1657,7 +1658,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1684,7 +1685,7 @@ export class ApiClient extends AbstractAxiosClient {
       account: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1799,7 +1800,7 @@ export class ApiClient extends AbstractAxiosClient {
         representative?: boolean
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1966,7 +1967,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       person: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -1993,7 +1994,7 @@ export class ApiClient extends AbstractAxiosClient {
       account: string
       expand?: string[]
       person: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2158,7 +2159,7 @@ export class ApiClient extends AbstractAxiosClient {
         representative?: boolean
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2325,7 +2326,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       person: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2352,7 +2353,7 @@ export class ApiClient extends AbstractAxiosClient {
       account: string
       expand?: string[]
       person: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2538,7 +2539,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2604,7 +2605,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteApplePayDomainsDomain(
     p: {
       domain: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2630,7 +2631,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       domain: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2668,7 +2669,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2710,7 +2711,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       fee: string
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2770,7 +2771,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2829,7 +2830,7 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -2905,7 +2906,7 @@ export class ApiClient extends AbstractAxiosClient {
         user?: string
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3013,7 +3014,7 @@ export class ApiClient extends AbstractAxiosClient {
         type: "account" | "user"
         user?: string
       }
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3043,7 +3044,7 @@ export class ApiClient extends AbstractAxiosClient {
   async getBalance(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3084,7 +3085,7 @@ export class ApiClient extends AbstractAxiosClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3128,7 +3129,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3169,7 +3170,7 @@ export class ApiClient extends AbstractAxiosClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3213,7 +3214,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3306,7 +3307,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "inactive"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3385,7 +3386,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3474,7 +3475,7 @@ export class ApiClient extends AbstractAxiosClient {
       startTime: number
       startingAfter?: string
       valueGroupingWindow?: "hour"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3548,7 +3549,7 @@ export class ApiClient extends AbstractAxiosClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3681,7 +3682,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -3935,7 +3936,7 @@ export class ApiClient extends AbstractAxiosClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4070,7 +4071,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4111,7 +4112,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       charge: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4228,7 +4229,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       charge: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4385,7 +4386,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4466,7 +4467,7 @@ export class ApiClient extends AbstractAxiosClient {
       charge: string
       expand?: string[]
       refund: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -4544,7 +4545,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "complete" | "expired" | "open"
       subscription?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5379,7 +5380,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5436,7 +5437,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       session: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5477,7 +5478,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5552,7 +5553,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       order: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5643,7 +5644,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5682,7 +5683,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       product: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5711,7 +5712,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5750,7 +5751,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       supplier: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5777,7 +5778,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       confirmationToken: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5806,7 +5807,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5845,7 +5846,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       country: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5882,7 +5883,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5971,7 +5972,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteCouponsCoupon(
     p: {
       coupon: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -5997,7 +5998,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       coupon: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6076,7 +6077,7 @@ export class ApiClient extends AbstractAxiosClient {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6215,7 +6216,7 @@ export class ApiClient extends AbstractAxiosClient {
       shippingCost?: {
         shipping_rate?: string
       }
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6294,7 +6295,7 @@ export class ApiClient extends AbstractAxiosClient {
         shipping_rate?: string
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6348,7 +6349,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6387,7 +6388,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6519,7 +6520,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6734,7 +6735,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6774,7 +6775,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteCustomersCustomer(
     p: {
       customer: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6800,7 +6801,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -6959,7 +6960,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7034,7 +7035,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7098,7 +7099,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7228,7 +7229,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7344,7 +7345,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7474,7 +7475,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7558,7 +7559,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7618,7 +7619,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7658,7 +7659,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7684,7 +7685,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteCustomersCustomerDiscount(
     p: {
       customer: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7710,7 +7711,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       customer: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7818,7 +7819,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7860,7 +7861,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       paymentMethod: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -7891,7 +7892,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       object?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8022,7 +8023,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8138,7 +8139,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8327,8 +8328,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -8457,7 +8458,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8657,8 +8658,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -8758,7 +8759,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       customer: string
       subscriptionExposedId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8785,7 +8786,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8815,7 +8816,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8954,7 +8955,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       customer: string
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -8981,7 +8982,7 @@ export class ApiClient extends AbstractAxiosClient {
       customer: string
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9020,7 +9021,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9062,7 +9063,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       dispute: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9181,7 +9182,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9221,7 +9222,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9250,7 +9251,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9320,7 +9321,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9449,7 +9450,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9492,7 +9493,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9521,7 +9522,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9560,7 +9561,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       rateId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9599,7 +9600,7 @@ export class ApiClient extends AbstractAxiosClient {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9674,7 +9675,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       link: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9760,7 +9761,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9846,7 +9847,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       file: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9880,7 +9881,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9921,7 +9922,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -9979,7 +9980,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       ownership: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10145,7 +10146,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10186,7 +10187,7 @@ export class ApiClient extends AbstractAxiosClient {
       transactionRefresh?: {
         after: string
       }
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10228,7 +10229,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10263,7 +10264,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10344,7 +10345,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10384,7 +10385,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       type?: "document" | "id_number"
       verificationSession?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10427,7 +10428,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       report: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10466,7 +10467,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10555,7 +10556,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10694,7 +10695,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10799,7 +10800,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteInvoiceitemsInvoiceitem(
     p: {
       invoiceitem: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10825,7 +10826,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       invoiceitem: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -10934,7 +10935,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -11073,8 +11074,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -11555,7 +11556,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -11961,7 +11962,7 @@ export class ApiClient extends AbstractAxiosClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -12382,7 +12383,7 @@ export class ApiClient extends AbstractAxiosClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -12444,7 +12445,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteInvoicesInvoice(
     p: {
       invoice: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -12470,7 +12471,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       invoice: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -12586,8 +12587,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -12761,7 +12762,7 @@ export class ApiClient extends AbstractAxiosClient {
       invoice: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -13021,7 +13022,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -13064,7 +13065,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       authorization: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -13202,7 +13203,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -14222,7 +14223,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       cardholder: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -15241,7 +15242,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -16252,7 +16253,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       card: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17234,7 +17235,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17386,7 +17387,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       dispute: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17562,7 +17563,7 @@ export class ApiClient extends AbstractAxiosClient {
       }
       startingAfter?: string
       status?: "active" | "inactive" | "rejected" | "review"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17647,7 +17648,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       personalizationDesign: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17724,7 +17725,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "active" | "inactive" | "review"
       type?: "custom" | "standard"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17765,7 +17766,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       physicalBundle: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17802,7 +17803,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17842,7 +17843,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       settlement: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17911,7 +17912,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "deleted" | "requested" | "suspended"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -17953,7 +17954,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       token: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18021,7 +18022,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18064,7 +18065,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18165,7 +18166,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       session: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18199,7 +18200,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18240,7 +18241,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       account: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18298,7 +18299,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       ownership: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18366,7 +18367,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       mandate: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18404,7 +18405,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -18464,7 +18465,7 @@ export class ApiClient extends AbstractAxiosClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: any
+                offline?: EmptyObject
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -18486,11 +18487,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -18499,7 +18500,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -18515,12 +18516,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -18577,8 +18578,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -18598,7 +18599,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -18606,13 +18607,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -18642,21 +18643,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -18699,8 +18700,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?:
@@ -18900,7 +18901,7 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: any | ""
+          interac_present?: EmptyObject | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19040,7 +19041,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: any
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19157,7 +19158,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -19199,7 +19200,7 @@ export class ApiClient extends AbstractAxiosClient {
       clientSecret?: string
       expand?: string[]
       intent: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -19249,11 +19250,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -19262,7 +19263,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -19278,12 +19279,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -19340,8 +19341,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -19361,7 +19362,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -19369,13 +19370,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -19405,21 +19406,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -19462,8 +19463,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?:
@@ -19663,7 +19664,7 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: any | ""
+          interac_present?: EmptyObject | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19803,7 +19804,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: any
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20025,7 +20026,7 @@ export class ApiClient extends AbstractAxiosClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: any
+                offline?: EmptyObject
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -20051,11 +20052,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -20064,7 +20065,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -20080,12 +20081,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -20142,8 +20143,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -20163,7 +20164,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -20171,13 +20172,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -20207,21 +20208,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -20264,8 +20265,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?:
@@ -20465,7 +20466,7 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
-          interac_present?: any | ""
+          interac_present?: EmptyObject | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -20605,7 +20606,7 @@ export class ApiClient extends AbstractAxiosClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: any
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20785,7 +20786,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -21291,7 +21292,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       paymentLink: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -21774,7 +21775,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       paymentLink: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -21816,7 +21817,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22079,7 +22080,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22334,7 +22335,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22403,7 +22404,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       paymentMethodDomain: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22524,7 +22525,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22569,11 +22570,11 @@ export class ApiClient extends AbstractAxiosClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -22582,7 +22583,7 @@ export class ApiClient extends AbstractAxiosClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -22598,7 +22599,7 @@ export class ApiClient extends AbstractAxiosClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
@@ -22615,9 +22616,9 @@ export class ApiClient extends AbstractAxiosClient {
           | {
               token: string
             }
-        cashapp?: any
+        cashapp?: EmptyObject
         customer?: string
-        customer_balance?: any
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -22675,8 +22676,8 @@ export class ApiClient extends AbstractAxiosClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -22696,7 +22697,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -22704,13 +22705,13 @@ export class ApiClient extends AbstractAxiosClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -22741,21 +22742,21 @@ export class ApiClient extends AbstractAxiosClient {
             | "volkswagen_bank"
         }
         payment_method?: string
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type?:
           | "acss_debit"
           | "affirm"
@@ -22799,8 +22800,8 @@ export class ApiClient extends AbstractAxiosClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
     } = {},
     timeout?: number,
@@ -22827,7 +22828,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       paymentMethod: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -22878,7 +22879,7 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         expand?: string[]
-        link?: any
+        link?: EmptyObject
         metadata?:
           | {
               [key: string]: string | undefined
@@ -22989,7 +22990,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23068,7 +23069,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       payout: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23196,7 +23197,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23306,7 +23307,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deletePlansPlan(
     p: {
       plan: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23332,7 +23333,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       plan: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23415,7 +23416,7 @@ export class ApiClient extends AbstractAxiosClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23560,7 +23561,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23601,7 +23602,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       price: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23703,7 +23704,7 @@ export class ApiClient extends AbstractAxiosClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23829,7 +23830,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23869,7 +23870,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteProductsId(
     p: {
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23895,7 +23896,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -23980,7 +23981,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       product: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24047,7 +24048,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       id: string
       product: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24074,7 +24075,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       id: string
       product: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24115,7 +24116,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24206,7 +24207,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       promotionCode: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24280,7 +24281,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24425,7 +24426,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       quote: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24609,7 +24610,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       quote: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24679,7 +24680,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       quote: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24718,7 +24719,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       quote: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24757,7 +24758,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24799,7 +24800,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       earlyFraudWarning: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24838,7 +24839,7 @@ export class ApiClient extends AbstractAxiosClient {
       startingAfter?: string
       value?: string
       valueList: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24907,7 +24908,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteRadarValueListItemsItem(
     p: {
       item: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24933,7 +24934,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       item: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -24972,7 +24973,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -25055,7 +25056,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteRadarValueListsValueList(
     p: {
       valueList: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -25081,7 +25082,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       valueList: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -25152,7 +25153,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -25235,7 +25236,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       refund: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -25331,7 +25332,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26043,7 +26044,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       reportRun: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26069,7 +26070,7 @@ export class ApiClient extends AbstractAxiosClient {
   async getReportingReportTypes(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26103,7 +26104,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       reportType: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26140,7 +26141,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26180,7 +26181,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       review: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26245,7 +26246,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       setupIntent: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26299,7 +26300,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26356,7 +26357,7 @@ export class ApiClient extends AbstractAxiosClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: any
+                offline?: EmptyObject
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -26377,11 +26378,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26390,7 +26391,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -26406,12 +26407,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -26468,8 +26469,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -26489,7 +26490,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -26497,13 +26498,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -26533,21 +26534,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26590,8 +26591,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -26605,7 +26606,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -26648,13 +26649,13 @@ export class ApiClient extends AbstractAxiosClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: any
-          link?: any
+          card_present?: EmptyObject
+          link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: any
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -26711,7 +26712,7 @@ export class ApiClient extends AbstractAxiosClient {
       clientSecret?: string
       expand?: string[]
       intent: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -26759,11 +26760,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26772,7 +26773,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -26788,12 +26789,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -26850,8 +26851,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -26871,7 +26872,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -26879,13 +26880,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -26915,21 +26916,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26972,8 +26973,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -26987,7 +26988,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -27030,13 +27031,13 @@ export class ApiClient extends AbstractAxiosClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: any
-          link?: any
+          card_present?: EmptyObject
+          link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: any
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27123,7 +27124,7 @@ export class ApiClient extends AbstractAxiosClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: any
+                offline?: EmptyObject
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -27148,11 +27149,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -27161,7 +27162,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -27177,12 +27178,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -27239,8 +27240,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -27260,7 +27261,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -27268,13 +27269,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -27304,21 +27305,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -27361,8 +27362,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -27376,7 +27377,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -27419,13 +27420,13 @@ export class ApiClient extends AbstractAxiosClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: any
-          link?: any
+          card_present?: EmptyObject
+          link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: any
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27517,7 +27518,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -27614,7 +27615,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       shippingRateToken: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -27687,7 +27688,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -27726,7 +27727,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       scheduledQueryRun: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -27861,7 +27862,7 @@ export class ApiClient extends AbstractAxiosClient {
       clientSecret?: string
       expand?: string[]
       source: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -27988,7 +27989,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       mandateNotification: string
       source: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28018,7 +28019,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       source: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28058,7 +28059,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       source: string
       sourceTransaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28116,7 +28117,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       subscription: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28248,7 +28249,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       item: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28344,7 +28345,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       subscriptionItem: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28449,7 +28450,7 @@ export class ApiClient extends AbstractAxiosClient {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28663,7 +28664,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       schedule: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -28959,7 +28960,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "trialing"
         | "unpaid"
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -29166,8 +29167,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -29267,7 +29268,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       page?: string
       query: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -29350,7 +29351,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       subscriptionExposedId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -29551,8 +29552,8 @@ export class ApiClient extends AbstractAxiosClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -29651,7 +29652,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
     p: {
       subscriptionExposedId: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -29851,7 +29852,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -29893,7 +29894,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "all" | "expired" | "scheduled"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30206,7 +30207,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30261,7 +30262,7 @@ export class ApiClient extends AbstractAxiosClient {
   async getTaxSettings(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30406,7 +30407,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30436,7 +30437,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       transaction: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30477,7 +30478,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30516,7 +30517,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30550,7 +30551,7 @@ export class ApiClient extends AbstractAxiosClient {
         type: "account" | "application" | "customer" | "self"
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30693,7 +30694,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteTaxIdsId(
     p: {
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30719,7 +30720,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30758,7 +30759,7 @@ export class ApiClient extends AbstractAxiosClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30850,7 +30851,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       taxRate: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -30931,7 +30932,7 @@ export class ApiClient extends AbstractAxiosClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31082,7 +31083,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteTerminalConfigurationsConfiguration(
     p: {
       configuration: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31108,7 +31109,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       configuration: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31285,7 +31286,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31364,7 +31365,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteTerminalLocationsLocation(
     p: {
       location: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31390,7 +31391,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       location: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31472,7 +31473,7 @@ export class ApiClient extends AbstractAxiosClient {
       serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31548,7 +31549,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteTerminalReadersReader(
     p: {
       reader: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31574,7 +31575,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       reader: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -31811,11 +31812,11 @@ export class ApiClient extends AbstractAxiosClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -31824,7 +31825,7 @@ export class ApiClient extends AbstractAxiosClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -31840,12 +31841,12 @@ export class ApiClient extends AbstractAxiosClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -31902,8 +31903,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -31923,7 +31924,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -31931,13 +31932,13 @@ export class ApiClient extends AbstractAxiosClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -31967,21 +31968,21 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -32024,8 +32025,8 @@ export class ApiClient extends AbstractAxiosClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         return_url?: string
         setup_future_usage?: "off_session" | "on_session"
@@ -33663,7 +33664,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -33729,7 +33730,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteTestHelpersTestClocksTestClock(
     p: {
       testClock: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -33755,7 +33756,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       testClock: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34502,7 +34503,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       token: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34548,7 +34549,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34627,7 +34628,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       topup: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34726,7 +34727,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34807,7 +34808,7 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34881,7 +34882,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       transfer: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -34942,7 +34943,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       id: string
       transfer: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35007,7 +35008,7 @@ export class ApiClient extends AbstractAxiosClient {
       receivedCredit?: string
       startingAfter?: string
       status?: "canceled" | "posted" | "processing"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35079,7 +35080,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       creditReversal: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35112,7 +35113,7 @@ export class ApiClient extends AbstractAxiosClient {
       resolution?: "lost" | "won"
       startingAfter?: string
       status?: "canceled" | "completed" | "processing"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35185,7 +35186,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       debitReversal: string
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35222,7 +35223,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35333,7 +35334,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       financialAccount: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35431,7 +35432,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       financialAccount: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35524,7 +35525,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "processing" | "succeeded"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35600,7 +35601,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35667,7 +35668,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35786,7 +35787,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35844,7 +35845,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35927,7 +35928,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       outboundTransfer: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -35992,7 +35993,7 @@ export class ApiClient extends AbstractAxiosClient {
       }
       startingAfter?: string
       status?: "failed" | "succeeded"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36034,7 +36035,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36065,7 +36066,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startingAfter?: string
       status?: "failed" | "succeeded"
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36106,7 +36107,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36154,7 +36155,7 @@ export class ApiClient extends AbstractAxiosClient {
       orderBy?: "created" | "effective_at"
       startingAfter?: string
       transaction?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36198,7 +36199,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36248,7 +36249,7 @@ export class ApiClient extends AbstractAxiosClient {
             }
           | number
       }
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36292,7 +36293,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       id: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36321,7 +36322,7 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36725,7 +36726,7 @@ export class ApiClient extends AbstractAxiosClient {
   async deleteWebhookEndpointsWebhookEndpoint(
     p: {
       webhookEndpoint: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -36751,7 +36752,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       expand?: string[]
       webhookEndpoint: string
-      requestBody?: any
+      requestBody?: EmptyObject
     },
     timeout?: number,
     opts?: AxiosRequestConfig,

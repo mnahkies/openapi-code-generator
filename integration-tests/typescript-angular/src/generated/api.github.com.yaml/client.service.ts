@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -1665,7 +1666,7 @@ export class ApiClient {
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<any> & { status: 404 })
+    | (HttpResponse<EmptyObject> & { status: 404 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -4757,7 +4758,9 @@ export class ApiClient {
   interactionsGetRestrictionsForOrg(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | any> & { status: 200 })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
+        status: 200
+      })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -5702,7 +5705,7 @@ export class ApiClient {
       async?: boolean
     }
   }): Observable<
-    | (HttpResponse<any> & { status: 202 })
+    | (HttpResponse<EmptyObject> & { status: 202 })
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<void> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -7996,7 +7999,7 @@ export class ApiClient {
       position: string
     }
   }): Observable<
-    | (HttpResponse<any> & { status: 201 })
+    | (HttpResponse<EmptyObject> & { status: 201 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
     | (HttpResponse<{
@@ -8181,7 +8184,7 @@ export class ApiClient {
       position: string
     }
   }): Observable<
-    | (HttpResponse<any> & { status: 201 })
+    | (HttpResponse<EmptyObject> & { status: 201 })
     | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 401 })
     | (HttpResponse<t_basic_error> & { status: 403 })
@@ -11473,11 +11476,11 @@ export class ApiClient {
     repo: string
     requestBody:
       | {
-          status: any
+          status: EmptyObject
           [key: string]: unknown | undefined
         }
       | {
-          status?: any
+          status?: EmptyObject
           [key: string]: unknown | undefined
         }
   }): Observable<
@@ -15447,7 +15450,9 @@ export class ApiClient {
     owner: string
     repo: string
   }): Observable<
-    | (HttpResponse<t_interaction_limit_response | any> & { status: 200 })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
+        status: 200
+      })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -22258,7 +22263,9 @@ export class ApiClient {
   }
 
   interactionsGetRestrictionsForAuthenticatedUser(): Observable<
-    | (HttpResponse<t_interaction_limit_response | any> & { status: 200 })
+    | (HttpResponse<t_interaction_limit_response | EmptyObject> & {
+        status: 200
+      })
     | (HttpResponse<void> & { status: 204 })
     | HttpResponse<unknown>
   > {

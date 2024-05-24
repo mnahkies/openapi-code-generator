@@ -13508,7 +13508,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountBodySchema = z.any().optional()
+  const getAccountBodySchema = z.object({}).optional()
 
   const getAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
@@ -13649,7 +13649,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       documents: z
-        .object({ enabled: PermissiveBoolean, features: z.any().optional() })
+        .object({
+          enabled: PermissiveBoolean,
+          features: z.object({}).optional(),
+        })
         .optional(),
       notification_banner: z
         .object({
@@ -13702,7 +13705,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       payouts_list: z
-        .object({ enabled: PermissiveBoolean, features: z.any().optional() })
+        .object({
+          enabled: PermissiveBoolean,
+          features: z.object({}).optional(),
+        })
         .optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
@@ -13772,7 +13778,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getAccountsBodySchema = z.any().optional()
+  const getAccountsBodySchema = z.object({}).optional()
 
   const getAccountsResponseValidator = responseValidationFactory(
     [
@@ -14412,7 +14418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     account: z.string().max(5000),
   })
 
-  const deleteAccountsAccountBodySchema = z.any().optional()
+  const deleteAccountsAccountBodySchema = z.object({}).optional()
 
   const deleteAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_deleted_account]],
@@ -14472,7 +14478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountBodySchema = z.any().optional()
+  const getAccountsAccountBodySchema = z.object({}).optional()
 
   const getAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_account]],
@@ -15170,7 +15176,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteAccountsAccountBankAccountsIdBodySchema = z.any().optional()
+  const deleteAccountsAccountBankAccountsIdBodySchema = z.object({}).optional()
 
   const deleteAccountsAccountBankAccountsIdResponseValidator =
     responseValidationFactory([["200", s_deleted_external_account]], s_error)
@@ -15232,7 +15238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountBankAccountsIdBodySchema = z.any().optional()
+  const getAccountsAccountBankAccountsIdBodySchema = z.object({}).optional()
 
   const getAccountsAccountBankAccountsIdResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
@@ -15377,7 +15383,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountCapabilitiesBodySchema = z.any().optional()
+  const getAccountsAccountCapabilitiesBodySchema = z.object({}).optional()
 
   const getAccountsAccountCapabilitiesResponseValidator =
     responseValidationFactory(
@@ -15458,7 +15464,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountCapabilitiesCapabilityBodySchema = z.any().optional()
+  const getAccountsAccountCapabilitiesCapabilityBodySchema = z
+    .object({})
+    .optional()
 
   const getAccountsAccountCapabilitiesCapabilityResponseValidator =
     responseValidationFactory([["200", s_capability]], s_error)
@@ -15590,7 +15598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getAccountsAccountExternalAccountsBodySchema = z.any().optional()
+  const getAccountsAccountExternalAccountsBodySchema = z.object({}).optional()
 
   const getAccountsAccountExternalAccountsResponseValidator =
     responseValidationFactory(
@@ -15760,7 +15768,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteAccountsAccountExternalAccountsIdBodySchema = z.any().optional()
+  const deleteAccountsAccountExternalAccountsIdBodySchema = z
+    .object({})
+    .optional()
 
   const deleteAccountsAccountExternalAccountsIdResponseValidator =
     responseValidationFactory([["200", s_deleted_external_account]], s_error)
@@ -15822,7 +15832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountExternalAccountsIdBodySchema = z.any().optional()
+  const getAccountsAccountExternalAccountsIdBodySchema = z.object({}).optional()
 
   const getAccountsAccountExternalAccountsIdResponseValidator =
     responseValidationFactory([["200", s_external_account]], s_error)
@@ -16038,7 +16048,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAccountsAccountPeopleBodySchema = z.any().optional()
+  const getAccountsAccountPeopleBodySchema = z.object({}).optional()
 
   const getAccountsAccountPeopleResponseValidator = responseValidationFactory(
     [
@@ -16313,7 +16323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const deleteAccountsAccountPeoplePersonBodySchema = z.any().optional()
+  const deleteAccountsAccountPeoplePersonBodySchema = z.object({}).optional()
 
   const deleteAccountsAccountPeoplePersonResponseValidator =
     responseValidationFactory([["200", s_deleted_person]], s_error)
@@ -16375,7 +16385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountPeoplePersonBodySchema = z.any().optional()
+  const getAccountsAccountPeoplePersonBodySchema = z.object({}).optional()
 
   const getAccountsAccountPeoplePersonResponseValidator =
     responseValidationFactory([["200", s_person]], s_error)
@@ -16647,7 +16657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAccountsAccountPersonsBodySchema = z.any().optional()
+  const getAccountsAccountPersonsBodySchema = z.object({}).optional()
 
   const getAccountsAccountPersonsResponseValidator = responseValidationFactory(
     [
@@ -16922,7 +16932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     person: z.string().max(5000),
   })
 
-  const deleteAccountsAccountPersonsPersonBodySchema = z.any().optional()
+  const deleteAccountsAccountPersonsPersonBodySchema = z.object({}).optional()
 
   const deleteAccountsAccountPersonsPersonResponseValidator =
     responseValidationFactory([["200", s_deleted_person]], s_error)
@@ -16984,7 +16994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getAccountsAccountPersonsPersonBodySchema = z.any().optional()
+  const getAccountsAccountPersonsPersonBodySchema = z.object({}).optional()
 
   const getAccountsAccountPersonsPersonResponseValidator =
     responseValidationFactory([["200", s_person]], s_error)
@@ -17303,7 +17313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplePayDomainsBodySchema = z.any().optional()
+  const getApplePayDomainsBodySchema = z.object({}).optional()
 
   const getApplePayDomainsResponseValidator = responseValidationFactory(
     [
@@ -17425,7 +17435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     domain: z.string().max(5000),
   })
 
-  const deleteApplePayDomainsDomainBodySchema = z.any().optional()
+  const deleteApplePayDomainsDomainBodySchema = z.object({}).optional()
 
   const deleteApplePayDomainsDomainResponseValidator =
     responseValidationFactory([["200", s_deleted_apple_pay_domain]], s_error)
@@ -17483,7 +17493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getApplePayDomainsDomainBodySchema = z.any().optional()
+  const getApplePayDomainsDomainBodySchema = z.object({}).optional()
 
   const getApplePayDomainsDomainResponseValidator = responseValidationFactory(
     [["200", s_apple_pay_domain]],
@@ -17558,7 +17568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplicationFeesBodySchema = z.any().optional()
+  const getApplicationFeesBodySchema = z.object({}).optional()
 
   const getApplicationFeesResponseValidator = responseValidationFactory(
     [
@@ -17634,7 +17644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getApplicationFeesFeeRefundsIdBodySchema = z.any().optional()
+  const getApplicationFeesFeeRefundsIdBodySchema = z.object({}).optional()
 
   const getApplicationFeesFeeRefundsIdResponseValidator =
     responseValidationFactory([["200", s_fee_refund]], s_error)
@@ -17754,7 +17764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getApplicationFeesIdBodySchema = z.any().optional()
+  const getApplicationFeesIdBodySchema = z.object({}).optional()
 
   const getApplicationFeesIdResponseValidator = responseValidationFactory(
     [["200", s_application_fee]],
@@ -17881,7 +17891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getApplicationFeesIdRefundsBodySchema = z.any().optional()
+  const getApplicationFeesIdRefundsBodySchema = z.object({}).optional()
 
   const getApplicationFeesIdRefundsResponseValidator =
     responseValidationFactory(
@@ -18024,7 +18034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getAppsSecretsBodySchema = z.any().optional()
+  const getAppsSecretsBodySchema = z.object({}).optional()
 
   const getAppsSecretsResponseValidator = responseValidationFactory(
     [
@@ -18204,7 +18214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }),
   })
 
-  const getAppsSecretsFindBodySchema = z.any().optional()
+  const getAppsSecretsFindBodySchema = z.object({}).optional()
 
   const getAppsSecretsFindResponseValidator = responseValidationFactory(
     [["200", s_apps_secret]],
@@ -18260,7 +18270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getBalanceBodySchema = z.any().optional()
+  const getBalanceBodySchema = z.object({}).optional()
 
   const getBalanceResponseValidator = responseValidationFactory(
     [["200", s_balance]],
@@ -18330,7 +18340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.string().max(5000).optional(),
   })
 
-  const getBalanceHistoryBodySchema = z.any().optional()
+  const getBalanceHistoryBodySchema = z.object({}).optional()
 
   const getBalanceHistoryResponseValidator = responseValidationFactory(
     [
@@ -18402,7 +18412,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getBalanceHistoryIdBodySchema = z.any().optional()
+  const getBalanceHistoryIdBodySchema = z.object({}).optional()
 
   const getBalanceHistoryIdResponseValidator = responseValidationFactory(
     [["200", s_balance_transaction]],
@@ -18480,7 +18490,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.string().max(5000).optional(),
   })
 
-  const getBalanceTransactionsBodySchema = z.any().optional()
+  const getBalanceTransactionsBodySchema = z.object({}).optional()
 
   const getBalanceTransactionsResponseValidator = responseValidationFactory(
     [
@@ -18558,7 +18568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getBalanceTransactionsIdBodySchema = z.any().optional()
+  const getBalanceTransactionsIdBodySchema = z.object({}).optional()
 
   const getBalanceTransactionsIdResponseValidator = responseValidationFactory(
     [["200", s_balance_transaction]],
@@ -18730,7 +18740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["active", "inactive"]).optional(),
   })
 
-  const getBillingMetersBodySchema = z.any().optional()
+  const getBillingMetersBodySchema = z.object({}).optional()
 
   const getBillingMetersResponseValidator = responseValidationFactory(
     [
@@ -18858,7 +18868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getBillingMetersIdBodySchema = z.any().optional()
+  const getBillingMetersIdBodySchema = z.object({}).optional()
 
   const getBillingMetersIdResponseValidator = responseValidationFactory(
     [["200", s_billing_meter]],
@@ -19044,7 +19054,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     value_grouping_window: z.enum(["hour"]).optional(),
   })
 
-  const getBillingMetersIdEventSummariesBodySchema = z.any().optional()
+  const getBillingMetersIdEventSummariesBodySchema = z.object({}).optional()
 
   const getBillingMetersIdEventSummariesResponseValidator =
     responseValidationFactory(
@@ -19184,7 +19194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getBillingPortalConfigurationsBodySchema = z.any().optional()
+  const getBillingPortalConfigurationsBodySchema = z.object({}).optional()
 
   const getBillingPortalConfigurationsResponseValidator =
     responseValidationFactory(
@@ -19399,7 +19409,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getBillingPortalConfigurationsConfigurationBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getBillingPortalConfigurationsConfigurationResponseValidator =
@@ -19802,7 +19812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer_group: z.string().max(5000).optional(),
   })
 
-  const getChargesBodySchema = z.any().optional()
+  const getChargesBodySchema = z.object({}).optional()
 
   const getChargesResponseValidator = responseValidationFactory(
     [
@@ -19988,7 +19998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getChargesSearchBodySchema = z.any().optional()
+  const getChargesSearchBodySchema = z.object({}).optional()
 
   const getChargesSearchResponseValidator = responseValidationFactory(
     [
@@ -20061,7 +20071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getChargesChargeBodySchema = z.any().optional()
+  const getChargesChargeBodySchema = z.object({}).optional()
 
   const getChargesChargeResponseValidator = responseValidationFactory(
     [["200", s_charge]],
@@ -20271,7 +20281,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getChargesChargeDisputeBodySchema = z.any().optional()
+  const getChargesChargeDisputeBodySchema = z.object({}).optional()
 
   const getChargesChargeDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
@@ -20554,7 +20564,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getChargesChargeRefundsBodySchema = z.any().optional()
+  const getChargesChargeRefundsBodySchema = z.object({}).optional()
 
   const getChargesChargeRefundsResponseValidator = responseValidationFactory(
     [
@@ -20706,7 +20716,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getChargesChargeRefundsRefundBodySchema = z.any().optional()
+  const getChargesChargeRefundsRefundBodySchema = z.object({}).optional()
 
   const getChargesChargeRefundsRefundResponseValidator =
     responseValidationFactory([["200", s_refund]], s_error)
@@ -20844,7 +20854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000).optional(),
   })
 
-  const getCheckoutSessionsBodySchema = z.any().optional()
+  const getCheckoutSessionsBodySchema = z.object({}).optional()
 
   const getCheckoutSessionsResponseValidator = responseValidationFactory(
     [
@@ -21924,7 +21934,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCheckoutSessionsSessionBodySchema = z.any().optional()
+  const getCheckoutSessionsSessionBodySchema = z.object({}).optional()
 
   const getCheckoutSessionsSessionResponseValidator = responseValidationFactory(
     [["200", s_checkout_session]],
@@ -22050,7 +22060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCheckoutSessionsSessionLineItemsBodySchema = z.any().optional()
+  const getCheckoutSessionsSessionLineItemsBodySchema = z.object({}).optional()
 
   const getCheckoutSessionsSessionLineItemsResponseValidator =
     responseValidationFactory(
@@ -22132,7 +22142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateOrdersBodySchema = z.any().optional()
+  const getClimateOrdersBodySchema = z.object({}).optional()
 
   const getClimateOrdersResponseValidator = responseValidationFactory(
     [
@@ -22255,7 +22265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getClimateOrdersOrderBodySchema = z.any().optional()
+  const getClimateOrdersOrderBodySchema = z.object({}).optional()
 
   const getClimateOrdersOrderResponseValidator = responseValidationFactory(
     [["200", s_climate_order]],
@@ -22443,7 +22453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateProductsBodySchema = z.any().optional()
+  const getClimateProductsBodySchema = z.object({}).optional()
 
   const getClimateProductsResponseValidator = responseValidationFactory(
     [
@@ -22518,7 +22528,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getClimateProductsProductBodySchema = z.any().optional()
+  const getClimateProductsProductBodySchema = z.object({}).optional()
 
   const getClimateProductsProductResponseValidator = responseValidationFactory(
     [["200", s_climate_product]],
@@ -22581,7 +22591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getClimateSuppliersBodySchema = z.any().optional()
+  const getClimateSuppliersBodySchema = z.object({}).optional()
 
   const getClimateSuppliersResponseValidator = responseValidationFactory(
     [
@@ -22656,7 +22666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getClimateSuppliersSupplierBodySchema = z.any().optional()
+  const getClimateSuppliersSupplierBodySchema = z.object({}).optional()
 
   const getClimateSuppliersSupplierResponseValidator =
     responseValidationFactory([["200", s_climate_supplier]], s_error)
@@ -22718,7 +22728,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getConfirmationTokensConfirmationTokenBodySchema = z.any().optional()
+  const getConfirmationTokensConfirmationTokenBodySchema = z
+    .object({})
+    .optional()
 
   const getConfirmationTokensConfirmationTokenResponseValidator =
     responseValidationFactory([["200", s_confirmation_token]], s_error)
@@ -22782,7 +22794,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCountrySpecsBodySchema = z.any().optional()
+  const getCountrySpecsBodySchema = z.object({}).optional()
 
   const getCountrySpecsResponseValidator = responseValidationFactory(
     [
@@ -22853,7 +22865,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCountrySpecsCountryBodySchema = z.any().optional()
+  const getCountrySpecsCountryBodySchema = z.object({}).optional()
 
   const getCountrySpecsCountryResponseValidator = responseValidationFactory(
     [["200", s_country_spec]],
@@ -22927,7 +22939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCouponsBodySchema = z.any().optional()
+  const getCouponsBodySchema = z.object({}).optional()
 
   const getCouponsResponseValidator = responseValidationFactory(
     [
@@ -23058,7 +23070,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     coupon: z.string().max(5000),
   })
 
-  const deleteCouponsCouponBodySchema = z.any().optional()
+  const deleteCouponsCouponBodySchema = z.object({}).optional()
 
   const deleteCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_deleted_coupon]],
@@ -23116,7 +23128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCouponsCouponBodySchema = z.any().optional()
+  const getCouponsCouponBodySchema = z.object({}).optional()
 
   const getCouponsCouponResponseValidator = responseValidationFactory(
     [["200", s_coupon]],
@@ -23249,7 +23261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesBodySchema = z.any().optional()
+  const getCreditNotesBodySchema = z.object({}).optional()
 
   const getCreditNotesResponseValidator = responseValidationFactory(
     [
@@ -23458,7 +23470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getCreditNotesPreviewBodySchema = z.any().optional()
+  const getCreditNotesPreviewBodySchema = z.object({}).optional()
 
   const getCreditNotesPreviewResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
@@ -23565,7 +23577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesPreviewLinesBodySchema = z.any().optional()
+  const getCreditNotesPreviewLinesBodySchema = z.object({}).optional()
 
   const getCreditNotesPreviewLinesResponseValidator = responseValidationFactory(
     [
@@ -23643,7 +23655,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCreditNotesCreditNoteLinesBodySchema = z.any().optional()
+  const getCreditNotesCreditNoteLinesBodySchema = z.object({}).optional()
 
   const getCreditNotesCreditNoteLinesResponseValidator =
     responseValidationFactory(
@@ -23721,7 +23733,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCreditNotesIdBodySchema = z.any().optional()
+  const getCreditNotesIdBodySchema = z.object({}).optional()
 
   const getCreditNotesIdResponseValidator = responseValidationFactory(
     [["200", s_credit_note]],
@@ -23966,7 +23978,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getCustomersBodySchema = z.any().optional()
+  const getCustomersBodySchema = z.object({}).optional()
 
   const getCustomersResponseValidator = responseValidationFactory(
     [
@@ -24253,7 +24265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getCustomersSearchBodySchema = z.any().optional()
+  const getCustomersSearchBodySchema = z.object({}).optional()
 
   const getCustomersSearchResponseValidator = responseValidationFactory(
     [
@@ -24328,7 +24340,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const deleteCustomersCustomerBodySchema = z.any().optional()
+  const deleteCustomersCustomerBodySchema = z.object({}).optional()
 
   const deleteCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", s_deleted_customer]],
@@ -24388,7 +24400,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerBodySchema = z.any().optional()
+  const getCustomersCustomerBodySchema = z.object({}).optional()
 
   const getCustomersCustomerResponseValidator = responseValidationFactory(
     [["200", z.union([z.lazy(() => s_customer), s_deleted_customer])]],
@@ -24640,7 +24652,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerBalanceTransactionsBodySchema = z.any().optional()
+  const getCustomersCustomerBalanceTransactionsBodySchema = z
+    .object({})
+    .optional()
 
   const getCustomersCustomerBalanceTransactionsResponseValidator =
     responseValidationFactory(
@@ -24788,7 +24802,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getCustomersCustomerBalanceTransactionsTransactionBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getCustomersCustomerBalanceTransactionsTransactionResponseValidator =
@@ -24938,7 +24952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerBankAccountsBodySchema = z.any().optional()
+  const getCustomersCustomerBankAccountsBodySchema = z.object({}).optional()
 
   const getCustomersCustomerBankAccountsResponseValidator =
     responseValidationFactory(
@@ -25187,7 +25201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerBankAccountsIdBodySchema = z.any().optional()
+  const getCustomersCustomerBankAccountsIdBodySchema = z.object({}).optional()
 
   const getCustomersCustomerBankAccountsIdResponseValidator =
     responseValidationFactory([["200", s_bank_account]], s_error)
@@ -25421,7 +25435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerCardsBodySchema = z.any().optional()
+  const getCustomersCustomerCardsBodySchema = z.object({}).optional()
 
   const getCustomersCustomerCardsResponseValidator = responseValidationFactory(
     [
@@ -25665,7 +25679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerCardsIdBodySchema = z.any().optional()
+  const getCustomersCustomerCardsIdBodySchema = z.object({}).optional()
 
   const getCustomersCustomerCardsIdResponseValidator =
     responseValidationFactory([["200", s_card]], s_error)
@@ -25827,7 +25841,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerCashBalanceBodySchema = z.any().optional()
+  const getCustomersCustomerCashBalanceBodySchema = z.object({}).optional()
 
   const getCustomersCustomerCashBalanceResponseValidator =
     responseValidationFactory([["200", s_cash_balance]], s_error)
@@ -25958,7 +25972,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getCustomersCustomerCashBalanceTransactionsBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getCustomersCustomerCashBalanceTransactionsResponseValidator =
@@ -26041,7 +26055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getCustomersCustomerCashBalanceTransactionsTransactionBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getCustomersCustomerCashBalanceTransactionsTransactionResponseValidator =
@@ -26113,7 +26127,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     customer: z.string().max(5000),
   })
 
-  const deleteCustomersCustomerDiscountBodySchema = z.any().optional()
+  const deleteCustomersCustomerDiscountBodySchema = z.object({}).optional()
 
   const deleteCustomersCustomerDiscountResponseValidator =
     responseValidationFactory([["200", s_deleted_discount]], s_error)
@@ -26171,7 +26185,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerDiscountBodySchema = z.any().optional()
+  const getCustomersCustomerDiscountBodySchema = z.object({}).optional()
 
   const getCustomersCustomerDiscountResponseValidator =
     responseValidationFactory([["200", s_discount]], s_error)
@@ -26350,7 +26364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getCustomersCustomerPaymentMethodsBodySchema = z.any().optional()
+  const getCustomersCustomerPaymentMethodsBodySchema = z.object({}).optional()
 
   const getCustomersCustomerPaymentMethodsResponseValidator =
     responseValidationFactory(
@@ -26435,7 +26449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getCustomersCustomerPaymentMethodsPaymentMethodBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getCustomersCustomerPaymentMethodsPaymentMethodResponseValidator =
@@ -26506,7 +26520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getCustomersCustomerSourcesBodySchema = z.any().optional()
+  const getCustomersCustomerSourcesBodySchema = z.object({}).optional()
 
   const getCustomersCustomerSourcesResponseValidator =
     responseValidationFactory(
@@ -26755,7 +26769,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerSourcesIdBodySchema = z.any().optional()
+  const getCustomersCustomerSourcesIdBodySchema = z.object({}).optional()
 
   const getCustomersCustomerSourcesIdResponseValidator =
     responseValidationFactory([["200", s_payment_source]], s_error)
@@ -26983,7 +26997,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerSubscriptionsBodySchema = z.any().optional()
+  const getCustomersCustomerSubscriptionsBodySchema = z.object({}).optional()
 
   const getCustomersCustomerSubscriptionsResponseValidator =
     responseValidationFactory(
@@ -27290,8 +27304,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              konbini: z.union([z.any(), z.enum([""])]).optional(),
-              sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+              konbini: z.union([z.object({}), z.enum([""])]).optional(),
+              sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
               us_bank_account: z
                 .union([
                   z.object({
@@ -27531,7 +27545,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdResponseValidator =
@@ -27856,8 +27870,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              konbini: z.union([z.any(), z.enum([""])]).optional(),
-              sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+              konbini: z.union([z.object({}), z.enum([""])]).optional(),
+              sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
               us_bank_account: z
                 .union([
                   z.object({
@@ -28032,7 +28046,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     })
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema =
-    z.any().optional()
+    z.object({}).optional()
 
   const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
     responseValidationFactory([["200", s_deleted_discount]], s_error)
@@ -28100,7 +28114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema =
-    z.any().optional()
+    z.object({}).optional()
 
   const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
     responseValidationFactory([["200", s_discount]], s_error)
@@ -28173,7 +28187,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getCustomersCustomerTaxIdsBodySchema = z.any().optional()
+  const getCustomersCustomerTaxIdsBodySchema = z.object({}).optional()
 
   const getCustomersCustomerTaxIdsResponseValidator = responseValidationFactory(
     [
@@ -28379,7 +28393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     id: z.string(),
   })
 
-  const deleteCustomersCustomerTaxIdsIdBodySchema = z.any().optional()
+  const deleteCustomersCustomerTaxIdsIdBodySchema = z.object({}).optional()
 
   const deleteCustomersCustomerTaxIdsIdResponseValidator =
     responseValidationFactory([["200", s_deleted_tax_id]], s_error)
@@ -28438,7 +28452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getCustomersCustomerTaxIdsIdBodySchema = z.any().optional()
+  const getCustomersCustomerTaxIdsIdBodySchema = z.object({}).optional()
 
   const getCustomersCustomerTaxIdsIdResponseValidator =
     responseValidationFactory([["200", s_tax_id]], s_error)
@@ -28512,7 +28526,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getDisputesBodySchema = z.any().optional()
+  const getDisputesBodySchema = z.object({}).optional()
 
   const getDisputesResponseValidator = responseValidationFactory(
     [
@@ -28583,7 +28597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getDisputesDisputeBodySchema = z.any().optional()
+  const getDisputesDisputeBodySchema = z.object({}).optional()
 
   const getDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_dispute]],
@@ -28798,7 +28812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getEntitlementsActiveEntitlementsBodySchema = z.any().optional()
+  const getEntitlementsActiveEntitlementsBodySchema = z.object({}).optional()
 
   const getEntitlementsActiveEntitlementsResponseValidator =
     responseValidationFactory(
@@ -28877,7 +28891,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getEntitlementsActiveEntitlementsIdBodySchema = z.any().optional()
+  const getEntitlementsActiveEntitlementsIdBodySchema = z.object({}).optional()
 
   const getEntitlementsActiveEntitlementsIdResponseValidator =
     responseValidationFactory(
@@ -28944,7 +28958,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getEntitlementsFeaturesBodySchema = z.any().optional()
+  const getEntitlementsFeaturesBodySchema = z.object({}).optional()
 
   const getEntitlementsFeaturesResponseValidator = responseValidationFactory(
     [
@@ -29075,7 +29089,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getEntitlementsFeaturesIdBodySchema = z.any().optional()
+  const getEntitlementsFeaturesIdBodySchema = z.object({}).optional()
 
   const getEntitlementsFeaturesIdResponseValidator = responseValidationFactory(
     [["200", s_entitlements_feature]],
@@ -29325,7 +29339,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     types: z.array(z.string().max(5000)).optional(),
   })
 
-  const getEventsBodySchema = z.any().optional()
+  const getEventsBodySchema = z.object({}).optional()
 
   const getEventsResponseValidator = responseValidationFactory(
     [
@@ -29394,7 +29408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getEventsIdBodySchema = z.any().optional()
+  const getEventsIdBodySchema = z.object({}).optional()
 
   const getEventsIdResponseValidator = responseValidationFactory(
     [["200", s_event]],
@@ -29453,7 +29467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getExchangeRatesBodySchema = z.any().optional()
+  const getExchangeRatesBodySchema = z.object({}).optional()
 
   const getExchangeRatesResponseValidator = responseValidationFactory(
     [
@@ -29524,7 +29538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getExchangeRatesRateIdBodySchema = z.any().optional()
+  const getExchangeRatesRateIdBodySchema = z.object({}).optional()
 
   const getExchangeRatesRateIdResponseValidator = responseValidationFactory(
     [["200", s_exchange_rate]],
@@ -29600,7 +29614,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getFileLinksBodySchema = z.any().optional()
+  const getFileLinksBodySchema = z.object({}).optional()
 
   const getFileLinksResponseValidator = responseValidationFactory(
     [
@@ -29718,7 +29732,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getFileLinksLinkBodySchema = z.any().optional()
+  const getFileLinksLinkBodySchema = z.object({}).optional()
 
   const getFileLinksLinkResponseValidator = responseValidationFactory(
     [["200", s_file_link]],
@@ -29869,7 +29883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getFilesBodySchema = z.any().optional()
+  const getFilesBodySchema = z.object({}).optional()
 
   const getFilesResponseValidator = responseValidationFactory(
     [
@@ -30004,7 +30018,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getFilesFileBodySchema = z.any().optional()
+  const getFilesFileBodySchema = z.object({}).optional()
 
   const getFilesFileResponseValidator = responseValidationFactory(
     [["200", s_file]],
@@ -30070,7 +30084,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getFinancialConnectionsAccountsBodySchema = z.any().optional()
+  const getFinancialConnectionsAccountsBodySchema = z.object({}).optional()
 
   const getFinancialConnectionsAccountsResponseValidator =
     responseValidationFactory(
@@ -30149,7 +30163,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getFinancialConnectionsAccountsAccountBodySchema = z.any().optional()
+  const getFinancialConnectionsAccountsAccountBodySchema = z
+    .object({})
+    .optional()
 
   const getFinancialConnectionsAccountsAccountResponseValidator =
     responseValidationFactory(
@@ -30289,7 +30305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getFinancialConnectionsAccountsAccountOwnersBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getFinancialConnectionsAccountsAccountOwnersResponseValidator =
@@ -30634,7 +30650,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getFinancialConnectionsSessionsSessionBodySchema = z.any().optional()
+  const getFinancialConnectionsSessionsSessionBodySchema = z
+    .object({})
+    .optional()
 
   const getFinancialConnectionsSessionsSessionResponseValidator =
     responseValidationFactory(
@@ -30714,7 +30732,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transaction_refresh: z.object({ after: z.string().max(5000) }).optional(),
   })
 
-  const getFinancialConnectionsTransactionsBodySchema = z.any().optional()
+  const getFinancialConnectionsTransactionsBodySchema = z.object({}).optional()
 
   const getFinancialConnectionsTransactionsResponseValidator =
     responseValidationFactory(
@@ -30797,7 +30815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getFinancialConnectionsTransactionsTransactionBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getFinancialConnectionsTransactionsTransactionResponseValidator =
@@ -30876,7 +30894,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getForwardingRequestsBodySchema = z.any().optional()
+  const getForwardingRequestsBodySchema = z.object({}).optional()
 
   const getForwardingRequestsResponseValidator = responseValidationFactory(
     [
@@ -31019,7 +31037,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getForwardingRequestsIdBodySchema = z.any().optional()
+  const getForwardingRequestsIdBodySchema = z.object({}).optional()
 
   const getForwardingRequestsIdResponseValidator = responseValidationFactory(
     [["200", s_forwarding_request]],
@@ -31096,7 +31114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     verification_session: z.string().max(5000).optional(),
   })
 
-  const getIdentityVerificationReportsBodySchema = z.any().optional()
+  const getIdentityVerificationReportsBodySchema = z.object({}).optional()
 
   const getIdentityVerificationReportsResponseValidator =
     responseValidationFactory(
@@ -31175,7 +31193,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIdentityVerificationReportsReportBodySchema = z.any().optional()
+  const getIdentityVerificationReportsReportBodySchema = z.object({}).optional()
 
   const getIdentityVerificationReportsReportResponseValidator =
     responseValidationFactory(
@@ -31257,7 +31275,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getIdentityVerificationSessionsBodySchema = z.any().optional()
+  const getIdentityVerificationSessionsBodySchema = z.object({}).optional()
 
   const getIdentityVerificationSessionsResponseValidator =
     responseValidationFactory(
@@ -31414,7 +31432,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIdentityVerificationSessionsSessionBodySchema = z.any().optional()
+  const getIdentityVerificationSessionsSessionBodySchema = z
+    .object({})
+    .optional()
 
   const getIdentityVerificationSessionsSessionResponseValidator =
     responseValidationFactory(
@@ -31705,7 +31725,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getInvoiceitemsBodySchema = z.any().optional()
+  const getInvoiceitemsBodySchema = z.object({}).optional()
 
   const getInvoiceitemsResponseValidator = responseValidationFactory(
     [
@@ -31859,7 +31879,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoiceitem: z.string().max(5000),
   })
 
-  const deleteInvoiceitemsInvoiceitemBodySchema = z.any().optional()
+  const deleteInvoiceitemsInvoiceitemBodySchema = z.object({}).optional()
 
   const deleteInvoiceitemsInvoiceitemResponseValidator =
     responseValidationFactory([["200", s_deleted_invoiceitem]], s_error)
@@ -31917,7 +31937,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getInvoiceitemsInvoiceitemBodySchema = z.any().optional()
+  const getInvoiceitemsInvoiceitemBodySchema = z.object({}).optional()
 
   const getInvoiceitemsInvoiceitemResponseValidator = responseValidationFactory(
     [["200", s_invoiceitem]],
@@ -32109,7 +32129,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000).optional(),
   })
 
-  const getInvoicesBodySchema = z.any().optional()
+  const getInvoicesBodySchema = z.object({}).optional()
 
   const getInvoicesResponseValidator = responseValidationFactory(
     [
@@ -32311,8 +32331,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              konbini: z.union([z.any(), z.enum([""])]).optional(),
-              sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+              konbini: z.union([z.object({}), z.enum([""])]).optional(),
+              sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
               us_bank_account: z
                 .union([
                   z.object({
@@ -33024,7 +33044,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getInvoicesSearchBodySchema = z.any().optional()
+  const getInvoicesSearchBodySchema = z.object({}).optional()
 
   const getInvoicesSearchResponseValidator = responseValidationFactory(
     [
@@ -33605,7 +33625,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getInvoicesUpcomingBodySchema = z.any().optional()
+  const getInvoicesUpcomingBodySchema = z.object({}).optional()
 
   const getInvoicesUpcomingResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
@@ -34174,7 +34194,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getInvoicesUpcomingLinesBodySchema = z.any().optional()
+  const getInvoicesUpcomingLinesBodySchema = z.object({}).optional()
 
   const getInvoicesUpcomingLinesResponseValidator = responseValidationFactory(
     [
@@ -34245,7 +34265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     invoice: z.string().max(5000),
   })
 
-  const deleteInvoicesInvoiceBodySchema = z.any().optional()
+  const deleteInvoicesInvoiceBodySchema = z.object({}).optional()
 
   const deleteInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_deleted_invoice]],
@@ -34305,7 +34325,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getInvoicesInvoiceBodySchema = z.any().optional()
+  const getInvoicesInvoiceBodySchema = z.object({}).optional()
 
   const getInvoicesInvoiceResponseValidator = responseValidationFactory(
     [["200", s_invoice]],
@@ -34501,8 +34521,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              konbini: z.union([z.any(), z.enum([""])]).optional(),
-              sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+              konbini: z.union([z.object({}), z.enum([""])]).optional(),
+              sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
               us_bank_account: z
                 .union([
                   z.object({
@@ -34795,7 +34815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getInvoicesInvoiceLinesBodySchema = z.any().optional()
+  const getInvoicesInvoiceLinesBodySchema = z.object({}).optional()
 
   const getInvoicesInvoiceLinesResponseValidator = responseValidationFactory(
     [
@@ -35270,7 +35290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["closed", "pending", "reversed"]).optional(),
   })
 
-  const getIssuingAuthorizationsBodySchema = z.any().optional()
+  const getIssuingAuthorizationsBodySchema = z.object({}).optional()
 
   const getIssuingAuthorizationsResponseValidator = responseValidationFactory(
     [
@@ -35348,7 +35368,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingAuthorizationsAuthorizationBodySchema = z.any().optional()
+  const getIssuingAuthorizationsAuthorizationBodySchema = z
+    .object({})
+    .optional()
 
   const getIssuingAuthorizationsAuthorizationResponseValidator =
     responseValidationFactory([["200", s_issuing_authorization]], s_error)
@@ -35614,7 +35636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum(["company", "individual"]).optional(),
   })
 
-  const getIssuingCardholdersBodySchema = z.any().optional()
+  const getIssuingCardholdersBodySchema = z.object({}).optional()
 
   const getIssuingCardholdersResponseValidator = responseValidationFactory(
     [
@@ -36723,7 +36745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingCardholdersCardholderBodySchema = z.any().optional()
+  const getIssuingCardholdersCardholderBodySchema = z.object({}).optional()
 
   const getIssuingCardholdersCardholderResponseValidator =
     responseValidationFactory([["200", s_issuing_cardholder]], s_error)
@@ -37841,7 +37863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum(["physical", "virtual"]).optional(),
   })
 
-  const getIssuingCardsBodySchema = z.any().optional()
+  const getIssuingCardsBodySchema = z.object({}).optional()
 
   const getIssuingCardsResponseValidator = responseValidationFactory(
     [
@@ -38917,7 +38939,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingCardsCardBodySchema = z.any().optional()
+  const getIssuingCardsCardBodySchema = z.object({}).optional()
 
   const getIssuingCardsCardResponseValidator = responseValidationFactory(
     [["200", s_issuing_card]],
@@ -39986,7 +40008,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transaction: z.string().max(5000).optional(),
   })
 
-  const getIssuingDisputesBodySchema = z.any().optional()
+  const getIssuingDisputesBodySchema = z.object({}).optional()
 
   const getIssuingDisputesResponseValidator = responseValidationFactory(
     [
@@ -40281,7 +40303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingDisputesDisputeBodySchema = z.any().optional()
+  const getIssuingDisputesDisputeBodySchema = z.object({}).optional()
 
   const getIssuingDisputesDisputeResponseValidator = responseValidationFactory(
     [["200", s_issuing_dispute]],
@@ -40637,7 +40659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["active", "inactive", "rejected", "review"]).optional(),
   })
 
-  const getIssuingPersonalizationDesignsBodySchema = z.any().optional()
+  const getIssuingPersonalizationDesignsBodySchema = z.object({}).optional()
 
   const getIssuingPersonalizationDesignsResponseValidator =
     responseValidationFactory(
@@ -40784,7 +40806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getIssuingPersonalizationDesignsPersonalizationDesignBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getIssuingPersonalizationDesignsPersonalizationDesignResponseValidator =
@@ -40953,7 +40975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum(["custom", "standard"]).optional(),
   })
 
-  const getIssuingPhysicalBundlesBodySchema = z.any().optional()
+  const getIssuingPhysicalBundlesBodySchema = z.object({}).optional()
 
   const getIssuingPhysicalBundlesResponseValidator = responseValidationFactory(
     [
@@ -41031,7 +41053,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingPhysicalBundlesPhysicalBundleBodySchema = z.any().optional()
+  const getIssuingPhysicalBundlesPhysicalBundleBodySchema = z
+    .object({})
+    .optional()
 
   const getIssuingPhysicalBundlesPhysicalBundleResponseValidator =
     responseValidationFactory([["200", s_issuing_physical_bundle]], s_error)
@@ -41106,7 +41130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getIssuingSettlementsBodySchema = z.any().optional()
+  const getIssuingSettlementsBodySchema = z.object({}).optional()
 
   const getIssuingSettlementsResponseValidator = responseValidationFactory(
     [
@@ -41184,7 +41208,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingSettlementsSettlementBodySchema = z.any().optional()
+  const getIssuingSettlementsSettlementBodySchema = z.object({}).optional()
 
   const getIssuingSettlementsSettlementResponseValidator =
     responseValidationFactory([["200", s_issuing_settlement]], s_error)
@@ -41317,7 +41341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["active", "deleted", "requested", "suspended"]).optional(),
   })
 
-  const getIssuingTokensBodySchema = z.any().optional()
+  const getIssuingTokensBodySchema = z.object({}).optional()
 
   const getIssuingTokensResponseValidator = responseValidationFactory(
     [
@@ -41388,7 +41412,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingTokensTokenBodySchema = z.any().optional()
+  const getIssuingTokensTokenBodySchema = z.object({}).optional()
 
   const getIssuingTokensTokenResponseValidator = responseValidationFactory(
     [["200", s_issuing_token]],
@@ -41524,7 +41548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum(["capture", "refund"]).optional(),
   })
 
-  const getIssuingTransactionsBodySchema = z.any().optional()
+  const getIssuingTransactionsBodySchema = z.object({}).optional()
 
   const getIssuingTransactionsResponseValidator = responseValidationFactory(
     [
@@ -41602,7 +41626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getIssuingTransactionsTransactionBodySchema = z.any().optional()
+  const getIssuingTransactionsTransactionBodySchema = z.object({}).optional()
 
   const getIssuingTransactionsTransactionResponseValidator =
     responseValidationFactory([["200", s_issuing_transaction]], s_error)
@@ -41792,7 +41816,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getLinkAccountSessionsSessionBodySchema = z.any().optional()
+  const getLinkAccountSessionsSessionBodySchema = z.object({}).optional()
 
   const getLinkAccountSessionsSessionResponseValidator =
     responseValidationFactory(
@@ -41863,7 +41887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getLinkedAccountsBodySchema = z.any().optional()
+  const getLinkedAccountsBodySchema = z.object({}).optional()
 
   const getLinkedAccountsResponseValidator = responseValidationFactory(
     [
@@ -41937,7 +41961,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getLinkedAccountsAccountBodySchema = z.any().optional()
+  const getLinkedAccountsAccountBodySchema = z.object({}).optional()
 
   const getLinkedAccountsAccountResponseValidator = responseValidationFactory(
     [["200", s_financial_connections_account]],
@@ -42067,7 +42091,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getLinkedAccountsAccountOwnersBodySchema = z.any().optional()
+  const getLinkedAccountsAccountOwnersBodySchema = z.object({}).optional()
 
   const getLinkedAccountsAccountOwnersResponseValidator =
     responseValidationFactory(
@@ -42205,7 +42229,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getMandatesMandateBodySchema = z.any().optional()
+  const getMandatesMandateBodySchema = z.object({}).optional()
 
   const getMandatesMandateResponseValidator = responseValidationFactory(
     [["200", s_mandate]],
@@ -42280,7 +42304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentIntentsBodySchema = z.any().optional()
+  const getPaymentIntentsBodySchema = z.object({}).optional()
 
   const getPaymentIntentsResponseValidator = responseValidationFactory(
     [
@@ -42369,7 +42393,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           customer_acceptance: z.object({
             accepted_at: z.coerce.number().optional(),
-            offline: z.any().optional(),
+            offline: z.object({}).optional(),
             online: z
               .object({
                 ip_address: z.string(),
@@ -42398,13 +42422,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             transit_number: z.string().max(5000),
           })
           .optional(),
-        affirm: z.any().optional(),
-        afterpay_clearpay: z.any().optional(),
-        alipay: z.any().optional(),
+        affirm: z.object({}).optional(),
+        afterpay_clearpay: z.object({}).optional(),
+        alipay: z.object({}).optional(),
         allow_redisplay: z
           .enum(["always", "limited", "unspecified"])
           .optional(),
-        amazon_pay: z.any().optional(),
+        amazon_pay: z.object({}).optional(),
         au_becs_debit: z
           .object({
             account_number: z.string().max(5000),
@@ -42417,7 +42441,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             sort_code: z.string().max(5000).optional(),
           })
           .optional(),
-        bancontact: z.any().optional(),
+        bancontact: z.object({}).optional(),
         billing_details: z
           .object({
             address: z
@@ -42438,10 +42462,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
           })
           .optional(),
-        blik: z.any().optional(),
+        blik: z.object({}).optional(),
         boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-        cashapp: z.any().optional(),
-        customer_balance: z.any().optional(),
+        cashapp: z.object({}).optional(),
+        customer_balance: z.object({}).optional(),
         eps: z
           .object({
             bank: z
@@ -42506,8 +42530,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             ]),
           })
           .optional(),
-        giropay: z.any().optional(),
-        grabpay: z.any().optional(),
+        giropay: z.object({}).optional(),
+        grabpay: z.object({}).optional(),
         ideal: z
           .object({
             bank: z
@@ -42532,7 +42556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
           })
           .optional(),
-        interac_present: z.any().optional(),
+        interac_present: z.object({}).optional(),
         klarna: z
           .object({
             dob: z
@@ -42544,11 +42568,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
           })
           .optional(),
-        konbini: z.any().optional(),
-        link: z.any().optional(),
+        konbini: z.object({}).optional(),
+        link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
-        mobilepay: z.any().optional(),
-        oxxo: z.any().optional(),
+        mobilepay: z.object({}).optional(),
+        oxxo: z.object({}).optional(),
         p24: z
           .object({
             bank: z
@@ -42583,19 +42607,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
           })
           .optional(),
-        paynow: z.any().optional(),
-        paypal: z.any().optional(),
-        pix: z.any().optional(),
-        promptpay: z.any().optional(),
+        paynow: z.object({}).optional(),
+        paypal: z.object({}).optional(),
+        pix: z.object({}).optional(),
+        promptpay: z.object({}).optional(),
         radar_options: z
           .object({ session: z.string().max(5000).optional() })
           .optional(),
-        revolut_pay: z.any().optional(),
+        revolut_pay: z.object({}).optional(),
         sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
         sofort: z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
-        swish: z.any().optional(),
+        swish: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -42641,8 +42665,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
             routing_number: z.string().max(5000).optional(),
           })
           .optional(),
-        wechat_pay: z.any().optional(),
-        zip: z.any().optional(),
+        wechat_pay: z.object({}).optional(),
+        zip: z.object({}).optional(),
       })
       .optional(),
     payment_method_options: z
@@ -42962,7 +42986,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             z.enum([""]),
           ])
           .optional(),
-        interac_present: z.union([z.any(), z.enum([""])]).optional(),
+        interac_present: z.union([z.object({}), z.enum([""])]).optional(),
         klarna: z
           .union([
             z.object({
@@ -43150,7 +43174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         sepa_debit: z
           .union([
             z.object({
-              mandate_options: z.any().optional(),
+              mandate_options: z.object({}).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -43329,7 +43353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getPaymentIntentsSearchBodySchema = z.any().optional()
+  const getPaymentIntentsSearchBodySchema = z.object({}).optional()
 
   const getPaymentIntentsSearchResponseValidator = responseValidationFactory(
     [
@@ -43409,7 +43433,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPaymentIntentsIntentBodySchema = z.any().optional()
+  const getPaymentIntentsIntentBodySchema = z.object({}).optional()
 
   const getPaymentIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_payment_intent]],
@@ -43494,13 +43518,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -43513,7 +43537,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -43534,10 +43558,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -43602,8 +43626,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -43628,7 +43652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -43640,11 +43664,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -43679,19 +43703,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -43737,8 +43761,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       payment_method_options: z
@@ -44064,7 +44088,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          interac_present: z.union([z.any(), z.enum([""])]).optional(),
+          interac_present: z.union([z.object({}), z.enum([""])]).optional(),
           klarna: z
             .union([
               z.object({
@@ -44254,7 +44278,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           sepa_debit: z
             .union([
               z.object({
-                mandate_options: z.any().optional(),
+                mandate_options: z.object({}).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -44641,7 +44665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             customer_acceptance: z.object({
               accepted_at: z.coerce.number().optional(),
-              offline: z.any().optional(),
+              offline: z.object({}).optional(),
               online: z
                 .object({
                   ip_address: z.string(),
@@ -44676,13 +44700,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -44695,7 +44719,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -44716,10 +44740,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -44784,8 +44808,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -44810,7 +44834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -44822,11 +44846,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -44861,19 +44885,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -44919,8 +44943,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       payment_method_options: z
@@ -45246,7 +45270,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
-          interac_present: z.union([z.any(), z.enum([""])]).optional(),
+          interac_present: z.union([z.object({}), z.enum([""])]).optional(),
           klarna: z
             .union([
               z.object({
@@ -45436,7 +45460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           sepa_debit: z
             .union([
               z.object({
-                mandate_options: z.any().optional(),
+                mandate_options: z.object({}).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -45750,7 +45774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentLinksBodySchema = z.any().optional()
+  const getPaymentLinksBodySchema = z.object({}).optional()
 
   const getPaymentLinksResponseValidator = responseValidationFactory(
     [
@@ -46347,7 +46371,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPaymentLinksPaymentLinkBodySchema = z.any().optional()
+  const getPaymentLinksPaymentLinkBodySchema = z.object({}).optional()
 
   const getPaymentLinksPaymentLinkResponseValidator = responseValidationFactory(
     [["200", s_payment_link]],
@@ -46950,7 +46974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentLinksPaymentLinkLineItemsBodySchema = z.any().optional()
+  const getPaymentLinksPaymentLinkLineItemsBodySchema = z.object({}).optional()
 
   const getPaymentLinksPaymentLinkLineItemsResponseValidator =
     responseValidationFactory(
@@ -47033,7 +47057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentMethodConfigurationsBodySchema = z.any().optional()
+  const getPaymentMethodConfigurationsBodySchema = z.object({}).optional()
 
   const getPaymentMethodConfigurationsResponseValidator =
     responseValidationFactory(
@@ -47441,7 +47465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getPaymentMethodConfigurationsConfigurationBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getPaymentMethodConfigurationsConfigurationResponseValidator =
@@ -47850,7 +47874,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPaymentMethodDomainsBodySchema = z.any().optional()
+  const getPaymentMethodDomainsBodySchema = z.object({}).optional()
 
   const getPaymentMethodDomainsResponseValidator = responseValidationFactory(
     [
@@ -47981,7 +48005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getPaymentMethodDomainsPaymentMethodDomainBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getPaymentMethodDomainsPaymentMethodDomainResponseValidator =
@@ -48211,7 +48235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getPaymentMethodsBodySchema = z.any().optional()
+  const getPaymentMethodsBodySchema = z.object({}).optional()
 
   const getPaymentMethodsResponseValidator = responseValidationFactory(
     [
@@ -48283,11 +48307,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           transit_number: z.string().max(5000),
         })
         .optional(),
-      affirm: z.any().optional(),
-      afterpay_clearpay: z.any().optional(),
-      alipay: z.any().optional(),
+      affirm: z.object({}).optional(),
+      afterpay_clearpay: z.object({}).optional(),
+      alipay: z.object({}).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
-      amazon_pay: z.any().optional(),
+      amazon_pay: z.object({}).optional(),
       au_becs_debit: z
         .object({
           account_number: z.string().max(5000),
@@ -48300,7 +48324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           sort_code: z.string().max(5000).optional(),
         })
         .optional(),
-      bancontact: z.any().optional(),
+      bancontact: z.object({}).optional(),
       billing_details: z
         .object({
           address: z
@@ -48321,7 +48345,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
         })
         .optional(),
-      blik: z.any().optional(),
+      blik: z.object({}).optional(),
       boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
       card: z
         .union([
@@ -48341,9 +48365,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({ token: z.string().max(5000) }),
         ])
         .optional(),
-      cashapp: z.any().optional(),
+      cashapp: z.object({}).optional(),
       customer: z.string().max(5000).optional(),
-      customer_balance: z.any().optional(),
+      customer_balance: z.object({}).optional(),
       eps: z
         .object({
           bank: z
@@ -48409,8 +48433,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ]),
         })
         .optional(),
-      giropay: z.any().optional(),
-      grabpay: z.any().optional(),
+      giropay: z.object({}).optional(),
+      grabpay: z.object({}).optional(),
       ideal: z
         .object({
           bank: z
@@ -48435,7 +48459,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      interac_present: z.any().optional(),
+      interac_present: z.object({}).optional(),
       klarna: z
         .object({
           dob: z
@@ -48447,11 +48471,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      konbini: z.any().optional(),
-      link: z.any().optional(),
+      konbini: z.object({}).optional(),
+      link: z.object({}).optional(),
       metadata: z.record(z.string()).optional(),
-      mobilepay: z.any().optional(),
-      oxxo: z.any().optional(),
+      mobilepay: z.object({}).optional(),
+      oxxo: z.object({}).optional(),
       p24: z
         .object({
           bank: z
@@ -48487,19 +48511,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       payment_method: z.string().max(5000).optional(),
-      paynow: z.any().optional(),
-      paypal: z.any().optional(),
-      pix: z.any().optional(),
-      promptpay: z.any().optional(),
+      paynow: z.object({}).optional(),
+      paypal: z.object({}).optional(),
+      pix: z.object({}).optional(),
+      promptpay: z.object({}).optional(),
       radar_options: z
         .object({ session: z.string().max(5000).optional() })
         .optional(),
-      revolut_pay: z.any().optional(),
+      revolut_pay: z.object({}).optional(),
       sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
       sofort: z
         .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
         .optional(),
-      swish: z.any().optional(),
+      swish: z.object({}).optional(),
       type: z
         .enum([
           "acss_debit",
@@ -48548,8 +48572,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
           routing_number: z.string().max(5000).optional(),
         })
         .optional(),
-      wechat_pay: z.any().optional(),
-      zip: z.any().optional(),
+      wechat_pay: z.object({}).optional(),
+      zip: z.object({}).optional(),
     })
     .optional()
 
@@ -48607,7 +48631,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPaymentMethodsPaymentMethodBodySchema = z.any().optional()
+  const getPaymentMethodsPaymentMethodBodySchema = z.object({}).optional()
 
   const getPaymentMethodsPaymentMethodResponseValidator =
     responseValidationFactory([["200", s_payment_method]], s_error)
@@ -48702,7 +48726,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      link: z.any().optional(),
+      link: z.object({}).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       us_bank_account: z
         .object({
@@ -48911,7 +48935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.string().max(5000).optional(),
   })
 
-  const getPayoutsBodySchema = z.any().optional()
+  const getPayoutsBodySchema = z.object({}).optional()
 
   const getPayoutsResponseValidator = responseValidationFactory(
     [
@@ -49034,7 +49058,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPayoutsPayoutBodySchema = z.any().optional()
+  const getPayoutsPayoutBodySchema = z.object({}).optional()
 
   const getPayoutsPayoutResponseValidator = responseValidationFactory(
     [["200", s_payout]],
@@ -49282,7 +49306,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPlansBodySchema = z.any().optional()
+  const getPlansBodySchema = z.object({}).optional()
 
   const getPlansResponseValidator = responseValidationFactory(
     [
@@ -49438,7 +49462,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const deletePlansPlanParamSchema = z.object({ plan: z.string().max(5000) })
 
-  const deletePlansPlanBodySchema = z.any().optional()
+  const deletePlansPlanBodySchema = z.object({}).optional()
 
   const deletePlansPlanResponseValidator = responseValidationFactory(
     [["200", s_deleted_plan]],
@@ -49492,7 +49516,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPlansPlanBodySchema = z.any().optional()
+  const getPlansPlanBodySchema = z.object({}).optional()
 
   const getPlansPlanResponseValidator = responseValidationFactory(
     [["200", s_plan]],
@@ -49633,7 +49657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum(["one_time", "recurring"]).optional(),
   })
 
-  const getPricesBodySchema = z.any().optional()
+  const getPricesBodySchema = z.object({}).optional()
 
   const getPricesResponseValidator = responseValidationFactory(
     [
@@ -49835,7 +49859,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getPricesSearchBodySchema = z.any().optional()
+  const getPricesSearchBodySchema = z.object({}).optional()
 
   const getPricesSearchResponseValidator = responseValidationFactory(
     [
@@ -49908,7 +49932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPricesPriceBodySchema = z.any().optional()
+  const getPricesPriceBodySchema = z.object({}).optional()
 
   const getPricesPriceResponseValidator = responseValidationFactory(
     [["200", s_price]],
@@ -50077,7 +50101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     url: z.string().max(5000).optional(),
   })
 
-  const getProductsBodySchema = z.any().optional()
+  const getProductsBodySchema = z.object({}).optional()
 
   const getProductsResponseValidator = responseValidationFactory(
     [
@@ -50261,7 +50285,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getProductsSearchBodySchema = z.any().optional()
+  const getProductsSearchBodySchema = z.object({}).optional()
 
   const getProductsSearchResponseValidator = responseValidationFactory(
     [
@@ -50330,7 +50354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const deleteProductsIdParamSchema = z.object({ id: z.string().max(5000) })
 
-  const deleteProductsIdBodySchema = z.any().optional()
+  const deleteProductsIdBodySchema = z.object({}).optional()
 
   const deleteProductsIdResponseValidator = responseValidationFactory(
     [["200", s_deleted_product]],
@@ -50384,7 +50408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getProductsIdBodySchema = z.any().optional()
+  const getProductsIdBodySchema = z.object({}).optional()
 
   const getProductsIdResponseValidator = responseValidationFactory(
     [["200", s_product]],
@@ -50529,7 +50553,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getProductsProductFeaturesBodySchema = z.any().optional()
+  const getProductsProductFeaturesBodySchema = z.object({}).optional()
 
   const getProductsProductFeaturesResponseValidator = responseValidationFactory(
     [
@@ -50662,7 +50686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     product: z.string().max(5000),
   })
 
-  const deleteProductsProductFeaturesIdBodySchema = z.any().optional()
+  const deleteProductsProductFeaturesIdBodySchema = z.object({}).optional()
 
   const deleteProductsProductFeaturesIdResponseValidator =
     responseValidationFactory([["200", s_deleted_product_feature]], s_error)
@@ -50721,7 +50745,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getProductsProductFeaturesIdBodySchema = z.any().optional()
+  const getProductsProductFeaturesIdBodySchema = z.object({}).optional()
 
   const getProductsProductFeaturesIdResponseValidator =
     responseValidationFactory([["200", s_product_feature]], s_error)
@@ -50797,7 +50821,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getPromotionCodesBodySchema = z.any().optional()
+  const getPromotionCodesBodySchema = z.object({}).optional()
 
   const getPromotionCodesResponseValidator = responseValidationFactory(
     [
@@ -50935,7 +50959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getPromotionCodesPromotionCodeBodySchema = z.any().optional()
+  const getPromotionCodesPromotionCodeBodySchema = z.object({}).optional()
 
   const getPromotionCodesPromotionCodeResponseValidator =
     responseValidationFactory([["200", s_promotion_code]], s_error)
@@ -51066,7 +51090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getQuotesBodySchema = z.any().optional()
+  const getQuotesBodySchema = z.object({}).optional()
 
   const getQuotesResponseValidator = responseValidationFactory(
     [
@@ -51309,7 +51333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getQuotesQuoteBodySchema = z.any().optional()
+  const getQuotesQuoteBodySchema = z.object({}).optional()
 
   const getQuotesQuoteResponseValidator = responseValidationFactory(
     [["200", s_quote]],
@@ -51662,7 +51686,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getQuotesQuoteComputedUpfrontLineItemsBodySchema = z.any().optional()
+  const getQuotesQuoteComputedUpfrontLineItemsBodySchema = z
+    .object({})
+    .optional()
 
   const getQuotesQuoteComputedUpfrontLineItemsResponseValidator =
     responseValidationFactory(
@@ -51809,7 +51835,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getQuotesQuoteLineItemsBodySchema = z.any().optional()
+  const getQuotesQuoteLineItemsBodySchema = z.object({}).optional()
 
   const getQuotesQuoteLineItemsResponseValidator = responseValidationFactory(
     [
@@ -51886,7 +51912,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getQuotesQuotePdfBodySchema = z.any().optional()
+  const getQuotesQuotePdfBodySchema = z.object({}).optional()
 
   const getQuotesQuotePdfResponseValidator = responseValidationFactory(
     [["200", z.string()]],
@@ -51962,7 +51988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getRadarEarlyFraudWarningsBodySchema = z.any().optional()
+  const getRadarEarlyFraudWarningsBodySchema = z.object({}).optional()
 
   const getRadarEarlyFraudWarningsResponseValidator = responseValidationFactory(
     [
@@ -52041,7 +52067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getRadarEarlyFraudWarningsEarlyFraudWarningResponseValidator =
@@ -52119,7 +52145,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     value_list: z.string().max(5000),
   })
 
-  const getRadarValueListItemsBodySchema = z.any().optional()
+  const getRadarValueListItemsBodySchema = z.object({}).optional()
 
   const getRadarValueListItemsResponseValidator = responseValidationFactory(
     [
@@ -52245,7 +52271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     item: z.string().max(5000),
   })
 
-  const deleteRadarValueListItemsItemBodySchema = z.any().optional()
+  const deleteRadarValueListItemsItemBodySchema = z.object({}).optional()
 
   const deleteRadarValueListItemsItemResponseValidator =
     responseValidationFactory(
@@ -52306,7 +52332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getRadarValueListItemsItemBodySchema = z.any().optional()
+  const getRadarValueListItemsItemBodySchema = z.object({}).optional()
 
   const getRadarValueListItemsItemResponseValidator = responseValidationFactory(
     [["200", s_radar_value_list_item]],
@@ -52382,7 +52408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getRadarValueListsBodySchema = z.any().optional()
+  const getRadarValueListsBodySchema = z.object({}).optional()
 
   const getRadarValueListsResponseValidator = responseValidationFactory(
     [
@@ -52520,7 +52546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     value_list: z.string().max(5000),
   })
 
-  const deleteRadarValueListsValueListBodySchema = z.any().optional()
+  const deleteRadarValueListsValueListBodySchema = z.object({}).optional()
 
   const deleteRadarValueListsValueListResponseValidator =
     responseValidationFactory([["200", s_deleted_radar_value_list]], s_error)
@@ -52578,7 +52604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getRadarValueListsValueListBodySchema = z.any().optional()
+  const getRadarValueListsValueListBodySchema = z.object({}).optional()
 
   const getRadarValueListsValueListResponseValidator =
     responseValidationFactory([["200", s_radar_value_list]], s_error)
@@ -52713,7 +52739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getRefundsBodySchema = z.any().optional()
+  const getRefundsBodySchema = z.object({}).optional()
 
   const getRefundsResponseValidator = responseValidationFactory(
     [
@@ -52843,7 +52869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getRefundsRefundBodySchema = z.any().optional()
+  const getRefundsRefundBodySchema = z.object({}).optional()
 
   const getRefundsRefundResponseValidator = responseValidationFactory(
     [["200", s_refund]],
@@ -53024,7 +53050,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getReportingReportRunsBodySchema = z.any().optional()
+  const getReportingReportRunsBodySchema = z.object({}).optional()
 
   const getReportingReportRunsResponseValidator = responseValidationFactory(
     [
@@ -53806,7 +53832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getReportingReportRunsReportRunBodySchema = z.any().optional()
+  const getReportingReportRunsReportRunBodySchema = z.object({}).optional()
 
   const getReportingReportRunsReportRunResponseValidator =
     responseValidationFactory([["200", s_reporting_report_run]], s_error)
@@ -53864,7 +53890,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getReportingReportTypesBodySchema = z.any().optional()
+  const getReportingReportTypesBodySchema = z.object({}).optional()
 
   const getReportingReportTypesResponseValidator = responseValidationFactory(
     [
@@ -53939,7 +53965,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getReportingReportTypesReportTypeBodySchema = z.any().optional()
+  const getReportingReportTypesReportTypeBodySchema = z.object({}).optional()
 
   const getReportingReportTypesReportTypeResponseValidator =
     responseValidationFactory([["200", s_reporting_report_type]], s_error)
@@ -54014,7 +54040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getReviewsBodySchema = z.any().optional()
+  const getReviewsBodySchema = z.object({}).optional()
 
   const getReviewsResponseValidator = responseValidationFactory(
     [
@@ -54083,7 +54109,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getReviewsReviewBodySchema = z.any().optional()
+  const getReviewsReviewBodySchema = z.object({}).optional()
 
   const getReviewsReviewResponseValidator = responseValidationFactory(
     [["200", s_review]],
@@ -54212,7 +54238,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSetupAttemptsBodySchema = z.any().optional()
+  const getSetupAttemptsBodySchema = z.object({}).optional()
 
   const getSetupAttemptsResponseValidator = responseValidationFactory(
     [
@@ -54296,7 +54322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSetupIntentsBodySchema = z.any().optional()
+  const getSetupIntentsBodySchema = z.object({}).optional()
 
   const getSetupIntentsResponseValidator = responseValidationFactory(
     [
@@ -54379,7 +54405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             customer_acceptance: z.object({
               accepted_at: z.coerce.number().optional(),
-              offline: z.any().optional(),
+              offline: z.object({}).optional(),
               online: z
                 .object({
                   ip_address: z.string(),
@@ -54405,13 +54431,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -54424,7 +54450,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -54445,10 +54471,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -54513,8 +54539,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -54539,7 +54565,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -54551,11 +54577,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -54590,19 +54616,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -54648,8 +54674,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       payment_method_options: z
@@ -54677,7 +54703,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -54745,13 +54771,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          card_present: z.any().optional(),
-          link: z.any().optional(),
+          card_present: z.object({}).optional(),
+          link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.any().optional() })
+            .object({ mandate_options: z.object({}).optional() })
             .optional(),
           us_bank_account: z
             .object({
@@ -54851,7 +54877,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getSetupIntentsIntentBodySchema = z.any().optional()
+  const getSetupIntentsIntentBodySchema = z.object({}).optional()
 
   const getSetupIntentsIntentResponseValidator = responseValidationFactory(
     [["200", s_setup_intent]],
@@ -54930,13 +54956,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -54949,7 +54975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -54970,10 +54996,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -55038,8 +55064,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -55064,7 +55090,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -55076,11 +55102,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -55115,19 +55141,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -55173,8 +55199,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       payment_method_options: z
@@ -55202,7 +55228,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -55270,13 +55296,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          card_present: z.any().optional(),
-          link: z.any().optional(),
+          card_present: z.object({}).optional(),
+          link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.any().optional() })
+            .object({ mandate_options: z.object({}).optional() })
             .optional(),
           us_bank_account: z
             .object({
@@ -55444,7 +55470,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             customer_acceptance: z.object({
               accepted_at: z.coerce.number().optional(),
-              offline: z.any().optional(),
+              offline: z.object({}).optional(),
               online: z
                 .object({
                   ip_address: z.string(),
@@ -55476,13 +55502,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -55495,7 +55521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -55516,10 +55542,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -55584,8 +55610,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -55610,7 +55636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -55622,11 +55648,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -55661,19 +55687,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -55719,8 +55745,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       payment_method_options: z
@@ -55748,7 +55774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           card: z
             .object({
               mandate_options: z
@@ -55816,13 +55842,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          card_present: z.any().optional(),
-          link: z.any().optional(),
+          card_present: z.object({}).optional(),
+          link: z.object({}).optional(),
           paypal: z
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.any().optional() })
+            .object({ mandate_options: z.object({}).optional() })
             .optional(),
           us_bank_account: z
             .object({
@@ -55998,7 +56024,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getShippingRatesBodySchema = z.any().optional()
+  const getShippingRatesBodySchema = z.object({}).optional()
 
   const getShippingRatesResponseValidator = responseValidationFactory(
     [
@@ -56152,7 +56178,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getShippingRatesShippingRateTokenBodySchema = z.any().optional()
+  const getShippingRatesShippingRateTokenBodySchema = z.object({}).optional()
 
   const getShippingRatesShippingRateTokenResponseValidator =
     responseValidationFactory([["200", s_shipping_rate]], s_error)
@@ -56296,7 +56322,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSigmaScheduledQueryRunsBodySchema = z.any().optional()
+  const getSigmaScheduledQueryRunsBodySchema = z.object({}).optional()
 
   const getSigmaScheduledQueryRunsResponseValidator = responseValidationFactory(
     [
@@ -56375,7 +56401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getSigmaScheduledQueryRunsScheduledQueryRunBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getSigmaScheduledQueryRunsScheduledQueryRunResponseValidator =
@@ -56590,7 +56616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getSourcesSourceBodySchema = z.any().optional()
+  const getSourcesSourceBodySchema = z.object({}).optional()
 
   const getSourcesSourceResponseValidator = responseValidationFactory(
     [["200", s_source]],
@@ -56792,7 +56818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getSourcesSourceMandateNotificationsMandateNotificationBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getSourcesSourceMandateNotificationsMandateNotificationResponseValidator =
@@ -56866,7 +56892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSourcesSourceSourceTransactionsBodySchema = z.any().optional()
+  const getSourcesSourceSourceTransactionsBodySchema = z.object({}).optional()
 
   const getSourcesSourceSourceTransactionsResponseValidator =
     responseValidationFactory(
@@ -56951,7 +56977,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getSourcesSourceSourceTransactionsSourceTransactionBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getSourcesSourceSourceTransactionsSourceTransactionResponseValidator =
@@ -57081,7 +57107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     subscription: z.string().max(5000),
   })
 
-  const getSubscriptionItemsBodySchema = z.any().optional()
+  const getSubscriptionItemsBodySchema = z.object({}).optional()
 
   const getSubscriptionItemsResponseValidator = responseValidationFactory(
     [
@@ -57320,7 +57346,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getSubscriptionItemsItemBodySchema = z.any().optional()
+  const getSubscriptionItemsItemBodySchema = z.object({}).optional()
 
   const getSubscriptionItemsItemResponseValidator = responseValidationFactory(
     [["200", s_subscription_item]],
@@ -57497,7 +57523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     })
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getSubscriptionItemsSubscriptionItemUsageRecordSummariesResponseValidator =
@@ -57698,7 +57724,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getSubscriptionSchedulesBodySchema = z.any().optional()
+  const getSubscriptionSchedulesBodySchema = z.object({}).optional()
 
   const getSubscriptionSchedulesResponseValidator = responseValidationFactory(
     [
@@ -58045,7 +58071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getSubscriptionSchedulesScheduleBodySchema = z.any().optional()
+  const getSubscriptionSchedulesScheduleBodySchema = z.object({}).optional()
 
   const getSubscriptionSchedulesScheduleResponseValidator =
     responseValidationFactory([["200", s_subscription_schedule]], s_error)
@@ -58565,7 +58591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000).optional(),
   })
 
-  const getSubscriptionsBodySchema = z.any().optional()
+  const getSubscriptionsBodySchema = z.object({}).optional()
 
   const getSubscriptionsResponseValidator = responseValidationFactory(
     [
@@ -58867,8 +58893,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 z.enum([""]),
               ])
               .optional(),
-            konbini: z.union([z.any(), z.enum([""])]).optional(),
-            sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+            konbini: z.union([z.object({}), z.enum([""])]).optional(),
+            sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
             us_bank_account: z
               .union([
                 z.object({
@@ -59021,7 +59047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     query: z.string().max(5000),
   })
 
-  const getSubscriptionsSearchBodySchema = z.any().optional()
+  const getSubscriptionsSearchBodySchema = z.object({}).optional()
 
   const getSubscriptionsSearchResponseValidator = responseValidationFactory(
     [
@@ -59181,7 +59207,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getSubscriptionsSubscriptionExposedIdBodySchema = z.any().optional()
+  const getSubscriptionsSubscriptionExposedIdBodySchema = z
+    .object({})
+    .optional()
 
   const getSubscriptionsSubscriptionExposedIdResponseValidator =
     responseValidationFactory([["200", s_subscription]], s_error)
@@ -59500,8 +59528,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   z.enum([""]),
                 ])
                 .optional(),
-              konbini: z.union([z.any(), z.enum([""])]).optional(),
-              sepa_debit: z.union([z.any(), z.enum([""])]).optional(),
+              konbini: z.union([z.object({}), z.enum([""])]).optional(),
+              sepa_debit: z.union([z.object({}), z.enum([""])]).optional(),
               us_bank_account: z
                 .union([
                   z.object({
@@ -59669,7 +59697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const deleteSubscriptionsSubscriptionExposedIdDiscountBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const deleteSubscriptionsSubscriptionExposedIdDiscountResponseValidator =
@@ -59985,7 +60013,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(500).optional(),
   })
 
-  const getTaxCalculationsCalculationLineItemsBodySchema = z.any().optional()
+  const getTaxCalculationsCalculationLineItemsBodySchema = z
+    .object({})
+    .optional()
 
   const getTaxCalculationsCalculationLineItemsResponseValidator =
     responseValidationFactory(
@@ -60071,7 +60101,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["active", "all", "expired", "scheduled"]).optional(),
   })
 
-  const getTaxRegistrationsBodySchema = z.any().optional()
+  const getTaxRegistrationsBodySchema = z.object({}).optional()
 
   const getTaxRegistrationsResponseValidator = responseValidationFactory(
     [
@@ -60516,7 +60546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxRegistrationsIdBodySchema = z.any().optional()
+  const getTaxRegistrationsIdBodySchema = z.object({}).optional()
 
   const getTaxRegistrationsIdResponseValidator = responseValidationFactory(
     [["200", s_tax_registration]],
@@ -60640,7 +60670,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxSettingsBodySchema = z.any().optional()
+  const getTaxSettingsBodySchema = z.object({}).optional()
 
   const getTaxSettingsResponseValidator = responseValidationFactory(
     [["200", s_tax_settings]],
@@ -60889,7 +60919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxTransactionsTransactionBodySchema = z.any().optional()
+  const getTaxTransactionsTransactionBodySchema = z.object({}).optional()
 
   const getTaxTransactionsTransactionResponseValidator =
     responseValidationFactory([["200", s_tax_transaction]], s_error)
@@ -60954,7 +60984,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(500).optional(),
   })
 
-  const getTaxTransactionsTransactionLineItemsBodySchema = z.any().optional()
+  const getTaxTransactionsTransactionLineItemsBodySchema = z
+    .object({})
+    .optional()
 
   const getTaxTransactionsTransactionLineItemsResponseValidator =
     responseValidationFactory(
@@ -61039,7 +61071,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().optional(),
   })
 
-  const getTaxCodesBodySchema = z.any().optional()
+  const getTaxCodesBodySchema = z.object({}).optional()
 
   const getTaxCodesResponseValidator = responseValidationFactory(
     [
@@ -61108,7 +61140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxCodesIdBodySchema = z.any().optional()
+  const getTaxCodesIdBodySchema = z.object({}).optional()
 
   const getTaxCodesIdResponseValidator = responseValidationFactory(
     [["200", s_tax_code]],
@@ -61174,7 +61206,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTaxIdsBodySchema = z.any().optional()
+  const getTaxIdsBodySchema = z.object({}).optional()
 
   const getTaxIdsResponseValidator = responseValidationFactory(
     [
@@ -61366,7 +61398,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const deleteTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
 
-  const deleteTaxIdsIdBodySchema = z.any().optional()
+  const deleteTaxIdsIdBodySchema = z.object({}).optional()
 
   const deleteTaxIdsIdResponseValidator = responseValidationFactory(
     [["200", s_deleted_tax_id]],
@@ -61420,7 +61452,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxIdsIdBodySchema = z.any().optional()
+  const getTaxIdsIdBodySchema = z.object({}).optional()
 
   const getTaxIdsIdResponseValidator = responseValidationFactory(
     [["200", s_tax_id]],
@@ -61492,7 +61524,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTaxRatesBodySchema = z.any().optional()
+  const getTaxRatesBodySchema = z.object({}).optional()
 
   const getTaxRatesResponseValidator = responseValidationFactory(
     [
@@ -61634,7 +61666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTaxRatesTaxRateBodySchema = z.any().optional()
+  const getTaxRatesTaxRateBodySchema = z.object({}).optional()
 
   const getTaxRatesTaxRateResponseValidator = responseValidationFactory(
     [["200", s_tax_rate]],
@@ -61781,7 +61813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTerminalConfigurationsBodySchema = z.any().optional()
+  const getTerminalConfigurationsBodySchema = z.object({}).optional()
 
   const getTerminalConfigurationsResponseValidator = responseValidationFactory(
     [
@@ -62026,7 +62058,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     configuration: z.string().max(5000),
   })
 
-  const deleteTerminalConfigurationsConfigurationBodySchema = z.any().optional()
+  const deleteTerminalConfigurationsConfigurationBodySchema = z
+    .object({})
+    .optional()
 
   const deleteTerminalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
@@ -62090,7 +62124,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTerminalConfigurationsConfigurationBodySchema = z.any().optional()
+  const getTerminalConfigurationsConfigurationBodySchema = z
+    .object({})
+    .optional()
 
   const getTerminalConfigurationsConfigurationResponseValidator =
     responseValidationFactory(
@@ -62417,7 +62453,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTerminalLocationsBodySchema = z.any().optional()
+  const getTerminalLocationsBodySchema = z.object({}).optional()
 
   const getTerminalLocationsResponseValidator = responseValidationFactory(
     [
@@ -62552,7 +62588,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     location: z.string().max(5000),
   })
 
-  const deleteTerminalLocationsLocationBodySchema = z.any().optional()
+  const deleteTerminalLocationsLocationBodySchema = z.object({}).optional()
 
   const deleteTerminalLocationsLocationResponseValidator =
     responseValidationFactory([["200", s_deleted_terminal_location]], s_error)
@@ -62610,7 +62646,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTerminalLocationsLocationBodySchema = z.any().optional()
+  const getTerminalLocationsLocationBodySchema = z.object({}).optional()
 
   const getTerminalLocationsLocationResponseValidator =
     responseValidationFactory(
@@ -62768,7 +62804,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["offline", "online"]).optional(),
   })
 
-  const getTerminalReadersBodySchema = z.any().optional()
+  const getTerminalReadersBodySchema = z.object({}).optional()
 
   const getTerminalReadersResponseValidator = responseValidationFactory(
     [
@@ -62893,7 +62929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     reader: z.string().max(5000),
   })
 
-  const deleteTerminalReadersReaderBodySchema = z.any().optional()
+  const deleteTerminalReadersReaderBodySchema = z.object({}).optional()
 
   const deleteTerminalReadersReaderResponseValidator =
     responseValidationFactory([["200", s_deleted_terminal_reader]], s_error)
@@ -62951,7 +62987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTerminalReadersReaderBodySchema = z.any().optional()
+  const getTerminalReadersReaderBodySchema = z.object({}).optional()
 
   const getTerminalReadersReaderResponseValidator = responseValidationFactory(
     [
@@ -63432,13 +63468,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               transit_number: z.string().max(5000),
             })
             .optional(),
-          affirm: z.any().optional(),
-          afterpay_clearpay: z.any().optional(),
-          alipay: z.any().optional(),
+          affirm: z.object({}).optional(),
+          afterpay_clearpay: z.object({}).optional(),
+          alipay: z.object({}).optional(),
           allow_redisplay: z
             .enum(["always", "limited", "unspecified"])
             .optional(),
-          amazon_pay: z.any().optional(),
+          amazon_pay: z.object({}).optional(),
           au_becs_debit: z
             .object({
               account_number: z.string().max(5000),
@@ -63451,7 +63487,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               sort_code: z.string().max(5000).optional(),
             })
             .optional(),
-          bancontact: z.any().optional(),
+          bancontact: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -63472,10 +63508,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
               phone: z.union([z.string().max(5000), z.enum([""])]).optional(),
             })
             .optional(),
-          blik: z.any().optional(),
+          blik: z.object({}).optional(),
           boleto: z.object({ tax_id: z.string().max(5000) }).optional(),
-          cashapp: z.any().optional(),
-          customer_balance: z.any().optional(),
+          cashapp: z.object({}).optional(),
+          customer_balance: z.object({}).optional(),
           eps: z
             .object({
               bank: z
@@ -63540,8 +63576,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               ]),
             })
             .optional(),
-          giropay: z.any().optional(),
-          grabpay: z.any().optional(),
+          giropay: z.object({}).optional(),
+          grabpay: z.object({}).optional(),
           ideal: z
             .object({
               bank: z
@@ -63566,7 +63602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          interac_present: z.any().optional(),
+          interac_present: z.object({}).optional(),
           klarna: z
             .object({
               dob: z
@@ -63578,11 +63614,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          konbini: z.any().optional(),
-          link: z.any().optional(),
+          konbini: z.object({}).optional(),
+          link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
-          mobilepay: z.any().optional(),
-          oxxo: z.any().optional(),
+          mobilepay: z.object({}).optional(),
+          oxxo: z.object({}).optional(),
           p24: z
             .object({
               bank: z
@@ -63617,19 +63653,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
-          paynow: z.any().optional(),
-          paypal: z.any().optional(),
-          pix: z.any().optional(),
-          promptpay: z.any().optional(),
+          paynow: z.object({}).optional(),
+          paypal: z.object({}).optional(),
+          pix: z.object({}).optional(),
+          promptpay: z.object({}).optional(),
           radar_options: z
             .object({ session: z.string().max(5000).optional() })
             .optional(),
-          revolut_pay: z.any().optional(),
+          revolut_pay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
-          swish: z.any().optional(),
+          swish: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -63675,8 +63711,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               routing_number: z.string().max(5000).optional(),
             })
             .optional(),
-          wechat_pay: z.any().optional(),
-          zip: z.any().optional(),
+          wechat_pay: z.object({}).optional(),
+          zip: z.object({}).optional(),
         })
         .optional(),
       return_url: z.string().optional(),
@@ -66064,7 +66100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTestHelpersTestClocksBodySchema = z.any().optional()
+  const getTestHelpersTestClocksBodySchema = z.object({}).optional()
 
   const getTestHelpersTestClocksResponseValidator = responseValidationFactory(
     [
@@ -66190,7 +66226,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     test_clock: z.string().max(5000),
   })
 
-  const deleteTestHelpersTestClocksTestClockBodySchema = z.any().optional()
+  const deleteTestHelpersTestClocksTestClockBodySchema = z.object({}).optional()
 
   const deleteTestHelpersTestClocksTestClockResponseValidator =
     responseValidationFactory(
@@ -66254,7 +66290,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTestHelpersTestClocksTestClockBodySchema = z.any().optional()
+  const getTestHelpersTestClocksTestClockBodySchema = z.object({}).optional()
 
   const getTestHelpersTestClocksTestClockResponseValidator =
     responseValidationFactory([["200", s_test_helpers_test_clock]], s_error)
@@ -67561,7 +67597,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTokensTokenBodySchema = z.any().optional()
+  const getTokensTokenBodySchema = z.object({}).optional()
 
   const getTokensTokenResponseValidator = responseValidationFactory(
     [["200", s_token]],
@@ -67643,7 +67679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["canceled", "failed", "pending", "succeeded"]).optional(),
   })
 
-  const getTopupsBodySchema = z.any().optional()
+  const getTopupsBodySchema = z.object({}).optional()
 
   const getTopupsResponseValidator = responseValidationFactory(
     [
@@ -67765,7 +67801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTopupsTopupBodySchema = z.any().optional()
+  const getTopupsTopupBodySchema = z.object({}).optional()
 
   const getTopupsTopupResponseValidator = responseValidationFactory(
     [["200", s_topup]],
@@ -67951,7 +67987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transfer_group: z.string().max(5000).optional(),
   })
 
-  const getTransfersBodySchema = z.any().optional()
+  const getTransfersBodySchema = z.object({}).optional()
 
   const getTransfersResponseValidator = responseValidationFactory(
     [
@@ -68079,7 +68115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTransfersIdReversalsBodySchema = z.any().optional()
+  const getTransfersIdReversalsBodySchema = z.object({}).optional()
 
   const getTransfersIdReversalsResponseValidator = responseValidationFactory(
     [
@@ -68222,7 +68258,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTransfersTransferBodySchema = z.any().optional()
+  const getTransfersTransferBodySchema = z.object({}).optional()
 
   const getTransfersTransferResponseValidator = responseValidationFactory(
     [["200", s_transfer]],
@@ -68349,7 +68385,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTransfersTransferReversalsIdBodySchema = z.any().optional()
+  const getTransfersTransferReversalsIdBodySchema = z.object({}).optional()
 
   const getTransfersTransferReversalsIdResponseValidator =
     responseValidationFactory([["200", s_transfer_reversal]], s_error)
@@ -68473,7 +68509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["canceled", "posted", "processing"]).optional(),
   })
 
-  const getTreasuryCreditReversalsBodySchema = z.any().optional()
+  const getTreasuryCreditReversalsBodySchema = z.object({}).optional()
 
   const getTreasuryCreditReversalsResponseValidator = responseValidationFactory(
     [
@@ -68598,7 +68634,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryCreditReversalsCreditReversalBodySchema = z.any().optional()
+  const getTreasuryCreditReversalsCreditReversalBodySchema = z
+    .object({})
+    .optional()
 
   const getTreasuryCreditReversalsCreditReversalResponseValidator =
     responseValidationFactory([["200", s_treasury_credit_reversal]], s_error)
@@ -68666,7 +68704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["canceled", "completed", "processing"]).optional(),
   })
 
-  const getTreasuryDebitReversalsBodySchema = z.any().optional()
+  const getTreasuryDebitReversalsBodySchema = z.object({}).optional()
 
   const getTreasuryDebitReversalsResponseValidator = responseValidationFactory(
     [
@@ -68793,7 +68831,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryDebitReversalsDebitReversalBodySchema = z.any().optional()
+  const getTreasuryDebitReversalsDebitReversalBodySchema = z
+    .object({})
+    .optional()
 
   const getTreasuryDebitReversalsDebitReversalResponseValidator =
     responseValidationFactory([["200", s_treasury_debit_reversal]], s_error)
@@ -68868,7 +68908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getTreasuryFinancialAccountsBodySchema = z.any().optional()
+  const getTreasuryFinancialAccountsBodySchema = z.object({}).optional()
 
   const getTreasuryFinancialAccountsResponseValidator =
     responseValidationFactory(
@@ -69041,7 +69081,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getTreasuryFinancialAccountsFinancialAccountBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getTreasuryFinancialAccountsFinancialAccountResponseValidator =
@@ -69211,7 +69251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({ expand: z.array(z.string().max(5000)).optional() })
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getTreasuryFinancialAccountsFinancialAccountFeaturesResponseValidator =
@@ -69385,7 +69425,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getTreasuryInboundTransfersBodySchema = z.any().optional()
+  const getTreasuryInboundTransfersBodySchema = z.object({}).optional()
 
   const getTreasuryInboundTransfersResponseValidator =
     responseValidationFactory(
@@ -69516,7 +69556,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryInboundTransfersIdBodySchema = z.any().optional()
+  const getTreasuryInboundTransfersIdBodySchema = z.object({}).optional()
 
   const getTreasuryInboundTransfersIdResponseValidator =
     responseValidationFactory([["200", s_treasury_inbound_transfer]], s_error)
@@ -69657,7 +69697,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getTreasuryOutboundPaymentsBodySchema = z.any().optional()
+  const getTreasuryOutboundPaymentsBodySchema = z.object({}).optional()
 
   const getTreasuryOutboundPaymentsResponseValidator =
     responseValidationFactory(
@@ -69843,7 +69883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryOutboundPaymentsIdBodySchema = z.any().optional()
+  const getTreasuryOutboundPaymentsIdBodySchema = z.object({}).optional()
 
   const getTreasuryOutboundPaymentsIdResponseValidator =
     responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
@@ -69967,7 +70007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getTreasuryOutboundTransfersBodySchema = z.any().optional()
+  const getTreasuryOutboundTransfersBodySchema = z.object({}).optional()
 
   const getTreasuryOutboundTransfersResponseValidator =
     responseValidationFactory(
@@ -70111,7 +70151,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const getTreasuryOutboundTransfersOutboundTransferBodySchema = z
-    .any()
+    .object({})
     .optional()
 
   const getTreasuryOutboundTransfersOutboundTransferResponseValidator =
@@ -70251,7 +70291,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
-  const getTreasuryReceivedCreditsBodySchema = z.any().optional()
+  const getTreasuryReceivedCreditsBodySchema = z.object({}).optional()
 
   const getTreasuryReceivedCreditsResponseValidator = responseValidationFactory(
     [
@@ -70326,7 +70366,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryReceivedCreditsIdBodySchema = z.any().optional()
+  const getTreasuryReceivedCreditsIdBodySchema = z.object({}).optional()
 
   const getTreasuryReceivedCreditsIdResponseValidator =
     responseValidationFactory([["200", s_treasury_received_credit]], s_error)
@@ -70389,7 +70429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     status: z.enum(["failed", "succeeded"]).optional(),
   })
 
-  const getTreasuryReceivedDebitsBodySchema = z.any().optional()
+  const getTreasuryReceivedDebitsBodySchema = z.object({}).optional()
 
   const getTreasuryReceivedDebitsResponseValidator = responseValidationFactory(
     [
@@ -70464,7 +70504,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryReceivedDebitsIdBodySchema = z.any().optional()
+  const getTreasuryReceivedDebitsIdBodySchema = z.object({}).optional()
 
   const getTreasuryReceivedDebitsIdResponseValidator =
     responseValidationFactory([["200", s_treasury_received_debit]], s_error)
@@ -70550,7 +70590,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     transaction: z.string().max(5000).optional(),
   })
 
-  const getTreasuryTransactionEntriesBodySchema = z.any().optional()
+  const getTreasuryTransactionEntriesBodySchema = z.object({}).optional()
 
   const getTreasuryTransactionEntriesResponseValidator =
     responseValidationFactory(
@@ -70629,7 +70669,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryTransactionEntriesIdBodySchema = z.any().optional()
+  const getTreasuryTransactionEntriesIdBodySchema = z.object({}).optional()
 
   const getTreasuryTransactionEntriesIdResponseValidator =
     responseValidationFactory([["200", s_treasury_transaction_entry]], s_error)
@@ -70719,7 +70759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
-  const getTreasuryTransactionsBodySchema = z.any().optional()
+  const getTreasuryTransactionsBodySchema = z.object({}).optional()
 
   const getTreasuryTransactionsResponseValidator = responseValidationFactory(
     [
@@ -70794,7 +70834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getTreasuryTransactionsIdBodySchema = z.any().optional()
+  const getTreasuryTransactionsIdBodySchema = z.object({}).optional()
 
   const getTreasuryTransactionsIdResponseValidator = responseValidationFactory(
     [["200", s_treasury_transaction]],
@@ -70857,7 +70897,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     starting_after: z.string().max(5000).optional(),
   })
 
-  const getWebhookEndpointsBodySchema = z.any().optional()
+  const getWebhookEndpointsBodySchema = z.object({}).optional()
 
   const getWebhookEndpointsResponseValidator = responseValidationFactory(
     [
@@ -71319,7 +71359,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     webhook_endpoint: z.string().max(5000),
   })
 
-  const deleteWebhookEndpointsWebhookEndpointBodySchema = z.any().optional()
+  const deleteWebhookEndpointsWebhookEndpointBodySchema = z
+    .object({})
+    .optional()
 
   const deleteWebhookEndpointsWebhookEndpointResponseValidator =
     responseValidationFactory([["200", s_deleted_webhook_endpoint]], s_error)
@@ -71380,7 +71422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     expand: z.array(z.string().max(5000)).optional(),
   })
 
-  const getWebhookEndpointsWebhookEndpointBodySchema = z.any().optional()
+  const getWebhookEndpointsWebhookEndpointBodySchema = z.object({}).optional()
 
   const getWebhookEndpointsWebhookEndpointResponseValidator =
     responseValidationFactory([["200", s_webhook_endpoint]], s_error)

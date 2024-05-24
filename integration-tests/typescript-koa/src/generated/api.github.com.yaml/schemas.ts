@@ -999,7 +999,7 @@ export const s_email = z.object({
   visibility: z.string().nullable(),
 })
 
-export const s_empty_object = z.any()
+export const s_empty_object = z.object({})
 
 export const s_enabled_repositories = z.enum(["all", "none", "selected"])
 
@@ -5098,7 +5098,7 @@ export const s_assigned_issue_event = z.object({
 export const s_authentication_token = z.object({
   token: z.string(),
   expires_at: z.string().datetime({ offset: true }),
-  permissions: z.any().optional(),
+  permissions: z.object({}).optional(),
   repositories: z.array(s_repository).optional(),
   single_file: z.string().nullable().optional(),
   repository_selection: z.enum(["all", "selected"]).optional(),

@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_actions_billing_usage = {
   included_minutes: number
   minutes_used_breakdown: {
@@ -285,7 +287,7 @@ export type t_assigned_issue_event = {
 
 export type t_authentication_token = {
   expires_at: string
-  permissions?: any
+  permissions?: EmptyObject
   repositories?: t_repository[]
   repository_selection?: "all" | "selected"
   single_file?: string | null
@@ -1866,7 +1868,7 @@ export type t_email = {
   visibility: string | null
 }
 
-export type t_empty_object = any
+export type t_empty_object = EmptyObject
 
 export type t_enabled_repositories = "all" | "none" | "selected"
 

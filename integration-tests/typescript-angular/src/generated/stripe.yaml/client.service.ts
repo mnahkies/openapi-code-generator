@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_account,
   t_account_link,
   t_account_session,
@@ -242,7 +243,7 @@ export class ApiClient {
   getAccount(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<t_account> & { status: 200 })
@@ -329,7 +330,7 @@ export class ApiClient {
         }
         documents?: {
           enabled: boolean
-          features?: any
+          features?: EmptyObject
         }
         notification_banner?: {
           enabled: boolean
@@ -365,7 +366,7 @@ export class ApiClient {
         }
         payouts_list?: {
           enabled: boolean
-          features?: any
+          features?: EmptyObject
         }
       }
       expand?: string[]
@@ -406,7 +407,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -909,7 +910,7 @@ export class ApiClient {
 
   deleteAccountsAccount(p: {
     account: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -935,7 +936,7 @@ export class ApiClient {
   getAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1447,7 +1448,7 @@ export class ApiClient {
   deleteAccountsAccountBankAccountsId(p: {
     account: string
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_external_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1475,7 +1476,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_external_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1556,7 +1557,7 @@ export class ApiClient {
   getAccountsAccountCapabilities(p: {
     account: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_capability[]
@@ -1590,7 +1591,7 @@ export class ApiClient {
     account: string
     capability: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_capability> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1653,7 +1654,7 @@ export class ApiClient {
     limit?: number
     object?: "bank_account" | "card"
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: (t_bank_account | t_card)[]
@@ -1741,7 +1742,7 @@ export class ApiClient {
   deleteAccountsAccountExternalAccountsId(p: {
     account: string
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_external_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1769,7 +1770,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_external_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -1887,7 +1888,7 @@ export class ApiClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_person[]
@@ -2053,7 +2054,7 @@ export class ApiClient {
   deleteAccountsAccountPeoplePerson(p: {
     account: string
     person: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_person> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2081,7 +2082,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_person> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2249,7 +2250,7 @@ export class ApiClient {
       representative?: boolean
     }
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_person[]
@@ -2415,7 +2416,7 @@ export class ApiClient {
   deleteAccountsAccountPersonsPerson(p: {
     account: string
     person: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_person> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2443,7 +2444,7 @@ export class ApiClient {
     account: string
     expand?: string[]
     person: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_person> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2633,7 +2634,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -2699,7 +2700,7 @@ export class ApiClient {
 
   deleteApplePayDomainsDomain(p: {
     domain: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_apple_pay_domain> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2725,7 +2726,7 @@ export class ApiClient {
   getApplePayDomainsDomain(p: {
     domain: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_apple_pay_domain> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2765,7 +2766,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -2807,7 +2808,7 @@ export class ApiClient {
     expand?: string[]
     fee: string
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_fee_refund> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2870,7 +2871,7 @@ export class ApiClient {
   getApplicationFeesId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_application_fee> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -2930,7 +2931,7 @@ export class ApiClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_fee_refund[]
@@ -3005,7 +3006,7 @@ export class ApiClient {
       user?: string
     }
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_apps_secret[]
@@ -3112,7 +3113,7 @@ export class ApiClient {
       type: "account" | "user"
       user?: string
     }
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_apps_secret> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -3144,7 +3145,7 @@ export class ApiClient {
   getBalance(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<t_balance> & { status: 200 })
@@ -3188,7 +3189,7 @@ export class ApiClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3232,7 +3233,7 @@ export class ApiClient {
   getBalanceHistoryId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_balance_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -3275,7 +3276,7 @@ export class ApiClient {
       source?: string
       startingAfter?: string
       type?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3319,7 +3320,7 @@ export class ApiClient {
   getBalanceTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_balance_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -3414,7 +3415,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "inactive"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3493,7 +3494,7 @@ export class ApiClient {
   getBillingMetersId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_meter> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -3583,7 +3584,7 @@ export class ApiClient {
     startTime: number
     startingAfter?: string
     valueGroupingWindow?: "hour"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_billing_meter_event_summary[]
@@ -3657,7 +3658,7 @@ export class ApiClient {
       isDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -3783,7 +3784,7 @@ export class ApiClient {
   getBillingPortalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_billing_portal_configuration> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -4034,7 +4035,7 @@ export class ApiClient {
       paymentIntent?: string
       startingAfter?: string
       transferGroup?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -4171,7 +4172,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_charge[]
@@ -4211,7 +4212,7 @@ export class ApiClient {
   getChargesCharge(p: {
     charge: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_charge> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -4329,7 +4330,7 @@ export class ApiClient {
   getChargesChargeDispute(p: {
     charge: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_dispute> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -4487,7 +4488,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_refund[]
@@ -4567,7 +4568,7 @@ export class ApiClient {
     charge: string
     expand?: string[]
     refund: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_refund> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -4649,7 +4650,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "complete" | "expired" | "open"
       subscription?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5486,7 +5487,7 @@ export class ApiClient {
   getCheckoutSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_checkout_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5544,7 +5545,7 @@ export class ApiClient {
     limit?: number
     session: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -5585,7 +5586,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5660,7 +5661,7 @@ export class ApiClient {
   getClimateOrdersOrder(p: {
     expand?: string[]
     order: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_order> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5753,7 +5754,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5792,7 +5793,7 @@ export class ApiClient {
   getClimateProductsProduct(p: {
     expand?: string[]
     product: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_product> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5823,7 +5824,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5862,7 +5863,7 @@ export class ApiClient {
   getClimateSuppliersSupplier(p: {
     expand?: string[]
     supplier: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_climate_supplier> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5890,7 +5891,7 @@ export class ApiClient {
   getConfirmationTokensConfirmationToken(p: {
     confirmationToken: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_confirmation_token> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -5922,7 +5923,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -5961,7 +5962,7 @@ export class ApiClient {
   getCountrySpecsCountry(p: {
     country: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_country_spec> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6000,7 +6001,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -6091,7 +6092,7 @@ export class ApiClient {
 
   deleteCouponsCoupon(p: {
     coupon: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_coupon> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6117,7 +6118,7 @@ export class ApiClient {
   getCouponsCoupon(p: {
     coupon: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_coupon> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6198,7 +6199,7 @@ export class ApiClient {
       invoice?: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -6337,7 +6338,7 @@ export class ApiClient {
     shippingCost?: {
       shipping_rate?: string
     }
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_credit_note> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6417,7 +6418,7 @@ export class ApiClient {
       shipping_rate?: string
     }
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_credit_note_line_item[]
@@ -6470,7 +6471,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_credit_note_line_item[]
@@ -6508,7 +6509,7 @@ export class ApiClient {
   getCreditNotesId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_credit_note> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6642,7 +6643,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -6859,7 +6860,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer[]
@@ -6898,7 +6899,7 @@ export class ApiClient {
 
   deleteCustomersCustomer(p: {
     customer: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_customer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -6924,7 +6925,7 @@ export class ApiClient {
   getCustomersCustomer(p: {
     customer: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer | t_deleted_customer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7081,7 +7082,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer_balance_transaction[]
@@ -7157,7 +7158,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer_balance_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7224,7 +7225,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_bank_account[]
@@ -7356,7 +7357,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_bank_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7476,7 +7477,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_card[]
@@ -7607,7 +7608,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_card> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7692,7 +7693,7 @@ export class ApiClient {
   getCustomersCustomerCashBalance(p: {
     customer: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_cash_balance> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7753,7 +7754,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_customer_cash_balance_transaction[]
@@ -7793,7 +7794,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_customer_cash_balance_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7821,7 +7822,7 @@ export class ApiClient {
 
   deleteCustomersCustomerDiscount(p: {
     customer: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7847,7 +7848,7 @@ export class ApiClient {
   getCustomersCustomerDiscount(p: {
     customer: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_discount> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -7957,7 +7958,7 @@ export class ApiClient {
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_payment_method[]
@@ -7998,7 +7999,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     paymentMethod: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8031,7 +8032,7 @@ export class ApiClient {
     limit?: number
     object?: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: (t_bank_account | t_card | t_source)[]
@@ -8164,7 +8165,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_source> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8284,7 +8285,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription[]
@@ -8469,8 +8470,8 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?: any | ""
-          sepa_debit?: any | ""
+          konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -8597,7 +8598,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8796,8 +8797,8 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?: any | ""
-          sepa_debit?: any | ""
+          konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -8895,7 +8896,7 @@ export class ApiClient {
   deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(p: {
     customer: string
     subscriptionExposedId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8923,7 +8924,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_discount> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -8955,7 +8956,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_id[]
@@ -9093,7 +9094,7 @@ export class ApiClient {
   deleteCustomersCustomerTaxIdsId(p: {
     customer: string
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_tax_id> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9121,7 +9122,7 @@ export class ApiClient {
     customer: string
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_id> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9163,7 +9164,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -9205,7 +9206,7 @@ export class ApiClient {
   getDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_dispute> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9325,7 +9326,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_entitlements_active_entitlement[]
@@ -9364,7 +9365,7 @@ export class ApiClient {
   getEntitlementsActiveEntitlementsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_entitlements_active_entitlement> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9395,7 +9396,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -9465,7 +9466,7 @@ export class ApiClient {
   getEntitlementsFeaturesId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_entitlements_feature> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9598,7 +9599,7 @@ export class ApiClient {
       startingAfter?: string
       type?: string
       types?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -9641,7 +9642,7 @@ export class ApiClient {
   getEventsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_event> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9672,7 +9673,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -9711,7 +9712,7 @@ export class ApiClient {
   getExchangeRatesRateId(p: {
     expand?: string[]
     rateId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_exchange_rate> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9752,7 +9753,7 @@ export class ApiClient {
       file?: string
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -9827,7 +9828,7 @@ export class ApiClient {
   getFileLinksLink(p: {
     expand?: string[]
     link: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_file_link> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -9915,7 +9916,7 @@ export class ApiClient {
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10001,7 +10002,7 @@ export class ApiClient {
   getFilesFile(p: {
     expand?: string[]
     file: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_file> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10037,7 +10038,7 @@ export class ApiClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10078,7 +10079,7 @@ export class ApiClient {
   getFinancialConnectionsAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10139,7 +10140,7 @@ export class ApiClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account_owner[]
@@ -10308,7 +10309,7 @@ export class ApiClient {
   getFinancialConnectionsSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10351,7 +10352,7 @@ export class ApiClient {
     transactionRefresh?: {
       after: string
     }
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_transaction[]
@@ -10392,7 +10393,7 @@ export class ApiClient {
   getFinancialConnectionsTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10430,7 +10431,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10511,7 +10512,7 @@ export class ApiClient {
   getForwardingRequestsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_forwarding_request> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10553,7 +10554,7 @@ export class ApiClient {
       startingAfter?: string
       type?: "document" | "id_number"
       verificationSession?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10596,7 +10597,7 @@ export class ApiClient {
   getIdentityVerificationReportsReport(p: {
     expand?: string[]
     report: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_identity_verification_report> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10637,7 +10638,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10728,7 +10729,7 @@ export class ApiClient {
   getIdentityVerificationSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_identity_verification_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -10873,7 +10874,7 @@ export class ApiClient {
       limit?: number
       pending?: boolean
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -10978,7 +10979,7 @@ export class ApiClient {
 
   deleteInvoiceitemsInvoiceitem(p: {
     invoiceitem: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_invoiceitem> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -11004,7 +11005,7 @@ export class ApiClient {
   getInvoiceitemsInvoiceitem(p: {
     expand?: string[]
     invoiceitem: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoiceitem> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -11115,7 +11116,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "draft" | "open" | "paid" | "uncollectible" | "void"
       subscription?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -11255,8 +11256,8 @@ export class ApiClient {
                   funding_type?: string
                 }
               | ""
-            konbini?: any | ""
-            sepa_debit?: any | ""
+            konbini?: EmptyObject | ""
+            sepa_debit?: EmptyObject | ""
             us_bank_account?:
               | {
                   financial_connections?: {
@@ -11740,7 +11741,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_invoice[]
@@ -12146,7 +12147,7 @@ export class ApiClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<t_invoice> & { status: 200 })
@@ -12570,7 +12571,7 @@ export class ApiClient {
       subscriptionResumeAt?: "now"
       subscriptionStartDate?: number
       subscriptionTrialEnd?: "now" | number
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -12632,7 +12633,7 @@ export class ApiClient {
 
   deleteInvoicesInvoice(p: {
     invoice: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_invoice> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -12658,7 +12659,7 @@ export class ApiClient {
   getInvoicesInvoice(p: {
     expand?: string[]
     invoice: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_invoice> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -12772,8 +12773,8 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?: any | ""
-          sepa_debit?: any | ""
+          konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -12941,7 +12942,7 @@ export class ApiClient {
     invoice: string
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_line_item[]
@@ -13202,7 +13203,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "closed" | "pending" | "reversed"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -13245,7 +13246,7 @@ export class ApiClient {
   getIssuingAuthorizationsAuthorization(p: {
     authorization: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_authorization> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -13387,7 +13388,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "active" | "blocked" | "inactive"
       type?: "company" | "individual"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -14407,7 +14408,7 @@ export class ApiClient {
   getIssuingCardholdersCardholder(p: {
     cardholder: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_cardholder> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -15428,7 +15429,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "active" | "canceled" | "inactive"
       type?: "physical" | "virtual"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -16439,7 +16440,7 @@ export class ApiClient {
   getIssuingCardsCard(p: {
     card: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_card> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -17423,7 +17424,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
       transaction?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -17577,7 +17578,7 @@ export class ApiClient {
   getIssuingDisputesDispute(p: {
     dispute: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_dispute> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -17755,7 +17756,7 @@ export class ApiClient {
       }
       startingAfter?: string
       status?: "active" | "inactive" | "rejected" | "review"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -17840,7 +17841,7 @@ export class ApiClient {
   getIssuingPersonalizationDesignsPersonalizationDesign(p: {
     expand?: string[]
     personalizationDesign: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_personalization_design> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -17921,7 +17922,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "active" | "inactive" | "review"
       type?: "custom" | "standard"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -17962,7 +17963,7 @@ export class ApiClient {
   getIssuingPhysicalBundlesPhysicalBundle(p: {
     expand?: string[]
     physicalBundle: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_physical_bundle> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18002,7 +18003,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -18042,7 +18043,7 @@ export class ApiClient {
   getIssuingSettlementsSettlement(p: {
     expand?: string[]
     settlement: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_settlement> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18112,7 +18113,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "active" | "deleted" | "requested" | "suspended"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_issuing_token[]
@@ -18153,7 +18154,7 @@ export class ApiClient {
   getIssuingTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_token> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18223,7 +18224,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       type?: "capture" | "refund"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -18266,7 +18267,7 @@ export class ApiClient {
   getIssuingTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_issuing_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18368,7 +18369,7 @@ export class ApiClient {
   getLinkAccountSessionsSession(p: {
     expand?: string[]
     session: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_session> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18404,7 +18405,7 @@ export class ApiClient {
       limit?: number
       session?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -18445,7 +18446,7 @@ export class ApiClient {
   getLinkedAccountsAccount(p: {
     account: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_financial_connections_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18504,7 +18505,7 @@ export class ApiClient {
     limit?: number
     ownership: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_financial_connections_account_owner[]
@@ -18571,7 +18572,7 @@ export class ApiClient {
   getMandatesMandate(p: {
     expand?: string[]
     mandate: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_mandate> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -18611,7 +18612,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -18671,7 +18672,7 @@ export class ApiClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: any
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -18693,11 +18694,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -18706,7 +18707,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -18722,12 +18723,12 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: any
-        customer_balance?: any
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -18784,8 +18785,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -18805,7 +18806,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -18813,13 +18814,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -18849,21 +18850,21 @@ export class ApiClient {
             | "velobank"
             | "volkswagen_bank"
         }
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -18906,8 +18907,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -19102,7 +19103,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?: any | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -19242,7 +19243,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: any
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -19359,7 +19360,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_payment_intent[]
@@ -19400,7 +19401,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_intent> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -19451,11 +19452,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -19464,7 +19465,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -19480,12 +19481,12 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: any
-        customer_balance?: any
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -19542,8 +19543,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -19563,7 +19564,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -19571,13 +19572,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -19607,21 +19608,21 @@ export class ApiClient {
             | "velobank"
             | "volkswagen_bank"
         }
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -19664,8 +19665,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -19860,7 +19861,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?: any | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -20000,7 +20001,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: any
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -20223,7 +20224,7 @@ export class ApiClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: any
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -20249,11 +20250,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -20262,7 +20263,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -20278,12 +20279,12 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: any
-        customer_balance?: any
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -20340,8 +20341,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -20361,7 +20362,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -20369,13 +20370,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -20405,21 +20406,21 @@ export class ApiClient {
             | "velobank"
             | "volkswagen_bank"
         }
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -20462,8 +20463,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?:
@@ -20658,7 +20659,7 @@ export class ApiClient {
               setup_future_usage?: "" | "none" | "off_session"
             }
           | ""
-        interac_present?: any | ""
+        interac_present?: EmptyObject | ""
         klarna?:
           | {
               capture_method?: "" | "manual"
@@ -20798,7 +20799,7 @@ export class ApiClient {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: any
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -20981,7 +20982,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -21487,7 +21488,7 @@ export class ApiClient {
   getPaymentLinksPaymentLink(p: {
     expand?: string[]
     paymentLink: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_link> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -21971,7 +21972,7 @@ export class ApiClient {
     limit?: number
     paymentLink: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -22013,7 +22014,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -22278,7 +22279,7 @@ export class ApiClient {
   getPaymentMethodConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method_configuration> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -22537,7 +22538,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -22606,7 +22607,7 @@ export class ApiClient {
   getPaymentMethodDomainsPaymentMethodDomain(p: {
     expand?: string[]
     paymentMethodDomain: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method_domain> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -22732,7 +22733,7 @@ export class ApiClient {
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -22778,11 +22779,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -22791,7 +22792,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -22807,7 +22808,7 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
@@ -22824,9 +22825,9 @@ export class ApiClient {
           | {
               token: string
             }
-        cashapp?: any
+        cashapp?: EmptyObject
         customer?: string
-        customer_balance?: any
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -22884,8 +22885,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -22905,7 +22906,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -22913,13 +22914,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -22950,21 +22951,21 @@ export class ApiClient {
             | "volkswagen_bank"
         }
         payment_method?: string
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type?:
           | "acss_debit"
           | "affirm"
@@ -23008,8 +23009,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
     } = {},
   ): Observable<
@@ -23037,7 +23038,7 @@ export class ApiClient {
   getPaymentMethodsPaymentMethod(p: {
     expand?: string[]
     paymentMethod: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payment_method> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23089,7 +23090,7 @@ export class ApiClient {
         }
       }
       expand?: string[]
-      link?: any
+      link?: EmptyObject
       metadata?:
         | {
             [key: string]: string | undefined
@@ -23201,7 +23202,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -23280,7 +23281,7 @@ export class ApiClient {
   getPayoutsPayout(p: {
     expand?: string[]
     payout: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_payout> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23410,7 +23411,7 @@ export class ApiClient {
       limit?: number
       product?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -23520,7 +23521,7 @@ export class ApiClient {
 
   deletePlansPlan(p: {
     plan: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_plan> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23546,7 +23547,7 @@ export class ApiClient {
   getPlansPlan(p: {
     expand?: string[]
     plan: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_plan> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23631,7 +23632,7 @@ export class ApiClient {
       }
       startingAfter?: string
       type?: "one_time" | "recurring"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -23776,7 +23777,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_price[]
@@ -23816,7 +23817,7 @@ export class ApiClient {
   getPricesPrice(p: {
     expand?: string[]
     price: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_price> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -23920,7 +23921,7 @@ export class ApiClient {
       shippable?: boolean
       startingAfter?: string
       url?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -24046,7 +24047,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_product[]
@@ -24085,7 +24086,7 @@ export class ApiClient {
 
   deleteProductsId(p: {
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_product> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24111,7 +24112,7 @@ export class ApiClient {
   getProductsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_product> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24197,7 +24198,7 @@ export class ApiClient {
     limit?: number
     product: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_product_feature[]
@@ -24263,7 +24264,7 @@ export class ApiClient {
   deleteProductsProductFeaturesId(p: {
     id: string
     product: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_product_feature> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24290,7 +24291,7 @@ export class ApiClient {
     expand?: string[]
     id: string
     product: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_product_feature> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24333,7 +24334,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -24424,7 +24425,7 @@ export class ApiClient {
   getPromotionCodesPromotionCode(p: {
     expand?: string[]
     promotionCode: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_promotion_code> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24500,7 +24501,7 @@ export class ApiClient {
       startingAfter?: string
       status?: "accepted" | "canceled" | "draft" | "open"
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -24647,7 +24648,7 @@ export class ApiClient {
   getQuotesQuote(p: {
     expand?: string[]
     quote: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_quote> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24832,7 +24833,7 @@ export class ApiClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -24902,7 +24903,7 @@ export class ApiClient {
     limit?: number
     quote: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_item[]
@@ -24940,7 +24941,7 @@ export class ApiClient {
   getQuotesQuotePdf(p: {
     expand?: string[]
     quote: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<string> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -24981,7 +24982,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -25023,7 +25024,7 @@ export class ApiClient {
   getRadarEarlyFraudWarningsEarlyFraudWarning(p: {
     earlyFraudWarning: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_early_fraud_warning> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25064,7 +25065,7 @@ export class ApiClient {
     startingAfter?: string
     value?: string
     valueList: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_radar_value_list_item[]
@@ -25132,7 +25133,7 @@ export class ApiClient {
 
   deleteRadarValueListItemsItem(p: {
     item: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_radar_value_list_item> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25158,7 +25159,7 @@ export class ApiClient {
   getRadarValueListItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_value_list_item> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25199,7 +25200,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -25282,7 +25283,7 @@ export class ApiClient {
 
   deleteRadarValueListsValueList(p: {
     valueList: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_radar_value_list> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25308,7 +25309,7 @@ export class ApiClient {
   getRadarValueListsValueList(p: {
     expand?: string[]
     valueList: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_radar_value_list> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25381,7 +25382,7 @@ export class ApiClient {
       limit?: number
       paymentIntent?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -25466,7 +25467,7 @@ export class ApiClient {
   getRefundsRefund(p: {
     expand?: string[]
     refund: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_refund> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -25564,7 +25565,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26276,7 +26277,7 @@ export class ApiClient {
   getReportingReportRunsReportRun(p: {
     expand?: string[]
     reportRun: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_reporting_report_run> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -26304,7 +26305,7 @@ export class ApiClient {
   getReportingReportTypes(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26338,7 +26339,7 @@ export class ApiClient {
   getReportingReportTypesReportType(p: {
     expand?: string[]
     reportType: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_reporting_report_type> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -26377,7 +26378,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26417,7 +26418,7 @@ export class ApiClient {
   getReviewsReview(p: {
     expand?: string[]
     review: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_review> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -26483,7 +26484,7 @@ export class ApiClient {
     limit?: number
     setupIntent: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_setup_attempt[]
@@ -26537,7 +26538,7 @@ export class ApiClient {
       limit?: number
       paymentMethod?: string
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -26595,7 +26596,7 @@ export class ApiClient {
           | {
               customer_acceptance: {
                 accepted_at?: number
-                offline?: any
+                offline?: EmptyObject
                 online?: {
                   ip_address: string
                   user_agent: string
@@ -26616,11 +26617,11 @@ export class ApiClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -26629,7 +26630,7 @@ export class ApiClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -26645,12 +26646,12 @@ export class ApiClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -26707,8 +26708,8 @@ export class ApiClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -26728,7 +26729,7 @@ export class ApiClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -26736,13 +26737,13 @@ export class ApiClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -26772,21 +26773,21 @@ export class ApiClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26829,8 +26830,8 @@ export class ApiClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         payment_method_options?: {
           acss_debit?: {
@@ -26844,7 +26845,7 @@ export class ApiClient {
             }
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           card?: {
             mandate_options?: {
               amount: number
@@ -26887,13 +26888,13 @@ export class ApiClient {
               version?: "1.0.2" | "2.1.0" | "2.2.0"
             }
           }
-          card_present?: any
-          link?: any
+          card_present?: EmptyObject
+          link?: EmptyObject
           paypal?: {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: any
+            mandate_options?: EmptyObject
           }
           us_bank_account?: {
             financial_connections?: {
@@ -26951,7 +26952,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     intent: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_setup_intent> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -27000,11 +27001,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -27013,7 +27014,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -27029,12 +27030,12 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: any
-        customer_balance?: any
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -27091,8 +27092,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -27112,7 +27113,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -27120,13 +27121,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -27156,21 +27157,21 @@ export class ApiClient {
             | "velobank"
             | "volkswagen_bank"
         }
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -27213,8 +27214,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -27228,7 +27229,7 @@ export class ApiClient {
           }
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         card?: {
           mandate_options?: {
             amount: number
@@ -27271,13 +27272,13 @@ export class ApiClient {
             version?: "1.0.2" | "2.1.0" | "2.2.0"
           }
         }
-        card_present?: any
-        link?: any
+        card_present?: EmptyObject
+        link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
         }
         sepa_debit?: {
-          mandate_options?: any
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -27361,7 +27362,7 @@ export class ApiClient {
         | {
             customer_acceptance: {
               accepted_at?: number
-              offline?: any
+              offline?: EmptyObject
               online?: {
                 ip_address: string
                 user_agent: string
@@ -27386,11 +27387,11 @@ export class ApiClient {
           institution_number: string
           transit_number: string
         }
-        affirm?: any
-        afterpay_clearpay?: any
-        alipay?: any
+        affirm?: EmptyObject
+        afterpay_clearpay?: EmptyObject
+        alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
           bsb_number: string
@@ -27399,7 +27400,7 @@ export class ApiClient {
           account_number?: string
           sort_code?: string
         }
-        bancontact?: any
+        bancontact?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -27415,12 +27416,12 @@ export class ApiClient {
           name?: string | ""
           phone?: string | ""
         }
-        blik?: any
+        blik?: EmptyObject
         boleto?: {
           tax_id: string
         }
-        cashapp?: any
-        customer_balance?: any
+        cashapp?: EmptyObject
+        customer_balance?: EmptyObject
         eps?: {
           bank?:
             | "arzte_und_apotheker_bank"
@@ -27477,8 +27478,8 @@ export class ApiClient {
             | "standard_chartered"
             | "uob"
         }
-        giropay?: any
-        grabpay?: any
+        giropay?: EmptyObject
+        grabpay?: EmptyObject
         ideal?: {
           bank?:
             | "abn_amro"
@@ -27498,7 +27499,7 @@ export class ApiClient {
             | "van_lanschot"
             | "yoursafe"
         }
-        interac_present?: any
+        interac_present?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -27506,13 +27507,13 @@ export class ApiClient {
             year: number
           }
         }
-        konbini?: any
-        link?: any
+        konbini?: EmptyObject
+        link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
-        mobilepay?: any
-        oxxo?: any
+        mobilepay?: EmptyObject
+        oxxo?: EmptyObject
         p24?: {
           bank?:
             | "alior_bank"
@@ -27542,21 +27543,21 @@ export class ApiClient {
             | "velobank"
             | "volkswagen_bank"
         }
-        paynow?: any
-        paypal?: any
-        pix?: any
-        promptpay?: any
+        paynow?: EmptyObject
+        paypal?: EmptyObject
+        pix?: EmptyObject
+        promptpay?: EmptyObject
         radar_options?: {
           session?: string
         }
-        revolut_pay?: any
+        revolut_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
         sofort?: {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
-        swish?: any
+        swish?: EmptyObject
         type:
           | "acss_debit"
           | "affirm"
@@ -27599,8 +27600,8 @@ export class ApiClient {
           financial_connections_account?: string
           routing_number?: string
         }
-        wechat_pay?: any
-        zip?: any
+        wechat_pay?: EmptyObject
+        zip?: EmptyObject
       }
       payment_method_options?: {
         acss_debit?: {
@@ -27614,7 +27615,7 @@ export class ApiClient {
           }
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
-        amazon_pay?: any
+        amazon_pay?: EmptyObject
         card?: {
           mandate_options?: {
             amount: number
@@ -27657,13 +27658,13 @@ export class ApiClient {
             version?: "1.0.2" | "2.1.0" | "2.2.0"
           }
         }
-        card_present?: any
-        link?: any
+        card_present?: EmptyObject
+        link?: EmptyObject
         paypal?: {
           billing_agreement_id?: string
         }
         sepa_debit?: {
-          mandate_options?: any
+          mandate_options?: EmptyObject
         }
         us_bank_account?: {
           financial_connections?: {
@@ -27757,7 +27758,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27854,7 +27855,7 @@ export class ApiClient {
   getShippingRatesShippingRateToken(p: {
     expand?: string[]
     shippingRateToken: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_shipping_rate> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -27929,7 +27930,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -27968,7 +27969,7 @@ export class ApiClient {
   getSigmaScheduledQueryRunsScheduledQueryRun(p: {
     expand?: string[]
     scheduledQueryRun: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_scheduled_query_run> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -28107,7 +28108,7 @@ export class ApiClient {
     clientSecret?: string
     expand?: string[]
     source: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -28235,7 +28236,7 @@ export class ApiClient {
     expand?: string[]
     mandateNotification: string
     source: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source_mandate_notification> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -28267,7 +28268,7 @@ export class ApiClient {
     limit?: number
     source: string
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_source_transaction[]
@@ -28306,7 +28307,7 @@ export class ApiClient {
     expand?: string[]
     source: string
     sourceTransaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_source_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -28366,7 +28367,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     subscription: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription_item[]
@@ -28497,7 +28498,7 @@ export class ApiClient {
   getSubscriptionItemsItem(p: {
     expand?: string[]
     item: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription_item> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -28594,7 +28595,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     subscriptionItem: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_usage_record_summary[]
@@ -28701,7 +28702,7 @@ export class ApiClient {
         | number
       scheduled?: boolean
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -28917,7 +28918,7 @@ export class ApiClient {
   getSubscriptionSchedulesSchedule(p: {
     expand?: string[]
     schedule: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription_schedule> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -29217,7 +29218,7 @@ export class ApiClient {
         | "trialing"
         | "unpaid"
       testClock?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -29421,8 +29422,8 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?: any | ""
-          sepa_debit?: any | ""
+          konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -29519,7 +29520,7 @@ export class ApiClient {
     limit?: number
     page?: string
     query: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_subscription[]
@@ -29601,7 +29602,7 @@ export class ApiClient {
   getSubscriptionsSubscriptionExposedId(p: {
     expand?: string[]
     subscriptionExposedId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_subscription> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -29800,8 +29801,8 @@ export class ApiClient {
                 funding_type?: string
               }
             | ""
-          konbini?: any | ""
-          sepa_debit?: any | ""
+          konbini?: EmptyObject | ""
+          sepa_debit?: EmptyObject | ""
           us_bank_account?:
             | {
                 financial_connections?: {
@@ -29897,7 +29898,7 @@ export class ApiClient {
 
   deleteSubscriptionsSubscriptionExposedIdDiscount(p: {
     subscriptionExposedId: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_discount> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -30098,7 +30099,7 @@ export class ApiClient {
     expand?: string[]
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_calculation_line_item[]
@@ -30141,7 +30142,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "active" | "all" | "expired" | "scheduled"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -30454,7 +30455,7 @@ export class ApiClient {
   getTaxRegistrationsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_registration> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -30511,7 +30512,7 @@ export class ApiClient {
   getTaxSettings(
     p: {
       expand?: string[]
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<t_tax_settings> & { status: 200 })
@@ -30660,7 +30661,7 @@ export class ApiClient {
   getTaxTransactionsTransaction(p: {
     expand?: string[]
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -30691,7 +30692,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     transaction: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_tax_transaction_line_item[]
@@ -30733,7 +30734,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -30772,7 +30773,7 @@ export class ApiClient {
   getTaxCodesId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_code> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -30808,7 +30809,7 @@ export class ApiClient {
         type: "account" | "application" | "customer" | "self"
       }
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -30951,7 +30952,7 @@ export class ApiClient {
 
   deleteTaxIdsId(p: {
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_tax_id> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -30977,7 +30978,7 @@ export class ApiClient {
   getTaxIdsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_id> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -31018,7 +31019,7 @@ export class ApiClient {
       inclusive?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -31110,7 +31111,7 @@ export class ApiClient {
   getTaxRatesTaxRate(p: {
     expand?: string[]
     taxRate: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_tax_rate> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -31193,7 +31194,7 @@ export class ApiClient {
       isAccountDefault?: boolean
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -31346,7 +31347,7 @@ export class ApiClient {
 
   deleteTerminalConfigurationsConfiguration(p: {
     configuration: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_configuration> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -31373,7 +31374,7 @@ export class ApiClient {
   getTerminalConfigurationsConfiguration(p: {
     configuration: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<
         t_terminal_configuration | t_deleted_terminal_configuration
@@ -31556,7 +31557,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -31635,7 +31636,7 @@ export class ApiClient {
 
   deleteTerminalLocationsLocation(p: {
     location: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_location> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -31661,7 +31662,7 @@ export class ApiClient {
   getTerminalLocationsLocation(p: {
     expand?: string[]
     location: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_terminal_location | t_deleted_terminal_location> & {
         status: 200
@@ -31749,7 +31750,7 @@ export class ApiClient {
       serialNumber?: string
       startingAfter?: string
       status?: "offline" | "online"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -31825,7 +31826,7 @@ export class ApiClient {
 
   deleteTerminalReadersReader(p: {
     reader: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_terminal_reader> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -31851,7 +31852,7 @@ export class ApiClient {
   getTerminalReadersReader(p: {
     expand?: string[]
     reader: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_terminal_reader | t_deleted_terminal_reader> & {
         status: 200
@@ -32099,11 +32100,11 @@ export class ApiClient {
             institution_number: string
             transit_number: string
           }
-          affirm?: any
-          afterpay_clearpay?: any
-          alipay?: any
+          affirm?: EmptyObject
+          afterpay_clearpay?: EmptyObject
+          alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
-          amazon_pay?: any
+          amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
             bsb_number: string
@@ -32112,7 +32113,7 @@ export class ApiClient {
             account_number?: string
             sort_code?: string
           }
-          bancontact?: any
+          bancontact?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -32128,12 +32129,12 @@ export class ApiClient {
             name?: string | ""
             phone?: string | ""
           }
-          blik?: any
+          blik?: EmptyObject
           boleto?: {
             tax_id: string
           }
-          cashapp?: any
-          customer_balance?: any
+          cashapp?: EmptyObject
+          customer_balance?: EmptyObject
           eps?: {
             bank?:
               | "arzte_und_apotheker_bank"
@@ -32190,8 +32191,8 @@ export class ApiClient {
               | "standard_chartered"
               | "uob"
           }
-          giropay?: any
-          grabpay?: any
+          giropay?: EmptyObject
+          grabpay?: EmptyObject
           ideal?: {
             bank?:
               | "abn_amro"
@@ -32211,7 +32212,7 @@ export class ApiClient {
               | "van_lanschot"
               | "yoursafe"
           }
-          interac_present?: any
+          interac_present?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -32219,13 +32220,13 @@ export class ApiClient {
               year: number
             }
           }
-          konbini?: any
-          link?: any
+          konbini?: EmptyObject
+          link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
-          mobilepay?: any
-          oxxo?: any
+          mobilepay?: EmptyObject
+          oxxo?: EmptyObject
           p24?: {
             bank?:
               | "alior_bank"
@@ -32255,21 +32256,21 @@ export class ApiClient {
               | "velobank"
               | "volkswagen_bank"
           }
-          paynow?: any
-          paypal?: any
-          pix?: any
-          promptpay?: any
+          paynow?: EmptyObject
+          paypal?: EmptyObject
+          pix?: EmptyObject
+          promptpay?: EmptyObject
           radar_options?: {
             session?: string
           }
-          revolut_pay?: any
+          revolut_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
           sofort?: {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
-          swish?: any
+          swish?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -32312,8 +32313,8 @@ export class ApiClient {
             financial_connections_account?: string
             routing_number?: string
           }
-          wechat_pay?: any
-          zip?: any
+          wechat_pay?: EmptyObject
+          zip?: EmptyObject
         }
         return_url?: string
         setup_future_usage?: "off_session" | "on_session"
@@ -33969,7 +33970,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -34035,7 +34036,7 @@ export class ApiClient {
 
   deleteTestHelpersTestClocksTestClock(p: {
     testClock: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_test_helpers_test_clock> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -34061,7 +34062,7 @@ export class ApiClient {
   getTestHelpersTestClocksTestClock(p: {
     expand?: string[]
     testClock: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_test_helpers_test_clock> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -34821,7 +34822,7 @@ export class ApiClient {
   getTokensToken(p: {
     expand?: string[]
     token: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_token> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -34869,7 +34870,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       status?: "canceled" | "failed" | "pending" | "succeeded"
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -34948,7 +34949,7 @@ export class ApiClient {
   getTopupsTopup(p: {
     expand?: string[]
     topup: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_topup> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35049,7 +35050,7 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       transferGroup?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -35130,7 +35131,7 @@ export class ApiClient {
     id: string
     limit?: number
     startingAfter?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_transfer_reversal[]
@@ -35203,7 +35204,7 @@ export class ApiClient {
   getTransfersTransfer(p: {
     expand?: string[]
     transfer: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_transfer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35265,7 +35266,7 @@ export class ApiClient {
     expand?: string[]
     id: string
     transfer: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_transfer_reversal> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35333,7 +35334,7 @@ export class ApiClient {
     receivedCredit?: string
     startingAfter?: string
     status?: "canceled" | "posted" | "processing"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_credit_reversal[]
@@ -35404,7 +35405,7 @@ export class ApiClient {
   getTreasuryCreditReversalsCreditReversal(p: {
     creditReversal: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_credit_reversal> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35439,7 +35440,7 @@ export class ApiClient {
     resolution?: "lost" | "won"
     startingAfter?: string
     status?: "canceled" | "completed" | "processing"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_debit_reversal[]
@@ -35511,7 +35512,7 @@ export class ApiClient {
   getTreasuryDebitReversalsDebitReversal(p: {
     debitReversal: string
     expand?: string[]
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_debit_reversal> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35551,7 +35552,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -35662,7 +35663,7 @@ export class ApiClient {
   getTreasuryFinancialAccountsFinancialAccount(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_financial_account> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35763,7 +35764,7 @@ export class ApiClient {
   getTreasuryFinancialAccountsFinancialAccountFeatures(p: {
     expand?: string[]
     financialAccount: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_financial_account_features> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -35859,7 +35860,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "processing" | "succeeded"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_inbound_transfer[]
@@ -35934,7 +35935,7 @@ export class ApiClient {
   getTreasuryInboundTransfersId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_inbound_transfer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36003,7 +36004,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_outbound_payment[]
@@ -36121,7 +36122,7 @@ export class ApiClient {
   getTreasuryOutboundPaymentsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_outbound_payment> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36180,7 +36181,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "canceled" | "failed" | "posted" | "processing" | "returned"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_outbound_transfer[]
@@ -36262,7 +36263,7 @@ export class ApiClient {
   getTreasuryOutboundTransfersOutboundTransfer(p: {
     expand?: string[]
     outboundTransfer: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_outbound_transfer> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36330,7 +36331,7 @@ export class ApiClient {
     }
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_received_credit[]
@@ -36371,7 +36372,7 @@ export class ApiClient {
   getTreasuryReceivedCreditsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_received_credit> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36403,7 +36404,7 @@ export class ApiClient {
     limit?: number
     startingAfter?: string
     status?: "failed" | "succeeded"
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_received_debit[]
@@ -36443,7 +36444,7 @@ export class ApiClient {
   getTreasuryReceivedDebitsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_received_debit> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36492,7 +36493,7 @@ export class ApiClient {
     orderBy?: "created" | "effective_at"
     startingAfter?: string
     transaction?: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_transaction_entry[]
@@ -36535,7 +36536,7 @@ export class ApiClient {
   getTreasuryTransactionEntriesId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_transaction_entry> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36586,7 +36587,7 @@ export class ApiClient {
           }
         | number
     }
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
         data: t_treasury_transaction[]
@@ -36629,7 +36630,7 @@ export class ApiClient {
   getTreasuryTransactionsId(p: {
     expand?: string[]
     id: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_treasury_transaction> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -36660,7 +36661,7 @@ export class ApiClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      requestBody?: any
+      requestBody?: EmptyObject
     } = {},
   ): Observable<
     | (HttpResponse<{
@@ -37064,7 +37065,7 @@ export class ApiClient {
 
   deleteWebhookEndpointsWebhookEndpoint(p: {
     webhookEndpoint: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_deleted_webhook_endpoint> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
@@ -37090,7 +37091,7 @@ export class ApiClient {
   getWebhookEndpointsWebhookEndpoint(p: {
     expand?: string[]
     webhookEndpoint: string
-    requestBody?: any
+    requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<t_webhook_endpoint> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })

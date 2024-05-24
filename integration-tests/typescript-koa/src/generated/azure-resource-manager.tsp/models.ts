@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_Azure_ResourceManager_ErrorResponse = {
   error?: t_Azure_ResourceManager_Foundations_ErrorDetail
 }
@@ -11,10 +13,10 @@ export type t_Azure_ResourceManager_Foundations_ActionType = "Internal"
 export type t_Azure_ResourceManager_Foundations_ArmResource =
   t_Azure_ResourceManager_Foundations_ArmResourceBase
 
-export type t_Azure_ResourceManager_Foundations_ArmResourceBase = any
+export type t_Azure_ResourceManager_Foundations_ArmResourceBase = EmptyObject
 
 export type t_Azure_ResourceManager_Foundations_ErrorAdditionalInfo = {
-  readonly info?: any
+  readonly info?: EmptyObject
   readonly type?: string
 }
 
