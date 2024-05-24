@@ -841,7 +841,7 @@ export const s_copilot_usage_metrics = z.object({
           lines_accepted: z.coerce.number().optional(),
           active_users: z.coerce.number().optional(),
         }),
-        z.record(z.any()),
+        z.record(z.unknown()),
       ),
     )
     .nullable(),
@@ -1166,7 +1166,7 @@ export const s_gpg_key = z.object({
           }),
         )
         .optional(),
-      subkeys: z.array(z.any()).optional(),
+      subkeys: z.array(z.unknown()).optional(),
       can_sign: PermissiveBoolean.optional(),
       can_encrypt_comms: PermissiveBoolean.optional(),
       can_encrypt_storage: PermissiveBoolean.optional(),
@@ -1201,11 +1201,11 @@ export const s_hook_delivery = z.object({
   repository_id: z.coerce.number().nullable(),
   url: z.string().optional(),
   request: z.object({
-    headers: z.record(z.any()).nullable(),
-    payload: z.record(z.any()).nullable(),
+    headers: z.record(z.unknown()).nullable(),
+    payload: z.record(z.unknown()).nullable(),
   }),
   response: z.object({
-    headers: z.record(z.any()).nullable(),
+    headers: z.record(z.unknown()).nullable(),
     payload: z.string().nullable(),
   }),
 })
@@ -3100,8 +3100,8 @@ export const s_base_gist = z.object({
   comments_url: z.string(),
   owner: s_simple_user.optional(),
   truncated: PermissiveBoolean.optional(),
-  forks: z.array(z.any()).optional(),
-  history: z.array(z.any()).optional(),
+  forks: z.array(z.unknown()).optional(),
+  history: z.array(z.unknown()).optional(),
 })
 
 export const s_classroom = z.object({
@@ -3255,7 +3255,7 @@ export const s_copilot_organization_details = z.intersection(
       "unconfigured",
     ]),
   }),
-  z.record(z.any()),
+  z.record(z.unknown()),
 )
 
 export const s_dependabot_alert_security_vulnerability = z.object({
@@ -5497,7 +5497,7 @@ export const s_deployment = z.object({
   sha: z.string(),
   ref: z.string(),
   task: z.string(),
-  payload: z.union([z.record(z.any()), z.string()]),
+  payload: z.union([z.record(z.unknown()), z.string()]),
   original_environment: z.string().optional(),
   environment: z.string(),
   description: z.string().nullable(),
@@ -5711,7 +5711,7 @@ export const s_full_repository = z.object({
   anonymous_access_enabled: PermissiveBoolean.optional(),
   code_of_conduct: s_code_of_conduct_simple.optional(),
   security_and_analysis: s_security_and_analysis.optional(),
-  custom_properties: z.record(z.any()).optional(),
+  custom_properties: z.record(z.unknown()).optional(),
 })
 
 export const s_gist_simple = z.object({
@@ -5756,8 +5756,8 @@ export const s_gist_simple = z.object({
       comments_url: z.string(),
       owner: s_nullable_simple_user.optional(),
       truncated: PermissiveBoolean.optional(),
-      forks: z.array(z.any()).optional(),
-      history: z.array(z.any()).optional(),
+      forks: z.array(z.unknown()).optional(),
+      history: z.array(z.unknown()).optional(),
     })
     .nullable()
     .optional(),

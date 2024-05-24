@@ -357,11 +357,11 @@ export type t_base_gist = {
         }
       | undefined
   }
-  forks?: any[]
+  forks?: unknown[]
   forks_url: string
   git_pull_url: string
   git_push_url: string
-  history?: any[]
+  history?: unknown[]
   html_url: string
   id: string
   node_id: string
@@ -2222,11 +2222,11 @@ export type t_gist_simple = {
           }
         | undefined
     }
-    forks?: any[]
+    forks?: unknown[]
     forks_url: string
     git_pull_url: string
     git_push_url: string
-    history?: any[]
+    history?: unknown[]
     html_url: string
     id: string
     node_id: string
@@ -2420,7 +2420,7 @@ export type t_gpg_key = {
     public_key?: string
     raw_key?: string | null
     revoked?: boolean
-    subkeys?: any[]
+    subkeys?: unknown[]
   }[]
 }
 

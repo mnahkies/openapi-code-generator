@@ -1851,7 +1851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const replaceProfileBodySchema = z.object({
-    profile: z.record(z.any()).optional(),
+    profile: z.record(z.unknown()).optional(),
   })
 
   const replaceProfileResponseValidator = responseValidationFactory(

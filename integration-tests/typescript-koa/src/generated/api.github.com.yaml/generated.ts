@@ -21092,7 +21092,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               webhook_secret: z.string().nullable(),
               pem: z.string(),
             }),
-            z.record(z.any()),
+            z.record(z.unknown()),
           ),
         ),
       ],
@@ -21364,7 +21364,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -25948,7 +25948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsDeleteResponseValidator = responseValidationFactory(
     [
-      ["202", z.record(z.any())],
+      ["202", z.record(z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -31729,7 +31729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -32706,7 +32706,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteFromOrganizationResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],
@@ -35214,7 +35214,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsReviewPatGrantRequestsInBulkResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["403", s_basic_error],
         ["404", s_basic_error],
         ["422", s_validation_error],
@@ -35519,7 +35519,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsUpdatePatAccessesResponseValidator = responseValidationFactory(
     [
-      ["202", z.record(z.any())],
+      ["202", z.record(z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["422", s_validation_error],
@@ -36626,7 +36626,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    custom_properties: z.record(z.any()).optional(),
+    custom_properties: z.record(z.unknown()).optional(),
   })
 
   const reposCreateInOrgResponseValidator = responseValidationFactory(
@@ -45573,7 +45573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const actionsCreateWorkflowDispatchBodySchema = z.object({
     ref: z.string(),
-    inputs: z.record(z.any()).optional(),
+    inputs: z.record(z.unknown()).optional(),
   })
 
   const actionsCreateWorkflowDispatchResponseValidator =
@@ -48662,10 +48662,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const checksCreateBodySchema = z.union([
-    z.intersection(z.object({ status: z.object({}) }), z.record(z.any())),
+    z.intersection(z.object({ status: z.object({}) }), z.record(z.unknown())),
     z.intersection(
       z.object({ status: z.object({}).optional() }),
-      z.record(z.any()),
+      z.record(z.unknown()),
     ),
   ])
 
@@ -49739,7 +49739,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codeScanningGetAnalysisResponseValidator = responseValidationFactory(
     [
-      ["200", z.record(z.any())],
+      ["200", z.record(z.unknown())],
       ["403", s_basic_error],
       ["404", s_basic_error],
       [
@@ -54034,7 +54034,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     task: z.string().optional(),
     auto_merge: PermissiveBoolean.optional(),
     required_contexts: z.array(z.string()).optional(),
-    payload: z.union([z.record(z.any()), z.string()]).optional(),
+    payload: z.union([z.record(z.unknown()), z.string()]).optional(),
     environment: z.string().optional(),
     description: z.string().nullable().optional(),
     transient_environment: PermissiveBoolean.optional(),
@@ -54424,7 +54424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposCreateDispatchEventBodySchema = z.object({
     event_type: z.string().min(1).max(100),
-    client_payload: z.record(z.any()).optional(),
+    client_payload: z.record(z.unknown()).optional(),
   })
 
   const reposCreateDispatchEventResponseValidator = responseValidationFactory(
@@ -57557,7 +57557,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposRedeliverWebhookDeliveryResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["400", s_scim_error],
         ["422", s_validation_error],
       ],
@@ -67645,7 +67645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const securityAdvisoriesCreateRepositoryAdvisoryCveRequestResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["400", s_scim_error],
         ["403", s_basic_error],
         ["404", s_basic_error],
@@ -67854,7 +67854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetCodeFrequencyStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_code_frequency_stat)],
-      ["202", z.record(z.any())],
+      ["202", z.record(z.unknown())],
       ["204", z.undefined()],
       ["422", z.undefined()],
     ],
@@ -67919,7 +67919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     responseValidationFactory(
       [
         ["200", z.array(s_commit_activity)],
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["204", z.undefined()],
       ],
       undefined,
@@ -67979,7 +67979,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetContributorsStatsResponseValidator = responseValidationFactory(
     [
       ["200", z.array(s_contributor_activity)],
-      ["202", z.record(z.any())],
+      ["202", z.record(z.unknown())],
       ["204", z.undefined()],
     ],
     undefined,
@@ -73418,7 +73418,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const codespacesDeleteForAuthenticatedUserResponseValidator =
     responseValidationFactory(
       [
-        ["202", z.record(z.any())],
+        ["202", z.record(z.unknown())],
         ["304", z.undefined()],
         ["401", s_basic_error],
         ["403", s_basic_error],

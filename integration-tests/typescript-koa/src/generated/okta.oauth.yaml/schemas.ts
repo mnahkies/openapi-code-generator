@@ -51,7 +51,7 @@ export const s_BackchannelAuthorizeRequest = z.intersection(
     request_expiry: z.coerce.number().min(1).max(300).optional(),
     scope: z.string(),
   }),
-  z.record(z.any()),
+  z.record(z.unknown()),
 )
 
 export const s_BackchannelAuthorizeResponse = z.object({
@@ -127,7 +127,7 @@ export const s_IntrospectionResponse = z.intersection(
     uid: z.string().optional(),
     username: z.string().optional(),
   }),
-  z.record(z.any()),
+  z.record(z.unknown()),
 )
 
 export const s_JsonWebKeyStatus = z.enum(["ACTIVE", "EXPIRED", "NEXT"])
@@ -239,7 +239,7 @@ export const s_TokenTypeHintRevoke = z.enum([
 
 export const s_UserInfo = z.intersection(
   z.object({ sub: z.string().optional() }),
-  z.record(z.any()),
+  z.record(z.unknown()),
 )
 
 export const s_IntrospectionRequest = z.object({
