@@ -188,6 +188,9 @@ components:
         # empty object
         emptyObject:
           additionalProperties: false
+        arrayOfAny:
+          type: array
+          items: {}
 
     Recursive:
       type: object

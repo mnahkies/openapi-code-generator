@@ -274,6 +274,7 @@ describe.each(testVersions)(
           anyObject?: {
             [key: string]: unknown | undefined
           }
+          arrayOfAny?: any[]
           emptyObject?: EmptyObject
           emptySchema?: any
           emptySchemaAdditionalProperties?: any
