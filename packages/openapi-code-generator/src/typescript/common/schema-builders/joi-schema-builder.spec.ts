@@ -40,6 +40,7 @@ describe.each(testVersions)(
             optional_str: joi.string(),
             required_nullable: joi.string().allow(null).required(),
           })
+          .options({ stripUnknown: true })
           .required()
           .id("s_SimpleObject")"
       `)
@@ -67,6 +68,7 @@ describe.each(testVersions)(
             joi
               .object()
               .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .options({ stripUnknown: true })
               .required(),
             joi.array().items(joi.string().required()).required(),
             joi.string().required(),
@@ -89,6 +91,7 @@ describe.each(testVersions)(
             nullableSingularOneOf: joi.boolean().truthy(1).falsy(0).allow(null),
             nullableSingularOneOfRef: s_AString.allow(null),
           })
+          .options({ stripUnknown: true })
           .required()
           .id("s_ObjectWithComplexProperties")"
       `)
@@ -112,6 +115,7 @@ describe.each(testVersions)(
             joi
               .object()
               .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .options({ stripUnknown: true })
               .required(),
             joi.array().items(joi.string().required()).required(),
             joi.string().required(),
@@ -156,12 +160,19 @@ describe.each(testVersions)(
         export const s_Base = joi
           .object()
           .keys({ name: joi.string().required(), breed: joi.string() })
+          .options({ stripUnknown: true })
           .required()
           .id("s_Base")
 
         export const s_AllOf = s_Base
           .required()
-          .concat(joi.object().keys({ id: joi.number().required() }).required())
+          .concat(
+            joi
+              .object()
+              .keys({ id: joi.number().required() })
+              .options({ stripUnknown: true })
+              .required(),
+          )
           .required()
           .id("s_AllOf")"
       `)
@@ -182,6 +193,7 @@ describe.each(testVersions)(
         export const s_Recursive = joi
           .object()
           .keys({ child: joi.link("#s_Recursive") })
+          .options({ stripUnknown: true })
           .required()
           .id("s_Recursive")"
       `)
@@ -202,12 +214,14 @@ describe.each(testVersions)(
         export const s_AOrdering = joi
           .object()
           .keys({ name: joi.string() })
+          .options({ stripUnknown: true })
           .required()
           .id("s_AOrdering")
 
         export const s_ZOrdering = joi
           .object()
           .keys({ name: joi.string(), dependency1: s_AOrdering.required() })
+          .options({ stripUnknown: true })
           .required()
           .id("s_ZOrdering")
 
@@ -217,6 +231,7 @@ describe.each(testVersions)(
             dependency1: s_ZOrdering.required(),
             dependency2: s_AOrdering.required(),
           })
+          .options({ stripUnknown: true })
           .required()
           .id("s_Ordering")"
       `)
@@ -240,6 +255,7 @@ describe.each(testVersions)(
             str: joi.string().valid("foo", "bar").allow(null),
             num: joi.number().valid(10, 20).allow(null),
           })
+          .options({ stripUnknown: true })
           .required()
           .id("s_Enums")"
       `)
@@ -336,6 +352,7 @@ describe.each(testVersions)(
           export const s_AdditionalPropertiesSchema = joi
             .object()
             .keys({ name: joi.string() })
+            .options({ stripUnknown: true })
             .concat(joi.object().pattern(joi.any(), s_NamedNullableStringEnum.required()))
             .required()
             .id("s_AdditionalPropertiesSchema")"
@@ -359,6 +376,7 @@ describe.each(testVersions)(
           export const s_AdditionalPropertiesMixed = joi
             .object()
             .keys({ id: joi.string(), name: joi.string() })
+            .options({ stripUnknown: true })
             .concat(joi.object().pattern(joi.any(), joi.any()))
             .required()
             .id("s_AdditionalPropertiesMixed")"
@@ -802,6 +820,7 @@ describe.each(testVersions)(
           "const x = joi
             .object()
             .keys({ name: joi.string().required(), age: joi.number().required() })
+            .options({ stripUnknown: true })
             .required()"
         `)
 
@@ -815,10 +834,7 @@ describe.each(testVersions)(
       })
 
       it("supports any objects", async () => {
-        /*
-        some_property: {}
-         */
-        const {code} = await getActualFromModel({...base})
+        const {code} = await getActualFromModel({...base, type: "any"})
 
         expect(code).toMatchInlineSnapshot('"const x = joi.any().required()"')
 
@@ -833,6 +849,22 @@ describe.each(testVersions)(
         await expect(executeParseSchema(code, 123)).resolves.toBe(123)
         await expect(executeParseSchema(code, "some string")).resolves.toBe(
           "some string",
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          additionalProperties: false,
+        })
+        expect(code).toMatchInlineSnapshot(
+          '"const x = joi.object().keys({}).options({ stripUnknown: true }).required()"',
+        )
+        await expect(
+          executeParseSchema(code, {any: "object"}),
+        ).resolves.toEqual({})
+        await expect(executeParseSchema(code, "some string")).rejects.toThrow(
+          '"value" must be of type object',
         )
       })
 

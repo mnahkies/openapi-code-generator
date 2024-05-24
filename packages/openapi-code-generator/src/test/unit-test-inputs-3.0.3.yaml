@@ -176,6 +176,19 @@ components:
           type: string
       additionalProperties: true
 
+    AnyJsonValue:
+      type: object
+      properties:
+        # any
+        emptySchema: {}
+        emptySchemaAdditionalProperties:
+          additionalProperties: true
+        # record<any, any>
+        anyObject: {type: "object"}
+        # empty object
+        emptyObject:
+          additionalProperties: false
+
     Recursive:
       type: object
       properties:

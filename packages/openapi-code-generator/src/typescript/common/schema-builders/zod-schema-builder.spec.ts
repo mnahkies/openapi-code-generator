@@ -728,7 +728,7 @@ describe.each(testVersions)(
         anyOf: [],
         oneOf: [],
         properties: {},
-        additionalProperties: false,
+        additionalProperties: undefined,
         required: [],
         nullable: false,
         readOnly: false,
@@ -761,7 +761,7 @@ describe.each(testVersions)(
         /*
         some_property: {}
          */
-        const {code} = await getActualFromModel({...base})
+        const {code} = await getActualFromModel({...base, type: "any"})
 
         expect(code).toMatchInlineSnapshot('"const x = z.any()"')
 
@@ -776,6 +776,20 @@ describe.each(testVersions)(
         await expect(executeParseSchema(code, 123)).resolves.toBe(123)
         await expect(executeParseSchema(code, "some string")).resolves.toBe(
           "some string",
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          additionalProperties: false,
+        })
+        expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
+        await expect(
+          executeParseSchema(code, {any: "object"}),
+        ).resolves.toEqual({})
+        await expect(executeParseSchema(code, "some string")).rejects.toThrow(
+          "Expected object, received string",
         )
       })
 

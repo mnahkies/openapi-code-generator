@@ -52,7 +52,11 @@ export interface IRModelObject extends IRModelBase {
   type: "object"
   required: string[]
   properties: {[propertyName: string]: MaybeIRModel}
-  additionalProperties: boolean | MaybeIRModel
+  additionalProperties: undefined | boolean | MaybeIRModel
+}
+
+export interface IRModelAny extends IRModelBase {
+  type: "any"
 }
 
 export interface IRModelArray extends IRModelBase {
@@ -70,6 +74,8 @@ export type IRModel =
   | IRModelBoolean
   | IRModelObject
   | IRModelArray
+  | IRModelAny
+
 export type MaybeIRModel = IRModel | IRRef
 
 export interface IRParameter {

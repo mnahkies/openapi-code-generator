@@ -286,6 +286,10 @@ export abstract class AbstractSchemaBuilder<
         }
         break
       }
+      case "any": {
+        result = this.any()
+        break
+      }
     }
 
     if (nullable || model.nullable) {
@@ -338,9 +342,9 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract boolean(): string
 
-  public abstract any(): string
+  protected abstract any(): string
 
-  public abstract void(): string
+  protected abstract void(): string
 
   toCompilationUnit(): CompilationUnit {
     return new CompilationUnit(

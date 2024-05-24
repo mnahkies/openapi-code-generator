@@ -140,10 +140,6 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   protected object(keys: Record<string, string>): string {
     const entries = Object.entries(keys)
 
-    if (entries.length === 0) {
-      return `${zod}.any()`
-    }
-
     return [
       zod,
       `object({${entries

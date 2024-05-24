@@ -163,6 +163,11 @@ export class TypeBuilder implements ICompilable {
           break
         }
 
+        case "any": {
+          result.push("any")
+          break
+        }
+
         case "object": {
           const properties = Object.entries(schemaObject.properties)
             .sort(([a], [b]) => (a < b ? -1 : 1))
@@ -188,7 +193,6 @@ export class TypeBuilder implements ICompilable {
             })
 
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
-
           const additionalPropertiesType = schemaObject.additionalProperties
             ? typeof schemaObject.additionalProperties === "boolean"
               ? "unknown"
@@ -199,12 +203,15 @@ export class TypeBuilder implements ICompilable {
             ? `[key: string]: ${union(additionalPropertiesType, "undefined")}`
             : ""
 
-          const any =
-            !additionalProperties && properties.length === 0 ? "any" : ""
+          const emptyObject =
+            schemaObject.additionalProperties === false &&
+            properties.length === 0
+              ? this.addStaticType("EmptyObject")
+              : ""
 
           properties.push(additionalProperties)
 
-          result.push(object(properties), any)
+          result.push(object(properties), emptyObject)
           break
         }
 

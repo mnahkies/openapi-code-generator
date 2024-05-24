@@ -369,7 +369,22 @@ function normalizeSchemaObject(
   }
 
   switch (schemaObject.type) {
-    case undefined:
+    case undefined: {
+      if (
+        deepEqual(schemaObject, {}) ||
+        deepEqual(schemaObject, {additionalProperties: true})
+      ) {
+        return {...base, type: "any"}
+      }
+
+      return normalizeSchemaObject({...schemaObject, type: "object"})
+    }
+    case "any": {
+      return {
+        ...base,
+        type: "any",
+      }
+    }
     case "null": // TODO: HACK to support OA 3.1
     case "object": {
       if (deepEqual(schemaObject, {type: "object"})) {

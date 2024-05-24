@@ -258,6 +258,29 @@ describe.each(testVersions)(
       `)
     })
 
+    it("handles any / empty objects", async () => {
+      const {code, types} = await getActual("components/schemas/AnyJsonValue")
+
+      expect(code).toMatchInlineSnapshot(`
+        "import {t_AnyJsonValue} from './unit-test.types'
+
+        const x: t_AnyJsonValue"
+      `)
+
+      expect(types).toMatchInlineSnapshot(`
+        "export type EmptyObject = { [key: string]: never }
+
+        export type t_AnyJsonValue = {
+          anyObject?: {
+            [key: string]: unknown | undefined
+          }
+          emptyObject?: EmptyObject
+          emptySchema?: any
+          emptySchemaAdditionalProperties?: any
+        }"
+      `)
+    })
+
     async function getActual(
       path: string,
       compilerOptions = {exactOptionalPropertyTypes: false},
