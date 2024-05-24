@@ -156,7 +156,7 @@ describe.each(testVersions)(
 
       expect(types).toMatchInlineSnapshot(`
         "export type t_AdditionalPropertiesBool = {
-          [key: string]: unknown | undefined
+          [key: string]: any | undefined
         }"
       `)
     })
@@ -174,7 +174,7 @@ describe.each(testVersions)(
 
       expect(types).toMatchInlineSnapshot(`
         "export type t_AdditionalPropertiesUnknownEmptySchema = {
-          [key: string]: unknown | undefined
+          [key: string]: any | undefined
         }"
       `)
     })
@@ -194,7 +194,7 @@ describe.each(testVersions)(
         "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
           [key: string]:
             | {
-                [key: string]: unknown | undefined
+                [key: string]: any | undefined
               }
             | undefined
         }"
@@ -253,7 +253,7 @@ describe.each(testVersions)(
         "export type t_AdditionalPropertiesMixed = {
           id?: string
           name?: string
-          [key: string]: unknown | undefined
+          [key: string]: any | undefined
         }"
       `)
     })
@@ -272,7 +272,7 @@ describe.each(testVersions)(
 
         export type t_AnyJsonValue = {
           anyObject?: {
-            [key: string]: unknown | undefined
+            [key: string]: any | undefined
           }
           arrayOfAny?: any[]
           emptyObject?: EmptyObject

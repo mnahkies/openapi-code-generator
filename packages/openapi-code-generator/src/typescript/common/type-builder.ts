@@ -202,7 +202,9 @@ export class TypeBuilder implements ICompilable {
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
           const additionalPropertiesType = schemaObject.additionalProperties
             ? typeof schemaObject.additionalProperties === "boolean"
-              ? "unknown"
+              ? this.config.allowAny
+                ? "any"
+                : "unknown"
               : this.schemaObjectToType(schemaObject.additionalProperties)
             : ""
 
