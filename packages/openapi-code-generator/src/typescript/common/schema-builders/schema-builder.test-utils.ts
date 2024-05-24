@@ -32,6 +32,7 @@ export function schemaBuilderTestHarness(
       "./unit-test.schemas.ts",
       input,
       schemaBuilderType,
+      {allowAny: true},
     )
 
     const schema = builder.withImports(imports).fromModel(maybeModel, required)

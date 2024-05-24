@@ -54,6 +54,14 @@ const program = new Command()
   )
   .addOption(
     new Option(
+      "--ts-allow-any",
+      "(typescript) whether to use `any` or `unknown` for unspecified types",
+    )
+      .env("OPENAPI_TS_ALLOW_ANY")
+      .default(false),
+  )
+  .addOption(
+    new Option(
       "--enable-runtime-response-validation",
       "(experimental) whether to validate response bodies using the chosen runtime schema library",
     )

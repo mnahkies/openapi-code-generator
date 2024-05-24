@@ -8,17 +8,19 @@ import {AngularServiceBuilder} from "./angular-service-builder"
 export async function generateTypescriptAngular(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter} = config
+  const {input, emitter, typeConfig} = config
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
+    typeConfig,
   )
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
+    typeConfig,
   )
 
   const imports = new ImportBuilder()

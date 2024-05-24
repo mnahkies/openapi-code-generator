@@ -1,4 +1,5 @@
 import {Input} from "../../../core/input"
+import {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ZodBuilder} from "./zod-schema-builder"
 
@@ -9,14 +10,15 @@ export function schemaBuilderFactory(
   filename: string = "./schemas.ts",
   input: Input,
   schemaBuilderType: SchemaBuilderType,
+  schemaBuilderConfig: SchemaBuilderConfig,
 ): Promise<SchemaBuilder> {
   switch (schemaBuilderType) {
     case "joi": {
-      return JoiBuilder.fromInput(filename, input)
+      return JoiBuilder.fromInput(filename, input, schemaBuilderConfig)
     }
 
     case "zod": {
-      return ZodBuilder.fromInput(filename, input)
+      return ZodBuilder.fromInput(filename, input, schemaBuilderConfig)
     }
 
     default:

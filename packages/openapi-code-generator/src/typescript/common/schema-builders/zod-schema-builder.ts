@@ -13,7 +13,10 @@ import {hasSingleElement, isDefined} from "../../../core/utils"
 import {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
-import {AbstractSchemaBuilder} from "./abstract-schema-builder"
+import {
+  AbstractSchemaBuilder,
+  SchemaBuilderConfig,
+} from "./abstract-schema-builder"
 
 const zod = "z"
 
@@ -33,14 +36,19 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   ZodBuilder,
   StaticSchemas
 > {
-  static async fromInput(filename: string, input: Input): Promise<ZodBuilder> {
-    return new ZodBuilder(filename, input, staticSchemas)
+  static async fromInput(
+    filename: string,
+    input: Input,
+    schemaBuilderConfig: SchemaBuilderConfig,
+  ): Promise<ZodBuilder> {
+    return new ZodBuilder(filename, input, schemaBuilderConfig, staticSchemas)
   }
 
   override withImports(imports: ImportBuilder): ZodBuilder {
     return new ZodBuilder(
       this.filename,
       this.input,
+      this.config,
       staticSchemas,
       {},
       new Set(),
@@ -250,8 +258,12 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return this.addStaticSchema("PermissiveBoolean")
   }
 
-  public any(): string {
+  protected any(): string {
     return [zod, "any()"].filter(isDefined).join(".")
+  }
+
+  protected override unknown(): string {
+    return [zod, "unknown()"].filter(isDefined).join(".")
   }
 
   public void(): string {

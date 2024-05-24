@@ -297,6 +297,7 @@ describe.each(testVersions)(
         "./unit-test.types.ts",
         input,
         compilerOptions,
+        {allowAny: true},
       )
 
       const type = builder.withImports(imports).schemaObjectToType(schema)

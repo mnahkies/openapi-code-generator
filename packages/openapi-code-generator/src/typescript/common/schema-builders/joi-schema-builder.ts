@@ -10,7 +10,10 @@ import {hasSingleElement, isDefined} from "../../../core/utils"
 import {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
 import {ExportDefinition} from "../typescript-common"
-import {AbstractSchemaBuilder} from "./abstract-schema-builder"
+import {
+  AbstractSchemaBuilder,
+  SchemaBuilderConfig,
+} from "./abstract-schema-builder"
 
 const joi = "joi"
 
@@ -21,14 +24,19 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   JoiBuilder,
   StaticSchemas
 > {
-  static async fromInput(filename: string, input: Input): Promise<JoiBuilder> {
-    return new JoiBuilder(filename, input, staticSchemas)
+  static async fromInput(
+    filename: string,
+    input: Input,
+    schemaBuilderConfig: SchemaBuilderConfig,
+  ): Promise<JoiBuilder> {
+    return new JoiBuilder(filename, input, schemaBuilderConfig, staticSchemas)
   }
 
   override withImports(imports: ImportBuilder): JoiBuilder {
     return new JoiBuilder(
       this.filename,
       this.input,
+      this.config,
       staticSchemas,
       {},
       new Set(),
@@ -220,8 +228,12 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  public any(): string {
+  protected any(): string {
     return [joi, "any()"].filter(isDefined).join(".")
+  }
+
+  protected override unknown(): string {
+    return this.any()
   }
 
   public void(): string {

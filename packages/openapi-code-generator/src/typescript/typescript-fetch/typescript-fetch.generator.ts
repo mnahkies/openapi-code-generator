@@ -7,16 +7,22 @@ import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
 export async function generateTypescriptFetch(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter} = config
+  const {input, emitter, typeConfig} = config
 
-  const rootTypeBuilder = await TypeBuilder.fromInput("./models.ts", input, {
-    ...config.compilerOptions,
-    exactOptionalPropertyTypes: false,
-  })
+  const rootTypeBuilder = await TypeBuilder.fromInput(
+    "./models.ts",
+    input,
+    {
+      ...config.compilerOptions,
+      exactOptionalPropertyTypes: false,
+    },
+    typeConfig,
+  )
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
+    typeConfig,
   )
 
   const imports = new ImportBuilder()

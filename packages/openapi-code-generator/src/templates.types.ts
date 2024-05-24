@@ -1,6 +1,7 @@
 import {Input, OperationGroupStrategy} from "./core/input"
 import {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
+import {TypeBuilderConfig} from "./typescript/common/type-builder"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
 export interface OpenapiGeneratorConfig {
@@ -9,6 +10,7 @@ export interface OpenapiGeneratorConfig {
   schemaBuilder: SchemaBuilderType
   enableRuntimeResponseValidation: boolean
   compilerOptions: CompilerOptions
+  typeConfig: TypeBuilderConfig
   groupingStrategy: OperationGroupStrategy
 }
 

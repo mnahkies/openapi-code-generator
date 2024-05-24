@@ -393,7 +393,7 @@ function route(route: string): string {
 export async function generateTypescriptKoa(
   config: OpenapiGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter} = config
+  const {input, emitter, typeConfig} = config
 
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
@@ -402,12 +402,14 @@ export async function generateTypescriptKoa(
     "./models.ts",
     input,
     config.compilerOptions,
+    typeConfig,
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
+    typeConfig,
   )
 
   const server = new ServerBuilder(
