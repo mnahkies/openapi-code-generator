@@ -39,7 +39,7 @@ export const s_AppAuthenticatorEnrollment = z.object({
         .optional(),
     })
     .optional(),
-  methods: z.object({ push: z.record(z.any()).optional() }).optional(),
+  methods: z.object({ push: z.record(z.unknown()).optional() }).optional(),
   user: z
     .object({ id: z.string().optional(), username: z.string().optional() })
     .optional(),
@@ -142,7 +142,7 @@ export const s_Phone = z.object({
 export const s_Profile = z.object({
   createdAt: z.string().datetime({ offset: true }).optional(),
   modifiedAt: z.string().datetime({ offset: true }).optional(),
-  profile: z.record(z.any()).optional(),
+  profile: z.record(z.unknown()).optional(),
   _links: z
     .object({
       self: z.object({ href: z.string().optional() }).optional(),
@@ -182,7 +182,7 @@ export const s_AppAuthenticatorEnrollmentRequest = z.object({
     clientInstanceBundleId: z.string(),
     platform: z.enum(["ANDROID", "IOS"]),
     manufacturer: z.string().optional(),
-    deviceAttestation: z.record(z.any()).optional(),
+    deviceAttestation: z.record(z.unknown()).optional(),
     clientInstanceVersion: z.string(),
     clientInstanceDeviceSdkVersion: z.string(),
     model: z.string().optional(),

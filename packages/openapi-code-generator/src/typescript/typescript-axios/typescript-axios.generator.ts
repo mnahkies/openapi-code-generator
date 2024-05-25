@@ -1,23 +1,29 @@
-import {OpenapiGeneratorConfig} from "../../templates.types"
+import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
 import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"
 
 export async function generateTypescriptAxios(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter} = config
+  const {input, emitter, allowAny} = config
 
-  const rootTypeBuilder = await TypeBuilder.fromInput("./models.ts", input, {
-    ...config.compilerOptions,
-    exactOptionalPropertyTypes: false,
-  })
+  const rootTypeBuilder = await TypeBuilder.fromInput(
+    "./models.ts",
+    input,
+    {
+      ...config.compilerOptions,
+      exactOptionalPropertyTypes: false,
+    },
+    {allowAny},
+  )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
+    {allowAny},
   )
 
   const imports = new ImportBuilder()

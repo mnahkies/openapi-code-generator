@@ -6,7 +6,7 @@ import {
   IRParameter,
 } from "../../core/openapi-types-normalized"
 import {isDefined, titleCase, upperFirst} from "../../core/utils"
-import {OpenapiGeneratorConfig} from "../../templates.types"
+import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
@@ -391,9 +391,9 @@ function route(route: string): string {
 }
 
 export async function generateTypescriptKoa(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter} = config
+  const {input, emitter, allowAny} = config
 
   const routesDirectory =
     config.groupingStrategy === "none" ? "./" : "./routes/"
@@ -402,12 +402,14 @@ export async function generateTypescriptKoa(
     "./models.ts",
     input,
     config.compilerOptions,
+    {allowAny},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
+    {allowAny},
   )
 
   const server = new ServerBuilder(

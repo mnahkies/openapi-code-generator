@@ -25,6 +25,7 @@ export type Config = {
   extractInlineSchemas: boolean
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
+  tsAllowAny: boolean
 }
 
 export async function generate(
@@ -69,5 +70,6 @@ export async function generate(
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
     compilerOptions,
     groupingStrategy: config.groupingStrategy,
+    allowAny: config.tsAllowAny,
   })
 }

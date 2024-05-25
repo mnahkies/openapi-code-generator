@@ -93,6 +93,26 @@ in the unused-import elimination occur.
 
 Default `false`
 
+### `--ts-allow-any`
+As environment variable `OPENAPI_TS_ALLOW_ANY`
+
+Determines whether to use `any` or `unknown` when generating types for schemas that don't have
+concrete definitions. Eg: `additionalProperties: true` or `{}` schemas.
+
+Using `unknown` will push you towards using type guards / making runtime checks before interacting
+with the model and should generally result in more robust code, whilst `any` may be more convenient
+during rapid prototyping.
+
+Default: `false` (use `unknown` rather than `any`)
+
+| Input schema                                    | `--ts-allow-any`           | (default)                  |
+|-------------------------------------------------|----------------------------|----------------------------|
+| `{}`                                            | `any`                      | `unknown`                  |
+| `{additionalProperties: true}`                  | `any`                      | `unknown`                  |
+| `{additionalProperties: false}`                 | `{ [key: string]: never }` | `{ [key: string]: never }` |
+| `{type: "object",  additionalProperties: true}` | `{[key: string]: any}`     | `{[key: string]: unknown}` |
+| `{type: "array", items: {}}`                    | `any[]`                    | `unknown[]`                |
+
 ### Misc
 
 #### `-h, --help`

@@ -3,59 +3,81 @@ import {IRModel, MaybeIRModel} from "../../../core/openapi-types-normalized"
 import {OpenApiVersion, unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
 import {TypescriptFormatter} from "../typescript-formatter"
+import {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
 
 export function schemaBuilderTestHarness(
   schemaBuilderType: SchemaBuilderType,
   version: OpenApiVersion,
+  executeParseSchema: (code: string, input?: unknown) => Promise<any>,
 ) {
-  async function getActualFromModel(model: IRModel) {
+  async function getActualFromModel(
+    model: IRModel,
+    config: SchemaBuilderConfig = {allowAny: false},
+  ) {
     const {input} = await unitTestInput(version)
-    return getResult(input, model, true)
+    return getResult(input, model, true, config)
   }
 
-  async function getActual(path: string) {
+  async function getActual(
+    path: string,
+    config: SchemaBuilderConfig = {allowAny: false},
+  ) {
     const {input, file} = await unitTestInput(version)
-    return getResult(input, {$ref: `${file}#${path}`}, true)
+    return getResult(input, {$ref: `${file}#${path}`}, true, config)
   }
 
   async function getResult(
     input: Input,
     maybeModel: MaybeIRModel,
     required: boolean,
+    config: SchemaBuilderConfig,
   ) {
     const formatter = await TypescriptFormatter.createNodeFormatter()
 
     const imports = new ImportBuilder()
 
-    const builder = await schemaBuilderFactory(
+    const schemaBuilder = await schemaBuilderFactory(
       "./unit-test.schemas.ts",
       input,
       schemaBuilderType,
+      config,
     )
 
-    const schema = builder.withImports(imports).fromModel(maybeModel, required)
+    const schema = schemaBuilder
+      .withImports(imports)
+      .fromModel(maybeModel, required)
 
-    return {
-      code: (
-        await formatter.format(
-          "unit-test.code.ts",
-          `
+    const code = (
+      await formatter.format(
+        "unit-test.code.ts",
+        `
           ${imports.toString()}
 
           const x = ${schema}
         `,
-        )
-      ).trim(),
-      schemas: (
-        await formatter.format(
-          "unit-test.schemas.ts",
-          builder.toCompilationUnit().getRawFileContent({
-            allowUnusedImports: false,
-            includeHeader: false,
-          }),
-        )
-      ).trim(),
+      )
+    ).trim()
+
+    const schemas = (
+      await formatter.format(
+        "unit-test.schemas.ts",
+        schemaBuilder.toCompilationUnit().getRawFileContent({
+          allowUnusedImports: false,
+          includeHeader: false,
+        }),
+      )
+    ).trim()
+
+    return {
+      code,
+      schemas,
+      execute: (input: unknown) => {
+        return executeParseSchema(`
+        ${code}
+        return ${schemaBuilder.parse("x", JSON.stringify(input))}
+        `)
+      },
     }
   }
 

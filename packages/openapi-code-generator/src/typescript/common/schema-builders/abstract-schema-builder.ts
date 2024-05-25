@@ -19,6 +19,10 @@ import {CompilationUnit, ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
 import {ExportDefinition, buildExport} from "../typescript-common"
 
+export type SchemaBuilderConfig = {
+  allowAny: boolean
+}
+
 export abstract class AbstractSchemaBuilder<
   SubClass extends AbstractSchemaBuilder<SubClass, StaticSchemas>,
   StaticSchemas extends {[key: string]: string},
@@ -31,6 +35,7 @@ export abstract class AbstractSchemaBuilder<
   protected constructor(
     public readonly filename: string,
     protected readonly input: Input,
+    protected readonly config: SchemaBuilderConfig,
     private readonly availableStaticSchemas: StaticSchemas,
     private readonly referenced: Record<string, Reference> = {},
     private readonly referencedStaticSchemas = new Set<keyof StaticSchemas>(),
@@ -270,7 +275,9 @@ export abstract class AbstractSchemaBuilder<
             model.additionalProperties &&
             this.record(
               typeof model.additionalProperties === "boolean"
-                ? this.any()
+                ? this.config.allowAny
+                  ? this.any()
+                  : this.unknown()
                 : this.fromModel(model.additionalProperties, true),
             )
 
@@ -284,6 +291,10 @@ export abstract class AbstractSchemaBuilder<
             result = this.object({}, required)
           }
         }
+        break
+      }
+      case "any": {
+        result = this.config.allowAny ? this.any() : this.unknown()
         break
       }
     }
@@ -338,7 +349,9 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract boolean(): string
 
-  public abstract any(): string
+  protected abstract any(): string
+
+  protected abstract unknown(): string
 
   public abstract void(): string
 

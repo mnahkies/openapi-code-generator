@@ -23,11 +23,16 @@ const staticTypes = {
 
 type StaticType = keyof typeof staticTypes
 
+export type TypeBuilderConfig = {
+  allowAny: boolean
+}
+
 export class TypeBuilder implements ICompilable {
   private constructor(
     public readonly filename: string,
     private readonly input: Input,
     private readonly compilerOptions: CompilerOptions,
+    private readonly config: TypeBuilderConfig,
     private readonly referenced = new Set<string>(),
     private readonly referencedStaticTypes = new Set<StaticType>(),
     private readonly imports?: ImportBuilder,
@@ -38,8 +43,9 @@ export class TypeBuilder implements ICompilable {
     filename: string,
     input: Input,
     compilerOptions: CompilerOptions,
+    typeBuilderConfig: TypeBuilderConfig,
   ): Promise<TypeBuilder> {
-    return new TypeBuilder(filename, input, compilerOptions)
+    return new TypeBuilder(filename, input, compilerOptions, typeBuilderConfig)
   }
 
   withImports(imports: ImportBuilder): TypeBuilder {
@@ -47,6 +53,7 @@ export class TypeBuilder implements ICompilable {
       this.filename,
       this.input,
       this.compilerOptions,
+      this.config,
       new Set(),
       new Set(),
       imports,
@@ -163,6 +170,11 @@ export class TypeBuilder implements ICompilable {
           break
         }
 
+        case "any": {
+          result.push(this.config.allowAny ? "any" : "unknown")
+          break
+        }
+
         case "object": {
           const properties = Object.entries(schemaObject.properties)
             .sort(([a], [b]) => (a < b ? -1 : 1))
@@ -188,10 +200,11 @@ export class TypeBuilder implements ICompilable {
             })
 
           // todo: https://github.com/mnahkies/openapi-code-generator/issues/44
-
           const additionalPropertiesType = schemaObject.additionalProperties
             ? typeof schemaObject.additionalProperties === "boolean"
-              ? "unknown"
+              ? this.config.allowAny
+                ? "any"
+                : "unknown"
               : this.schemaObjectToType(schemaObject.additionalProperties)
             : ""
 
@@ -200,7 +213,8 @@ export class TypeBuilder implements ICompilable {
             : ""
 
           const emptyObject =
-            !additionalProperties && properties.length === 0
+            schemaObject.additionalProperties === false &&
+            properties.length === 0
               ? this.addStaticType("EmptyObject")
               : ""
 
