@@ -10,6 +10,7 @@ import {
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
+  t_TypeSpec_Http_AcceptedResponse,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetAnalyticsCreateOrUpdate,
@@ -567,6 +568,7 @@ export class ApiClient extends AbstractAxiosClient {
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
       id: string
+      result?: t_TypeSpec_Http_AcceptedResponse
       status: t_Azure_Core_Foundations_OperationState
     }>
   > {

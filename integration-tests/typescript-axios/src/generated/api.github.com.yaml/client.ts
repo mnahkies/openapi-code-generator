@@ -68,6 +68,8 @@ import {
   t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
+  t_code_scanning_variant_analysis,
+  t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_codeowners_errors,
   t_codespace,
@@ -6639,35 +6641,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async copilotUsageMetricsForTeam(
-    p: {
-      org: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
-    const url = `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.axios.request({
-      url: url + query,
-      baseURL: this.basePath,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
   async teamsList(
     p: {
       org: string
@@ -11583,6 +11556,72 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_code_scanning_codeql_database>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeScanningCreateVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      requestBody: EmptyObject
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_scanning_variant_analysis>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeScanningGetVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_scanning_variant_analysis>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`
+
+    return this.axios.request({
+      url: url,
+      baseURL: this.basePath,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeScanningGetVariantAnalysisRepoTask(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+      repoOwner: string
+      repoName: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_scanning_variant_analysis_repo_task>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`
 
     return this.axios.request({
       url: url,

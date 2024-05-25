@@ -69,6 +69,8 @@ import {
   t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
+  t_code_scanning_variant_analysis,
+  t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_codeowners_errors,
   t_codespace,
@@ -6963,40 +6965,6 @@ export class ApiClient {
     )
   }
 
-  copilotUsageMetricsForTeam(p: {
-    org: string
-    teamSlug: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   teamsList(p: {
     org: string
     perPage?: number
@@ -12063,6 +12031,91 @@ export class ApiClient {
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningCreateVariantAnalysis(p: {
+    owner: string
+    repo: string
+    requestBody: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_code_scanning_variant_analysis> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningGetVariantAnalysis(p: {
+    owner: string
+    repo: string
+    codeqlVariantAnalysisId: number
+  }): Observable<
+    | (HttpResponse<t_code_scanning_variant_analysis> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningGetVariantAnalysisRepoTask(p: {
+    owner: string
+    repo: string
+    codeqlVariantAnalysisId: number
+    repoOwner: string
+    repoName: string
+  }): Observable<
+    | (HttpResponse<t_code_scanning_variant_analysis_repo_task> & {
+        status: 200
+      })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`,
       {
         observe: "response",
         reportProgress: false,

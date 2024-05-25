@@ -389,8 +389,6 @@ import {
   t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema,
   t_GetIssuingPhysicalBundlesPhysicalBundleQuerySchema,
   t_GetIssuingPhysicalBundlesQuerySchema,
-  t_GetIssuingSettlementsBodySchema,
-  t_GetIssuingSettlementsQuerySchema,
   t_GetIssuingSettlementsSettlementBodySchema,
   t_GetIssuingSettlementsSettlementParamSchema,
   t_GetIssuingSettlementsSettlementQuerySchema,
@@ -1085,14 +1083,18 @@ import {
   t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
   t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema,
   t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
+  t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema,
   t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailBodySchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
+  t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostBodySchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
   t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnBodySchema,
@@ -6860,38 +6862,6 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
   | Response<StatusCode, t_error>
 >
 
-export type GetIssuingSettlementsResponder = {
-  with200(): KoaRuntimeResponse<{
-    data: t_issuing_settlement[]
-    has_more: boolean
-    object: "list"
-    url: string
-  }>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
-} & KoaRuntimeResponder
-
-export type GetIssuingSettlements = (
-  params: Params<
-    void,
-    t_GetIssuingSettlementsQuerySchema,
-    t_GetIssuingSettlementsBodySchema | undefined
-  >,
-  respond: GetIssuingSettlementsResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<
-      200,
-      {
-        data: t_issuing_settlement[]
-        has_more: boolean
-        object: "list"
-        url: string
-      }
-    >
-  | Response<StatusCode, t_error>
->
-
 export type GetIssuingSettlementsSettlementResponder = {
   with200(): KoaRuntimeResponse<t_issuing_settlement>
   withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
@@ -11681,6 +11651,25 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   | Response<StatusCode, t_error>
 >
 
+export type PostTestHelpersTreasuryOutboundPaymentsIdResponder = {
+  with200(): KoaRuntimeResponse<t_treasury_outbound_payment>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostTestHelpersTreasuryOutboundPaymentsId = (
+  params: Params<
+    t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema,
+    void,
+    t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema
+  >,
+  respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_treasury_outbound_payment>
+  | Response<StatusCode, t_error>
+>
+
 export type PostTestHelpersTreasuryOutboundPaymentsIdFailResponder = {
   with200(): KoaRuntimeResponse<t_treasury_outbound_payment>
   withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
@@ -11735,6 +11724,26 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_treasury_outbound_payment>
+  | Response<StatusCode, t_error>
+>
+
+export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder =
+  {
+    with200(): KoaRuntimeResponse<t_treasury_outbound_transfer>
+    withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+  } & KoaRuntimeResponder
+
+export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
+  params: Params<
+    t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
+    void,
+    t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema
+  >,
+  respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_treasury_outbound_transfer>
   | Response<StatusCode, t_error>
 >
 
@@ -13215,7 +13224,6 @@ export type Implementation = {
   postIssuingPersonalizationDesignsPersonalizationDesign: PostIssuingPersonalizationDesignsPersonalizationDesign
   getIssuingPhysicalBundles: GetIssuingPhysicalBundles
   getIssuingPhysicalBundlesPhysicalBundle: GetIssuingPhysicalBundlesPhysicalBundle
-  getIssuingSettlements: GetIssuingSettlements
   getIssuingSettlementsSettlement: GetIssuingSettlementsSettlement
   postIssuingSettlementsSettlement: PostIssuingSettlementsSettlement
   getIssuingTokens: GetIssuingTokens
@@ -13439,9 +13447,11 @@ export type Implementation = {
   postTestHelpersTreasuryInboundTransfersIdFail: PostTestHelpersTreasuryInboundTransfersIdFail
   postTestHelpersTreasuryInboundTransfersIdReturn: PostTestHelpersTreasuryInboundTransfersIdReturn
   postTestHelpersTreasuryInboundTransfersIdSucceed: PostTestHelpersTreasuryInboundTransfersIdSucceed
+  postTestHelpersTreasuryOutboundPaymentsId: PostTestHelpersTreasuryOutboundPaymentsId
   postTestHelpersTreasuryOutboundPaymentsIdFail: PostTestHelpersTreasuryOutboundPaymentsIdFail
   postTestHelpersTreasuryOutboundPaymentsIdPost: PostTestHelpersTreasuryOutboundPaymentsIdPost
   postTestHelpersTreasuryOutboundPaymentsIdReturn: PostTestHelpersTreasuryOutboundPaymentsIdReturn
+  postTestHelpersTreasuryOutboundTransfersOutboundTransfer: PostTestHelpersTreasuryOutboundTransfersOutboundTransfer
   postTestHelpersTreasuryOutboundTransfersOutboundTransferFail: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail
   postTestHelpersTreasuryOutboundTransfersOutboundTransferPost: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost
   postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn
@@ -13642,6 +13652,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           features: z
             .object({
               edit_payout_schedule: PermissiveBoolean.optional(),
+              external_account_collection: PermissiveBoolean.optional(),
               instant_payouts: PermissiveBoolean.optional(),
               standard_payouts: PermissiveBoolean.optional(),
             })
@@ -13698,6 +13709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           features: z
             .object({
               edit_payout_schedule: PermissiveBoolean.optional(),
+              external_account_collection: PermissiveBoolean.optional(),
               instant_payouts: PermissiveBoolean.optional(),
               standard_payouts: PermissiveBoolean.optional(),
             })
@@ -28952,9 +28964,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const getEntitlementsFeaturesQuerySchema = z.object({
+    archived: PermissiveBoolean.optional(),
     ending_before: z.string().max(5000).optional(),
     expand: z.array(z.string().max(5000)).optional(),
     limit: z.coerce.number().optional(),
+    lookup_key: z.string().max(5000).optional(),
     starting_after: z.string().max(5000).optional(),
   })
 
@@ -29153,7 +29167,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     .object({
       active: PermissiveBoolean.optional(),
       expand: z.array(z.string().max(5000)).optional(),
-      metadata: z.record(z.string()).optional(),
+      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
       name: z.string().max(80).optional(),
     })
     .optional()
@@ -30585,7 +30599,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       type: z.enum(["account", "customer"]),
     }),
     expand: z.array(z.string().max(5000)).optional(),
-    filters: z.object({ countries: z.array(z.string().max(5000)) }).optional(),
+    filters: z
+      .object({ countries: z.array(z.string().max(5000)).optional() })
+      .optional(),
     permissions: z.array(
       z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
@@ -32745,6 +32761,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+      preview_mode: z.enum(["next", "recurring"]).optional(),
       schedule: z.string().max(5000).optional(),
       schedule_details: z
         .object({
@@ -33315,6 +33332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+    preview_mode: z.enum(["next", "recurring"]).optional(),
     schedule: z.string().max(5000).optional(),
     schedule_details: z
       .object({
@@ -33883,6 +33901,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     limit: z.coerce.number().optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+    preview_mode: z.enum(["next", "recurring"]).optional(),
     schedule: z.string().max(5000).optional(),
     schedule_details: z
       .object({
@@ -40170,6 +40189,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
+          no_valid_authorization: z
+            .union([
+              z.object({
+                additional_documentation: z
+                  .union([z.string(), z.enum([""])])
+                  .optional(),
+                explanation: z
+                  .union([z.string().max(1500), z.enum([""])])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           not_received: z
             .union([
               z.object({
@@ -40213,6 +40245,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "duplicate",
               "fraudulent",
               "merchandise_not_as_described",
+              "no_valid_authorization",
               "not_received",
               "other",
               "service_not_as_described",
@@ -40458,6 +40491,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
               z.enum([""]),
             ])
             .optional(),
+          no_valid_authorization: z
+            .union([
+              z.object({
+                additional_documentation: z
+                  .union([z.string(), z.enum([""])])
+                  .optional(),
+                explanation: z
+                  .union([z.string().max(1500), z.enum([""])])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
           not_received: z
             .union([
               z.object({
@@ -40501,6 +40547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "duplicate",
               "fraudulent",
               "merchandise_not_as_described",
+              "no_valid_authorization",
               "not_received",
               "other",
               "service_not_as_described",
@@ -41112,94 +41159,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const getIssuingSettlementsQuerySchema = z.object({
-    created: z
-      .union([
-        z.object({
-          gt: z.coerce.number().optional(),
-          gte: z.coerce.number().optional(),
-          lt: z.coerce.number().optional(),
-          lte: z.coerce.number().optional(),
-        }),
-        z.coerce.number(),
-      ])
-      .optional(),
-    ending_before: z.string().max(5000).optional(),
-    expand: z.array(z.string().max(5000)).optional(),
-    limit: z.coerce.number().optional(),
-    starting_after: z.string().max(5000).optional(),
-  })
-
-  const getIssuingSettlementsBodySchema = z.object({}).optional()
-
-  const getIssuingSettlementsResponseValidator = responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(s_issuing_settlement),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z
-            .string()
-            .max(5000)
-            .regex(new RegExp("^/v1/issuing/settlements")),
-        }),
-      ],
-    ],
-    s_error,
-  )
-
-  router.get(
-    "getIssuingSettlements",
-    "/v1/issuing/settlements",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getIssuingSettlementsQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: parseRequestInput(
-          getIssuingSettlementsBodySchema,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_issuing_settlement[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .getIssuingSettlements(input, responder, ctx)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getIssuingSettlementsResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
   const getIssuingSettlementsSettlementParamSchema = z.object({
     settlement: z.string().max(5000),
   })
@@ -41752,7 +41711,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       type: z.enum(["account", "customer"]),
     }),
     expand: z.array(z.string().max(5000)).optional(),
-    filters: z.object({ countries: z.array(z.string().max(5000)) }).optional(),
+    filters: z
+      .object({ countries: z.array(z.string().max(5000)).optional() })
+      .optional(),
     permissions: z.array(
       z.enum(["balances", "ownership", "payment_method", "transactions"]),
     ),
@@ -42901,6 +42862,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
               request_extended_authorization: PermissiveBoolean.optional(),
               request_incremental_authorization_support:
                 PermissiveBoolean.optional(),
+              routing: z
+                .object({
+                  requested_priority: z
+                    .enum(["domestic", "international"])
+                    .optional(),
+                })
+                .optional(),
             }),
             z.enum([""]),
           ])
@@ -44003,6 +43971,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 request_extended_authorization: PermissiveBoolean.optional(),
                 request_incremental_authorization_support:
                   PermissiveBoolean.optional(),
+                routing: z
+                  .object({
+                    requested_priority: z
+                      .enum(["domestic", "international"])
+                      .optional(),
+                  })
+                  .optional(),
               }),
               z.enum([""]),
             ])
@@ -45185,6 +45160,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 request_extended_authorization: PermissiveBoolean.optional(),
                 request_incremental_authorization_support:
                   PermissiveBoolean.optional(),
+                routing: z
+                  .object({
+                    requested_priority: z
+                      .enum(["domestic", "international"])
+                      .optional(),
+                  })
+                  .optional(),
               }),
               z.enum([""]),
             ])
@@ -60204,6 +60186,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      bh: z.object({ type: z.enum(["standard"]) }).optional(),
       ca: z
         .object({
           province_standard: z
@@ -60265,6 +60248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      eg: z.object({ type: z.enum(["simplified"]) }).optional(),
       es: z
         .object({
           standard: z
@@ -60296,6 +60280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       gb: z.object({ type: z.enum(["standard"]) }).optional(),
+      ge: z.object({ type: z.enum(["simplified"]) }).optional(),
       gr: z
         .object({
           standard: z
@@ -60349,7 +60334,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       jp: z.object({ type: z.enum(["standard"]) }).optional(),
+      ke: z.object({ type: z.enum(["simplified"]) }).optional(),
       kr: z.object({ type: z.enum(["simplified"]) }).optional(),
+      kz: z.object({ type: z.enum(["simplified"]) }).optional(),
       lt: z
         .object({
           standard: z
@@ -60392,6 +60379,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       mx: z.object({ type: z.enum(["simplified"]) }).optional(),
       my: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ng: z.object({ type: z.enum(["simplified"]) }).optional(),
       nl: z
         .object({
           standard: z
@@ -60404,6 +60392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       no: z.object({ type: z.enum(["standard"]) }).optional(),
       nz: z.object({ type: z.enum(["standard"]) }).optional(),
+      om: z.object({ type: z.enum(["standard"]) }).optional(),
       pl: z
         .object({
           standard: z
@@ -61895,6 +61884,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       offline: z
         .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
         .optional(),
+      stripe_s700: z
+        .object({
+          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
+        })
+        .optional(),
       tipping: z
         .union([
           z.object({
@@ -62214,6 +62208,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       name: z.string().max(100).optional(),
       offline: z
         .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+        .optional(),
+      stripe_s700: z
+        .union([
+          z.object({
+            splashscreen: z.union([z.string(), z.enum([""])]).optional(),
+          }),
+          z.enum([""]),
+        ])
         .optional(),
       tipping: z
         .union([
@@ -66609,6 +66611,75 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const postTestHelpersTreasuryOutboundPaymentsIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postTestHelpersTreasuryOutboundPaymentsIdBodySchema = z.object({
+    expand: z.array(z.string().max(5000)).optional(),
+    tracking_details: z.object({
+      ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+      type: z.enum(["ach", "us_domestic_wire"]),
+      us_domestic_wire: z
+        .object({
+          imad: z.string().max(5000).optional(),
+          omad: z.string().max(5000).optional(),
+        })
+        .optional(),
+    }),
+  })
+
+  const postTestHelpersTreasuryOutboundPaymentsIdResponseValidator =
+    responseValidationFactory([["200", s_treasury_outbound_payment]], s_error)
+
+  router.post(
+    "postTestHelpersTreasuryOutboundPaymentsId",
+    "/v1/test_helpers/treasury/outbound_payments/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postTestHelpersTreasuryOutboundPaymentsIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postTestHelpersTreasuryOutboundPaymentsIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_treasury_outbound_payment>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postTestHelpersTreasuryOutboundPaymentsId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postTestHelpersTreasuryOutboundPaymentsIdResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const postTestHelpersTreasuryOutboundPaymentsIdFailParamSchema = z.object({
     id: z.string().max(5000),
   })
@@ -66799,6 +66870,80 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       ctx.body =
         postTestHelpersTreasuryOutboundPaymentsIdReturnResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema =
+    z.object({ outbound_transfer: z.string().max(5000) })
+
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema =
+    z.object({
+      expand: z.array(z.string().max(5000)).optional(),
+      tracking_details: z.object({
+        ach: z.object({ trace_id: z.string().max(5000) }).optional(),
+        type: z.enum(["ach", "us_domestic_wire"]),
+        us_domestic_wire: z
+          .object({
+            imad: z.string().max(5000).optional(),
+            omad: z.string().max(5000).optional(),
+          })
+          .optional(),
+      }),
+    })
+
+  const postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator =
+    responseValidationFactory([["200", s_treasury_outbound_transfer]], s_error)
+
+  router.post(
+    "postTestHelpersTreasuryOutboundTransfersOutboundTransfer",
+    "/v1/test_helpers/treasury/outbound_transfers/:outbound_transfer",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_treasury_outbound_transfer>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
+          input,
+          responder,
+          ctx,
+        )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        postTestHelpersTreasuryOutboundTransfersOutboundTransferResponseValidator(
           status,
           body,
         )
@@ -71292,12 +71437,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "treasury.outbound_payment.failed",
         "treasury.outbound_payment.posted",
         "treasury.outbound_payment.returned",
+        "treasury.outbound_payment.tracking_details_updated",
         "treasury.outbound_transfer.canceled",
         "treasury.outbound_transfer.created",
         "treasury.outbound_transfer.expected_arrival_date_updated",
         "treasury.outbound_transfer.failed",
         "treasury.outbound_transfer.posted",
         "treasury.outbound_transfer.returned",
+        "treasury.outbound_transfer.tracking_details_updated",
         "treasury.received_credit.created",
         "treasury.received_credit.failed",
         "treasury.received_credit.succeeded",
@@ -71708,12 +71855,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "treasury.outbound_payment.failed",
             "treasury.outbound_payment.posted",
             "treasury.outbound_payment.returned",
+            "treasury.outbound_payment.tracking_details_updated",
             "treasury.outbound_transfer.canceled",
             "treasury.outbound_transfer.created",
             "treasury.outbound_transfer.expected_arrival_date_updated",
             "treasury.outbound_transfer.failed",
             "treasury.outbound_transfer.posted",
             "treasury.outbound_transfer.returned",
+            "treasury.outbound_transfer.tracking_details_updated",
             "treasury.received_credit.created",
             "treasury.received_credit.failed",
             "treasury.received_credit.succeeded",

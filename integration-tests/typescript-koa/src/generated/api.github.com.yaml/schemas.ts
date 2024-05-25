@@ -149,6 +149,7 @@ export const s_api_overview = z.object({
   pages: z.array(z.string()).optional(),
   importer: z.array(z.string()).optional(),
   actions: z.array(z.string()).optional(),
+  actions_macos: z.array(z.string()).optional(),
   dependabot: z.array(z.string()).optional(),
   domains: z
     .object({
@@ -588,6 +589,35 @@ export const s_code_scanning_sarifs_status = z.object({
   analyses_url: z.string().nullable().optional(),
   errors: z.array(z.string()).nullable().optional(),
 })
+
+export const s_code_scanning_variant_analysis_language = z.enum([
+  "cpp",
+  "csharp",
+  "go",
+  "java",
+  "javascript",
+  "python",
+  "ruby",
+  "swift",
+])
+
+export const s_code_scanning_variant_analysis_repository = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  full_name: z.string(),
+  private: PermissiveBoolean,
+  stargazers_count: z.coerce.number(),
+  updated_at: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const s_code_scanning_variant_analysis_status = z.enum([
+  "pending",
+  "in_progress",
+  "succeeded",
+  "failed",
+  "canceled",
+  "timed_out",
+])
 
 export const s_codeowners_errors = z.object({
   errors: z.array(
@@ -2024,6 +2054,7 @@ export const s_private_user = z.object({
   blog: z.string().nullable(),
   location: z.string().nullable(),
   email: z.string().email().nullable(),
+  notification_email: z.string().email().nullable().optional(),
   hireable: PermissiveBoolean.nullable(),
   bio: z.string().nullable(),
   twitter_username: z.string().nullable().optional(),
@@ -2103,6 +2134,7 @@ export const s_public_user = z.object({
   blog: z.string().nullable(),
   location: z.string().nullable(),
   email: z.string().email().nullable(),
+  notification_email: z.string().email().nullable().optional(),
   hireable: PermissiveBoolean.nullable(),
   bio: z.string().nullable(),
   twitter_username: z.string().nullable().optional(),
@@ -2267,6 +2299,18 @@ export const s_repository_rule_non_fast_forward = z.object({
   type: z.enum(["non_fast_forward"]),
 })
 
+export const s_repository_rule_params_code_scanning_tool = z.object({
+  alerts_threshold: z.enum(["none", "errors", "errors_and_warnings", "all"]),
+  security_alerts_threshold: z.enum([
+    "none",
+    "critical",
+    "high_or_higher",
+    "medium_or_higher",
+    "all",
+  ]),
+  tool: z.string(),
+})
+
 export const s_repository_rule_params_status_check_configuration = z.object({
   context: z.string(),
   integration_id: z.coerce.number().optional(),
@@ -2339,6 +2383,7 @@ export const s_repository_ruleset_bypass_actor = z.object({
     "OrganizationAdmin",
     "RepositoryRole",
     "Team",
+    "DeployKey",
   ]),
   bypass_mode: z.enum(["always", "pull_request"]),
 })
@@ -3153,6 +3198,11 @@ export const s_code_scanning_codeql_database = z.object({
 export const s_code_scanning_sarifs_receipt = z.object({
   id: s_code_scanning_analysis_sarif_id.optional(),
   url: z.string().optional(),
+})
+
+export const s_code_scanning_variant_analysis_skipped_repo_group = z.object({
+  repository_count: z.coerce.number(),
+  repositories: z.array(s_code_scanning_variant_analysis_repository),
 })
 
 export const s_commit = z.object({
@@ -4485,6 +4535,15 @@ export const s_repository_collaborator_permission = z.object({
   user: s_nullable_collaborator,
 })
 
+export const s_repository_rule_code_scanning = z.object({
+  type: z.enum(["code_scanning"]),
+  parameters: z
+    .object({
+      code_scanning_tools: z.array(s_repository_rule_params_code_scanning_tool),
+    })
+    .optional(),
+})
+
 export const s_repository_rule_required_status_checks = z.object({
   type: z.enum(["required_status_checks"]),
   parameters: z
@@ -5280,6 +5339,56 @@ export const s_code_scanning_organization_alert_items = z.object({
   tool: s_code_scanning_analysis_tool,
   most_recent_instance: s_code_scanning_alert_instance,
   repository: s_simple_repository,
+})
+
+export const s_code_scanning_variant_analysis = z.object({
+  id: z.coerce.number(),
+  controller_repo: s_simple_repository,
+  actor: s_simple_user,
+  query_language: s_code_scanning_variant_analysis_language,
+  query_pack_url: z.string(),
+  created_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.string().datetime({ offset: true }).optional(),
+  completed_at: z.string().datetime({ offset: true }).nullable().optional(),
+  status: z.enum(["in_progress", "succeeded", "failed", "cancelled"]),
+  actions_workflow_run_id: z.coerce.number().optional(),
+  failure_reason: z
+    .enum(["no_repos_queried", "actions_workflow_run_failed", "internal_error"])
+    .optional(),
+  scanned_repositories: z
+    .array(
+      z.object({
+        repository: s_code_scanning_variant_analysis_repository,
+        analysis_status: s_code_scanning_variant_analysis_status,
+        result_count: z.coerce.number().optional(),
+        artifact_size_in_bytes: z.coerce.number().optional(),
+        failure_message: z.string().optional(),
+      }),
+    )
+    .optional(),
+  skipped_repositories: z
+    .object({
+      access_mismatch_repos:
+        s_code_scanning_variant_analysis_skipped_repo_group,
+      not_found_repos: z.object({
+        repository_count: z.coerce.number(),
+        repository_full_names: z.array(z.string()),
+      }),
+      no_codeql_db_repos: s_code_scanning_variant_analysis_skipped_repo_group,
+      over_limit_repos: s_code_scanning_variant_analysis_skipped_repo_group,
+    })
+    .optional(),
+})
+
+export const s_code_scanning_variant_analysis_repo_task = z.object({
+  repository: s_simple_repository,
+  analysis_status: s_code_scanning_variant_analysis_status,
+  artifact_size_in_bytes: z.coerce.number().optional(),
+  result_count: z.coerce.number().optional(),
+  failure_message: z.string().optional(),
+  database_commit_sha: z.string().optional(),
+  source_location_prefix: z.string().optional(),
+  artifact_url: z.string().optional(),
 })
 
 export const s_code_search_result_item = z.object({
@@ -6883,6 +6992,7 @@ export const s_repository_rule = z.union([
       .optional(),
   }),
   s_repository_rule_workflows,
+  s_repository_rule_code_scanning,
 ])
 
 export const s_repository_rule_detailed = z.union([
@@ -6911,6 +7021,7 @@ export const s_repository_rule_detailed = z.union([
   s_repository_rule_branch_name_pattern.merge(s_repository_rule_ruleset_info),
   s_repository_rule_tag_name_pattern.merge(s_repository_rule_ruleset_info),
   s_repository_rule_workflows.merge(s_repository_rule_ruleset_info),
+  s_repository_rule_code_scanning.merge(s_repository_rule_ruleset_info),
 ])
 
 export const s_review_dismissed_issue_event = z.object({

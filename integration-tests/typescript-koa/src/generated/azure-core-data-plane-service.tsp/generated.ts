@@ -21,6 +21,7 @@ import {
   t_PagedWidget,
   t_PagedWidgetPart,
   t_ServiceStatusQuerySchema,
+  t_TypeSpec_Http_AcceptedResponse,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetPart,
@@ -69,6 +70,7 @@ import {
   s_PagedManufacturer,
   s_PagedWidget,
   s_PagedWidgetPart,
+  s_TypeSpec_Http_AcceptedResponse,
   s_Widget,
   s_WidgetAnalytics,
   s_WidgetAnalyticsCreateOrUpdate,
@@ -495,6 +497,7 @@ export type WidgetPartsReorderPartsResponder = {
   with202(): KoaRuntimeResponse<{
     error?: t_Azure_Core_Foundations_Error
     id: string
+    result?: t_TypeSpec_Http_AcceptedResponse
     status: t_Azure_Core_Foundations_OperationState
   }>
   withDefault(
@@ -517,6 +520,7 @@ export type WidgetPartsReorderParts = (
       {
         error?: t_Azure_Core_Foundations_Error
         id: string
+        result?: t_TypeSpec_Http_AcceptedResponse
         status: t_Azure_Core_Foundations_OperationState
       }
     >
@@ -1700,6 +1704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           id: z.string(),
           status: s_Azure_Core_Foundations_OperationState,
           error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+          result: s_TypeSpec_Http_AcceptedResponse.optional(),
         }),
       ],
     ],
@@ -1733,6 +1738,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             error?: t_Azure_Core_Foundations_Error
             id: string
+            result?: t_TypeSpec_Http_AcceptedResponse
             status: t_Azure_Core_Foundations_OperationState
           }>(202)
         },

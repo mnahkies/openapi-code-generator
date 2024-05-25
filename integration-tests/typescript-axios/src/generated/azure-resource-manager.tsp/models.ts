@@ -4,16 +4,11 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type t_ActionType = "Internal" | string
+
 export type t_Azure_ResourceManager_ErrorResponse = {
   error?: t_Azure_ResourceManager_Foundations_ErrorDetail
 }
-
-export type t_Azure_ResourceManager_Foundations_ActionType = "Internal"
-
-export type t_Azure_ResourceManager_Foundations_ArmResource =
-  t_Azure_ResourceManager_Foundations_ArmResourceBase
-
-export type t_Azure_ResourceManager_Foundations_ArmResourceBase = EmptyObject
 
 export type t_Azure_ResourceManager_Foundations_ErrorAdditionalInfo = {
   readonly info?: EmptyObject
@@ -29,11 +24,11 @@ export type t_Azure_ResourceManager_Foundations_ErrorDetail = {
 }
 
 export type t_Azure_ResourceManager_Foundations_Operation = {
-  actionType?: t_Azure_ResourceManager_Foundations_ActionType
+  actionType?: t_ActionType
   display?: t_Azure_ResourceManager_Foundations_OperationDisplay
   readonly isDataAction?: boolean
   readonly name?: string
-  readonly origin?: t_Azure_ResourceManager_Foundations_Origin
+  readonly origin?: t_Origin
 }
 
 export type t_Azure_ResourceManager_Foundations_OperationDisplay = {
@@ -43,15 +38,26 @@ export type t_Azure_ResourceManager_Foundations_OperationDisplay = {
   resource?: string
 }
 
-export type t_Azure_ResourceManager_Foundations_Origin =
-  | "user"
-  | "system"
-  | "user,system"
+export type t_Azure_ResourceManager_Foundations_Resource = {
+  readonly id?: string
+  readonly name?: string
+  readonly systemData?: t_Azure_ResourceManager_Foundations_SystemData
+  readonly type?: string
+}
 
-export type t_Azure_ResourceManager_Foundations_TrackedResourceBase =
-  t_Azure_ResourceManager_Foundations_ArmResource
+export type t_Azure_ResourceManager_Foundations_SystemData = {
+  readonly createdAt?: string
+  readonly createdBy?: string
+  readonly createdByType?: t_createdByType
+  readonly lastModifiedAt?: string
+  readonly lastModifiedBy?: string
+  readonly lastModifiedByType?: t_createdByType
+}
 
-export type t_Employee = t_Azure_ResourceManager_Foundations_TrackedResourceBase
+export type t_Azure_ResourceManager_Foundations_TrackedResource =
+  t_Azure_ResourceManager_Foundations_Resource
+
+export type t_Employee = t_Azure_ResourceManager_Foundations_TrackedResource
 
 export type t_EmployeeListResult = {
   nextLink?: string
@@ -80,7 +86,16 @@ export type t_MoveResponse = {
   movingStatus: string
 }
 
+export type t_Origin = "user" | "system" | "user,system" | string
+
 export type t_PagedOperation = {
   nextLink?: string
   value: t_Azure_ResourceManager_Foundations_Operation[]
 }
+
+export type t_createdByType =
+  | "User"
+  | "Application"
+  | "ManagedIdentity"
+  | "Key"
+  | string

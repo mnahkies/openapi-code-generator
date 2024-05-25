@@ -250,6 +250,7 @@ export class ApiClient extends AbstractFetchClient {
             enabled: boolean
             features?: {
               edit_payout_schedule?: boolean
+              external_account_collection?: boolean
               instant_payouts?: boolean
               standard_payouts?: boolean
             }
@@ -286,6 +287,7 @@ export class ApiClient extends AbstractFetchClient {
             enabled: boolean
             features?: {
               edit_payout_schedule?: boolean
+              external_account_collection?: boolean
               instant_payouts?: boolean
               standard_payouts?: boolean
             }
@@ -9195,9 +9197,11 @@ export class ApiClient extends AbstractFetchClient {
 
   async getEntitlementsFeatures(
     p: {
+      archived?: boolean
       endingBefore?: string
       expand?: string[]
       limit?: number
+      lookupKey?: string
       startingAfter?: string
       requestBody?: EmptyObject
     } = {},
@@ -9222,9 +9226,11 @@ export class ApiClient extends AbstractFetchClient {
       "Content-Type": "application/x-www-form-urlencoded",
     })
     const query = this._query({
+      archived: p["archived"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      lookup_key: p["lookupKey"],
       starting_after: p["startingAfter"],
     })
     const body = JSON.stringify(p.requestBody)
@@ -9300,9 +9306,11 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: {
         active?: boolean
         expand?: string[]
-        metadata?: {
-          [key: string]: string | undefined
-        }
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
         name?: string
       }
     },
@@ -10059,7 +10067,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         expand?: string[]
         filters?: {
-          countries: string[]
+          countries?: string[]
         }
         permissions: (
           | "balances"
@@ -11338,6 +11346,7 @@ export class ApiClient extends AbstractFetchClient {
           type: "account" | "self"
         }
         on_behalf_of?: string | ""
+        preview_mode?: "next" | "recurring"
         schedule?: string
         schedule_details?: {
           end_behavior?: "cancel" | "release"
@@ -11723,6 +11732,7 @@ export class ApiClient extends AbstractFetchClient {
         type: "account" | "self"
       }
       onBehalfOf?: string | ""
+      previewMode?: "next" | "recurring"
       schedule?: string
       scheduleDetails?: {
         end_behavior?: "cancel" | "release"
@@ -11947,6 +11957,7 @@ export class ApiClient extends AbstractFetchClient {
       invoice_items: p["invoiceItems"],
       issuer: p["issuer"],
       on_behalf_of: p["onBehalfOf"],
+      preview_mode: p["previewMode"],
       schedule: p["schedule"],
       schedule_details: p["scheduleDetails"],
       subscription: p["subscription"],
@@ -12141,6 +12152,7 @@ export class ApiClient extends AbstractFetchClient {
       }
       limit?: number
       onBehalfOf?: string | ""
+      previewMode?: "next" | "recurring"
       schedule?: string
       scheduleDetails?: {
         end_behavior?: "cancel" | "release"
@@ -12379,6 +12391,7 @@ export class ApiClient extends AbstractFetchClient {
       issuer: p["issuer"],
       limit: p["limit"],
       on_behalf_of: p["onBehalfOf"],
+      preview_mode: p["previewMode"],
       schedule: p["schedule"],
       schedule_details: p["scheduleDetails"],
       starting_after: p["startingAfter"],
@@ -17273,6 +17286,12 @@ export class ApiClient extends AbstractFetchClient {
                 returned_at?: number | ""
               }
             | ""
+          no_valid_authorization?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string | ""
+              }
+            | ""
           not_received?:
             | {
                 additional_documentation?: string | ""
@@ -17295,6 +17314,7 @@ export class ApiClient extends AbstractFetchClient {
             | "duplicate"
             | "fraudulent"
             | "merchandise_not_as_described"
+            | "no_valid_authorization"
             | "not_received"
             | "other"
             | "service_not_as_described"
@@ -17407,6 +17427,12 @@ export class ApiClient extends AbstractFetchClient {
                 returned_at?: number | ""
               }
             | ""
+          no_valid_authorization?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string | ""
+              }
+            | ""
           not_received?:
             | {
                 additional_documentation?: string | ""
@@ -17429,6 +17455,7 @@ export class ApiClient extends AbstractFetchClient {
             | "duplicate"
             | "fraudulent"
             | "merchandise_not_as_described"
+            | "no_valid_authorization"
             | "not_received"
             | "other"
             | "service_not_as_described"
@@ -17745,58 +17772,6 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  async getIssuingSettlements(
-    p: {
-      created?:
-        | {
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }
-        | number
-      endingBefore?: string
-      expand?: string[]
-      limit?: number
-      startingAfter?: string
-      requestBody?: EmptyObject
-    } = {},
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_settlement[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
-  > {
-    const url = this.basePath + `/v1/issuing/settlements`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
   async getIssuingSettlementsSettlement(
     p: {
       expand?: string[]
@@ -18088,7 +18063,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         expand?: string[]
         filters?: {
-          countries: string[]
+          countries?: string[]
         }
         permissions: (
           | "balances"
@@ -18804,6 +18779,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -19565,6 +19543,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -20361,6 +20342,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -29847,6 +29831,9 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          bh?: {
+            type: "standard"
+          }
           ca?: {
             province_standard?: {
               province: string
@@ -29892,6 +29879,9 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          eg?: {
+            type: "simplified"
+          }
           es?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -29912,6 +29902,9 @@ export class ApiClient extends AbstractFetchClient {
           }
           gb?: {
             type: "standard"
+          }
+          ge?: {
+            type: "simplified"
           }
           gr?: {
             standard?: {
@@ -29952,7 +29945,13 @@ export class ApiClient extends AbstractFetchClient {
           jp?: {
             type: "standard"
           }
+          ke?: {
+            type: "simplified"
+          }
           kr?: {
+            type: "simplified"
+          }
+          kz?: {
             type: "simplified"
           }
           lt?: {
@@ -29985,6 +29984,9 @@ export class ApiClient extends AbstractFetchClient {
           my?: {
             type: "simplified"
           }
+          ng?: {
+            type: "simplified"
+          }
           nl?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -29995,6 +29997,9 @@ export class ApiClient extends AbstractFetchClient {
             type: "standard"
           }
           nz?: {
+            type: "standard"
+          }
+          om?: {
             type: "standard"
           }
           pl?: {
@@ -30849,6 +30854,9 @@ export class ApiClient extends AbstractFetchClient {
               enabled: boolean
             }
           | ""
+        stripe_s700?: {
+          splashscreen?: string | ""
+        }
         tipping?:
           | {
               aud?: {
@@ -31017,6 +31025,11 @@ export class ApiClient extends AbstractFetchClient {
         offline?:
           | {
               enabled: boolean
+            }
+          | ""
+        stripe_s700?:
+          | {
+              splashscreen?: string | ""
             }
           | ""
         tipping?:
@@ -33802,6 +33815,44 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async postTestHelpersTreasuryOutboundPaymentsId(
+    p: {
+      id: string
+      requestBody: {
+        expand?: string[]
+        tracking_details: {
+          ach?: {
+            trace_id: string
+          }
+          type: "ach" | "us_domestic_wire"
+          us_domestic_wire?: {
+            imad?: string
+            omad?: string
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
+    >
+  > {
+    const url =
+      this.basePath + `/v1/test_helpers/treasury/outbound_payments/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
     p: {
       id: string
@@ -33890,6 +33941,45 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/return`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
+    p: {
+      outboundTransfer: string
+      requestBody: {
+        expand?: string[]
+        tracking_details: {
+          ach?: {
+            trace_id: string
+          }
+          type: "ach" | "us_domestic_wire"
+          us_domestic_wire?: {
+            imad?: string
+            omad?: string
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -36601,12 +36691,14 @@ export class ApiClient extends AbstractFetchClient {
           | "treasury.outbound_payment.failed"
           | "treasury.outbound_payment.posted"
           | "treasury.outbound_payment.returned"
+          | "treasury.outbound_payment.tracking_details_updated"
           | "treasury.outbound_transfer.canceled"
           | "treasury.outbound_transfer.created"
           | "treasury.outbound_transfer.expected_arrival_date_updated"
           | "treasury.outbound_transfer.failed"
           | "treasury.outbound_transfer.posted"
           | "treasury.outbound_transfer.returned"
+          | "treasury.outbound_transfer.tracking_details_updated"
           | "treasury.received_credit.created"
           | "treasury.received_credit.failed"
           | "treasury.received_credit.succeeded"
@@ -36914,12 +37006,14 @@ export class ApiClient extends AbstractFetchClient {
           | "treasury.outbound_payment.failed"
           | "treasury.outbound_payment.posted"
           | "treasury.outbound_payment.returned"
+          | "treasury.outbound_payment.tracking_details_updated"
           | "treasury.outbound_transfer.canceled"
           | "treasury.outbound_transfer.created"
           | "treasury.outbound_transfer.expected_arrival_date_updated"
           | "treasury.outbound_transfer.failed"
           | "treasury.outbound_transfer.posted"
           | "treasury.outbound_transfer.returned"
+          | "treasury.outbound_transfer.tracking_details_updated"
           | "treasury.received_credit.created"
           | "treasury.received_credit.failed"
           | "treasury.received_credit.succeeded"

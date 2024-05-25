@@ -395,60 +395,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-autorest@npm:^0.41.1":
-  version: 0.41.1
-  resolution: "@azure-tools/typespec-autorest@npm:0.41.1"
+"@azure-tools/typespec-autorest@npm:^0.42.1":
+  version: 0.42.1
+  resolution: "@azure-tools/typespec-autorest@npm:0.42.1"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.41.0
-    "@azure-tools/typespec-client-generator-core": ~0.41.1
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/openapi": ~0.55.0
-    "@typespec/rest": ~0.55.0
-    "@typespec/versioning": ~0.55.0
-  checksum: 10/7842236302d4459e54316adf9c67e5c53b37fa599c0dcdf0a30f114e9e549fb05b24073a3848f52b785dd2ee88f155b2fbdb01ec583a6c3601b3cfb94b780324
+    "@azure-tools/typespec-azure-core": ~0.42.0
+    "@azure-tools/typespec-client-generator-core": ~0.42.0
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/openapi": ~0.56.0
+    "@typespec/rest": ~0.56.0
+    "@typespec/versioning": ~0.56.0
+  checksum: 10/c06203a120bf10d4252d9ef011f383b6cba5df2b9749a3bbfeed5e08ebb0f72242efdc0b7235fa0e87df1138edb1a07fd339e8009057f1a5354fe605820083f7
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-core@npm:^0.41.0":
-  version: 0.41.0
-  resolution: "@azure-tools/typespec-azure-core@npm:0.41.0"
+"@azure-tools/typespec-azure-core@npm:^0.42.0":
+  version: 0.42.0
+  resolution: "@azure-tools/typespec-azure-core@npm:0.42.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/rest": ~0.55.0
-  checksum: 10/2c796d1fcf4bbdc827ea9a8fe6893433f43492dc245ce4bb8bfdad336f38bceabe71e343577f15b5bc5be4f8ec4a8a1932fad01d11828a4493d366949a26107d
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/rest": ~0.56.0
+  checksum: 10/937b495dd8da9ca3fe5e2621574f8b3f96c41c67e2ff60bc4e0d80356c6c6b1d9d1120a65cf78d4395d60573296827bd9a781cd0a0e566073937c7439f14b649
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-resource-manager@npm:^0.41.0":
-  version: 0.41.0
-  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.41.0"
-  peerDependencies:
-    "@azure-tools/typespec-autorest": ~0.41.0
-    "@azure-tools/typespec-azure-core": ~0.41.0
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/openapi": ~0.55.0
-    "@typespec/rest": ~0.55.0
-    "@typespec/versioning": ~0.55.0
-  checksum: 10/fdac34d01661499965b56592af47b9652a3d48ebb5b07cb14dffda22e26aca1db6fb7ff3018b29bf19ed28dfabba1eabee8d5e626225cd3c79b346c9d68115f5
-  languageName: node
-  linkType: hard
-
-"@azure-tools/typespec-client-generator-core@npm:^0.41.7":
-  version: 0.41.9
-  resolution: "@azure-tools/typespec-client-generator-core@npm:0.41.9"
+"@azure-tools/typespec-azure-resource-manager@npm:^0.42.1":
+  version: 0.42.1
+  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.42.1"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.41.0
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/rest": ~0.55.0
-    "@typespec/versioning": ~0.55.0
-  checksum: 10/77c669e7a8fe825d4ccf5a28331be3288bc0575d2f29c7618340c0ee95428b8606da73859c59668d40338a18b021cf9998d63e2e0f6348765a72878b07bd417f
+    "@azure-tools/typespec-autorest": ~0.42.1
+    "@azure-tools/typespec-azure-core": ~0.42.0
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/openapi": ~0.56.0
+    "@typespec/rest": ~0.56.0
+    "@typespec/versioning": ~0.56.0
+  checksum: 10/6268cae86084ada32237cdbcc0a38614dc52b3e267a96fd1f21a731b8551eb2e63811b3fd7e9309cfcb1b734d6f579190f285ae1c0f31f8f4430728f67a60b5b
+  languageName: node
+  linkType: hard
+
+"@azure-tools/typespec-client-generator-core@npm:^0.42.3":
+  version: 0.42.3
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.42.3"
+  dependencies:
+    change-case: "npm:~5.4.4"
+    pluralize: "npm:^8.0.0"
+  peerDependencies:
+    "@azure-tools/typespec-azure-core": ~0.42.0
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/rest": ~0.56.0
+    "@typespec/versioning": ~0.56.0
+  checksum: 10/c554f38a937878ccb0ecd53eecbb2afc202cfd4921f97e8eed6afa414c5e853893e5c9627ac0e5c2a8c437c8bd249e75a2ee6ce890d3a2494f918889cd09bc52
   languageName: node
   linkType: hard
 
@@ -3184,22 +3187,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
   dependencies:
-    "@azure-tools/typespec-autorest": "npm:^0.41.1"
-    "@azure-tools/typespec-azure-core": "npm:^0.41.0"
-    "@azure-tools/typespec-azure-resource-manager": "npm:^0.41.0"
-    "@azure-tools/typespec-client-generator-core": "npm:^0.41.7"
+    "@azure-tools/typespec-autorest": "npm:^0.42.1"
+    "@azure-tools/typespec-azure-core": "npm:^0.42.0"
+    "@azure-tools/typespec-azure-resource-manager": "npm:^0.42.1"
+    "@azure-tools/typespec-client-generator-core": "npm:^0.42.3"
     "@biomejs/biome": "npm:^1.7.3"
     "@biomejs/js-api": "npm:0.6.0"
     "@biomejs/wasm-nodejs": "npm:^1.7.3"
     "@commander-js/extra-typings": "npm:^12.1.0"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/lodash": "npm:^4.17.4"
-    "@typespec/compiler": "npm:^0.55.0"
-    "@typespec/http": "npm:^0.55.0"
-    "@typespec/openapi": "npm:^0.55.0"
-    "@typespec/openapi3": "npm:^0.55.0"
-    "@typespec/rest": "npm:^0.55.0"
-    "@typespec/versioning": "npm:^0.55.0"
+    "@typespec/compiler": "npm:^0.56.0"
+    "@typespec/http": "npm:^0.56.0"
+    "@typespec/openapi": "npm:^0.56.0"
+    "@typespec/openapi3": "npm:^0.56.0"
+    "@typespec/rest": "npm:^0.56.0"
+    "@typespec/versioning": "npm:^0.56.0"
     ajv: "npm:^8.13.0"
     ajv-draft-04: "npm:^1.0.0"
     ajv-formats: "npm:^3.0.1"
@@ -5255,13 +5258,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/compiler@npm:0.55.0"
+"@typespec/compiler@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/compiler@npm:0.56.0"
   dependencies:
     "@babel/code-frame": "npm:~7.24.2"
     ajv: "npm:~8.12.0"
-    change-case: "npm:~5.4.3"
+    change-case: "npm:~5.4.4"
     globby: "npm:~14.0.1"
     mustache: "npm:~4.2.0"
     picocolors: "npm:~1.0.0"
@@ -5275,59 +5278,59 @@ __metadata:
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/c38625cf41c331c71831b0ae0ec0a06ab2375103d1c3820872c155711e5ad45d99c341770fff2f9166c53a5fbba478da5c92a7039ba58264dedbff2a319fcca2
+  checksum: 10/10cd1272f64483871cdeed96148c0282f7b22b5b913b7adf46c749bce58874fdbebab9d75355114bf68504fd0e68867e2a5f25c707250b59d0f7f1af436e974b
   languageName: node
   linkType: hard
 
-"@typespec/http@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/http@npm:0.55.0"
+"@typespec/http@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/http@npm:0.56.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-  checksum: 10/33860e4a0cc43e8790ed7e7938513622d90ae06750c2cff431976d874625c713fad9b9725c3f682c6ef57eb00630ba1a2fa7848c3e687115d7776d1b88e345c5
+    "@typespec/compiler": ~0.56.0
+  checksum: 10/930b91e5cec20398e426bafbd314466b17c679d2eb1ccaa750bd0e1f727a9f0cc4d6b1b353c6a075f198213a172f3e07d86d9099e4d40500d50cfdab08ba3426
   languageName: node
   linkType: hard
 
-"@typespec/openapi3@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/openapi3@npm:0.55.0"
+"@typespec/openapi3@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/openapi3@npm:0.56.0"
   dependencies:
     yaml: "npm:~2.4.1"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-    "@typespec/openapi": ~0.55.0
-    "@typespec/versioning": ~0.55.0
-  checksum: 10/5583341b8665b97d970eef414ace5cae252bc4af939fc72b73a72f4b6c6bd2f42c1691051537e583e61dbe74c24b51674ee6a747e66b905eb59aed85cfe86165
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+    "@typespec/openapi": ~0.56.0
+    "@typespec/versioning": ~0.56.0
+  checksum: 10/0ed8eec66febce97fcc57ef6776ba9a1be1def77027723f03adb6499e0b7e2ae65793aefc7883f93fb3693d7185bb745766375a0fbee887cfd015f9ec20fa935
   languageName: node
   linkType: hard
 
-"@typespec/openapi@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/openapi@npm:0.55.0"
+"@typespec/openapi@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/openapi@npm:0.56.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-  checksum: 10/71a8bd2b75c50756950e26488448d101675f871e443a2e9de807e2eacd5200ae1bd6d0271048748cf54c6f34781636f10e0090beccbd43fe3c563a86660ecccf
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+  checksum: 10/21152284db0c6b28ebac0eb08f2fc45b5e1a115c0e6049da813646b316212cdd039a87475e76ad4de6a228d444cb5d9c40c829ea614ac34841dbcd300ab3fd4e
   languageName: node
   linkType: hard
 
-"@typespec/rest@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/rest@npm:0.55.0"
+"@typespec/rest@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/rest@npm:0.56.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-    "@typespec/http": ~0.55.0
-  checksum: 10/668b7fcb9d1215656bbb5ae077c10732d98b9d0f6c2fb0ffb9644e4fcfacfcdac5950796410b329b3d2f93531e9ef85102a293f9324fe28f7254d66c347712f2
+    "@typespec/compiler": ~0.56.0
+    "@typespec/http": ~0.56.0
+  checksum: 10/c9442be1042f05757a92b3de9295653a95d95c4266b6c4c2666b387b888d7a994a30b0ea6c94f1e1b64715601010d0818c397629ec71e69c47c16ac8d9e43629
   languageName: node
   linkType: hard
 
-"@typespec/versioning@npm:^0.55.0":
-  version: 0.55.0
-  resolution: "@typespec/versioning@npm:0.55.0"
+"@typespec/versioning@npm:^0.56.0":
+  version: 0.56.0
+  resolution: "@typespec/versioning@npm:0.56.0"
   peerDependencies:
-    "@typespec/compiler": ~0.55.0
-  checksum: 10/120958973b757821f22edb263f1960e0080cbca364e72a5a6235020f3570b3bbffae098eba71762b625a57fa6acb603f092fc88b4527a7db4dc538d96535c07b
+    "@typespec/compiler": ~0.56.0
+  checksum: 10/d703b4ac51cefc3a92842f51e9fbc400dc45efe1a01d1e53a37b32d3f8d64a32683da497737d56aadc4c6c04a2b24ffdfd1093f7ee6c0f1a77ec0cf840bd8283
   languageName: node
   linkType: hard
 
@@ -6698,7 +6701,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"change-case@npm:~5.4.3, change-case@npm:~5.4.4":
+"change-case@npm:~5.4.4":
   version: 5.4.4
   resolution: "change-case@npm:5.4.4"
   checksum: 10/446e5573f3c854290a91292afef92b957d2e43a928260c91989b482aa860caaa29711b6725fc40c200af68061cbab357b033446d16a17bc5c553636994074e92
