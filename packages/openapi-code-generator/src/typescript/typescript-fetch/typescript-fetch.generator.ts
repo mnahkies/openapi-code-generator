@@ -1,13 +1,13 @@
-import {OpenapiGeneratorConfig} from "../../templates.types"
+import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
 import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
 
 export async function generateTypescriptFetch(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter, typeConfig} = config
+  const {input, emitter, allowAny} = config
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
@@ -16,13 +16,13 @@ export async function generateTypescriptFetch(
       ...config.compilerOptions,
       exactOptionalPropertyTypes: false,
     },
-    typeConfig,
+    {allowAny},
   )
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
-    typeConfig,
+    {allowAny},
   )
 
   const imports = new ImportBuilder()

@@ -1,4 +1,4 @@
-import {OpenapiGeneratorConfig} from "../../templates.types"
+import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
@@ -6,21 +6,21 @@ import {AngularModuleBuilder} from "./angular-module-builder"
 import {AngularServiceBuilder} from "./angular-service-builder"
 
 export async function generateTypescriptAngular(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const {input, emitter, typeConfig} = config
+  const {input, emitter, allowAny} = config
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
     config.compilerOptions,
-    typeConfig,
+    {allowAny},
   )
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
     config.schemaBuilder,
-    typeConfig,
+    {allowAny},
   )
 
   const imports = new ImportBuilder()

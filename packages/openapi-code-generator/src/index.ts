@@ -70,6 +70,6 @@ export async function generate(
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
     compilerOptions,
     groupingStrategy: config.groupingStrategy,
-    typeConfig: {allowAny: config.tsAllowAny},
+    allowAny: config.tsAllowAny,
   })
 }
