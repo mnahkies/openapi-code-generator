@@ -577,6 +577,39 @@ describe.each(testVersions)(
           "String must contain at most 8 character(s)",
         )
       })
+
+      describe("formats", () => {
+        it("supports email", async () => {
+          const {code, execute} = await getActualFromModel({
+            ...base,
+            format: "email",
+          })
+
+          expect(code).toMatchInlineSnapshot('"const x = z.string().email()"')
+
+          await expect(execute("test@example.com")).resolves.toBe(
+            "test@example.com",
+          )
+          await expect(execute("some string")).rejects.toThrow("Invalid email")
+        })
+        it("supports date-time", async () => {
+          const {code, execute} = await getActualFromModel({
+            ...base,
+            format: "date-time",
+          })
+
+          expect(code).toMatchInlineSnapshot(
+            '"const x = z.string().datetime({ offset: true })"',
+          )
+
+          await expect(execute("2024-05-25T08:20:00.000Z")).resolves.toBe(
+            "2024-05-25T08:20:00.000Z",
+          )
+          await expect(execute("some string")).rejects.toThrow(
+            "Invalid datetime",
+          )
+        })
+      })
     })
 
     describe("booleans", () => {

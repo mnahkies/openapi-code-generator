@@ -63,7 +63,7 @@ describe.each(testVersions)(
             str: joi.string().required(),
             num: joi.number().required(),
             date: joi.string().required(),
-            datetime: joi.string().required(),
+            datetime: joi.string().isoDate().required(),
             optional_str: joi.string(),
             required_nullable: joi.string().allow(null).required(),
           })
@@ -571,7 +571,10 @@ describe.each(testVersions)(
       })
 
       it("supports 0", async () => {
-        const {code, execute} = await getActualFromModel({...base, minimum: 0})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minimum: 0,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.number().min(0).required()"',
@@ -668,6 +671,43 @@ describe.each(testVersions)(
           '"value" length must be less than or equal to 8 characters long',
         )
       })
+
+      describe("formats", () => {
+        it("supports email", async () => {
+          const {code, execute} = await getActualFromModel({
+            ...base,
+            format: "email",
+          })
+
+          expect(code).toMatchInlineSnapshot(
+            `"const x = joi.string().email().required()"`,
+          )
+
+          await expect(execute("test@example.com")).resolves.toBe(
+            "test@example.com",
+          )
+          await expect(execute("some string")).rejects.toThrow(
+            '"value" must be a valid email',
+          )
+        })
+        it("supports date-time", async () => {
+          const {code, execute} = await getActualFromModel({
+            ...base,
+            format: "date-time",
+          })
+
+          expect(code).toMatchInlineSnapshot(
+            `"const x = joi.string().isoDate().required()"`,
+          )
+
+          await expect(execute("2024-05-25T08:20:00.000Z")).resolves.toBe(
+            "2024-05-25T08:20:00.000Z",
+          )
+          await expect(execute("some string")).rejects.toThrow(
+            '"value" must be in iso format',
+          )
+        })
+      })
     })
 
     describe("booleans", () => {
@@ -745,7 +785,10 @@ describe.each(testVersions)(
       })
 
       it("supports minItems", async () => {
-        const {code, execute} = await getActualFromModel({...base, minItems: 2})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minItems: 2,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.array().items(joi.string().required()).min(2).required()"',
@@ -761,7 +804,10 @@ describe.each(testVersions)(
       })
 
       it("supports maxItems", async () => {
-        const {code, execute} = await getActualFromModel({...base, maxItems: 2})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          maxItems: 2,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.array().items(joi.string().required()).max(2).required()"',
@@ -892,7 +938,9 @@ describe.each(testVersions)(
 
         expect(code).toMatchInlineSnapshot(`"const x = joi.any().required()"`)
 
-        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute({any: "object"})).resolves.toEqual({
+          any: "object",
+        })
         await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
         await expect(execute(null)).resolves.toBeNull()
         await expect(execute(123)).resolves.toBe(123)
@@ -915,7 +963,9 @@ describe.each(testVersions)(
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute({key: "string"})).resolves.toEqual({
+          key: "string",
+        })
         await expect(execute(123)).rejects.toThrow(
           '"value" must be of type object',
         )
@@ -993,7 +1043,9 @@ describe.each(testVersions)(
 
         expect(code).toMatchInlineSnapshot(`"const x = joi.any().required()"`)
 
-        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute({any: "object"})).resolves.toEqual({
+          any: "object",
+        })
         await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
         await expect(execute(null)).resolves.toBeNull()
         await expect(execute(123)).resolves.toBe(123)
@@ -1016,7 +1068,9 @@ describe.each(testVersions)(
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute({key: "string"})).resolves.toEqual({
+          key: "string",
+        })
         await expect(execute(123)).rejects.toThrow(
           '"value" must be of type object',
         )
