@@ -3,6 +3,30 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.9.0...v0.10.0) (2024-05-25)
+
+### Bug Fixes
+
+- an {} schema should be an unknown/any type ([#204](https://github.com/mnahkies/openapi-code-generator/issues/204)) ([b56ac4f](https://github.com/mnahkies/openapi-code-generator/commit/b56ac4f18ddd1ee95cc8e98065cd6c9b360de18b)), closes [#200](https://github.com/mnahkies/openapi-code-generator/issues/200)
+- **deps:** update angular monorepo ([#175](https://github.com/mnahkies/openapi-code-generator/issues/175)) ([245f62a](https://github.com/mnahkies/openapi-code-generator/commit/245f62a9901e86dc1fced053259d171dfa03a0c4))
+- **deps:** update dependency @biomejs/biome to v1.7.2 ([#176](https://github.com/mnahkies/openapi-code-generator/issues/176)) ([f754a4a](https://github.com/mnahkies/openapi-code-generator/commit/f754a4afd7f4b5a12e1f1f6d03d38098ceda796e))
+- **deps:** update dependency ajv to v8.13.0 ([#183](https://github.com/mnahkies/openapi-code-generator/issues/183)) ([a215cd1](https://github.com/mnahkies/openapi-code-generator/commit/a215cd1821ae9193284ead114d566e01e2b1587d))
+- **docs:** correct header level ([#209](https://github.com/mnahkies/openapi-code-generator/issues/209)) ([e22bc24](https://github.com/mnahkies/openapi-code-generator/commit/e22bc24293842df429ff18e4b77e7504e1c27ec8))
+- improve handling of cli boolean params ([#205](https://github.com/mnahkies/openapi-code-generator/issues/205)) ([24cd899](https://github.com/mnahkies/openapi-code-generator/commit/24cd899cf3d523d2e4b1daf59311cb8c2bfb3e45))
+- joi supports email / date-time string formats ([#206](https://github.com/mnahkies/openapi-code-generator/issues/206)) ([1981108](https://github.com/mnahkies/openapi-code-generator/commit/1981108114e7956ce0c3e5b5d67cb0b412a61fc4))
+- make renovate less noisy ([#197](https://github.com/mnahkies/openapi-code-generator/issues/197)) ([88d0a57](https://github.com/mnahkies/openapi-code-generator/commit/88d0a572649466296498764f079b44e9ed32ffc8))
+- move script to \_app ([#167](https://github.com/mnahkies/openapi-code-generator/issues/167)) ([04bf9bb](https://github.com/mnahkies/openapi-code-generator/commit/04bf9bb66cfd62178e90c27674a588325b12c662))
+- only allow publish of releases from latest main ([#161](https://github.com/mnahkies/openapi-code-generator/issues/161)) ([8f2d698](https://github.com/mnahkies/openapi-code-generator/commit/8f2d69825d43eba9653c7c0acb2ea1b864b610df))
+- provide a user ([#164](https://github.com/mnahkies/openapi-code-generator/issues/164)) ([a935611](https://github.com/mnahkies/openapi-code-generator/commit/a93561138ef7dc37ec0ce9d626b5894fc341016f))
+- replace default nextra meta descriptions ([#168](https://github.com/mnahkies/openapi-code-generator/issues/168)) ([4c8bf6c](https://github.com/mnahkies/openapi-code-generator/commit/4c8bf6c60f66f86101d81ea7c67d5caa6b40e017))
+- set url ([#166](https://github.com/mnahkies/openapi-code-generator/issues/166)) ([6c62f65](https://github.com/mnahkies/openapi-code-generator/commit/6c62f652fdb51b53914e129e60b37cdefe548adf)), closes [/github.com/tschaub/gh-pages/issues/384#issuecomment-1236047843](https://github.com//github.com/tschaub/gh-pages/issues/384/issues/issuecomment-1236047843)
+- try git config ([#165](https://github.com/mnahkies/openapi-code-generator/issues/165)) ([b6a6715](https://github.com/mnahkies/openapi-code-generator/commit/b6a67158029d4b1cd3388ae0564fb88695781f11))
+
+### Features
+
+- new documentation website ([#162](https://github.com/mnahkies/openapi-code-generator/issues/162)) ([ba002cf](https://github.com/mnahkies/openapi-code-generator/commit/ba002cf208f2bb6b51299c6655f0b1bec22e2d93))
+- publish docs from ci, add ga to docs ([#163](https://github.com/mnahkies/openapi-code-generator/issues/163)) ([f935bb5](https://github.com/mnahkies/openapi-code-generator/commit/f935bb5a1e07c52dc1fee81ca5f53cace9f94362))
+
 # [0.9.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.8.0...v0.9.0) (2024-04-27)
 
 ### Bug Fixes

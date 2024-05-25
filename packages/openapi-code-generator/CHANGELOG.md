@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.10.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.9.0...v0.10.0) (2024-05-25)
+
+### Bug Fixes
+
+- an {} schema should be an unknown/any type ([#204](https://github.com/mnahkies/openapi-code-generator/issues/204)) ([b56ac4f](https://github.com/mnahkies/openapi-code-generator/commit/b56ac4f18ddd1ee95cc8e98065cd6c9b360de18b)), closes [#200](https://github.com/mnahkies/openapi-code-generator/issues/200)
+- improve handling of cli boolean params ([#205](https://github.com/mnahkies/openapi-code-generator/issues/205)) ([24cd899](https://github.com/mnahkies/openapi-code-generator/commit/24cd899cf3d523d2e4b1daf59311cb8c2bfb3e45))
+- joi supports email / date-time string formats ([#206](https://github.com/mnahkies/openapi-code-generator/issues/206)) ([1981108](https://github.com/mnahkies/openapi-code-generator/commit/1981108114e7956ce0c3e5b5d67cb0b412a61fc4))
+
+### Features
+
+- new documentation website ([#162](https://github.com/mnahkies/openapi-code-generator/issues/162)) ([ba002cf](https://github.com/mnahkies/openapi-code-generator/commit/ba002cf208f2bb6b51299c6655f0b1bec22e2d93))
+
 # [0.9.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.8.0...v0.9.0) (2024-04-27)
 
 ### Bug Fixes
