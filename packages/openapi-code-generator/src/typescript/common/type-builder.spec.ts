@@ -1,7 +1,8 @@
 import {describe, expect, it} from "@jest/globals"
+import {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
-import {TypeBuilder} from "./type-builder"
+import {TypeBuilder, TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatter} from "./typescript-formatter"
 
 describe.each(testVersions)(
@@ -31,7 +32,11 @@ describe.each(testVersions)(
     it("can build an optional property compatible with 'exactOptionalPropertyTypes'", async () => {
       const {code, types} = await getActual(
         "components/schemas/OptionalProperties",
-        {exactOptionalPropertyTypes: true},
+        {
+          compilerOptions: {
+            exactOptionalPropertyTypes: true,
+          },
+        },
       )
 
       expect(code).toMatchInlineSnapshot(`
@@ -143,64 +148,6 @@ describe.each(testVersions)(
       `)
     })
 
-    it("handles additionalProperties set to true", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesBool",
-      )
-
-      expect(code).toMatchInlineSnapshot(`
-        "import {t_AdditionalPropertiesBool} from './unit-test.types'
-
-        const x: t_AdditionalPropertiesBool"
-      `)
-
-      expect(types).toMatchInlineSnapshot(`
-        "export type t_AdditionalPropertiesBool = {
-          [key: string]: any | undefined
-        }"
-      `)
-    })
-
-    it("handles additionalProperties set to {}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptySchema",
-      )
-
-      expect(code).toMatchInlineSnapshot(`
-        "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
-
-        const x: t_AdditionalPropertiesUnknownEmptySchema"
-      `)
-
-      expect(types).toMatchInlineSnapshot(`
-        "export type t_AdditionalPropertiesUnknownEmptySchema = {
-          [key: string]: any | undefined
-        }"
-      `)
-    })
-
-    it("handles additionalProperties set to {type: 'object'}", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
-      )
-
-      expect(code).toMatchInlineSnapshot(`
-        "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
-
-        const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
-      `)
-
-      expect(types).toMatchInlineSnapshot(`
-        "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
-          [key: string]:
-            | {
-                [key: string]: any | undefined
-              }
-            | undefined
-        }"
-      `)
-    })
-
     it("can build a recursive type correctly", async () => {
       const {code, types} = await getActual("components/schemas/Recursive")
 
@@ -238,53 +185,237 @@ describe.each(testVersions)(
       `)
     })
 
-    it("handles additionalProperties in conjunction with properties", async () => {
-      const {code, types} = await getActual(
-        "components/schemas/AdditionalPropertiesMixed",
-      )
+    describe("unspecified schemas when allowAny: true", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+          {config: {allowAny: true}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
-        "import {t_AdditionalPropertiesMixed} from './unit-test.types'
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesBool} from './unit-test.types'
 
-        const x: t_AdditionalPropertiesMixed"
-      `)
+                  const x: t_AdditionalPropertiesBool"
+              `)
 
-      expect(types).toMatchInlineSnapshot(`
-        "export type t_AdditionalPropertiesMixed = {
-          id?: string
-          name?: string
-          [key: string]: any | undefined
-        }"
-      `)
+        expect(types).toMatchInlineSnapshot(`
+                  "export type t_AdditionalPropertiesBool = {
+                    [key: string]: any | undefined
+                  }"
+              `)
+      })
+
+      it("handles additionalProperties set to {}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+          {config: {allowAny: true}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesUnknownEmptySchema"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+                  "export type t_AdditionalPropertiesUnknownEmptySchema = {
+                    [key: string]: any | undefined
+                  }"
+              `)
+      })
+
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+          {config: {allowAny: true}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+                  "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
+                    [key: string]:
+                      | {
+                          [key: string]: any | undefined
+                        }
+                      | undefined
+                  }"
+              `)
+      })
+
+      it("handles additionalProperties set to true in conjunction with properties", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+          {config: {allowAny: true}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesMixed} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesMixed"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+                  "export type t_AdditionalPropertiesMixed = {
+                    id?: string
+                    name?: string
+                    [key: string]: any | undefined
+                  }"
+              `)
+      })
+
+      it("handles any / empty objects", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AnyJsonValue",
+          {config: {allowAny: true}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AnyJsonValue} from './unit-test.types'
+
+                  const x: t_AnyJsonValue"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+                  "export type EmptyObject = { [key: string]: never }
+
+                  export type t_AnyJsonValue = {
+                    anyObject?: {
+                      [key: string]: any | undefined
+                    }
+                    arrayOfAny?: any[]
+                    emptyObject?: EmptyObject
+                    emptySchema?: any
+                    emptySchemaAdditionalProperties?: any
+                  }"
+              `)
+      })
     })
 
-    it("handles any / empty objects", async () => {
-      const {code, types} = await getActual("components/schemas/AnyJsonValue")
+    describe("unspecified schemas when allowAny: false", () => {
+      it("handles additionalProperties set to true", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesBool",
+          {config: {allowAny: false}},
+        )
 
-      expect(code).toMatchInlineSnapshot(`
-        "import {t_AnyJsonValue} from './unit-test.types'
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesBool} from './unit-test.types'
 
-        const x: t_AnyJsonValue"
-      `)
+                  const x: t_AdditionalPropertiesBool"
+              `)
 
-      expect(types).toMatchInlineSnapshot(`
-        "export type EmptyObject = { [key: string]: never }
+        expect(types).toMatchInlineSnapshot(`
+          "export type t_AdditionalPropertiesBool = {
+            [key: string]: unknown | undefined
+          }"
+        `)
+      })
 
-        export type t_AnyJsonValue = {
-          anyObject?: {
-            [key: string]: any | undefined
-          }
-          arrayOfAny?: any[]
-          emptyObject?: EmptyObject
-          emptySchema?: any
-          emptySchemaAdditionalProperties?: any
-        }"
-      `)
+      it("handles additionalProperties set to {}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptySchema",
+          {config: {allowAny: false}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesUnknownEmptySchema"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+          "export type t_AdditionalPropertiesUnknownEmptySchema = {
+            [key: string]: unknown | undefined
+          }"
+        `)
+      })
+
+      it("handles additionalProperties set to {type: 'object'}", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesUnknownEmptyObjectSchema",
+          {config: {allowAny: false}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+          "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
+            [key: string]:
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | undefined
+          }"
+        `)
+      })
+
+      it("handles additionalProperties set to true in conjunction with properties", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AdditionalPropertiesMixed",
+          {config: {allowAny: false}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AdditionalPropertiesMixed} from './unit-test.types'
+
+                  const x: t_AdditionalPropertiesMixed"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+          "export type t_AdditionalPropertiesMixed = {
+            id?: string
+            name?: string
+            [key: string]: unknown | undefined
+          }"
+        `)
+      })
+
+      it("handles any / empty objects", async () => {
+        const {code, types} = await getActual(
+          "components/schemas/AnyJsonValue",
+          {config: {allowAny: false}},
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+                  "import {t_AnyJsonValue} from './unit-test.types'
+
+                  const x: t_AnyJsonValue"
+              `)
+
+        expect(types).toMatchInlineSnapshot(`
+          "export type EmptyObject = { [key: string]: never }
+
+          export type t_AnyJsonValue = {
+            anyObject?: {
+              [key: string]: unknown | undefined
+            }
+            arrayOfAny?: unknown[]
+            emptyObject?: EmptyObject
+            emptySchema?: unknown
+            emptySchemaAdditionalProperties?: unknown
+          }"
+        `)
+      })
     })
 
     async function getActual(
       path: string,
-      compilerOptions = {exactOptionalPropertyTypes: false},
+      {
+        config = {allowAny: false},
+        compilerOptions = {exactOptionalPropertyTypes: false},
+      }: {
+        config?: TypeBuilderConfig
+        compilerOptions?: CompilerOptions
+      } = {},
     ) {
       const formatter = await TypescriptFormatter.createNodeFormatter()
 
@@ -297,7 +428,7 @@ describe.each(testVersions)(
         "./unit-test.types.ts",
         input,
         compilerOptions,
-        {allowAny: true},
+        config,
       )
 
       const type = builder.withImports(imports).schemaObjectToType(schema)
