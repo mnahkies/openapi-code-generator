@@ -8,14 +8,41 @@ import {
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
+import {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",
   (version) => {
+    const sentinel = Symbol()
+
+    const executeParseSchema = async (
+      code: string,
+      input: unknown = sentinel,
+    ) => {
+      return vm.runInNewContext(
+        `(async function () {
+        ${code}
+        ${
+          input !== sentinel
+            ? `return x.validateAsync(${JSON.stringify(input)})`
+            : ""
+        }
+        })()`,
+        // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
+        //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
+        //       the context.
+        //       I think it should be possible move loading of joi into the context, such that
+        //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
+
+        {joi: require("@hapi/joi"), RegExp},
+      )
+    }
+
     const {getActual, getActualFromModel} = schemaBuilderTestHarness(
       "joi",
       version,
+      executeParseSchema,
     )
 
     it("supports the SimpleObject", async () => {
@@ -392,21 +419,21 @@ describe.each(testVersions)(
       }
 
       it("supports plain number", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
         })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.number().required()"',
         )
-        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
-        await expect(
-          executeParseSchema(code, "not a number 123"),
-        ).rejects.toThrow('"value" must be a number')
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("not a number 123")).rejects.toThrow(
+          '"value" must be a number',
+        )
       })
 
       it("supports enum number", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           enum: [200, 301, 404],
         })
@@ -415,14 +442,14 @@ describe.each(testVersions)(
           '"const x = joi.number().valid(200, 301, 404).required()"',
         )
 
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+        await expect(execute(123)).rejects.toThrow(
           '"value" must be one of [200, 301, 404]',
         )
-        await expect(executeParseSchema(code, 404)).resolves.toBe(404)
+        await expect(execute(404)).resolves.toBe(404)
       })
 
       it("supports minimum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           minimum: 10,
         })
@@ -431,14 +458,14 @@ describe.each(testVersions)(
           '"const x = joi.number().min(10).required()"',
         )
 
-        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+        await expect(execute(5)).rejects.toThrow(
           '"value" must be larger than or equal to 10',
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports maximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           maximum: 16,
         })
@@ -447,14 +474,14 @@ describe.each(testVersions)(
           '"const x = joi.number().max(16).required()"',
         )
 
-        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+        await expect(execute(25)).rejects.toThrow(
           '"value" must be less than or equal to 16',
         )
-        await expect(executeParseSchema(code, 8)).resolves.toBe(8)
+        await expect(execute(8)).resolves.toBe(8)
       })
 
       it("supports minimum/maximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           minimum: 10,
           maximum: 24,
@@ -464,17 +491,17 @@ describe.each(testVersions)(
           '"const x = joi.number().min(10).max(24).required()"',
         )
 
-        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+        await expect(execute(5)).rejects.toThrow(
           '"value" must be larger than or equal to 10',
         )
-        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+        await expect(execute(25)).rejects.toThrow(
           '"value" must be less than or equal to 24',
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports exclusiveMinimum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           exclusiveMinimum: 4,
         })
@@ -483,14 +510,14 @@ describe.each(testVersions)(
           '"const x = joi.number().greater(4).required()"',
         )
 
-        await expect(executeParseSchema(code, 4)).rejects.toThrow(
+        await expect(execute(4)).rejects.toThrow(
           '"value" must be greater than 4',
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports exclusiveMaximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           exclusiveMaximum: 4,
         })
@@ -499,14 +526,12 @@ describe.each(testVersions)(
           '"const x = joi.number().less(4).required()"',
         )
 
-        await expect(executeParseSchema(code, 4)).rejects.toThrow(
-          '"value" must be less than 4',
-        )
-        await expect(executeParseSchema(code, 3)).resolves.toBe(3)
+        await expect(execute(4)).rejects.toThrow('"value" must be less than 4')
+        await expect(execute(3)).resolves.toBe(3)
       })
 
       it("supports multipleOf", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           multipleOf: 4,
         })
@@ -515,14 +540,14 @@ describe.each(testVersions)(
           '"const x = joi.number().multiple(4).required()"',
         )
 
-        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+        await expect(execute(11)).rejects.toThrow(
           '"value" must be a multiple of 4',
         )
-        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+        await expect(execute(16)).resolves.toBe(16)
       })
 
       it("supports combining multipleOf and min/max", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           multipleOf: 4,
           minimum: 10,
@@ -533,26 +558,26 @@ describe.each(testVersions)(
           '"const x = joi.number().multiple(4).min(10).max(20).required()"',
         )
 
-        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+        await expect(execute(11)).rejects.toThrow(
           '"value" must be a multiple of 4',
         )
-        await expect(executeParseSchema(code, 8)).rejects.toThrow(
+        await expect(execute(8)).rejects.toThrow(
           '"value" must be larger than or equal to 10',
         )
-        await expect(executeParseSchema(code, 24)).rejects.toThrow(
+        await expect(execute(24)).rejects.toThrow(
           '"value" must be less than or equal to 20',
         )
-        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+        await expect(execute(16)).resolves.toBe(16)
       })
 
       it("supports 0", async () => {
-        const {code} = await getActualFromModel({...base, minimum: 0})
+        const {code, execute} = await getActualFromModel({...base, minimum: 0})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.number().min(0).required()"',
         )
 
-        await expect(executeParseSchema(code, -1)).rejects.toThrow(
+        await expect(execute(-1)).rejects.toThrow(
           '"value" must be larger than or equal to 0',
         )
       })
@@ -566,50 +591,48 @@ describe.each(testVersions)(
       }
 
       it("supports plain string", async () => {
-        const {code} = await getActualFromModel({...base})
+        const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.string().required()"',
         )
 
-        await expect(executeParseSchema(code, "a string")).resolves.toBe(
-          "a string",
-        )
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
-          '"value" must be a string',
-        )
+        await expect(execute("a string")).resolves.toBe("a string")
+        await expect(execute(123)).rejects.toThrow('"value" must be a string')
       })
 
       it("supports minLength", async () => {
-        const {code} = await getActualFromModel({...base, minLength: 8})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minLength: 8,
+        })
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.string().min(8).required()"',
         )
 
-        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
-          "12345678",
-        )
-        await expect(executeParseSchema(code, "1234567")).rejects.toThrow(
+        await expect(execute("12345678")).resolves.toBe("12345678")
+        await expect(execute("1234567")).rejects.toThrow(
           '"value" length must be at least 8 characters long',
         )
       })
 
       it("supports maxLength", async () => {
-        const {code} = await getActualFromModel({...base, maxLength: 8})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          maxLength: 8,
+        })
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.string().max(8).required()"',
         )
 
-        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
-          "12345678",
-        )
-        await expect(executeParseSchema(code, "123456789")).rejects.toThrow(
+        await expect(execute("12345678")).resolves.toBe("12345678")
+        await expect(execute("123456789")).rejects.toThrow(
           '"value" length must be less than or equal to 8 characters long',
         )
       })
 
       it("supports pattern", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           pattern: '"pk/\\d+"',
         })
@@ -617,16 +640,14 @@ describe.each(testVersions)(
           '"const x = joi.string().pattern(new RegExp(\'"pk/\\\\d+"\')).required()"',
         )
 
-        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
-          '"pk/1234"',
-        )
-        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
+        await expect(execute('"pk/1234"')).resolves.toBe('"pk/1234"')
+        await expect(execute("pk/abcd")).rejects.toThrow(
           '"value" with value "pk/abcd" fails to match the required pattern: /"pk\\/\\d+"/',
         )
       })
 
       it("supports pattern with minLength / maxLength", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           pattern: "pk-\\d+",
           minLength: 5,
@@ -636,14 +657,14 @@ describe.each(testVersions)(
           '"const x = joi.string().min(5).max(8).pattern(new RegExp("pk-\\\\d+")).required()"',
         )
 
-        await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
-        await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
+        await expect(execute("pk-12")).resolves.toBe("pk-12")
+        await expect(execute("pk-ab")).rejects.toThrow(
           '"value" with value "pk-ab" fails to match the required pattern: /pk-\\d+/',
         )
-        await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
+        await expect(execute("pk-1")).rejects.toThrow(
           '"value" length must be at least 5 characters long',
         )
-        await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
+        await expect(execute("pk-123456")).rejects.toThrow(
           '"value" length must be less than or equal to 8 characters long',
         )
       })
@@ -657,33 +678,27 @@ describe.each(testVersions)(
       }
 
       it("supports plain boolean", async () => {
-        const {code} = await getActualFromModel({...base})
+        const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.boolean().truthy(1).falsy(0).required()"',
         )
 
-        await expect(executeParseSchema(code, true)).resolves.toBe(true)
-        await expect(executeParseSchema(code, false)).resolves.toBe(false)
+        await expect(execute(true)).resolves.toBe(true)
+        await expect(execute(false)).resolves.toBe(false)
 
-        await expect(executeParseSchema(code, "false")).resolves.toBe(false)
-        await expect(executeParseSchema(code, "true")).resolves.toBe(true)
+        await expect(execute("false")).resolves.toBe(false)
+        await expect(execute("true")).resolves.toBe(true)
 
-        await expect(executeParseSchema(code, 0)).resolves.toBe(false)
-        await expect(executeParseSchema(code, 1)).resolves.toBe(true)
+        await expect(execute(0)).resolves.toBe(false)
+        await expect(execute(1)).resolves.toBe(true)
 
-        await expect(executeParseSchema(code, 12)).rejects.toThrow(
+        await expect(execute(12)).rejects.toThrow('"value" must be a boolean')
+        await expect(execute("yup")).rejects.toThrow(
           '"value" must be a boolean',
         )
-        await expect(executeParseSchema(code, "yup")).rejects.toThrow(
-          '"value" must be a boolean',
-        )
-        await expect(executeParseSchema(code, [])).rejects.toThrow(
-          '"value" must be a boolean',
-        )
-        await expect(executeParseSchema(code, {})).rejects.toThrow(
-          '"value" must be a boolean',
-        )
+        await expect(execute([])).rejects.toThrow('"value" must be a boolean')
+        await expect(execute({})).rejects.toThrow('"value" must be a boolean')
       })
     })
 
@@ -697,22 +712,21 @@ describe.each(testVersions)(
       }
 
       it("supports arrays", async () => {
-        const {code} = await getActualFromModel({...base})
+        const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.array().items(joi.string().required()).required()"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, [1, 2])).rejects.toThrow(
-          '"[0]" must be a string',
-        )
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute([1, 2])).rejects.toThrow('"[0]" must be a string')
       })
 
       it("supports uniqueItems", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           uniqueItems: true,
         })
@@ -721,46 +735,49 @@ describe.each(testVersions)(
           '"const x = joi.array().items(joi.string().required()).unique().required()"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, ["foo", "foo"])).rejects.toThrow(
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo", "foo"])).rejects.toThrow(
           '"[1]" contains a duplicate value',
         )
       })
 
       it("supports minItems", async () => {
-        const {code} = await getActualFromModel({...base, minItems: 2})
+        const {code, execute} = await getActualFromModel({...base, minItems: 2})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.array().items(joi.string().required()).min(2).required()"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, ["foo"])).rejects.toThrow(
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo"])).rejects.toThrow(
           '"value" must contain at least 2 items',
         )
       })
 
       it("supports maxItems", async () => {
-        const {code} = await getActualFromModel({...base, maxItems: 2})
+        const {code, execute} = await getActualFromModel({...base, maxItems: 2})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = joi.array().items(joi.string().required()).max(2).required()"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(
-          executeParseSchema(code, ["foo", "bar", "foobar"]),
-        ).rejects.toThrow('"value" must contain less than or equal to 2 items')
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo", "bar", "foobar"])).rejects.toThrow(
+          '"value" must contain less than or equal to 2 items',
+        )
       })
 
       it("supports minItems / maxItems / uniqueItems", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           items: {type: "number", nullable: false, readOnly: false},
           minItems: 1,
@@ -778,16 +795,14 @@ describe.each(testVersions)(
             .required()"
         `)
 
-        await expect(executeParseSchema(code, [1, 2])).resolves.toStrictEqual([
-          1, 2,
-        ])
-        await expect(executeParseSchema(code, [])).rejects.toThrow(
+        await expect(execute([1, 2])).resolves.toStrictEqual([1, 2])
+        await expect(execute([])).rejects.toThrow(
           '"value" does not contain 1 required value(s)',
         )
-        await expect(executeParseSchema(code, [1, 2, 3, 4])).rejects.toThrow(
+        await expect(execute([1, 2, 3, 4])).rejects.toThrow(
           '"value" must contain less than or equal to 3 items',
         )
-        await expect(executeParseSchema(code, [3, 3, 3])).rejects.toThrow(
+        await expect(execute([3, 3, 3])).rejects.toThrow(
           '"[1]" contains a duplicate value',
         )
       })
@@ -807,7 +822,7 @@ describe.each(testVersions)(
       }
 
       it("supports general objects", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           properties: {
             name: {type: "string", nullable: false, readOnly: false},
@@ -824,73 +839,16 @@ describe.each(testVersions)(
             .required()"
         `)
 
-        await expect(
-          executeParseSchema(code, {name: "John", age: 35}),
-        ).resolves.toEqual({name: "John", age: 35})
-
-        await expect(executeParseSchema(code, {age: 35})).rejects.toThrow(
-          '"name" is required',
-        )
-      })
-
-      it("supports any objects", async () => {
-        const {code} = await getActualFromModel({...base, type: "any"})
-
-        expect(code).toMatchInlineSnapshot('"const x = joi.any().required()"')
-
-        await expect(
-          executeParseSchema(code, {any: "object"}),
-        ).resolves.toEqual({any: "object"})
-        await expect(executeParseSchema(code, ["foo", 12])).resolves.toEqual([
-          "foo",
-          12,
-        ])
-        await expect(executeParseSchema(code, null)).resolves.toBeNull()
-        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
-        await expect(executeParseSchema(code, "some string")).resolves.toBe(
-          "some string",
-        )
-      })
-
-      it("supports empty objects", async () => {
-        const {code} = await getActualFromModel({
-          ...base,
-          additionalProperties: false,
-        })
-        expect(code).toMatchInlineSnapshot(
-          '"const x = joi.object().keys({}).options({ stripUnknown: true }).required()"',
-        )
-        await expect(
-          executeParseSchema(code, {any: "object"}),
-        ).resolves.toEqual({})
-        await expect(executeParseSchema(code, "some string")).rejects.toThrow(
-          '"value" must be of type object',
-        )
-      })
-
-      it("supports any record objects", async () => {
-        const {code} = await getActualFromModel({
-          ...base,
-          additionalProperties: true,
+        await expect(execute({name: "John", age: 35})).resolves.toEqual({
+          name: "John",
+          age: 35,
         })
 
-        expect(code).toMatchInlineSnapshot(
-          '"const x = joi.object().pattern(joi.any(), joi.any()).required()"',
-        )
-
-        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
-          key: 1,
-        })
-        await expect(
-          executeParseSchema(code, {key: "string"}),
-        ).resolves.toEqual({key: "string"})
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
-          '"value" must be of type object',
-        )
+        await expect(execute({age: 35})).rejects.toThrow('"name" is required')
       })
 
       it("supports record objects", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           additionalProperties: {
             type: "number",
@@ -903,36 +861,215 @@ describe.each(testVersions)(
           '"const x = joi.object().pattern(joi.any(), joi.number().required()).required()"',
         )
 
-        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
+        await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(executeParseSchema(code, {key: "string"})).rejects.toThrow(
+        await expect(execute({key: "string"})).rejects.toThrow(
           '"key" must be a number',
         )
       })
     })
 
-    async function executeParseSchema(code: string, input: unknown) {
-      return vm.runInNewContext(
-        `
-        ${code}
+    describe("unspecified schemas when allowAny: true", () => {
+      const config: SchemaBuilderConfig = {allowAny: true}
+      const base: IRModelObject = {
+        type: "object",
+        allOf: [],
+        anyOf: [],
+        oneOf: [],
+        properties: {},
+        additionalProperties: undefined,
+        required: [],
+        nullable: false,
+        readOnly: false,
+      }
 
-        const result = x.validate(${JSON.stringify(input)})
+      it("supports any objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {...base, type: "any"},
+          config,
+        )
 
-        if(result.error) {
-          throw result.error
-        }
+        expect(code).toMatchInlineSnapshot(`"const x = joi.any().required()"`)
 
-        result.value
-      `,
-        // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
-        //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
-        //       the context.
-        //       I think it should be possible move loading of joi into the context, such that
-        //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
+        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
+        await expect(execute(null)).resolves.toBeNull()
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("some string")).resolves.toBe("some string")
+      })
 
-        {joi: require("@hapi/joi"), RegExp},
-      )
-    }
+      it("supports any record objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: true,
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
+        )
+
+        await expect(execute({key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute(123)).rejects.toThrow(
+          '"value" must be of type object',
+        )
+      })
+
+      it("supports any arrays", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            type: "array",
+            nullable: false,
+            readOnly: false,
+            uniqueItems: false,
+            items: {
+              ...base,
+              additionalProperties: true,
+            },
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .array()
+            .items(joi.object().pattern(joi.any(), joi.any()).required())
+            .required()"
+        `)
+
+        await expect(execute([{key: 1}])).resolves.toEqual([
+          {
+            key: 1,
+          },
+        ])
+        await expect(execute({key: "string"})).rejects.toThrow(
+          '"value" must be an array',
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: false,
+          },
+          config,
+        )
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.object().keys({}).options({ stripUnknown: true }).required()"`,
+        )
+        await expect(execute({any: "object"})).resolves.toEqual({})
+        await expect(execute("some string")).rejects.toThrow(
+          '"value" must be of type object',
+        )
+      })
+    })
+
+    describe("unspecified schemas when allowAny: false", () => {
+      const config: SchemaBuilderConfig = {allowAny: false}
+      const base: IRModelObject = {
+        type: "object",
+        allOf: [],
+        anyOf: [],
+        oneOf: [],
+        properties: {},
+        additionalProperties: undefined,
+        required: [],
+        nullable: false,
+        readOnly: false,
+      }
+
+      it("supports any objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {...base, type: "any"},
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(`"const x = joi.any().required()"`)
+
+        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
+        await expect(execute(null)).resolves.toBeNull()
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("some string")).resolves.toBe("some string")
+      })
+
+      it("supports any record objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: true,
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.object().pattern(joi.any(), joi.any()).required()"`,
+        )
+
+        await expect(execute({key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute(123)).rejects.toThrow(
+          '"value" must be of type object',
+        )
+      })
+
+      it("supports any arrays", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            type: "array",
+            nullable: false,
+            readOnly: false,
+            uniqueItems: false,
+            items: {
+              ...base,
+              additionalProperties: true,
+            },
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .array()
+            .items(joi.object().pattern(joi.any(), joi.any()).required())
+            .required()"
+        `)
+
+        await expect(execute([{key: 1}])).resolves.toEqual([
+          {
+            key: 1,
+          },
+        ])
+        await expect(execute({key: "string"})).rejects.toThrow(
+          '"value" must be an array',
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: false,
+          },
+          config,
+        )
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.object().keys({}).options({ stripUnknown: true }).required()"`,
+        )
+        await expect(execute({any: "object"})).resolves.toEqual({})
+        await expect(execute("some string")).rejects.toThrow(
+          '"value" must be of type object',
+        )
+      })
+    })
   },
 )

@@ -8,15 +8,34 @@ import {
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
+import {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-schema-builder"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
   (version) => {
+    const sentinel = Symbol()
+
+    const executeParseSchema = async (
+      code: string,
+      input: unknown = sentinel,
+    ) => {
+      return vm.runInNewContext(
+        `(async function () {
+        ${code}
+        ${input !== sentinel ? `return x.parse(${JSON.stringify(input)})` : ""}
+        })()`,
+        // Note: done this way for consistency with joi tests
+        // eslint-disable-next-line @typescript-eslint/no-var-requires
+        {z: require("zod").z, RegExp},
+      )
+    }
+
     const {getActualFromModel, getActual} = schemaBuilderTestHarness(
       "zod",
       version,
+      executeParseSchema,
     )
 
     it("supports the SimpleObject", async () => {
@@ -222,7 +241,7 @@ describe.each(testVersions)(
         expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod"
 
-          export const s_AdditionalPropertiesBool = z.record(z.any())"
+          export const s_AdditionalPropertiesBool = z.record(z.unknown())"
         `)
       })
 
@@ -240,7 +259,7 @@ describe.each(testVersions)(
         expect(schemas).toMatchInlineSnapshot(`
           "import { z } from "zod"
 
-          export const s_AdditionalPropertiesUnknownEmptySchema = z.record(z.any())"
+          export const s_AdditionalPropertiesUnknownEmptySchema = z.record(z.unknown())"
         `)
       })
 
@@ -259,7 +278,7 @@ describe.each(testVersions)(
           "import { z } from "zod"
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = z.record(
-            z.record(z.any()),
+            z.record(z.unknown()),
           )"
         `)
       })
@@ -305,7 +324,7 @@ describe.each(testVersions)(
 
           export const s_AdditionalPropertiesMixed = z.intersection(
             z.object({ id: z.string().optional(), name: z.string().optional() }),
-            z.record(z.any()),
+            z.record(z.unknown()),
           )"
         `)
       })
@@ -319,19 +338,19 @@ describe.each(testVersions)(
       }
 
       it("supports plain number", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
         })
 
         expect(code).toMatchInlineSnapshot('"const x = z.coerce.number()"')
-        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
-        await expect(
-          executeParseSchema(code, "not a number 123"),
-        ).rejects.toThrow("Expected number, received nan")
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("not a number 123")).rejects.toThrow(
+          "Expected number, received nan",
+        )
       })
 
       it("supports enum number", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           enum: [200, 301, 404],
         })
@@ -340,14 +359,14 @@ describe.each(testVersions)(
           '"const x = z.union([z.literal(200), z.literal(301), z.literal(404)])"',
         )
 
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+        await expect(execute(123)).rejects.toThrow(
           "Invalid literal value, expected 404",
         )
-        await expect(executeParseSchema(code, 404)).resolves.toBe(404)
+        await expect(execute(404)).resolves.toBe(404)
       })
 
       it("supports minimum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           minimum: 10,
         })
@@ -356,14 +375,14 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().min(10)"',
         )
 
-        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+        await expect(execute(5)).rejects.toThrow(
           "Number must be greater than or equal to 10",
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports maximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           maximum: 16,
         })
@@ -372,14 +391,14 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().max(16)"',
         )
 
-        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+        await expect(execute(25)).rejects.toThrow(
           "Number must be less than or equal to 16",
         )
-        await expect(executeParseSchema(code, 8)).resolves.toBe(8)
+        await expect(execute(8)).resolves.toBe(8)
       })
 
       it("supports minimum/maximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           minimum: 10,
           maximum: 24,
@@ -389,17 +408,17 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().min(10).max(24)"',
         )
 
-        await expect(executeParseSchema(code, 5)).rejects.toThrow(
+        await expect(execute(5)).rejects.toThrow(
           "Number must be greater than or equal to 10",
         )
-        await expect(executeParseSchema(code, 25)).rejects.toThrow(
+        await expect(execute(25)).rejects.toThrow(
           "Number must be less than or equal to 24",
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports exclusiveMinimum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           exclusiveMinimum: 4,
         })
@@ -408,14 +427,14 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().gt(4)"',
         )
 
-        await expect(executeParseSchema(code, 4)).rejects.toThrow(
+        await expect(execute(4)).rejects.toThrow(
           "Number must be greater than 4",
         )
-        await expect(executeParseSchema(code, 20)).resolves.toBe(20)
+        await expect(execute(20)).resolves.toBe(20)
       })
 
       it("supports exclusiveMaximum", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           exclusiveMaximum: 4,
         })
@@ -424,14 +443,12 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().lt(4)"',
         )
 
-        await expect(executeParseSchema(code, 4)).rejects.toThrow(
-          "Number must be less than 4",
-        )
-        await expect(executeParseSchema(code, 3)).resolves.toBe(3)
+        await expect(execute(4)).rejects.toThrow("Number must be less than 4")
+        await expect(execute(3)).resolves.toBe(3)
       })
 
       it("supports multipleOf", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           multipleOf: 4,
         })
@@ -440,14 +457,14 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().multipleOf(4)"',
         )
 
-        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+        await expect(execute(11)).rejects.toThrow(
           "Number must be a multiple of 4",
         )
-        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+        await expect(execute(16)).resolves.toBe(16)
       })
 
       it("supports combining multipleOf and min/max", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           multipleOf: 4,
           minimum: 10,
@@ -458,26 +475,26 @@ describe.each(testVersions)(
           '"const x = z.coerce.number().multipleOf(4).min(10).max(20)"',
         )
 
-        await expect(executeParseSchema(code, 11)).rejects.toThrow(
+        await expect(execute(11)).rejects.toThrow(
           "Number must be a multiple of 4",
         )
-        await expect(executeParseSchema(code, 8)).rejects.toThrow(
+        await expect(execute(8)).rejects.toThrow(
           "Number must be greater than or equal to 10",
         )
-        await expect(executeParseSchema(code, 24)).rejects.toThrow(
+        await expect(execute(24)).rejects.toThrow(
           "Number must be less than or equal to 20",
         )
-        await expect(executeParseSchema(code, 16)).resolves.toBe(16)
+        await expect(execute(16)).resolves.toBe(16)
       })
 
       it("supports 0", async () => {
-        const {code} = await getActualFromModel({...base, minimum: 0})
+        const {code, execute} = await getActualFromModel({...base, minimum: 0})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.coerce.number().min(0)"',
         )
 
-        await expect(executeParseSchema(code, -1)).rejects.toThrow(
+        await expect(execute(-1)).rejects.toThrow(
           "Number must be greater than or equal to 0",
         )
       })
@@ -491,44 +508,44 @@ describe.each(testVersions)(
       }
 
       it("supports plain string", async () => {
-        const {code} = await getActualFromModel({...base})
+        const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot('"const x = z.string()"')
 
-        await expect(executeParseSchema(code, "a string")).resolves.toBe(
-          "a string",
-        )
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
+        await expect(execute("a string")).resolves.toBe("a string")
+        await expect(execute(123)).rejects.toThrow(
           "Expected string, received number",
         )
       })
 
       it("supports minLength", async () => {
-        const {code} = await getActualFromModel({...base, minLength: 8})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minLength: 8,
+        })
         expect(code).toMatchInlineSnapshot('"const x = z.string().min(8)"')
 
-        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
-          "12345678",
-        )
-        await expect(executeParseSchema(code, "1234567")).rejects.toThrow(
+        await expect(execute("12345678")).resolves.toBe("12345678")
+        await expect(execute("1234567")).rejects.toThrow(
           "String must contain at least 8 character(s)",
         )
       })
 
       it("supports maxLength", async () => {
-        const {code} = await getActualFromModel({...base, maxLength: 8})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          maxLength: 8,
+        })
         expect(code).toMatchInlineSnapshot('"const x = z.string().max(8)"')
 
-        await expect(executeParseSchema(code, "12345678")).resolves.toBe(
-          "12345678",
-        )
-        await expect(executeParseSchema(code, "123456789")).rejects.toThrow(
+        await expect(execute("12345678")).resolves.toBe("12345678")
+        await expect(execute("123456789")).rejects.toThrow(
           "String must contain at most 8 character(s)",
         )
       })
 
       it("supports pattern", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           pattern: '"pk/\\d+"',
         })
@@ -536,16 +553,12 @@ describe.each(testVersions)(
           '"const x = z.string().regex(new RegExp(\'"pk/\\\\d+"\'))"',
         )
 
-        await expect(executeParseSchema(code, '"pk/1234"')).resolves.toBe(
-          '"pk/1234"',
-        )
-        await expect(executeParseSchema(code, "pk/abcd")).rejects.toThrow(
-          "invalid_string",
-        )
+        await expect(execute('"pk/1234"')).resolves.toBe('"pk/1234"')
+        await expect(execute("pk/abcd")).rejects.toThrow("invalid_string")
       })
 
       it("supports pattern with minLength / maxLength", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           pattern: "pk-\\d+",
           minLength: 5,
@@ -555,14 +568,12 @@ describe.each(testVersions)(
           '"const x = z.string().min(5).max(8).regex(new RegExp("pk-\\\\d+"))"',
         )
 
-        await expect(executeParseSchema(code, "pk-12")).resolves.toBe("pk-12")
-        await expect(executeParseSchema(code, "pk-ab")).rejects.toThrow(
-          "invalid_string",
-        )
-        await expect(executeParseSchema(code, "pk-1")).rejects.toThrow(
+        await expect(execute("pk-12")).resolves.toBe("pk-12")
+        await expect(execute("pk-ab")).rejects.toThrow("invalid_string")
+        await expect(execute("pk-1")).rejects.toThrow(
           "String must contain at least 5 character(s)",
         )
-        await expect(executeParseSchema(code, "pk-123456")).rejects.toThrow(
+        await expect(execute("pk-123456")).rejects.toThrow(
           "String must contain at most 8 character(s)",
         )
       })
@@ -623,20 +634,21 @@ describe.each(testVersions)(
       }
 
       it("supports arrays", async () => {
-        const {code} = await getActualFromModel({...base})
+        const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot('"const x = z.array(z.string())"')
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, [1, 2])).rejects.toThrow(
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute([1, 2])).rejects.toThrow(
           "Expected string, received number",
         )
       })
 
       it("supports uniqueItems", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           uniqueItems: true,
         })
@@ -649,46 +661,49 @@ describe.each(testVersions)(
             })"
         `)
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, ["foo", "foo"])).rejects.toThrow(
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo", "foo"])).rejects.toThrow(
           "Array must contain unique element(s)",
         )
       })
 
       it("supports minItems", async () => {
-        const {code} = await getActualFromModel({...base, minItems: 2})
+        const {code, execute} = await getActualFromModel({...base, minItems: 2})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.array(z.string()).min(2)"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(executeParseSchema(code, ["foo"])).rejects.toThrow(
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo"])).rejects.toThrow(
           "Array must contain at least 2 element(s)",
         )
       })
 
       it("supports maxItems", async () => {
-        const {code} = await getActualFromModel({...base, maxItems: 2})
+        const {code, execute} = await getActualFromModel({...base, maxItems: 2})
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.array(z.string()).max(2)"',
         )
 
-        await expect(
-          executeParseSchema(code, ["foo", "bar"]),
-        ).resolves.toStrictEqual(["foo", "bar"])
-        await expect(
-          executeParseSchema(code, ["foo", "bar", "foobar"]),
-        ).rejects.toThrow("Array must contain at most 2 element(s)")
+        await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
+          "foo",
+          "bar",
+        ])
+        await expect(execute(["foo", "bar", "foobar"])).rejects.toThrow(
+          "Array must contain at most 2 element(s)",
+        )
       })
 
       it("supports minItems / maxItems / uniqueItems", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           items: {type: "number", nullable: false, readOnly: false},
           minItems: 1,
@@ -706,16 +721,14 @@ describe.each(testVersions)(
             })"
         `)
 
-        await expect(executeParseSchema(code, [1, 2])).resolves.toStrictEqual([
-          1, 2,
-        ])
-        await expect(executeParseSchema(code, [])).rejects.toThrow(
+        await expect(execute([1, 2])).resolves.toStrictEqual([1, 2])
+        await expect(execute([])).rejects.toThrow(
           "Array must contain at least 1 element(s)",
         )
-        await expect(executeParseSchema(code, [1, 2, 3, 4])).rejects.toThrow(
+        await expect(execute([1, 2, 3, 4])).rejects.toThrow(
           "Array must contain at most 3 element(s)",
         )
-        await expect(executeParseSchema(code, [3, 3, 3])).rejects.toThrow(
+        await expect(execute([3, 3, 3])).rejects.toThrow(
           "Array must contain unique element(s)",
         )
       })
@@ -735,7 +748,7 @@ describe.each(testVersions)(
       }
 
       it("supports general objects", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           properties: {
             name: {type: "string", nullable: false, readOnly: false},
@@ -748,72 +761,16 @@ describe.each(testVersions)(
           '"const x = z.object({ name: z.string(), age: z.coerce.number() })"',
         )
 
-        await expect(
-          executeParseSchema(code, {name: "John", age: 35}),
-        ).resolves.toEqual({name: "John", age: 35})
-
-        await expect(executeParseSchema(code, {age: 35})).rejects.toThrow(
-          "Required",
-        )
-      })
-
-      it("supports any objects", async () => {
-        /*
-        some_property: {}
-         */
-        const {code} = await getActualFromModel({...base, type: "any"})
-
-        expect(code).toMatchInlineSnapshot('"const x = z.any()"')
-
-        await expect(
-          executeParseSchema(code, {any: "object"}),
-        ).resolves.toEqual({any: "object"})
-        await expect(executeParseSchema(code, ["foo", 12])).resolves.toEqual([
-          "foo",
-          12,
-        ])
-        await expect(executeParseSchema(code, null)).resolves.toBeNull()
-        await expect(executeParseSchema(code, 123)).resolves.toBe(123)
-        await expect(executeParseSchema(code, "some string")).resolves.toBe(
-          "some string",
-        )
-      })
-
-      it("supports empty objects", async () => {
-        const {code} = await getActualFromModel({
-          ...base,
-          additionalProperties: false,
-        })
-        expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
-        await expect(
-          executeParseSchema(code, {any: "object"}),
-        ).resolves.toEqual({})
-        await expect(executeParseSchema(code, "some string")).rejects.toThrow(
-          "Expected object, received string",
-        )
-      })
-
-      it("supports any record objects", async () => {
-        const {code} = await getActualFromModel({
-          ...base,
-          additionalProperties: true,
+        await expect(execute({name: "John", age: 35})).resolves.toEqual({
+          name: "John",
+          age: 35,
         })
 
-        expect(code).toMatchInlineSnapshot('"const x = z.record(z.any())"')
-
-        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
-          key: 1,
-        })
-        await expect(
-          executeParseSchema(code, {key: "string"}),
-        ).resolves.toEqual({key: "string"})
-        await expect(executeParseSchema(code, 123)).rejects.toThrow(
-          "Expected object, received number",
-        )
+        await expect(execute({age: 35})).rejects.toThrow("Required")
       })
 
       it("supports record objects", async () => {
-        const {code} = await getActualFromModel({
+        const {code, execute} = await getActualFromModel({
           ...base,
           additionalProperties: {
             type: "number",
@@ -826,27 +783,202 @@ describe.each(testVersions)(
           '"const x = z.record(z.coerce.number())"',
         )
 
-        await expect(executeParseSchema(code, {key: 1})).resolves.toEqual({
+        await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(executeParseSchema(code, {key: "string"})).rejects.toThrow(
+        await expect(execute({key: "string"})).rejects.toThrow(
           // TODO: the error here would be better if we avoided using coerce
           "Expected number, received nan",
         )
       })
     })
 
-    async function executeParseSchema(code: string, input: unknown) {
-      return vm.runInNewContext(
-        `
-        ${code}
+    describe("unspecified schemas when allowAny: true", () => {
+      const config: SchemaBuilderConfig = {allowAny: true}
+      const base: IRModelObject = {
+        type: "object",
+        allOf: [],
+        anyOf: [],
+        oneOf: [],
+        properties: {},
+        additionalProperties: undefined,
+        required: [],
+        nullable: false,
+        readOnly: false,
+      }
 
-        x.parse(${JSON.stringify(input)})
-      `,
-        // Note: done this way for consistency with joi tests
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
-        {z: require("zod").z, RegExp},
-      )
-    }
+      it("supports any objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {...base, type: "any"},
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot('"const x = z.any()"')
+
+        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
+        await expect(execute(null)).resolves.toBeNull()
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("some string")).resolves.toBe("some string")
+      })
+
+      it("supports any record objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: true,
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot('"const x = z.record(z.any())"')
+
+        await expect(execute({key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute(123)).rejects.toThrow(
+          "Expected object, received number",
+        )
+      })
+
+      it("supports any arrays", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            type: "array",
+            nullable: false,
+            readOnly: false,
+            uniqueItems: false,
+            items: {
+              ...base,
+              additionalProperties: true,
+            },
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.array(z.record(z.any()))"`,
+        )
+
+        await expect(execute([{key: 1}])).resolves.toEqual([
+          {
+            key: 1,
+          },
+        ])
+        await expect(execute({key: "string"})).rejects.toThrow(
+          "Expected array, received object",
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: false,
+          },
+          config,
+        )
+        expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
+        await expect(execute({any: "object"})).resolves.toEqual({})
+        await expect(execute("some string")).rejects.toThrow(
+          "Expected object, received string",
+        )
+      })
+    })
+
+    describe("unspecified schemas when allowAny: false", () => {
+      const config: SchemaBuilderConfig = {allowAny: false}
+      const base: IRModelObject = {
+        type: "object",
+        allOf: [],
+        anyOf: [],
+        oneOf: [],
+        properties: {},
+        additionalProperties: undefined,
+        required: [],
+        nullable: false,
+        readOnly: false,
+      }
+
+      it("supports any objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {...base, type: "any"},
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(`"const x = z.unknown()"`)
+
+        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
+        await expect(execute(null)).resolves.toBeNull()
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute("some string")).resolves.toBe("some string")
+      })
+
+      it("supports any record objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: true,
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(`"const x = z.record(z.unknown())"`)
+
+        await expect(execute({key: 1})).resolves.toEqual({
+          key: 1,
+        })
+        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute(123)).rejects.toThrow(
+          "Expected object, received number",
+        )
+      })
+
+      it("supports any arrays", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            type: "array",
+            nullable: false,
+            readOnly: false,
+            uniqueItems: false,
+            items: {
+              ...base,
+              additionalProperties: true,
+            },
+          },
+          config,
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.array(z.record(z.unknown()))"`,
+        )
+
+        await expect(execute([{key: 1}])).resolves.toEqual([
+          {
+            key: 1,
+          },
+        ])
+        await expect(execute({key: "string"})).rejects.toThrow(
+          "Expected array, received object",
+        )
+      })
+
+      it("supports empty objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          {
+            ...base,
+            additionalProperties: false,
+          },
+          config,
+        )
+        expect(code).toMatchInlineSnapshot('"const x = z.object({})"')
+        await expect(execute({any: "object"})).resolves.toEqual({})
+        await expect(execute("some string")).rejects.toThrow(
+          "Expected object, received string",
+        )
+      })
+    })
   },
 )
