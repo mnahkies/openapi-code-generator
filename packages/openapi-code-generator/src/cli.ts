@@ -2,13 +2,36 @@
 
 import "source-map-support/register"
 
-import {Command, Option} from "@commander-js/extra-typings"
+import {
+  Command,
+  InvalidArgumentError,
+  Option,
+} from "@commander-js/extra-typings"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import {OperationGroupStrategy} from "./core/input"
 import {logger} from "./core/logger"
 import {generate} from "./index"
 import {templates} from "./templates"
 import {TypescriptFormatter} from "./typescript/common/typescript-formatter"
+
+const boolParser = (arg: string): boolean => {
+  const TRUTHY_VALUES = ["true", "1", "on"]
+  const FALSY_VALUES = ["false", "0", "off", ""]
+
+  if (TRUTHY_VALUES.includes(arg.toLowerCase())) {
+    return true
+  } else if (FALSY_VALUES.includes(arg.toLowerCase())) {
+    return false
+  }
+
+  throw new InvalidArgumentError(
+    `'${arg}' is not a valid boolean parameter. Valid truthy values are: ${TRUTHY_VALUES.map(
+      (it) => JSON.stringify(it),
+    ).join(", ")}; falsy values are: ${FALSY_VALUES.map((it) =>
+      JSON.stringify(it),
+    ).join(", ")}`,
+  )
+}
 
 const program = new Command()
   .addOption(
@@ -54,34 +77,38 @@ const program = new Command()
   )
   .addOption(
     new Option(
-      "--ts-allow-any",
+      "--ts-allow-any [bool]",
       "(typescript) whether to use `any` or `unknown` for unspecified types",
     )
       .env("OPENAPI_TS_ALLOW_ANY")
+      .argParser(boolParser)
       .default(false),
   )
   .addOption(
     new Option(
-      "--enable-runtime-response-validation",
+      "--enable-runtime-response-validation [bool]",
       "(experimental) whether to validate response bodies using the chosen runtime schema library",
     )
       .env("OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION")
+      .argParser(boolParser)
       .default(false),
   )
   .addOption(
     new Option(
-      "--extract-inline-schemas",
+      "--extract-inline-schemas [bool]",
       "(experimental) Generate names and extract types/schemas for inline schemas",
     )
       .env("OPENAPI_EXTRACT_INLINE_SCHEMAS")
+      .argParser(boolParser)
       .default(false),
   )
   .addOption(
     new Option(
-      "--allow-unused-imports",
+      "--allow-unused-imports [bool]",
       "Keep unused imports. Especially useful if there is a bug in the unused-import elimination.",
     )
       .env("OPENAPI_ALLOW_UNUSED_IMPORTS")
+      .argParser(boolParser)
       .default(false),
   )
   .addOption(
