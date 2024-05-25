@@ -174,6 +174,7 @@ export type t_allowed_actions = "all" | "local_only" | "selected"
 
 export type t_api_overview = {
   actions?: string[]
+  actions_macos?: string[]
   api?: string[]
   dependabot?: string[]
   domains?: {
@@ -973,6 +974,82 @@ export type t_code_scanning_sarifs_status = {
   readonly errors?: string[] | null
   processing_status?: "pending" | "complete" | "failed"
 }
+
+export type t_code_scanning_variant_analysis = {
+  actions_workflow_run_id?: number
+  actor: t_simple_user
+  completed_at?: string | null
+  controller_repo: t_simple_repository
+  created_at?: string
+  failure_reason?:
+    | "no_repos_queried"
+    | "actions_workflow_run_failed"
+    | "internal_error"
+  id: number
+  query_language: t_code_scanning_variant_analysis_language
+  query_pack_url: string
+  scanned_repositories?: {
+    analysis_status: t_code_scanning_variant_analysis_status
+    artifact_size_in_bytes?: number
+    failure_message?: string
+    repository: t_code_scanning_variant_analysis_repository
+    result_count?: number
+  }[]
+  skipped_repositories?: {
+    access_mismatch_repos: t_code_scanning_variant_analysis_skipped_repo_group
+    no_codeql_db_repos: t_code_scanning_variant_analysis_skipped_repo_group
+    not_found_repos: {
+      repository_count: number
+      repository_full_names: string[]
+    }
+    over_limit_repos: t_code_scanning_variant_analysis_skipped_repo_group
+  }
+  status: "in_progress" | "succeeded" | "failed" | "cancelled"
+  updated_at?: string
+}
+
+export type t_code_scanning_variant_analysis_language =
+  | "cpp"
+  | "csharp"
+  | "go"
+  | "java"
+  | "javascript"
+  | "python"
+  | "ruby"
+  | "swift"
+
+export type t_code_scanning_variant_analysis_repo_task = {
+  analysis_status: t_code_scanning_variant_analysis_status
+  artifact_size_in_bytes?: number
+  artifact_url?: string
+  database_commit_sha?: string
+  failure_message?: string
+  repository: t_simple_repository
+  result_count?: number
+  source_location_prefix?: string
+}
+
+export type t_code_scanning_variant_analysis_repository = {
+  full_name: string
+  id: number
+  name: string
+  private: boolean
+  stargazers_count: number
+  updated_at: string | null
+}
+
+export type t_code_scanning_variant_analysis_skipped_repo_group = {
+  repositories: t_code_scanning_variant_analysis_repository[]
+  repository_count: number
+}
+
+export type t_code_scanning_variant_analysis_status =
+  | "pending"
+  | "in_progress"
+  | "succeeded"
+  | "failed"
+  | "canceled"
+  | "timed_out"
 
 export type t_code_search_result_item = {
   file_size?: number
@@ -4253,6 +4330,7 @@ export type t_private_user = {
   login: string
   name: string | null
   node_id: string
+  notification_email?: string | null
   organizations_url: string
   owned_private_repos: number
   plan?: {
@@ -4464,6 +4542,7 @@ export type t_public_user = {
   login: string
   name: string | null
   node_id: string
+  notification_email?: string | null
   organizations_url: string
   owned_private_repos?: number
   plan?: {
@@ -5531,6 +5610,7 @@ export type t_repository_rule =
       type: "max_file_size"
     }
   | t_repository_rule_workflows
+  | t_repository_rule_code_scanning
 
 export type t_repository_rule_branch_name_pattern = {
   parameters?: {
@@ -5540,6 +5620,13 @@ export type t_repository_rule_branch_name_pattern = {
     pattern: string
   }
   type: "branch_name_pattern"
+}
+
+export type t_repository_rule_code_scanning = {
+  parameters?: {
+    code_scanning_tools: t_repository_rule_params_code_scanning_tool[]
+  }
+  type: "code_scanning"
 }
 
 export type t_repository_rule_commit_author_email_pattern = {
@@ -5597,11 +5684,23 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_branch_name_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_tag_name_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
+  | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
 export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
 
 export type t_repository_rule_non_fast_forward = {
   type: "non_fast_forward"
+}
+
+export type t_repository_rule_params_code_scanning_tool = {
+  alerts_threshold: "none" | "errors" | "errors_and_warnings" | "all"
+  security_alerts_threshold:
+    | "none"
+    | "critical"
+    | "high_or_higher"
+    | "medium_or_higher"
+    | "all"
+  tool: string
 }
 
 export type t_repository_rule_params_status_check_configuration = {
@@ -5706,7 +5805,12 @@ export type t_repository_ruleset = {
 
 export type t_repository_ruleset_bypass_actor = {
   actor_id?: number | null
-  actor_type: "Integration" | "OrganizationAdmin" | "RepositoryRole" | "Team"
+  actor_type:
+    | "Integration"
+    | "OrganizationAdmin"
+    | "RepositoryRole"
+    | "Team"
+    | "DeployKey"
   bypass_mode: "always" | "pull_request"
 }
 

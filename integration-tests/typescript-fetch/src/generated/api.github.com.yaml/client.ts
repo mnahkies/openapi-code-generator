@@ -69,6 +69,8 @@ import {
   t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
+  t_code_scanning_variant_analysis,
+  t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_codeowners_errors,
   t_codespace,
@@ -6434,38 +6436,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async copilotUsageMetricsForTeam(
-    p: {
-      org: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_copilot_usage_metrics[]>
-      | Res<401, t_basic_error>
-      | Res<403, t_basic_error>
-      | Res<404, t_basic_error>
-      | Res<500, t_basic_error>
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
   async teamsList(
     p: {
       org: string
@@ -11311,6 +11281,102 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeScanningCreateVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      requestBody: EmptyObject
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_code_scanning_variant_analysis>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async codeScanningGetVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_variant_analysis>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeScanningGetVariantAnalysisRepoTask(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+      repoOwner: string
+      repoName: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_variant_analysis_repo_task>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }

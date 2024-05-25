@@ -309,6 +309,8 @@ import {
   t_ClassroomListAssignmentsForAClassroomParamSchema,
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
+  t_CodeScanningCreateVariantAnalysisBodySchema,
+  t_CodeScanningCreateVariantAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisQuerySchema,
   t_CodeScanningGetAlertParamSchema,
@@ -316,6 +318,8 @@ import {
   t_CodeScanningGetCodeqlDatabaseParamSchema,
   t_CodeScanningGetDefaultSetupParamSchema,
   t_CodeScanningGetSarifParamSchema,
+  t_CodeScanningGetVariantAnalysisParamSchema,
+  t_CodeScanningGetVariantAnalysisRepoTaskParamSchema,
   t_CodeScanningListAlertInstancesParamSchema,
   t_CodeScanningListAlertInstancesQuerySchema,
   t_CodeScanningListAlertsForOrgParamSchema,
@@ -417,8 +421,6 @@ import {
   t_CopilotUsageMetricsForEnterpriseQuerySchema,
   t_CopilotUsageMetricsForOrgParamSchema,
   t_CopilotUsageMetricsForOrgQuerySchema,
-  t_CopilotUsageMetricsForTeamParamSchema,
-  t_CopilotUsageMetricsForTeamQuerySchema,
   t_DependabotAddSelectedRepoToOrgSecretParamSchema,
   t_DependabotCreateOrUpdateOrgSecretBodySchema,
   t_DependabotCreateOrUpdateOrgSecretParamSchema,
@@ -1410,6 +1412,8 @@ import {
   t_code_scanning_organization_alert_items,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
+  t_code_scanning_variant_analysis,
+  t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_codeowners_errors,
   t_codespace,
@@ -1677,6 +1681,8 @@ import {
   s_code_scanning_ref_full,
   s_code_scanning_sarifs_receipt,
   s_code_scanning_sarifs_status,
+  s_code_scanning_variant_analysis,
+  s_code_scanning_variant_analysis_repo_task,
   s_code_search_result_item,
   s_codeowners_errors,
   s_codespace,
@@ -7065,31 +7071,6 @@ export type BillingGetSharedStorageBillingOrg = (
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
 >
 
-export type CopilotUsageMetricsForTeamResponder = {
-  with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
-  with401(): KoaRuntimeResponse<t_basic_error>
-  with403(): KoaRuntimeResponse<t_basic_error>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with500(): KoaRuntimeResponse<t_basic_error>
-} & KoaRuntimeResponder
-
-export type CopilotUsageMetricsForTeam = (
-  params: Params<
-    t_CopilotUsageMetricsForTeamParamSchema,
-    t_CopilotUsageMetricsForTeamQuerySchema,
-    void
-  >,
-  respond: CopilotUsageMetricsForTeamResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_copilot_usage_metrics[]>
-  | Response<401, t_basic_error>
-  | Response<403, t_basic_error>
-  | Response<404, t_basic_error>
-  | Response<500, t_basic_error>
->
-
 export type TeamsListResponder = {
   with200(): KoaRuntimeResponse<t_team[]>
   with403(): KoaRuntimeResponse<t_basic_error>
@@ -10676,6 +10657,100 @@ export type CodeScanningGetCodeqlDatabase = (
   | Response<200, t_code_scanning_codeql_database>
   | Response<302, void>
   | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type CodeScanningCreateVariantAnalysisResponder = {
+  with201(): KoaRuntimeResponse<t_code_scanning_variant_analysis>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeScanningCreateVariantAnalysis = (
+  params: Params<
+    t_CodeScanningCreateVariantAnalysisParamSchema,
+    void,
+    t_CodeScanningCreateVariantAnalysisBodySchema
+  >,
+  respond: CodeScanningCreateVariantAnalysisResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<201, t_code_scanning_variant_analysis>
+  | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type CodeScanningGetVariantAnalysisResponder = {
+  with200(): KoaRuntimeResponse<t_code_scanning_variant_analysis>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeScanningGetVariantAnalysis = (
+  params: Params<t_CodeScanningGetVariantAnalysisParamSchema, void, void>,
+  respond: CodeScanningGetVariantAnalysisResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_scanning_variant_analysis>
+  | Response<404, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type CodeScanningGetVariantAnalysisRepoTaskResponder = {
+  with200(): KoaRuntimeResponse<t_code_scanning_variant_analysis_repo_task>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeScanningGetVariantAnalysisRepoTask = (
+  params: Params<
+    t_CodeScanningGetVariantAnalysisRepoTaskParamSchema,
+    void,
+    void
+  >,
+  respond: CodeScanningGetVariantAnalysisRepoTaskResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_scanning_variant_analysis_repo_task>
   | Response<404, t_basic_error>
   | Response<
       503,
@@ -20202,7 +20277,6 @@ export type Implementation = {
   billingGetGithubActionsBillingOrg: BillingGetGithubActionsBillingOrg
   billingGetGithubPackagesBillingOrg: BillingGetGithubPackagesBillingOrg
   billingGetSharedStorageBillingOrg: BillingGetSharedStorageBillingOrg
-  copilotUsageMetricsForTeam: CopilotUsageMetricsForTeam
   teamsList: TeamsList
   teamsCreate: TeamsCreate
   teamsGetByName: TeamsGetByName
@@ -20399,6 +20473,9 @@ export type Implementation = {
   codeScanningDeleteAnalysis: CodeScanningDeleteAnalysis
   codeScanningListCodeqlDatabases: CodeScanningListCodeqlDatabases
   codeScanningGetCodeqlDatabase: CodeScanningGetCodeqlDatabase
+  codeScanningCreateVariantAnalysis: CodeScanningCreateVariantAnalysis
+  codeScanningGetVariantAnalysis: CodeScanningGetVariantAnalysis
+  codeScanningGetVariantAnalysisRepoTask: CodeScanningGetVariantAnalysisRepoTask
   codeScanningGetDefaultSetup: CodeScanningGetDefaultSetup
   codeScanningUpdateDefaultSetup: CodeScanningUpdateDefaultSetup
   codeScanningUploadSarif: CodeScanningUploadSarif
@@ -37578,83 +37655,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const copilotUsageMetricsForTeamParamSchema = z.object({
-    org: z.string(),
-    team_slug: z.string(),
-  })
-
-  const copilotUsageMetricsForTeamQuerySchema = z.object({
-    since: z.string().optional(),
-    until: z.string().optional(),
-    page: z.coerce.number().optional(),
-    per_page: z.coerce.number().optional(),
-  })
-
-  const copilotUsageMetricsForTeamResponseValidator = responseValidationFactory(
-    [
-      ["200", z.array(s_copilot_usage_metrics)],
-      ["401", s_basic_error],
-      ["403", s_basic_error],
-      ["404", s_basic_error],
-      ["500", s_basic_error],
-    ],
-    undefined,
-  )
-
-  router.get(
-    "copilotUsageMetricsForTeam",
-    "/orgs/:org/team/:team_slug/copilot/usage",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          copilotUsageMetricsForTeamParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          copilotUsageMetricsForTeamQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_copilot_usage_metrics[]>(200)
-        },
-        with401() {
-          return new KoaRuntimeResponse<t_basic_error>(401)
-        },
-        with403() {
-          return new KoaRuntimeResponse<t_basic_error>(403)
-        },
-        with404() {
-          return new KoaRuntimeResponse<t_basic_error>(404)
-        },
-        with500() {
-          return new KoaRuntimeResponse<t_basic_error>(500)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .copilotUsageMetricsForTeam(input, responder, ctx)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = copilotUsageMetricsForTeamResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
   const teamsListParamSchema = z.object({ org: z.string() })
 
   const teamsListQuerySchema = z.object({
@@ -50041,6 +50041,242 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = codeScanningGetCodeqlDatabaseResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeScanningCreateVariantAnalysisParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const codeScanningCreateVariantAnalysisBodySchema = z.union([
+    z.object({}),
+    z.object({}),
+    z.object({}),
+  ])
+
+  const codeScanningCreateVariantAnalysisResponseValidator =
+    responseValidationFactory(
+      [
+        ["201", s_code_scanning_variant_analysis],
+        ["404", s_basic_error],
+        ["422", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.post(
+    "codeScanningCreateVariantAnalysis",
+    "/repos/:owner/:repo/code-scanning/codeql/variant-analyses",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningCreateVariantAnalysisParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeScanningCreateVariantAnalysisBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_code_scanning_variant_analysis>(201)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeScanningCreateVariantAnalysis(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeScanningCreateVariantAnalysisResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeScanningGetVariantAnalysisParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    codeql_variant_analysis_id: z.coerce.number(),
+  })
+
+  const codeScanningGetVariantAnalysisResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_scanning_variant_analysis],
+        ["404", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeScanningGetVariantAnalysis",
+    "/repos/:owner/:repo/code-scanning/codeql/variant-analyses/:codeql_variant_analysis_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningGetVariantAnalysisParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_scanning_variant_analysis>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeScanningGetVariantAnalysis(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeScanningGetVariantAnalysisResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeScanningGetVariantAnalysisRepoTaskParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    codeql_variant_analysis_id: z.coerce.number(),
+    repo_owner: z.string(),
+    repo_name: z.string(),
+  })
+
+  const codeScanningGetVariantAnalysisRepoTaskResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_scanning_variant_analysis_repo_task],
+        ["404", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeScanningGetVariantAnalysisRepoTask",
+    "/repos/:owner/:repo/code-scanning/codeql/variant-analyses/:codeql_variant_analysis_id/repos/:repo_owner/:repo_name",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningGetVariantAnalysisRepoTaskParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_scanning_variant_analysis_repo_task>(
+            200,
+          )
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeScanningGetVariantAnalysisRepoTask(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeScanningGetVariantAnalysisRepoTaskResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },

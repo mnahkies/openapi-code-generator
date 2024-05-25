@@ -17,11 +17,7 @@ export const PermissiveBoolean = z.preprocess((value) => {
   return value
 }, z.boolean())
 
-export const s_Azure_ResourceManager_Foundations_ActionType = z.enum([
-  "Internal",
-])
-
-export const s_Azure_ResourceManager_Foundations_ArmResourceBase = z.object({})
+export const s_ActionType = z.union([z.enum(["Internal"]), z.string()])
 
 export const s_Azure_ResourceManager_Foundations_ErrorAdditionalInfo = z.object(
   { type: z.string().optional(), info: z.object({}).optional() },
@@ -34,12 +30,6 @@ export const s_Azure_ResourceManager_Foundations_OperationDisplay = z.object({
   description: z.string().optional(),
 })
 
-export const s_Azure_ResourceManager_Foundations_Origin = z.enum([
-  "user",
-  "system",
-  "user,system",
-])
-
 export const s_EmployeeUpdateProperties = z.object({
   age: z.coerce.number().optional(),
   city: z.string().optional(),
@@ -50,12 +40,31 @@ export const s_MoveRequest = z.object({ from: z.string(), to: z.string() })
 
 export const s_MoveResponse = z.object({ movingStatus: z.string() })
 
+export const s_Origin = z.union([
+  z.enum(["user", "system", "user,system"]),
+  z.string(),
+])
+
+export const s_createdByType = z.union([
+  z.enum(["User", "Application", "ManagedIdentity", "Key"]),
+  z.string(),
+])
+
 export const s_Azure_ResourceManager_Foundations_Operation = z.object({
   name: z.string().optional(),
   isDataAction: PermissiveBoolean.optional(),
   display: s_Azure_ResourceManager_Foundations_OperationDisplay.optional(),
-  origin: s_Azure_ResourceManager_Foundations_Origin.optional(),
-  actionType: s_Azure_ResourceManager_Foundations_ActionType.optional(),
+  origin: s_Origin.optional(),
+  actionType: s_ActionType.optional(),
+})
+
+export const s_Azure_ResourceManager_Foundations_SystemData = z.object({
+  createdBy: z.string().optional(),
+  createdByType: s_createdByType.optional(),
+  createdAt: z.string().optional(),
+  lastModifiedBy: z.string().optional(),
+  lastModifiedByType: s_createdByType.optional(),
+  lastModifiedAt: z.string().optional(),
 })
 
 export const s_EmployeeUpdate = z.object({
@@ -63,19 +72,22 @@ export const s_EmployeeUpdate = z.object({
   properties: s_EmployeeUpdateProperties.optional(),
 })
 
-export const s_Azure_ResourceManager_Foundations_ArmResource =
-  s_Azure_ResourceManager_Foundations_ArmResourceBase
+export const s_Azure_ResourceManager_Foundations_Resource = z.object({
+  id: z.string().optional(),
+  name: z.string().optional(),
+  type: z.string().optional(),
+  systemData: s_Azure_ResourceManager_Foundations_SystemData.optional(),
+})
 
 export const s_PagedOperation = z.object({
   value: z.array(s_Azure_ResourceManager_Foundations_Operation),
   nextLink: z.string().optional(),
 })
 
-export const s_Azure_ResourceManager_Foundations_TrackedResourceBase =
-  s_Azure_ResourceManager_Foundations_ArmResource
+export const s_Azure_ResourceManager_Foundations_TrackedResource =
+  s_Azure_ResourceManager_Foundations_Resource
 
-export const s_Employee =
-  s_Azure_ResourceManager_Foundations_TrackedResourceBase
+export const s_Employee = s_Azure_ResourceManager_Foundations_TrackedResource
 
 export const s_EmployeeListResult = z.object({
   value: z.array(s_Employee),

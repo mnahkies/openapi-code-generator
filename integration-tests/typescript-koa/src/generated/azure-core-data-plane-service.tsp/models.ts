@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type EmptyObject = { [key: string]: never }
+
 export type t_Azure_Core_Foundations_Error = {
   code: string
   details?: t_Azure_Core_Foundations_Error[]
@@ -49,6 +51,8 @@ export type t_PagedWidgetPart = {
   nextLink?: string
   value: t_WidgetPart[]
 }
+
+export type t_TypeSpec_Http_AcceptedResponse = EmptyObject
 
 export type t_Widget = {
   color: t_WidgetColor

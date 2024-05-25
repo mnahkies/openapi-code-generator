@@ -19,6 +19,8 @@ export const s_Azure_Core_Foundations_OperationState = z.enum([
 
 export const s_Azure_Core_eTag = z.string()
 
+export const s_TypeSpec_Http_AcceptedResponse = z.object({})
+
 export const s_WidgetAnalytics = z.object({
   id: z.enum(["current"]),
   useCount: z.coerce.number(),

@@ -429,6 +429,7 @@ export type t_application_fee = {
   charge: string | t_charge
   created: number
   currency: string
+  fee_source?: t_platform_earning_fee_source | null
   id: string
   livemode: boolean
   object: "application_fee"
@@ -485,11 +486,18 @@ export type t_balance_amount_by_source_type = {
 export type t_balance_amount_net = {
   amount: number
   currency: string
+  net_available?: t_balance_net_available[]
   source_types?: t_balance_amount_by_source_type
 }
 
 export type t_balance_detail = {
   available: t_balance_amount[]
+}
+
+export type t_balance_net_available = {
+  amount: number
+  destination: string
+  source_types?: t_balance_amount_by_source_type
 }
 
 export type t_balance_transaction = {
@@ -1398,6 +1406,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   affirm?: t_payment_method_affirm
   afterpay_clearpay?: t_payment_method_afterpay_clearpay
   alipay?: t_payment_flows_private_payment_methods_alipay
+  allow_redisplay?: "always" | "limited" | "unspecified"
   amazon_pay?: t_payment_method_amazon_pay
   au_becs_debit?: t_payment_method_au_becs_debit
   bacs_debit?: t_payment_method_bacs_debit
@@ -1539,6 +1548,7 @@ export type t_connect_embedded_payouts_config_claim = {
 
 export type t_connect_embedded_payouts_features = {
   edit_payout_schedule: boolean
+  external_account_collection: boolean
   instant_payouts: boolean
   standard_payouts: boolean
 }
@@ -2188,12 +2198,23 @@ export type t_dispute_evidence_details = {
 
 export type t_dispute_payment_method_details = {
   card?: t_dispute_payment_method_details_card
-  type: "card"
+  klarna?: t_dispute_payment_method_details_klarna
+  paypal?: t_dispute_payment_method_details_paypal
+  type: "card" | "klarna" | "paypal"
 }
 
 export type t_dispute_payment_method_details_card = {
   brand: string
   network_reason_code?: string | null
+}
+
+export type t_dispute_payment_method_details_klarna = {
+  reason_code?: string | null
+}
+
+export type t_dispute_payment_method_details_paypal = {
+  case_id?: string | null
+  reason_code?: string | null
 }
 
 export type t_email_sent = {
@@ -3322,6 +3343,27 @@ export type t_issuing_dispute = {
   evidence: t_issuing_dispute_evidence
   id: string
   livemode: boolean
+  loss_reason?:
+    | "cardholder_authentication_issuer_liability"
+    | "eci5_token_transaction_with_tavv"
+    | "excess_disputes_in_timeframe"
+    | "has_not_met_the_minimum_dispute_amount_requirements"
+    | "invalid_duplicate_dispute"
+    | "invalid_incorrect_amount_dispute"
+    | "invalid_no_authorization"
+    | "invalid_use_of_disputes"
+    | "merchandise_delivered_or_shipped"
+    | "merchandise_or_service_as_described"
+    | "not_cancelled"
+    | "other"
+    | "refund_issued"
+    | "submitted_beyond_allowable_time_limit"
+    | "transaction_3ds_required"
+    | "transaction_approved_after_prior_fraud_dispute"
+    | "transaction_authorized"
+    | "transaction_electronically_read"
+    | "transaction_qualifies_for_visa_easy_payment_service"
+    | "transaction_unattended"
   metadata: {
     [key: string]: string | undefined
   }
@@ -5480,6 +5522,7 @@ export type t_issuing_dispute_evidence = {
   duplicate?: t_issuing_dispute_duplicate_evidence
   fraudulent?: t_issuing_dispute_fraudulent_evidence
   merchandise_not_as_described?: t_issuing_dispute_merchandise_not_as_described_evidence
+  no_valid_authorization?: t_issuing_dispute_no_valid_authorization_evidence
   not_received?: t_issuing_dispute_not_received_evidence
   other?: t_issuing_dispute_other_evidence
   reason:
@@ -5487,6 +5530,7 @@ export type t_issuing_dispute_evidence = {
     | "duplicate"
     | "fraudulent"
     | "merchandise_not_as_described"
+    | "no_valid_authorization"
     | "not_received"
     | "other"
     | "service_not_as_described"
@@ -5505,6 +5549,11 @@ export type t_issuing_dispute_merchandise_not_as_described_evidence = {
   return_description?: string | null
   return_status?: "merchant_rejected" | "successful" | null
   returned_at?: number | null
+}
+
+export type t_issuing_dispute_no_valid_authorization_evidence = {
+  additional_documentation?: string | t_file | null
+  explanation?: string | null
 }
 
 export type t_issuing_dispute_not_received_evidence = {
@@ -6551,6 +6600,7 @@ export type t_payment_intent_type_specific_payment_method_options_client = {
   capture_method?: "manual" | "manual_preferred"
   installments?: t_payment_flows_installment_options
   require_cvc_recollection?: boolean
+  routing?: t_payment_method_options_card_present_routing
   setup_future_usage?: "none" | "off_session" | "on_session"
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
@@ -7021,6 +7071,7 @@ export type t_payment_method = {
   affirm?: t_payment_method_affirm
   afterpay_clearpay?: t_payment_method_afterpay_clearpay
   alipay?: t_payment_flows_private_payment_methods_alipay
+  allow_redisplay?: "always" | "limited" | "unspecified"
   amazon_pay?: t_payment_method_amazon_pay
   au_becs_debit?: t_payment_method_au_becs_debit
   bacs_debit?: t_payment_method_bacs_debit
@@ -7176,6 +7227,7 @@ export type t_payment_method_card_present = {
   funding?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
+  preferred_locales?: string[] | null
   read_method?:
     | "contact_emv"
     | "contactless_emv"
@@ -7476,6 +7528,7 @@ export type t_payment_method_details_card_present = {
   network?: string | null
   offline?: t_payment_method_details_card_present_offline | null
   overcapture_supported: boolean
+  preferred_locales?: string[] | null
   read_method?:
     | "contact_emv"
     | "contactless_emv"
@@ -8051,6 +8104,11 @@ export type t_payment_method_options_card_mandate_options = {
 export type t_payment_method_options_card_present = {
   request_extended_authorization?: boolean | null
   request_incremental_authorization_support?: boolean | null
+  routing?: t_payment_method_options_card_present_routing
+}
+
+export type t_payment_method_options_card_present_routing = {
+  requested_priority?: "domestic" | "international" | null
 }
 
 export type t_payment_method_options_cashapp = {
@@ -8399,6 +8457,7 @@ export type t_payment_pages_checkout_session_phone_number_collection = {
 
 export type t_payment_pages_checkout_session_saved_payment_method_options = {
   allow_redisplay_filters?: ("always" | "limited" | "unspecified")[] | null
+  payment_method_remove?: "disabled" | "enabled" | null
   payment_method_save?: "disabled" | "enabled" | null
 }
 
@@ -8755,6 +8814,8 @@ export type t_payment_source = t_account | t_bank_account | t_card | t_source
 
 export type t_payout = {
   amount: number
+  application_fee?: string | t_application_fee | null
+  application_fee_amount?: number | null
   arrival_date: number
   automatic: boolean
   balance_transaction?: string | t_balance_transaction | null
@@ -8903,6 +8964,12 @@ export type t_plan_tier = {
   unit_amount?: number | null
   unit_amount_decimal?: string | null
   up_to?: number | null
+}
+
+export type t_platform_earning_fee_source = {
+  charge?: string
+  payout?: string
+  type: "charge" | "payout"
 }
 
 export type t_platform_tax_fee = {
@@ -10814,6 +10881,7 @@ export type t_tax_product_registrations_resource_country_options = {
   au?: t_tax_product_registrations_resource_country_options_default
   be?: t_tax_product_registrations_resource_country_options_europe
   bg?: t_tax_product_registrations_resource_country_options_europe
+  bh?: t_tax_product_registrations_resource_country_options_default
   ca?: t_tax_product_registrations_resource_country_options_canada
   ch?: t_tax_product_registrations_resource_country_options_default
   cl?: t_tax_product_registrations_resource_country_options_simplified
@@ -10823,10 +10891,12 @@ export type t_tax_product_registrations_resource_country_options = {
   de?: t_tax_product_registrations_resource_country_options_europe
   dk?: t_tax_product_registrations_resource_country_options_europe
   ee?: t_tax_product_registrations_resource_country_options_europe
+  eg?: t_tax_product_registrations_resource_country_options_simplified
   es?: t_tax_product_registrations_resource_country_options_europe
   fi?: t_tax_product_registrations_resource_country_options_europe
   fr?: t_tax_product_registrations_resource_country_options_europe
   gb?: t_tax_product_registrations_resource_country_options_default
+  ge?: t_tax_product_registrations_resource_country_options_simplified
   gr?: t_tax_product_registrations_resource_country_options_europe
   hr?: t_tax_product_registrations_resource_country_options_europe
   hu?: t_tax_product_registrations_resource_country_options_europe
@@ -10835,16 +10905,20 @@ export type t_tax_product_registrations_resource_country_options = {
   is?: t_tax_product_registrations_resource_country_options_default
   it?: t_tax_product_registrations_resource_country_options_europe
   jp?: t_tax_product_registrations_resource_country_options_default
+  ke?: t_tax_product_registrations_resource_country_options_simplified
   kr?: t_tax_product_registrations_resource_country_options_simplified
+  kz?: t_tax_product_registrations_resource_country_options_simplified
   lt?: t_tax_product_registrations_resource_country_options_europe
   lu?: t_tax_product_registrations_resource_country_options_europe
   lv?: t_tax_product_registrations_resource_country_options_europe
   mt?: t_tax_product_registrations_resource_country_options_europe
   mx?: t_tax_product_registrations_resource_country_options_simplified
   my?: t_tax_product_registrations_resource_country_options_simplified
+  ng?: t_tax_product_registrations_resource_country_options_simplified
   nl?: t_tax_product_registrations_resource_country_options_europe
   no?: t_tax_product_registrations_resource_country_options_default
   nz?: t_tax_product_registrations_resource_country_options_default
+  om?: t_tax_product_registrations_resource_country_options_default
   pl?: t_tax_product_registrations_resource_country_options_europe
   pt?: t_tax_product_registrations_resource_country_options_europe
   ro?: t_tax_product_registrations_resource_country_options_europe
@@ -11196,6 +11270,7 @@ export type t_terminal_configuration = {
   name?: string | null
   object: "terminal.configuration"
   offline?: t_terminal_configuration_configuration_resource_offline_config
+  stripe_s700?: t_terminal_configuration_configuration_resource_device_type_specific_config
   tipping?: t_terminal_configuration_configuration_resource_tipping
   verifone_p400?: t_terminal_configuration_configuration_resource_device_type_specific_config
 }
@@ -11669,6 +11744,7 @@ export type t_treasury_outbound_payment = {
   statement_descriptor: string
   status: "canceled" | "failed" | "posted" | "processing" | "returned"
   status_transitions: t_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions
+  tracking_details?: t_treasury_outbound_payments_resource_outbound_payment_resource_tracking_details | null
   transaction: string | t_treasury_transaction
 }
 
@@ -11693,6 +11769,7 @@ export type t_treasury_outbound_transfer = {
   statement_descriptor: string
   status: "canceled" | "failed" | "posted" | "processing" | "returned"
   status_transitions: t_treasury_outbound_transfers_resource_status_transitions
+  tracking_details?: t_treasury_outbound_transfers_resource_outbound_transfer_resource_tracking_details | null
   transaction: string | t_treasury_transaction
 }
 
@@ -11941,6 +12018,10 @@ export type t_treasury_inbound_transfers_resource_inbound_transfer_resource_stat
     succeeded_at?: number | null
   }
 
+export type t_treasury_outbound_payments_resource_ach_tracking_details = {
+  trace_id: string
+}
+
 export type t_treasury_outbound_payments_resource_outbound_payment_resource_end_user_details =
   {
     ip_address?: string | null
@@ -11953,6 +12034,13 @@ export type t_treasury_outbound_payments_resource_outbound_payment_resource_stat
     failed_at?: number | null
     posted_at?: number | null
     returned_at?: number | null
+  }
+
+export type t_treasury_outbound_payments_resource_outbound_payment_resource_tracking_details =
+  {
+    ach?: t_treasury_outbound_payments_resource_ach_tracking_details
+    type: "ach" | "us_domestic_wire"
+    us_domestic_wire?: t_treasury_outbound_payments_resource_us_domestic_wire_tracking_details
   }
 
 export type t_treasury_outbound_payments_resource_returned_status = {
@@ -11969,6 +12057,23 @@ export type t_treasury_outbound_payments_resource_returned_status = {
     | "other"
   transaction: string | t_treasury_transaction
 }
+
+export type t_treasury_outbound_payments_resource_us_domestic_wire_tracking_details =
+  {
+    imad: string
+    omad?: string | null
+  }
+
+export type t_treasury_outbound_transfers_resource_ach_tracking_details = {
+  trace_id: string
+}
+
+export type t_treasury_outbound_transfers_resource_outbound_transfer_resource_tracking_details =
+  {
+    ach?: t_treasury_outbound_transfers_resource_ach_tracking_details
+    type: "ach" | "us_domestic_wire"
+    us_domestic_wire?: t_treasury_outbound_transfers_resource_us_domestic_wire_tracking_details
+  }
 
 export type t_treasury_outbound_transfers_resource_returned_details = {
   code:
@@ -11991,6 +12096,12 @@ export type t_treasury_outbound_transfers_resource_status_transitions = {
   posted_at?: number | null
   returned_at?: number | null
 }
+
+export type t_treasury_outbound_transfers_resource_us_domestic_wire_tracking_details =
+  {
+    imad: string
+    omad?: string | null
+  }
 
 export type t_treasury_received_credits_resource_linked_flows = {
   credit_reversal?: string | null
