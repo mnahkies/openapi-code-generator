@@ -217,6 +217,8 @@ export class JoiBuilder extends AbstractSchemaBuilder<
             .replaceAll("\\", "\\\\")
             .replaceAll('"', '\\"')}"))`
         : undefined,
+      model.format === "date-time" ? "isoDate()" : undefined,
+      model.format === "email" ? "email()" : undefined,
     ]
       .filter(isDefined)
       .join(".")
