@@ -26,16 +26,16 @@
     "next": "14.2.3",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
-    "react": "^18",
-    "react-dom": "^18"
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^20",
-    "@types/react": "^18",
-    "@types/react-dom": "^18",
-    "eslint": "^8",
+    "@types/node": "^20.12.12",
+    "@types/react": "^18.3.3",
+    "@types/react-dom": "^18.3.0",
+    "eslint": "^8.57.0",
     "eslint-config-next": "14.2.3",
     "gh-pages": "^6.1.1",
-    "typescript": "^5"
+    "typescript": "^5.4.5"
   }
 }
