@@ -3,7 +3,7 @@ import util from "util"
 
 import {VirtualDefinition, generationLib} from "./generation-lib"
 import {GenericLoader} from "./loaders/generic.loader"
-import {compileTypeSpecToOpenAPI3} from "./loaders/typespec.loader"
+import {TypespecLoader} from "./loaders/typespec.loader"
 import {isRemote} from "./loaders/utils"
 import {
   OpenapiDocument,
@@ -196,6 +196,7 @@ export class OpenapiLoader {
     config: {entryPoint: string; fileType: "openapi3" | "typespec"},
     validator: OpenapiValidator,
     genericLoader: GenericLoader,
+    typespecLoader: TypespecLoader,
   ): Promise<OpenapiLoader> {
     const entryPoint = isRemote(config.entryPoint)
       ? config.entryPoint
@@ -210,9 +211,9 @@ export class OpenapiLoader {
       }
 
       case "typespec": {
-        const openapi = await compileTypeSpecToOpenAPI3(entryPoint)
+        const openapi =
+          await typespecLoader.compileTypeSpecToOpenAPI3(entryPoint)
         await loader.loadFileContent(entryPoint, openapi)
-
         break
       }
       default: {

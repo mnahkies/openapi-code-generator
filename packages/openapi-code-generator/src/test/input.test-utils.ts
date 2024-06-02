@@ -4,6 +4,7 @@ import yaml from "js-yaml"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor"
 import {Input} from "../core/input"
 import {GenericLoader} from "../core/loaders/generic.loader"
+import {TypespecLoader} from "../core/loaders/typespec.loader"
 import {logger} from "../core/logger"
 import {OpenapiLoader} from "../core/openapi-loader"
 import {OpenapiValidator} from "../core/openapi-validator"
@@ -47,6 +48,7 @@ export async function unitTestInput(
     {entryPoint: file, fileType: "openapi3"},
     validator,
     new GenericLoader(new NodeFsAdaptor()),
+    await TypespecLoader.create(),
   )
 
   return {input: new Input(loader, {extractInlineSchemas: true}), file}
