@@ -1,10 +1,8 @@
-import path from "path"
-
 import {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import {Input} from "./core/input"
 import {IFormatter} from "./core/interfaces"
 import {GenericLoader} from "./core/loaders/generic.loader"
-import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
+import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
@@ -26,6 +24,7 @@ export type Config = {
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
   tsAllowAny: boolean
+  tsCompilerOptions: CompilerOptions
 }
 
 export async function generate(
@@ -37,11 +36,6 @@ export async function generate(
   logger.time("program starting")
   logger.info(`running on input file '${config.input}'`)
   logger.time("load files")
-
-  const compilerOptions = await loadTsConfigCompilerOptions(
-    path.join(process.cwd(), config.output),
-    fsAdaptor,
-  )
 
   const genericLoader = new GenericLoader(fsAdaptor)
 
@@ -67,7 +61,7 @@ export async function generate(
     emitter,
     schemaBuilder: config.schemaBuilder,
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
-    compilerOptions,
+    compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
     allowAny: config.tsAllowAny,
   })
