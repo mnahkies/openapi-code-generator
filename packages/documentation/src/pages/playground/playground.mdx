@@ -1,0 +1,30 @@
+import Playground from "../../lib/playground"
+import {useSSG} from "nextra/ssg"
+import * as fs from "node:fs"
+import {useMemo} from "react";
+
+export const getStaticProps = ({params}) => {
+  const text = fs.readFileSync('/home/michael/projects/nahkies/npm-packages/openapi-code-generator/integration-tests-definitions/petstore-expanded.yaml', 'utf-8')
+
+
+  return {
+    props: {
+      // We add an `ssg` field to the page props,
+      // which will be provided to the Nextra `useSSG` hook.
+      ssg: {
+        exampleSpecifications: [text]
+      }
+    },
+  };
+}
+
+export const WrappedPlayground = () => {
+  const {exampleSpecifications} = useSSG()
+  return <Playground specifications={[
+    {filename: 'example.yaml', content: exampleSpecifications[0]}
+  ]} />
+}
+
+# Playground
+
+<WrappedPlayground />
