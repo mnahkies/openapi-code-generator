@@ -7,9 +7,11 @@ import {
   InvalidArgumentError,
   Option,
 } from "@commander-js/extra-typings"
+import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import {OperationGroupStrategy} from "./core/input"
 import {logger} from "./core/logger"
+import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
 import {templates} from "./templates"
 import {TypescriptFormatter} from "./typescript/common/typescript-formatter"
@@ -133,7 +135,14 @@ const config = program.opts()
 async function main() {
   const fsAdaptor = new NodeFsAdaptor()
   const formatter = await TypescriptFormatter.createNodeFormatter()
-  await generate(config, fsAdaptor, formatter)
+  const validator = await OpenapiValidator.create(async (filename: string) => {
+    await promptContinue(
+      `Found errors validating '${filename}', continue?`,
+      "yes",
+    )
+  })
+
+  await generate(config, fsAdaptor, formatter, validator)
 }
 
 main()

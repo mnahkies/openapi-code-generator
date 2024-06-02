@@ -13,7 +13,7 @@ export async function promptContinue(
   throw new Error("user aborted")
 }
 
-export async function prompt(
+async function prompt(
   question: string,
   defaultValue?: string,
 ): Promise<string> {
