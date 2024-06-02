@@ -1,5 +1,5 @@
 import {Input, OperationGroupStrategy} from "./core/input"
-import {CompilerOptions} from "./core/loaders/tsconfig.loader"
+import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 

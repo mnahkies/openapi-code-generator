@@ -1,5 +1,5 @@
 import {describe, expect, it} from "@jest/globals"
-import {CompilerOptions} from "../../core/loaders/tsconfig.loader"
+import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
 import {TypeBuilder, TypeBuilderConfig} from "./type-builder"

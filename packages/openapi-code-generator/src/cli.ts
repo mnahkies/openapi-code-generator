@@ -2,6 +2,8 @@
 
 import "source-map-support/register"
 
+// eslint-disable-next-line no-restricted-imports
+import path from "node:path"
 import {
   Command,
   InvalidArgumentError,
@@ -10,6 +12,7 @@ import {
 import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import {OperationGroupStrategy} from "./core/input"
+import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
@@ -142,8 +145,20 @@ async function main() {
       "yes",
     )
   })
+  const compilerOptions = await loadTsConfigCompilerOptions(
+    path.join(process.cwd(), config.output),
+    fsAdaptor,
+  )
 
-  await generate(config, fsAdaptor, formatter, validator)
+  await generate(
+    {
+      ...config,
+      tsCompilerOptions: compilerOptions,
+    },
+    fsAdaptor,
+    formatter,
+    validator,
+  )
 }
 
 main()
