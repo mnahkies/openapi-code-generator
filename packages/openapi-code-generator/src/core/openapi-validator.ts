@@ -1,5 +1,3 @@
-import {promptContinue} from "./cli-utils"
-
 import {logger} from "./logger"
 
 import {ErrorObject} from "ajv"
@@ -17,6 +15,7 @@ export class OpenapiValidator {
   private constructor(
     private readonly validate3_1: ValidateFunction,
     private readonly validate3_0: ValidateFunction,
+    private readonly onValidationFailed: (filename: string) => Promise<void>,
   ) {}
 
   private validationFunction(version: string): ValidateFunction {
@@ -73,21 +72,19 @@ export class OpenapiValidator {
       }
 
       logger.warn("")
-
-      await promptContinue(
-        `Found errors validating '${filename}', continue?`,
-        "yes",
-      )
+      await this.onValidationFailed(filename)
     }
   }
 
-  static async create(): Promise<OpenapiValidator> {
+  static async create(
+    onValidationFailed: (filename: string) => Promise<void> = async () => {},
+  ): Promise<OpenapiValidator> {
     const skipValidationLoadSpecificationError: ValidateFunction = () => {
       return true
     }
 
     try {
-      return new OpenapiValidator(validate3_1, validate3_0)
+      return new OpenapiValidator(validate3_1, validate3_0, onValidationFailed)
     } catch (err) {
       logger.warn(
         "Skipping validation as failed to load schema specification",
@@ -96,6 +93,7 @@ export class OpenapiValidator {
       return new OpenapiValidator(
         skipValidationLoadSpecificationError,
         skipValidationLoadSpecificationError,
+        onValidationFailed,
       )
     }
   }

@@ -32,6 +32,7 @@ export async function generate(
   config: Config,
   fsAdaptor: IFsAdaptor,
   formatter: TypescriptFormatter,
+  validator: OpenapiValidator,
 ) {
   logger.time("program starting")
   logger.info(`running on input file '${config.input}'`)
@@ -41,8 +42,6 @@ export async function generate(
     path.join(process.cwd(), config.output),
     fsAdaptor,
   )
-
-  const validator = await OpenapiValidator.create()
 
   const genericLoader = new GenericLoader(fsAdaptor)
 
