@@ -13,6 +13,13 @@ import type {OpenapiValidator} from "./core/openapi-validator"
 import {templates} from "./templates"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
+export {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
+export {WebFsAdaptor} from "./core/file-system/web-fs-adaptor"
+export {TypescriptFormatterPrettier} from "./typescript/common/typescript-formatter.prettier"
+export type {IFormatter} from "./core/interfaces"
+export {OpenapiValidator} from "./core/openapi-validator"
+export {TypespecLoader} from "./core/loaders/typespec.loader"
+
 export type Config = {
   input: string
   inputType: "openapi3" | "typespec"

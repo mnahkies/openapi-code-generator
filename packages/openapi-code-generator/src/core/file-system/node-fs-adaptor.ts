@@ -1,5 +1,6 @@
-import {existsSync} from "node:fs"
-import fs from "node:fs/promises"
+import {existsSync} from "fs"
+
+import fs from "fs/promises"
 import type {IFsAdaptor} from "./fs-adaptor"
 
 export class NodeFsAdaptor implements IFsAdaptor {
