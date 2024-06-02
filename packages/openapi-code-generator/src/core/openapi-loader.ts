@@ -1,5 +1,7 @@
-import path from "node:path"
-import util from "node:util"
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import path from "path"
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import util from "util"
 
 import * as console from "node:console"
 import {load} from "js-yaml"

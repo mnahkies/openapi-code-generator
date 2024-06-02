@@ -1,8 +1,16 @@
-import {existsSync} from "node:fs"
-import fs from "node:fs/promises"
+// TODO: webpack shouldn't be including this file?
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import {existsSync} from "fs"
+
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import fs from "fs/promises"
 import type {IFsAdaptor} from "./fs-adaptor"
 
 export class NodeFsAdaptor implements IFsAdaptor {
+  clearFiles(filter: (it: string) => boolean) {
+    throw new Error("not implemented for nodejs")
+  }
+
   async readFile(path: string) {
     return await fs.readFile(path, "utf-8")
   }

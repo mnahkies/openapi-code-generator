@@ -1,0 +1,13 @@
+.editorContainer {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+
+  /*
+  TODO: rendering side-by-side results in weird stuff happening
+        when breakpoints change, stick with the vertical stack for now.
+  @media (min-width: 1536px) {
+    grid-template-columns: 1fr 1fr;
+  }
+   */
+}
