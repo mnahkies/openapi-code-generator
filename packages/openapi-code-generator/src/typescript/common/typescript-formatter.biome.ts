@@ -1,7 +1,8 @@
 import {Biome, Distribution} from "@biomejs/js-api"
+import {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 
-export class TypescriptFormatter {
+export class TypescriptFormatterBiome implements IFormatter {
   private constructor(private readonly biome: Biome) {
     biome.applyConfiguration({
       organizeImports: {
@@ -41,19 +42,19 @@ export class TypescriptFormatter {
     }
   }
 
-  static async createNodeFormatter(): Promise<TypescriptFormatter> {
+  static async createNodeFormatter(): Promise<TypescriptFormatterBiome> {
     const biome = await Biome.create({
       distribution: Distribution.NODE,
     })
 
-    return new TypescriptFormatter(biome)
+    return new TypescriptFormatterBiome(biome)
   }
 
-  static async createWebFormatter(): Promise<TypescriptFormatter> {
+  static async createWebFormatter(): Promise<TypescriptFormatterBiome> {
     const biome = await Biome.create({
       distribution: Distribution.WEB,
     })
 
-    return new TypescriptFormatter(biome)
+    return new TypescriptFormatterBiome(biome)
   }
 }

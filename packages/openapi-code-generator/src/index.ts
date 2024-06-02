@@ -2,6 +2,7 @@ import path from "path"
 
 import {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import {Input} from "./core/input"
+import {IFormatter} from "./core/interfaces"
 import {GenericLoader} from "./core/loaders/generic.loader"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {logger} from "./core/logger"
@@ -9,7 +10,6 @@ import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {templates} from "./templates"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
-import {TypescriptFormatter} from "./typescript/common/typescript-formatter"
 
 export type Config = {
   input: string
@@ -31,7 +31,7 @@ export type Config = {
 export async function generate(
   config: Config,
   fsAdaptor: IFsAdaptor,
-  formatter: TypescriptFormatter,
+  formatter: IFormatter,
   validator: OpenapiValidator,
 ) {
   logger.time("program starting")

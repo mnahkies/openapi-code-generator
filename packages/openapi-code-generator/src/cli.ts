@@ -14,7 +14,7 @@ import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
 import {templates} from "./templates"
-import {TypescriptFormatter} from "./typescript/common/typescript-formatter"
+import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
 const boolParser = (arg: string): boolean => {
   const TRUTHY_VALUES = ["true", "1", "on"]
@@ -134,7 +134,8 @@ const config = program.opts()
 
 async function main() {
   const fsAdaptor = new NodeFsAdaptor()
-  const formatter = await TypescriptFormatter.createNodeFormatter()
+  // TODO: make switchable with prettier / auto-detect from project?
+  const formatter = await TypescriptFormatterBiome.createNodeFormatter()
   const validator = await OpenapiValidator.create(async (filename: string) => {
     await promptContinue(
       `Found errors validating '${filename}', continue?`,
