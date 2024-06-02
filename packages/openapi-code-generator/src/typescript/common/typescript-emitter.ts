@@ -1,13 +1,13 @@
 import path from "path"
 import {IFsAdaptor} from "../../core/file-system/fs-adaptor"
+import {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 import {CompilationUnit} from "./compilation-units"
-import {TypescriptFormatter} from "./typescript-formatter"
 
 export class TypescriptEmitter {
   constructor(
     private readonly fsAdaptor: IFsAdaptor,
-    private readonly formatter: TypescriptFormatter,
+    private readonly formatter: IFormatter,
     private readonly config: {
       destinationDirectory: string
       allowUnusedImports: boolean

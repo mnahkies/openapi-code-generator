@@ -2,7 +2,7 @@ import {Input} from "../../../core/input"
 import {IRModel, MaybeIRModel} from "../../../core/openapi-types-normalized"
 import {OpenApiVersion, unitTestInput} from "../../../test/input.test-utils"
 import {ImportBuilder} from "../import-builder"
-import {TypescriptFormatter} from "../typescript-formatter"
+import {TypescriptFormatterBiome} from "../typescript-formatter.biome"
 import {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {SchemaBuilderType, schemaBuilderFactory} from "./schema-builder"
 
@@ -33,7 +33,7 @@ export function schemaBuilderTestHarness(
     required: boolean,
     config: SchemaBuilderConfig,
   ) {
-    const formatter = await TypescriptFormatter.createNodeFormatter()
+    const formatter = await TypescriptFormatterBiome.createNodeFormatter()
 
     const imports = new ImportBuilder()
 
