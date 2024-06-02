@@ -13,6 +13,7 @@ import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import {OperationGroupStrategy} from "./core/input"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
+import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
@@ -145,6 +146,16 @@ async function main() {
       "yes",
     )
   })
+
+  const typespecLoader = await TypespecLoader.create(
+    async (filename: string) => {
+      await promptContinue(
+        `Found diagnostic messages from the typespec compiler for '${filename}', continue?`,
+        "yes",
+      )
+    },
+  )
+
   const compilerOptions = await loadTsConfigCompilerOptions(
     path.join(process.cwd(), config.output),
     fsAdaptor,
@@ -158,6 +169,7 @@ async function main() {
     fsAdaptor,
     formatter,
     validator,
+    typespecLoader,
   )
 }
 

@@ -3,6 +3,7 @@ import {Input} from "./core/input"
 import {IFormatter} from "./core/interfaces"
 import {GenericLoader} from "./core/loaders/generic.loader"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
+import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import {OpenapiValidator} from "./core/openapi-validator"
@@ -32,17 +33,18 @@ export async function generate(
   fsAdaptor: IFsAdaptor,
   formatter: IFormatter,
   validator: OpenapiValidator,
+  typespecLoader: TypespecLoader,
 ) {
   logger.time("program starting")
   logger.info(`running on input file '${config.input}'`)
   logger.time("load files")
 
   const genericLoader = new GenericLoader(fsAdaptor)
-
   const loader = await OpenapiLoader.create(
     {entryPoint: config.input, fileType: config.inputType},
     validator,
     genericLoader,
+    typespecLoader,
   )
 
   const input = new Input(loader, {
