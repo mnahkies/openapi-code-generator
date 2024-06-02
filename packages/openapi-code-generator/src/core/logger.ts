@@ -17,7 +17,7 @@ const ConsoleSink = {
 }
 
 export class Logger {
-  private readonly startTime = process.hrtime.bigint()
+  private readonly startTime = this.now()
   private readonly times: [string, bigint, ...bigint[]][] = []
 
   constructor(
@@ -38,14 +38,14 @@ export class Logger {
   }
 
   readonly time = (description: string): void => {
-    const now = process.hrtime.bigint()
+    const now = this.now()
     this.endTime()
     this.info(`begin '${description}'`)
 
     this.times.push([description, now])
   }
 
-  readonly endTime = (now: bigint = process.hrtime.bigint()): void => {
+  readonly endTime = (now: bigint = this.now()): void => {
     const last = this.times[this.times.length - 1]
     if (last && last.length < 3) {
       last.push(now)
@@ -56,7 +56,7 @@ export class Logger {
   }
 
   toJSON(): Record<string, string> {
-    const now = process.hrtime.bigint()
+    const now = this.now()
     const total = diff(this.startTime, now)
 
     return this.times.reduce(
@@ -71,6 +71,14 @@ export class Logger {
       },
       {total: `${total} ms`} as Record<string, string>,
     )
+  }
+
+  private now() {
+    if (typeof process.hrtime === "undefined") {
+      return BigInt(Date.now())
+    } else {
+      return process.hrtime.bigint()
+    }
   }
 }
 
