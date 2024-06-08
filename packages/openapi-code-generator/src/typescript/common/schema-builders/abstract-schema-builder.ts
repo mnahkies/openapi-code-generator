@@ -2,6 +2,7 @@ import {
   type DependencyGraph,
   buildDependencyGraph,
 } from "../../../core/dependency-graph"
+import {generationLib} from "../../../core/generation-lib"
 import type {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
 import type {Reference} from "../../../core/openapi-types"
@@ -13,7 +14,11 @@ import type {
   IRParameter,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
-import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
+import {
+  getNameFromRef,
+  getSchemaNameFromRef,
+  isRef,
+} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
 import {CompilationUnit, type ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
@@ -39,6 +44,7 @@ export abstract class AbstractSchemaBuilder<
     private readonly availableStaticSchemas: StaticSchemas,
     private readonly referenced: Record<string, Reference> = {},
     private readonly referencedStaticSchemas = new Set<keyof StaticSchemas>(),
+    private readonly miscCodeBlocks = new Set<string>(),
     private readonly imports?: ImportBuilder,
     private readonly parent?: SubClass,
   ) {
@@ -136,7 +142,10 @@ export abstract class AbstractSchemaBuilder<
       return ""
     }
 
-    return `${next.join("\n\n")}`
+    return `
+${Array.from(this.miscCodeBlocks).sort().join("\n\n")}
+${next.join("\n\n")}
+`
   }
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
@@ -181,8 +190,7 @@ export abstract class AbstractSchemaBuilder<
           required: [],
           anyOf: [parameter.schema, parameter.schema.items],
           "x-alpha-transform": {
-            fn: ((it: unknown) =>
-              Array.isArray(it) || it === undefined ? it : [it]).toString(),
+            $ref: generationLib.ScalarOrArrayToArrayTransformation$Ref,
           },
         }
       } else {
@@ -328,8 +336,29 @@ export abstract class AbstractSchemaBuilder<
 
     result = required ? this.required(result) : this.optional(result)
 
-    if (model["x-alpha-transform"]?.fn) {
-      result = this.transform(result, model["x-alpha-transform"]?.fn)
+    const transform = model["x-alpha-transform"]
+    const dereferencedTransform =
+      transform && this.input.loader.maybe$ref(transform)
+
+    if (dereferencedTransform?.fn) {
+      if (isRef(transform)) {
+        const name = getNameFromRef(transform, "transform_")
+        const code = `
+      export const ${name} = ${dereferencedTransform.fn}
+      `
+        if (this.parent) {
+          this.parent.miscCodeBlocks.add(code)
+        } else {
+          this.miscCodeBlocks.add(code)
+        }
+        result = this.transform(result, name)
+        this.imports?.addSingle(name, this.filename)
+      } else {
+        result = this.transform(result, dereferencedTransform?.fn)
+      }
+      if (dereferencedTransform?.imports) {
+        this.imports?.parseAndAddMany(dereferencedTransform?.imports)
+      }
     }
 
     return result

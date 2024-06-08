@@ -38,6 +38,22 @@ export type t_GetTodoListItemsParamSchema = {
   listId: string
 }
 
+export type t_GetTodoListItemsQuerySchema = {
+  tags?: string[]
+}
+
+export type t_getTodoListItemsJson200Response = {
+  completedAt?: string
+  content: string
+  createdAt: string
+  id: string
+}
+
+export type t_getTodoListItemsJson5XXResponse = {
+  code: string
+  message: string
+}
+
 export type t_GetTodoListsQuerySchema = {
   created?: string
   status?: "incomplete" | "complete"

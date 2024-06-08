@@ -73,6 +73,10 @@ export class OpenapiLoader {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 
+  maybe$ref<T>(maybeRef: Reference | T): T {
+    return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
+  }
+
   private $ref<T>({$ref}: Reference): T {
     const [key, objPath] = $ref.split("#")
 

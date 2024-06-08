@@ -1,3 +1,5 @@
+import type {IRRef} from "./openapi-types-normalized"
+
 export interface OpenapiDocument {
   openapi: "3.0.3"
   info: Info
@@ -172,6 +174,9 @@ export interface Components {
   callbacks?: {
     [callbackName: string]: Callback | Reference
   }
+  "x-transformations"?: {
+    [name: string]: XAlphaTransform
+  }
 }
 
 export interface Header {
@@ -250,12 +255,13 @@ export interface Schema {
   // xml?: XML | undefined
 
   // TODO: not yet supported by joi
-  "x-alpha-transform"?:
-    | {
-        fn?: string | undefined
-        type?: string | undefined
-      }
-    | undefined
+  "x-alpha-transform"?: XAlphaTransform | IRRef | undefined
+}
+
+export interface XAlphaTransform {
+  fn?: string | undefined
+  type?: string | undefined
+  imports?: string | undefined
 }
 
 export interface Discriminator {

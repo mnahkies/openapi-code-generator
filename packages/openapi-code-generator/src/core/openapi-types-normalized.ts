@@ -13,7 +13,9 @@ export interface IRModelBase {
     | {
         fn?: string | undefined
         type?: string | undefined
+        imports?: string | undefined
       }
+    | IRRef
     | undefined
 }
 

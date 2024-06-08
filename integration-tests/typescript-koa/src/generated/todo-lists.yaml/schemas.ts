@@ -4,6 +4,11 @@
 
 import { z } from "zod"
 
+export const transform_Date = (it: string) => new Date(it)
+
+export const transform_ScalarOrArrayToArray = <T>(it: T | T[]): undefined | T[] =>
+  Array.isArray(it) || it === undefined ? it : [it]
+
 export const s_CreateUpdateTodoList = z.object({ name: z.string() })
 
 export const s_TodoList = z.object({
@@ -11,14 +16,29 @@ export const s_TodoList = z.object({
   name: z.string(),
   totalItemCount: z.coerce.number(),
   incompleteItemCount: z.coerce.number(),
-  created: z
-    .string()
-    .datetime({ offset: true })
-    .transform((it) => new Date(it)),
+  created: z.string().datetime({ offset: true }).transform(transform_Date),
   updated: z.string().datetime({ offset: true }),
 })
 
 export const s_Error = z.object({
   message: z.string().optional(),
   code: z.coerce.number().optional(),
+})
+
+export const s_getTodoListItemsJson200Response = z.object({
+  id: z.string(),
+  content: z.string(),
+  createdAt: z.string().datetime({ offset: true }),
+  completedAt: z.string().datetime({ offset: true }).optional(),
+})
+
+export const s_getTodoListItemsJson5XXResponse = z.object({
+  message: z.string(),
+  code: z.string(),
+})
+
+export const s_createTodoListItemJsonRequestBody = z.object({
+  id: z.string(),
+  content: z.string(),
+  completedAt: z.string().datetime({ offset: true }).optional(),
 })

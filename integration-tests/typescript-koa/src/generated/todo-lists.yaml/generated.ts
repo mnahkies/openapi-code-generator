@@ -9,12 +9,23 @@ import {
   t_Error,
   t_GetTodoListByIdParamSchema,
   t_GetTodoListItemsParamSchema,
+  t_GetTodoListItemsQuerySchema,
   t_GetTodoListsQuerySchema,
   t_TodoList,
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
+  t_getTodoListItemsJson200Response,
+  t_getTodoListItemsJson5XXResponse,
 } from "./models"
-import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
+import {
+  s_CreateUpdateTodoList,
+  s_Error,
+  s_TodoList,
+  s_createTodoListItemJsonRequestBody,
+  s_getTodoListItemsJson200Response,
+  s_getTodoListItemsJson5XXResponse,
+  transform_ScalarOrArrayToArray,
+} from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
@@ -103,40 +114,24 @@ export type DeleteTodoListById = (
 >
 
 export type GetTodoListItemsResponder = {
-  with200(): KoaRuntimeResponse<{
-    completedAt?: string
-    content: string
-    createdAt: string
-    id: string
-  }>
-  withStatusCode5xx(status: StatusCode5xx): KoaRuntimeResponse<{
-    code: string
-    message: string
-  }>
+  with200(): KoaRuntimeResponse<t_getTodoListItemsJson200Response>
+  withStatusCode5xx(
+    status: StatusCode5xx,
+  ): KoaRuntimeResponse<t_getTodoListItemsJson5XXResponse>
 } & KoaRuntimeResponder
 
 export type GetTodoListItems = (
-  params: Params<t_GetTodoListItemsParamSchema, void, void>,
+  params: Params<
+    t_GetTodoListItemsParamSchema,
+    t_GetTodoListItemsQuerySchema,
+    void
+  >,
   respond: GetTodoListItemsResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<
-      200,
-      {
-        completedAt?: string
-        content: string
-        createdAt: string
-        id: string
-      }
-    >
-  | Response<
-      StatusCode5xx,
-      {
-        code: string
-        message: string
-      }
-    >
+  | Response<200, t_getTodoListItemsJson200Response>
+  | Response<StatusCode5xx, t_getTodoListItemsJson5XXResponse>
 >
 
 export type CreateTodoListItemResponder = {
@@ -367,18 +362,17 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getTodoListItemsParamSchema = z.object({ listId: z.string() })
 
+  const getTodoListItemsQuerySchema = z.object({
+    tags: z
+      .union([z.array(z.string()), z.string()])
+      .optional()
+      .transform(transform_ScalarOrArrayToArray),
+  })
+
   const getTodoListItemsResponseValidator = responseValidationFactory(
     [
-      [
-        "200",
-        z.object({
-          id: z.string(),
-          content: z.string(),
-          createdAt: z.string().datetime({ offset: true }),
-          completedAt: z.string().datetime({ offset: true }).optional(),
-        }),
-      ],
-      ["5XX", z.object({ message: z.string(), code: z.string() })],
+      ["200", s_getTodoListItemsJson200Response],
+      ["5XX", s_getTodoListItemsJson5XXResponse],
     ],
     undefined,
   )
@@ -390,24 +384,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ctx.params,
         RequestInputType.RouteParam,
       ),
-      query: undefined,
+      query: parseRequestInput(
+        getTodoListItemsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
       body: undefined,
     }
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<{
-          completedAt?: string
-          content: string
-          createdAt: string
-          id: string
-        }>(200)
+        return new KoaRuntimeResponse<t_getTodoListItemsJson200Response>(200)
       },
       withStatusCode5xx(status: StatusCode5xx) {
-        return new KoaRuntimeResponse<{
-          code: string
-          message: string
-        }>(status)
+        return new KoaRuntimeResponse<t_getTodoListItemsJson5XXResponse>(status)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)
@@ -430,11 +420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createTodoListItemParamSchema = z.object({ listId: z.string() })
 
-  const createTodoListItemBodySchema = z.object({
-    id: z.string(),
-    content: z.string(),
-    completedAt: z.string().datetime({ offset: true }).optional(),
-  })
+  const createTodoListItemBodySchema = s_createTodoListItemJsonRequestBody
 
   const createTodoListItemResponseValidator = responseValidationFactory(
     [["204", z.undefined()]],

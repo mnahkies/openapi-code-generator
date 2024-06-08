@@ -21,6 +21,40 @@ export class ImportBuilder {
     }
   }
 
+  parseAndAddMany(importString: string) {
+    // biome-ignore lint/complexity/noForEach: <explanation>
+    return importString
+      .replaceAll(";", "\n")
+      .split("\n")
+      .forEach((it) => this.parseAndAdd(it))
+  }
+  parseAndAdd(importString: string): void {
+    // TODO: replace with ts-morph / ast parsing
+    const [names, from] = importString
+      .replaceAll("import", "")
+      .replaceAll(/"';/g, "")
+      .split("from")
+      .map((it) => it.trim())
+
+    if (!names || !from) {
+      throw new Error("failed to parse")
+    }
+
+    if (names.indexOf("* as") !== -1) {
+      // @ts-ignore
+      this.addModule(names.split("*")[1].trim(), from)
+    } else if (names.indexOf("{") === -1) {
+      this.addModule(names, from)
+    } else {
+      // biome-ignore lint/complexity/noForEach: <explanation>
+      names
+        .replace(/{}/g, "")
+        .split(",")
+        .map((it) => it.trim())
+        .forEach((it) => this.addSingle(it, from))
+    }
+  }
+
   addSingle(name: string, from: string): void {
     if (!name) {
       throw new Error(`cannot addSingle with name '${name}'`)

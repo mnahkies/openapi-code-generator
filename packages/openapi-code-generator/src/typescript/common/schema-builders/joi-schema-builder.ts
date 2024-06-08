@@ -40,6 +40,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       staticSchemas,
       {},
       new Set(),
+      new Set(),
       imports,
       this,
     )

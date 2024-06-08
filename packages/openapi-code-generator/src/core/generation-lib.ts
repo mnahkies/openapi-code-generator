@@ -18,6 +18,7 @@ export class VirtualDefinition {
       components: {
         parameters: {},
         schemas: {},
+        "x-transformations": {},
       },
     }
   }
@@ -35,9 +36,21 @@ export class GenerationLib extends VirtualDefinition {
     this.addSchema("UnknownObject", {
       type: "object",
     })
+
+    const transformations = this.definition.components?.["x-transformations"]
+
+    if (transformations) {
+      // biome-ignore lint/complexity/useLiteralKeys: <explanation>
+      transformations["ScalarOrArrayToArray"] = {
+        fn: `<T>(it: T|T[]) =>
+          Array.isArray(it) || it === undefined ? it : [it]`,
+      }
+    }
   }
 
   readonly UnknownObject$Ref = `${this.key}#/components/schemas/UnknownObject`
+  readonly ScalarOrArrayToArrayTransformation$Ref =
+    `${this.key}#/components/x-transformations/ScalarOrArrayToArray`
 }
 
 export const generationLib = new GenerationLib()

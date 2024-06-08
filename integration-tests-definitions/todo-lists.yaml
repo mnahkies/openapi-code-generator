@@ -82,6 +82,13 @@ paths:
           format: uuid
     get:
       operationId: getTodoListItems
+      parameters:
+        - name: tags
+          in: query
+          schema:
+            type: array
+            items:
+              type: string
       responses:
         200:
           description: success
@@ -172,8 +179,7 @@ components:
           type: string
           format: date-time
           x-alpha-transform:
-            fn: (it) => new Date(it)
-            type: Date
+            $ref: '#/components/x-transformations/Date'
         updated:
           type: string
           format: date-time
@@ -186,3 +192,9 @@ components:
       schema:
         type: string
         format: uuid
+  x-transformations:
+    Date:
+      fn: |
+        (it: string) => new Date(it)
+      type: Date
+      imports: import {LocalTime} from 'js-joda'
