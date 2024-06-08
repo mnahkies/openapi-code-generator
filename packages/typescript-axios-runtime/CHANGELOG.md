@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.10.0...v0.11.0) (2024-06-08)
+
+### Bug Fixes
+
+- **axios:** always apply default headers ([#218](https://github.com/mnahkies/openapi-code-generator/issues/218)) ([9177ae0](https://github.com/mnahkies/openapi-code-generator/commit/9177ae03e3b9285f6a684f452f4610698a696ad6))
+
 # [0.10.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.9.0...v0.10.0) (2024-05-25)
 
 **Note:** Version bump only for package @nahkies/typescript-axios-runtime

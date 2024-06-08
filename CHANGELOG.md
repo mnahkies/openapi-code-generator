@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.11.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.10.0...v0.11.0) (2024-06-08)
+
+### Bug Fixes
+
+- **axios:** always apply default headers ([#218](https://github.com/mnahkies/openapi-code-generator/issues/218)) ([9177ae0](https://github.com/mnahkies/openapi-code-generator/commit/9177ae03e3b9285f6a684f452f4610698a696ad6))
+- decouple typespec loader from readline ([#215](https://github.com/mnahkies/openapi-code-generator/issues/215)) ([6678381](https://github.com/mnahkies/openapi-code-generator/commit/66783819e2216ecf814a77807233482bada2cf4a)), closes [#212](https://github.com/mnahkies/openapi-code-generator/issues/212)
+- decouple validator from readline ([#212](https://github.com/mnahkies/openapi-code-generator/issues/212)) ([8d37c0b](https://github.com/mnahkies/openapi-code-generator/commit/8d37c0b953305b73057ecc1e937788d0507cb4fe))
+- make logger compatible with web ([#211](https://github.com/mnahkies/openapi-code-generator/issues/211)) ([204b6a8](https://github.com/mnahkies/openapi-code-generator/commit/204b6a813fe75272bdae0dfa192132974e596206))
+- move tsconfig loading ([#214](https://github.com/mnahkies/openapi-code-generator/issues/214)) ([48526f3](https://github.com/mnahkies/openapi-code-generator/commit/48526f3f306f1552b8ab4268b31aef6fdf48b318))
+
+### Features
+
+- add a prettier based formatter ([#213](https://github.com/mnahkies/openapi-code-generator/issues/213)) ([8b0c015](https://github.com/mnahkies/openapi-code-generator/commit/8b0c015e86ff1eb6310257dd322cfe3944926926))
+
 # [0.10.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.9.0...v0.10.0) (2024-05-25)
 
 ### Bug Fixes
