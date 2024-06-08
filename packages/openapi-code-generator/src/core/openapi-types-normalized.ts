@@ -8,6 +8,8 @@ export interface IRModelBase {
   // Note: meaningless for top level objects, maybe we can exclude these somehow in that case
   nullable: boolean /* false */
   readOnly: boolean /* false */
+
+  "x-alpha-transform"?: string | undefined
 }
 
 export type IRModelNumericFormat = "int32" | "int64" | "float" | "double"
