@@ -81,8 +81,8 @@ yarn lint
 yarn format
 ```
 
-We use `biome` for formatting, and `eslint` for linting, largely sticking to the recommended rules.
-The config can be seen here [./.eslintrc.js](./.eslintrc.js)
+We use `biome` for formatting, and linting, largely sticking to the recommended rules.
+The config can be seen here [./biome.json](./biome.json)
 
 ## Testing
 

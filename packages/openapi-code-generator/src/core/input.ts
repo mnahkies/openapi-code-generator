@@ -72,7 +72,6 @@ export class Input {
   allOperations(): IROperation[] {
     const result: IROperation[] = []
 
-    // eslint-disable-next-line prefer-const
     for (let [route, paths] of Object.entries(
       this.loader.entryPoint.paths ?? [],
     )) {

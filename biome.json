@@ -33,9 +33,14 @@
     }
   },
   "linter": {
-    "enabled": false,
+    "enabled": true,
     "rules": {
       "recommended": true
-    }
+    },
+    "ignore": [
+      "packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
+      "packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
+      ""
+    ]
   }
 }

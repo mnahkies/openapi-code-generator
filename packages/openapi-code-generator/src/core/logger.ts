@@ -1,7 +1,5 @@
 import util from "util"
 
-/* eslint no-console:0 */
-
 export type LoggerMeta = Record<string, any>
 
 enum Color {

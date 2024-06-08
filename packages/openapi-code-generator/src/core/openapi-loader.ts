@@ -144,7 +144,6 @@ export class OpenapiLoader {
     }
 
     function normalizeRef($ref: string) {
-      // eslint-disable-next-line prefer-const
       let [file, objPath] = $ref.split("#")
 
       if (file === "") {

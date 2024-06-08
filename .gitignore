@@ -3,7 +3,6 @@ node_modules
 .idea
 .nyc_output
 coverage
-.eslintcache
 .env
 .DS_Store
 

@@ -1,6 +1,4 @@
-// eslint-disable-next-line no-restricted-imports
 import {existsSync} from "node:fs"
-// eslint-disable-next-line no-restricted-imports
 import fs from "node:fs/promises"
 import {IFsAdaptor} from "./fs-adaptor"
 

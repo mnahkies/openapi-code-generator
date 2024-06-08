@@ -2,7 +2,6 @@
 
 import "source-map-support/register"
 
-// eslint-disable-next-line no-restricted-imports
 import path from "node:path"
 import {
   Command,

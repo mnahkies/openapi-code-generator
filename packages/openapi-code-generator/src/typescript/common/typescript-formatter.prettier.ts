@@ -1,6 +1,5 @@
 import {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const prettier = require("prettier/standalone")
 const plugins = [
   require("prettier/plugins/estree"),

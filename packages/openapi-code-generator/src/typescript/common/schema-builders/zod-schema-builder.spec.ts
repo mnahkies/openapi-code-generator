@@ -27,7 +27,6 @@ describe.each(testVersions)(
         ${input !== sentinel ? `return x.parse(${JSON.stringify(input)})` : ""}
         })()`,
         // Note: done this way for consistency with joi tests
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         {z: require("zod").z, RegExp},
       )
     }
