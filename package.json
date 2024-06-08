@@ -55,7 +55,7 @@
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
-      "yarn biome lint --apply",
+      "yarn biome lint --apply --no-errors-on-unmatched",
       "yarn biome check --apply --no-errors-on-unmatched"
     ],
     "*.md": [
