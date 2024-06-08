@@ -182,9 +182,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -217,9 +216,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -308,9 +306,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -358,9 +355,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -820,9 +816,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -845,9 +840,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -872,9 +866,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1307,9 +1300,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1356,9 +1348,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1382,9 +1373,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -1410,9 +1400,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1461,9 +1450,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1495,9 +1483,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1523,9 +1510,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1552,9 +1538,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1596,9 +1581,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1645,9 +1629,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1671,9 +1654,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -1699,9 +1681,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1750,9 +1731,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1777,9 +1757,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1827,9 +1806,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -1954,9 +1932,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1980,9 +1957,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -2008,9 +1984,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2136,9 +2111,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2186,9 +2160,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2313,9 +2286,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2339,9 +2311,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -2367,9 +2338,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2495,9 +2465,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2523,9 +2492,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2566,9 +2534,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2593,9 +2560,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2618,9 +2584,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -2645,9 +2610,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2697,9 +2661,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2725,9 +2688,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2758,9 +2720,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2785,9 +2746,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2814,9 +2774,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2856,9 +2815,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2887,9 +2845,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2933,9 +2890,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -2966,9 +2922,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2997,9 +2952,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3032,9 +2986,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3058,9 +3011,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3116,9 +3068,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3143,9 +3094,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3201,9 +3151,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3228,9 +3177,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3259,9 +3207,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3291,9 +3238,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3334,9 +3280,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3373,9 +3318,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3400,9 +3344,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3428,9 +3371,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3455,9 +3397,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3505,9 +3446,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3532,9 +3472,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3577,9 +3516,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3669,9 +3607,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3696,9 +3633,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -3792,9 +3728,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3910,9 +3845,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3966,9 +3900,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4056,9 +3989,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4099,9 +4031,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4126,9 +4057,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4179,9 +4109,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4216,9 +4145,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4243,9 +4171,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4305,9 +4232,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4332,9 +4258,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4370,9 +4295,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4412,9 +4336,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4453,9 +4376,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4481,9 +4403,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -4514,9 +4435,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4578,9 +4498,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5367,9 +5286,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5394,9 +5312,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5421,9 +5338,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5463,9 +5379,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5504,9 +5419,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5540,9 +5454,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5567,9 +5480,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5602,9 +5514,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5629,9 +5540,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5670,9 +5580,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5697,9 +5606,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5738,9 +5646,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5765,9 +5672,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5792,9 +5698,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5833,9 +5738,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5860,9 +5764,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5910,9 +5813,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -5960,9 +5862,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5985,9 +5886,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -6012,9 +5912,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6052,9 +5951,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6106,9 +6004,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6168,9 +6065,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6244,9 +6140,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6333,9 +6228,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6375,9 +6269,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6402,9 +6295,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6433,9 +6325,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6460,9 +6351,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6495,9 +6385,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6549,9 +6438,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6720,9 +6608,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6763,9 +6650,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6788,9 +6674,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -6815,9 +6700,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -6944,9 +6828,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6986,9 +6869,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7021,9 +6903,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7049,9 +6930,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7083,9 +6963,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7125,9 +7004,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7187,9 +7065,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7215,9 +7092,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -7243,9 +7119,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7300,9 +7175,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7329,9 +7203,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7371,9 +7244,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7433,9 +7305,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7461,9 +7332,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -7489,9 +7359,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7546,9 +7415,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7573,9 +7441,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7603,9 +7470,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7645,9 +7511,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7673,9 +7538,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7698,9 +7562,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -7725,9 +7588,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7766,9 +7628,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7847,9 +7708,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7875,9 +7735,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7919,9 +7778,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -7981,9 +7839,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8009,9 +7866,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -8037,9 +7893,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -8094,9 +7949,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8123,9 +7977,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8165,9 +8018,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -8414,9 +8266,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8444,9 +8295,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -8472,9 +8322,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -8746,9 +8595,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8772,9 +8620,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -8800,9 +8647,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -8842,9 +8688,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -8942,9 +8787,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8968,9 +8812,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -8996,9 +8839,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9050,9 +8892,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9077,9 +8918,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9139,9 +8979,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9166,9 +9005,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9209,9 +9047,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9236,9 +9073,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9281,9 +9117,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9312,9 +9147,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9339,9 +9173,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9373,9 +9206,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9403,9 +9235,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9430,9 +9261,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -9486,9 +9316,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9513,9 +9342,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9554,9 +9382,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9581,9 +9408,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9635,9 +9461,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9668,9 +9493,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9695,9 +9519,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9728,9 +9551,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9795,9 +9617,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9840,9 +9661,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9867,9 +9687,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9915,9 +9734,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9942,9 +9760,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -9969,9 +9786,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10013,9 +9829,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10041,9 +9856,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10069,9 +9883,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10097,9 +9910,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10139,9 +9951,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10166,9 +9977,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10222,9 +10032,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10249,9 +10058,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10297,9 +10105,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10338,9 +10145,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10365,9 +10171,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10421,9 +10226,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10448,9 +10252,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10502,9 +10305,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10549,9 +10351,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10576,9 +10377,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10621,9 +10421,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10648,9 +10447,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10675,9 +10473,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10731,9 +10528,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10794,9 +10590,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10819,9 +10614,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -10846,9 +10640,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -10906,9 +10699,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10973,9 +10765,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -11204,9 +10995,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11548,9 +11338,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11591,9 +11380,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -12011,9 +11799,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -12444,9 +12231,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -12469,9 +12255,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -12496,9 +12281,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -12729,9 +12513,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12757,9 +12540,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12799,9 +12581,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -12893,9 +12674,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12920,9 +12700,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12953,9 +12732,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12980,9 +12758,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13007,9 +12784,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13063,9 +12839,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -13090,9 +12865,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -13122,9 +12896,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13155,9 +12928,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13187,9 +12959,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13245,9 +13016,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -14221,9 +13991,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14248,9 +14017,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -15223,9 +14991,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15287,9 +15054,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -16251,9 +16017,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16278,9 +16043,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17221,9 +16985,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17275,9 +17038,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17392,9 +17154,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17419,9 +17180,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17535,9 +17295,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17567,9 +17326,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17617,9 +17375,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17660,9 +17417,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17687,9 +17443,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17733,9 +17488,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17778,9 +17532,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17805,9 +17558,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17832,9 +17584,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17862,9 +17613,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17916,9 +17666,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17943,9 +17692,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -17971,9 +17719,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18027,9 +17774,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18054,9 +17800,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18086,9 +17831,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18128,9 +17872,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18155,9 +17898,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18203,9 +17945,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18230,9 +17971,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18257,9 +17997,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18301,9 +18040,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18329,9 +18067,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18356,9 +18093,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -18408,9 +18144,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -19121,9 +18856,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19164,9 +18898,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -19195,9 +18928,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -19883,9 +19615,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19912,9 +19643,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19944,9 +19674,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19984,9 +19713,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20687,9 +20415,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20724,9 +20451,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20754,9 +20480,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20797,9 +20522,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -21263,9 +20987,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21290,9 +21013,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -21743,9 +21465,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21785,9 +21506,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -21828,9 +21548,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22051,9 +21770,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22078,9 +21796,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22302,9 +22019,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22347,9 +22063,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22375,9 +22090,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22402,9 +22116,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22430,9 +22143,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22457,9 +22169,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22537,9 +22248,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22799,9 +22509,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22826,9 +22535,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -22886,9 +22594,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22914,9 +22621,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22941,9 +22647,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23004,9 +22709,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23040,9 +22744,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23067,9 +22770,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23099,9 +22801,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23126,9 +22827,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23156,9 +22856,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23210,9 +22909,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23279,9 +22977,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23304,9 +23001,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -23331,9 +23027,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23367,9 +23062,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23433,9 +23127,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23530,9 +23223,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23573,9 +23265,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23600,9 +23291,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23661,9 +23351,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23719,9 +23408,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23799,9 +23487,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23842,9 +23529,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23867,9 +23553,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -23894,9 +23579,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -23949,9 +23633,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -23991,9 +23674,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24019,9 +23701,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24045,9 +23726,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -24073,9 +23753,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24131,9 +23810,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24178,9 +23856,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24205,9 +23882,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24247,9 +23923,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24294,9 +23969,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24397,9 +24071,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24424,9 +24097,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24524,9 +24196,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24551,9 +24222,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24578,9 +24248,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24620,9 +24289,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24648,9 +24316,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24690,9 +24357,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24717,9 +24383,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24771,9 +24436,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24798,9 +24462,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24852,9 +24515,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24880,9 +24542,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -24905,9 +24566,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -24932,9 +24592,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -24986,9 +24645,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -25028,9 +24686,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -25053,9 +24710,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -25080,9 +24736,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -25112,9 +24767,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -25166,9 +24820,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -25207,9 +24860,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -25234,9 +24886,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -25266,9 +24917,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -25293,9 +24943,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -25343,9 +24992,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26015,9 +25663,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -26042,9 +25689,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26075,9 +25721,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26102,9 +25747,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26152,9 +25796,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26179,9 +25822,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26206,9 +25848,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -26258,9 +25899,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26314,9 +25954,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -26682,9 +26321,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -26713,9 +26351,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27057,9 +26694,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27088,9 +26724,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27447,9 +27082,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27477,9 +27111,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27531,9 +27164,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27586,9 +27218,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27613,9 +27244,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27657,9 +27287,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27698,9 +27327,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27725,9 +27353,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27832,9 +27459,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27863,9 +27489,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -27959,9 +27584,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -27987,9 +27611,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28029,9 +27652,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28057,9 +27679,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28085,9 +27706,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28128,9 +27748,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28191,9 +27810,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28220,9 +27838,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -28247,9 +27864,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28313,9 +27929,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28355,9 +27970,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28385,9 +27999,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28466,9 +28079,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28635,9 +28247,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28662,9 +28273,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -28830,9 +28440,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28859,9 +28468,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28887,9 +28495,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -28979,9 +28586,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -29237,9 +28843,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -29280,9 +28885,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -29322,9 +28926,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -29349,9 +28952,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -29624,9 +29226,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -29649,9 +29250,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -29679,9 +29279,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -29820,9 +29419,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -29862,9 +29460,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -29905,9 +29502,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30199,9 +29795,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30226,9 +29821,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30255,9 +29849,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30281,9 +29874,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30321,9 +29913,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30352,9 +29943,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30399,9 +29989,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30426,9 +30015,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30468,9 +30056,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30509,9 +30096,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30536,9 +30122,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30583,9 +30168,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30687,9 +30271,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30712,9 +30295,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -30739,9 +30321,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30793,9 +30374,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30843,9 +30423,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30870,9 +30449,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -30921,9 +30499,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -30964,9 +30541,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31079,9 +30655,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31104,9 +30679,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -31133,9 +30707,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31257,9 +30830,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31284,9 +30856,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31325,9 +30896,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31366,9 +30936,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31391,9 +30960,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -31418,9 +30986,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31460,9 +31027,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31516,9 +31082,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31550,9 +31115,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31575,9 +31139,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -31602,9 +31165,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -31635,9 +31197,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31662,9 +31223,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31697,9 +31257,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31729,9 +31288,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31767,9 +31325,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -31805,9 +31362,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32068,9 +31624,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32098,9 +31653,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32467,9 +32021,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32534,9 +32087,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32561,9 +32113,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32590,9 +32141,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32618,9 +32168,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32645,9 +32194,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32672,9 +32220,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32699,9 +32246,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32726,9 +32272,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32753,9 +32298,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32780,9 +32324,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -32828,9 +32371,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33200,9 +32742,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33572,9 +33113,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33600,9 +33140,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33627,9 +33166,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33662,9 +33200,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33703,9 +33240,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -33731,9 +33267,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33756,9 +33291,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -33783,9 +33317,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -33811,9 +33344,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33854,9 +33386,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33881,9 +33412,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33908,9 +33438,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33945,9 +33474,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33972,9 +33500,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -33999,9 +33526,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34039,9 +33565,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34076,9 +33601,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34103,9 +33627,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34130,9 +33653,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34170,9 +33692,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34209,9 +33730,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34248,9 +33768,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34577,9 +34096,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34604,9 +34122,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -34665,9 +34182,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -34702,9 +34218,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34729,9 +34244,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -34762,9 +34276,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34789,9 +34302,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34843,9 +34355,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -34879,9 +34390,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34921,9 +34431,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -34956,9 +34465,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -34983,9 +34491,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35016,9 +34523,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35044,9 +34550,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35077,9 +34582,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35124,9 +34628,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35154,9 +34657,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35181,9 +34683,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35230,9 +34731,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35260,9 +34760,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35287,9 +34786,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35337,9 +34835,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35408,9 +34905,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35435,9 +34931,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35506,9 +35001,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35533,9 +35027,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35595,9 +35088,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35640,9 +35132,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35675,9 +35166,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35702,9 +35192,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35729,9 +35218,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35785,9 +35273,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35861,9 +35348,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35888,9 +35374,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -35915,9 +35400,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -35960,9 +35444,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36002,9 +35485,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -36029,9 +35511,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36056,9 +35537,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -36109,9 +35589,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36136,9 +35615,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36181,9 +35659,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36208,9 +35685,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36273,9 +35749,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36300,9 +35775,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36367,9 +35841,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36394,9 +35867,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36435,9 +35907,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -36803,9 +36274,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -36828,9 +36298,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -36855,9 +36324,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       data: body,
@@ -37122,9 +36590,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,

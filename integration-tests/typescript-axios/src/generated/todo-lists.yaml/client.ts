@@ -25,9 +25,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/list`
     const query = this._query({ created: p["created"], status: p["status"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -43,9 +42,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -64,9 +62,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -84,9 +81,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -109,9 +105,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/list/${p["listId"]}/items`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -134,9 +129,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,

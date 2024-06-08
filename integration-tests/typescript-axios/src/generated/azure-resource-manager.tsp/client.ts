@@ -31,9 +31,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/providers/Microsoft.ContosoProviderHub/operations`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -53,9 +52,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -78,9 +76,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -105,9 +102,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -129,9 +125,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -150,9 +145,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -170,9 +164,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -195,9 +188,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,

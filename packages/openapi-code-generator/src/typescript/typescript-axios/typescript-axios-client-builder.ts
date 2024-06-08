@@ -46,9 +46,8 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
         builder.responseSchemas().defaultResponse
       : null
 
-    const axiosFragment = `this.axios.request({${[
+    const axiosFragment = `this._request({${[
       `url: url ${queryString ? "+ query" : ""}`,
-      "baseURL: this.basePath",
       `method: "${method}"`,
       headers ? "headers" : "",
       requestBodyParameter ? "data: body" : "",

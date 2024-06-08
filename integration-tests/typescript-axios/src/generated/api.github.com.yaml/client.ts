@@ -311,9 +311,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_root>> {
     const url = `/`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -362,9 +361,8 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -380,9 +378,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_global_advisory>> {
     const url = `/advisories/${p["ghsaId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -395,9 +392,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/app`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -423,9 +419,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/app-manifests/${p["code"]}/conversions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -438,9 +433,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/app/hook/config`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -463,9 +457,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -490,9 +483,8 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -508,9 +500,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/app/hook/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -530,9 +521,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/app/hook/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -550,9 +540,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/app/installation-requests`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -577,9 +566,8 @@ export class ApiClient extends AbstractAxiosClient {
       outdated: p["outdated"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -595,9 +583,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -613,9 +600,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -638,9 +624,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -658,9 +643,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -676,9 +660,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/app/installations/${p["installationId"]}/suspended`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -699,9 +682,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -724,9 +706,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -749,9 +730,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -774,9 +754,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -804,9 +783,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -824,9 +802,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration>> {
     const url = `/apps/${p["appSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -842,9 +819,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment>> {
     const url = `/assignments/${p["assignmentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -863,9 +839,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/assignments/${p["assignmentId"]}/accepted_assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -881,9 +856,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom_assignment_grade[]>> {
     const url = `/assignments/${p["assignmentId"]}/grades`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -901,9 +875,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -919,9 +892,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_classroom>> {
     const url = `/classrooms/${p["classroomId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -940,9 +912,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/classrooms/${p["classroomId"]}/assignments`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -955,9 +926,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct[]>> {
     const url = `/codes_of_conduct`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -973,9 +943,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_of_conduct>> {
     const url = `/codes_of_conduct/${p["key"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -992,9 +961,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/emojis`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1020,9 +988,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1064,9 +1031,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1102,9 +1068,8 @@ export class ApiClient extends AbstractAxiosClient {
       validity: p["validity"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1122,9 +1087,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1137,9 +1101,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_feed>> {
     const url = `/feeds`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1162,9 +1125,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1192,9 +1154,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1219,9 +1180,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1244,9 +1204,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1262,9 +1221,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1293,9 +1251,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -1313,9 +1270,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1334,9 +1290,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1357,9 +1312,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1378,9 +1332,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_comment>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1402,9 +1355,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -1423,9 +1375,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1444,9 +1395,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1465,9 +1415,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/gists/${p["gistId"]}/forks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1483,9 +1432,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_base_gist>> {
     const url = `/gists/${p["gistId"]}/forks`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1501,9 +1449,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1519,9 +1466,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1537,9 +1483,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/gists/${p["gistId"]}/star`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1556,9 +1501,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gist_simple>> {
     const url = `/gists/${p["gistId"]}/${p["sha"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1571,9 +1515,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/gitignore/templates`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1589,9 +1532,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gitignore_template>> {
     const url = `/gitignore/templates/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1615,9 +1557,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/installation/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1630,9 +1571,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/installation/token`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1679,9 +1619,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1704,9 +1643,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1722,9 +1660,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_license>> {
     const url = `/licenses/${p["license"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1746,9 +1683,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1768,9 +1704,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "text/plain" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -1788,9 +1723,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/accounts/${p["accountId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1808,9 +1742,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1836,9 +1769,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1854,9 +1786,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_marketplace_purchase>> {
     const url = `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1874,9 +1805,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/marketplace_listing/stubbed/plans`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1902,9 +1832,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1917,9 +1846,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_api_overview>> {
     const url = `/meta`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1939,9 +1867,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/networks/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1970,9 +1897,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -1998,9 +1924,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2018,9 +1943,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2036,9 +1960,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2054,9 +1977,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2072,9 +1994,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_thread_subscription>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2095,9 +2016,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2115,9 +2035,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/notifications/threads/${p["threadId"]}/subscription`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2134,9 +2053,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/octocat`
     const query = this._query({ s: p["s"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2154,9 +2072,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/organizations`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2172,9 +2089,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_full>> {
     const url = `/orgs/${p["org"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2223,9 +2139,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -2247,9 +2162,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2265,9 +2179,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_org_enterprise>> {
     const url = `/orgs/${p["org"]}/actions/cache/usage`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2291,9 +2204,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/cache/usage-by-repository`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2309,9 +2221,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub>> {
     const url = `/orgs/${p["org"]}/actions/oidc/customization/sub`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2330,9 +2241,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2350,9 +2260,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_organization_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2374,9 +2283,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2402,9 +2310,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2425,9 +2332,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2446,9 +2352,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2465,9 +2370,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2483,9 +2387,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/selected-actions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2504,9 +2407,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2524,9 +2426,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/orgs/${p["org"]}/actions/permissions/workflow`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2545,9 +2446,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2578,9 +2478,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2596,9 +2495,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/orgs/${p["org"]}/actions/runners/downloads`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2627,9 +2525,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2647,9 +2544,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/registration-token`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2665,9 +2561,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/orgs/${p["org"]}/actions/runners/remove-token`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2684,9 +2579,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2703,9 +2597,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2727,9 +2620,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2756,9 +2648,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -2787,9 +2678,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2813,9 +2703,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2838,9 +2727,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2864,9 +2752,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2882,9 +2769,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/orgs/${p["org"]}/actions/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2901,9 +2787,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_secret>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2928,9 +2813,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -2949,9 +2833,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -2976,9 +2859,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3000,9 +2882,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -3022,9 +2903,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3042,9 +2922,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3068,9 +2947,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3094,9 +2972,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3115,9 +2992,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_actions_variable>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3142,9 +3018,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -3163,9 +3038,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3190,9 +3064,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3214,9 +3087,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -3236,9 +3108,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3256,9 +3127,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3277,9 +3147,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3296,9 +3165,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3315,9 +3183,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3334,9 +3201,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3374,9 +3240,8 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3400,9 +3265,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3428,9 +3292,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -3453,9 +3316,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3478,9 +3340,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -3506,9 +3367,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3524,9 +3384,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3543,9 +3402,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_org_secret>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3570,9 +3428,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -3591,9 +3448,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3618,9 +3474,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3642,9 +3497,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -3664,9 +3518,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3684,9 +3537,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3702,9 +3554,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_organization_details>> {
     const url = `/orgs/${p["org"]}/copilot/billing`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3728,9 +3579,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3755,9 +3605,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3784,9 +3633,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -3813,9 +3661,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -3842,9 +3689,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -3872,9 +3718,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3916,9 +3761,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3942,9 +3786,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3960,9 +3803,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3979,9 +3821,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_dependabot_secret>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4006,9 +3847,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -4027,9 +3867,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4054,9 +3893,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4078,9 +3916,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -4100,9 +3937,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4120,9 +3956,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4138,9 +3973,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/orgs/${p["org"]}/docker/conflicts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4159,9 +3993,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4180,9 +4013,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/failed_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4201,9 +4033,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4234,9 +4065,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4255,9 +4085,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_hook>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4287,9 +4116,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -4308,9 +4136,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4327,9 +4154,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4354,9 +4180,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -4383,9 +4208,8 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4403,9 +4227,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4427,9 +4250,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4446,9 +4268,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4464,9 +4285,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/orgs/${p["org"]}/installation`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4490,9 +4310,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4508,9 +4327,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4529,9 +4347,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -4549,9 +4366,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4582,9 +4398,8 @@ export class ApiClient extends AbstractAxiosClient {
       invitation_source: p["invitationSource"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4608,9 +4423,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4629,9 +4443,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4651,9 +4464,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4693,9 +4505,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4721,9 +4532,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4740,9 +4550,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4759,9 +4568,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4786,9 +4594,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4810,9 +4617,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4830,9 +4636,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4849,9 +4654,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_copilot_seat_details>> {
     const url = `/orgs/${p["org"]}/members/${p["username"]}/copilot`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4868,9 +4672,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4892,9 +4695,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -4913,9 +4715,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4939,9 +4740,8 @@ export class ApiClient extends AbstractAxiosClient {
       exclude: p["exclude"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -4970,9 +4770,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -4993,9 +4792,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5012,9 +4810,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5031,9 +4828,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5051,9 +4847,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5073,9 +4868,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5091,9 +4885,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_fine_grained_permission[]>> {
     const url = `/orgs/${p["org"]}/organization-fine-grained-permissions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5114,9 +4907,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/orgs/${p["org"]}/organization-roles`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5139,9 +4931,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5160,9 +4951,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5180,9 +4970,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5200,9 +4989,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5219,9 +5007,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5239,9 +5026,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5259,9 +5045,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5278,9 +5063,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_organization_role>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5304,9 +5088,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -5325,9 +5108,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5347,9 +5129,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5369,9 +5150,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5395,9 +5175,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5419,9 +5198,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -5440,9 +5218,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5474,9 +5251,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5500,9 +5276,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5526,9 +5301,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5554,9 +5328,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5588,9 +5361,8 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5615,9 +5387,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5642,9 +5413,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5669,9 +5439,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5709,9 +5478,8 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5738,9 +5506,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5765,9 +5532,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5789,9 +5555,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5827,9 +5592,8 @@ export class ApiClient extends AbstractAxiosClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5855,9 +5619,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5881,9 +5644,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5905,9 +5667,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5931,9 +5692,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5955,9 +5715,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -5975,9 +5734,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_custom_property[]>> {
     const url = `/orgs/${p["org"]}/properties/schema`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -5998,9 +5756,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -6019,9 +5776,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_custom_property>> {
     const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6047,9 +5803,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -6068,9 +5823,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6094,9 +5848,8 @@ export class ApiClient extends AbstractAxiosClient {
       repository_query: p["repositoryQuery"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6118,9 +5871,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -6141,9 +5893,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/public_members`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6160,9 +5911,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6179,9 +5929,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6198,9 +5947,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/public_members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6228,9 +5976,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6277,9 +6024,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6300,9 +6046,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/rulesets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6328,9 +6073,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6362,9 +6106,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6381,9 +6124,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rule_suite>> {
     const url = `/orgs/${p["org"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6400,9 +6142,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_ruleset>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6429,9 +6170,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -6450,9 +6190,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6490,9 +6229,8 @@ export class ApiClient extends AbstractAxiosClient {
       validity: p["validity"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6522,9 +6260,8 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6540,9 +6277,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_simple[]>> {
     const url = `/orgs/${p["org"]}/security-managers`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6559,9 +6295,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6578,9 +6313,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6596,9 +6330,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/actions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6614,9 +6347,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/packages`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6632,9 +6364,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/shared-storage`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6653,9 +6384,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6685,9 +6415,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6706,9 +6435,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6737,9 +6465,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -6758,9 +6485,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6787,9 +6513,8 @@ export class ApiClient extends AbstractAxiosClient {
       pinned: p["pinned"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6813,9 +6538,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6835,9 +6559,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6861,9 +6584,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -6883,9 +6605,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6911,9 +6632,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6936,9 +6656,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -6959,9 +6678,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -6985,9 +6703,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -7008,9 +6725,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7045,9 +6761,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7079,9 +6794,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7103,9 +6817,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7139,9 +6852,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7172,9 +6884,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7195,9 +6906,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7217,9 +6927,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7244,9 +6953,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7264,9 +6972,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7289,9 +6996,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -7311,9 +7017,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7333,9 +7038,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7353,9 +7057,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7378,9 +7081,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -7400,9 +7102,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7422,9 +7123,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7443,9 +7143,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7469,9 +7168,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -7492,9 +7190,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7514,9 +7211,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7546,9 +7242,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7566,9 +7261,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_card>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7590,9 +7284,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -7610,9 +7303,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/cards/${p["cardId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7634,9 +7326,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7654,9 +7345,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_column>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7677,9 +7367,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -7697,9 +7386,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/columns/${p["columnId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7723,9 +7411,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7751,9 +7438,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7776,9 +7462,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7796,9 +7481,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project>> {
     const url = `/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7823,9 +7507,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -7843,9 +7526,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7869,9 +7551,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7893,9 +7574,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -7914,9 +7594,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7933,9 +7612,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_project_collaborator_permission>> {
     const url = `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7954,9 +7632,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/projects/${p["projectId"]}/columns`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -7977,9 +7654,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -7994,9 +7670,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rate_limit_overview>> {
     const url = `/rate_limit`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8013,9 +7688,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8071,9 +7745,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -8092,9 +7765,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8124,9 +7796,8 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8144,9 +7815,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_artifact>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8164,9 +7834,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8185,9 +7854,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8204,9 +7872,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_cache_usage_by_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8237,9 +7904,8 @@ export class ApiClient extends AbstractAxiosClient {
       direction: p["direction"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8259,9 +7925,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const query = this._query({ key: p["key"], ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8279,9 +7944,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8299,9 +7963,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_job>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8319,9 +7982,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8344,9 +8006,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8365,9 +8026,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_oidc_custom_sub_repo>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8390,9 +8050,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8419,9 +8078,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8446,9 +8104,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8465,9 +8122,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_repository_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8490,9 +8146,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8511,9 +8166,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_workflow_access_to_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8533,9 +8187,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8554,9 +8207,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_selected_actions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8576,9 +8228,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8597,9 +8248,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_get_default_workflow_permissions>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8619,9 +8269,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8653,9 +8302,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8672,9 +8320,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner_application[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8704,9 +8351,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8725,9 +8371,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8744,9 +8389,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_authentication_token>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8764,9 +8408,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_runner>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8784,9 +8427,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8809,9 +8451,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8839,9 +8480,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -8871,9 +8511,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -8898,9 +8537,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8924,9 +8562,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -8984,9 +8621,8 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9008,9 +8644,8 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9028,9 +8663,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9048,9 +8682,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment_approvals[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9068,9 +8701,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9101,9 +8733,8 @@ export class ApiClient extends AbstractAxiosClient {
       name: p["name"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9126,9 +8757,8 @@ export class ApiClient extends AbstractAxiosClient {
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9155,9 +8785,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9176,9 +8805,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9196,9 +8824,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9221,9 +8848,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9243,9 +8869,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/force-cancel`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9276,9 +8901,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9296,9 +8920,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9316,9 +8939,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9336,9 +8958,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pending_deployment[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9363,9 +8984,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9390,9 +9010,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9417,9 +9036,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9439,9 +9057,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_run_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9466,9 +9083,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9485,9 +9101,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9505,9 +9120,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9531,9 +9145,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -9553,9 +9166,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9580,9 +9192,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9605,9 +9216,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9627,9 +9237,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9653,9 +9262,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -9675,9 +9283,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9702,9 +9309,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9722,9 +9328,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9742,9 +9347,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9770,9 +9374,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -9792,9 +9395,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9853,9 +9455,8 @@ export class ApiClient extends AbstractAxiosClient {
       head_sha: p["headSha"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9873,9 +9474,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_workflow_usage>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9916,9 +9516,8 @@ export class ApiClient extends AbstractAxiosClient {
       activity_type: p["activityType"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9938,9 +9537,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9958,9 +9556,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -9977,9 +9574,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_autolink[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10003,9 +9599,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10025,9 +9620,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_autolink>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10045,9 +9639,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10064,9 +9657,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_automated_security_fixes>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10083,9 +9675,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10102,9 +9693,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10129,9 +9719,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10149,9 +9738,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_with_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10169,9 +9757,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_protection>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10230,9 +9817,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -10252,9 +9838,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10272,9 +9857,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10292,9 +9876,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10312,9 +9895,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10332,9 +9914,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10370,9 +9951,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -10392,9 +9972,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10412,9 +9991,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10432,9 +10010,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_protected_branch_admin_enforced>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10452,9 +10029,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10472,9 +10048,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_status_check_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10502,9 +10077,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -10524,9 +10098,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10544,9 +10117,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10571,9 +10143,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10600,9 +10171,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -10629,9 +10199,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -10651,9 +10220,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_restriction_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10671,9 +10239,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10691,9 +10258,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_integration[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10718,9 +10284,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10747,9 +10312,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -10776,9 +10340,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -10798,9 +10361,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10825,9 +10387,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10854,9 +10415,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -10883,9 +10443,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -10905,9 +10464,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_simple_user[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -10932,9 +10490,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -10961,9 +10518,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -10990,9 +10546,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -11017,9 +10572,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11049,9 +10603,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11071,9 +10624,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_run>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11142,9 +10694,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -11167,9 +10718,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11187,9 +10737,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11211,9 +10760,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11240,9 +10788,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -11262,9 +10809,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_check_suite>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11299,9 +10845,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11319,9 +10864,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_empty_object>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11358,9 +10902,8 @@ export class ApiClient extends AbstractAxiosClient {
       severity: p["severity"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11378,9 +10921,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11405,9 +10947,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -11435,9 +10976,8 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11472,9 +11012,8 @@ export class ApiClient extends AbstractAxiosClient {
       sort: p["sort"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11496,9 +11035,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11518,9 +11056,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
     const query = this._query({ confirm_delete: p["confirmDelete"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11537,9 +11074,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11557,9 +11093,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_codeql_database>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11579,9 +11114,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11601,9 +11135,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_variant_analysis>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11623,9 +11156,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_variant_analysis_repo_task>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11642,9 +11174,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_default_setup>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11667,9 +11198,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -11699,9 +11229,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11721,9 +11250,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_scanning_sarifs_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11742,9 +11270,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11769,9 +11296,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11803,9 +11329,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -11836,9 +11361,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11868,9 +11392,8 @@ export class ApiClient extends AbstractAxiosClient {
       ref: p["ref"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11898,9 +11421,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11923,9 +11445,8 @@ export class ApiClient extends AbstractAxiosClient {
       devcontainer_path: p["devcontainerPath"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11950,9 +11471,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11969,9 +11489,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11989,9 +11508,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repo_codespaces_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12015,9 +11533,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -12037,9 +11554,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12066,9 +11582,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12086,9 +11601,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12111,9 +11625,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -12133,9 +11646,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12153,9 +11665,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_collaborator_permission>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12175,9 +11686,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12195,9 +11705,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_commit_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12220,9 +11729,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -12242,9 +11750,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12278,9 +11785,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12311,9 +11817,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12334,9 +11839,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12371,9 +11875,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12391,9 +11894,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_branch_short[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12414,9 +11916,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12442,9 +11943,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -12467,9 +11967,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12490,9 +11989,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12529,9 +12027,8 @@ export class ApiClient extends AbstractAxiosClient {
       app_id: p["appId"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12564,9 +12061,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12587,9 +12083,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12610,9 +12105,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12629,9 +12123,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_community_profile>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/community/profile`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12652,9 +12145,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12681,9 +12173,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12719,9 +12210,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -12756,9 +12246,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -12785,9 +12274,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12834,9 +12322,8 @@ export class ApiClient extends AbstractAxiosClient {
       last: p["last"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12854,9 +12341,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12886,9 +12372,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -12915,9 +12400,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12934,9 +12418,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12954,9 +12437,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependabot_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -12980,9 +12462,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -13002,9 +12483,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13024,9 +12504,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
     const query = this._query({ name: p["name"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13043,9 +12522,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_dependency_graph_spdx_sbom>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13072,9 +12550,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13107,9 +12584,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13148,9 +12624,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13170,9 +12645,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13190,9 +12664,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13213,9 +12686,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13251,9 +12723,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13274,9 +12745,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13301,9 +12771,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13330,9 +12799,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13350,9 +12818,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_environment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13383,9 +12850,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -13405,9 +12871,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13433,9 +12898,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13456,9 +12920,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13479,9 +12942,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_branch_policy>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13503,9 +12965,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -13526,9 +12987,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13551,9 +13011,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13576,9 +13035,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13606,9 +13064,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13627,9 +13084,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deployment_protection_rule>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13648,9 +13104,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13676,9 +13131,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13696,9 +13150,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_public_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13717,9 +13170,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_secret>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13744,9 +13196,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -13767,9 +13218,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13795,9 +13245,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13821,9 +13270,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13844,9 +13292,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_variable>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13871,9 +13318,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -13894,9 +13340,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13916,9 +13361,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13943,9 +13387,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -13969,9 +13412,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -13996,9 +13438,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14018,9 +13459,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_blob>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14055,9 +13495,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14077,9 +13516,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_commit>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14097,9 +13535,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14117,9 +13554,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_ref>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14142,9 +13578,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14170,9 +13605,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14192,9 +13626,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14224,9 +13657,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14246,9 +13678,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_git_tag>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14277,9 +13708,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14301,9 +13731,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
     const query = this._query({ recursive: p["recursive"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14323,9 +13752,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14355,9 +13783,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -14377,9 +13804,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14406,9 +13832,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14428,9 +13853,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14448,9 +13872,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_webhook_config>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14476,9 +13899,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14506,9 +13928,8 @@ export class ApiClient extends AbstractAxiosClient {
       redelivery: p["redelivery"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14527,9 +13948,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_hook_delivery>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14552,9 +13972,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14572,9 +13991,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14592,9 +14010,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14611,9 +14028,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_import>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14639,9 +14055,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -14668,9 +14083,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14689,9 +14103,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14710,9 +14123,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/authors`
     const query = this._query({ since: p["since"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14736,9 +14148,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14757,9 +14168,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_porter_large_file[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14781,9 +14191,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14802,9 +14211,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/installation`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14821,9 +14229,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_interaction_limit_response | EmptyObject>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14843,9 +14250,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -14864,9 +14270,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14886,9 +14291,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14911,9 +14315,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -14933,9 +14336,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -14976,9 +14378,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15013,9 +14414,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15046,9 +14446,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15066,9 +14465,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15091,9 +14489,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -15113,9 +14510,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15149,9 +14545,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15182,9 +14577,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15205,9 +14599,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15227,9 +14620,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15247,9 +14639,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue_event>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15267,9 +14658,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_issue>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15307,9 +14697,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -15334,9 +14723,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15361,9 +14749,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -15384,9 +14771,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15412,9 +14798,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15437,9 +14822,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15462,9 +14846,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15485,9 +14868,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15521,9 +14903,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15559,9 +14940,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -15581,9 +14961,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15602,9 +14981,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15627,9 +15005,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -15649,9 +15026,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15685,9 +15061,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15718,9 +15093,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15741,9 +15115,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15764,9 +15137,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15786,9 +15158,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15812,9 +15183,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15834,9 +15204,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_deploy_key>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15854,9 +15223,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15876,9 +15244,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15902,9 +15269,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -15924,9 +15290,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_label>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15951,9 +15316,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -15973,9 +15337,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -15992,9 +15355,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_language>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/languages`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16013,9 +15375,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/license`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16037,9 +15398,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16065,9 +15425,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16098,9 +15457,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16125,9 +15483,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16147,9 +15504,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_milestone>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16175,9 +15531,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -16197,9 +15552,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16220,9 +15574,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16253,9 +15606,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16283,9 +15635,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -16304,9 +15655,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16332,9 +15682,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16368,9 +15717,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -16389,9 +15737,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16411,9 +15758,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16430,9 +15776,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16449,9 +15794,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16469,9 +15813,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_page_build>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16497,9 +15840,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16519,9 +15861,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pages_deployment_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16539,9 +15880,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}/cancel`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16560,9 +15900,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pages/health`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16583,9 +15922,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16602,9 +15940,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16621,9 +15958,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16648,9 +15984,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16673,9 +16008,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16694,9 +16028,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_custom_property_value[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/properties/values`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16718,9 +16051,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -16755,9 +16087,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16786,9 +16117,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16819,9 +16149,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16839,9 +16168,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_comment>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16864,9 +16192,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -16886,9 +16213,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16922,9 +16248,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16955,9 +16280,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -16978,9 +16302,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -16998,9 +16321,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17027,9 +16349,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -17063,9 +16384,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17097,9 +16417,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17131,9 +16450,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17159,9 +16477,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17184,9 +16501,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17207,9 +16523,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17227,9 +16542,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17255,9 +16569,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -17277,9 +16590,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review_request>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17303,9 +16615,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17331,9 +16642,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -17356,9 +16666,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17392,9 +16701,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17415,9 +16723,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17441,9 +16748,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -17464,9 +16770,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_pull_request_review>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17488,9 +16793,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17515,9 +16819,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -17544,9 +16847,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17576,9 +16878,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -17599,9 +16900,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17621,9 +16921,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
     const query = this._query({ ref: p["ref"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17643,9 +16942,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17675,9 +16973,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17697,9 +16994,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release_asset>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17724,9 +17020,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -17746,9 +17041,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17773,9 +17067,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17794,9 +17087,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17814,9 +17106,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17834,9 +17125,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_release>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17866,9 +17156,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -17888,9 +17177,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17911,9 +17199,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17939,9 +17226,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -17969,9 +17255,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -17994,9 +17279,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18017,9 +17301,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18040,9 +17323,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18067,9 +17349,8 @@ export class ApiClient extends AbstractAxiosClient {
       includes_parents: p["includesParents"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18096,9 +17377,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18131,9 +17411,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18151,9 +17430,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rule_suite>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18173,9 +17451,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
     const query = this._query({ includes_parents: p["includesParents"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18203,9 +17480,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -18225,9 +17501,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18266,9 +17541,8 @@ export class ApiClient extends AbstractAxiosClient {
       validity: p["validity"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18286,9 +17560,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_secret_scanning_alert>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18313,9 +17586,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -18338,9 +17610,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18371,9 +17642,8 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18393,9 +17663,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18417,9 +17686,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18439,9 +17707,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_advisory>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18462,9 +17729,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -18488,9 +17754,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18508,9 +17773,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_full_repository>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/forks`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18530,9 +17794,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18555,9 +17818,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18580,9 +17842,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18605,9 +17866,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18624,9 +17884,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_participation_stats>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18643,9 +17902,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_code_frequency_stat[]> | AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18671,9 +17929,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18695,9 +17952,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18714,9 +17970,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_repository_subscription>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18739,9 +17994,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -18760,9 +18014,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/subscription`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18782,9 +18035,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18801,9 +18053,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_tag_protection[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18825,9 +18076,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -18847,9 +18097,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18867,9 +18116,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18889,9 +18137,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18911,9 +18158,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/topics`
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18935,9 +18181,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -18958,9 +18203,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
     const query = this._query({ per: p["per"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18977,9 +18221,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_content_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -18996,9 +18239,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_referrer_traffic[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19017,9 +18259,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
     const query = this._query({ per: p["per"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19043,9 +18284,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19064,9 +18304,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19083,9 +18322,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19102,9 +18340,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19122,9 +18359,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19150,9 +18386,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19171,9 +18406,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/repositories`
     const query = this._query({ since: p["since"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19206,9 +18440,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19241,9 +18474,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19287,9 +18519,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19324,9 +18555,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19359,9 +18589,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19390,9 +18619,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19425,9 +18653,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19443,9 +18670,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_full>> {
     const url = `/teams/${p["teamId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19473,9 +18699,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -19493,9 +18718,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19519,9 +18743,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19544,9 +18767,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19565,9 +18787,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19590,9 +18811,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -19611,9 +18831,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19638,9 +18857,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19662,9 +18880,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19684,9 +18901,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_discussion_comment>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19709,9 +18925,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -19731,9 +18946,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19767,9 +18981,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19800,9 +19013,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19837,9 +19049,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19869,9 +19080,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -19892,9 +19102,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19918,9 +19127,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19937,9 +19145,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19956,9 +19163,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19975,9 +19181,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/members/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -19994,9 +19199,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_membership>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20018,9 +19222,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -20039,9 +19242,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/memberships/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20060,9 +19262,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/projects`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20079,9 +19280,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_project>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20103,9 +19303,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -20124,9 +19323,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/projects/${p["projectId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20145,9 +19343,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/repos`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20165,9 +19362,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_team_repository> | AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20190,9 +19386,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -20212,9 +19407,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20233,9 +19427,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/teams/${p["teamId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20248,9 +19441,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/user`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20277,9 +19469,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -20299,9 +19490,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/blocks`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20317,9 +19507,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20335,9 +19524,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20353,9 +19541,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/blocks/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20383,9 +19570,8 @@ export class ApiClient extends AbstractAxiosClient {
       repository_id: p["repositoryId"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20429,9 +19615,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20456,9 +19641,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/codespaces/secrets`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20471,9 +19655,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_user_public_key>> {
     const url = `/user/codespaces/secrets/public-key`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20489,9 +19672,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespaces_secret>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20514,9 +19696,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -20534,9 +19715,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20557,9 +19737,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20580,9 +19759,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -20601,9 +19779,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20620,9 +19797,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20638,9 +19814,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20663,9 +19838,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -20687,9 +19861,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/${p["codespaceName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20705,9 +19878,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20724,9 +19896,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace_export_details>> {
     const url = `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20747,9 +19918,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/codespaces/${p["codespaceName"]}/machines`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20771,9 +19941,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20791,9 +19960,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/start`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20809,9 +19977,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_codespace>> {
     const url = `/user/codespaces/${p["codespaceName"]}/stop`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20824,9 +19991,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/user/docker/conflicts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20846,9 +20012,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -20868,9 +20033,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20893,9 +20057,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -20920,9 +20083,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -20942,9 +20104,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20962,9 +20123,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20980,9 +20140,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -20998,9 +20157,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21016,9 +20174,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/following/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21036,9 +20193,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21059,9 +20215,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21079,9 +20234,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_gpg_key>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21097,9 +20251,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/gpg_keys/${p["gpgKeyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21122,9 +20275,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21149,9 +20301,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/installations/${p["installationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21168,9 +20319,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21187,9 +20337,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21205,9 +20354,8 @@ export class ApiClient extends AbstractAxiosClient {
   > {
     const url = `/user/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21225,9 +20373,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -21242,9 +20389,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/interaction-limits`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21283,9 +20429,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21303,9 +20448,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21326,9 +20470,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21346,9 +20489,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_key>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21364,9 +20506,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/keys/${p["keyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21384,9 +20525,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21404,9 +20544,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/marketplace_purchases/stubbed`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21429,9 +20568,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21447,9 +20585,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_org_membership>> {
     const url = `/user/memberships/orgs/${p["org"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21470,9 +20607,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -21492,9 +20628,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21522,9 +20657,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21544,9 +20678,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}`
     const query = this._query({ exclude: p["exclude"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21562,9 +20695,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21580,9 +20712,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/archive`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21599,9 +20730,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21620,9 +20750,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/migrations/${p["migrationId"]}/repositories`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21640,9 +20769,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21673,9 +20801,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21698,9 +20825,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21723,9 +20849,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21750,9 +20875,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21783,9 +20907,8 @@ export class ApiClient extends AbstractAxiosClient {
       state: p["state"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21809,9 +20932,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21835,9 +20957,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21861,9 +20982,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21884,9 +21004,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -21906,9 +21025,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/public_emails`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21943,9 +21061,8 @@ export class ApiClient extends AbstractAxiosClient {
       before: p["before"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21987,9 +21104,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22009,9 +21125,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/repository_invitations`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22027,9 +21142,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PATCH",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22045,9 +21159,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/repository_invitations/${p["invitationId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22065,9 +21178,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22087,9 +21199,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22111,9 +21222,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       data: body,
@@ -22133,9 +21243,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22156,9 +21265,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -22176,9 +21284,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_ssh_signing_key>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22194,9 +21301,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22221,9 +21327,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22240,9 +21345,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22259,9 +21363,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "PUT",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22278,9 +21381,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/user/starred/${p["owner"]}/${p["repo"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22298,9 +21400,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22318,9 +21419,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/user/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22338,9 +21438,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users`
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22356,9 +21455,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_private_user | t_public_user>> {
     const url = `/users/${p["username"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22374,9 +21472,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package[]>> {
     const url = `/users/${p["username"]}/docker/conflicts`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22395,9 +21492,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22417,9 +21513,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/orgs/${p["org"]}`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22438,9 +21533,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22459,9 +21553,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/followers`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22480,9 +21573,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/following`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22499,9 +21591,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/following/${p["targetUser"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22525,9 +21616,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22546,9 +21636,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/gpg_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22570,9 +21659,8 @@ export class ApiClient extends AbstractAxiosClient {
       subject_id: p["subjectId"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22588,9 +21676,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_installation>> {
     const url = `/users/${p["username"]}/installation`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22609,9 +21696,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22630,9 +21716,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/orgs`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22664,9 +21749,8 @@ export class ApiClient extends AbstractAxiosClient {
       per_page: p["perPage"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22690,9 +21774,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22716,9 +21799,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22744,9 +21826,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
     const query = this._query({ token: p["token"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22770,9 +21851,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version[]>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22797,9 +21877,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_package_version>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22824,9 +21903,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22851,9 +21929,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22877,9 +21954,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22898,9 +21974,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22919,9 +21994,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/received_events/public`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22949,9 +22023,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22967,9 +22040,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_actions_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/actions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -22985,9 +22057,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_packages_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/packages`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23003,9 +22074,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/users/${p["username"]}/settings/billing/shared-storage`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23024,9 +22094,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/social_accounts`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23045,9 +22114,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/ssh_signing_keys`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23073,9 +22141,8 @@ export class ApiClient extends AbstractAxiosClient {
       page: p["page"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23094,9 +22161,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/users/${p["username"]}/subscriptions`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23109,9 +22175,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string[]>> {
     const url = `/versions`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -23124,9 +22189,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<string>> {
     const url = `/zen`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
