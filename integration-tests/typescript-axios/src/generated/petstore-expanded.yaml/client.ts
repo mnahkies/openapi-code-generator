@@ -25,9 +25,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -45,9 +44,8 @@ export class ApiClient extends AbstractAxiosClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -65,9 +63,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -83,9 +80,8 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
 
-    return this.axios.request({
+    return this._request({
       url: url,
-      baseURL: this.basePath,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),

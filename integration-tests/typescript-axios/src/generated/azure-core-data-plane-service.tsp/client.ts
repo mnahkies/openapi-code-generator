@@ -49,9 +49,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -78,9 +77,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -117,9 +115,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -151,9 +148,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -194,9 +190,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -228,9 +223,8 @@ export class ApiClient extends AbstractAxiosClient {
       select: p["select"],
     })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -261,9 +255,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -301,9 +294,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "PATCH",
       headers,
       data: body,
@@ -331,9 +323,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -375,9 +366,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -406,9 +396,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -445,9 +434,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -471,9 +459,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -505,9 +492,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -543,9 +529,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -582,9 +567,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "POST",
       headers,
       data: body,
@@ -612,9 +596,8 @@ export class ApiClient extends AbstractAxiosClient {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -651,9 +634,8 @@ export class ApiClient extends AbstractAxiosClient {
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "PUT",
       headers,
       data: body,
@@ -685,9 +667,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -728,9 +709,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "DELETE",
       headers,
       ...(timeout ? { timeout } : {}),
@@ -752,9 +732,8 @@ export class ApiClient extends AbstractAxiosClient {
     })
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this.axios.request({
+    return this._request({
       url: url + query,
-      baseURL: this.basePath,
       method: "GET",
       headers,
       ...(timeout ? { timeout } : {}),
