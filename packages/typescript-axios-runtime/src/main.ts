@@ -90,7 +90,7 @@ export abstract class AbstractAxiosClient {
     })}`
   }
 
-  protected _headers(headers: HeaderParams = {}): Record<string, string> {
+  protected _headers(headers: HeaderParams): Record<string, string> {
     return Object.fromEntries(
       Object.entries({...this.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
