@@ -1,4 +1,4 @@
-import axios, {AxiosInstance} from "axios"
+import axios, {AxiosInstance, AxiosRequestConfig} from "axios"
 import qs from "qs"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
@@ -66,6 +66,16 @@ export abstract class AbstractAxiosClient {
     this.defaultTimeout = config.defaultTimeout
   }
 
+  protected _request(opts: AxiosRequestConfig) {
+    const headers = opts.headers ?? this._headers({})
+
+    return this.axios.request({
+      baseURL: this.basePath,
+      ...opts,
+      headers,
+    })
+  }
+
   protected _query(params: QueryParams): string {
     const definedParams = Object.entries(params).filter(
       ([, v]) => v !== undefined,
@@ -80,7 +90,7 @@ export abstract class AbstractAxiosClient {
     })}`
   }
 
-  protected _headers(headers: HeaderParams): Record<string, string> {
+  protected _headers(headers: HeaderParams = {}): Record<string, string> {
     return Object.fromEntries(
       Object.entries({...this.defaultHeaders, ...headers}).filter(
         (it): it is [string, string] => it[1] !== undefined,
