@@ -1,5 +1,5 @@
 import {Biome, Distribution} from "@biomejs/js-api"
-import {IFormatter} from "../../core/interfaces"
+import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
 
 export class TypescriptFormatterBiome implements IFormatter {
@@ -16,6 +16,9 @@ export class TypescriptFormatterBiome implements IFormatter {
         indentWidth: 2,
         indentStyle: "space",
       },
+      linter: {
+        enabled: false,
+      },
       javascript: {
         formatter: {
           bracketSpacing: true,
@@ -27,11 +30,11 @@ export class TypescriptFormatterBiome implements IFormatter {
 
   async format(filename: string, raw: string): Promise<string> {
     try {
-      raw = raw
+      const trimmed = raw
         .split("\n")
         .map((it) => it.trim())
         .join("\n")
-      const formatted = this.biome.formatContent(raw, {
+      const formatted = this.biome.formatContent(trimmed, {
         filePath: filename,
       })
 

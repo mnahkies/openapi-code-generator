@@ -1,8 +1,6 @@
-import util from "util"
+import util from "node:util"
 
-/* eslint no-console:0 */
-
-export type LoggerMeta = Record<string, any>
+export type LoggerMeta = Record<string, unknown>
 
 enum Color {
   FgRed = "\x1b[31m",
@@ -76,9 +74,8 @@ export class Logger {
   private now() {
     if (typeof process.hrtime === "undefined") {
       return BigInt(Date.now())
-    } else {
-      return process.hrtime.bigint()
     }
+    return process.hrtime.bigint()
   }
 }
 

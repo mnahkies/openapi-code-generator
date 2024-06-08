@@ -1,4 +1,4 @@
-import axios, {AxiosInstance, AxiosRequestConfig} from "axios"
+import axios, {type AxiosInstance, type AxiosRequestConfig} from "axios"
 import qs from "qs"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range

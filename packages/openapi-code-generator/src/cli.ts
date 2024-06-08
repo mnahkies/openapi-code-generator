@@ -2,7 +2,6 @@
 
 import "source-map-support/register"
 
-// eslint-disable-next-line no-restricted-imports
 import path from "node:path"
 import {
   Command,
@@ -11,13 +10,13 @@ import {
 } from "@commander-js/extra-typings"
 import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
-import {OperationGroupStrategy} from "./core/input"
+import type {OperationGroupStrategy} from "./core/input"
 import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
-import {templates} from "./templates"
+import type {templates} from "./templates"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
 const boolParser = (arg: string): boolean => {
@@ -26,7 +25,8 @@ const boolParser = (arg: string): boolean => {
 
   if (TRUTHY_VALUES.includes(arg.toLowerCase())) {
     return true
-  } else if (FALSY_VALUES.includes(arg.toLowerCase())) {
+  }
+  if (FALSY_VALUES.includes(arg.toLowerCase())) {
     return false
   }
 

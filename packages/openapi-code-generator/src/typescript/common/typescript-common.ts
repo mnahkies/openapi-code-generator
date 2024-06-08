@@ -1,5 +1,8 @@
 import {logger} from "../../core/logger"
-import {IROperation, IRParameter} from "../../core/openapi-types-normalized"
+import type {
+  IROperation,
+  IRParameter,
+} from "../../core/openapi-types-normalized"
 import {camelCase, isDefined} from "../../core/utils"
 
 export type MethodParameterDefinition = {
@@ -72,7 +75,7 @@ export function routeToTemplateString(route: string, paramName = "p"): string {
 
     return result.replace(
       wholeString,
-      "${" + paramName + '["' + camelCase(placeholderName) + '"]}',
+      `\${${paramName}["${camelCase(placeholderName)}"]}`,
     )
   }, route)
 }
@@ -165,16 +168,18 @@ export function requestBodyAsParameter(operation: IROperation): {
     }
   }
 
-  logger.warn("no content on defined request body ", requestBody)
+  logger.warn("no content on defined request body ", {requestBody})
   return {}
 }
 
 export function statusStringToType(status: string): string {
   if (/^\d+$/.test(status)) {
     return status
-  } else if (/^\d[xX]{2}$/.test(status)) {
+  }
+  if (/^\d[xX]{2}$/.test(status)) {
     return `StatusCode${status[0]}xx`
-  } else if (status === "default") {
+  }
+  if (status === "default") {
     return "StatusCode"
   }
 

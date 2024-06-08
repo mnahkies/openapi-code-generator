@@ -1,4 +1,4 @@
-import {HttpMethod} from "./utils"
+import type {HttpMethod} from "./utils"
 
 export interface IRRef {
   $ref: string

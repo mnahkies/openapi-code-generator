@@ -1,5 +1,5 @@
 import {describe, expect} from "@jest/globals"
-import {AbstractFetchClient, QueryParams} from "./main"
+import {AbstractFetchClient, type QueryParams} from "./main"
 
 class ConcreteFetchClient extends AbstractFetchClient {
   constructor() {

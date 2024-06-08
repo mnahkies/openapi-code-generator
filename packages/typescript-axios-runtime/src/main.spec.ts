@@ -1,5 +1,5 @@
 import {describe, expect} from "@jest/globals"
-import {AbstractAxiosClient, QueryParams} from "./main"
+import {AbstractAxiosClient, type QueryParams} from "./main"
 
 class ConcreteAxiosClient extends AbstractAxiosClient {
   constructor() {

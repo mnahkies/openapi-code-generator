@@ -2,7 +2,7 @@ import {describe, expect, it} from "@jest/globals"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
-import {TypeBuilder, TypeBuilderConfig} from "./type-builder"
+import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
 
 describe.each(testVersions)(

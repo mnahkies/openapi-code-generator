@@ -1,11 +1,11 @@
 import {
-  DependencyGraph,
+  type DependencyGraph,
   buildDependencyGraph,
 } from "../../../core/dependency-graph"
-import {Input} from "../../../core/input"
+import type {Input} from "../../../core/input"
 import {logger} from "../../../core/logger"
-import {Reference} from "../../../core/openapi-types"
-import {
+import type {Reference} from "../../../core/openapi-types"
+import type {
   IRModelArray,
   IRModelNumeric,
   IRModelObject,
@@ -15,9 +15,9 @@ import {
 } from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef, isRef} from "../../../core/openapi-utils"
 import {hasSingleElement} from "../../../core/utils"
-import {CompilationUnit, ICompilable} from "../compilation-units"
+import {CompilationUnit, type ICompilable} from "../compilation-units"
 import {ImportBuilder} from "../import-builder"
-import {ExportDefinition, buildExport} from "../typescript-common"
+import {type ExportDefinition, buildExport} from "../typescript-common"
 
 export type SchemaBuilderConfig = {
   allowAny: boolean
@@ -127,7 +127,7 @@ export abstract class AbstractSchemaBuilder<
     let previous = generate()
     let next = generate()
 
-    while (previous.length != next.length) {
+    while (previous.length !== next.length) {
       previous = next
       next = generate()
     }
@@ -159,12 +159,12 @@ export abstract class AbstractSchemaBuilder<
       additionalProperties: false,
     }
 
-    parameters.forEach((parameter) => {
+    for (const parameter of parameters) {
       if (parameter.required) {
         model.required.push(parameter.name)
       }
       model.properties[parameter.name] = parameter.schema
-    })
+    }
 
     return this.fromModel(model, true, true)
   }
@@ -174,7 +174,7 @@ export abstract class AbstractSchemaBuilder<
     maybeModel: MaybeIRModel,
     required: boolean,
     isAnonymous = false,
-    nullable: boolean = false,
+    nullable = false,
   ): string {
     // if we generate an inline/anonymous schema then we'll need to import
     // the schema library.
@@ -196,9 +196,8 @@ export abstract class AbstractSchemaBuilder<
 
       if (this.graph.circular.has(name) && !isAnonymous) {
         return this.lazy(result)
-      } else {
-        return result
       }
+      return result
     }
 
     const model = this.input.schema(maybeModel)

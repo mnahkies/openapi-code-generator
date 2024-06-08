@@ -1,8 +1,4 @@
-function wrap<T, U>(
-  fn: (arg: T[]) => U,
-): {
-  (...arg: T[] | T[][]): U
-} {
+function wrap<T, U>(fn: (arg: T[]) => U): (...arg: T[] | T[][]) => U {
   return (...args: T[] | T[][]) => {
     if ((args as unknown[]).every((it) => Array.isArray(it))) {
       return fn((args as T[][]).reduce((acc, it) => acc.concat(it), [] as T[]))
@@ -28,7 +24,9 @@ export const union = wrap((types: MaybeString[]): string => {
 
   if (!distinctTypes.length) {
     return ""
-  } else if (distinctTypes.length === 1 && distinctTypes[0]) {
+  }
+
+  if (distinctTypes.length === 1 && distinctTypes[0]) {
     return distinctTypes[0]
   }
 
@@ -40,7 +38,9 @@ export const intersect = wrap((types: MaybeString[]): string => {
 
   if (!distinctTypes.length) {
     return ""
-  } else if (distinctTypes.length === 1 && distinctTypes[0]) {
+  }
+
+  if (distinctTypes.length === 1 && distinctTypes[0]) {
     return distinctTypes[0]
   }
 
@@ -62,7 +62,7 @@ export const objectProperty = ({
 }: ObjectPropertyDefinition): string => {
   return [
     isReadonly ? "readonly" : "",
-    `"${name}"` + (isRequired ? ":" : "?:"),
+    `"${name}"${isRequired ? ":" : "?:"}`,
     type,
   ]
     .filter(Boolean)
@@ -76,12 +76,12 @@ export const object = wrap((properties: MaybeString[]): string => {
     return ""
   }
 
-  return "{\n" + definedProperties.join("\n") + "\n}"
+  return `{\n${definedProperties.join("\n")}\n}`
 })
 
 export const array = (type: string): string => `(${type})[]`
 
-export const toString = (it: string | number): string => it.toString()
+export const coerceToString = (it: string | number): string => it.toString()
 
 // TODO: more comprehensive escaping? Eg: `\n`
 export const quotedStringLiteral = (it: string): string =>

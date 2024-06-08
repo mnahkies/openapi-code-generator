@@ -1,11 +1,11 @@
-import readline from "readline"
+import readline from "node:readline"
 import {logger} from "./logger"
 
 export async function promptContinue(
   question: string,
   defaultValue?: "yes" | "no",
 ): Promise<void> {
-  const answer = await prompt(question + " (yes/no) ", defaultValue)
+  const answer = await prompt(`${question} (yes/no) `, defaultValue)
   if (answer === "yes") {
     return
   }

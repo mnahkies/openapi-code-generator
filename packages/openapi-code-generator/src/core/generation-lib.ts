@@ -1,4 +1,4 @@
-import {OpenapiDocument, Schema} from "./openapi-types"
+import type {OpenapiDocument, Schema} from "./openapi-types"
 
 export class VirtualDefinition {
   readonly definition: OpenapiDocument

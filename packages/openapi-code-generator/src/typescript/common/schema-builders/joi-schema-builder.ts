@@ -1,18 +1,18 @@
-import {Input} from "../../../core/input"
-import {Reference} from "../../../core/openapi-types"
-import {
+import type {Input} from "../../../core/input"
+import type {Reference} from "../../../core/openapi-types"
+import type {
   IRModelArray,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
-import {ImportBuilder} from "../import-builder"
+import type {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
-import {ExportDefinition} from "../typescript-common"
+import type {ExportDefinition} from "../typescript-common"
 import {
   AbstractSchemaBuilder,
-  SchemaBuilderConfig,
+  type SchemaBuilderConfig,
 } from "./abstract-schema-builder"
 
 const joi = "joi"
@@ -62,7 +62,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return {
       name,
       type: "",
-      value: value + `.id("${name}")`,
+      value: `${value}.id("${name}")`,
       kind: "const",
     }
   }

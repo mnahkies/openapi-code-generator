@@ -1,4 +1,4 @@
-import {CompilationUnit, ICompilable} from "../common/compilation-units"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 
 export class AngularModuleBuilder implements ICompilable {
@@ -39,9 +39,9 @@ export class AngularModuleBuilder implements ICompilable {
       add: (...names: string[]) => {
         this.tsImports.from(from).add(...names)
 
-        names.forEach((name) => {
+        for (const name of names) {
           collection.add(name)
-        })
+        }
       },
     }
   }

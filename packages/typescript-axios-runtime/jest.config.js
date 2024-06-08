@@ -1,6 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const base = require("../../jest.base")
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {name: displayName} = require("./package.json")
 
 /**

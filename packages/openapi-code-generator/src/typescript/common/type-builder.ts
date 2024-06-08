@@ -1,18 +1,18 @@
-import {Input} from "../../core/input"
+import type {Input} from "../../core/input"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {logger} from "../../core/logger"
-import {Reference} from "../../core/openapi-types"
-import {MaybeIRModel} from "../../core/openapi-types-normalized"
+import type {Reference} from "../../core/openapi-types"
+import type {MaybeIRModel} from "../../core/openapi-types-normalized"
 import {getTypeNameFromRef, isRef} from "../../core/openapi-utils"
-import {CompilationUnit, ICompilable} from "./compilation-units"
-import {ImportBuilder} from "./import-builder"
+import {CompilationUnit, type ICompilable} from "./compilation-units"
+import type {ImportBuilder} from "./import-builder"
 import {
   array,
+  coerceToString,
   intersect,
   object,
   objectProperty,
   quotedStringLiteral,
-  toString,
   union,
 } from "./type-utils"
 import {buildExport} from "./typescript-common"
@@ -102,7 +102,7 @@ export class TypeBuilder implements ICompilable {
     let previous = generate()
     let next = generate()
 
-    while (previous.length != next.length) {
+    while (previous.length !== next.length) {
       previous = next
       next = generate()
     }
@@ -166,7 +166,7 @@ export class TypeBuilder implements ICompilable {
 
         case "number": {
           // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
-          result.push(...(schemaObject.enum?.map(toString) ?? ["number"]))
+          result.push(...(schemaObject.enum?.map(coerceToString) ?? ["number"]))
           break
         }
 

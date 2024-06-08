@@ -1,30 +1,29 @@
-// Note: we can get away with using this in NextJS it seems, but not if using the `node:` prefix
+// biome-ignore lint/style/useNodejsImportProtocol: webpack doesn't like `node:` prefix
 import path from "path"
 import yaml from "js-yaml"
 import json5 from "json5"
-import {IFsAdaptor} from "../file-system/fs-adaptor"
+import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 import {isRemote} from "./utils"
 
 export class GenericLoader {
   constructor(private readonly fsAdaptor: IFsAdaptor) {}
 
-  async loadFile(location: string): Promise<[string, any]> {
+  async loadFile(location: string): Promise<[string, unknown]> {
     if (isRemote(location)) {
       return this.loadRemoteFile(location)
-    } else {
-      return this.loadLocalFile(location)
     }
+    return this.loadLocalFile(location)
   }
 
-  private async loadLocalFile(file: string): Promise<[string, any]> {
-    file = path.resolve(file)
-    const raw = await this.fsAdaptor.readFile(file)
+  private async loadLocalFile(file: string): Promise<[string, unknown]> {
+    const resolvedPath = path.resolve(file)
+    const raw = await this.fsAdaptor.readFile(resolvedPath)
 
-    return [file, await this.parseFile(raw, file)]
+    return [resolvedPath, await this.parseFile(raw, resolvedPath)]
   }
 
-  private async loadRemoteFile(uri: string): Promise<[string, any]> {
+  private async loadRemoteFile(uri: string): Promise<[string, unknown]> {
     const res = await fetch(uri)
 
     if (!res.ok) {
@@ -43,8 +42,8 @@ export class GenericLoader {
     if (filepath.endsWith(".json")) {
       try {
         result = json5.parse(raw)
-      } catch (err: any) {
-        logger.error("error parsing json", err.stack)
+      } catch (err: unknown) {
+        logger.error("error parsing json", {err})
         throw new Error(`failed to parse json from '${filepath}'`)
       }
     }
@@ -52,8 +51,8 @@ export class GenericLoader {
     if (filepath.endsWith(".yaml") || filepath.endsWith(".yml")) {
       try {
         result = yaml.load(raw)
-      } catch (err: any) {
-        logger.error("error parsing yaml", err.stack)
+      } catch (err: unknown) {
+        logger.error("error parsing yaml", {err})
         throw new Error(`failed to parse yaml from '${filepath}'`)
       }
     }

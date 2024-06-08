@@ -26,23 +26,24 @@ export class TypespecLoader {
       }, new Set<string>())
 
     if (missingImports.size > 0) {
-      Array.from(missingImports).forEach((it) => logger.error(it))
-      throw new Error("missing imports")
-    } else {
-      program.diagnostics.forEach((it) => {
-        switch (it.severity) {
-          case "error":
-            logger.error(it.message)
-            break
-          case "warning":
-            logger.warn(it.message)
-            break
-        }
-      })
-
-      if (program.diagnostics.length > 0) {
-        await this.onError(path)
+      for (const it of Array.from(missingImports)) {
+        logger.error(it)
       }
+      throw new Error("missing imports")
+    }
+    for (const it of program.diagnostics) {
+      switch (it.severity) {
+        case "error":
+          logger.error(it.message)
+          break
+        case "warning":
+          logger.warn(it.message)
+          break
+      }
+    }
+
+    if (program.diagnostics.length > 0) {
+      await this.onError(path)
     }
 
     const serviceRecords = await getOpenAPI3(program, {
@@ -62,16 +63,16 @@ export class TypespecLoader {
 
     if (!serviceRecord.versioned) {
       return serviceRecord.document
-    } else {
-      // TODO: support multiple versions?
-      const newestVersion = serviceRecord.versions.at(-1)
-
-      if (!newestVersion) {
-        throw new Error("no versions returned")
-      }
-
-      return newestVersion.document
     }
+
+    // TODO: support multiple versions?
+    const newestVersion = serviceRecord.versions.at(-1)
+
+    if (!newestVersion) {
+      throw new Error("no versions returned")
+    }
+
+    return newestVersion.document
   }
 
   static async create(

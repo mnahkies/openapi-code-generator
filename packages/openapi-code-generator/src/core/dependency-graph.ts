@@ -1,15 +1,19 @@
-import {Input} from "./input"
+import type {Input} from "./input"
 import {logger} from "./logger"
-import {Reference} from "./openapi-types"
-import {IRModel, MaybeIRModel} from "./openapi-types-normalized"
+import type {Reference} from "./openapi-types"
+import type {IRModel, MaybeIRModel} from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 
 function intersect<T>(a: Set<T>, b: Set<T>) {
-  b.forEach((it) => a.add(it))
+  for (const it of b) {
+    a.add(it)
+  }
 }
 
 function remove(a: Set<unknown>, b: Set<unknown>) {
-  b.forEach((it) => a.delete(it))
+  for (const it of b) {
+    a.delete(it)
+  }
 }
 
 const getDependenciesFromSchema = (
@@ -32,6 +36,7 @@ const getDependenciesFromSchema = (
     if (isRef(it)) {
       acc.add(getNameForRef(it))
     } else if (it.type === "object") {
+      // biome-ignore lint/complexity/noForEach: <explanation>
       Object.values(it.properties)
         .concat(Reflect.get(schema, "oneOf") ?? [])
         .concat(Reflect.get(schema, "allOf") ?? [])
@@ -65,6 +70,7 @@ function split<T>(
   const left: T[] = []
   const right: T[] = []
 
+  // biome-ignore lint/complexity/noForEach: <explanation>
   arr.forEach((it) => {
     switch (predicate(it)) {
       case "left":
@@ -140,6 +146,7 @@ export function buildDependencyGraph(
 
     remaining = Object.fromEntries(right)
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     right.forEach(([, deps]) => {
       remove(deps, noDepsSet)
     })

@@ -1,4 +1,4 @@
-import path from "path"
+import path from "node:path"
 import {jest} from "@jest/globals"
 import yaml from "js-yaml"
 import {NodeFsAdaptor} from "../core/file-system/node-fs-adaptor"

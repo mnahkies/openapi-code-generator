@@ -1,6 +1,6 @@
-import {Input} from "../../../core/input"
-import {Reference} from "../../../core/openapi-types"
-import {
+import type {Input} from "../../../core/input"
+import type {Reference} from "../../../core/openapi-types"
+import type {
   IRModelArray,
   IRModelNumeric,
   IRModelString,
@@ -10,12 +10,12 @@ import {
   getTypeNameFromRef,
 } from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
-import {ImportBuilder} from "../import-builder"
+import type {ImportBuilder} from "../import-builder"
 import {quotedStringLiteral} from "../type-utils"
-import {ExportDefinition} from "../typescript-common"
+import type {ExportDefinition} from "../typescript-common"
 import {
   AbstractSchemaBuilder,
-  SchemaBuilderConfig,
+  type SchemaBuilderConfig,
 } from "./abstract-schema-builder"
 
 const zod = "z"
@@ -97,7 +97,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   protected merge(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length == 1 && definedSchemas[0]) {
+    if (definedSchemas.length === 1 && definedSchemas[0]) {
       return definedSchemas[0]
     }
 
@@ -109,7 +109,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   protected intersect(schemas: string[]): string {
     const definedSchemas = schemas.filter(isDefined)
 
-    if (definedSchemas.length == 1 && definedSchemas[0]) {
+    if (definedSchemas.length === 1 && definedSchemas[0]) {
       return definedSchemas[0]
     }
 
@@ -127,7 +127,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
     return [
       zod,
-      `union([\n${definedSchemas.map((it) => it + ",").join("\n")}\n])`,
+      `union([\n${definedSchemas.map((it) => `${it},`).join("\n")}\n])`,
     ]
       .filter(isDefined)
       .join(".")

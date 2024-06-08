@@ -1,5 +1,5 @@
-import {z} from "zod"
-import {KoaRuntimeError, RequestInputType} from "./errors"
+import type {z} from "zod"
+import {KoaRuntimeError, type RequestInputType} from "./errors"
 
 export type Params<Params, Query, Body> = {
   params: Params

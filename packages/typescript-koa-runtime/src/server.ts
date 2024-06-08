@@ -1,11 +1,11 @@
-import {Server} from "http"
-import {ListenOptions} from "net"
-import {AddressInfo} from "node:net"
+import type {Server} from "node:http"
+import type {ListenOptions} from "node:net"
+import type {AddressInfo} from "node:net"
 import Cors from "@koa/cors"
-import Router from "@koa/router"
-import Koa, {Middleware} from "koa"
+import type Router from "@koa/router"
+import Koa, {type Middleware} from "koa"
 import KoaBody from "koa-body"
-import {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
+import type {KoaBodyMiddlewareOptions} from "koa-body/lib/types"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -55,6 +55,7 @@ export class KoaRuntimeResponse<Type> {
 
 export type KoaRuntimeResponder<
   Status extends StatusCode = StatusCode,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   Type = any,
 > = {
   withStatus: (status: Status) => KoaRuntimeResponse<Type>
@@ -122,6 +123,7 @@ export async function startServer({
     app.use(KoaBody(body))
   }
 
+  // biome-ignore lint/complexity/noForEach: <explanation>
   middleware.forEach((it) => app.use(it))
 
   app.use(router.allowedMethods())

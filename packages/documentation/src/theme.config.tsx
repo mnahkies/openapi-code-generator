@@ -1,4 +1,4 @@
-import {NextSeoProps} from "next-seo"
+import type {NextSeoProps} from "next-seo"
 import {useRouter} from "next/router"
 
 const ThemeConfig = {

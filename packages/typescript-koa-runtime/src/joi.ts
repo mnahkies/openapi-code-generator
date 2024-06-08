@@ -1,5 +1,5 @@
 import type {Schema as JoiSchema} from "@hapi/joi"
-import {KoaRuntimeError, RequestInputType} from "./errors"
+import {KoaRuntimeError, type RequestInputType} from "./errors"
 
 export type Params<Params, Query, Body> = {
   params: Params
@@ -13,6 +13,7 @@ export function parseRequestInput<Schema extends JoiSchema>(
   schema: Schema,
   input: unknown,
   type: RequestInputType,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 ): any
 export function parseRequestInput(
   schema: undefined,
@@ -23,6 +24,7 @@ export function parseRequestInput<Schema extends JoiSchema>(
   schema: Schema | undefined,
   input: unknown,
   type: RequestInputType,
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
 ): any {
   try {
     if (!schema) {

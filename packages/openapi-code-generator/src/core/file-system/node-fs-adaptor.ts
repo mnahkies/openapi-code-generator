@@ -1,8 +1,6 @@
-// eslint-disable-next-line no-restricted-imports
 import {existsSync} from "node:fs"
-// eslint-disable-next-line no-restricted-imports
 import fs from "node:fs/promises"
-import {IFsAdaptor} from "./fs-adaptor"
+import type {IFsAdaptor} from "./fs-adaptor"
 
 export class NodeFsAdaptor implements IFsAdaptor {
   async readFile(path: string) {

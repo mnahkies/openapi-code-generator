@@ -1,5 +1,4 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const inspector = require("inspector")
+const inspector = require("node:inspector")
 
 /**
  * @type { import('@jest/types').Config.GlobalConfig }

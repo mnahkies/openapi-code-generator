@@ -7,6 +7,7 @@ export default function Document() {
       <Head>
         {/* https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced */}
         <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
           dangerouslySetInnerHTML={{
             __html: `
           window.dataLayer = window.dataLayer || [];

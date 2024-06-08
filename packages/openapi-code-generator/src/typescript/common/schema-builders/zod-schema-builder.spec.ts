@@ -1,6 +1,6 @@
 import * as vm from "node:vm"
 import {describe, expect, it} from "@jest/globals"
-import {
+import type {
   IRModelArray,
   IRModelBoolean,
   IRModelNumeric,
@@ -8,7 +8,7 @@ import {
   IRModelString,
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
-import {SchemaBuilderConfig} from "./abstract-schema-builder"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-schema-builder"
 
@@ -27,7 +27,6 @@ describe.each(testVersions)(
         ${input !== sentinel ? `return x.parse(${JSON.stringify(input)})` : ""}
         })()`,
         // Note: done this way for consistency with joi tests
-        // eslint-disable-next-line @typescript-eslint/no-var-requires
         {z: require("zod").z, RegExp},
       )
     }
