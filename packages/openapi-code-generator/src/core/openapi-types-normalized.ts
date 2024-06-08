@@ -9,7 +9,12 @@ export interface IRModelBase {
   nullable: boolean /* false */
   readOnly: boolean /* false */
 
-  "x-alpha-transform"?: string | undefined
+  "x-alpha-transform"?:
+    | {
+        fn?: string | undefined
+        type?: string | undefined
+      }
+    | undefined
 }
 
 export type IRModelNumericFormat = "int32" | "int64" | "float" | "double"

@@ -249,8 +249,13 @@ export interface Schema {
   deprecated?: boolean | undefined
   // xml?: XML | undefined
 
-  // TODO: not yet supported by type-builder or joi
-  "x-alpha-transform"?: string | undefined
+  // TODO: not yet supported by joi
+  "x-alpha-transform"?:
+    | {
+        fn?: string | undefined
+        type?: string | undefined
+      }
+    | undefined
 }
 
 export interface Discriminator {

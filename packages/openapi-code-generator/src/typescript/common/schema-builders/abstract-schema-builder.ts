@@ -180,8 +180,10 @@ export abstract class AbstractSchemaBuilder<
           oneOf: [],
           required: [],
           anyOf: [parameter.schema, parameter.schema.items],
-          "x-alpha-transform": ((it: unknown) =>
-            Array.isArray(it) || it === undefined ? it : [it]).toString(),
+          "x-alpha-transform": {
+            fn: ((it: unknown) =>
+              Array.isArray(it) || it === undefined ? it : [it]).toString(),
+          },
         }
       } else {
         model.properties[parameter.name] = parameter.schema
@@ -326,8 +328,8 @@ export abstract class AbstractSchemaBuilder<
 
     result = required ? this.required(result) : this.optional(result)
 
-    if (model["x-alpha-transform"]) {
-      result = this.transform(result, model["x-alpha-transform"])
+    if (model["x-alpha-transform"]?.fn) {
+      result = this.transform(result, model["x-alpha-transform"]?.fn)
     }
 
     return result
