@@ -145,7 +145,9 @@ export class TypeBuilder implements ICompilable {
       result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
     }
 
-    if (result.length === 0) {
+    if (schemaObject["x-alpha-transform"]?.type) {
+      result.push(schemaObject["x-alpha-transform"]?.type)
+    } else if (result.length === 0) {
       switch (schemaObject.type) {
         case "array": {
           result.push(array(this.schemaObjectToType(schemaObject.items)))

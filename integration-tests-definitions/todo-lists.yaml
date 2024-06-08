@@ -171,6 +171,9 @@ components:
         created:
           type: string
           format: date-time
+          x-alpha-transform:
+            fn: (it) => new Date(it)
+            type: Date
         updated:
           type: string
           format: date-time
