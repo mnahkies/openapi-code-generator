@@ -20,7 +20,7 @@
     "clean": "lerna run clean --stream",
     "docs:generate": "./scripts/generate-docs.sh",
     "refresh": "./scripts/refresh-data.sh",
-    "lint": "biome lint --write .",
+    "lint": "biome lint --apply .",
     "format": "biome check --apply .",
     "build": "node ./scripts/generate-ajv-validator.js && lerna run build  --stream --scope '@nahkies/*'",
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
@@ -34,7 +34,7 @@
     "publish:release": "./scripts/publish.release.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "^1.8.0",
+    "@biomejs/biome": "1.7.3",
     "@swc/core": "^1.5.7",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node20": "^20.1.4",
@@ -55,7 +55,7 @@
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
-      "yarn biome lint --write",
+      "yarn biome lint --apply",
       "yarn biome check --apply --no-errors-on-unmatched"
     ],
     "*.md": [

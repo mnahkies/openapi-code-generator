@@ -2,21 +2,21 @@ import {exec, execSync} from "node:child_process"
 import path from "node:path"
 
 const templates = execSync(
-  `find ./integration-tests -mindepth 1 -maxdepth 1 -type d`,
+  "find ./integration-tests -mindepth 1 -maxdepth 1 -type d",
 )
   .toString("utf-8")
   .split("\n")
   .map((it) => it.trim())
   .filter(Boolean)
-const definitions = execSync(`find ./integration-tests-definitions -type f`)
+const definitions = execSync("find ./integration-tests-definitions -type f")
   .toString("utf-8")
   .split("\n")
   .map((it) => it.trim())
   .filter(Boolean)
 
 Promise.all(
-  templates.flatMap((template) =>
-    definitions.map((definition) => runSingle(template, definition)),
+  templates.flatMap((templatePath) =>
+    definitions.map((definition) => runSingle(templatePath, definition)),
   ),
 )
   .then(() => {
@@ -28,10 +28,10 @@ Promise.all(
     process.exit(1)
   })
 
-async function runSingle(template, input) {
+async function runSingle(templatePath, input) {
   const inputType = input.endsWith(".tsp") ? "typespec" : "openapi3"
   const filename = path.basename(input)
-  template = path.basename(template)
+  const template = path.basename(templatePath)
 
   const args = [
     `--input="${input}"`,
@@ -45,20 +45,20 @@ async function runSingle(template, input) {
     const result = await runCmd(
       `node ./packages/openapi-code-generator/dist/cli.js ${args.join(" ")}`,
     )
-    result.forEach((it) => {
+    for (const it of result) {
       console.info(`[${template} - ${filename}] ${it}`)
-    })
+    }
   } catch (err) {
     console.error(err)
-    err.output.forEach((it) => {
+    for (const it of err.output) {
       console.error(`[${template} - ${filename}] ${it}`)
-    })
+    }
     throw err
   }
 }
 
 function runCmd(cmd) {
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve, reject) => {
     const output = []
 
     console.info(cmd)

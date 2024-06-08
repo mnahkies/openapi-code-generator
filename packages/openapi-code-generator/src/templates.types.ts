@@ -1,7 +1,7 @@
-import {Input, OperationGroupStrategy} from "./core/input"
+import type {Input, OperationGroupStrategy} from "./core/input"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
-import {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
-import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
+import type {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
+import type {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
 export interface OpenapiGeneratorConfig {
   input: Input

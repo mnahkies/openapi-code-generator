@@ -1,5 +1,5 @@
-import {Input} from "../../../core/input"
-import {SchemaBuilderConfig} from "./abstract-schema-builder"
+import type {Input} from "../../../core/input"
+import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {JoiBuilder} from "./joi-schema-builder"
 import {ZodBuilder} from "./zod-schema-builder"
 
@@ -7,7 +7,7 @@ export type SchemaBuilder = ZodBuilder | JoiBuilder
 export type SchemaBuilderType = "zod" | "joi"
 
 export function schemaBuilderFactory(
-  filename: string = "./schemas.ts",
+  filename: string,
   input: Input,
   schemaBuilderType: SchemaBuilderType,
   schemaBuilderConfig: SchemaBuilderConfig,

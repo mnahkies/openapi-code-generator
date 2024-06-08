@@ -1,4 +1,4 @@
-import {Reference} from "./openapi-types"
+import type {Reference} from "./openapi-types"
 
 export function isRef(it: unknown | Reference): it is Reference {
   if (!it || typeof it !== "object") {

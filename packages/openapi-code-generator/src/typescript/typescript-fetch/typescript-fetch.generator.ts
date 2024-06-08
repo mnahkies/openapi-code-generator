@@ -1,4 +1,4 @@
-import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
+import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"

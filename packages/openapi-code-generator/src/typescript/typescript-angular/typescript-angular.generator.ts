@@ -1,4 +1,4 @@
-import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
+import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
@@ -41,7 +41,7 @@ export async function generateTypescriptAngular(
 
   const module = new AngularModuleBuilder("api.module.ts", "Api")
 
-  module.provides("./" + client.filename).add(client.name)
+  module.provides(`./${client.filename}`).add(client.name)
 
   await emitter.emitGenerationResult([
     module.toCompilationUnit(),

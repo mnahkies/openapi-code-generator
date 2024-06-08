@@ -1,7 +1,7 @@
 import {generationLib} from "./generation-lib"
 import {logger} from "./logger"
-import {OpenapiLoader} from "./openapi-loader"
-import {
+import type {OpenapiLoader} from "./openapi-loader"
+import type {
   MediaType,
   Operation,
   Parameter,
@@ -10,7 +10,7 @@ import {
   Responses,
   Schema,
 } from "./openapi-types"
-import {
+import type {
   IRModel,
   IRModelArray,
   IRModelBase,
@@ -178,7 +178,9 @@ export class Input {
 
             result[key] = group
           } else {
-            logger.warn("no group criteria for operation, skipping", operation)
+            logger.warn("no group criteria for operation, skipping", {
+              operation,
+            })
           }
 
           return result
@@ -201,13 +203,14 @@ export class Input {
       return undefined
     }
 
+    // biome-ignore lint/style/noParameterAssign: <explanation>
     requestBody = this.loader.requestBody(requestBody)
 
     return {
       description: requestBody.description,
       required: requestBody.required ?? true,
       content: this.normalizeMediaTypes(
-        requestBody.content,
+        requestBody.content ?? {},
         operationId,
         "RequestBody",
       ),
@@ -236,7 +239,7 @@ export class Input {
             headers: {},
             description: response.description,
             content: this.normalizeMediaTypes(
-              response.content,
+              response.content ?? {},
               operationId,
               `${statusCode}Response`,
             ),
@@ -269,7 +272,7 @@ export class Input {
   private normalizeMediaTypes(
     mediaTypes: {
       [mediaType: string]: MediaType
-    } = {},
+    },
     operationId: string,
     suffix: "RequestBody" | `${string}Response`,
   ) {
@@ -435,7 +438,7 @@ function normalizeSchemaObject(
       let items = schemaObject.items
 
       if (!items) {
-        logger.warn("array object missing items property", schemaObject)
+        logger.warn("array object missing items property", {schemaObject})
         items = {$ref: generationLib.UnknownObject$Ref}
       }
 
@@ -450,7 +453,7 @@ function normalizeSchemaObject(
     }
     case "number":
     case "integer": {
-      const schemaObjectEnum = (schemaObject.enum ?? []) as any[]
+      const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
       const nullable = schemaObjectEnum.includes(null)
       const enumValues = schemaObjectEnum.filter((it): it is number =>
         Number.isFinite(it),
@@ -471,7 +474,7 @@ function normalizeSchemaObject(
       } satisfies IRModelNumeric
     }
     case "string": {
-      const schemaObjectEnum = (schemaObject.enum ?? []) as any[]
+      const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
       const nullable = schemaObjectEnum.includes(null)
       const enumValues = schemaObjectEnum
         .filter((it) => it !== undefined && it !== null)

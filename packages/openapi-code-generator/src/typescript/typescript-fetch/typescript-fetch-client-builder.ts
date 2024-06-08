@@ -1,6 +1,6 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
-import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {ImportBuilder} from "../common/import-builder"
+import type {ClientOperationBuilder} from "../common/client-operation-builder"
+import type {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"

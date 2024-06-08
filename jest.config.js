@@ -1,4 +1,4 @@
-const inspector = require("inspector")
+const inspector = require("node:inspector")
 
 /**
  * @type { import('@jest/types').Config.GlobalConfig }

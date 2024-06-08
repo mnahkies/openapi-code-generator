@@ -1,11 +1,11 @@
-import path from "path"
+import path from "node:path"
 import json5 from "json5"
 import ts from "typescript"
-import {IFsAdaptor} from "../file-system/fs-adaptor"
+import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 import {
-  TsCompilerOptions,
-  TsConfig,
+  type TsCompilerOptions,
+  type TsConfig,
   tsconfigSchema,
 } from "../schemas/tsconfig.schema"
 

@@ -1,12 +1,12 @@
 import {logger} from "./logger"
 
-import {ErrorObject} from "ajv"
+import type {ErrorObject} from "ajv"
 
 import validate3_0 = require("./schemas/openapi-3.0-specification-validator")
 import validate3_1 = require("./schemas/openapi-3.1-specification-validator")
 
 interface ValidateFunction {
-  (data: any): boolean
+  (data: unknown): boolean
 
   errors?: null | ErrorObject[]
 }
@@ -22,7 +22,8 @@ export class OpenapiValidator {
     if (version.startsWith("3.0")) {
       logger.info("Validating against 3.0")
       return this.validate3_0
-    } else if (version.startsWith("3.1")) {
+    }
+    if (version.startsWith("3.1")) {
       logger.info("Validating against 3.1")
       return this.validate3_1
     }
@@ -60,15 +61,13 @@ export class OpenapiValidator {
 
       if (strict) {
         throw new Error(
-          "Validation failed: " +
-            messages
-              .map((it) => `${it[0]} (${JSON.stringify(it[1])})`)
-              .join("\n"),
+          `Validation failed: ${messages
+            .map((it) => `${it[0]} (${JSON.stringify(it[1])})`)
+            .join("\n")}`,
         )
-      } else {
-        messages.forEach(([message, metadata]) => {
-          logger.warn(message, metadata)
-        })
+      }
+      for (const [message, metadata] of messages) {
+        logger.warn(message, metadata)
       }
 
       logger.warn("")

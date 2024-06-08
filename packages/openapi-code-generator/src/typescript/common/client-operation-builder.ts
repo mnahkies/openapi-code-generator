@@ -1,14 +1,14 @@
 import {generationLib} from "../../core/generation-lib"
-import {
+import type {
   IROperation,
   IRParameter,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
 import {camelCase, isDefined} from "../../core/utils"
-import {SchemaBuilder} from "./schema-builders/schema-builder"
-import {TypeBuilder} from "./type-builder"
+import type {SchemaBuilder} from "./schema-builders/schema-builder"
+import type {TypeBuilder} from "./type-builder"
 import {
-  MethodParameterDefinition,
+  type MethodParameterDefinition,
   combineParams,
   requestBodyAsParameter,
   statusStringToType,
@@ -74,7 +74,7 @@ export class ClientOperationBuilder {
     // todo: consider style / explode / allowReserved etc here
     return parameters
       .filter((it) => it.in === "query")
-      .map((it) => "'" + it.name + "': " + this.paramName(it.name))
+      .map((it) => `'${it.name}': ${this.paramName(it.name)}`)
       .join(",\n")
   }
 

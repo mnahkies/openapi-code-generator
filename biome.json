@@ -40,7 +40,11 @@
     "ignore": [
       "packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
       "packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
-      ""
+      "integration-tests/**/*",
+      "integration-tests-definitions/**/*",
+      "schemas/*.json",
+      "packages/*/package.json",
+      "package.json"
     ]
   }
 }

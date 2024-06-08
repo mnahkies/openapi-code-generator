@@ -1,8 +1,9 @@
+// biome-ignore lint/style/useNodejsImportProtocol: webpack doesn't like node: prefix
 import path from "path"
-import {IFsAdaptor} from "../../core/file-system/fs-adaptor"
-import {IFormatter} from "../../core/interfaces"
+import type {IFsAdaptor} from "../../core/file-system/fs-adaptor"
+import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
-import {CompilationUnit} from "./compilation-units"
+import type {CompilationUnit} from "./compilation-units"
 
 export class TypescriptEmitter {
   constructor(

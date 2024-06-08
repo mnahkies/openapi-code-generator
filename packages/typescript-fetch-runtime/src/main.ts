@@ -31,7 +31,7 @@ export type Res<Status extends StatusCode, Type> = {
   json: () => Promise<Type>
 }
 
-export type TypedFetchResponse<R extends Res<any, any>> = Promise<
+export type TypedFetchResponse<R extends Res<StatusCode, unknown>> = Promise<
   Omit<Response, "json" | "status"> & R
 >
 
@@ -66,7 +66,7 @@ export abstract class AbstractFetchClient {
     this.defaultTimeout = config.defaultTimeout
   }
 
-  protected async _fetch<R extends Res<any, any>>(
+  protected async _fetch<R extends Res<StatusCode, unknown>>(
     url: string,
     opts: RequestInit,
     timeout: number | undefined = this.defaultTimeout,
@@ -105,7 +105,7 @@ export abstract class AbstractFetchClient {
       }
       // if not aborted just throw
       throw err
-    }) as any
+    }) as TypedFetchResponse<R>
   }
 
   protected _query(params: QueryParams): string {
@@ -117,9 +117,9 @@ export abstract class AbstractFetchClient {
       return ""
     }
 
-    return (
-      "?" + qs.stringify(Object.fromEntries(definedParams), {indices: false})
-    )
+    return `?${qs.stringify(Object.fromEntries(definedParams), {
+      indices: false,
+    })}`
   }
 
   protected _headers(headers: HeaderParams): Record<string, string> {

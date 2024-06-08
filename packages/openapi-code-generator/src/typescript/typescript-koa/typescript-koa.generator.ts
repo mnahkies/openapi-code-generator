@@ -1,17 +1,17 @@
-import path from "path"
-import {Input} from "../../core/input"
-import {
+import path from "node:path"
+import type {Input} from "../../core/input"
+import type {
   IRModelObject,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
 import {isDefined, titleCase, upperFirst} from "../../core/utils"
-import {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
-import {CompilationUnit, ICompilable} from "../common/compilation-units"
+import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
-  SchemaBuilder,
+  type SchemaBuilder,
   schemaBuilderFactory,
 } from "../common/schema-builders/schema-builder"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
@@ -206,7 +206,7 @@ export class ServerRouterBuilder implements ICompilable {
       operationId: operation.operationId,
       statements: [
         buildExport({
-          name: titleCase(operation.operationId) + "Responder",
+          name: `${titleCase(operation.operationId)}Responder`,
           value: intersect(
             object([
               ...responseSchemas.specific.map((it) =>
@@ -230,7 +230,7 @@ export class ServerRouterBuilder implements ICompilable {
                         ? ""
                         : " | undefined")
                     }>,
-                    respond: ${titleCase(operation.operationId) + "Responder"},
+                    respond: ${`${titleCase(operation.operationId)}Responder`},
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
@@ -386,7 +386,7 @@ function route(route: string): string {
   const placeholder = /{([^{}]+)}/g
 
   return Array.from(route.matchAll(placeholder)).reduce((result, match) => {
-    return result.replace(match[0], ":" + match[1])
+    return result.replace(match[0], `:${match[1]}`)
   }, route)
 }
 
@@ -434,6 +434,7 @@ export async function generateTypescriptKoa(
         rootSchemaBuilder.withImports(imports),
       )
 
+      // biome-ignore lint/complexity/noForEach: <explanation>
       group.operations.forEach((it) => routerBuilder.add(it))
 
       return routerBuilder.toCompilationUnit()

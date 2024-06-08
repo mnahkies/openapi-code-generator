@@ -1,6 +1,6 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
-import {ClientOperationBuilder} from "../common/client-operation-builder"
-import {ImportBuilder} from "../common/import-builder"
+import type {ClientOperationBuilder} from "../common/client-operation-builder"
+import type {ImportBuilder} from "../common/import-builder"
 import {union} from "../common/type-utils"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 

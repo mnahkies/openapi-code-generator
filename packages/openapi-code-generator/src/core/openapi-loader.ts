@@ -1,11 +1,11 @@
-import path from "path"
-import util from "util"
+import path from "node:path"
+import util from "node:util"
 
 import {VirtualDefinition, generationLib} from "./generation-lib"
-import {GenericLoader} from "./loaders/generic.loader"
-import {TypespecLoader} from "./loaders/typespec.loader"
+import type {GenericLoader} from "./loaders/generic.loader"
+import type {TypespecLoader} from "./loaders/typespec.loader"
 import {isRemote} from "./loaders/utils"
-import {
+import type {
   OpenapiDocument,
   Operation,
   Parameter,
@@ -16,10 +16,11 @@ import {
   Schema,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
-import {OpenapiValidator} from "./openapi-validator"
+import type {OpenapiValidator} from "./openapi-validator"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   private readonly library = new Map<string, any>()
 
   private constructor(
@@ -44,6 +45,7 @@ export class OpenapiLoader {
   get entryPoint(): OpenapiDocument {
     // This is guaranteed by the combination of a private constructor,
     // and the factory function loading the entry point at this key.
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     return this.library.get(this.entryPointKey)!
   }
 
@@ -122,6 +124,7 @@ export class OpenapiLoader {
     await this.loadFileContent(loadedFrom, definition)
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   private async loadFileContent(loadedFrom: string, definition: any) {
     await this.validator.validate(loadedFrom, definition)
 
@@ -129,6 +132,7 @@ export class OpenapiLoader {
     await this.normalizeRefs(loadedFrom, definition)
   }
 
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
   private async normalizeRefs(loadedFrom: string, obj: any) {
     for (const key in obj) {
       if (!Object.prototype.hasOwnProperty.call(obj, key)) {
@@ -136,6 +140,7 @@ export class OpenapiLoader {
       }
 
       if (key === "$ref") {
+        // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
         const $ref = (obj[key] = normalizeRef(obj[key]))
         await this.loadFile(pathFromRef($ref))
       } else if (typeof obj[key] === "object" && !!obj[key]) {
@@ -224,11 +229,14 @@ export class OpenapiLoader {
   }
 
   toJSON(): Record<string, unknown> {
-    return Array.from(this.library.keys()).reduce((acc, key) => {
-      const {title, version} = this.library.get(key)?.info ?? {}
-      acc[prettyKey(key)] = {title, version}
-      return acc
-    }, {} as any)
+    return Array.from(this.library.keys()).reduce(
+      (acc, key) => {
+        const {title, version} = this.library.get(key)?.info ?? {}
+        acc[prettyKey(key)] = {title, version}
+        return acc
+      },
+      {} as Record<string, unknown>,
+    )
   }
 
   toString(): string {

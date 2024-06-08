@@ -1,5 +1,5 @@
 // Note: we can get away with using this in NextJS it seems, but not if using the `node:` prefix
-import path from "path"
+import path from "node:path"
 
 export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
@@ -10,6 +10,7 @@ export class ImportBuilder {
   from(from: string) {
     return {
       add: (...names: string[]): this => {
+        // biome-ignore lint/complexity/noForEach: <explanation>
         names.forEach((it) => this.addSingle(it, from))
         return this
       },
@@ -29,7 +30,7 @@ export class ImportBuilder {
       throw new Error(`cannot addSingle with from '${from}'`)
     }
 
-    return this.add(name, from, false)
+    this.add(name, from, false)
   }
 
   addModule(name: string, from: string): void {
@@ -41,7 +42,7 @@ export class ImportBuilder {
       throw new Error(`cannot addModule with from '${from}'`)
     }
 
-    return this.add(name, from, true)
+    this.add(name, from, true)
   }
 
   static merge(
@@ -50,12 +51,17 @@ export class ImportBuilder {
   ): ImportBuilder {
     const result = new ImportBuilder(unit)
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     builders.forEach((builder) => {
+      // biome-ignore lint/complexity/noForEach: <explanation>
       Object.entries(builder.imports).forEach(([key, value]) => {
+        // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
         const imports = (result.imports[key] = result.imports[key] ?? new Set())
+        // biome-ignore lint/complexity/noForEach: <explanation>
         value.forEach((it) => imports.add(it))
       })
 
+      // biome-ignore lint/complexity/noForEach: <explanation>
       Object.entries(builder.importAll).forEach(([key, value]) => {
         if (result.importAll[key] && result.importAll[key] !== value) {
           throw new Error("cannot merge imports with colliding importAlls")
@@ -69,7 +75,9 @@ export class ImportBuilder {
   }
 
   private add(name: string, from: string, isAll: boolean): void {
+    // biome-ignore lint/style/noParameterAssign: <explanation>
     from = this.normalizeFrom(from)
+    // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
     const imports = (this.imports[from] =
       this.imports[from] ?? new Set<string>())
 
@@ -82,6 +90,7 @@ export class ImportBuilder {
 
   private normalizeFrom(from: string) {
     if (from.endsWith(".ts")) {
+      // biome-ignore lint/style/noParameterAssign: <explanation>
       from = from.substring(0, from.length - ".ts".length)
     }
 
@@ -91,17 +100,19 @@ export class ImportBuilder {
 
       const relative = path.relative(unitDirname, fromDirname)
 
+      // biome-ignore lint/style/noParameterAssign: <explanation>
       from = path.join(relative, path.basename(from))
 
       if (!from.startsWith("../") && !from.startsWith("./")) {
-        from = "./" + from
+        // biome-ignore lint/style/noParameterAssign: <explanation>
+        from = `./${from}`
       }
     }
 
     return from
   }
 
-  toString(code: string = ""): string {
+  toString(code = ""): string {
     // HACK: eliminate unused imports by crudely tokenizing the code
     //       and checking for instances of each import.
     //       it would be better to track usages properly during generation
@@ -127,6 +138,7 @@ export class ImportBuilder {
     )
       .sort()
       .map((from) => {
+        // biome-ignore lint/style/noNonNullAssertion: <explanation>
         const individualImports = Array.from(this.imports[from]!.values())
           .sort()
           .filter(hasImport)
