@@ -1,4 +1,5 @@
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import path from "path"
 import type {Input} from "../../core/input"
 import type {
   IRModelObject,
