@@ -3,12 +3,13 @@
 /* eslint-disable */
 
 import {
+  t_Azure_Core_uuid,
   t_Employee,
   t_EmployeeListResult,
   t_EmployeeUpdate,
   t_MoveRequest,
   t_MoveResponse,
-  t_PagedOperation,
+  t_OperationListResult,
 } from "./models"
 import {
   AbstractAxiosClient,
@@ -27,7 +28,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_PagedOperation>> {
+  ): Promise<AxiosResponse<t_OperationListResult>> {
     const url = `/providers/Microsoft.ContosoProviderHub/operations`
     const query = this._query({ "api-version": p["apiVersion"] })
 
@@ -42,7 +43,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesGet(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
     },
@@ -63,7 +64,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesCreateOrUpdate(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_Employee
@@ -89,7 +90,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesUpdate(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_EmployeeUpdate
@@ -115,7 +116,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesDelete(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
     },
@@ -136,7 +137,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesListByResourceGroup(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
     },
     timeout?: number,
@@ -156,7 +157,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesListBySubscription(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -175,7 +176,7 @@ export class ApiClient extends AbstractAxiosClient {
   async employeesMove(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_MoveRequest

@@ -72,6 +72,9 @@ import {
   t_code_scanning_variant_analysis,
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
+  t_code_security_configuration,
+  t_code_security_configuration_repositories,
+  t_code_security_default_configurations,
   t_codeowners_errors,
   t_codespace,
   t_codespace_export_details,
@@ -276,6 +279,7 @@ import {
   t_team_membership,
   t_team_project,
   t_team_repository,
+  t_team_role_assignment,
   t_team_simple,
   t_thread,
   t_thread_subscription,
@@ -283,6 +287,7 @@ import {
   t_topic,
   t_topic_search_result_item,
   t_user_marketplace_purchase,
+  t_user_role_assignment,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
@@ -1079,6 +1084,38 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/emojis`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotListCopilotSeatsForEnterprise(p: {
+    enterprise: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<{
+        seats?: t_copilot_seat_details[]
+        total_seats?: number
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/copilot/billing/seats`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -3583,6 +3620,266 @@ export class ApiClient {
     )
   }
 
+  codeSecurityGetConfigurationsForOrg(p: {
+    org: string
+    targetType?: "global" | "all"
+    perPage?: number
+    before?: string
+    after?: string
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      target_type: p["targetType"],
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/code-security/configurations`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityCreateConfiguration(p: {
+    org: string
+    requestBody: {
+      advanced_security?: "enabled" | "disabled"
+      code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      dependabot_alerts?: "enabled" | "disabled" | "not_set"
+      dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+      dependency_graph?: "enabled" | "disabled" | "not_set"
+      description: string
+      name: string
+      private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+      secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+    }
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration> & { status: 201 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/code-security/configurations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetDefaultConfigurations(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<t_code_security_default_configurations> & { status: 200 })
+    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/defaults`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetConfiguration(p: {
+    org: string
+    configurationId: number
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration> & { status: 200 })
+    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityUpdateConfiguration(p: {
+    org: string
+    configurationId: number
+    requestBody: {
+      advanced_security?: "enabled" | "disabled"
+      code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      dependabot_alerts?: "enabled" | "disabled" | "not_set"
+      dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+      dependency_graph?: "enabled" | "disabled" | "not_set"
+      description?: string
+      name?: string
+      private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+      secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+    }
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration> & { status: 200 })
+    | (HttpResponse<void> & { status: 204 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityDeleteConfiguration(p: {
+    org: string
+    configurationId: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityAttachConfiguration(p: {
+    org: string
+    configurationId: number
+    requestBody: {
+      scope: "all" | "public" | "private_or_internal" | "selected"
+      selected_repository_ids?: number[]
+    }
+  }): Observable<
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecuritySetConfigurationAsDefault(p: {
+    org: string
+    configurationId: number
+    requestBody: {
+      default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+    }
+  }): Observable<
+    | (HttpResponse<{
+        configuration?: t_code_security_configuration
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetRepositoriesForConfiguration(p: {
+    org: string
+    configurationId: number
+    perPage?: number
+    before?: string
+    after?: string
+    status?: string
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration_repositories[]> & {
+        status: 200
+      })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/repositories`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codespacesListInOrganization(p: {
     perPage?: number
     page?: number
@@ -5625,7 +5922,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_team[]> & { status: 200 })
+    | (HttpResponse<t_team_role_assignment[]> & { status: 200 })
     | (HttpResponse<void> & { status: 404 })
     | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
@@ -5653,7 +5950,7 @@ export class ApiClient {
     perPage?: number
     page?: number
   }): Observable<
-    | (HttpResponse<t_simple_user[]> & { status: 200 })
+    | (HttpResponse<t_user_role_assignment[]> & { status: 200 })
     | (HttpResponse<void> & { status: 404 })
     | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
@@ -6344,7 +6641,7 @@ export class ApiClient {
       default_value?: string | string[] | null
       description?: string | null
       required?: boolean
-      value_type: "string" | "single_select"
+      value_type: "string" | "single_select" | "multi_select" | "true_false"
     }
   }): Observable<
     | (HttpResponse<t_org_custom_property> & { status: 200 })
@@ -13292,6 +13589,7 @@ export class ApiClient {
         | t_content_submodule
       > & { status: 200 })
     | (HttpResponse<void> & { status: 302 })
+    | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>

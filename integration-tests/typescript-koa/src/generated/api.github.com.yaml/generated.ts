@@ -335,6 +335,21 @@ import {
   t_CodeScanningUpdateDefaultSetupParamSchema,
   t_CodeScanningUploadSarifBodySchema,
   t_CodeScanningUploadSarifParamSchema,
+  t_CodeSecurityAttachConfigurationBodySchema,
+  t_CodeSecurityAttachConfigurationParamSchema,
+  t_CodeSecurityCreateConfigurationBodySchema,
+  t_CodeSecurityCreateConfigurationParamSchema,
+  t_CodeSecurityDeleteConfigurationParamSchema,
+  t_CodeSecurityGetConfigurationParamSchema,
+  t_CodeSecurityGetConfigurationsForOrgParamSchema,
+  t_CodeSecurityGetConfigurationsForOrgQuerySchema,
+  t_CodeSecurityGetDefaultConfigurationsParamSchema,
+  t_CodeSecurityGetRepositoriesForConfigurationParamSchema,
+  t_CodeSecurityGetRepositoriesForConfigurationQuerySchema,
+  t_CodeSecuritySetConfigurationAsDefaultBodySchema,
+  t_CodeSecuritySetConfigurationAsDefaultParamSchema,
+  t_CodeSecurityUpdateConfigurationBodySchema,
+  t_CodeSecurityUpdateConfigurationParamSchema,
   t_CodesOfConductGetConductCodeParamSchema,
   t_CodespacesAddRepositoryForSecretForAuthenticatedUserParamSchema,
   t_CodespacesAddSelectedRepoToOrgSecretParamSchema,
@@ -415,6 +430,8 @@ import {
   t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
   t_CopilotGetCopilotOrganizationDetailsParamSchema,
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
+  t_CopilotListCopilotSeatsForEnterpriseParamSchema,
+  t_CopilotListCopilotSeatsForEnterpriseQuerySchema,
   t_CopilotListCopilotSeatsParamSchema,
   t_CopilotListCopilotSeatsQuerySchema,
   t_CopilotUsageMetricsForEnterpriseParamSchema,
@@ -1415,6 +1432,9 @@ import {
   t_code_scanning_variant_analysis,
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
+  t_code_security_configuration,
+  t_code_security_configuration_repositories,
+  t_code_security_default_configurations,
   t_codeowners_errors,
   t_codespace,
   t_codespace_export_details,
@@ -1597,6 +1617,7 @@ import {
   t_team_membership,
   t_team_project,
   t_team_repository,
+  t_team_role_assignment,
   t_team_simple,
   t_thread,
   t_thread_subscription,
@@ -1604,6 +1625,7 @@ import {
   t_topic,
   t_topic_search_result_item,
   t_user_marketplace_purchase,
+  t_user_role_assignment,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
@@ -1684,6 +1706,9 @@ import {
   s_code_scanning_variant_analysis,
   s_code_scanning_variant_analysis_repo_task,
   s_code_search_result_item,
+  s_code_security_configuration,
+  s_code_security_configuration_repositories,
+  s_code_security_default_configurations,
   s_codeowners_errors,
   s_codespace,
   s_codespace_export_details,
@@ -1888,6 +1913,7 @@ import {
   s_team_membership,
   s_team_project,
   s_team_repository,
+  s_team_role_assignment,
   s_team_simple,
   s_thread,
   s_thread_subscription,
@@ -1895,6 +1921,7 @@ import {
   s_topic,
   s_topic_search_result_item,
   s_user_marketplace_purchase,
+  s_user_role_assignment,
   s_user_search_result_item,
   s_validation_error,
   s_validation_error_simple,
@@ -2461,6 +2488,40 @@ export type EmojisGet = (
       }
     >
   | Response<304, void>
+>
+
+export type CopilotListCopilotSeatsForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<{
+    seats?: t_copilot_seat_details[]
+    total_seats?: number
+  }>
+  with401(): KoaRuntimeResponse<t_basic_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotListCopilotSeatsForEnterprise = (
+  params: Params<
+    t_CopilotListCopilotSeatsForEnterpriseParamSchema,
+    t_CopilotListCopilotSeatsForEnterpriseQuerySchema,
+    void
+  >,
+  respond: CopilotListCopilotSeatsForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        seats?: t_copilot_seat_details[]
+        total_seats?: number
+      }
+    >
+  | Response<401, t_basic_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
 >
 
 export type CopilotUsageMetricsForEnterpriseResponder = {
@@ -4429,6 +4490,200 @@ export type CodeScanningListAlertsForOrg = (
     >
 >
 
+export type CodeSecurityGetConfigurationsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_code_security_configuration[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecurityGetConfigurationsForOrg = (
+  params: Params<
+    t_CodeSecurityGetConfigurationsForOrgParamSchema,
+    t_CodeSecurityGetConfigurationsForOrgQuerySchema,
+    void
+  >,
+  respond: CodeSecurityGetConfigurationsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_security_configuration[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type CodeSecurityCreateConfigurationResponder = {
+  with201(): KoaRuntimeResponse<t_code_security_configuration>
+} & KoaRuntimeResponder
+
+export type CodeSecurityCreateConfiguration = (
+  params: Params<
+    t_CodeSecurityCreateConfigurationParamSchema,
+    void,
+    t_CodeSecurityCreateConfigurationBodySchema
+  >,
+  respond: CodeSecurityCreateConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<201, t_code_security_configuration>
+>
+
+export type CodeSecurityGetDefaultConfigurationsResponder = {
+  with200(): KoaRuntimeResponse<t_code_security_default_configurations>
+  with304(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecurityGetDefaultConfigurations = (
+  params: Params<t_CodeSecurityGetDefaultConfigurationsParamSchema, void, void>,
+  respond: CodeSecurityGetDefaultConfigurationsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_security_default_configurations>
+  | Response<304, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type CodeSecurityGetConfigurationResponder = {
+  with200(): KoaRuntimeResponse<t_code_security_configuration>
+  with304(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecurityGetConfiguration = (
+  params: Params<t_CodeSecurityGetConfigurationParamSchema, void, void>,
+  respond: CodeSecurityGetConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_security_configuration>
+  | Response<304, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type CodeSecurityUpdateConfigurationResponder = {
+  with200(): KoaRuntimeResponse<t_code_security_configuration>
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type CodeSecurityUpdateConfiguration = (
+  params: Params<
+    t_CodeSecurityUpdateConfigurationParamSchema,
+    void,
+    t_CodeSecurityUpdateConfigurationBodySchema
+  >,
+  respond: CodeSecurityUpdateConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_security_configuration>
+  | Response<204, void>
+>
+
+export type CodeSecurityDeleteConfigurationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecurityDeleteConfiguration = (
+  params: Params<t_CodeSecurityDeleteConfigurationParamSchema, void, void>,
+  respond: CodeSecurityDeleteConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<400, t_scim_error>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<409, t_basic_error>
+>
+
+export type CodeSecurityAttachConfigurationResponder = {
+  with202(): KoaRuntimeResponse<{
+    [key: string]: unknown | undefined
+  }>
+} & KoaRuntimeResponder
+
+export type CodeSecurityAttachConfiguration = (
+  params: Params<
+    t_CodeSecurityAttachConfigurationParamSchema,
+    void,
+    t_CodeSecurityAttachConfigurationBodySchema
+  >,
+  respond: CodeSecurityAttachConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      202,
+      {
+        [key: string]: unknown | undefined
+      }
+    >
+>
+
+export type CodeSecuritySetConfigurationAsDefaultResponder = {
+  with200(): KoaRuntimeResponse<{
+    configuration?: t_code_security_configuration
+    default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecuritySetConfigurationAsDefault = (
+  params: Params<
+    t_CodeSecuritySetConfigurationAsDefaultParamSchema,
+    void,
+    t_CodeSecuritySetConfigurationAsDefaultBodySchema
+  >,
+  respond: CodeSecuritySetConfigurationAsDefaultResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        configuration?: t_code_security_configuration
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }
+    >
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
+export type CodeSecurityGetRepositoriesForConfigurationResponder = {
+  with200(): KoaRuntimeResponse<t_code_security_configuration_repositories[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CodeSecurityGetRepositoriesForConfiguration = (
+  params: Params<
+    t_CodeSecurityGetRepositoriesForConfigurationParamSchema,
+    t_CodeSecurityGetRepositoriesForConfigurationQuerySchema,
+    void
+  >,
+  respond: CodeSecurityGetRepositoriesForConfigurationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_code_security_configuration_repositories[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+>
+
 export type CodespacesListInOrganizationResponder = {
   with200(): KoaRuntimeResponse<{
     codespaces: t_codespace[]
@@ -6070,7 +6325,7 @@ export type OrgsDeleteCustomOrganizationRole = (
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
 export type OrgsListOrgRoleTeamsResponder = {
-  with200(): KoaRuntimeResponse<t_team[]>
+  with200(): KoaRuntimeResponse<t_team_role_assignment[]>
   with404(): KoaRuntimeResponse<void>
   with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -6085,13 +6340,13 @@ export type OrgsListOrgRoleTeams = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_team[]>
+  | Response<200, t_team_role_assignment[]>
   | Response<404, void>
   | Response<422, void>
 >
 
 export type OrgsListOrgRoleUsersResponder = {
-  with200(): KoaRuntimeResponse<t_simple_user[]>
+  with200(): KoaRuntimeResponse<t_user_role_assignment[]>
   with404(): KoaRuntimeResponse<void>
   with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -6106,7 +6361,7 @@ export type OrgsListOrgRoleUsers = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_simple_user[]>
+  | Response<200, t_user_role_assignment[]>
   | Response<404, void>
   | Response<422, void>
 >
@@ -11703,6 +11958,7 @@ export type ReposGetContentResponder = {
     | t_content_submodule
   >
   with302(): KoaRuntimeResponse<void>
+  with304(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -11725,6 +11981,7 @@ export type ReposGetContent = (
       | t_content_submodule
     >
   | Response<302, void>
+  | Response<304, void>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
 >
@@ -20040,6 +20297,7 @@ export type Implementation = {
   codesOfConductGetAllCodesOfConduct: CodesOfConductGetAllCodesOfConduct
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   emojisGet: EmojisGet
+  copilotListCopilotSeatsForEnterprise: CopilotListCopilotSeatsForEnterprise
   copilotUsageMetricsForEnterprise: CopilotUsageMetricsForEnterprise
   dependabotListAlertsForEnterprise: DependabotListAlertsForEnterprise
   secretScanningListAlertsForEnterprise: SecretScanningListAlertsForEnterprise
@@ -20143,6 +20401,15 @@ export type Implementation = {
   orgsBlockUser: OrgsBlockUser
   orgsUnblockUser: OrgsUnblockUser
   codeScanningListAlertsForOrg: CodeScanningListAlertsForOrg
+  codeSecurityGetConfigurationsForOrg: CodeSecurityGetConfigurationsForOrg
+  codeSecurityCreateConfiguration: CodeSecurityCreateConfiguration
+  codeSecurityGetDefaultConfigurations: CodeSecurityGetDefaultConfigurations
+  codeSecurityGetConfiguration: CodeSecurityGetConfiguration
+  codeSecurityUpdateConfiguration: CodeSecurityUpdateConfiguration
+  codeSecurityDeleteConfiguration: CodeSecurityDeleteConfiguration
+  codeSecurityAttachConfiguration: CodeSecurityAttachConfiguration
+  codeSecuritySetConfigurationAsDefault: CodeSecuritySetConfigurationAsDefault
+  codeSecurityGetRepositoriesForConfiguration: CodeSecurityGetRepositoriesForConfiguration
   codespacesListInOrganization: CodespacesListInOrganization
   codespacesSetCodespacesAccess: CodespacesSetCodespacesAccess
   codespacesSetCodespacesAccessUsers: CodespacesSetCodespacesAccessUsers
@@ -22735,6 +23002,93 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const copilotListCopilotSeatsForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotListCopilotSeatsForEnterpriseQuerySchema = z.object({
+    page: z.coerce.number().optional(),
+    per_page: z.coerce.number().optional(),
+  })
+
+  const copilotListCopilotSeatsForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_seats: z.coerce.number().optional(),
+            seats: z.array(s_copilot_seat_details).optional(),
+          }),
+        ],
+        ["401", s_basic_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotListCopilotSeatsForEnterprise",
+    "/enterprises/:enterprise/copilot/billing/seats",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotListCopilotSeatsForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotListCopilotSeatsForEnterpriseQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            seats?: t_copilot_seat_details[]
+            total_seats?: number
+          }>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_basic_error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotListCopilotSeatsForEnterprise(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotListCopilotSeatsForEnterpriseResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
 
   const copilotUsageMetricsForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
@@ -28998,6 +29352,647 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const codeSecurityGetConfigurationsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const codeSecurityGetConfigurationsForOrgQuerySchema = z.object({
+    target_type: z.enum(["global", "all"]).optional(),
+    per_page: z.coerce.number().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const codeSecurityGetConfigurationsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_code_security_configuration)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeSecurityGetConfigurationsForOrg",
+    "/orgs/:org/code-security/configurations",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityGetConfigurationsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          codeSecurityGetConfigurationsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_security_configuration[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityGetConfigurationsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityGetConfigurationsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityCreateConfigurationParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const codeSecurityCreateConfigurationBodySchema = z.object({
+    name: z.string(),
+    description: z.string().max(255),
+    advanced_security: z.enum(["enabled", "disabled"]).optional(),
+    dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    dependabot_security_updates: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    code_scanning_default_setup: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    secret_scanning_push_protection: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    private_vulnerability_reporting: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+  })
+
+  const codeSecurityCreateConfigurationResponseValidator =
+    responseValidationFactory(
+      [["201", s_code_security_configuration]],
+      undefined,
+    )
+
+  router.post(
+    "codeSecurityCreateConfiguration",
+    "/orgs/:org/code-security/configurations",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityCreateConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeSecurityCreateConfigurationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_code_security_configuration>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityCreateConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityCreateConfigurationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityGetDefaultConfigurationsParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const codeSecurityGetDefaultConfigurationsResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_security_default_configurations],
+        ["304", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeSecurityGetDefaultConfigurations",
+    "/orgs/:org/code-security/configurations/defaults",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityGetDefaultConfigurationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_security_default_configurations>(
+            200,
+          )
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityGetDefaultConfigurations(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityGetDefaultConfigurationsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityGetConfigurationParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecurityGetConfigurationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_security_configuration],
+        ["304", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeSecurityGetConfiguration",
+    "/orgs/:org/code-security/configurations/:configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityGetConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_security_configuration>(200)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityGetConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityGetConfigurationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityUpdateConfigurationParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecurityUpdateConfigurationBodySchema = z.object({
+    name: z.string().optional(),
+    description: z.string().max(255).optional(),
+    advanced_security: z.enum(["enabled", "disabled"]).optional(),
+    dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    dependabot_security_updates: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    code_scanning_default_setup: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
+    secret_scanning_push_protection: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    private_vulnerability_reporting: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+  })
+
+  const codeSecurityUpdateConfigurationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_code_security_configuration],
+        ["204", z.undefined()],
+      ],
+      undefined,
+    )
+
+  router.patch(
+    "codeSecurityUpdateConfiguration",
+    "/orgs/:org/code-security/configurations/:configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityUpdateConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeSecurityUpdateConfigurationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_code_security_configuration>(200)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityUpdateConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityUpdateConfigurationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityDeleteConfigurationParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecurityDeleteConfigurationResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["409", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "codeSecurityDeleteConfiguration",
+    "/orgs/:org/code-security/configurations/:configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityDeleteConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityDeleteConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityDeleteConfigurationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityAttachConfigurationParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecurityAttachConfigurationBodySchema = z.object({
+    scope: z.enum(["all", "public", "private_or_internal", "selected"]),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
+  })
+
+  const codeSecurityAttachConfigurationResponseValidator =
+    responseValidationFactory([["202", z.record(z.unknown())]], undefined)
+
+  router.post(
+    "codeSecurityAttachConfiguration",
+    "/orgs/:org/code-security/configurations/:configuration_id/attach",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityAttachConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeSecurityAttachConfigurationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with202() {
+          return new KoaRuntimeResponse<{
+            [key: string]: unknown | undefined
+          }>(202)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityAttachConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityAttachConfigurationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecuritySetConfigurationAsDefaultParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecuritySetConfigurationAsDefaultBodySchema = z.object({
+    default_for_new_repos: z
+      .enum(["all", "none", "private_and_internal", "public"])
+      .optional(),
+  })
+
+  const codeSecuritySetConfigurationAsDefaultResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            default_for_new_repos: z
+              .enum(["all", "none", "private_and_internal", "public"])
+              .optional(),
+            configuration: s_code_security_configuration.optional(),
+          }),
+        ],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.put(
+    "codeSecuritySetConfigurationAsDefault",
+    "/orgs/:org/code-security/configurations/:configuration_id/defaults",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecuritySetConfigurationAsDefaultParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          codeSecuritySetConfigurationAsDefaultBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            configuration?: t_code_security_configuration
+            default_for_new_repos?:
+              | "all"
+              | "none"
+              | "private_and_internal"
+              | "public"
+          }>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecuritySetConfigurationAsDefault(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecuritySetConfigurationAsDefaultResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const codeSecurityGetRepositoriesForConfigurationParamSchema = z.object({
+    org: z.string(),
+    configuration_id: z.coerce.number(),
+  })
+
+  const codeSecurityGetRepositoriesForConfigurationQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+    status: z.string().optional(),
+  })
+
+  const codeSecurityGetRepositoriesForConfigurationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_code_security_configuration_repositories)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "codeSecurityGetRepositoriesForConfiguration",
+    "/orgs/:org/code-security/configurations/:configuration_id/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeSecurityGetRepositoriesForConfigurationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          codeSecurityGetRepositoriesForConfigurationQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<
+            t_code_security_configuration_repositories[]
+          >(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeSecurityGetRepositoriesForConfiguration(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeSecurityGetRepositoriesForConfigurationResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const codespacesListInOrganizationParamSchema = z.object({ org: z.string() })
 
   const codespacesListInOrganizationQuerySchema = z.object({
@@ -34293,7 +35288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsListOrgRoleTeamsResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(s_team)],
+      ["200", z.array(s_team_role_assignment)],
       ["404", z.undefined()],
       ["422", z.undefined()],
     ],
@@ -34320,7 +35315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_team[]>(200)
+          return new KoaRuntimeResponse<t_team_role_assignment[]>(200)
         },
         with404() {
           return new KoaRuntimeResponse<void>(404)
@@ -34360,7 +35355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const orgsListOrgRoleUsersResponseValidator = responseValidationFactory(
     [
-      ["200", z.array(s_simple_user)],
+      ["200", z.array(s_user_role_assignment)],
       ["404", z.undefined()],
       ["422", z.undefined()],
     ],
@@ -34387,7 +35382,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_simple_user[]>(200)
+          return new KoaRuntimeResponse<t_user_role_assignment[]>(200)
         },
         with404() {
           return new KoaRuntimeResponse<void>(404)
@@ -36126,7 +37121,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsCreateOrUpdateCustomPropertyBodySchema = z.object({
-    value_type: z.enum(["string", "single_select"]),
+    value_type: z.enum([
+      "string",
+      "single_select",
+      "multi_select",
+      "true_false",
+    ]),
     required: PermissiveBoolean.optional(),
     default_value: z
       .union([z.string(), z.array(z.string())])
@@ -53147,6 +54147,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ]),
       ],
       ["302", z.undefined()],
+      ["304", z.undefined()],
       ["403", s_basic_error],
       ["404", s_basic_error],
     ],
@@ -53182,6 +54183,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
         with302() {
           return new KoaRuntimeResponse<void>(302)
+        },
+        with304() {
+          return new KoaRuntimeResponse<void>(304)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)

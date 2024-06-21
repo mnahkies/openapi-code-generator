@@ -9,17 +9,12 @@ import {
 } from "./models"
 import { z } from "zod"
 
-export const s_Azure_Core_Foundations_OperationState = z.enum([
-  "NotStarted",
-  "Running",
-  "Succeeded",
-  "Failed",
-  "Canceled",
-])
-
 export const s_Azure_Core_eTag = z.string()
 
-export const s_TypeSpec_Http_AcceptedResponse = z.object({})
+export const s_OperationState = z.union([
+  z.enum(["NotStarted", "Running", "Succeeded", "Failed", "Canceled"]),
+  z.string(),
+])
 
 export const s_WidgetAnalytics = z.object({
   id: z.enum(["current"]),

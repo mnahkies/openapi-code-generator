@@ -13965,6 +13965,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           fpx_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          gb_bank_transfer_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           giropay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -13978,6 +13981,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           jcb_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          jp_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           klarna_payments: z
@@ -13995,6 +14001,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          multibanco_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          mx_bank_transfer_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           oxxo_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -14008,6 +14020,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           revolut_pay_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          sepa_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_debit_payments: z
@@ -14031,7 +14046,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           treasury: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          twint_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           us_bank_account_ach_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          us_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           zip_payments: z
@@ -14638,6 +14659,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           fpx_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          gb_bank_transfer_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           giropay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -14651,6 +14675,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           jcb_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          jp_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           klarna_payments: z
@@ -14668,6 +14695,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          multibanco_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          mx_bank_transfer_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           oxxo_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -14681,6 +14714,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           revolut_pay_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          sepa_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_debit_payments: z
@@ -14704,7 +14740,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           treasury: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          twint_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           us_bank_account_ach_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          us_bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           zip_payments: z
@@ -20975,6 +21017,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.object({
             dropdown: z
               .object({
+                default_value: z.string().max(100).optional(),
                 options: z.array(
                   z.object({
                     label: z.string().max(100),
@@ -20990,6 +21033,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             }),
             numeric: z
               .object({
+                default_value: z.string().max(255).optional(),
                 maximum_length: z.coerce.number().optional(),
                 minimum_length: z.coerce.number().optional(),
               })
@@ -20997,6 +21041,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             optional: PermissiveBoolean.optional(),
             text: z
               .object({
+                default_value: z.string().max(255).optional(),
                 maximum_length: z.coerce.number().optional(),
                 minimum_length: z.coerce.number().optional(),
               })
@@ -21370,6 +21415,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           mobilepay: z
             .object({ setup_future_usage: z.enum(["none"]).optional() })
             .optional(),
+          multibanco: z
+            .object({ setup_future_usage: z.enum(["none"]).optional() })
+            .optional(),
           oxxo: z
             .object({
               expires_after_days: z.coerce.number().optional(),
@@ -21500,6 +21548,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -21510,6 +21559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -24169,6 +24219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "cn_tin",
               "co_nit",
               "cr_tin",
+              "de_stn",
               "do_rcn",
               "ec_ruc",
               "eg_tin",
@@ -26359,6 +26410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "konbini",
         "link",
         "mobilepay",
+        "multibanco",
         "oxxo",
         "p24",
         "paynow",
@@ -26369,6 +26421,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -27378,6 +27431,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "revolut_pay",
                   "sepa_debit",
                   "sofort",
+                  "swish",
                   "us_bank_account",
                   "wechat_pay",
                 ]),
@@ -27944,6 +27998,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "revolut_pay",
                   "sepa_debit",
                   "sofort",
+                  "swish",
                   "us_bank_account",
                   "wechat_pay",
                 ]),
@@ -28298,6 +28353,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "cn_tin",
       "co_nit",
       "cr_tin",
+      "de_stn",
       "do_rcn",
       "ec_ruc",
       "eg_tin",
@@ -32409,6 +32465,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "revolut_pay",
                   "sepa_debit",
                   "sofort",
+                  "swish",
                   "us_bank_account",
                   "wechat_pay",
                 ]),
@@ -32635,6 +32692,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "cn_tin",
                   "co_nit",
                   "cr_tin",
+                  "de_stn",
                   "do_rcn",
                   "ec_ruc",
                   "eg_tin",
@@ -33206,6 +33264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -33773,6 +33832,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -34602,6 +34662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "revolut_pay",
                   "sepa_debit",
                   "sofort",
+                  "swish",
                   "us_bank_account",
                   "wechat_pay",
                 ]),
@@ -40112,16 +40173,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([PermissiveBoolean, z.enum([""])])
                   .optional(),
                 cancellation_reason: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 expected_at: z
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
                 return_status: z
@@ -40144,7 +40205,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 cash_receipt: z.union([z.string(), z.enum([""])]).optional(),
                 check_image: z.union([z.string(), z.enum([""])]).optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 original_transaction: z.string().max(5000).optional(),
               }),
@@ -40158,7 +40219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
               }),
               z.enum([""]),
@@ -40171,13 +40232,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 received_at: z
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 return_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 return_status: z
                   .enum(["", "merchant_rejected", "successful"])
@@ -40196,7 +40257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
               }),
               z.enum([""]),
@@ -40212,10 +40273,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
               }),
@@ -40229,10 +40290,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
               }),
@@ -40261,10 +40322,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 cancellation_reason: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 received_at: z
                   .union([z.coerce.number(), z.enum([""])])
@@ -40414,16 +40475,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([PermissiveBoolean, z.enum([""])])
                   .optional(),
                 cancellation_reason: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 expected_at: z
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
                 return_status: z
@@ -40446,7 +40507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 cash_receipt: z.union([z.string(), z.enum([""])]).optional(),
                 check_image: z.union([z.string(), z.enum([""])]).optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 original_transaction: z.string().max(5000).optional(),
               }),
@@ -40460,7 +40521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
               }),
               z.enum([""]),
@@ -40473,13 +40534,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 received_at: z
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 return_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 return_status: z
                   .enum(["", "merchant_rejected", "successful"])
@@ -40498,7 +40559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
               }),
               z.enum([""]),
@@ -40514,10 +40575,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
               }),
@@ -40531,10 +40592,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.string(), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_description: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 product_type: z.enum(["", "merchandise", "service"]).optional(),
               }),
@@ -40563,10 +40624,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .union([z.coerce.number(), z.enum([""])])
                   .optional(),
                 cancellation_reason: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 explanation: z
-                  .union([z.string().max(1500), z.enum([""])])
+                  .union([z.string().max(2500), z.enum([""])])
                   .optional(),
                 received_at: z
                   .union([z.coerce.number(), z.enum([""])])
@@ -42533,6 +42594,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -42581,6 +42643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -42603,6 +42666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -42613,6 +42677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
@@ -42987,6 +43052,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "en-NZ",
                   "en-PL",
                   "en-PT",
+                  "en-RO",
                   "en-SE",
                   "en-US",
                   "es-ES",
@@ -43003,6 +43069,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "nl-NL",
                   "pl-PL",
                   "pt-PT",
+                  "ro-RO",
                   "sv-FI",
                   "sv-SE",
                 ])
@@ -43047,6 +43114,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
               capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
+            z.enum([""]),
+          ])
+          .optional(),
+        multibanco: z
+          .union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
             z.enum([""]),
           ])
           .optional(),
@@ -43171,6 +43244,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
+            z.enum([""]),
+          ])
+          .optional(),
+        twint: z
+          .union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
             z.enum([""]),
           ])
           .optional(),
@@ -43636,6 +43715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -43684,6 +43764,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -43706,6 +43787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -43716,6 +43798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -44096,6 +44179,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "en-NZ",
                     "en-PL",
                     "en-PT",
+                    "en-RO",
                     "en-SE",
                     "en-US",
                     "es-ES",
@@ -44112,6 +44196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "nl-NL",
                     "pl-PL",
                     "pt-PT",
+                    "ro-RO",
                     "sv-FI",
                     "sv-SE",
                   ])
@@ -44158,6 +44243,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          multibanco: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -44282,6 +44373,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          twint: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -44825,6 +44922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -44873,6 +44971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -44895,6 +44994,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -44905,6 +45005,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -45285,6 +45386,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "en-NZ",
                     "en-PL",
                     "en-PT",
+                    "en-RO",
                     "en-SE",
                     "en-US",
                     "es-ES",
@@ -45301,6 +45403,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "nl-NL",
                     "pl-PL",
                     "pt-PT",
+                    "ro-RO",
                     "sv-FI",
                     "sv-SE",
                   ])
@@ -45347,6 +45450,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 capture_method: z.enum(["", "manual"]).optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          multibanco: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -45471,6 +45580,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
+              z.enum([""]),
+            ])
+            .optional(),
+          twint: z
+            .union([
+              z.object({ setup_future_usage: z.enum(["none"]).optional() }),
               z.enum([""]),
             ])
             .optional(),
@@ -46000,6 +46115,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "klarna",
           "konbini",
           "link",
+          "mobilepay",
           "oxxo",
           "p24",
           "paynow",
@@ -46593,6 +46709,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "klarna",
               "konbini",
               "link",
+              "mobilepay",
               "oxxo",
               "p24",
               "paynow",
@@ -46894,6 +47011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
     })
     .optional()
 
@@ -47302,6 +47420,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      multibanco: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       name: z.string().max(100).optional(),
       oxxo: z
         .object({
@@ -47699,6 +47824,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       mobilepay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      multibanco: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -48200,6 +48332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "konbini",
         "link",
         "mobilepay",
+        "multibanco",
         "oxxo",
         "p24",
         "paynow",
@@ -48210,6 +48343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -48457,6 +48591,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       link: z.object({}).optional(),
       metadata: z.record(z.string()).optional(),
       mobilepay: z.object({}).optional(),
+      multibanco: z.object({}).optional(),
       oxxo: z.object({}).optional(),
       p24: z
         .object({
@@ -48506,6 +48641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
         .optional(),
       swish: z.object({}).optional(),
+      twint: z.object({}).optional(),
       type: z
         .enum([
           "acss_debit",
@@ -48530,6 +48666,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -48540,6 +48677,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
@@ -54563,6 +54701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -54611,6 +54750,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -54633,6 +54773,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -54643,6 +54784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -55088,6 +55230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -55136,6 +55279,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -55158,6 +55302,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -55168,6 +55313,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -55634,6 +55780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -55682,6 +55829,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -55704,6 +55852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -55714,6 +55863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -58937,6 +59087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "revolut_pay",
                 "sepa_debit",
                 "sofort",
+                "swish",
                 "us_bank_account",
                 "wechat_pay",
               ]),
@@ -59572,6 +59723,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "revolut_pay",
                   "sepa_debit",
                   "sofort",
+                  "swish",
                   "us_bank_account",
                   "wechat_pay",
                 ]),
@@ -59844,6 +59996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -61289,6 +61442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "cn_tin",
       "co_nit",
       "cr_tin",
+      "de_stn",
       "do_rcn",
       "ec_ruc",
       "eg_tin",
@@ -63620,6 +63774,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           link: z.object({}).optional(),
           metadata: z.record(z.string()).optional(),
           mobilepay: z.object({}).optional(),
+          multibanco: z.object({}).optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -63668,6 +63823,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
             .optional(),
           swish: z.object({}).optional(),
+          twint: z.object({}).optional(),
           type: z.enum([
             "acss_debit",
             "affirm",
@@ -63690,6 +63846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "konbini",
             "link",
             "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -63700,6 +63857,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
             "zip",
@@ -64293,6 +64451,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           fuel: z
             .object({
+              quantity_decimal: z.string().optional(),
               type: z
                 .enum([
                   "diesel",
@@ -64302,9 +64461,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
+              unit: z
+                .enum([
+                  "charging_minute",
+                  "imperial_gallon",
+                  "kilogram",
+                  "kilowatt_hour",
+                  "liter",
+                  "other",
+                  "pound",
+                  "us_gallon",
+                ])
+                .optional(),
               unit_cost_decimal: z.string().optional(),
-              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -65383,6 +65552,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           fuel: z
             .object({
+              quantity_decimal: z.string().optional(),
               type: z
                 .enum([
                   "diesel",
@@ -65392,9 +65562,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
+              unit: z
+                .enum([
+                  "charging_minute",
+                  "imperial_gallon",
+                  "kilogram",
+                  "kilowatt_hour",
+                  "liter",
+                  "other",
+                  "pound",
+                  "us_gallon",
+                ])
+                .optional(),
               unit_cost_decimal: z.string().optional(),
-              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -65810,6 +65990,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           fuel: z
             .object({
+              quantity_decimal: z.string().optional(),
               type: z
                 .enum([
                   "diesel",
@@ -65819,9 +66000,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "unleaded_super",
                 ])
                 .optional(),
-              unit: z.enum(["liter", "other", "us_gallon"]).optional(),
+              unit: z
+                .enum([
+                  "charging_minute",
+                  "imperial_gallon",
+                  "kilogram",
+                  "kilowatt_hour",
+                  "liter",
+                  "other",
+                  "pound",
+                  "us_gallon",
+                ])
+                .optional(),
               unit_cost_decimal: z.string().optional(),
-              volume_decimal: z.string().optional(),
             })
             .optional(),
           lodging: z
@@ -71213,6 +71404,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2023-08-16",
         "2023-10-16",
         "2024-04-10",
+        "2024-06-20",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),
@@ -71329,6 +71521,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "issuing_dispute.funds_reinstated",
         "issuing_dispute.submitted",
         "issuing_dispute.updated",
+        "issuing_personalization_design.activated",
+        "issuing_personalization_design.deactivated",
+        "issuing_personalization_design.rejected",
+        "issuing_personalization_design.updated",
         "issuing_token.created",
         "issuing_token.updated",
         "issuing_transaction.created",
@@ -71747,6 +71943,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "issuing_dispute.funds_reinstated",
             "issuing_dispute.submitted",
             "issuing_dispute.updated",
+            "issuing_personalization_design.activated",
+            "issuing_personalization_design.deactivated",
+            "issuing_personalization_design.rejected",
+            "issuing_personalization_design.updated",
             "issuing_token.created",
             "issuing_token.updated",
             "issuing_transaction.created",

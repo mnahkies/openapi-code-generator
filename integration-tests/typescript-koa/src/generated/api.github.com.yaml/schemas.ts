@@ -619,6 +619,40 @@ export const s_code_scanning_variant_analysis_status = z.enum([
   "timed_out",
 ])
 
+export const s_code_security_configuration = z.object({
+  id: z.coerce.number().optional(),
+  name: z.string().optional(),
+  target_type: z.enum(["global", "organization"]).optional(),
+  description: z.string().optional(),
+  advanced_security: z.enum(["enabled", "disabled"]).optional(),
+  dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  dependabot_security_updates: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  code_scanning_default_setup: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  secret_scanning_push_protection: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  private_vulnerability_reporting: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  url: z.string().optional(),
+  html_url: z.string().optional(),
+  created_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.string().datetime({ offset: true }).optional(),
+})
+
+export const s_code_security_default_configurations = z.array(
+  z.object({
+    default_for_new_repos: z.object({}).optional(),
+    configuration: s_code_security_configuration.optional(),
+  }),
+)
+
 export const s_codeowners_errors = z.object({
   errors: z.array(
     z.object({
@@ -1046,6 +1080,19 @@ export const s_enterprise = z.object({
   avatar_url: z.string(),
 })
 
+export const s_enterprise_team = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  slug: z.string(),
+  url: z.string(),
+  sync_to_organizations: z.string(),
+  group_id: z.coerce.number().nullable().optional(),
+  html_url: z.string(),
+  members_url: z.string(),
+  created_at: z.string().datetime({ offset: true }),
+  updated_at: z.string().datetime({ offset: true }),
+})
+
 export const s_file_commit = z.object({
   content: z
     .object({
@@ -1229,6 +1276,7 @@ export const s_hook_delivery = z.object({
   action: z.string().nullable(),
   installation_id: z.coerce.number().nullable(),
   repository_id: z.coerce.number().nullable(),
+  throttled_at: z.string().datetime({ offset: true }).nullable().optional(),
   url: z.string().optional(),
   request: z.object({
     headers: z.record(z.unknown()).nullable(),
@@ -1252,6 +1300,7 @@ export const s_hook_delivery_item = z.object({
   action: z.string().nullable(),
   installation_id: z.coerce.number().nullable(),
   repository_id: z.coerce.number().nullable(),
+  throttled_at: z.string().datetime({ offset: true }).nullable().optional(),
 })
 
 export const s_hook_response = z.object({
@@ -1658,7 +1707,7 @@ export const s_oidc_custom_sub_repo = z.object({
 
 export const s_org_custom_property = z.object({
   property_name: z.string(),
-  value_type: z.enum(["string", "single_select"]),
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
   required: PermissiveBoolean.optional(),
   default_value: z
     .union([z.string(), z.array(z.string())])
@@ -2939,6 +2988,30 @@ export const s_traffic = z.object({
   timestamp: z.string().datetime({ offset: true }),
   uniques: z.coerce.number(),
   count: z.coerce.number(),
+})
+
+export const s_user_role_assignment = z.object({
+  name: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  login: z.string(),
+  id: z.coerce.number(),
+  node_id: z.string(),
+  avatar_url: z.string(),
+  gravatar_id: z.string().nullable(),
+  url: z.string(),
+  html_url: z.string(),
+  followers_url: z.string(),
+  following_url: z.string(),
+  gists_url: z.string(),
+  starred_url: z.string(),
+  subscriptions_url: z.string(),
+  organizations_url: z.string(),
+  repos_url: z.string(),
+  events_url: z.string(),
+  received_events_url: z.string(),
+  type: z.string(),
+  site_admin: PermissiveBoolean,
+  starred_at: z.string().optional(),
 })
 
 export const s_validation_error = z.object({
@@ -4978,6 +5051,31 @@ export const s_team_repository = z.object({
   master_branch: z.string().optional(),
 })
 
+export const s_team_role_assignment = z.object({
+  id: z.coerce.number(),
+  node_id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string().nullable(),
+  privacy: z.string().optional(),
+  notification_setting: z.string().optional(),
+  permission: z.string(),
+  permissions: z
+    .object({
+      pull: PermissiveBoolean,
+      triage: PermissiveBoolean,
+      push: PermissiveBoolean,
+      maintain: PermissiveBoolean,
+      admin: PermissiveBoolean,
+    })
+    .optional(),
+  url: z.string(),
+  html_url: z.string(),
+  members_url: z.string(),
+  repositories_url: z.string(),
+  parent: s_nullable_team_simple,
+})
+
 export const s_timeline_reviewed_event = z.object({
   event: z.string(),
   id: z.coerce.number(),
@@ -5407,6 +5505,20 @@ export const s_code_search_result_item = z.object({
   text_matches: s_search_result_text_matches.optional(),
 })
 
+export const s_code_security_configuration_repositories = z.object({
+  status: z
+    .enum([
+      "attached",
+      "attaching",
+      "detached",
+      "enforced",
+      "failed",
+      "updating",
+    ])
+    .optional(),
+  repository: s_simple_repository.optional(),
+})
+
 export const s_codespace = z.object({
   id: z.coerce.number(),
   name: z.string(),
@@ -5557,7 +5669,8 @@ export const s_converted_note_to_issue_issue_event = z.object({
 
 export const s_copilot_seat_details = z.object({
   assignee: z.union([s_simple_user, s_team, s_organization]),
-  assigning_team: s_team.nullable().optional(),
+  organization: s_organization_simple.nullable().optional(),
+  assigning_team: z.union([s_team, s_enterprise_team]).nullable().optional(),
   pending_cancellation_date: z.string().nullable().optional(),
   last_activity_at: z.string().datetime({ offset: true }).nullable().optional(),
   last_activity_editor: z.string().nullable().optional(),

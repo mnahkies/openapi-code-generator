@@ -467,6 +467,9 @@ export class ApiClient extends AbstractAxiosClient {
           fpx_payments?: {
             requested?: boolean
           }
+          gb_bank_transfer_payments?: {
+            requested?: boolean
+          }
           giropay_payments?: {
             requested?: boolean
           }
@@ -480,6 +483,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           jcb_payments?: {
+            requested?: boolean
+          }
+          jp_bank_transfer_payments?: {
             requested?: boolean
           }
           klarna_payments?: {
@@ -497,6 +503,12 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay_payments?: {
             requested?: boolean
           }
+          multibanco_payments?: {
+            requested?: boolean
+          }
+          mx_bank_transfer_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
@@ -510,6 +522,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          sepa_bank_transfer_payments?: {
             requested?: boolean
           }
           sepa_debit_payments?: {
@@ -533,7 +548,13 @@ export class ApiClient extends AbstractAxiosClient {
           treasury?: {
             requested?: boolean
           }
+          twint_payments?: {
+            requested?: boolean
+          }
           us_bank_account_ach_payments?: {
+            requested?: boolean
+          }
+          us_bank_transfer_payments?: {
             requested?: boolean
           }
           zip_payments?: {
@@ -962,6 +983,9 @@ export class ApiClient extends AbstractAxiosClient {
           fpx_payments?: {
             requested?: boolean
           }
+          gb_bank_transfer_payments?: {
+            requested?: boolean
+          }
           giropay_payments?: {
             requested?: boolean
           }
@@ -975,6 +999,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           jcb_payments?: {
+            requested?: boolean
+          }
+          jp_bank_transfer_payments?: {
             requested?: boolean
           }
           klarna_payments?: {
@@ -992,6 +1019,12 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay_payments?: {
             requested?: boolean
           }
+          multibanco_payments?: {
+            requested?: boolean
+          }
+          mx_bank_transfer_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
@@ -1005,6 +1038,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          sepa_bank_transfer_payments?: {
             requested?: boolean
           }
           sepa_debit_payments?: {
@@ -1028,7 +1064,13 @@ export class ApiClient extends AbstractAxiosClient {
           treasury?: {
             requested?: boolean
           }
+          twint_payments?: {
+            requested?: boolean
+          }
           us_bank_account_ach_payments?: {
+            requested?: boolean
+          }
+          us_bank_transfer_payments?: {
             requested?: boolean
           }
           zip_payments?: {
@@ -4538,6 +4580,7 @@ export class ApiClient extends AbstractAxiosClient {
         currency?: string
         custom_fields?: {
           dropdown?: {
+            default_value?: string
             options: {
               label: string
               value: string
@@ -4549,11 +4592,13 @@ export class ApiClient extends AbstractAxiosClient {
             type: "custom"
           }
           numeric?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
           optional?: boolean
           text?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
@@ -4840,6 +4885,9 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay?: {
             setup_future_usage?: "none"
           }
+          multibanco?: {
+            setup_future_usage?: "none"
+          }
           oxxo?: {
             expires_after_days?: number
             setup_future_usage?: "none"
@@ -4936,6 +4984,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "konbini"
           | "link"
           | "mobilepay"
+          | "multibanco"
           | "oxxo"
           | "p24"
           | "paynow"
@@ -4946,6 +4995,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -6544,6 +6594,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
@@ -7669,6 +7720,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "konbini"
         | "link"
         | "mobilepay"
+        | "multibanco"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -7679,6 +7731,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -8229,6 +8282,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -8556,6 +8610,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -8725,6 +8780,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
@@ -10920,6 +10976,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -11070,6 +11127,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "cn_tin"
               | "co_nit"
               | "cr_tin"
+              | "de_stn"
               | "do_rcn"
               | "ec_ruc"
               | "eg_tin"
@@ -11454,6 +11512,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
@@ -11873,6 +11932,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
@@ -12431,6 +12491,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -18325,6 +18386,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -18370,6 +18432,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -18392,6 +18455,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -18402,6 +18466,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -18647,6 +18712,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -18663,6 +18729,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -18686,6 +18753,11 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay?:
             | {
                 capture_method?: "" | "manual"
+                setup_future_usage?: "none"
+              }
+            | ""
+          multibanco?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -18777,6 +18849,11 @@ export class ApiClient extends AbstractAxiosClient {
           swish?:
             | {
                 reference?: string | ""
+                setup_future_usage?: "none"
+              }
+            | ""
+          twint?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -19088,6 +19165,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -19133,6 +19211,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -19155,6 +19234,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -19165,6 +19245,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -19410,6 +19491,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -19426,6 +19508,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -19449,6 +19532,11 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay?:
             | {
                 capture_method?: "" | "manual"
+                setup_future_usage?: "none"
+              }
+            | ""
+          multibanco?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -19540,6 +19628,11 @@ export class ApiClient extends AbstractAxiosClient {
           swish?:
             | {
                 reference?: string | ""
+                setup_future_usage?: "none"
+              }
+            | ""
+          twint?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -19889,6 +19982,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -19934,6 +20028,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -19956,6 +20051,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -19966,6 +20062,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -20211,6 +20308,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -20227,6 +20325,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -20250,6 +20349,11 @@ export class ApiClient extends AbstractAxiosClient {
           mobilepay?:
             | {
                 capture_method?: "" | "manual"
+                setup_future_usage?: "none"
+              }
+            | ""
+          multibanco?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -20341,6 +20445,11 @@ export class ApiClient extends AbstractAxiosClient {
           swish?:
             | {
                 reference?: string | ""
+                setup_future_usage?: "none"
+              }
+            | ""
+          twint?:
+            | {
                 setup_future_usage?: "none"
               }
             | ""
@@ -20686,6 +20795,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
           | "oxxo"
           | "p24"
           | "paynow"
@@ -21171,6 +21281,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "klarna"
               | "konbini"
               | "link"
+              | "mobilepay"
               | "oxxo"
               | "p24"
               | "paynow"
@@ -21454,6 +21565,9 @@ export class ApiClient extends AbstractAxiosClient {
               }
             | ""
         }
+        tax_id_collection?: {
+          enabled: boolean
+        }
       }
     },
     timeout?: number,
@@ -21693,6 +21807,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         mobilepay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        multibanco?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21943,6 +22062,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         mobilepay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        multibanco?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -22209,6 +22333,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "konbini"
         | "link"
         | "mobilepay"
+        | "multibanco"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -22219,6 +22344,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
@@ -22407,6 +22533,7 @@ export class ApiClient extends AbstractAxiosClient {
           [key: string]: string | undefined
         }
         mobilepay?: EmptyObject
+        multibanco?: EmptyObject
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -22453,6 +22580,7 @@ export class ApiClient extends AbstractAxiosClient {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
         swish?: EmptyObject
+        twint?: EmptyObject
         type?:
           | "acss_debit"
           | "affirm"
@@ -22476,6 +22604,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "konbini"
           | "link"
           | "mobilepay"
+          | "multibanco"
           | "oxxo"
           | "p24"
           | "paynow"
@@ -22486,6 +22615,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -26129,6 +26259,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -26174,6 +26305,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26196,6 +26328,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -26206,6 +26339,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -26509,6 +26643,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -26554,6 +26689,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26576,6 +26712,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -26586,6 +26723,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -26896,6 +27034,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -26941,6 +27080,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -26963,6 +27103,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -26973,6 +27114,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -28806,6 +28948,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -29187,6 +29330,7 @@ export class ApiClient extends AbstractAxiosClient {
                 | "revolut_pay"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -29328,6 +29472,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "cn_tin"
               | "co_nit"
               | "cr_tin"
+              | "de_stn"
               | "do_rcn"
               | "ec_ruc"
               | "eg_tin"
@@ -30209,6 +30354,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
@@ -31509,6 +31655,7 @@ export class ApiClient extends AbstractAxiosClient {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -31554,6 +31701,7 @@ export class ApiClient extends AbstractAxiosClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
@@ -31576,6 +31724,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -31586,6 +31735,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -32054,15 +32204,23 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -32709,15 +32867,23 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -33080,15 +33246,23 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -36022,6 +36196,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "2023-08-16"
           | "2023-10-16"
           | "2024-04-10"
+          | "2024-06-20"
         connect?: boolean
         description?: string | ""
         enabled_events: (
@@ -36135,6 +36310,10 @@ export class ApiClient extends AbstractAxiosClient {
           | "issuing_dispute.funds_reinstated"
           | "issuing_dispute.submitted"
           | "issuing_dispute.updated"
+          | "issuing_personalization_design.activated"
+          | "issuing_personalization_design.deactivated"
+          | "issuing_personalization_design.rejected"
+          | "issuing_personalization_design.updated"
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"
@@ -36451,6 +36630,10 @@ export class ApiClient extends AbstractAxiosClient {
           | "issuing_dispute.funds_reinstated"
           | "issuing_dispute.submitted"
           | "issuing_dispute.updated"
+          | "issuing_personalization_design.activated"
+          | "issuing_personalization_design.deactivated"
+          | "issuing_personalization_design.rejected"
+          | "issuing_personalization_design.updated"
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"

@@ -90,21 +90,26 @@ export type t_account_capabilities = {
   cashapp_payments?: "active" | "inactive" | "pending"
   eps_payments?: "active" | "inactive" | "pending"
   fpx_payments?: "active" | "inactive" | "pending"
+  gb_bank_transfer_payments?: "active" | "inactive" | "pending"
   giropay_payments?: "active" | "inactive" | "pending"
   grabpay_payments?: "active" | "inactive" | "pending"
   ideal_payments?: "active" | "inactive" | "pending"
   india_international_payments?: "active" | "inactive" | "pending"
   jcb_payments?: "active" | "inactive" | "pending"
+  jp_bank_transfer_payments?: "active" | "inactive" | "pending"
   klarna_payments?: "active" | "inactive" | "pending"
   konbini_payments?: "active" | "inactive" | "pending"
   legacy_payments?: "active" | "inactive" | "pending"
   link_payments?: "active" | "inactive" | "pending"
   mobilepay_payments?: "active" | "inactive" | "pending"
+  multibanco_payments?: "active" | "inactive" | "pending"
+  mx_bank_transfer_payments?: "active" | "inactive" | "pending"
   oxxo_payments?: "active" | "inactive" | "pending"
   p24_payments?: "active" | "inactive" | "pending"
   paynow_payments?: "active" | "inactive" | "pending"
   promptpay_payments?: "active" | "inactive" | "pending"
   revolut_pay_payments?: "active" | "inactive" | "pending"
+  sepa_bank_transfer_payments?: "active" | "inactive" | "pending"
   sepa_debit_payments?: "active" | "inactive" | "pending"
   sofort_payments?: "active" | "inactive" | "pending"
   swish_payments?: "active" | "inactive" | "pending"
@@ -112,7 +117,9 @@ export type t_account_capabilities = {
   tax_reporting_us_1099_misc?: "active" | "inactive" | "pending"
   transfers?: "active" | "inactive" | "pending"
   treasury?: "active" | "inactive" | "pending"
+  twint_payments?: "active" | "inactive" | "pending"
   us_bank_account_ach_payments?: "active" | "inactive" | "pending"
+  us_bank_transfer_payments?: "active" | "inactive" | "pending"
   zip_payments?: "active" | "inactive" | "pending"
 }
 
@@ -305,6 +312,7 @@ export type t_account_requirements_error = {
     | "verification_missing_executives"
     | "verification_missing_owners"
     | "verification_requires_additional_memorandum_of_associations"
+    | "verification_requires_additional_proof_of_registration"
   reason: string
   requirement: string
 }
@@ -525,7 +533,6 @@ export type t_balance_transaction = {
     | t_issuing_dispute
     | t_issuing_transaction
     | t_payout
-    | t_platform_tax_fee
     | t_refund
     | t_reserve_transaction
     | t_tax_deducted_at_source
@@ -1209,6 +1216,10 @@ export type t_checkout_mobilepay_payment_method_options = {
   setup_future_usage?: "none"
 }
 
+export type t_checkout_multibanco_payment_method_options = {
+  setup_future_usage?: "none"
+}
+
 export type t_checkout_oxxo_payment_method_options = {
   expires_after_days: number
   setup_future_usage?: "none"
@@ -1263,6 +1274,7 @@ export type t_checkout_session_payment_method_options = {
   konbini?: t_checkout_konbini_payment_method_options
   link?: t_checkout_link_payment_method_options
   mobilepay?: t_checkout_mobilepay_payment_method_options
+  multibanco?: t_checkout_multibanco_payment_method_options
   oxxo?: t_checkout_oxxo_payment_method_options
   p24?: t_checkout_p24_payment_method_options
   paynow?: t_checkout_paynow_payment_method_options
@@ -1428,6 +1440,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   konbini?: t_payment_method_konbini
   link?: t_payment_method_link
   mobilepay?: t_payment_method_mobilepay
+  multibanco?: t_payment_method_multibanco
   oxxo?: t_payment_method_oxxo
   p24?: t_payment_method_p24
   paynow?: t_payment_method_paynow
@@ -1438,6 +1451,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   sepa_debit?: t_payment_method_sepa_debit
   sofort?: t_payment_method_sofort
   swish?: t_payment_method_swish
+  twint?: t_payment_method_twint
   type:
     | "acss_debit"
     | "affirm"
@@ -1463,6 +1477,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -1473,6 +1488,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -3138,6 +3154,7 @@ export type t_invoices_payment_settings = {
         | "revolut_pay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
       )[]
@@ -3177,6 +3194,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -3392,7 +3410,7 @@ export type t_issuing_personalization_design = {
 }
 
 export type t_issuing_physical_bundle = {
-  features?: t_issuing_physical_bundle_features
+  features: t_issuing_physical_bundle_features
   id: string
   livemode: boolean
   name: string
@@ -5729,10 +5747,10 @@ export type t_issuing_transaction_flight_data_leg = {
 }
 
 export type t_issuing_transaction_fuel_data = {
+  quantity_decimal?: string | null
   type: string
   unit: string
   unit_cost_decimal: string
-  volume_decimal?: string | null
 }
 
 export type t_issuing_transaction_lodging_data = {
@@ -6221,6 +6239,7 @@ export type t_payment_intent_next_action = {
   cashapp_handle_redirect_or_display_qr_code?: t_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code
   display_bank_transfer_instructions?: t_payment_intent_next_action_display_bank_transfer_instructions
   konbini_display_details?: t_payment_intent_next_action_konbini
+  multibanco_display_details?: t_payment_intent_next_action_display_multibanco_details
   oxxo_display_details?: t_payment_intent_next_action_display_oxxo_details
   paynow_display_qr_code?: t_payment_intent_next_action_paynow_display_qr_code
   pix_display_qr_code?: t_payment_intent_next_action_pix_display_qr_code
@@ -6279,6 +6298,13 @@ export type t_payment_intent_next_action_display_bank_transfer_instructions = {
     | "jp_bank_transfer"
     | "mx_bank_transfer"
     | "us_bank_transfer"
+}
+
+export type t_payment_intent_next_action_display_multibanco_details = {
+  entity?: string | null
+  expires_at?: number | null
+  hosted_voucher_url?: string | null
+  reference?: string | null
 }
 
 export type t_payment_intent_next_action_display_oxxo_details = {
@@ -6460,6 +6486,9 @@ export type t_payment_intent_payment_method_options = {
   mobilepay?:
     | t_payment_intent_payment_method_options_mobilepay
     | t_payment_intent_type_specific_payment_method_options_client
+  multibanco?:
+    | t_payment_method_options_multibanco
+    | t_payment_intent_type_specific_payment_method_options_client
   oxxo?:
     | t_payment_method_options_oxxo
     | t_payment_intent_type_specific_payment_method_options_client
@@ -6489,6 +6518,9 @@ export type t_payment_intent_payment_method_options = {
     | t_payment_intent_type_specific_payment_method_options_client
   swish?:
     | t_payment_intent_payment_method_options_swish
+    | t_payment_intent_type_specific_payment_method_options_client
+  twint?:
+    | t_payment_method_options_twint
     | t_payment_intent_type_specific_payment_method_options_client
   us_bank_account?:
     | t_payment_intent_payment_method_options_us_bank_account
@@ -6656,6 +6688,7 @@ export type t_payment_link = {
         | "klarna"
         | "konbini"
         | "link"
+        | "mobilepay"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -7100,6 +7133,7 @@ export type t_payment_method = {
     [key: string]: string | undefined
   } | null
   mobilepay?: t_payment_method_mobilepay
+  multibanco?: t_payment_method_multibanco
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
   p24?: t_payment_method_p24
@@ -7112,6 +7146,7 @@ export type t_payment_method = {
   sepa_debit?: t_payment_method_sepa_debit
   sofort?: t_payment_method_sofort
   swish?: t_payment_method_swish
+  twint?: t_payment_method_twint
   type:
     | "acss_debit"
     | "affirm"
@@ -7137,6 +7172,7 @@ export type t_payment_method = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -7147,6 +7183,7 @@ export type t_payment_method = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -7338,6 +7375,7 @@ export type t_payment_method_configuration = {
   link?: t_payment_method_config_resource_payment_method_properties
   livemode: boolean
   mobilepay?: t_payment_method_config_resource_payment_method_properties
+  multibanco?: t_payment_method_config_resource_payment_method_properties
   name: string
   object: "payment_method_configuration"
   oxxo?: t_payment_method_config_resource_payment_method_properties
@@ -7396,6 +7434,7 @@ export type t_payment_method_details = {
   sofort?: t_payment_method_details_sofort
   stripe_account?: t_payment_method_details_stripe_account
   swish?: t_payment_method_details_swish
+  twint?: t_payment_method_details_twint
   type: string
   us_bank_account?: t_payment_method_details_us_bank_account
   wechat?: t_payment_method_details_wechat
@@ -7871,6 +7910,8 @@ export type t_payment_method_details_swish = {
   verified_phone_last4?: string | null
 }
 
+export type t_payment_method_details_twint = EmptyObject
+
 export type t_payment_method_details_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
   account_type?: "checking" | "savings" | null
@@ -8048,6 +8089,8 @@ export type t_payment_method_link = {
 
 export type t_payment_method_mobilepay = EmptyObject
 
+export type t_payment_method_multibanco = EmptyObject
+
 export type t_payment_method_options_affirm = {
   capture_method?: "manual"
   preferred_locale?: string
@@ -8178,6 +8221,10 @@ export type t_payment_method_options_konbini = {
   setup_future_usage?: "none"
 }
 
+export type t_payment_method_options_multibanco = {
+  setup_future_usage?: "none"
+}
+
 export type t_payment_method_options_oxxo = {
   expires_after_days: number
   setup_future_usage?: "none"
@@ -8216,6 +8263,10 @@ export type t_payment_method_options_revolut_pay = {
 export type t_payment_method_options_sofort = {
   preferred_language?: "de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null
   setup_future_usage?: "none" | "off_session"
+}
+
+export type t_payment_method_options_twint = {
+  setup_future_usage?: "none"
 }
 
 export type t_payment_method_options_us_bank_account_mandate_options = {
@@ -8292,6 +8343,8 @@ export type t_payment_method_sofort = {
 }
 
 export type t_payment_method_swish = EmptyObject
+
+export type t_payment_method_twint = EmptyObject
 
 export type t_payment_method_us_bank_account = {
   account_holder_type?: "company" | "individual" | null
@@ -8384,6 +8437,7 @@ export type t_payment_pages_checkout_session_custom_fields = {
 }
 
 export type t_payment_pages_checkout_session_custom_fields_dropdown = {
+  default_value?: string | null
   options: t_payment_pages_checkout_session_custom_fields_option[]
   value?: string | null
 }
@@ -8394,6 +8448,7 @@ export type t_payment_pages_checkout_session_custom_fields_label = {
 }
 
 export type t_payment_pages_checkout_session_custom_fields_numeric = {
+  default_value?: string | null
   maximum_length?: number | null
   minimum_length?: number | null
   value?: string | null
@@ -8405,6 +8460,7 @@ export type t_payment_pages_checkout_session_custom_fields_option = {
 }
 
 export type t_payment_pages_checkout_session_custom_fields_text = {
+  default_value?: string | null
   maximum_length?: number | null
   minimum_length?: number | null
   value?: string | null
@@ -8739,6 +8795,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -8970,14 +9027,6 @@ export type t_platform_earning_fee_source = {
   charge?: string
   payout?: string
   type: "charge" | "payout"
-}
-
-export type t_platform_tax_fee = {
-  account: string
-  id: string
-  object: "platform_tax_fee"
-  source_transaction: string
-  type: string
 }
 
 export type t_portal_business_profile = {
@@ -9459,6 +9508,7 @@ export type t_refund_destination_details = {
   grabpay?: t_destination_details_unimplemented
   jp_bank_transfer?: t_refund_destination_details_generic
   klarna?: t_destination_details_unimplemented
+  multibanco?: t_refund_destination_details_generic
   mx_bank_transfer?: t_refund_destination_details_generic
   p24?: t_refund_destination_details_generic
   paynow?: t_destination_details_unimplemented
@@ -10396,6 +10446,7 @@ export type t_subscription = {
   discounts: (string | t_discount)[]
   ended_at?: number | null
   id: string
+  invoice_settings: t_subscriptions_resource_subscription_invoice_settings
   items: {
     data: t_subscription_item[]
     has_more: boolean
@@ -10638,6 +10689,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "revolut_pay"
         | "sepa_debit"
         | "sofort"
+        | "swish"
         | "us_bank_account"
         | "wechat_pay"
       )[]
@@ -10651,6 +10703,11 @@ export type t_subscriptions_resource_pending_update = {
   subscription_items?: t_subscription_item[] | null
   trial_end?: number | null
   trial_from_plan?: boolean | null
+}
+
+export type t_subscriptions_resource_subscription_invoice_settings = {
+  account_tax_ids?: (string | t_tax_id | t_deleted_tax_id)[] | null
+  issuer: t_connect_account_reference
 }
 
 export type t_subscriptions_trials_resource_end_behavior = {
@@ -10814,6 +10871,7 @@ export type t_tax_id = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -11014,6 +11072,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -13431,6 +13490,7 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -13441,6 +13501,7 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -14069,6 +14130,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
@@ -14442,6 +14504,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
@@ -15197,6 +15260,7 @@ export type t_GetPaymentMethodsQuerySchema = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -15207,6 +15271,7 @@ export type t_GetPaymentMethodsQuerySchema = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -16785,6 +16850,9 @@ export type t_PostAccountsBodySchema = {
     fpx_payments?: {
       requested?: boolean
     }
+    gb_bank_transfer_payments?: {
+      requested?: boolean
+    }
     giropay_payments?: {
       requested?: boolean
     }
@@ -16798,6 +16866,9 @@ export type t_PostAccountsBodySchema = {
       requested?: boolean
     }
     jcb_payments?: {
+      requested?: boolean
+    }
+    jp_bank_transfer_payments?: {
       requested?: boolean
     }
     klarna_payments?: {
@@ -16815,6 +16886,12 @@ export type t_PostAccountsBodySchema = {
     mobilepay_payments?: {
       requested?: boolean
     }
+    multibanco_payments?: {
+      requested?: boolean
+    }
+    mx_bank_transfer_payments?: {
+      requested?: boolean
+    }
     oxxo_payments?: {
       requested?: boolean
     }
@@ -16828,6 +16905,9 @@ export type t_PostAccountsBodySchema = {
       requested?: boolean
     }
     revolut_pay_payments?: {
+      requested?: boolean
+    }
+    sepa_bank_transfer_payments?: {
       requested?: boolean
     }
     sepa_debit_payments?: {
@@ -16851,7 +16931,13 @@ export type t_PostAccountsBodySchema = {
     treasury?: {
       requested?: boolean
     }
+    twint_payments?: {
+      requested?: boolean
+    }
     us_bank_account_ach_payments?: {
+      requested?: boolean
+    }
+    us_bank_transfer_payments?: {
       requested?: boolean
     }
     zip_payments?: {
@@ -17204,6 +17290,9 @@ export type t_PostAccountsAccountBodySchema = {
     fpx_payments?: {
       requested?: boolean
     }
+    gb_bank_transfer_payments?: {
+      requested?: boolean
+    }
     giropay_payments?: {
       requested?: boolean
     }
@@ -17217,6 +17306,9 @@ export type t_PostAccountsAccountBodySchema = {
       requested?: boolean
     }
     jcb_payments?: {
+      requested?: boolean
+    }
+    jp_bank_transfer_payments?: {
       requested?: boolean
     }
     klarna_payments?: {
@@ -17234,6 +17326,12 @@ export type t_PostAccountsAccountBodySchema = {
     mobilepay_payments?: {
       requested?: boolean
     }
+    multibanco_payments?: {
+      requested?: boolean
+    }
+    mx_bank_transfer_payments?: {
+      requested?: boolean
+    }
     oxxo_payments?: {
       requested?: boolean
     }
@@ -17247,6 +17345,9 @@ export type t_PostAccountsAccountBodySchema = {
       requested?: boolean
     }
     revolut_pay_payments?: {
+      requested?: boolean
+    }
+    sepa_bank_transfer_payments?: {
       requested?: boolean
     }
     sepa_debit_payments?: {
@@ -17270,7 +17371,13 @@ export type t_PostAccountsAccountBodySchema = {
     treasury?: {
       requested?: boolean
     }
+    twint_payments?: {
+      requested?: boolean
+    }
     us_bank_account_ach_payments?: {
+      requested?: boolean
+    }
+    us_bank_transfer_payments?: {
       requested?: boolean
     }
     zip_payments?: {
@@ -18723,6 +18830,7 @@ export type t_PostCheckoutSessionsBodySchema = {
   currency?: string
   custom_fields?: {
     dropdown?: {
+      default_value?: string
       options: {
         label: string
         value: string
@@ -18734,11 +18842,13 @@ export type t_PostCheckoutSessionsBodySchema = {
       type: "custom"
     }
     numeric?: {
+      default_value?: string
       maximum_length?: number
       minimum_length?: number
     }
     optional?: boolean
     text?: {
+      default_value?: string
       maximum_length?: number
       minimum_length?: number
     }
@@ -19022,6 +19132,9 @@ export type t_PostCheckoutSessionsBodySchema = {
     mobilepay?: {
       setup_future_usage?: "none"
     }
+    multibanco?: {
+      setup_future_usage?: "none"
+    }
     oxxo?: {
       expires_after_days?: number
       setup_future_usage?: "none"
@@ -19118,6 +19231,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -19128,6 +19242,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -19718,6 +19833,7 @@ export type t_PostCustomersBodySchema = {
       | "cn_tin"
       | "co_nit"
       | "cr_tin"
+      | "de_stn"
       | "do_rcn"
       | "ec_ruc"
       | "eg_tin"
@@ -20399,6 +20515,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
         )[]
@@ -20646,6 +20763,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             | "revolut_pay"
             | "sepa_debit"
             | "sofort"
+            | "swish"
             | "us_bank_account"
             | "wechat_pay"
           )[]
@@ -20706,6 +20824,7 @@ export type t_PostCustomersCustomerTaxIdsBodySchema = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -21251,6 +21370,7 @@ export type t_PostInvoicesBodySchema = {
           | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
         )[]
@@ -21380,6 +21500,7 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
@@ -21770,6 +21891,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
         )[]
@@ -26271,6 +26393,7 @@ export type t_PostPaymentIntentsBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -26316,6 +26439,7 @@ export type t_PostPaymentIntentsBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -26338,6 +26462,7 @@ export type t_PostPaymentIntentsBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -26348,6 +26473,7 @@ export type t_PostPaymentIntentsBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -26588,6 +26714,7 @@ export type t_PostPaymentIntentsBodySchema = {
             | "en-NZ"
             | "en-PL"
             | "en-PT"
+            | "en-RO"
             | "en-SE"
             | "en-US"
             | "es-ES"
@@ -26604,6 +26731,7 @@ export type t_PostPaymentIntentsBodySchema = {
             | "nl-NL"
             | "pl-PL"
             | "pt-PT"
+            | "ro-RO"
             | "sv-FI"
             | "sv-SE"
           setup_future_usage?: "none"
@@ -26627,6 +26755,11 @@ export type t_PostPaymentIntentsBodySchema = {
     mobilepay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
+    multibanco?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -26718,6 +26851,11 @@ export type t_PostPaymentIntentsBodySchema = {
     swish?:
       | {
           reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
+    twint?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -26935,6 +27073,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -26980,6 +27119,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -27002,6 +27142,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -27012,6 +27153,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -27252,6 +27394,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             | "en-NZ"
             | "en-PL"
             | "en-PT"
+            | "en-RO"
             | "en-SE"
             | "en-US"
             | "es-ES"
@@ -27268,6 +27411,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             | "nl-NL"
             | "pl-PL"
             | "pt-PT"
+            | "ro-RO"
             | "sv-FI"
             | "sv-SE"
           setup_future_usage?: "none"
@@ -27291,6 +27435,11 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     mobilepay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
+    multibanco?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -27382,6 +27531,11 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     swish?:
       | {
           reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
+    twint?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -27659,6 +27813,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -27704,6 +27859,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -27726,6 +27882,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -27736,6 +27893,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -27976,6 +28134,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             | "en-NZ"
             | "en-PL"
             | "en-PT"
+            | "en-RO"
             | "en-SE"
             | "en-US"
             | "es-ES"
@@ -27992,6 +28151,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             | "nl-NL"
             | "pl-PL"
             | "pt-PT"
+            | "ro-RO"
             | "sv-FI"
             | "sv-SE"
           setup_future_usage?: "none"
@@ -28015,6 +28175,11 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     mobilepay?:
       | {
           capture_method?: "" | "manual"
+          setup_future_usage?: "none"
+        }
+      | ""
+    multibanco?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -28106,6 +28271,11 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     swish?:
       | {
           reference?: string | ""
+          setup_future_usage?: "none"
+        }
+      | ""
+    twint?:
+      | {
           setup_future_usage?: "none"
         }
       | ""
@@ -28353,6 +28523,7 @@ export type t_PostPaymentLinksBodySchema = {
     | "klarna"
     | "konbini"
     | "link"
+    | "mobilepay"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -28787,6 +28958,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "klarna"
         | "konbini"
         | "link"
+        | "mobilepay"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -29070,6 +29242,9 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         }
       | ""
   }
+  tax_id_collection?: {
+    enabled: boolean
+  }
 }
 
 export type t_PostPaymentLinksPaymentLinkParamSchema = {
@@ -29209,6 +29384,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
     }
   }
   mobilepay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  multibanco?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -29411,6 +29591,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   mobilepay?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  multibanco?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -29652,6 +29837,7 @@ export type t_PostPaymentMethodsBodySchema = {
     [key: string]: string | undefined
   }
   mobilepay?: EmptyObject
+  multibanco?: EmptyObject
   oxxo?: EmptyObject
   p24?: {
     bank?:
@@ -29698,6 +29884,7 @@ export type t_PostPaymentMethodsBodySchema = {
     country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
   }
   swish?: EmptyObject
+  twint?: EmptyObject
   type?:
     | "acss_debit"
     | "affirm"
@@ -29721,6 +29908,7 @@ export type t_PostPaymentMethodsBodySchema = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -29731,6 +29919,7 @@ export type t_PostPaymentMethodsBodySchema = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
@@ -31268,6 +31457,7 @@ export type t_PostSetupIntentsBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -31313,6 +31503,7 @@ export type t_PostSetupIntentsBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -31335,6 +31526,7 @@ export type t_PostSetupIntentsBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -31345,6 +31537,7 @@ export type t_PostSetupIntentsBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -31596,6 +31789,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -31641,6 +31835,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -31663,6 +31858,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -31673,6 +31869,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -31944,6 +32141,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -31989,6 +32187,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -32011,6 +32210,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -32021,6 +32221,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -32981,6 +33182,7 @@ export type t_PostSubscriptionsBodySchema = {
           | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
         )[]
@@ -33225,6 +33427,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           | "revolut_pay"
           | "sepa_debit"
           | "sofort"
+          | "swish"
           | "us_bank_account"
           | "wechat_pay"
         )[]
@@ -33307,6 +33510,7 @@ export type t_PostTaxCalculationsBodySchema = {
         | "cn_tin"
         | "co_nit"
         | "cr_tin"
+        | "de_stn"
         | "do_rcn"
         | "ec_ruc"
         | "eg_tin"
@@ -33418,6 +33622,7 @@ export type t_PostTaxIdsBodySchema = {
     | "cn_tin"
     | "co_nit"
     | "cr_tin"
+    | "de_stn"
     | "do_rcn"
     | "ec_ruc"
     | "eg_tin"
@@ -34344,6 +34549,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
       [key: string]: string | undefined
     }
     mobilepay?: EmptyObject
+    multibanco?: EmptyObject
     oxxo?: EmptyObject
     p24?: {
       bank?:
@@ -34389,6 +34595,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
       country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
     }
     swish?: EmptyObject
+    twint?: EmptyObject
     type:
       | "acss_debit"
       | "affirm"
@@ -34411,6 +34618,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
       | "konbini"
       | "link"
       | "mobilepay"
+      | "multibanco"
       | "oxxo"
       | "p24"
       | "paynow"
@@ -34421,6 +34629,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
       | "sepa_debit"
       | "sofort"
       | "swish"
+      | "twint"
       | "us_bank_account"
       | "wechat_pay"
       | "zip"
@@ -34822,15 +35031,23 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
         travel_agency?: string
       }
       fuel?: {
+        quantity_decimal?: string
         type?:
           | "diesel"
           | "other"
           | "unleaded_plus"
           | "unleaded_regular"
           | "unleaded_super"
-        unit?: "liter" | "other" | "us_gallon"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
         unit_cost_decimal?: string
-        volume_decimal?: string
       }
       lodging?: {
         check_in_at?: number
@@ -35293,15 +35510,23 @@ export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
       travel_agency?: string
     }
     fuel?: {
+      quantity_decimal?: string
       type?:
         | "diesel"
         | "other"
         | "unleaded_plus"
         | "unleaded_regular"
         | "unleaded_super"
-      unit?: "liter" | "other" | "us_gallon"
+      unit?:
+        | "charging_minute"
+        | "imperial_gallon"
+        | "kilogram"
+        | "kilowatt_hour"
+        | "liter"
+        | "other"
+        | "pound"
+        | "us_gallon"
       unit_cost_decimal?: string
-      volume_decimal?: string
     }
     lodging?: {
       check_in_at?: number
@@ -35644,15 +35869,23 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
         travel_agency?: string
       }
       fuel?: {
+        quantity_decimal?: string
         type?:
           | "diesel"
           | "other"
           | "unleaded_plus"
           | "unleaded_regular"
           | "unleaded_super"
-        unit?: "liter" | "other" | "us_gallon"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
         unit_cost_decimal?: string
-        volume_decimal?: string
       }
       lodging?: {
         check_in_at?: number
@@ -36688,6 +36921,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "2023-08-16"
     | "2023-10-16"
     | "2024-04-10"
+    | "2024-06-20"
   connect?: boolean
   description?: string | ""
   enabled_events: (
@@ -36801,6 +37035,10 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "issuing_dispute.funds_reinstated"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
+    | "issuing_personalization_design.activated"
+    | "issuing_personalization_design.deactivated"
+    | "issuing_personalization_design.rejected"
+    | "issuing_personalization_design.updated"
     | "issuing_token.created"
     | "issuing_token.updated"
     | "issuing_transaction.created"
@@ -37045,6 +37283,10 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "issuing_dispute.funds_reinstated"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
+    | "issuing_personalization_design.activated"
+    | "issuing_personalization_design.deactivated"
+    | "issuing_personalization_design.rejected"
+    | "issuing_personalization_design.updated"
     | "issuing_token.created"
     | "issuing_token.updated"
     | "issuing_transaction.created"

@@ -193,7 +193,11 @@ alias Operations = Azure.Core.ResourceOperations<ServiceTraits>;
 interface Widgets {
   // Operation Status
   /** Gets status of a Widget operation. */
+  @sharedRoute
   getWidgetOperationStatus is Operations.GetResourceOperationStatus<Widget>;
+  /** Gets status of a Widget delete operation. */
+  @sharedRoute
+  getWidgetDeleteOperationStatus is Operations.GetResourceOperationStatus<Widget, never>;
 
   // Widget Operations
   /** Creates or updates a Widget asynchronously */
@@ -204,7 +208,7 @@ interface Widgets {
   getWidget is Operations.ResourceRead<Widget>;
 
   /** Delete a Widget asynchronously. */
-  @pollingOperation(Widgets.getWidgetOperationStatus)
+  @pollingOperation(Widgets.getWidgetDeleteOperationStatus)
   deleteWidget is Operations.LongRunningResourceDelete<Widget>;
 
   /** List Widget resources */
@@ -256,7 +260,7 @@ interface WidgetParts {
   reorderParts is Operations.LongRunningResourceCollectionAction<
     WidgetPart,
     WidgetPartReorderRequest,
-    TypeSpec.Http.AcceptedResponse
+    never
   >;
 }
 

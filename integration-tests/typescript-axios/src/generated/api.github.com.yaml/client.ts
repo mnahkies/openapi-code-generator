@@ -71,6 +71,9 @@ import {
   t_code_scanning_variant_analysis,
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
+  t_code_security_configuration,
+  t_code_security_configuration_repositories,
+  t_code_security_default_configurations,
   t_codeowners_errors,
   t_codespace,
   t_codespace_export_details,
@@ -274,6 +277,7 @@ import {
   t_team_membership,
   t_team_project,
   t_team_repository,
+  t_team_role_assignment,
   t_team_simple,
   t_thread,
   t_thread_subscription,
@@ -281,6 +285,7 @@ import {
   t_topic,
   t_topic_search_result_item,
   t_user_marketplace_purchase,
+  t_user_role_assignment,
   t_user_search_result_item,
   t_view_traffic,
   t_wait_timer,
@@ -963,6 +968,31 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async copilotListCopilotSeatsForEnterprise(
+    p: {
+      enterprise: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      seats?: t_copilot_seat_details[]
+      total_seats?: number
+    }>
+  > {
+    const url = `/enterprises/${p["enterprise"]}/copilot/billing/seats`
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -3248,6 +3278,247 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async codeSecurityGetConfigurationsForOrg(
+    p: {
+      org: string
+      targetType?: "global" | "all"
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_security_configuration[]>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations`
+    const query = this._query({
+      target_type: p["targetType"],
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityCreateConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        description: string
+        name: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_security_configuration>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityGetDefaultConfigurations(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_security_default_configurations>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/defaults`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityGetConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_security_configuration>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityUpdateConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        description?: string
+        name?: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<t_code_security_configuration> | AxiosResponse<void>
+  > {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityDeleteConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityAttachConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        scope: "all" | "public" | "private_or_internal" | "selected"
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      [key: string]: unknown | undefined
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecuritySetConfigurationAsDefault(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      configuration?: t_code_security_configuration
+      default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityGetRepositoriesForConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      perPage?: number
+      before?: string
+      after?: string
+      status?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_code_security_configuration_repositories[]>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/repositories`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async codespacesListInOrganization(
     p: {
       perPage?: number
@@ -5125,7 +5396,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_team[]>> {
+  ): Promise<AxiosResponse<t_team_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
@@ -5146,7 +5417,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_simple_user[]>> {
+  ): Promise<AxiosResponse<t_user_role_assignment[]>> {
     const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
@@ -5793,7 +6064,7 @@ export class ApiClient extends AbstractAxiosClient {
         default_value?: string | string[] | null
         description?: string | null
         required?: boolean
-        value_type: "string" | "single_select"
+        value_type: "string" | "single_select" | "multi_select" | "true_false"
       }
     },
     timeout?: number,

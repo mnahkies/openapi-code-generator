@@ -5,7 +5,6 @@
 import {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
-  t_Azure_Core_Foundations_OperationState,
   t_Manufacturer,
   t_ManufacturersCreateManufacturerBodySchema,
   t_ManufacturersCreateManufacturerParamSchema,
@@ -17,11 +16,11 @@ import {
   t_ManufacturersGetManufacturerParamSchema,
   t_ManufacturersGetManufacturerQuerySchema,
   t_ManufacturersListManufacturersQuerySchema,
+  t_OperationState,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
   t_ServiceStatusQuerySchema,
-  t_TypeSpec_Http_AcceptedResponse,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetPart,
@@ -50,8 +49,8 @@ import {
   t_WidgetsGetAnalyticsQuerySchema,
   t_WidgetsGetRepairStatusParamSchema,
   t_WidgetsGetRepairStatusQuerySchema,
-  t_WidgetsGetWidgetOperationStatusParamSchema,
-  t_WidgetsGetWidgetOperationStatusQuerySchema,
+  t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
+  t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
   t_WidgetsGetWidgetParamSchema,
   t_WidgetsGetWidgetQuerySchema,
   t_WidgetsListWidgetsQuerySchema,
@@ -65,12 +64,11 @@ import {
 import {
   s_Azure_Core_Foundations_Error,
   s_Azure_Core_Foundations_ErrorResponse,
-  s_Azure_Core_Foundations_OperationState,
   s_Manufacturer,
+  s_OperationState,
   s_PagedManufacturer,
   s_PagedWidget,
   s_PagedWidgetPart,
-  s_TypeSpec_Http_AcceptedResponse,
   s_Widget,
   s_WidgetAnalytics,
   s_WidgetAnalyticsCreateOrUpdate,
@@ -124,39 +122,53 @@ export type ServiceStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-export type WidgetsGetWidgetOperationStatusResponder = {
-  with200(): KoaRuntimeResponse<{
-    error?: t_Azure_Core_Foundations_Error
-    id: string
-    result?: t_Widget
-    status: t_Azure_Core_Foundations_OperationState
-  }>
-  withDefault(
-    status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>
-} & KoaRuntimeResponder
-
-export type WidgetsGetWidgetOperationStatus = (
-  params: Params<
-    t_WidgetsGetWidgetOperationStatusParamSchema,
-    t_WidgetsGetWidgetOperationStatusQuerySchema,
-    void
-  >,
-  respond: WidgetsGetWidgetOperationStatusResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<
-      200,
-      {
-        error?: t_Azure_Core_Foundations_Error
-        id: string
-        result?: t_Widget
-        status: t_Azure_Core_Foundations_OperationState
-      }
+export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder =
+  {
+    with200(): KoaRuntimeResponse<
+      | {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: t_Widget
+          status: t_OperationState
+        }
+      | {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_OperationState
+        }
     >
-  | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
->
+    withDefault(
+      status: StatusCode,
+    ): KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>
+  } & KoaRuntimeResponder
+
+export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus =
+  (
+    params: Params<
+      t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
+      t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
+      void
+    >,
+    respond: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
+    ctx: RouterContext,
+  ) => Promise<
+    | KoaRuntimeResponse<unknown>
+    | Response<
+        200,
+        | {
+            error?: t_Azure_Core_Foundations_Error
+            id: string
+            result?: t_Widget
+            status: t_OperationState
+          }
+        | {
+            error?: t_Azure_Core_Foundations_Error
+            id: string
+            status: t_OperationState
+          }
+      >
+    | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+  >
 
 export type WidgetsCreateOrUpdateWidgetResponder = {
   with200(): KoaRuntimeResponse<t_Widget>
@@ -206,7 +218,7 @@ export type WidgetsDeleteWidgetResponder = {
   with202(): KoaRuntimeResponse<{
     error?: t_Azure_Core_Foundations_Error
     id: string
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -228,7 +240,7 @@ export type WidgetsDeleteWidget = (
       {
         error?: t_Azure_Core_Foundations_Error
         id: string
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -300,7 +312,7 @@ export type WidgetsGetRepairStatusResponder = {
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_WidgetRepairRequest
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -323,7 +335,7 @@ export type WidgetsGetRepairStatus = (
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_WidgetRepairRequest
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -340,7 +352,7 @@ export type WidgetsScheduleRepairsResponder = {
       scheduledDateTime: string
       updatedDateTime: string
     }
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -369,7 +381,7 @@ export type WidgetsScheduleRepairs = (
           scheduledDateTime: string
           updatedDateTime: string
         }
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -380,7 +392,7 @@ export type WidgetPartsGetWidgetPartOperationStatusResponder = {
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_WidgetPart
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -403,7 +415,7 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_WidgetPart
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -497,8 +509,7 @@ export type WidgetPartsReorderPartsResponder = {
   with202(): KoaRuntimeResponse<{
     error?: t_Azure_Core_Foundations_Error
     id: string
-    result?: t_TypeSpec_Http_AcceptedResponse
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -520,8 +531,7 @@ export type WidgetPartsReorderParts = (
       {
         error?: t_Azure_Core_Foundations_Error
         id: string
-        result?: t_TypeSpec_Http_AcceptedResponse
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -532,7 +542,7 @@ export type ManufacturersGetManufacturerOperationStatusResponder = {
     error?: t_Azure_Core_Foundations_Error
     id: string
     result?: t_Manufacturer
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -555,7 +565,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_Manufacturer
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -609,7 +619,7 @@ export type ManufacturersDeleteManufacturerResponder = {
   with202(): KoaRuntimeResponse<{
     error?: t_Azure_Core_Foundations_Error
     id: string
-    status: t_Azure_Core_Foundations_OperationState
+    status: t_OperationState
   }>
   withDefault(
     status: StatusCode,
@@ -631,7 +641,7 @@ export type ManufacturersDeleteManufacturer = (
       {
         error?: t_Azure_Core_Foundations_Error
         id: string
-        status: t_Azure_Core_Foundations_OperationState
+        status: t_OperationState
       }
     >
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -656,7 +666,7 @@ export type ManufacturersListManufacturers = (
 
 export type Implementation = {
   serviceStatus: ServiceStatus
-  widgetsGetWidgetOperationStatus: WidgetsGetWidgetOperationStatus
+  widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
   widgetsCreateOrUpdateWidget: WidgetsCreateOrUpdateWidget
   widgetsGetWidget: WidgetsGetWidget
   widgetsDeleteWidget: WidgetsDeleteWidget
@@ -731,43 +741,47 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
-  const widgetsGetWidgetOperationStatusParamSchema = z.object({
-    widgetName: z.string(),
-    operationId: z.string(),
-  })
+  const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema =
+    z.object({ widgetName: z.string(), operationId: z.string() })
 
-  const widgetsGetWidgetOperationStatusQuerySchema = z.object({
-    "api-version": z.string().min(1),
-  })
+  const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema =
+    z.object({ "api-version": z.string().min(1) })
 
-  const widgetsGetWidgetOperationStatusResponseValidator =
+  const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator =
     responseValidationFactory(
       [
         [
           "200",
-          z.object({
-            id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
-            error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-            result: s_Widget.optional(),
-          }),
+          z.union([
+            z.object({
+              id: z.string(),
+              status: s_OperationState,
+              error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+              result: s_Widget.optional(),
+            }),
+            z.object({
+              id: z.string(),
+              status: s_OperationState,
+              error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
+            }),
+          ]),
         ],
       ],
       s_Azure_Core_Foundations_ErrorResponse,
     )
 
   router.get(
-    "widgetsGetWidgetOperationStatus",
+    "widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus",
     "/widgets/:widgetName/operations/:operationId",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          widgetsGetWidgetOperationStatusParamSchema,
+          widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          widgetsGetWidgetOperationStatusQuerySchema,
+          widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -776,12 +790,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<{
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: t_Widget
-            status: t_Azure_Core_Foundations_OperationState
-          }>(200)
+          return new KoaRuntimeResponse<
+            | {
+                error?: t_Azure_Core_Foundations_Error
+                id: string
+                result?: t_Widget
+                status: t_OperationState
+              }
+            | {
+                error?: t_Azure_Core_Foundations_Error
+                id: string
+                status: t_OperationState
+              }
+          >(200)
         },
         withDefault(status: StatusCode) {
           return new KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>(
@@ -794,7 +815,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .widgetsGetWidgetOperationStatus(input, responder, ctx)
+        .widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus(
+          input,
+          responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -802,7 +827,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = widgetsGetWidgetOperationStatusResponseValidator(status, body)
+      ctx.body =
+        widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponseValidator(
+          status,
+          body,
+        )
       ctx.status = status
       return next()
     },
@@ -947,7 +976,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "202",
         z.object({
           id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
+          status: s_OperationState,
           error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
         }),
       ],
@@ -978,7 +1007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             error?: t_Azure_Core_Foundations_Error
             id: string
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(202)
         },
         withDefault(status: StatusCode) {
@@ -1201,7 +1230,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "200",
         z.object({
           id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
+          status: s_OperationState,
           error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
           result: s_WidgetRepairRequest.optional(),
         }),
@@ -1234,7 +1263,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_WidgetRepairRequest
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(200)
         },
         withDefault(status: StatusCode) {
@@ -1276,7 +1305,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "202",
         z.object({
           id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
+          status: s_OperationState,
           error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
           result: z
             .object({
@@ -1327,7 +1356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               scheduledDateTime: string
               updatedDateTime: string
             }
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(202)
         },
         withDefault(status: StatusCode) {
@@ -1372,7 +1401,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
+            status: s_OperationState,
             error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
             result: s_WidgetPart.optional(),
           }),
@@ -1405,7 +1434,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_WidgetPart
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(200)
         },
         withDefault(status: StatusCode) {
@@ -1702,9 +1731,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "202",
         z.object({
           id: z.string(),
-          status: s_Azure_Core_Foundations_OperationState,
+          status: s_OperationState,
           error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
-          result: s_TypeSpec_Http_AcceptedResponse.optional(),
         }),
       ],
     ],
@@ -1738,8 +1766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             error?: t_Azure_Core_Foundations_Error
             id: string
-            result?: t_TypeSpec_Http_AcceptedResponse
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(202)
         },
         withDefault(status: StatusCode) {
@@ -1783,7 +1810,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "200",
           z.object({
             id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
+            status: s_OperationState,
             error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
             result: s_Manufacturer.optional(),
           }),
@@ -1816,7 +1843,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_Manufacturer
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(200)
         },
         withDefault(status: StatusCode) {
@@ -1996,7 +2023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "202",
           z.object({
             id: z.string(),
-            status: s_Azure_Core_Foundations_OperationState,
+            status: s_OperationState,
             error: z.lazy(() => s_Azure_Core_Foundations_Error.optional()),
           }),
         ],
@@ -2027,7 +2054,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<{
             error?: t_Azure_Core_Foundations_Error
             id: string
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }>(202)
         },
         withDefault(status: StatusCode) {

@@ -4,13 +4,12 @@
 
 import {
   t_Azure_Core_Foundations_Error,
-  t_Azure_Core_Foundations_OperationState,
   t_Azure_Core_uuid,
   t_Manufacturer,
+  t_OperationState,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
-  t_TypeSpec_Http_AcceptedResponse,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetAnalyticsCreateOrUpdate,
@@ -58,7 +57,7 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async widgetsGetWidgetOperationStatus(
+  async widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus(
     p: {
       apiVersion: string
       widgetName: string
@@ -67,12 +66,19 @@ export class ApiClient extends AbstractAxiosClient {
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<
-    AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
-      id: string
-      result?: t_Widget
-      status: t_Azure_Core_Foundations_OperationState
-    }>
+    AxiosResponse<
+      | {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: t_Widget
+          status: t_OperationState
+        }
+      | {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_OperationState
+        }
+    >
   > {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
@@ -175,7 +181,7 @@ export class ApiClient extends AbstractAxiosClient {
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
       id: string
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/widgets/${p["widgetName"]}`
@@ -317,7 +323,7 @@ export class ApiClient extends AbstractAxiosClient {
       error?: t_Azure_Core_Foundations_Error
       id: string
       result?: t_WidgetRepairRequest
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
@@ -353,7 +359,7 @@ export class ApiClient extends AbstractAxiosClient {
         scheduledDateTime: string
         updatedDateTime: string
       }
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/widgets/${p["widgetName"]}:scheduleRepairs`
@@ -390,7 +396,7 @@ export class ApiClient extends AbstractAxiosClient {
       error?: t_Azure_Core_Foundations_Error
       id: string
       result?: t_WidgetPart
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
@@ -553,8 +559,7 @@ export class ApiClient extends AbstractAxiosClient {
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
       id: string
-      result?: t_TypeSpec_Http_AcceptedResponse
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts:reorderParts`
@@ -590,7 +595,7 @@ export class ApiClient extends AbstractAxiosClient {
       error?: t_Azure_Core_Foundations_Error
       id: string
       result?: t_Manufacturer
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
@@ -694,7 +699,7 @@ export class ApiClient extends AbstractAxiosClient {
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
       id: string
-      status: t_Azure_Core_Foundations_OperationState
+      status: t_OperationState
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}`

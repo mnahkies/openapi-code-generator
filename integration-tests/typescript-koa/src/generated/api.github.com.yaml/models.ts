@@ -1047,6 +1047,41 @@ export type t_code_search_result_item = {
   url: string
 }
 
+export type t_code_security_configuration = {
+  advanced_security?: "enabled" | "disabled"
+  code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+  created_at?: string
+  dependabot_alerts?: "enabled" | "disabled" | "not_set"
+  dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+  dependency_graph?: "enabled" | "disabled" | "not_set"
+  description?: string
+  html_url?: string
+  id?: number
+  name?: string
+  private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+  target_type?: "global" | "organization"
+  updated_at?: string
+  url?: string
+}
+
+export type t_code_security_configuration_repositories = {
+  repository?: t_simple_repository
+  status?:
+    | "attached"
+    | "attaching"
+    | "detached"
+    | "enforced"
+    | "failed"
+    | "updating"
+}
+
+export type t_code_security_default_configurations = {
+  configuration?: t_code_security_configuration
+  default_for_new_repos?: EmptyObject
+}[]
+
 export type t_codeowners_errors = {
   errors: {
     column: number
@@ -1564,10 +1599,11 @@ export type t_copilot_seat_breakdown = {
 
 export type t_copilot_seat_details = {
   assignee: t_simple_user | t_team | t_organization
-  assigning_team?: t_team | null
+  assigning_team?: t_team | t_enterprise_team | null
   created_at: string
   last_activity_at?: string | null
   last_activity_editor?: string | null
+  organization?: t_organization_simple | null
   pending_cancellation_date?: string | null
   updated_at?: string
 }
@@ -1931,6 +1967,19 @@ export type t_enterprise = {
   slug: string
   updated_at: string | null
   website_url?: string | null
+}
+
+export type t_enterprise_team = {
+  created_at: string
+  group_id?: number | null
+  html_url: string
+  id: number
+  members_url: string
+  name: string
+  slug: string
+  sync_to_organizations: string
+  updated_at: string
+  url: string
 }
 
 export type t_environment = {
@@ -2514,6 +2563,7 @@ export type t_hook_delivery = {
   }
   status: string
   status_code: number
+  throttled_at?: string | null
   url?: string
 }
 
@@ -2529,6 +2579,7 @@ export type t_hook_delivery_item = {
   repository_id: number | null
   status: string
   status_code: number
+  throttled_at?: string | null
 }
 
 export type t_hook_response = {
@@ -3749,7 +3800,7 @@ export type t_org_custom_property = {
   description?: string | null
   property_name: string
   required?: boolean
-  value_type: "string" | "single_select"
+  value_type: "string" | "single_select" | "multi_select" | "true_false"
   values_editable_by?: "org_actors" | "org_and_repo_actors" | null
 }
 
@@ -6662,6 +6713,29 @@ export type t_team_repository = {
   web_commit_signoff_required?: boolean
 }
 
+export type t_team_role_assignment = {
+  description: string | null
+  html_url: string
+  id: number
+  members_url: string
+  name: string
+  node_id: string
+  notification_setting?: string
+  parent: t_nullable_team_simple
+  permission: string
+  permissions?: {
+    admin: boolean
+    maintain: boolean
+    pull: boolean
+    push: boolean
+    triage: boolean
+  }
+  privacy?: string
+  repositories_url: string
+  slug: string
+  url: string
+}
+
 export type t_team_simple = {
   description: string | null
   html_url: string
@@ -6942,6 +7016,30 @@ export type t_user_marketplace_purchase = {
   plan: t_marketplace_listing_plan
   unit_count: number | null
   updated_at: string | null
+}
+
+export type t_user_role_assignment = {
+  avatar_url: string
+  email?: string | null
+  events_url: string
+  followers_url: string
+  following_url: string
+  gists_url: string
+  gravatar_id: string | null
+  html_url: string
+  id: number
+  login: string
+  name?: string | null
+  node_id: string
+  organizations_url: string
+  received_events_url: string
+  repos_url: string
+  site_admin: boolean
+  starred_at?: string
+  starred_url: string
+  subscriptions_url: string
+  type: string
+  url: string
 }
 
 export type t_user_search_result_item = {
@@ -9005,6 +9103,97 @@ export type t_CodeScanningUploadSarifParamSchema = {
   repo: string
 }
 
+export type t_CodeSecurityAttachConfigurationBodySchema = {
+  scope: "all" | "public" | "private_or_internal" | "selected"
+  selected_repository_ids?: number[]
+}
+
+export type t_CodeSecurityAttachConfigurationParamSchema = {
+  configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityCreateConfigurationBodySchema = {
+  advanced_security?: "enabled" | "disabled"
+  code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+  dependabot_alerts?: "enabled" | "disabled" | "not_set"
+  dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+  dependency_graph?: "enabled" | "disabled" | "not_set"
+  description: string
+  name: string
+  private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+}
+
+export type t_CodeSecurityCreateConfigurationParamSchema = {
+  org: string
+}
+
+export type t_CodeSecurityDeleteConfigurationParamSchema = {
+  configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityGetConfigurationParamSchema = {
+  configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityGetConfigurationsForOrgParamSchema = {
+  org: string
+}
+
+export type t_CodeSecurityGetConfigurationsForOrgQuerySchema = {
+  after?: string
+  before?: string
+  per_page?: number
+  target_type?: "global" | "all"
+}
+
+export type t_CodeSecurityGetDefaultConfigurationsParamSchema = {
+  org: string
+}
+
+export type t_CodeSecurityGetRepositoriesForConfigurationParamSchema = {
+  configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityGetRepositoriesForConfigurationQuerySchema = {
+  after?: string
+  before?: string
+  per_page?: number
+  status?: string
+}
+
+export type t_CodeSecuritySetConfigurationAsDefaultBodySchema = {
+  default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+}
+
+export type t_CodeSecuritySetConfigurationAsDefaultParamSchema = {
+  configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityUpdateConfigurationBodySchema = {
+  advanced_security?: "enabled" | "disabled"
+  code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+  dependabot_alerts?: "enabled" | "disabled" | "not_set"
+  dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+  dependency_graph?: "enabled" | "disabled" | "not_set"
+  description?: string
+  name?: string
+  private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+  secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+}
+
+export type t_CodeSecurityUpdateConfigurationParamSchema = {
+  configuration_id: number
+  org: string
+}
+
 export type t_CodesOfConductGetConductCodeParamSchema = {
   key: string
 }
@@ -9442,6 +9631,15 @@ export type t_CopilotListCopilotSeatsParamSchema = {
 }
 
 export type t_CopilotListCopilotSeatsQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_CopilotListCopilotSeatsForEnterpriseParamSchema = {
+  enterprise: string
+}
+
+export type t_CopilotListCopilotSeatsForEnterpriseQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -10766,7 +10964,7 @@ export type t_OrgsCreateOrUpdateCustomPropertyBodySchema = {
   default_value?: string | string[] | null
   description?: string | null
   required?: boolean
-  value_type: "string" | "single_select"
+  value_type: "string" | "single_select" | "multi_select" | "true_false"
 }
 
 export type t_OrgsCreateOrUpdateCustomPropertyParamSchema = {
