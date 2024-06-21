@@ -395,63 +395,63 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-autorest@npm:^0.42.1":
-  version: 0.42.1
-  resolution: "@azure-tools/typespec-autorest@npm:0.42.1"
+"@azure-tools/typespec-autorest@npm:^0.43.0":
+  version: 0.43.0
+  resolution: "@azure-tools/typespec-autorest@npm:0.43.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.42.0
-    "@azure-tools/typespec-client-generator-core": ~0.42.0
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/openapi": ~0.56.0
-    "@typespec/rest": ~0.56.0
-    "@typespec/versioning": ~0.56.0
-  checksum: 10/c06203a120bf10d4252d9ef011f383b6cba5df2b9749a3bbfeed5e08ebb0f72242efdc0b7235fa0e87df1138edb1a07fd339e8009057f1a5354fe605820083f7
+    "@azure-tools/typespec-azure-core": ~0.43.0
+    "@azure-tools/typespec-azure-resource-manager": ~0.43.0
+    "@azure-tools/typespec-client-generator-core": ~0.43.0
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/openapi": ~0.57.0
+    "@typespec/rest": ~0.57.0
+    "@typespec/versioning": ~0.57.0
+  checksum: 10/c928f7c5884d5779fecba03a279b066697478204a360c825cdf151ba0bf73f50ddbe5ec7cae53cc210422b7a6831215c678e7c7f97414f6cfb097eab0321d598
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-core@npm:^0.42.0":
-  version: 0.42.0
-  resolution: "@azure-tools/typespec-azure-core@npm:0.42.0"
+"@azure-tools/typespec-azure-core@npm:^0.43.0":
+  version: 0.43.0
+  resolution: "@azure-tools/typespec-azure-core@npm:0.43.0"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/rest": ~0.56.0
-  checksum: 10/937b495dd8da9ca3fe5e2621574f8b3f96c41c67e2ff60bc4e0d80356c6c6b1d9d1120a65cf78d4395d60573296827bd9a781cd0a0e566073937c7439f14b649
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/rest": ~0.57.0
+  checksum: 10/e5b31635fde7b13469c70f8f0097cd48da051122cce3520b9d6524d2f9346a48eec1a2bc116f9390f8dc9dfdf34a8567bbaddc7ed974306661e153570dc0a296
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-resource-manager@npm:^0.42.1":
-  version: 0.42.1
-  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.42.1"
+"@azure-tools/typespec-azure-resource-manager@npm:^0.43.0":
+  version: 0.43.0
+  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.43.0"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
   peerDependencies:
-    "@azure-tools/typespec-autorest": ~0.42.1
-    "@azure-tools/typespec-azure-core": ~0.42.0
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/openapi": ~0.56.0
-    "@typespec/rest": ~0.56.0
-    "@typespec/versioning": ~0.56.0
-  checksum: 10/6268cae86084ada32237cdbcc0a38614dc52b3e267a96fd1f21a731b8551eb2e63811b3fd7e9309cfcb1b734d6f579190f285ae1c0f31f8f4430728f67a60b5b
+    "@azure-tools/typespec-azure-core": ~0.43.0
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/openapi": ~0.57.0
+    "@typespec/rest": ~0.57.0
+    "@typespec/versioning": ~0.57.0
+  checksum: 10/2053213e2c8d341d9a6349c1127ddf65f7f1feb8e843a6f7b1da0af2b6d82a5fa592f2fd26a2c3507e669183ab7789a9bfeb72a32c2f7cd41999ec31e3d63887
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-client-generator-core@npm:^0.42.3":
-  version: 0.42.3
-  resolution: "@azure-tools/typespec-client-generator-core@npm:0.42.3"
+"@azure-tools/typespec-client-generator-core@npm:^0.43.0":
+  version: 0.43.0
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.43.0"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.42.0
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/rest": ~0.56.0
-    "@typespec/versioning": ~0.56.0
-  checksum: 10/c554f38a937878ccb0ecd53eecbb2afc202cfd4921f97e8eed6afa414c5e853893e5c9627ac0e5c2a8c437c8bd249e75a2ee6ce890d3a2494f918889cd09bc52
+    "@azure-tools/typespec-azure-core": ~0.43.0
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/rest": ~0.57.0
+    "@typespec/versioning": ~0.57.0
+  checksum: 10/1dc0f7d30a0976a95239766c7035fa7b4ddc3a9a6dff1444e9538ea05acebd7a22b73a62e3e79d62a3c42faf10991207e35fd820c7b3662153a852d393dbd5fb
   languageName: node
   linkType: hard
 
@@ -1939,18 +1939,18 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@biomejs/biome@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/biome@npm:1.7.3"
+"@biomejs/biome@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/biome@npm:1.8.2"
   dependencies:
-    "@biomejs/cli-darwin-arm64": "npm:1.7.3"
-    "@biomejs/cli-darwin-x64": "npm:1.7.3"
-    "@biomejs/cli-linux-arm64": "npm:1.7.3"
-    "@biomejs/cli-linux-arm64-musl": "npm:1.7.3"
-    "@biomejs/cli-linux-x64": "npm:1.7.3"
-    "@biomejs/cli-linux-x64-musl": "npm:1.7.3"
-    "@biomejs/cli-win32-arm64": "npm:1.7.3"
-    "@biomejs/cli-win32-x64": "npm:1.7.3"
+    "@biomejs/cli-darwin-arm64": "npm:1.8.2"
+    "@biomejs/cli-darwin-x64": "npm:1.8.2"
+    "@biomejs/cli-linux-arm64": "npm:1.8.2"
+    "@biomejs/cli-linux-arm64-musl": "npm:1.8.2"
+    "@biomejs/cli-linux-x64": "npm:1.8.2"
+    "@biomejs/cli-linux-x64-musl": "npm:1.8.2"
+    "@biomejs/cli-win32-arm64": "npm:1.8.2"
+    "@biomejs/cli-win32-x64": "npm:1.8.2"
   dependenciesMeta:
     "@biomejs/cli-darwin-arm64":
       optional: true
@@ -1970,73 +1970,73 @@ __metadata:
       optional: true
   bin:
     biome: bin/biome
-  checksum: 10/fafe2caa658489f80640ecad27b4715881eaf0e88868da039610ebf13385f6345761a7b685772926abe9c415c5eaec07c890206bfcee632daaf0808b310e01e9
+  checksum: 10/7721e685c476997cf31d2c39df2a15d85e5cb00e85d6b917fb24b782eba6a43afe40258073f63c0eafb3530267251d473c50736d280263ac968fa912b35ba873
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-darwin-arm64@npm:1.7.3"
+"@biomejs/cli-darwin-arm64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-darwin-arm64@npm:1.8.2"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-darwin-x64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-darwin-x64@npm:1.7.3"
+"@biomejs/cli-darwin-x64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-darwin-x64@npm:1.8.2"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64-musl@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.7.3"
+"@biomejs/cli-linux-arm64-musl@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-linux-arm64-musl@npm:1.8.2"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-linux-arm64@npm:1.7.3"
+"@biomejs/cli-linux-arm64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-linux-arm64@npm:1.8.2"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64-musl@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-linux-x64-musl@npm:1.7.3"
+"@biomejs/cli-linux-x64-musl@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-linux-x64-musl@npm:1.8.2"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@biomejs/cli-linux-x64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-linux-x64@npm:1.7.3"
+"@biomejs/cli-linux-x64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-linux-x64@npm:1.8.2"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-arm64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-win32-arm64@npm:1.7.3"
+"@biomejs/cli-win32-arm64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-win32-arm64@npm:1.8.2"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@biomejs/cli-win32-x64@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/cli-win32-x64@npm:1.7.3"
+"@biomejs/cli-win32-x64@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/cli-win32-x64@npm:1.8.2"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
 
-"@biomejs/js-api@npm:0.6.0":
-  version: 0.6.0
-  resolution: "@biomejs/js-api@npm:0.6.0"
+"@biomejs/js-api@npm:0.6.1":
+  version: 0.6.1
+  resolution: "@biomejs/js-api@npm:0.6.1"
   peerDependencies:
-    "@biomejs/wasm-bundler": ^1.7.2
-    "@biomejs/wasm-nodejs": ^1.7.2
-    "@biomejs/wasm-web": ^1.7.2
+    "@biomejs/wasm-bundler": ^1.8.1
+    "@biomejs/wasm-nodejs": ^1.8.1
+    "@biomejs/wasm-web": ^1.8.1
   peerDependenciesMeta:
     "@biomejs/wasm-bundler":
       optional: true
@@ -2044,14 +2044,14 @@ __metadata:
       optional: true
     "@biomejs/wasm-web":
       optional: true
-  checksum: 10/8dbacc3698b5da5b684fc6528b09b07b1186689abf3e1964a342197d6bb31dc0d3c6107feba741fc28cb3f02a68645b3cdc1e5459e18c90c694497d9d2c19cc0
+  checksum: 10/a2abc56e2bdf91c71811709e40e9705d49fce56b5d9547f88a64266367447d12c93ea9f7d320d98f8f136d6af0e1ff5312431731180133948e786961fa03448f
   languageName: node
   linkType: hard
 
-"@biomejs/wasm-nodejs@npm:1.7.3":
-  version: 1.7.3
-  resolution: "@biomejs/wasm-nodejs@npm:1.7.3"
-  checksum: 10/f2c2b2bb7ab9f941c8859964373626f529602d5b55c38f2b9437ebde84e09603db15ca3775d079394eabf72153820c77956e8296427b4131ad7534701e7c2fcd
+"@biomejs/wasm-nodejs@npm:1.8.2":
+  version: 1.8.2
+  resolution: "@biomejs/wasm-nodejs@npm:1.8.2"
+  checksum: 10/de27bbd9c91da4c1bd3904866fae94c95cd0561a4e713c47dc8b2cb8d591c2ff73f52d288851584acf474a038a4887112fa42292a1680e0a7e57fb0d700a1309
   languageName: node
   linkType: hard
 
@@ -3105,7 +3105,7 @@ __metadata:
     "@types/react": "npm:^18.3.3"
     "@types/react-dom": "npm:^18.3.0"
     gh-pages: "npm:^6.1.1"
-    next: "npm:14.2.3"
+    next: "npm:14.2.4"
     nextra: "npm:^2.13.4"
     nextra-theme-docs: "npm:^2.13.4"
     react: "npm:^18.3.1"
@@ -3118,22 +3118,22 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
   dependencies:
-    "@azure-tools/typespec-autorest": "npm:^0.42.1"
-    "@azure-tools/typespec-azure-core": "npm:^0.42.0"
-    "@azure-tools/typespec-azure-resource-manager": "npm:^0.42.1"
-    "@azure-tools/typespec-client-generator-core": "npm:^0.42.3"
-    "@biomejs/biome": "npm:1.7.3"
-    "@biomejs/js-api": "npm:0.6.0"
-    "@biomejs/wasm-nodejs": "npm:1.7.3"
+    "@azure-tools/typespec-autorest": "npm:^0.43.0"
+    "@azure-tools/typespec-azure-core": "npm:^0.43.0"
+    "@azure-tools/typespec-azure-resource-manager": "npm:^0.43.0"
+    "@azure-tools/typespec-client-generator-core": "npm:^0.43.0"
+    "@biomejs/biome": "npm:1.8.2"
+    "@biomejs/js-api": "npm:0.6.1"
+    "@biomejs/wasm-nodejs": "npm:1.8.2"
     "@commander-js/extra-typings": "npm:^12.1.0"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/lodash": "npm:^4.17.4"
-    "@typespec/compiler": "npm:^0.56.0"
-    "@typespec/http": "npm:^0.56.0"
-    "@typespec/openapi": "npm:^0.56.0"
-    "@typespec/openapi3": "npm:^0.56.0"
-    "@typespec/rest": "npm:^0.56.0"
-    "@typespec/versioning": "npm:^0.56.0"
+    "@typespec/compiler": "npm:^0.57.0"
+    "@typespec/http": "npm:^0.57.0"
+    "@typespec/openapi": "npm:^0.57.0"
+    "@typespec/openapi3": "npm:^0.57.0"
+    "@typespec/rest": "npm:^0.57.0"
+    "@typespec/versioning": "npm:^0.57.0"
     ajv: "npm:^8.13.0"
     ajv-draft-04: "npm:^1.0.0"
     ajv-formats: "npm:^3.0.1"
@@ -3143,13 +3143,13 @@ __metadata:
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
     tslib: "npm:^2.6.2"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
   peerDependencies:
-    "@typespec/compiler": ^0.55.0
-    "@typespec/http": ^0.55.0
-    "@typespec/openapi": ^0.55.0
-    "@typespec/openapi3": ^0.55.0
-    "@typespec/versioning": ^0.55.0
+    "@typespec/compiler": ^0.57.0
+    "@typespec/http": ^0.57.0
+    "@typespec/openapi": ^0.57.0
+    "@typespec/openapi3": ^0.57.0
+    "@typespec/versioning": ^0.57.0
   peerDependenciesMeta:
     "@typespec/compiler":
       optional: true
@@ -3332,72 +3332,72 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@next/env@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/env@npm:14.2.3"
-  checksum: 10/82b445331d46b4896dc86c0e33a7eaaa6f6abfd2408d49e1cb90fbfd6b26c698ea8e69c911ffe597e30fd8294db4e3445cde44b0771eabbfcd13663a9832a397
+"@next/env@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/env@npm:14.2.4"
+  checksum: 10/1f48bd96dd92a98b8e7ccfbd494f5893174721cb164dfda898728db37c0413fe0ca71872c1c7c56a46419a417137bc3aaa3e53543f938bea14589f68474bfd73
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-arm64@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-darwin-arm64@npm:14.2.3"
+"@next/swc-darwin-arm64@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-darwin-arm64@npm:14.2.4"
   conditions: os=darwin & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-darwin-x64@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-darwin-x64@npm:14.2.3"
+"@next/swc-darwin-x64@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-darwin-x64@npm:14.2.4"
   conditions: os=darwin & cpu=x64
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-gnu@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-linux-arm64-gnu@npm:14.2.3"
+"@next/swc-linux-arm64-gnu@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-linux-arm64-gnu@npm:14.2.4"
   conditions: os=linux & cpu=arm64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-arm64-musl@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-linux-arm64-musl@npm:14.2.3"
+"@next/swc-linux-arm64-musl@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-linux-arm64-musl@npm:14.2.4"
   conditions: os=linux & cpu=arm64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-gnu@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-linux-x64-gnu@npm:14.2.3"
+"@next/swc-linux-x64-gnu@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-linux-x64-gnu@npm:14.2.4"
   conditions: os=linux & cpu=x64 & libc=glibc
   languageName: node
   linkType: hard
 
-"@next/swc-linux-x64-musl@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-linux-x64-musl@npm:14.2.3"
+"@next/swc-linux-x64-musl@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-linux-x64-musl@npm:14.2.4"
   conditions: os=linux & cpu=x64 & libc=musl
   languageName: node
   linkType: hard
 
-"@next/swc-win32-arm64-msvc@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-win32-arm64-msvc@npm:14.2.3"
+"@next/swc-win32-arm64-msvc@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-win32-arm64-msvc@npm:14.2.4"
   conditions: os=win32 & cpu=arm64
   languageName: node
   linkType: hard
 
-"@next/swc-win32-ia32-msvc@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-win32-ia32-msvc@npm:14.2.3"
+"@next/swc-win32-ia32-msvc@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-win32-ia32-msvc@npm:14.2.4"
   conditions: os=win32 & cpu=ia32
   languageName: node
   linkType: hard
 
-"@next/swc-win32-x64-msvc@npm:14.2.3":
-  version: 14.2.3
-  resolution: "@next/swc-win32-x64-msvc@npm:14.2.3"
+"@next/swc-win32-x64-msvc@npm:14.2.4":
+  version: 14.2.4
+  resolution: "@next/swc-win32-x64-msvc@npm:14.2.4"
   conditions: os=win32 & cpu=x64
   languageName: node
   linkType: hard
@@ -4984,79 +4984,79 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/compiler@npm:0.56.0"
+"@typespec/compiler@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/compiler@npm:0.57.0"
   dependencies:
     "@babel/code-frame": "npm:~7.24.2"
-    ajv: "npm:~8.12.0"
+    ajv: "npm:~8.13.0"
     change-case: "npm:~5.4.4"
     globby: "npm:~14.0.1"
     mustache: "npm:~4.2.0"
-    picocolors: "npm:~1.0.0"
+    picocolors: "npm:~1.0.1"
     prettier: "npm:~3.2.5"
     prompts: "npm:~2.4.2"
-    semver: "npm:^7.6.0"
+    semver: "npm:^7.6.2"
     vscode-languageserver: "npm:~9.0.1"
     vscode-languageserver-textdocument: "npm:~1.0.11"
-    yaml: "npm:~2.4.1"
+    yaml: "npm:~2.4.2"
     yargs: "npm:~17.7.2"
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/10cd1272f64483871cdeed96148c0282f7b22b5b913b7adf46c749bce58874fdbebab9d75355114bf68504fd0e68867e2a5f25c707250b59d0f7f1af436e974b
+  checksum: 10/bfbaf74ad1afb5c96b9cd13d962aef88e8a487e129fc95e7d68d88de503a4e36ceeb623446b583bb3d6a56edb9494a0d093d2318e4d9cd9b2da1e2cc77cdce01
   languageName: node
   linkType: hard
 
-"@typespec/http@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/http@npm:0.56.0"
+"@typespec/http@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/http@npm:0.57.0"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-  checksum: 10/930b91e5cec20398e426bafbd314466b17c679d2eb1ccaa750bd0e1f727a9f0cc4d6b1b353c6a075f198213a172f3e07d86d9099e4d40500d50cfdab08ba3426
+    "@typespec/compiler": ~0.57.0
+  checksum: 10/d3fb968636b8305fb26fdf0fcd98b104d7412a4c0355c902c287d751a16e3fe74742cb7d865c55bdafc1a9d56b291a9ad6e195bd9a63b1536b9e20abaa92c20a
   languageName: node
   linkType: hard
 
-"@typespec/openapi3@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/openapi3@npm:0.56.0"
+"@typespec/openapi3@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/openapi3@npm:0.57.0"
   dependencies:
-    yaml: "npm:~2.4.1"
+    yaml: "npm:~2.4.2"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-    "@typespec/openapi": ~0.56.0
-    "@typespec/versioning": ~0.56.0
-  checksum: 10/0ed8eec66febce97fcc57ef6776ba9a1be1def77027723f03adb6499e0b7e2ae65793aefc7883f93fb3693d7185bb745766375a0fbee887cfd015f9ec20fa935
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+    "@typespec/openapi": ~0.57.0
+    "@typespec/versioning": ~0.57.0
+  checksum: 10/5a263cdf5287d29980f014ec00c70dd881dc1436264b347e37417e44b2c87e356764a06e086b930288ee8a417aae068c004cea121c550aef72ed78891649a96f
   languageName: node
   linkType: hard
 
-"@typespec/openapi@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/openapi@npm:0.56.0"
+"@typespec/openapi@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/openapi@npm:0.57.0"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-  checksum: 10/21152284db0c6b28ebac0eb08f2fc45b5e1a115c0e6049da813646b316212cdd039a87475e76ad4de6a228d444cb5d9c40c829ea614ac34841dbcd300ab3fd4e
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+  checksum: 10/a90ec0231a72ec3e97b834f2e2314fe3d466f483d5ba1dea53c4ad7803eba573539739f1adeb94058740ba202f491eabfcacda20265298329faa0fff2955fe35
   languageName: node
   linkType: hard
 
-"@typespec/rest@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/rest@npm:0.56.0"
+"@typespec/rest@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/rest@npm:0.57.0"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-    "@typespec/http": ~0.56.0
-  checksum: 10/c9442be1042f05757a92b3de9295653a95d95c4266b6c4c2666b387b888d7a994a30b0ea6c94f1e1b64715601010d0818c397629ec71e69c47c16ac8d9e43629
+    "@typespec/compiler": ~0.57.0
+    "@typespec/http": ~0.57.0
+  checksum: 10/dbf184a21d703cdd8fa3f3f0ac6f3f728bd44163d31e1a7eaf886cc7c54c5edafc0fadc3c594e2b0e18d952dac92c420dcf2c682955a2fa59234f1e041753b79
   languageName: node
   linkType: hard
 
-"@typespec/versioning@npm:^0.56.0":
-  version: 0.56.0
-  resolution: "@typespec/versioning@npm:0.56.0"
+"@typespec/versioning@npm:^0.57.0":
+  version: 0.57.0
+  resolution: "@typespec/versioning@npm:0.57.0"
   peerDependencies:
-    "@typespec/compiler": ~0.56.0
-  checksum: 10/d703b4ac51cefc3a92842f51e9fbc400dc45efe1a01d1e53a37b32d3f8d64a32683da497737d56aadc4c6c04a2b24ffdfd1093f7ee6c0f1a77ec0cf840bd8283
+    "@typespec/compiler": ~0.57.0
+  checksum: 10/a864abbeca7a4cbc9565593722d94e27bac559c3e2d8cffb13ee8e6aef0f02bcafe03a9b1be722971f5970e100491b659b4c785d7b5d28165f45f3b22c57e241
   languageName: node
   linkType: hard
 
@@ -5439,7 +5439,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:8.13.0, ajv@npm:^8.0.0, ajv@npm:^8.13.0, ajv@npm:^8.9.0":
+"ajv@npm:8.13.0, ajv@npm:^8.0.0, ajv@npm:^8.13.0, ajv@npm:^8.9.0, ajv@npm:~8.13.0":
   version: 8.13.0
   resolution: "ajv@npm:8.13.0"
   dependencies:
@@ -5460,18 +5460,6 @@ __metadata:
     json-schema-traverse: "npm:^0.4.1"
     uri-js: "npm:^4.2.2"
   checksum: 10/48d6ad21138d12eb4d16d878d630079a2bda25a04e745c07846a4ad768319533031e28872a9b3c5790fa1ec41aabdf2abed30a56e5a03ebc2cf92184b8ee306c
-  languageName: node
-  linkType: hard
-
-"ajv@npm:~8.12.0":
-  version: 8.12.0
-  resolution: "ajv@npm:8.12.0"
-  dependencies:
-    fast-deep-equal: "npm:^3.1.1"
-    json-schema-traverse: "npm:^1.0.0"
-    require-from-string: "npm:^2.0.2"
-    uri-js: "npm:^4.2.2"
-  checksum: 10/b406f3b79b5756ac53bfe2c20852471b08e122bc1ee4cde08ae4d6a800574d9cd78d60c81c69c63ff81e4da7cd0b638fafbb2303ae580d49cf1600b9059efb85
   languageName: node
   linkType: hard
 
@@ -13694,20 +13682,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"next@npm:14.2.3":
-  version: 14.2.3
-  resolution: "next@npm:14.2.3"
+"next@npm:14.2.4":
+  version: 14.2.4
+  resolution: "next@npm:14.2.4"
   dependencies:
-    "@next/env": "npm:14.2.3"
-    "@next/swc-darwin-arm64": "npm:14.2.3"
-    "@next/swc-darwin-x64": "npm:14.2.3"
-    "@next/swc-linux-arm64-gnu": "npm:14.2.3"
-    "@next/swc-linux-arm64-musl": "npm:14.2.3"
-    "@next/swc-linux-x64-gnu": "npm:14.2.3"
-    "@next/swc-linux-x64-musl": "npm:14.2.3"
-    "@next/swc-win32-arm64-msvc": "npm:14.2.3"
-    "@next/swc-win32-ia32-msvc": "npm:14.2.3"
-    "@next/swc-win32-x64-msvc": "npm:14.2.3"
+    "@next/env": "npm:14.2.4"
+    "@next/swc-darwin-arm64": "npm:14.2.4"
+    "@next/swc-darwin-x64": "npm:14.2.4"
+    "@next/swc-linux-arm64-gnu": "npm:14.2.4"
+    "@next/swc-linux-arm64-musl": "npm:14.2.4"
+    "@next/swc-linux-x64-gnu": "npm:14.2.4"
+    "@next/swc-linux-x64-musl": "npm:14.2.4"
+    "@next/swc-win32-arm64-msvc": "npm:14.2.4"
+    "@next/swc-win32-ia32-msvc": "npm:14.2.4"
+    "@next/swc-win32-x64-msvc": "npm:14.2.4"
     "@swc/helpers": "npm:0.5.5"
     busboy: "npm:1.6.0"
     caniuse-lite: "npm:^1.0.30001579"
@@ -13748,7 +13736,7 @@ __metadata:
       optional: true
   bin:
     next: dist/bin/next
-  checksum: 10/666c9770206ce693732a6d772297f1ddb3ce72f59862fa4cd104c5536da596026f758c4c9256ea790cf22d1bb8a15e27e5ea9455c948f72a9e3ca61fb745b0f5
+  checksum: 10/5bf2ccb4c6b0076a61b875a1112d34a31f5afc9d5f2676acf6c8151b425c38d289b951de70b598ad6ed9fa6be5fa3c215d1d9b462ba2b72075cb80501fd9fd07
   languageName: node
   linkType: hard
 
@@ -14448,7 +14436,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "openapi-code-generator-root@workspace:."
   dependencies:
-    "@biomejs/biome": "npm:1.7.3"
+    "@biomejs/biome": "npm:1.8.2"
     "@swc/core": "npm:^1.5.7"
     "@swc/jest": "npm:^0.2.36"
     "@tsconfig/node20": "npm:^20.1.4"
@@ -14461,7 +14449,7 @@ __metadata:
     markdown-toc: "npm:^1.2.0"
     prettier: "npm:^3.2.5"
     source-map-support: "npm:^0.5.21"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
   languageName: unknown
   linkType: soft
 
@@ -14949,7 +14937,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1, picocolors@npm:~1.0.0":
+"picocolors@npm:^1.0.0, picocolors@npm:^1.0.1, picocolors@npm:~1.0.1":
   version: 1.0.1
   resolution: "picocolors@npm:1.0.1"
   checksum: 10/fa68166d1f56009fc02a34cdfd112b0dd3cf1ef57667ac57281f714065558c01828cdf4f18600ad6851cbe0093952ed0660b1e0156bddf2184b6aaf5817553a5
@@ -16237,7 +16225,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"semver@npm:7.6.2, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.0":
+"semver@npm:7.6.2, semver@npm:^7.0.0, semver@npm:^7.1.1, semver@npm:^7.3.4, semver@npm:^7.3.5, semver@npm:^7.3.7, semver@npm:^7.3.8, semver@npm:^7.5.3, semver@npm:^7.5.4, semver@npm:^7.6.2":
   version: 7.6.2
   resolution: "semver@npm:7.6.2"
   bin:
@@ -17537,7 +17525,7 @@ __metadata:
     karma-jasmine-html-reporter: "npm:~2.1.0"
     rxjs: "npm:~7.8.1"
     tslib: "npm:^2.6.2"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
     zone.js: "npm:~0.14.6"
   languageName: unknown
   linkType: soft
@@ -17550,7 +17538,7 @@ __metadata:
     "@types/node": "npm:^20.12.12"
     axios: "npm:^1.7.2"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
   languageName: unknown
   linkType: soft
 
@@ -17561,7 +17549,7 @@ __metadata:
     "@nahkies/typescript-fetch-runtime": "npm:*"
     "@types/node": "npm:^20.12.12"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
   languageName: unknown
   linkType: soft
 
@@ -17576,12 +17564,12 @@ __metadata:
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     koa: "npm:^2.15.3"
-    typescript: "npm:~5.4.5"
+    typescript: "npm:~5.5.0"
     zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
-"typescript@npm:>=3 < 6, typescript@npm:^5.4.5, typescript@npm:~5.4.5":
+"typescript@npm:>=3 < 6, typescript@npm:^5.4.5":
   version: 5.4.5
   resolution: "typescript@npm:5.4.5"
   bin:
@@ -17591,13 +17579,33 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.4.5#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.4.5#optional!builtin<compat/typescript>":
+"typescript@npm:~5.5.0":
+  version: 5.5.2
+  resolution: "typescript@npm:5.5.2"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/9118b20f248e76b0dbff8737fef65dfa89d02668d4e633d2c5ceac99033a0ca5e8a1c1a53bc94da68e8f67677a88f318663dde859c9e9a09c1e116415daec2ba
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.4.5#optional!builtin<compat/typescript>":
   version: 5.4.5
   resolution: "typescript@patch:typescript@npm%3A5.4.5#optional!builtin<compat/typescript>::version=5.4.5&hash=5adc0c"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/760f7d92fb383dbf7dee2443bf902f4365db2117f96f875cf809167f6103d55064de973db9f78fe8f31ec08fff52b2c969aee0d310939c0a3798ec75d0bca2e1
+  languageName: node
+  linkType: hard
+
+"typescript@patch:typescript@npm%3A~5.5.0#optional!builtin<compat/typescript>":
+  version: 5.5.2
+  resolution: "typescript@patch:typescript@npm%3A5.5.2#optional!builtin<compat/typescript>::version=5.5.2&hash=379a07"
+  bin:
+    tsc: bin/tsc
+    tsserver: bin/tsserver
+  checksum: 10/ac3145f65cf9e72ab29f2196e05d5816b355dc1a9195b9f010d285182a12457cfacd068be2dd22c877f88ebc966ac6e0e83f51c8586412b16499a27e3670ff4b
   languageName: node
   linkType: hard
 
@@ -18647,12 +18655,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"yaml@npm:2.4.2, yaml@npm:~2.4.1":
+"yaml@npm:2.4.2":
   version: 2.4.2
   resolution: "yaml@npm:2.4.2"
   bin:
     yaml: bin.mjs
   checksum: 10/6eafbcd68dead734035f6f72af21bd820c29214caf7d8e40c595671a3c908535cef8092b9660a1c055c5833aa148aa640e0c5fa4adb5af2dacd6d28296ccd81c
+  languageName: node
+  linkType: hard
+
+"yaml@npm:~2.4.2":
+  version: 2.4.5
+  resolution: "yaml@npm:2.4.5"
+  bin:
+    yaml: bin.mjs
+  checksum: 10/b09bf5a615a65276d433d76b8e34ad6b4c0320b85eb3f1a39da132c61ae6e2ff34eff4624e6458d96d49566c93cf43408ba5e568218293a8c6541a2006883f64
   languageName: node
   linkType: hard
 
