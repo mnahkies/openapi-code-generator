@@ -6,58 +6,60 @@ export type EmptyObject = { [key: string]: never }
 
 export type t_ActionType = "Internal" | string
 
-export type t_Azure_ResourceManager_ErrorResponse = {
-  error?: t_Azure_ResourceManager_Foundations_ErrorDetail
-}
+export type t_Azure_Core_uuid = string
 
-export type t_Azure_ResourceManager_Foundations_ErrorAdditionalInfo = {
+export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
   readonly info?: EmptyObject
   readonly type?: string
 }
 
-export type t_Azure_ResourceManager_Foundations_ErrorDetail = {
-  readonly additionalInfo?: t_Azure_ResourceManager_Foundations_ErrorAdditionalInfo[]
+export type t_Azure_ResourceManager_CommonTypes_ErrorDetail = {
+  readonly additionalInfo?: t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo[]
   readonly code?: string
-  readonly details?: t_Azure_ResourceManager_Foundations_ErrorDetail[]
+  readonly details?: t_Azure_ResourceManager_CommonTypes_ErrorDetail[]
   readonly message?: string
   readonly target?: string
 }
 
-export type t_Azure_ResourceManager_Foundations_Operation = {
+export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
+  error?: t_Azure_ResourceManager_CommonTypes_ErrorDetail
+}
+
+export type t_Azure_ResourceManager_CommonTypes_Operation = {
   actionType?: t_ActionType
-  display?: t_Azure_ResourceManager_Foundations_OperationDisplay
+  display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay
   readonly isDataAction?: boolean
   readonly name?: string
   readonly origin?: t_Origin
 }
 
-export type t_Azure_ResourceManager_Foundations_OperationDisplay = {
+export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
   description?: string
   operation?: string
   provider?: string
   resource?: string
 }
 
-export type t_Azure_ResourceManager_Foundations_Resource = {
+export type t_Azure_ResourceManager_CommonTypes_Resource = {
   readonly id?: string
   readonly name?: string
-  readonly systemData?: t_Azure_ResourceManager_Foundations_SystemData
+  readonly systemData?: t_Azure_ResourceManager_CommonTypes_SystemData
   readonly type?: string
 }
 
-export type t_Azure_ResourceManager_Foundations_SystemData = {
-  readonly createdAt?: string
-  readonly createdBy?: string
-  readonly createdByType?: t_createdByType
-  readonly lastModifiedAt?: string
-  readonly lastModifiedBy?: string
-  readonly lastModifiedByType?: t_createdByType
+export type t_Azure_ResourceManager_CommonTypes_SystemData = {
+  createdAt?: string
+  createdBy?: string
+  createdByType?: t_createdByType
+  lastModifiedAt?: string
+  lastModifiedBy?: string
+  lastModifiedByType?: t_createdByType
 }
 
-export type t_Azure_ResourceManager_Foundations_TrackedResource =
-  t_Azure_ResourceManager_Foundations_Resource
+export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
+  t_Azure_ResourceManager_CommonTypes_Resource
 
-export type t_Employee = t_Azure_ResourceManager_Foundations_TrackedResource
+export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
 
 export type t_EmployeeListResult = {
   nextLink?: string
@@ -86,12 +88,12 @@ export type t_MoveResponse = {
   movingStatus: string
 }
 
-export type t_Origin = "user" | "system" | "user,system" | string
-
-export type t_PagedOperation = {
+export type t_OperationListResult = {
   nextLink?: string
-  value: t_Azure_ResourceManager_Foundations_Operation[]
+  value: t_Azure_ResourceManager_CommonTypes_Operation[]
 }
+
+export type t_Origin = "user" | "system" | "user,system" | string
 
 export type t_createdByType =
   | "User"

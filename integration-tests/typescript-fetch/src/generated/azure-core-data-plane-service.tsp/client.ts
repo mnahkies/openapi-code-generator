@@ -5,13 +5,12 @@
 import {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
-  t_Azure_Core_Foundations_OperationState,
   t_Azure_Core_uuid,
   t_Manufacturer,
+  t_OperationState,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
-  t_TypeSpec_Http_AcceptedResponse,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetAnalyticsCreateOrUpdate,
@@ -67,7 +66,7 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
-  async widgetsGetWidgetOperationStatus(
+  async widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus(
     p: {
       apiVersion: string
       widgetName: string
@@ -79,12 +78,17 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<
           200,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: t_Widget
-            status: t_Azure_Core_Foundations_OperationState
-          }
+          | {
+              error?: t_Azure_Core_Foundations_Error
+              id: string
+              result?: t_Widget
+              status: t_OperationState
+            }
+          | {
+              error?: t_Azure_Core_Foundations_Error
+              id: string
+              status: t_OperationState
+            }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
     >
@@ -196,7 +200,7 @@ export class ApiClient extends AbstractFetchClient {
           {
             error?: t_Azure_Core_Foundations_Error
             id: string
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -351,7 +355,7 @@ export class ApiClient extends AbstractFetchClient {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_WidgetRepairRequest
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -389,7 +393,7 @@ export class ApiClient extends AbstractFetchClient {
               scheduledDateTime: string
               updatedDateTime: string
             }
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -429,7 +433,7 @@ export class ApiClient extends AbstractFetchClient {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_WidgetPart
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -606,8 +610,7 @@ export class ApiClient extends AbstractFetchClient {
           {
             error?: t_Azure_Core_Foundations_Error
             id: string
-            result?: t_TypeSpec_Http_AcceptedResponse
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -646,7 +649,7 @@ export class ApiClient extends AbstractFetchClient {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_Manufacturer
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -759,7 +762,7 @@ export class ApiClient extends AbstractFetchClient {
           {
             error?: t_Azure_Core_Foundations_Error
             id: string
-            status: t_Azure_Core_Foundations_OperationState
+            status: t_OperationState
           }
         >
       | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>

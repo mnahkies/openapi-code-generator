@@ -3,13 +3,14 @@
 /* eslint-disable */
 
 import {
-  t_Azure_ResourceManager_ErrorResponse,
+  t_Azure_Core_uuid,
+  t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
   t_EmployeeListResult,
   t_EmployeeUpdate,
   t_MoveRequest,
   t_MoveResponse,
-  t_PagedOperation,
+  t_OperationListResult,
 } from "./models"
 import {
   AbstractFetchClient,
@@ -34,8 +35,8 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_PagedOperation>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<200, t_OperationListResult>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -48,7 +49,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesGet(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
     },
@@ -57,7 +58,7 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -71,7 +72,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesCreateOrUpdate(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_Employee
@@ -82,7 +83,7 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<200, t_Employee>
       | Res<201, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -102,7 +103,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesUpdate(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_EmployeeUpdate
@@ -112,7 +113,7 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -132,7 +133,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesDelete(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
     },
@@ -142,7 +143,7 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<
       | Res<202, void>
       | Res<204, void>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -160,7 +161,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesListByResourceGroup(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
     },
     timeout?: number,
@@ -168,7 +169,7 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_EmployeeListResult>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -182,14 +183,14 @@ export class ApiClient extends AbstractFetchClient {
   async employeesListBySubscription(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
     },
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_EmployeeListResult>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =
@@ -203,7 +204,7 @@ export class ApiClient extends AbstractFetchClient {
   async employeesMove(
     p: {
       apiVersion: string
-      subscriptionId: string
+      subscriptionId: t_Azure_Core_uuid
       resourceGroupName: string
       employeeName: string
       requestBody: t_MoveRequest
@@ -213,7 +214,7 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_MoveResponse>
-      | Res<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
     >
   > {
     const url =

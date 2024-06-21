@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
-
 export type t_Azure_Core_Foundations_Error = {
   code: string
   details?: t_Azure_Core_Foundations_Error[]
@@ -21,13 +19,6 @@ export type t_Azure_Core_Foundations_InnerError = {
   innererror?: t_Azure_Core_Foundations_InnerError
 }
 
-export type t_Azure_Core_Foundations_OperationState =
-  | "NotStarted"
-  | "Running"
-  | "Succeeded"
-  | "Failed"
-  | "Canceled"
-
 export type t_Azure_Core_eTag = string
 
 export type t_Azure_Core_uuid = string
@@ -38,6 +29,14 @@ export type t_Manufacturer = {
   readonly id: string
   name: string
 }
+
+export type t_OperationState =
+  | "NotStarted"
+  | "Running"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | string
 
 export type t_PagedManufacturer = {
   nextLink?: string
@@ -53,8 +52,6 @@ export type t_PagedWidgetPart = {
   nextLink?: string
   value: t_WidgetPart[]
 }
-
-export type t_TypeSpec_Http_AcceptedResponse = EmptyObject
 
 export type t_Widget = {
   color: t_WidgetColor

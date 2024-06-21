@@ -2,8 +2,6 @@
 /* tslint:disable */
 /* eslint-disable */
 
-export type EmptyObject = { [key: string]: never }
-
 export type t_Azure_Core_Foundations_Error = {
   code: string
   details?: t_Azure_Core_Foundations_Error[]
@@ -21,13 +19,6 @@ export type t_Azure_Core_Foundations_InnerError = {
   innererror?: t_Azure_Core_Foundations_InnerError
 }
 
-export type t_Azure_Core_Foundations_OperationState =
-  | "NotStarted"
-  | "Running"
-  | "Succeeded"
-  | "Failed"
-  | "Canceled"
-
 export type t_Azure_Core_eTag = string
 
 export type t_Manufacturer = {
@@ -36,6 +27,14 @@ export type t_Manufacturer = {
   readonly id: string
   name: string
 }
+
+export type t_OperationState =
+  | "NotStarted"
+  | "Running"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | string
 
 export type t_PagedManufacturer = {
   nextLink?: string
@@ -51,8 +50,6 @@ export type t_PagedWidgetPart = {
   nextLink?: string
   value: t_WidgetPart[]
 }
-
-export type t_TypeSpec_Http_AcceptedResponse = EmptyObject
 
 export type t_Widget = {
   color: t_WidgetColor
@@ -254,14 +251,16 @@ export type t_WidgetsGetWidgetQuerySchema = {
   "api-version": string
 }
 
-export type t_WidgetsGetWidgetOperationStatusParamSchema = {
-  operationId: string
-  widgetName: string
-}
+export type t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema =
+  {
+    operationId: string
+    widgetName: string
+  }
 
-export type t_WidgetsGetWidgetOperationStatusQuerySchema = {
-  "api-version": string
-}
+export type t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema =
+  {
+    "api-version": string
+  }
 
 export type t_WidgetsListWidgetsQuerySchema = {
   "api-version": string

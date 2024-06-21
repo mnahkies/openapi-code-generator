@@ -3,13 +3,14 @@
 /* eslint-disable */
 
 import {
-  t_Azure_ResourceManager_ErrorResponse,
+  t_Azure_Core_uuid,
+  t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
   t_EmployeeListResult,
   t_EmployeeUpdate,
   t_MoveRequest,
   t_MoveResponse,
-  t_PagedOperation,
+  t_OperationListResult,
 } from "./models"
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
@@ -97,8 +98,8 @@ export class ApiClient {
   operationsList(p: {
     apiVersion: string
   }): Observable<
-    | (HttpResponse<t_PagedOperation> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_OperationListResult> & { status: 200 })
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -119,12 +120,12 @@ export class ApiClient {
 
   employeesGet(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
     employeeName: string
   }): Observable<
     | (HttpResponse<t_Employee> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -145,14 +146,14 @@ export class ApiClient {
 
   employeesCreateOrUpdate(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
     employeeName: string
     requestBody: t_Employee
   }): Observable<
     | (HttpResponse<t_Employee> & { status: 200 })
     | (HttpResponse<t_Employee> & { status: 201 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -177,13 +178,13 @@ export class ApiClient {
 
   employeesUpdate(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
     employeeName: string
     requestBody: t_EmployeeUpdate
   }): Observable<
     | (HttpResponse<t_Employee> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -208,13 +209,13 @@ export class ApiClient {
 
   employeesDelete(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
     employeeName: string
   }): Observable<
     | (HttpResponse<void> & { status: 202 })
     | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -235,11 +236,11 @@ export class ApiClient {
 
   employeesListByResourceGroup(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
   }): Observable<
     | (HttpResponse<t_EmployeeListResult> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -260,10 +261,10 @@ export class ApiClient {
 
   employeesListBySubscription(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
   }): Observable<
     | (HttpResponse<t_EmployeeListResult> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>
@@ -284,13 +285,13 @@ export class ApiClient {
 
   employeesMove(p: {
     apiVersion: string
-    subscriptionId: string
+    subscriptionId: t_Azure_Core_uuid
     resourceGroupName: string
     employeeName: string
     requestBody: t_MoveRequest
   }): Observable<
     | (HttpResponse<t_MoveResponse> & { status: 200 })
-    | (HttpResponse<t_Azure_ResourceManager_ErrorResponse> & {
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
         status: StatusCode
       })
     | HttpResponse<unknown>

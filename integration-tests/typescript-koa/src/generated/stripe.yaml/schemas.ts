@@ -151,6 +151,7 @@ import {
   t_subscription_schedules_resource_default_settings_automatic_tax,
   t_subscription_transfer_data,
   t_subscriptions_resource_pending_update,
+  t_subscriptions_resource_subscription_invoice_settings,
   t_tax_i_ds_owner,
   t_tax_id,
   t_terminal_configuration,
@@ -223,6 +224,9 @@ export const s_account_capabilities = z.object({
   cashapp_payments: z.enum(["active", "inactive", "pending"]).optional(),
   eps_payments: z.enum(["active", "inactive", "pending"]).optional(),
   fpx_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  gb_bank_transfer_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
   giropay_payments: z.enum(["active", "inactive", "pending"]).optional(),
   grabpay_payments: z.enum(["active", "inactive", "pending"]).optional(),
   ideal_payments: z.enum(["active", "inactive", "pending"]).optional(),
@@ -230,16 +234,26 @@ export const s_account_capabilities = z.object({
     .enum(["active", "inactive", "pending"])
     .optional(),
   jcb_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  jp_bank_transfer_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
   klarna_payments: z.enum(["active", "inactive", "pending"]).optional(),
   konbini_payments: z.enum(["active", "inactive", "pending"]).optional(),
   legacy_payments: z.enum(["active", "inactive", "pending"]).optional(),
   link_payments: z.enum(["active", "inactive", "pending"]).optional(),
   mobilepay_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  multibanco_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  mx_bank_transfer_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
   oxxo_payments: z.enum(["active", "inactive", "pending"]).optional(),
   p24_payments: z.enum(["active", "inactive", "pending"]).optional(),
   paynow_payments: z.enum(["active", "inactive", "pending"]).optional(),
   promptpay_payments: z.enum(["active", "inactive", "pending"]).optional(),
   revolut_pay_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  sepa_bank_transfer_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
   sepa_debit_payments: z.enum(["active", "inactive", "pending"]).optional(),
   sofort_payments: z.enum(["active", "inactive", "pending"]).optional(),
   swish_payments: z.enum(["active", "inactive", "pending"]).optional(),
@@ -249,7 +263,11 @@ export const s_account_capabilities = z.object({
     .optional(),
   transfers: z.enum(["active", "inactive", "pending"]).optional(),
   treasury: z.enum(["active", "inactive", "pending"]).optional(),
+  twint_payments: z.enum(["active", "inactive", "pending"]).optional(),
   us_bank_account_ach_payments: z
+    .enum(["active", "inactive", "pending"])
+    .optional(),
+  us_bank_transfer_payments: z
     .enum(["active", "inactive", "pending"])
     .optional(),
   zip_payments: z.enum(["active", "inactive", "pending"]).optional(),
@@ -379,6 +397,7 @@ export const s_account_requirements_error = z.object({
     "verification_missing_executives",
     "verification_missing_owners",
     "verification_requires_additional_memorandum_of_associations",
+    "verification_requires_additional_proof_of_registration",
   ]),
   reason: z.string().max(5000),
   requirement: z.string().max(5000),
@@ -639,6 +658,10 @@ export const s_checkout_link_payment_method_options = z.object({
 })
 
 export const s_checkout_mobilepay_payment_method_options = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
+export const s_checkout_multibanco_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
@@ -1314,6 +1337,7 @@ export const s_invoices_resource_invoice_tax_id = z.object({
     "cn_tin",
     "co_nit",
     "cr_tin",
+    "de_stn",
     "do_rcn",
     "ec_ruc",
     "eg_tin",
@@ -2246,10 +2270,10 @@ export const s_issuing_transaction_flight_data_leg = z.object({
 })
 
 export const s_issuing_transaction_fuel_data = z.object({
+  quantity_decimal: z.string().nullable().optional(),
   type: z.string().max(5000),
   unit: z.string().max(5000),
   unit_cost_decimal: z.string(),
-  volume_decimal: z.string().nullable().optional(),
 })
 
 export const s_issuing_transaction_lodging_data = z.object({
@@ -2468,6 +2492,15 @@ export const s_payment_intent_next_action_cashapp_qr_code = z.object({
   image_url_png: z.string().max(5000),
   image_url_svg: z.string().max(5000),
 })
+
+export const s_payment_intent_next_action_display_multibanco_details = z.object(
+  {
+    entity: z.string().max(5000).nullable().optional(),
+    expires_at: z.coerce.number().nullable().optional(),
+    hosted_voucher_url: z.string().max(5000).nullable().optional(),
+    reference: z.string().max(5000).nullable().optional(),
+  },
+)
 
 export const s_payment_intent_next_action_display_oxxo_details = z.object({
   expires_after: z.coerce.number().nullable().optional(),
@@ -3273,6 +3306,8 @@ export const s_payment_method_details_swish = z.object({
   verified_phone_last4: z.string().max(5000).nullable().optional(),
 })
 
+export const s_payment_method_details_twint = z.object({})
+
 export const s_payment_method_details_wechat = z.object({})
 
 export const s_payment_method_details_wechat_pay = z.object({
@@ -3406,6 +3441,8 @@ export const s_payment_method_link = z.object({
 
 export const s_payment_method_mobilepay = z.object({})
 
+export const s_payment_method_multibanco = z.object({})
+
 export const s_payment_method_options_affirm = z.object({
   capture_method: z.enum(["manual"]).optional(),
   preferred_locale: z.string().max(30).optional(),
@@ -3503,6 +3540,10 @@ export const s_payment_method_options_konbini = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
+export const s_payment_method_options_multibanco = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
+})
+
 export const s_payment_method_options_oxxo = z.object({
   expires_after_days: z.coerce.number(),
   setup_future_usage: z.enum(["none"]).optional(),
@@ -3544,6 +3585,10 @@ export const s_payment_method_options_sofort = z.object({
     .nullable()
     .optional(),
   setup_future_usage: z.enum(["none", "off_session"]).optional(),
+})
+
+export const s_payment_method_options_twint = z.object({
+  setup_future_usage: z.enum(["none"]).optional(),
 })
 
 export const s_payment_method_options_us_bank_account_mandate_options =
@@ -3614,6 +3659,8 @@ export const s_payment_method_sofort = z.object({
 
 export const s_payment_method_swish = z.object({})
 
+export const s_payment_method_twint = z.object({})
+
 export const s_payment_method_us_bank_account_blocked = z.object({
   network_code: z
     .enum([
@@ -3675,6 +3722,7 @@ export const s_payment_pages_checkout_session_custom_fields_label = z.object({
 })
 
 export const s_payment_pages_checkout_session_custom_fields_numeric = z.object({
+  default_value: z.string().max(5000).nullable().optional(),
   maximum_length: z.coerce.number().nullable().optional(),
   minimum_length: z.coerce.number().nullable().optional(),
   value: z.string().max(5000).nullable().optional(),
@@ -3686,6 +3734,7 @@ export const s_payment_pages_checkout_session_custom_fields_option = z.object({
 })
 
 export const s_payment_pages_checkout_session_custom_fields_text = z.object({
+  default_value: z.string().max(5000).nullable().optional(),
   maximum_length: z.coerce.number().nullable().optional(),
   minimum_length: z.coerce.number().nullable().optional(),
   value: z.string().max(5000).nullable().optional(),
@@ -3982,6 +4031,7 @@ export const s_payment_pages_checkout_session_tax_id = z.object({
     "cn_tin",
     "co_nit",
     "cr_tin",
+    "de_stn",
     "do_rcn",
     "ec_ruc",
     "eg_tin",
@@ -4082,14 +4132,6 @@ export const s_platform_earning_fee_source = z.object({
   charge: z.string().max(5000).optional(),
   payout: z.string().max(5000).optional(),
   type: z.enum(["charge", "payout"]),
-})
-
-export const s_platform_tax_fee = z.object({
-  account: z.string().max(5000),
-  id: z.string().max(5000),
-  object: z.enum(["platform_tax_fee"]),
-  source_transaction: z.string().max(5000),
-  type: z.string().max(5000),
 })
 
 export const s_portal_business_profile = z.object({
@@ -4781,6 +4823,7 @@ export const s_tax_product_resource_customer_details_resource_tax_id = z.object(
       "cn_tin",
       "co_nit",
       "cr_tin",
+      "de_stn",
       "do_rcn",
       "ec_ruc",
       "eg_tin",
@@ -7337,7 +7380,7 @@ export const s_issuing_network_token_wallet_provider = z.object({
 })
 
 export const s_issuing_physical_bundle = z.object({
-  features: s_issuing_physical_bundle_features.optional(),
+  features: s_issuing_physical_bundle_features,
   id: z.string().max(5000),
   livemode: PermissiveBoolean,
   name: z.string().max(5000),
@@ -7731,6 +7774,7 @@ export const s_payment_pages_checkout_session_consent_collection = z.object({
 
 export const s_payment_pages_checkout_session_custom_fields_dropdown = z.object(
   {
+    default_value: z.string().max(5000).nullable().optional(),
     options: z.array(s_payment_pages_checkout_session_custom_fields_option),
     value: z.string().max(5000).nullable().optional(),
   },
@@ -7889,6 +7933,7 @@ export const s_refund_destination_details = z.object({
   grabpay: s_destination_details_unimplemented.optional(),
   jp_bank_transfer: s_refund_destination_details_generic.optional(),
   klarna: s_destination_details_unimplemented.optional(),
+  multibanco: s_refund_destination_details_generic.optional(),
   mx_bank_transfer: s_refund_destination_details_generic.optional(),
   p24: s_refund_destination_details_generic.optional(),
   paynow: s_destination_details_unimplemented.optional(),
@@ -8591,6 +8636,8 @@ export const s_payment_method_configuration = z.object({
   livemode: PermissiveBoolean,
   mobilepay:
     s_payment_method_config_resource_payment_method_properties.optional(),
+  multibanco:
+    s_payment_method_config_resource_payment_method_properties.optional(),
   name: z.string().max(5000),
   object: z.enum(["payment_method_configuration"]),
   oxxo: s_payment_method_config_resource_payment_method_properties.optional(),
@@ -9042,6 +9089,7 @@ export const s_checkout_session_payment_method_options = z.object({
   konbini: s_checkout_konbini_payment_method_options.optional(),
   link: s_checkout_link_payment_method_options.optional(),
   mobilepay: s_checkout_mobilepay_payment_method_options.optional(),
+  multibanco: s_checkout_multibanco_payment_method_options.optional(),
   oxxo: s_checkout_oxxo_payment_method_options.optional(),
   p24: s_checkout_p24_payment_method_options.optional(),
   paynow: s_checkout_paynow_payment_method_options.optional(),
@@ -9155,6 +9203,8 @@ export const s_payment_intent_next_action = z.object({
   display_bank_transfer_instructions:
     s_payment_intent_next_action_display_bank_transfer_instructions.optional(),
   konbini_display_details: s_payment_intent_next_action_konbini.optional(),
+  multibanco_display_details:
+    s_payment_intent_next_action_display_multibanco_details.optional(),
   oxxo_display_details:
     s_payment_intent_next_action_display_oxxo_details.optional(),
   paynow_display_qr_code:
@@ -9323,6 +9373,12 @@ export const s_payment_intent_payment_method_options = z.object({
       s_payment_intent_type_specific_payment_method_options_client,
     ])
     .optional(),
+  multibanco: z
+    .union([
+      s_payment_method_options_multibanco,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
   oxxo: z
     .union([
       s_payment_method_options_oxxo,
@@ -9380,6 +9436,12 @@ export const s_payment_intent_payment_method_options = z.object({
   swish: z
     .union([
       s_payment_intent_payment_method_options_swish,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  twint: z
+    .union([
+      s_payment_method_options_twint,
       s_payment_intent_type_specific_payment_method_options_client,
     ])
     .optional(),
@@ -9711,6 +9773,7 @@ export const s_invoices_payment_settings = z.object({
         "revolut_pay",
         "sepa_debit",
         "sofort",
+        "swish",
         "us_bank_account",
         "wechat_pay",
       ]),
@@ -9766,6 +9829,7 @@ export const s_subscriptions_resource_payment_settings = z.object({
         "revolut_pay",
         "sepa_debit",
         "sofort",
+        "swish",
         "us_bank_account",
         "wechat_pay",
       ]),
@@ -10101,7 +10165,6 @@ export const s_balance_transaction: z.ZodType<
       z.lazy(() => s_issuing_dispute),
       z.lazy(() => s_issuing_transaction),
       z.lazy(() => s_payout),
-      s_platform_tax_fee,
       z.lazy(() => s_refund),
       s_reserve_transaction,
       s_tax_deducted_at_source,
@@ -10883,6 +10946,7 @@ export const s_payment_method: z.ZodType<
   livemode: PermissiveBoolean,
   metadata: z.record(z.string().max(500)).nullable().optional(),
   mobilepay: s_payment_method_mobilepay.optional(),
+  multibanco: s_payment_method_multibanco.optional(),
   object: z.enum(["payment_method"]),
   oxxo: s_payment_method_oxxo.optional(),
   p24: s_payment_method_p24.optional(),
@@ -10895,6 +10959,7 @@ export const s_payment_method: z.ZodType<
   sepa_debit: z.lazy(() => s_payment_method_sepa_debit.optional()),
   sofort: s_payment_method_sofort.optional(),
   swish: s_payment_method_swish.optional(),
+  twint: s_payment_method_twint.optional(),
   type: z.enum([
     "acss_debit",
     "affirm",
@@ -10920,6 +10985,7 @@ export const s_payment_method: z.ZodType<
     "konbini",
     "link",
     "mobilepay",
+    "multibanco",
     "oxxo",
     "p24",
     "paynow",
@@ -10930,6 +10996,7 @@ export const s_payment_method: z.ZodType<
     "sepa_debit",
     "sofort",
     "swish",
+    "twint",
     "us_bank_account",
     "wechat_pay",
     "zip",
@@ -10989,6 +11056,9 @@ export const s_subscription: z.ZodType<t_subscription, z.ZodTypeDef, unknown> =
     ),
     ended_at: z.coerce.number().nullable().optional(),
     id: z.string().max(5000),
+    invoice_settings: z.lazy(
+      () => s_subscriptions_resource_subscription_invoice_settings,
+    ),
     items: z.object({
       data: z.array(z.lazy(() => s_subscription_item)),
       has_more: PermissiveBoolean,
@@ -11085,6 +11155,7 @@ export const s_tax_id: z.ZodType<t_tax_id, z.ZodTypeDef, unknown> = z.object({
     "cn_tin",
     "co_nit",
     "cr_tin",
+    "de_stn",
     "do_rcn",
     "ec_ruc",
     "eg_tin",
@@ -11969,6 +12040,7 @@ export const s_payment_link: z.ZodType<t_payment_link, z.ZodTypeDef, unknown> =
           "klarna",
           "konbini",
           "link",
+          "mobilepay",
           "oxxo",
           "p24",
           "paynow",
@@ -13143,6 +13215,7 @@ export const s_payment_method_details: z.ZodType<
   sofort: z.lazy(() => s_payment_method_details_sofort.optional()),
   stripe_account: s_payment_method_details_stripe_account.optional(),
   swish: s_payment_method_details_swish.optional(),
+  twint: s_payment_method_details_twint.optional(),
   type: z.string().max(5000),
   us_bank_account: z.lazy(() =>
     s_payment_method_details_us_bank_account.optional(),
@@ -13294,6 +13367,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
   konbini: s_payment_method_konbini.optional(),
   link: s_payment_method_link.optional(),
   mobilepay: s_payment_method_mobilepay.optional(),
+  multibanco: s_payment_method_multibanco.optional(),
   oxxo: s_payment_method_oxxo.optional(),
   p24: s_payment_method_p24.optional(),
   paynow: s_payment_method_paynow.optional(),
@@ -13304,6 +13378,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
   sepa_debit: z.lazy(() => s_payment_method_sepa_debit.optional()),
   sofort: s_payment_method_sofort.optional(),
   swish: s_payment_method_swish.optional(),
+  twint: s_payment_method_twint.optional(),
   type: z.enum([
     "acss_debit",
     "affirm",
@@ -13329,6 +13404,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
     "konbini",
     "link",
     "mobilepay",
+    "multibanco",
     "oxxo",
     "p24",
     "paynow",
@@ -13339,6 +13415,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
     "sepa_debit",
     "sofort",
     "swish",
+    "twint",
     "us_bank_account",
     "wechat_pay",
     "zip",
@@ -13477,6 +13554,20 @@ export const s_subscription_automatic_tax: z.ZodType<
 > = z.object({
   enabled: PermissiveBoolean,
   liability: z.lazy(() => s_connect_account_reference.nullable().optional()),
+})
+
+export const s_subscriptions_resource_subscription_invoice_settings: z.ZodType<
+  t_subscriptions_resource_subscription_invoice_settings,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  account_tax_ids: z
+    .array(
+      z.union([z.string().max(5000), z.lazy(() => s_tax_id), s_deleted_tax_id]),
+    )
+    .nullable()
+    .optional(),
+  issuer: z.lazy(() => s_connect_account_reference),
 })
 
 export const s_subscriptions_resource_pending_update: z.ZodType<

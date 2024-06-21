@@ -3,7 +3,7 @@
 /* eslint-disable */
 
 import {
-  t_Azure_ResourceManager_ErrorResponse,
+  t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
   t_EmployeeListResult,
   t_EmployeesCreateOrUpdateBodySchema,
@@ -24,17 +24,18 @@ import {
   t_EmployeesUpdateParamSchema,
   t_EmployeesUpdateQuerySchema,
   t_MoveResponse,
+  t_OperationListResult,
   t_OperationsListQuerySchema,
-  t_PagedOperation,
 } from "./models"
 import {
-  s_Azure_ResourceManager_ErrorResponse,
+  s_Azure_Core_uuid,
+  s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   s_Employee,
   s_EmployeeListResult,
   s_EmployeeUpdate,
   s_MoveRequest,
   s_MoveResponse,
-  s_PagedOperation,
+  s_OperationListResult,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
 import {
@@ -57,10 +58,10 @@ import {
 import { z } from "zod"
 
 export type OperationsListResponder = {
-  with200(): KoaRuntimeResponse<t_PagedOperation>
+  with200(): KoaRuntimeResponse<t_OperationListResult>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type OperationsList = (
@@ -69,15 +70,15 @@ export type OperationsList = (
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
-  | Response<200, t_PagedOperation>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<200, t_OperationListResult>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesGetResponder = {
   with200(): KoaRuntimeResponse<t_Employee>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesGet = (
@@ -87,7 +88,7 @@ export type EmployeesGet = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesCreateOrUpdateResponder = {
@@ -95,7 +96,7 @@ export type EmployeesCreateOrUpdateResponder = {
   with201(): KoaRuntimeResponse<t_Employee>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesCreateOrUpdate = (
@@ -110,14 +111,14 @@ export type EmployeesCreateOrUpdate = (
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Employee>
   | Response<201, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesUpdateResponder = {
   with200(): KoaRuntimeResponse<t_Employee>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesUpdate = (
@@ -131,7 +132,7 @@ export type EmployeesUpdate = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_Employee>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesDeleteResponder = {
@@ -139,7 +140,7 @@ export type EmployeesDeleteResponder = {
   with204(): KoaRuntimeResponse<void>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesDelete = (
@@ -154,14 +155,14 @@ export type EmployeesDelete = (
   | KoaRuntimeResponse<unknown>
   | Response<202, void>
   | Response<204, void>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesListByResourceGroupResponder = {
   with200(): KoaRuntimeResponse<t_EmployeeListResult>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesListByResourceGroup = (
@@ -175,14 +176,14 @@ export type EmployeesListByResourceGroup = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_EmployeeListResult>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesListBySubscriptionResponder = {
   with200(): KoaRuntimeResponse<t_EmployeeListResult>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesListBySubscription = (
@@ -196,14 +197,14 @@ export type EmployeesListBySubscription = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_EmployeeListResult>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type EmployeesMoveResponder = {
   with200(): KoaRuntimeResponse<t_MoveResponse>
   withDefault(
     status: StatusCode,
-  ): KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 } & KoaRuntimeResponder
 
 export type EmployeesMove = (
@@ -217,7 +218,7 @@ export type EmployeesMove = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_MoveResponse>
-  | Response<StatusCode, t_Azure_ResourceManager_ErrorResponse>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
 export type Implementation = {
@@ -239,8 +240,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const operationsListResponseValidator = responseValidationFactory(
-    [["200", s_PagedOperation]],
-    s_Azure_ResourceManager_ErrorResponse,
+    [["200", s_OperationListResult]],
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.get(
@@ -259,10 +260,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       const responder = {
         with200() {
-          return new KoaRuntimeResponse<t_PagedOperation>(200)
+          return new KoaRuntimeResponse<t_OperationListResult>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -287,7 +288,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesGetParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -300,7 +301,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const employeesGetResponseValidator = responseValidationFactory(
     [["200", s_Employee]],
-    s_Azure_ResourceManager_ErrorResponse,
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.get(
@@ -326,7 +327,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_Employee>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -351,7 +352,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesCreateOrUpdateParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -371,7 +372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["200", s_Employee],
       ["201", s_Employee],
     ],
-    s_Azure_ResourceManager_ErrorResponse,
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.put(
@@ -404,7 +405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_Employee>(201)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -429,7 +430,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesUpdateParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -446,7 +447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const employeesUpdateResponseValidator = responseValidationFactory(
     [["200", s_Employee]],
-    s_Azure_ResourceManager_ErrorResponse,
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.patch(
@@ -476,7 +477,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_Employee>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -501,7 +502,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesDeleteParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -519,7 +520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["202", z.undefined()],
       ["204", z.undefined()],
     ],
-    s_Azure_ResourceManager_ErrorResponse,
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.delete(
@@ -548,7 +549,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<void>(204)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -573,7 +574,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesListByResourceGroupParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -588,7 +589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const employeesListByResourceGroupResponseValidator =
     responseValidationFactory(
       [["200", s_EmployeeListResult]],
-      s_Azure_ResourceManager_ErrorResponse,
+      s_Azure_ResourceManager_CommonTypes_ErrorResponse,
     )
 
   router.get(
@@ -614,7 +615,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_EmployeeListResult>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -639,7 +640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesListBySubscriptionParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
   })
 
   const employeesListBySubscriptionQuerySchema = z.object({
@@ -649,7 +650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const employeesListBySubscriptionResponseValidator =
     responseValidationFactory(
       [["200", s_EmployeeListResult]],
-      s_Azure_ResourceManager_ErrorResponse,
+      s_Azure_ResourceManager_CommonTypes_ErrorResponse,
     )
 
   router.get(
@@ -675,7 +676,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_EmployeeListResult>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },
@@ -700,7 +701,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const employeesMoveParamSchema = z.object({
-    subscriptionId: z.string().min(1),
+    subscriptionId: s_Azure_Core_uuid,
     resourceGroupName: z
       .string()
       .min(1)
@@ -717,7 +718,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const employeesMoveResponseValidator = responseValidationFactory(
     [["200", s_MoveResponse]],
-    s_Azure_ResourceManager_ErrorResponse,
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
   )
 
   router.post(
@@ -747,7 +748,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_MoveResponse>(200)
         },
         withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_Azure_ResourceManager_ErrorResponse>(
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
             status,
           )
         },

@@ -72,6 +72,9 @@ import {
   t_code_scanning_variant_analysis,
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
+  t_code_security_configuration,
+  t_code_security_configuration_repositories,
+  t_code_security_default_configurations,
   t_codeowners_errors,
   t_codespace,
   t_codespace_export_details,
@@ -276,6 +279,7 @@ import {
   t_team_membership,
   t_team_project,
   t_team_repository,
+  t_team_role_assignment,
   t_team_simple,
   t_thread,
   t_thread_subscription,
@@ -283,6 +287,7 @@ import {
   t_topic,
   t_topic_search_result_item,
   t_user_marketplace_purchase,
+  t_user_role_assignment,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
@@ -929,6 +934,36 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/emojis`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async copilotListCopilotSeatsForEnterprise(
+    p: {
+      enterprise: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            seats?: t_copilot_seat_details[]
+            total_seats?: number
+          }
+        >
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/copilot/billing/seats`
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async copilotUsageMetricsForEnterprise(
@@ -3223,6 +3258,273 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
+  async codeSecurityGetConfigurationsForOrg(
+    p: {
+      org: string
+      targetType?: "global" | "all"
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/code-security/configurations`
+    const query = this._query({
+      target_type: p["targetType"],
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeSecurityCreateConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        description: string
+        name: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<201, t_code_security_configuration>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/code-security/configurations`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async codeSecurityGetDefaultConfigurations(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_default_configurations>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/code-security/configurations/defaults`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeSecurityGetConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeSecurityUpdateConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        description?: string
+        name?: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_code_security_configuration> | Res<204, void>>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async codeSecurityDeleteConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+
+    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeSecurityAttachConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        scope: "all" | "public" | "private_or_internal" | "selected"
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        202,
+        {
+          [key: string]: unknown | undefined
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async codeSecuritySetConfigurationAsDefault(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            configuration?: t_code_security_configuration
+            default_for_new_repos?:
+              | "all"
+              | "none"
+              | "private_and_internal"
+              | "public"
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PUT", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async codeSecurityGetRepositoriesForConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      perPage?: number
+      before?: string
+      after?: string
+      status?: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration_repositories[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/repositories`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
   async codespacesListInOrganization(
     p: {
       perPage?: number
@@ -5127,7 +5429,9 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
-    TypedFetchResponse<Res<200, t_team[]> | Res<404, void> | Res<422, void>>
+    TypedFetchResponse<
+      Res<200, t_team_role_assignment[]> | Res<404, void> | Res<422, void>
+    >
   > {
     const url =
       this.basePath +
@@ -5148,7 +5452,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_simple_user[]> | Res<404, void> | Res<422, void>
+      Res<200, t_user_role_assignment[]> | Res<404, void> | Res<422, void>
     >
   > {
     const url =
@@ -5872,7 +6176,7 @@ export class ApiClient extends AbstractFetchClient {
         default_value?: string | string[] | null
         description?: string | null
         required?: boolean
-        value_type: "string" | "single_select"
+        value_type: "string" | "single_select" | "multi_select" | "true_false"
       }
     },
     timeout?: number,
@@ -12500,6 +12804,7 @@ export class ApiClient extends AbstractFetchClient {
           | t_content_submodule
         >
       | Res<302, void>
+      | Res<304, void>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
