@@ -55,8 +55,8 @@
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [
-      "yarn biome lint --apply",
-      "yarn biome check --apply --no-errors-on-unmatched"
+      "yarn biome lint --write --no-errors-on-unmatched",
+      "yarn biome check --write --no-errors-on-unmatched"
     ],
     "*.md": [
       "sh -c 'yarn docs:generate'"
