@@ -4,7 +4,8 @@ import * as fs from "node:fs"
 import {useMemo} from "react";
 
 export const getStaticProps = ({params}) => {
-  const text = fs.readFileSync('/home/michael/projects/nahkies/npm-packages/openapi-code-generator/integration-tests-definitions/petstore-expanded.yaml', 'utf-8')
+  // TODO: load through webpack / from url
+  const text = fs.readFileSync(__dirname + '/../../../../../../integration-tests-definitions/petstore-expanded.yaml', 'utf-8')
 
 
   return {
