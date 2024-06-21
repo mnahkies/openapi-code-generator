@@ -1,5 +1,6 @@
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
 import EventEmitter from "events"
-import {IFsAdaptor} from "./fs-adaptor"
+import type {IFsAdaptor} from "./fs-adaptor"
 
 export class WebFsAdaptor implements IFsAdaptor {
   private readonly emitter = new EventEmitter()

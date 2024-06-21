@@ -1,6 +1,6 @@
-import {Editor, Monaco, useMonaco} from "@monaco-editor/react"
+import {Editor, type Monaco, useMonaco} from "@monaco-editor/react"
 import {
-  IFormatter,
+  type IFormatter,
   OpenapiValidator,
   TypescriptFormatterPrettier,
   TypespecLoader,
@@ -12,7 +12,8 @@ import {
   AutoTypings,
   LocalStorageCache,
 } from "monaco-editor-auto-typings/custom-editor"
-import React, {useCallback, useEffect, useState} from "react"
+import type React from "react"
+import {useCallback, useEffect, useState} from "react"
 
 const useHost = ({
   specifications,
@@ -40,7 +41,7 @@ const useHost = ({
     TypescriptFormatterPrettier.create().then(setFormatter)
     OpenapiValidator.create().then(setOpenapiValidator)
     TypespecLoader.create().then(setTypespecLoader)
-  }, [monaco, setFormatter, setOpenapiValidator, setTypespecLoader])
+  }, [monaco])
 
   const onFileChanged = useCallback(
     ({filename, value}: {filename: string; value: string}) => {
@@ -166,7 +167,7 @@ const loadRuntimeTypes = async (
     const source = await (await fetch(file.uri)).text()
     const uri = monaco.Uri.file(file.path)
     if (!monaco.editor.getModel(uri)) {
-      console.info("[MICHAEL] createModel for " + uri.path)
+      console.info(`[MICHAEL] createModel for ${uri.path}`)
       monaco.editor.createModel(source, "typescript", uri)
       // monaco.languages.typescript.typescriptDefaults.addExtraLib(await source.text(), file.path)
     }
@@ -216,6 +217,7 @@ const Playground: React.FC<{
       const fileRootPath = "file:///"
       monaco.languages.typescript.typescriptDefaults.setCompilerOptions({
         ...monaco.languages.typescript.typescriptDefaults.getCompilerOptions(),
+        // biome-ignore lint/suspicious/noExplicitAny: https://github.com/microsoft/monaco-editor/pull/4545
         moduleResolution: 100 as any, //monaco.languages.typescript.ModuleResolutionKind.NodeJs,
         target: monaco.languages.typescript.ScriptTarget.ES2020,
         allowSyntheticDefaultImports: true,
@@ -237,7 +239,7 @@ const Playground: React.FC<{
       setOutputEditor(editor)
       setMonaco(monaco)
     },
-    [setOutputEditor],
+    [],
   )
 
   /**
