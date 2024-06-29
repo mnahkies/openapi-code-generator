@@ -127,7 +127,18 @@ export type t_account_capability_future_requirements = {
   alternatives?: t_account_requirements_alternative[] | null
   current_deadline?: number | null
   currently_due: string[]
-  disabled_reason?: string | null
+  disabled_reason?:
+    | "other"
+    | "paused.inactivity"
+    | "pending.onboarding"
+    | "pending.review"
+    | "platform_disabled"
+    | "platform_paused"
+    | "rejected.inactivity"
+    | "rejected.other"
+    | "rejected.unsupported_business"
+    | "requirements.fields_needed"
+    | null
   errors: t_account_requirements_error[]
   eventually_due: string[]
   past_due: string[]
@@ -138,7 +149,18 @@ export type t_account_capability_requirements = {
   alternatives?: t_account_requirements_alternative[] | null
   current_deadline?: number | null
   currently_due: string[]
-  disabled_reason?: string | null
+  disabled_reason?:
+    | "other"
+    | "paused.inactivity"
+    | "pending.onboarding"
+    | "pending.review"
+    | "platform_disabled"
+    | "platform_paused"
+    | "rejected.inactivity"
+    | "rejected.other"
+    | "rejected.unsupported_business"
+    | "requirements.fields_needed"
+    | null
   errors: t_account_requirements_error[]
   eventually_due: string[]
   past_due: string[]
@@ -643,6 +665,9 @@ export type t_bank_connections_resource_balance_refresh = {
 }
 
 export type t_bank_connections_resource_link_account_session_filters = {
+  account_subcategories?:
+    | ("checking" | "credit_card" | "line_of_credit" | "mortgage" | "savings")[]
+    | null
   countries?: string[] | null
 }
 
@@ -3003,6 +3028,7 @@ export type t_invoice_payment_method_options_us_bank_account = {
 
 export type t_invoice_payment_method_options_us_bank_account_linked_account_options =
   {
+    filters?: t_invoice_payment_method_options_us_bank_account_linked_account_options_filters
     permissions?: (
       | "balances"
       | "ownership"
@@ -3010,6 +3036,11 @@ export type t_invoice_payment_method_options_us_bank_account_linked_account_opti
       | "transactions"
     )[]
     prefetch?: ("balances" | "ownership" | "transactions")[] | null
+  }
+
+export type t_invoice_payment_method_options_us_bank_account_linked_account_options_filters =
+  {
+    account_subcategories?: ("checking" | "savings")[]
   }
 
 export type t_invoice_rendering_pdf = {
@@ -3189,6 +3220,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -3283,6 +3315,8 @@ export type t_issuing_authorization = {
   cardholder?: string | t_issuing_cardholder | null
   created: number
   currency: string
+  fleet?: t_issuing_authorization_fleet_data | null
+  fuel?: t_issuing_authorization_fuel_data | null
   id: string
   livemode: boolean
   merchant_amount: number
@@ -3492,6 +3526,68 @@ export type t_issuing_authorization_authentication_exemption = {
   type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
 }
 
+export type t_issuing_authorization_fleet_cardholder_prompt_data = {
+  alphanumeric_id?: string | null
+  driver_id?: string | null
+  odometer?: number | null
+  unspecified_id?: string | null
+  user_id?: string | null
+  vehicle_number?: string | null
+}
+
+export type t_issuing_authorization_fleet_data = {
+  cardholder_prompt_data?: t_issuing_authorization_fleet_cardholder_prompt_data | null
+  purchase_type?:
+    | "fuel_and_non_fuel_purchase"
+    | "fuel_purchase"
+    | "non_fuel_purchase"
+    | null
+  reported_breakdown?: t_issuing_authorization_fleet_reported_breakdown | null
+  service_type?: "full_service" | "non_fuel_transaction" | "self_service" | null
+}
+
+export type t_issuing_authorization_fleet_fuel_price_data = {
+  gross_amount_decimal?: string | null
+}
+
+export type t_issuing_authorization_fleet_non_fuel_price_data = {
+  gross_amount_decimal?: string | null
+}
+
+export type t_issuing_authorization_fleet_reported_breakdown = {
+  fuel?: t_issuing_authorization_fleet_fuel_price_data | null
+  non_fuel?: t_issuing_authorization_fleet_non_fuel_price_data | null
+  tax?: t_issuing_authorization_fleet_tax_data | null
+}
+
+export type t_issuing_authorization_fleet_tax_data = {
+  local_amount_decimal?: string | null
+  national_amount_decimal?: string | null
+}
+
+export type t_issuing_authorization_fuel_data = {
+  industry_product_code?: string | null
+  quantity_decimal?: string | null
+  type?:
+    | "diesel"
+    | "other"
+    | "unleaded_plus"
+    | "unleaded_regular"
+    | "unleaded_super"
+    | null
+  unit?:
+    | "charging_minute"
+    | "imperial_gallon"
+    | "kilogram"
+    | "kilowatt_hour"
+    | "liter"
+    | "other"
+    | "pound"
+    | "us_gallon"
+    | null
+  unit_cost_decimal?: string | null
+}
+
 export type t_issuing_authorization_merchant_data = {
   category: string
   category_code: string
@@ -3534,11 +3630,16 @@ export type t_issuing_authorization_request = {
   reason:
     | "account_disabled"
     | "card_active"
+    | "card_canceled"
+    | "card_expired"
     | "card_inactive"
+    | "cardholder_blocked"
     | "cardholder_inactive"
     | "cardholder_verification_required"
+    | "insecure_authorization_method"
     | "insufficient_funds"
     | "not_allowed"
+    | "pin_blocked"
     | "spending_controls"
     | "suspected_fraud"
     | "verification_failed"
@@ -5729,6 +5830,40 @@ export type t_issuing_transaction_amount_details = {
   cashback_amount?: number | null
 }
 
+export type t_issuing_transaction_fleet_cardholder_prompt_data = {
+  driver_id?: string | null
+  odometer?: number | null
+  unspecified_id?: string | null
+  user_id?: string | null
+  vehicle_number?: string | null
+}
+
+export type t_issuing_transaction_fleet_data = {
+  cardholder_prompt_data?: t_issuing_transaction_fleet_cardholder_prompt_data | null
+  purchase_type?: string | null
+  reported_breakdown?: t_issuing_transaction_fleet_reported_breakdown | null
+  service_type?: string | null
+}
+
+export type t_issuing_transaction_fleet_fuel_price_data = {
+  gross_amount_decimal?: string | null
+}
+
+export type t_issuing_transaction_fleet_non_fuel_price_data = {
+  gross_amount_decimal?: string | null
+}
+
+export type t_issuing_transaction_fleet_reported_breakdown = {
+  fuel?: t_issuing_transaction_fleet_fuel_price_data | null
+  non_fuel?: t_issuing_transaction_fleet_non_fuel_price_data | null
+  tax?: t_issuing_transaction_fleet_tax_data | null
+}
+
+export type t_issuing_transaction_fleet_tax_data = {
+  local_amount_decimal?: string | null
+  national_amount_decimal?: string | null
+}
+
 export type t_issuing_transaction_flight_data = {
   departure_at?: number | null
   passenger_name?: string | null
@@ -5747,6 +5882,7 @@ export type t_issuing_transaction_flight_data_leg = {
 }
 
 export type t_issuing_transaction_fuel_data = {
+  industry_product_code?: string | null
   quantity_decimal?: string | null
   type: string
   unit: string
@@ -5765,6 +5901,7 @@ export type t_issuing_transaction_network_data = {
 }
 
 export type t_issuing_transaction_purchase_details = {
+  fleet?: t_issuing_transaction_fleet_data | null
   flight?: t_issuing_transaction_flight_data | null
   fuel?: t_issuing_transaction_fuel_data | null
   lodging?: t_issuing_transaction_lodging_data | null
@@ -5949,6 +6086,7 @@ export type t_line_items_tax_amount = {
 }
 
 export type t_linked_account_options_us_bank_account = {
+  filters?: t_payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters
   permissions?: ("balances" | "ownership" | "payment_method" | "transactions")[]
   prefetch?: ("balances" | "ownership" | "transactions")[] | null
   return_url?: string
@@ -6168,6 +6306,11 @@ export type t_payment_flows_private_payment_methods_klarna_dob = {
   month?: number | null
   year?: number | null
 }
+
+export type t_payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters =
+  {
+    account_subcategories?: ("checking" | "savings")[]
+  }
 
 export type t_payment_intent = {
   amount: number
@@ -6689,6 +6832,7 @@ export type t_payment_link = {
         | "konbini"
         | "link"
         | "mobilepay"
+        | "multibanco"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -6698,8 +6842,10 @@ export type t_payment_link = {
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
+        | "zip"
       )[]
     | null
   phone_number_collection: t_payment_links_resource_phone_number_collection
@@ -8790,6 +8936,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -10866,6 +11013,7 @@ export type t_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -11067,6 +11215,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -11329,6 +11478,7 @@ export type t_terminal_configuration = {
   name?: string | null
   object: "terminal.configuration"
   offline?: t_terminal_configuration_configuration_resource_offline_config
+  reboot_window?: t_terminal_configuration_configuration_resource_reboot_window
   stripe_s700?: t_terminal_configuration_configuration_resource_device_type_specific_config
   tipping?: t_terminal_configuration_configuration_resource_tipping
   verifone_p400?: t_terminal_configuration_configuration_resource_device_type_specific_config
@@ -11390,6 +11540,11 @@ export type t_terminal_configuration_configuration_resource_device_type_specific
 
 export type t_terminal_configuration_configuration_resource_offline_config = {
   enabled?: boolean | null
+}
+
+export type t_terminal_configuration_configuration_resource_reboot_window = {
+  end_hour: number
+  start_hour: number
 }
 
 export type t_terminal_configuration_configuration_resource_tipping = {
@@ -12917,7 +13072,7 @@ export type t_GetBillingMetersIdEventSummariesQuerySchema = {
   limit?: number
   start_time: number
   starting_after?: string
-  value_grouping_window?: "hour"
+  value_grouping_window?: "day" | "hour"
 }
 
 export type t_GetBillingPortalConfigurationsBodySchema = EmptyObject
@@ -13224,6 +13379,7 @@ export type t_GetCreditNotesPreviewQuerySchema = {
   amount?: number
   credit_amount?: number
   effective_at?: number
+  email_type?: "credit_note" | "none"
   expand?: string[]
   invoice: string
   lines?: {
@@ -13266,6 +13422,7 @@ export type t_GetCreditNotesPreviewLinesQuerySchema = {
   amount?: number
   credit_amount?: number
   effective_at?: number
+  email_type?: "credit_note" | "none"
   ending_before?: string
   expand?: string[]
   invoice: string
@@ -14125,6 +14282,7 @@ export type t_GetInvoicesUpcomingQuerySchema = {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -14499,6 +14657,7 @@ export type t_GetInvoicesUpcomingLinesQuerySchema = {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -19673,6 +19832,7 @@ export type t_PostCreditNotesBodySchema = {
   amount?: number
   credit_amount?: number
   effective_at?: number
+  email_type?: "credit_note" | "none"
   expand?: string[]
   invoice: string
   lines?: {
@@ -19828,6 +19988,7 @@ export type t_PostCustomersBodySchema = {
       | "ca_pst_mb"
       | "ca_pst_sk"
       | "ca_qst"
+      | "ch_uid"
       | "ch_vat"
       | "cl_tin"
       | "cn_tin"
@@ -20476,6 +20637,9 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
       us_bank_account?:
         | {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -20724,6 +20888,9 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
         us_bank_account?:
           | {
               financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
                 permissions?: (
                   | "balances"
                   | "ownership"
@@ -20819,6 +20986,7 @@ export type t_PostCustomersCustomerTaxIdsBodySchema = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -21058,6 +21226,13 @@ export type t_PostFinancialConnectionsSessionsBodySchema = {
   }
   expand?: string[]
   filters?: {
+    account_subcategories?: (
+      | "checking"
+      | "credit_card"
+      | "line_of_credit"
+      | "mortgage"
+      | "savings"
+    )[]
     countries?: string[]
   }
   permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
@@ -21331,6 +21506,9 @@ export type t_PostInvoicesBodySchema = {
       us_bank_account?:
         | {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -21495,6 +21673,7 @@ export type t_PostInvoicesCreatePreviewBodySchema = {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -21852,6 +22031,9 @@ export type t_PostInvoicesInvoiceBodySchema = {
       us_bank_account?:
         | {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -26200,6 +26382,13 @@ export type t_PostLinkAccountSessionsBodySchema = {
   }
   expand?: string[]
   filters?: {
+    account_subcategories?: (
+      | "checking"
+      | "credit_card"
+      | "line_of_credit"
+      | "mortgage"
+      | "savings"
+    )[]
     countries?: string[]
   }
   permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
@@ -26862,6 +27051,9 @@ export type t_PostPaymentIntentsBodySchema = {
     us_bank_account?:
       | {
           financial_connections?: {
+            filters?: {
+              account_subcategories?: ("checking" | "savings")[]
+            }
             permissions?: (
               | "balances"
               | "ownership"
@@ -27542,6 +27734,9 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     us_bank_account?:
       | {
           financial_connections?: {
+            filters?: {
+              account_subcategories?: ("checking" | "savings")[]
+            }
             permissions?: (
               | "balances"
               | "ownership"
@@ -28282,6 +28477,9 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     us_bank_account?:
       | {
           financial_connections?: {
+            filters?: {
+              account_subcategories?: ("checking" | "savings")[]
+            }
             permissions?: (
               | "balances"
               | "ownership"
@@ -28524,6 +28722,7 @@ export type t_PostPaymentLinksBodySchema = {
     | "konbini"
     | "link"
     | "mobilepay"
+    | "multibanco"
     | "oxxo"
     | "p24"
     | "paynow"
@@ -28533,8 +28732,10 @@ export type t_PostPaymentLinksBodySchema = {
     | "sepa_debit"
     | "sofort"
     | "swish"
+    | "twint"
     | "us_bank_account"
     | "wechat_pay"
+    | "zip"
   )[]
   phone_number_collection?: {
     enabled: boolean
@@ -28959,6 +29160,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "konbini"
         | "link"
         | "mobilepay"
+        | "multibanco"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -28968,8 +29170,10 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
+        | "zip"
       )[]
     | ""
   restrictions?:
@@ -31616,6 +31820,9 @@ export type t_PostSetupIntentsBodySchema = {
     }
     us_bank_account?: {
       financial_connections?: {
+        filters?: {
+          account_subcategories?: ("checking" | "savings")[]
+        }
         permissions?: (
           | "balances"
           | "ownership"
@@ -31948,6 +32155,9 @@ export type t_PostSetupIntentsIntentBodySchema = {
     }
     us_bank_account?: {
       financial_connections?: {
+        filters?: {
+          account_subcategories?: ("checking" | "savings")[]
+        }
         permissions?: (
           | "balances"
           | "ownership"
@@ -32300,6 +32510,9 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
     }
     us_bank_account?: {
       financial_connections?: {
+        filters?: {
+          account_subcategories?: ("checking" | "savings")[]
+        }
         permissions?: (
           | "balances"
           | "ownership"
@@ -33143,6 +33356,9 @@ export type t_PostSubscriptionsBodySchema = {
       us_bank_account?:
         | {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -33388,6 +33604,9 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
       us_bank_account?:
         | {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -33505,6 +33724,7 @@ export type t_PostTaxCalculationsBodySchema = {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -33617,6 +33837,7 @@ export type t_PostTaxIdsBodySchema = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "ch_uid"
     | "ch_vat"
     | "cl_tin"
     | "cn_tin"
@@ -34081,6 +34302,10 @@ export type t_PostTerminalConfigurationsBodySchema = {
         enabled: boolean
       }
     | ""
+  reboot_window?: {
+    end_hour: number
+    start_hour: number
+  }
   stripe_s700?: {
     splashscreen?: string | ""
   }
@@ -34174,6 +34399,12 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
   offline?:
     | {
         enabled: boolean
+      }
+    | ""
+  reboot_window?:
+    | {
+        end_hour: number
+        start_hour: number
       }
     | ""
   stripe_s700?:
@@ -34685,6 +34916,52 @@ export type t_PostTestHelpersIssuingAuthorizationsBodySchema = {
   card: string
   currency?: string
   expand?: string[]
+  fleet?: {
+    cardholder_prompt_data?: {
+      driver_id?: string
+      odometer?: number
+      unspecified_id?: string
+      user_id?: string
+      vehicle_number?: string
+    }
+    purchase_type?:
+      | "fuel_and_non_fuel_purchase"
+      | "fuel_purchase"
+      | "non_fuel_purchase"
+    reported_breakdown?: {
+      fuel?: {
+        gross_amount_decimal?: string
+      }
+      non_fuel?: {
+        gross_amount_decimal?: string
+      }
+      tax?: {
+        local_amount_decimal?: string
+        national_amount_decimal?: string
+      }
+    }
+    service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+  }
+  fuel?: {
+    industry_product_code?: string
+    quantity_decimal?: string
+    type?:
+      | "diesel"
+      | "other"
+      | "unleaded_plus"
+      | "unleaded_regular"
+      | "unleaded_super"
+    unit?:
+      | "charging_minute"
+      | "imperial_gallon"
+      | "kilogram"
+      | "kilowatt_hour"
+      | "liter"
+      | "other"
+      | "pound"
+      | "us_gallon"
+    unit_cost_decimal?: string
+  }
   is_amount_controllable?: boolean
   merchant_data?: {
     category?:
@@ -35016,6 +35293,32 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
     close_authorization?: boolean
     expand?: string[]
     purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
       flight?: {
         departure_at?: number
         passenger_name?: string
@@ -35031,6 +35334,7 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema
         travel_agency?: string
       }
       fuel?: {
+        industry_product_code?: string
         quantity_decimal?: string
         type?:
           | "diesel"
@@ -35074,6 +35378,63 @@ export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireBodySchema 
   }
 
 export type t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema =
+  {
+    authorization: string
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema =
+  {
+    expand?: string[]
+    final_amount: number
+    fleet?: {
+      cardholder_prompt_data?: {
+        driver_id?: string
+        odometer?: number
+        unspecified_id?: string
+        user_id?: string
+        vehicle_number?: string
+      }
+      purchase_type?:
+        | "fuel_and_non_fuel_purchase"
+        | "fuel_purchase"
+        | "non_fuel_purchase"
+      reported_breakdown?: {
+        fuel?: {
+          gross_amount_decimal?: string
+        }
+        non_fuel?: {
+          gross_amount_decimal?: string
+        }
+        tax?: {
+          local_amount_decimal?: string
+          national_amount_decimal?: string
+        }
+      }
+      service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+    }
+    fuel?: {
+      industry_product_code?: string
+      quantity_decimal?: string
+      type?:
+        | "diesel"
+        | "other"
+        | "unleaded_plus"
+        | "unleaded_regular"
+        | "unleaded_super"
+      unit?:
+        | "charging_minute"
+        | "imperial_gallon"
+        | "kilogram"
+        | "kilowatt_hour"
+        | "liter"
+        | "other"
+        | "pound"
+        | "us_gallon"
+      unit_cost_decimal?: string
+    }
+  }
+
+export type t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema =
   {
     authorization: string
   }
@@ -35495,6 +35856,32 @@ export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
     url?: string
   }
   purchase_details?: {
+    fleet?: {
+      cardholder_prompt_data?: {
+        driver_id?: string
+        odometer?: number
+        unspecified_id?: string
+        user_id?: string
+        vehicle_number?: string
+      }
+      purchase_type?:
+        | "fuel_and_non_fuel_purchase"
+        | "fuel_purchase"
+        | "non_fuel_purchase"
+      reported_breakdown?: {
+        fuel?: {
+          gross_amount_decimal?: string
+        }
+        non_fuel?: {
+          gross_amount_decimal?: string
+        }
+        tax?: {
+          local_amount_decimal?: string
+          national_amount_decimal?: string
+        }
+      }
+      service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+    }
     flight?: {
       departure_at?: number
       passenger_name?: string
@@ -35510,6 +35897,7 @@ export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
       travel_agency?: string
     }
     fuel?: {
+      industry_product_code?: string
       quantity_decimal?: string
       type?:
         | "diesel"
@@ -35854,6 +36242,32 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
       url?: string
     }
     purchase_details?: {
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
       flight?: {
         departure_at?: number
         passenger_name?: string
@@ -35869,6 +36283,7 @@ export type t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema =
         travel_agency?: string
       }
       fuel?: {
+        industry_product_code?: string
         quantity_decimal?: string
         type?:
           | "diesel"

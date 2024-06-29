@@ -1827,6 +1827,7 @@ export type t_dependency_graph_spdx_sbom = {
     name: string
     packages: {
       SPDXID?: string
+      copyrightText?: string
       downloadLocation?: string
       externalRefs?: {
         referenceCategory: string
@@ -5889,6 +5890,7 @@ export type t_repository_ruleset_conditions_repository_name_target = {
 export type t_repository_ruleset_conditions_repository_property_spec = {
   name: string
   property_values: string[]
+  source?: "custom" | "system"
 }
 
 export type t_repository_ruleset_conditions_repository_property_target = {
@@ -6316,6 +6318,42 @@ export type t_short_branch = {
   protected: boolean
   protection?: t_branch_protection
   protection_url?: string
+}
+
+export type t_sigstore_bundle_0 = {
+  dsseEnvelope?: {
+    payload?: string
+    payloadType?: string
+    signatures?: {
+      keyid?: string
+      sig?: string
+    }[]
+  }
+  mediaType?: string
+  verificationMaterial?: {
+    timestampVerificationData?: string | null
+    tlogEntries?: {
+      canonicalizedBody?: string
+      inclusionPromise?: {
+        signedEntryTimestamp?: string
+      }
+      inclusionProof?: string | null
+      integratedTime?: string
+      kindVersion?: {
+        kind?: string
+        version?: string
+      }
+      logId?: {
+        keyId?: string
+      }
+      logIndex?: string
+    }[]
+    x509CertificateChain?: {
+      certificates?: {
+        rawBytes?: string
+      }[]
+    }
+  }
 }
 
 export type t_simple_classroom = {

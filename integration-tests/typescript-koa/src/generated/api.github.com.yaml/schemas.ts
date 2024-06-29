@@ -983,6 +983,7 @@ export const s_dependency_graph_spdx_sbom = z.object({
         licenseConcluded: z.string().optional(),
         licenseDeclared: z.string().optional(),
         supplier: z.string().optional(),
+        copyrightText: z.string().optional(),
         externalRefs: z
           .array(
             z.object({
@@ -2461,7 +2462,11 @@ export const s_repository_ruleset_conditions_repository_name_target = z.object({
 })
 
 export const s_repository_ruleset_conditions_repository_property_spec =
-  z.object({ name: z.string(), property_values: z.array(z.string()) })
+  z.object({
+    name: z.string(),
+    property_values: z.array(z.string()),
+    source: z.enum(["custom", "system"]).optional(),
+  })
 
 export const s_repository_subscription = z.object({
   subscribed: PermissiveBoolean,
@@ -2740,6 +2745,56 @@ export const s_selected_actions = z.object({
 export const s_selected_actions_url = z.string()
 
 export const s_short_blob = z.object({ url: z.string(), sha: z.string() })
+
+export const s_sigstore_bundle_0 = z.object({
+  mediaType: z.string().optional(),
+  verificationMaterial: z
+    .object({
+      x509CertificateChain: z
+        .object({
+          certificates: z
+            .array(z.object({ rawBytes: z.string().optional() }))
+            .optional(),
+        })
+        .optional(),
+      tlogEntries: z
+        .array(
+          z.object({
+            logIndex: z.string().optional(),
+            logId: z.object({ keyId: z.string().optional() }).optional(),
+            kindVersion: z
+              .object({
+                kind: z.string().optional(),
+                version: z.string().optional(),
+              })
+              .optional(),
+            integratedTime: z.string().optional(),
+            inclusionPromise: z
+              .object({ signedEntryTimestamp: z.string().optional() })
+              .optional(),
+            inclusionProof: z.string().nullable().optional(),
+            canonicalizedBody: z.string().optional(),
+          }),
+        )
+        .optional(),
+      timestampVerificationData: z.string().nullable().optional(),
+    })
+    .optional(),
+  dsseEnvelope: z
+    .object({
+      payload: z.string().optional(),
+      payloadType: z.string().optional(),
+      signatures: z
+        .array(
+          z.object({
+            sig: z.string().optional(),
+            keyid: z.string().optional(),
+          }),
+        )
+        .optional(),
+    })
+    .optional(),
+})
 
 export const s_simple_classroom = z.object({
   id: z.coerce.number(),

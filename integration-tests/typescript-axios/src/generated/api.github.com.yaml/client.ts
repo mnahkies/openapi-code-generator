@@ -258,6 +258,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -3160,6 +3161,47 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async orgsListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      attestations?: {
+        bundle?: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+        repository_id?: number
+      }[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -9829,6 +9871,85 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposCreateAttestation(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        bundle: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      id?: number
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/attestations`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposListAttestations(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      before?: string
+      after?: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      attestations?: {
+        bundle?: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+        repository_id?: number
+      }[]
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21698,6 +21819,23 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async usersGetById(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_private_user | t_public_user>> {
+    const url = `/user/${p["accountId"]}`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async usersList(
     p: {
       since?: number
@@ -21728,6 +21866,41 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async usersListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    | AxiosResponse<{
+        attestations?: {
+          bundle?: t_sigstore_bundle_0
+          repository_id?: number
+        }[]
+      }>
+    | AxiosResponse<t_empty_object>
+    | AxiosResponse<void>
+  > {
+    const url = `/users/${p["username"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),

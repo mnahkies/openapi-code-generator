@@ -260,6 +260,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -3153,6 +3154,48 @@ export class ApiClient extends AbstractFetchClient {
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
 
     return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+  }
+
+  async orgsListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          attestations?: {
+            bundle?: {
+              dsseEnvelope?: {
+                [key: string]: unknown | undefined
+              }
+              mediaType?: string
+              verificationMaterial?: {
+                [key: string]: unknown | undefined
+              }
+            }
+            repository_id?: number
+          }[]
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async orgsListBlockedUsers(
@@ -9953,6 +9996,91 @@ export class ApiClient extends AbstractFetchClient {
       `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async reposCreateAttestation(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        bundle: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          201,
+          {
+            id?: number
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/attestations`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async reposListAttestations(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      before?: string
+      after?: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          attestations?: {
+            bundle?: {
+              dsseEnvelope?: {
+                [key: string]: unknown | undefined
+              }
+              mediaType?: string
+              verificationMaterial?: {
+                [key: string]: unknown | undefined
+              }
+            }
+            repository_id?: number
+          }[]
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async reposListAutolinks(
@@ -22538,6 +22666,22 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
+  async usersGetById(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/user/${p["accountId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
   async usersList(
     p: {
       since?: number
@@ -22566,6 +22710,44 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/users/${p["username"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async usersListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            attestations?: {
+              bundle?: t_sigstore_bundle_0
+              repository_id?: number
+            }[]
+          }
+        >
+      | Res<201, t_empty_object>
+      | Res<204, void>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(

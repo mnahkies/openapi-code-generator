@@ -260,6 +260,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -3491,6 +3492,47 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsListAttestations(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    org: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -10656,6 +10698,85 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposCreateAttestation(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      bundle: {
+        dsseEnvelope?: {
+          [key: string]: unknown | undefined
+        }
+        mediaType?: string
+        verificationMaterial?: {
+          [key: string]: unknown | undefined
+        }
+      }
+    }
+  }): Observable<
+    | (HttpResponse<{
+        id?: number
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/attestations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposListAttestations(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    before?: string
+    after?: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -23881,6 +24002,23 @@ export class ApiClient {
     )
   }
 
+  usersGetById(p: {
+    accountId: number
+  }): Observable<
+    | (HttpResponse<t_private_user | t_public_user> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/user/${p["accountId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   usersList(
     p: {
       since?: number
@@ -23918,6 +24056,42 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersListAttestations(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    username: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: t_sigstore_bundle_0
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | (HttpResponse<t_empty_object> & { status: 201 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/users/${p["username"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },

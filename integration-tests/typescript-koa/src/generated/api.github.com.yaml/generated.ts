@@ -675,6 +675,8 @@ import {
   t_OrgsGetWebhookParamSchema,
   t_OrgsListAppInstallationsParamSchema,
   t_OrgsListAppInstallationsQuerySchema,
+  t_OrgsListAttestationsParamSchema,
+  t_OrgsListAttestationsQuerySchema,
   t_OrgsListBlockedUsersParamSchema,
   t_OrgsListBlockedUsersQuerySchema,
   t_OrgsListCustomPropertiesValuesForReposParamSchema,
@@ -933,6 +935,8 @@ import {
   t_ReposCodeownersErrorsQuerySchema,
   t_ReposCompareCommitsParamSchema,
   t_ReposCompareCommitsQuerySchema,
+  t_ReposCreateAttestationBodySchema,
+  t_ReposCreateAttestationParamSchema,
   t_ReposCreateAutolinkBodySchema,
   t_ReposCreateAutolinkParamSchema,
   t_ReposCreateCommitCommentBodySchema,
@@ -1091,6 +1095,8 @@ import {
   t_ReposGetWebhookParamSchema,
   t_ReposListActivitiesParamSchema,
   t_ReposListActivitiesQuerySchema,
+  t_ReposListAttestationsParamSchema,
+  t_ReposListAttestationsQuerySchema,
   t_ReposListAutolinksParamSchema,
   t_ReposListBranchesForHeadCommitParamSchema,
   t_ReposListBranchesParamSchema,
@@ -1350,12 +1356,15 @@ import {
   t_UsersDeleteSocialAccountForAuthenticatedUserBodySchema,
   t_UsersDeleteSshSigningKeyForAuthenticatedUserParamSchema,
   t_UsersFollowParamSchema,
+  t_UsersGetByIdParamSchema,
   t_UsersGetByUsernameParamSchema,
   t_UsersGetContextForUserParamSchema,
   t_UsersGetContextForUserQuerySchema,
   t_UsersGetGpgKeyForAuthenticatedUserParamSchema,
   t_UsersGetPublicSshKeyForAuthenticatedUserParamSchema,
   t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema,
+  t_UsersListAttestationsParamSchema,
+  t_UsersListAttestationsQuerySchema,
   t_UsersListBlockedByAuthenticatedUserQuerySchema,
   t_UsersListEmailsForAuthenticatedUserQuerySchema,
   t_UsersListFollowedByAuthenticatedUserQuerySchema,
@@ -1599,6 +1608,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -1894,6 +1904,7 @@ import {
   s_selected_actions,
   s_short_blob,
   s_short_branch,
+  s_sigstore_bundle_0,
   s_simple_classroom,
   s_simple_classroom_assignment,
   s_simple_user,
@@ -4402,6 +4413,52 @@ export type ActionsRemoveSelectedRepoFromOrgVariable = (
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<409, void>
+>
+
+export type OrgsListAttestationsResponder = {
+  with200(): KoaRuntimeResponse<{
+    attestations?: {
+      bundle?: {
+        dsseEnvelope?: {
+          [key: string]: unknown | undefined
+        }
+        mediaType?: string
+        verificationMaterial?: {
+          [key: string]: unknown | undefined
+        }
+      }
+      repository_id?: number
+    }[]
+  }>
+} & KoaRuntimeResponder
+
+export type OrgsListAttestations = (
+  params: Params<
+    t_OrgsListAttestationsParamSchema,
+    t_OrgsListAttestationsQuerySchema,
+    void
+  >,
+  respond: OrgsListAttestationsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }
+    >
 >
 
 export type OrgsListBlockedUsersResponder = {
@@ -9752,6 +9809,80 @@ export type IssuesCheckUserCanBeAssigned = (
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<404, t_basic_error>
+>
+
+export type ReposCreateAttestationResponder = {
+  with201(): KoaRuntimeResponse<{
+    id?: number
+  }>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type ReposCreateAttestation = (
+  params: Params<
+    t_ReposCreateAttestationParamSchema,
+    void,
+    t_ReposCreateAttestationBodySchema
+  >,
+  respond: ReposCreateAttestationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      201,
+      {
+        id?: number
+      }
+    >
+  | Response<403, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
+export type ReposListAttestationsResponder = {
+  with200(): KoaRuntimeResponse<{
+    attestations?: {
+      bundle?: {
+        dsseEnvelope?: {
+          [key: string]: unknown | undefined
+        }
+        mediaType?: string
+        verificationMaterial?: {
+          [key: string]: unknown | undefined
+        }
+      }
+      repository_id?: number
+    }[]
+  }>
+} & KoaRuntimeResponder
+
+export type ReposListAttestations = (
+  params: Params<
+    t_ReposListAttestationsParamSchema,
+    t_ReposListAttestationsQuerySchema,
+    void
+  >,
+  respond: ReposListAttestationsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }
+    >
 >
 
 export type ReposListAutolinksResponder = {
@@ -19705,6 +19836,21 @@ export type TeamsListForAuthenticatedUser = (
   | Response<404, t_basic_error>
 >
 
+export type UsersGetByIdResponder = {
+  with200(): KoaRuntimeResponse<t_private_user | t_public_user>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type UsersGetById = (
+  params: Params<t_UsersGetByIdParamSchema, void, void>,
+  respond: UsersGetByIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_private_user | t_public_user>
+  | Response<404, t_basic_error>
+>
+
 export type UsersListResponder = {
   with200(): KoaRuntimeResponse<t_simple_user[]>
   with304(): KoaRuntimeResponse<void>
@@ -19732,6 +19878,42 @@ export type UsersGetByUsername = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_private_user | t_public_user>
+  | Response<404, t_basic_error>
+>
+
+export type UsersListAttestationsResponder = {
+  with200(): KoaRuntimeResponse<{
+    attestations?: {
+      bundle?: t_sigstore_bundle_0
+      repository_id?: number
+    }[]
+  }>
+  with201(): KoaRuntimeResponse<t_empty_object>
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type UsersListAttestations = (
+  params: Params<
+    t_UsersListAttestationsParamSchema,
+    t_UsersListAttestationsQuerySchema,
+    void
+  >,
+  respond: UsersListAttestationsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        attestations?: {
+          bundle?: t_sigstore_bundle_0
+          repository_id?: number
+        }[]
+      }
+    >
+  | Response<201, t_empty_object>
+  | Response<204, void>
   | Response<404, t_basic_error>
 >
 
@@ -20396,6 +20578,7 @@ export type Implementation = {
   actionsSetSelectedReposForOrgVariable: ActionsSetSelectedReposForOrgVariable
   actionsAddSelectedRepoToOrgVariable: ActionsAddSelectedRepoToOrgVariable
   actionsRemoveSelectedRepoFromOrgVariable: ActionsRemoveSelectedRepoFromOrgVariable
+  orgsListAttestations: OrgsListAttestations
   orgsListBlockedUsers: OrgsListBlockedUsers
   orgsCheckBlockedUser: OrgsCheckBlockedUser
   orgsBlockUser: OrgsBlockUser
@@ -20678,6 +20861,8 @@ export type Implementation = {
   reposListActivities: ReposListActivities
   issuesListAssignees: IssuesListAssignees
   issuesCheckUserCanBeAssigned: IssuesCheckUserCanBeAssigned
+  reposCreateAttestation: ReposCreateAttestation
+  reposListAttestations: ReposListAttestations
   reposListAutolinks: ReposListAutolinks
   reposCreateAutolink: ReposCreateAutolink
   reposGetAutolink: ReposGetAutolink
@@ -21175,8 +21360,10 @@ export type Implementation = {
   activityUnstarRepoForAuthenticatedUser: ActivityUnstarRepoForAuthenticatedUser
   activityListWatchedReposForAuthenticatedUser: ActivityListWatchedReposForAuthenticatedUser
   teamsListForAuthenticatedUser: TeamsListForAuthenticatedUser
+  usersGetById: UsersGetById
   usersList: UsersList
   usersGetByUsername: UsersGetByUsername
+  usersListAttestations: UsersListAttestations
   packagesListDockerMigrationConflictingPackagesForUser: PackagesListDockerMigrationConflictingPackagesForUser
   activityListEventsForAuthenticatedUser: ActivityListEventsForAuthenticatedUser
   activityListOrgEventsForAuthenticatedUser: ActivityListOrgEventsForAuthenticatedUser
@@ -29055,6 +29242,97 @@ export function createRouter(implementation: Implementation): KoaRouter {
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsListAttestationsParamSchema = z.object({
+    org: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const orgsListAttestationsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const orgsListAttestationsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          attestations: z
+            .array(
+              z.object({
+                bundle: z
+                  .object({
+                    mediaType: z.string().optional(),
+                    verificationMaterial: z.record(z.unknown()).optional(),
+                    dsseEnvelope: z.record(z.unknown()).optional(),
+                  })
+                  .optional(),
+                repository_id: z.coerce.number().optional(),
+              }),
+            )
+            .optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "orgsListAttestations",
+    "/orgs/:org/attestations/:subject_digest",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsListAttestationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsListAttestationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            attestations?: {
+              bundle?: {
+                dsseEnvelope?: {
+                  [key: string]: unknown | undefined
+                }
+                mediaType?: string
+                verificationMaterial?: {
+                  [key: string]: unknown | undefined
+                }
+              }
+              repository_id?: number
+            }[]
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsListAttestations(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsListAttestationsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -47005,6 +47283,170 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = issuesCheckUserCanBeAssignedResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const reposCreateAttestationParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const reposCreateAttestationBodySchema = z.object({
+    bundle: z.object({
+      mediaType: z.string().optional(),
+      verificationMaterial: z.record(z.unknown()).optional(),
+      dsseEnvelope: z.record(z.unknown()).optional(),
+    }),
+  })
+
+  const reposCreateAttestationResponseValidator = responseValidationFactory(
+    [
+      ["201", z.object({ id: z.coerce.number().optional() })],
+      ["403", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "reposCreateAttestation",
+    "/repos/:owner/:repo/attestations",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposCreateAttestationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          reposCreateAttestationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<{
+            id?: number
+          }>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .reposCreateAttestation(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = reposCreateAttestationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const reposListAttestationsParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const reposListAttestationsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const reposListAttestationsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          attestations: z
+            .array(
+              z.object({
+                bundle: z
+                  .object({
+                    mediaType: z.string().optional(),
+                    verificationMaterial: z.record(z.unknown()).optional(),
+                    dsseEnvelope: z.record(z.unknown()).optional(),
+                  })
+                  .optional(),
+                repository_id: z.coerce.number().optional(),
+              }),
+            )
+            .optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "reposListAttestations",
+    "/repos/:owner/:repo/attestations/:subject_digest",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposListAttestationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposListAttestationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            attestations?: {
+              bundle?: {
+                dsseEnvelope?: {
+                  [key: string]: unknown | undefined
+                }
+                mediaType?: string
+                verificationMaterial?: {
+                  [key: string]: unknown | undefined
+                }
+              }
+              repository_id?: number
+            }[]
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .reposListAttestations(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = reposListAttestationsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -79836,6 +80278,53 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const usersGetByIdParamSchema = z.object({ account_id: z.coerce.number() })
+
+  const usersGetByIdResponseValidator = responseValidationFactory(
+    [
+      ["200", z.union([s_private_user, s_public_user])],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get("usersGetById", "/user/:account_id", async (ctx, next) => {
+    const input = {
+      params: parseRequestInput(
+        usersGetByIdParamSchema,
+        ctx.params,
+        RequestInputType.RouteParam,
+      ),
+      query: undefined,
+      body: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_private_user | t_public_user>(200)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .usersGetById(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = usersGetByIdResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
   const usersListQuerySchema = z.object({
     since: z.coerce.number().optional(),
     per_page: z.coerce.number().optional(),
@@ -79932,6 +80421,95 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const usersListAttestationsParamSchema = z.object({
+    username: z.string(),
+    subject_digest: z.string(),
+  })
+
+  const usersListAttestationsQuerySchema = z.object({
+    per_page: z.coerce.number().optional(),
+    before: z.string().optional(),
+    after: z.string().optional(),
+  })
+
+  const usersListAttestationsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          attestations: z
+            .array(
+              z.object({
+                bundle: s_sigstore_bundle_0.optional(),
+                repository_id: z.coerce.number().optional(),
+              }),
+            )
+            .optional(),
+        }),
+      ],
+      ["201", s_empty_object],
+      ["204", z.undefined()],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "usersListAttestations",
+    "/users/:username/attestations/:subject_digest",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          usersListAttestationsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          usersListAttestationsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            attestations?: {
+              bundle?: t_sigstore_bundle_0
+              repository_id?: number
+            }[]
+          }>(200)
+        },
+        with201() {
+          return new KoaRuntimeResponse<t_empty_object>(201)
+        },
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .usersListAttestations(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = usersListAttestationsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const packagesListDockerMigrationConflictingPackagesForUserParamSchema =
     z.object({ username: z.string() })

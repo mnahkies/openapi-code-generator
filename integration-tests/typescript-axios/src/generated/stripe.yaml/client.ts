@@ -3459,7 +3459,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
       startTime: number
       startingAfter?: string
-      valueGroupingWindow?: "hour"
+      valueGroupingWindow?: "day" | "hour"
       requestBody?: EmptyObject
     },
     timeout?: number,
@@ -6070,6 +6070,7 @@ export class ApiClient extends AbstractAxiosClient {
         amount?: number
         credit_amount?: number
         effective_at?: number
+        email_type?: "credit_note" | "none"
         expand?: string[]
         invoice: string
         lines?: {
@@ -6130,6 +6131,7 @@ export class ApiClient extends AbstractAxiosClient {
       amount?: number
       creditAmount?: number
       effectiveAt?: number
+      emailType?: "credit_note" | "none"
       expand?: string[]
       invoice: string
       lines?: {
@@ -6177,6 +6179,7 @@ export class ApiClient extends AbstractAxiosClient {
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       expand: p["expand"],
       invoice: p["invoice"],
       lines: p["lines"],
@@ -6205,6 +6208,7 @@ export class ApiClient extends AbstractAxiosClient {
       amount?: number
       creditAmount?: number
       effectiveAt?: number
+      emailType?: "credit_note" | "none"
       endingBefore?: string
       expand?: string[]
       invoice: string
@@ -6262,6 +6266,7 @@ export class ApiClient extends AbstractAxiosClient {
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       invoice: p["invoice"],
@@ -6589,6 +6594,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -8240,6 +8246,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -8568,6 +8577,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -8775,6 +8787,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "ch_uid"
           | "ch_vat"
           | "cl_tin"
           | "cn_tin"
@@ -9986,6 +9999,13 @@ export class ApiClient extends AbstractAxiosClient {
         }
         expand?: string[]
         filters?: {
+          account_subcategories?: (
+            | "checking"
+            | "credit_card"
+            | "line_of_credit"
+            | "mortgage"
+            | "savings"
+          )[]
           countries?: string[]
         }
         permissions: (
@@ -10934,6 +10954,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -11122,6 +11145,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "ch_uid"
               | "ch_vat"
               | "cl_tin"
               | "cn_tin"
@@ -11507,6 +11531,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -11927,6 +11952,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -12449,6 +12475,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -17912,6 +17941,13 @@ export class ApiClient extends AbstractAxiosClient {
         }
         expand?: string[]
         filters?: {
+          account_subcategories?: (
+            | "checking"
+            | "credit_card"
+            | "line_of_credit"
+            | "mortgage"
+            | "savings"
+          )[]
           countries?: string[]
         }
         permissions: (
@@ -18860,6 +18896,9 @@ export class ApiClient extends AbstractAxiosClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -19639,6 +19678,9 @@ export class ApiClient extends AbstractAxiosClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -20456,6 +20498,9 @@ export class ApiClient extends AbstractAxiosClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -20796,6 +20841,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "konbini"
           | "link"
           | "mobilepay"
+          | "multibanco"
           | "oxxo"
           | "p24"
           | "paynow"
@@ -20805,8 +20851,10 @@ export class ApiClient extends AbstractAxiosClient {
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         )[]
         phone_number_collection?: {
           enabled: boolean
@@ -21282,6 +21330,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "konbini"
               | "link"
               | "mobilepay"
+              | "multibanco"
               | "oxxo"
               | "p24"
               | "paynow"
@@ -21291,8 +21340,10 @@ export class ApiClient extends AbstractAxiosClient {
               | "sepa_debit"
               | "sofort"
               | "swish"
+              | "twint"
               | "us_bank_account"
               | "wechat_pay"
+              | "zip"
             )[]
           | ""
         restrictions?:
@@ -26418,6 +26469,9 @@ export class ApiClient extends AbstractAxiosClient {
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -26802,6 +26856,9 @@ export class ApiClient extends AbstractAxiosClient {
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -27193,6 +27250,9 @@ export class ApiClient extends AbstractAxiosClient {
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -28906,6 +28966,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -29288,6 +29351,9 @@ export class ApiClient extends AbstractAxiosClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -29467,6 +29533,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "ch_uid"
               | "ch_vat"
               | "cl_tin"
               | "cn_tin"
@@ -30349,6 +30416,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "ch_uid"
           | "ch_vat"
           | "cl_tin"
           | "cn_tin"
@@ -30710,6 +30778,10 @@ export class ApiClient extends AbstractAxiosClient {
               enabled: boolean
             }
           | ""
+        reboot_window?: {
+          end_hour: number
+          start_hour: number
+        }
         stripe_s700?: {
           splashscreen?: string | ""
         }
@@ -30877,6 +30949,12 @@ export class ApiClient extends AbstractAxiosClient {
         offline?:
           | {
               enabled: boolean
+            }
+          | ""
+        reboot_window?:
+          | {
+              end_hour: number
+              start_hour: number
             }
           | ""
         stripe_s700?:
@@ -31830,6 +31908,55 @@ export class ApiClient extends AbstractAxiosClient {
         card: string
         currency?: string
         expand?: string[]
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
+        fuel?: {
+          industry_product_code?: string
+          quantity_decimal?: string
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?:
+            | "charging_minute"
+            | "imperial_gallon"
+            | "kilogram"
+            | "kilowatt_hour"
+            | "liter"
+            | "other"
+            | "pound"
+            | "us_gallon"
+          unit_cost_decimal?: string
+        }
         is_amount_controllable?: boolean
         merchant_data?: {
           category?:
@@ -32189,6 +32316,35 @@ export class ApiClient extends AbstractAxiosClient {
         close_authorization?: boolean
         expand?: string[]
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -32204,6 +32360,7 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
             quantity_decimal?: string
             type?:
               | "diesel"
@@ -32266,6 +32423,82 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_issuing_authorization>> {
     const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
+    p: {
+      authorization: string
+      requestBody: {
+        expand?: string[]
+        final_amount: number
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
+        fuel?: {
+          industry_product_code?: string
+          quantity_decimal?: string
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?:
+            | "charging_minute"
+            | "imperial_gallon"
+            | "kilogram"
+            | "kilowatt_hour"
+            | "liter"
+            | "other"
+            | "pound"
+            | "us_gallon"
+          unit_cost_decimal?: string
+        }
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_issuing_authorization>> {
+    const url = `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -32852,6 +33085,35 @@ export class ApiClient extends AbstractAxiosClient {
           url?: string
         }
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -32867,6 +33129,7 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
             quantity_decimal?: string
             type?:
               | "diesel"
@@ -33231,6 +33494,35 @@ export class ApiClient extends AbstractAxiosClient {
           url?: string
         }
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -33246,6 +33538,7 @@ export class ApiClient extends AbstractAxiosClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
             quantity_decimal?: string
             type?:
               | "diesel"

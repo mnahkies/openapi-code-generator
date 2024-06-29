@@ -1807,6 +1807,7 @@ export type t_dependency_graph_spdx_sbom = {
     name: string
     packages: {
       SPDXID?: string
+      copyrightText?: string
       downloadLocation?: string
       externalRefs?: {
         referenceCategory: string
@@ -5783,6 +5784,7 @@ export type t_repository_ruleset_conditions_repository_name_target = {
 export type t_repository_ruleset_conditions_repository_property_spec = {
   name: string
   property_values: string[]
+  source?: "custom" | "system"
 }
 
 export type t_repository_ruleset_conditions_repository_property_target = {
@@ -6210,6 +6212,42 @@ export type t_short_branch = {
   protected: boolean
   protection?: t_branch_protection
   protection_url?: string
+}
+
+export type t_sigstore_bundle_0 = {
+  dsseEnvelope?: {
+    payload?: string
+    payloadType?: string
+    signatures?: {
+      keyid?: string
+      sig?: string
+    }[]
+  }
+  mediaType?: string
+  verificationMaterial?: {
+    timestampVerificationData?: string | null
+    tlogEntries?: {
+      canonicalizedBody?: string
+      inclusionPromise?: {
+        signedEntryTimestamp?: string
+      }
+      inclusionProof?: string | null
+      integratedTime?: string
+      kindVersion?: {
+        kind?: string
+        version?: string
+      }
+      logId?: {
+        keyId?: string
+      }
+      logIndex?: string
+    }[]
+    x509CertificateChain?: {
+      certificates?: {
+        rawBytes?: string
+      }[]
+    }
+  }
 }
 
 export type t_simple_classroom = {
@@ -11078,6 +11116,17 @@ export type t_OrgsListAppInstallationsQuerySchema = {
   per_page?: number
 }
 
+export type t_OrgsListAttestationsParamSchema = {
+  org: string
+  subject_digest: string
+}
+
+export type t_OrgsListAttestationsQuerySchema = {
+  after?: string
+  before?: string
+  per_page?: number
+}
+
 export type t_OrgsListBlockedUsersParamSchema = {
   org: string
 }
@@ -12670,6 +12719,23 @@ export type t_ReposCompareCommitsQuerySchema = {
   per_page?: number
 }
 
+export type t_ReposCreateAttestationBodySchema = {
+  bundle: {
+    dsseEnvelope?: {
+      [key: string]: unknown | undefined
+    }
+    mediaType?: string
+    verificationMaterial?: {
+      [key: string]: unknown | undefined
+    }
+  }
+}
+
+export type t_ReposCreateAttestationParamSchema = {
+  owner: string
+  repo: string
+}
+
 export type t_ReposCreateAutolinkBodySchema = {
   is_alphanumeric?: boolean
   key_prefix: string
@@ -13675,6 +13741,18 @@ export type t_ReposListActivitiesQuerySchema = {
   per_page?: number
   ref?: string
   time_period?: "day" | "week" | "month" | "quarter" | "year"
+}
+
+export type t_ReposListAttestationsParamSchema = {
+  owner: string
+  repo: string
+  subject_digest: string
+}
+
+export type t_ReposListAttestationsQuerySchema = {
+  after?: string
+  before?: string
+  per_page?: number
 }
 
 export type t_ReposListAutolinksParamSchema = {
@@ -15313,6 +15391,10 @@ export type t_UsersFollowParamSchema = {
   username: string
 }
 
+export type t_UsersGetByIdParamSchema = {
+  account_id: number
+}
+
 export type t_UsersGetByUsernameParamSchema = {
   username: string
 }
@@ -15341,6 +15423,17 @@ export type t_UsersGetSshSigningKeyForAuthenticatedUserParamSchema = {
 export type t_UsersListQuerySchema = {
   per_page?: number
   since?: number
+}
+
+export type t_UsersListAttestationsParamSchema = {
+  subject_digest: string
+  username: string
+}
+
+export type t_UsersListAttestationsQuerySchema = {
+  after?: string
+  before?: string
+  per_page?: number
 }
 
 export type t_UsersListBlockedByAuthenticatedUserQuerySchema = {
