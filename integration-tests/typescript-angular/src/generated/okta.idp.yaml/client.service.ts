@@ -3,10 +3,16 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
+  t_Authenticator,
+  t_AuthenticatorEnrollment,
   t_Email,
   t_Error,
+  t_OktaApplication,
+  t_Organization,
+  t_PasswordResponse,
   t_Phone,
   t_Profile,
   t_PushNotificationChallenge,
@@ -107,7 +113,9 @@ export class ApiClient {
     | (HttpResponse<t_Error> & { status: 404 })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/json, okta-version=1.0.0",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -131,7 +139,9 @@ export class ApiClient {
     | (HttpResponse<void> & { status: 400 })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/json;okta-version=1.0.0",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -151,15 +161,15 @@ export class ApiClient {
     enrollmentId: string
     requestBody: t_UpdateAppAuthenticatorEnrollmentRequest
   }): Observable<
-    | (HttpResponse<t_UpdateAppAuthenticatorEnrollmentRequest> & {
-        status: 200
-      })
+    | (HttpResponse<t_AppAuthenticatorEnrollment> & { status: 200 })
     | (HttpResponse<t_Error> & { status: 401 })
     | (HttpResponse<t_Error> & { status: 403 })
     | (HttpResponse<t_Error> & { status: 404 })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -199,12 +209,101 @@ export class ApiClient {
     enrollmentId: string
   }): Observable<
     | (HttpResponse<t_PushNotificationChallenge[]> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 401 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
         `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  listAuthenticators(
+    p: {
+      expand?: string
+    } = {},
+  ): Observable<
+    | (HttpResponse<t_Authenticator[]> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({ expand: p["expand"] })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/authenticators`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getAuthenticator(p: {
+    authenticatorId: string
+    expand?: string
+  }): Observable<
+    | (HttpResponse<t_Authenticator> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({ expand: p["expand"] })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/idp/myaccount/authenticators/${p["authenticatorId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  listEnrollments(p: {
+    authenticatorId: string
+  }): Observable<
+    | (HttpResponse<t_AuthenticatorEnrollment[]> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getEnrollment(p: {
+    authenticatorId: string
+    enrollmentId: string
+  }): Observable<
+    | (HttpResponse<t_AuthenticatorEnrollment> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`,
       {
         observe: "response",
         reportProgress: false,
@@ -282,7 +381,6 @@ export class ApiClient {
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<t_Error> & { status: 400 })
     | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
     | (HttpResponse<t_Error> & { status: 404 })
     | HttpResponse<unknown>
   > {
@@ -306,13 +404,13 @@ export class ApiClient {
         _links: {
           poll: {
             hints: {
-              allow: string[]
+              allow: "GET"[]
             }
             href: string
           }
           verify: {
             hints: {
-              allow: string[]
+              allow: "POST"[]
             }
             href: string
           }
@@ -322,7 +420,7 @@ export class ApiClient {
         profile: {
           email: string
         }
-        status: string
+        status: "VERIFIED" | "UNVERIFIED"
       }> & { status: 201 })
     | (HttpResponse<t_Error> & { status: 401 })
     | (HttpResponse<t_Error> & { status: 403 })
@@ -352,13 +450,13 @@ export class ApiClient {
         _links: {
           poll: {
             hints: {
-              allow: string[]
+              allow: ("DELETE" | "GET" | "POST" | "PUT")[]
             }
             href: string
           }
           verify: {
             hints: {
-              allow: string[]
+              allow: ("DELETE" | "GET" | "POST" | "PUT")[]
             }
             href: string
           }
@@ -368,7 +466,7 @@ export class ApiClient {
         profile: {
           email: string
         }
-        status: string
+        status: "VERIFIED" | "UNVERIFIED"
       }> & { status: 200 })
     | (HttpResponse<t_Error> & { status: 401 })
     | (HttpResponse<t_Error> & { status: 404 })
@@ -414,6 +512,123 @@ export class ApiClient {
     )
   }
 
+  listOktaApplications(): Observable<
+    | (HttpResponse<t_OktaApplication[]> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 400 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/okta-applications`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getOrganization(): Observable<
+    | (HttpResponse<t_Organization> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/organization`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getPassword(): Observable<
+    | (HttpResponse<t_PasswordResponse> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/idp/myaccount/password`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  createPassword(p: {
+    requestBody: {
+      profile: {
+        password: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_PasswordResponse> & { status: 201 })
+    | (HttpResponse<t_Error> & { status: 400 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/idp/myaccount/password`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  replacePassword(p: {
+    requestBody: {
+      profile: {
+        password: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_PasswordResponse> & { status: 201 })
+    | (HttpResponse<t_Error> & { status: 400 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath + `/idp/myaccount/password`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  deletePassword(): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/idp/myaccount/password`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   listPhones(): Observable<
     | (HttpResponse<t_Phone[]> & { status: 200 })
     | (HttpResponse<t_Error> & { status: 401 })
@@ -432,7 +647,7 @@ export class ApiClient {
   createPhone(p: {
     requestBody: {
       method?: "SMS" | "CALL"
-      profile?: {
+      profile: {
         phoneNumber?: string
       }
       sendCode?: boolean
@@ -509,7 +724,7 @@ export class ApiClient {
         _links?: {
           verify?: {
             hints: {
-              allow: string[]
+              allow: "GET"[]
             }
             href: string
           }
@@ -583,15 +798,12 @@ export class ApiClient {
 
   replaceProfile(p: {
     requestBody: {
-      profile?: {
-        [key: string]: unknown | undefined
-      }
+      profile?: EmptyObject
     }
   }): Observable<
     | (HttpResponse<t_Profile> & { status: 200 })
     | (HttpResponse<t_Error> & { status: 400 })
     | (HttpResponse<t_Error> & { status: 401 })
-    | (HttpResponse<t_Error> & { status: 403 })
     | HttpResponse<unknown>
   > {
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -617,6 +829,22 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/idp/myaccount/profile/schema`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  deleteSessions(): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath + `/idp/myaccount/sessions`,
       {
         observe: "response",
         reportProgress: false,

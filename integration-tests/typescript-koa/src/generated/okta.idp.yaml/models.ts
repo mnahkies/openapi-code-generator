@@ -26,7 +26,17 @@ export type t_AppAuthenticatorEnrollment = {
   }
   methods?: {
     push?: {
-      [key: string]: unknown | undefined
+      createdDate?: string
+      id?: string
+      lastUpdated?: string
+      links?: {
+        pending?: {
+          hints?: {
+            allow?: "GET"[]
+          }
+          href?: string
+        }
+      }
     }
   }
   readonly user?: {
@@ -39,29 +49,74 @@ export type t_AppAuthenticatorMethodCapabilities = {
   transactionTypes?: ("LOGIN" | "CIBA")[]
 }
 
+export type t_Authenticator = {
+  readonly _embedded?: {
+    enrollments?: t_AuthenticatorEnrollment[]
+  }
+  readonly _links?: {
+    enrollments?: t_HrefObject
+    self?: t_HrefObject
+  }
+  readonly enrollable?: boolean
+  readonly id?: string
+  key?: t_AuthenticatorKey
+  readonly name?: string
+}
+
+export type t_AuthenticatorEnrollment = {
+  readonly _links?: {
+    authenticator?: t_HrefObject
+    self?: t_HrefObject
+  }
+  readonly canReset?: boolean
+  readonly canUnenroll?: boolean
+  readonly created?: string
+  readonly id?: string
+  readonly lastChallenged?: string
+  name?: string
+  readonly profile?: EmptyObject
+}
+
+export type t_AuthenticatorKey =
+  | "custom_app"
+  | "custom_otp"
+  | "duo"
+  | "external_idp"
+  | "google_otp"
+  | "okta_email"
+  | "okta_password"
+  | "okta_verify"
+  | "onprem_mfa"
+  | "phone_number"
+  | "rsa_token"
+  | "security_question"
+  | "symantec_vip"
+  | "webauthn"
+  | "yubikey_token"
+
 export type t_Email = {
   _links?: {
     challenge?: {
       hints?: {
-        allow?: string[]
+        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
       }
       href?: string
     }
     poll?: {
       hints?: {
-        allow?: string[]
+        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
       }
       href?: string
     }
     self?: {
       hints?: {
-        allow?: string[]
+        allow?: ("GET" | "DELETE" | "PUT")[]
       }
       href?: string
     }
     verify?: {
       hints?: {
-        allow?: string[]
+        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
       }
       href?: string
     }
@@ -70,8 +125,8 @@ export type t_Email = {
   profile: {
     email: string
   }
-  roles: string[]
-  readonly status: string
+  roles: ("PRIMARY" | "SECONDARY")[]
+  readonly status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Error = {
@@ -83,6 +138,17 @@ export type t_Error = {
   readonly errorLink?: string
   readonly errorSummary?: string
 }
+
+export type t_HrefObject = {
+  hints?: {
+    allow?: t_HttpMethod[]
+  }
+  href: string
+  name?: string
+  type?: string
+}
+
+export type t_HttpMethod = "DELETE" | "GET" | "POST" | "PUT"
 
 export type t_KeyEC = {
   crv: "P-256"
@@ -103,23 +169,59 @@ export type t_KeyRSA = {
   "okta:kpr": "HARDWARE" | "SOFTWARE"
 }
 
+export type t_OktaApplication = {
+  readonly displayName?: string
+  readonly id?: string
+  readonly name?: string
+}
+
+export type t_Organization = {
+  _links?: {
+    self?: {
+      hints?: {
+        allow?: "GET"[]
+      }
+      href?: string
+    }
+  }
+  readonly helpLink?: string
+  readonly name?: string
+  readonly supportEmail?: string
+  readonly url?: string
+}
+
+export type t_PasswordResponse = {
+  _links?: {
+    self?: {
+      hints?: {
+        allow?: ("DELETE" | "GET" | "PUT")[]
+      }
+      href?: string
+    }
+  }
+  created?: string
+  readonly id?: string
+  lastUpdated?: string
+  status?: string
+}
+
 export type t_Phone = {
   _links?: {
     challenge?: {
       hints?: {
-        allow?: string[]
+        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
       }
       href?: string
     }
     self?: {
       hints?: {
-        allow?: string[]
+        allow?: ("GET" | "DELETE" | "PUT")[]
       }
       href?: string
     }
     verify?: {
       hints?: {
-        allow?: string[]
+        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
       }
       href?: string
     }
@@ -128,7 +230,7 @@ export type t_Phone = {
   profile: {
     phoneNumber: string
   }
-  readonly status: string
+  readonly status: "VERIFIED" | "UNVERIFIED"
 }
 
 export type t_Profile = {
@@ -142,9 +244,7 @@ export type t_Profile = {
   }
   readonly createdAt?: string
   readonly modifiedAt?: string
-  profile?: {
-    [key: string]: unknown | undefined
-  }
+  profile?: EmptyObject
 }
 
 export type t_PushNotificationChallenge = {
@@ -162,18 +262,6 @@ export type t_Schema = {
     }
   }
   readonly properties?: EmptyObject
-}
-
-export type t_UpdateAppAuthenticatorEnrollmentRequest = {
-  methods?: {
-    push?: {
-      capabilities?: t_AppAuthenticatorMethodCapabilities
-      keys?: {
-        userVerification?: t_KeyObject
-      }
-      pushToken?: string
-    }
-  }
 }
 
 export type t_CreateAppAuthenticatorEnrollmentBodySchema = {
@@ -216,9 +304,15 @@ export type t_CreateEmailBodySchema = {
   state?: string
 }
 
+export type t_CreatePasswordBodySchema = {
+  profile: {
+    password: string
+  }
+}
+
 export type t_CreatePhoneBodySchema = {
   method?: "SMS" | "CALL"
-  profile?: {
+  profile: {
     phoneNumber?: string
   }
   sendCode?: boolean
@@ -236,8 +330,21 @@ export type t_DeletePhoneParamSchema = {
   id: string
 }
 
+export type t_GetAuthenticatorParamSchema = {
+  authenticatorId: string
+}
+
+export type t_GetAuthenticatorQuerySchema = {
+  expand?: string
+}
+
 export type t_GetEmailParamSchema = {
   id: string
+}
+
+export type t_GetEnrollmentParamSchema = {
+  authenticatorId: string
+  enrollmentId: string
 }
 
 export type t_GetPhoneParamSchema = {
@@ -249,15 +356,27 @@ export type t_ListAppAuthenticatorPendingPushNotificationChallengesParamSchema =
     enrollmentId: string
   }
 
+export type t_ListAuthenticatorsQuerySchema = {
+  expand?: string
+}
+
+export type t_ListEnrollmentsParamSchema = {
+  authenticatorId: string
+}
+
 export type t_PollChallengeForEmailMagicLinkParamSchema = {
   challengeId: string
   id: string
 }
 
-export type t_ReplaceProfileBodySchema = {
-  profile?: {
-    [key: string]: unknown | undefined
+export type t_ReplacePasswordBodySchema = {
+  profile: {
+    password: string
   }
+}
+
+export type t_ReplaceProfileBodySchema = {
+  profile?: EmptyObject
 }
 
 export type t_SendEmailChallengeBodySchema = {

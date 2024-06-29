@@ -7,17 +7,23 @@ import {
   t_AmrValue,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
+  t_ChallengeRequest,
+  t_ChallengeResponse,
   t_Client,
   t_CodeChallengeMethod,
   t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
+  t_GlobalTokenRevocationRequest,
   t_IntrospectionRequest,
   t_IntrospectionResponse,
+  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OidcMetadata,
+  t_OobAuthenticateRequest,
+  t_OobAuthenticateResponse,
   t_ParRequest,
   t_ParResponse,
   t_Prompt,
@@ -123,6 +129,34 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/oauth2/v1/bc/authorize`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async challenge(
+    p: {
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_ChallengeResponse>
+      | Res<400, t_OAuthError>
+      | Res<401, t_OAuthError>
+      | Res<403, t_OAuthError>
+      | Res<429, t_OAuthError>
+    >
+  > {
+    const url = this.basePath + `/oauth2/v1/challenge`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -292,6 +326,28 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async globalTokenRevocation(
+    p: {
+      requestBody: t_GlobalTokenRevocationRequest
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<204, void> | Res<400, void> | Res<403, t_Error> | Res<429, t_Error>
+    >
+  > {
+    const url = this.basePath + `/oauth2/v1/global-token-revocation`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async introspect(
     p: {
       requestBody: t_IntrospectionRequest
@@ -347,6 +403,54 @@ export class ApiClient extends AbstractFetchClient {
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async logoutWithPost(
+    p: {
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    const url = this.basePath + `/oauth2/v1/logout`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async oobAuthenticate(
+    p: {
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_OobAuthenticateResponse>
+      | Res<400, t_OAuthError>
+      | Res<401, t_OAuthError>
+      | Res<403, t_OAuthError>
+      | Res<429, t_OAuthError>
+    >
+  > {
+    const url = this.basePath + `/oauth2/v1/oob-authenticate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
   }
 
   async parOptions(
@@ -598,6 +702,36 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async challengeCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_ChallengeResponse>
+      | Res<400, t_OAuthError>
+      | Res<401, t_OAuthError>
+      | Res<403, t_OAuthError>
+      | Res<429, t_OAuthError>
+    >
+  > {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/challenge`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async deviceAuthorizeCustomAs(
     p: {
       authorizationServerId: string
@@ -686,6 +820,59 @@ export class ApiClient extends AbstractFetchClient {
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async logoutCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async oobAuthenticateCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_OobAuthenticateResponse>
+      | Res<400, t_OAuthError>
+      | Res<401, t_OAuthError>
+      | Res<403, t_OAuthError>
+      | Res<429, t_OAuthError>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
   }
 
   async parOptionsCustomAs(
