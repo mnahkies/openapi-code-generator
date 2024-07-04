@@ -30,6 +30,7 @@
     "@azure-tools/typespec-client-generator-core": "^0.43.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.5",
+    "@types/prettier": "^3.0.0",
     "@typespec/compiler": "^0.57.0",
     "@typespec/http": "^0.57.0",
     "@typespec/openapi": "^0.57.0",

@@ -1,5 +1,5 @@
-// Note: we can get away with using this in NextJS it seems, but not if using the `node:` prefix
-import path from "node:path"
+// biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
+import path from "path"
 
 export class ImportBuilder {
   private readonly imports: Record<string, Set<string>> = {}
