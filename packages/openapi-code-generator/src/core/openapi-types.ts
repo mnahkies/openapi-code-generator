@@ -248,6 +248,14 @@ export interface Schema {
   externalDocs?: ExternalDocumentation | undefined
   deprecated?: boolean | undefined
   // xml?: XML | undefined
+
+  // TODO: not yet supported by joi
+  "x-alpha-transform"?:
+    | {
+        fn?: string | undefined
+        type?: string | undefined
+      }
+    | undefined
 }
 
 export interface Discriminator {

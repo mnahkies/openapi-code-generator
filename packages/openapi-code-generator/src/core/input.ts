@@ -368,6 +368,7 @@ function normalizeSchemaObject(
   const base: IRModelBase = {
     nullable: schemaObject.nullable || false,
     readOnly: schemaObject.readOnly || false,
+    "x-alpha-transform": schemaObject["x-alpha-transform"],
   }
 
   switch (schemaObject.type) {

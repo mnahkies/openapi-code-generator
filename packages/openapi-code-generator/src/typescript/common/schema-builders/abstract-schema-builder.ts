@@ -163,7 +163,31 @@ export abstract class AbstractSchemaBuilder<
       if (parameter.required) {
         model.required.push(parameter.name)
       }
-      model.properties[parameter.name] = parameter.schema
+
+      // TODO: support $ref properly
+      if (
+        parameter.in === "query" &&
+        !isRef(parameter.schema) &&
+        parameter.schema.type === "array"
+      ) {
+        model.properties[parameter.name] = {
+          type: "object",
+          additionalProperties: false,
+          properties: {},
+          readOnly: false,
+          allOf: [],
+          nullable: false,
+          oneOf: [],
+          required: [],
+          anyOf: [parameter.schema, parameter.schema.items],
+          "x-alpha-transform": {
+            fn: ((it: unknown) =>
+              Array.isArray(it) || it === undefined ? it : [it]).toString(),
+          },
+        }
+      } else {
+        model.properties[parameter.name] = parameter.schema
+      }
     }
 
     return this.fromModel(model, true, true)
@@ -304,6 +328,10 @@ export abstract class AbstractSchemaBuilder<
 
     result = required ? this.required(result) : this.optional(result)
 
+    if (model["x-alpha-transform"]?.fn) {
+      result = this.transform(result, model["x-alpha-transform"]?.fn)
+    }
+
     return result
   }
 
@@ -326,6 +354,11 @@ export abstract class AbstractSchemaBuilder<
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
+
+  protected abstract transform(
+    schema: string,
+    transformation: string | ((it: unknown) => unknown),
+  ): string
 
   protected abstract nullable(schema: string): string
 

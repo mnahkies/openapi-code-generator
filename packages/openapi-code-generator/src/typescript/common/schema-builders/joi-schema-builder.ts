@@ -108,6 +108,14 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected transform(
+    schema: string,
+    transformation: string | ((it: unknown) => unknown),
+  ) {
+    // TODO: is it possible to do arbitrary transformations with `joi`?
+    return schema
+  }
+
   protected nullable(schema: string): string {
     return [schema, "allow(null)"].join(".")
   }

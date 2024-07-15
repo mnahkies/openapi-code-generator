@@ -25,14 +25,14 @@ import {
 
 function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
   return parameters.reduce(
-    (acc, parameter) => {
-      acc.properties[parameter.name] = parameter.schema
+    (model, parameter) => {
+      model.properties[parameter.name] = parameter.schema
 
       if (parameter.required) {
-        acc.required.push(parameter.name)
+        model.required.push(parameter.name)
       }
 
-      return acc
+      return model
     },
     {
       type: "object",
