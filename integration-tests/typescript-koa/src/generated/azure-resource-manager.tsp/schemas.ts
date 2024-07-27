@@ -32,12 +32,6 @@ export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
   description: z.string().optional(),
 })
 
-export const s_EmployeeUpdateProperties = z.object({
-  age: z.coerce.number().optional(),
-  city: z.string().optional(),
-  profile: z.string().optional(),
-})
-
 export const s_MoveRequest = z.object({ from: z.string(), to: z.string() })
 
 export const s_MoveResponse = z.object({ movingStatus: z.string() })
@@ -69,11 +63,6 @@ export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
   lastModifiedAt: z.string().datetime({ offset: true }).optional(),
 })
 
-export const s_EmployeeUpdate = z.object({
-  tags: z.record(z.string()).optional(),
-  properties: s_EmployeeUpdateProperties.optional(),
-})
-
 export const s_Azure_ResourceManager_CommonTypes_Resource = z.object({
   id: z.string().optional(),
   name: z.string().optional(),
@@ -89,7 +78,13 @@ export const s_OperationListResult = z.object({
 export const s_Azure_ResourceManager_CommonTypes_TrackedResource =
   s_Azure_ResourceManager_CommonTypes_Resource
 
+export const s_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate =
+  s_Azure_ResourceManager_CommonTypes_Resource
+
 export const s_Employee = s_Azure_ResourceManager_CommonTypes_TrackedResource
+
+export const s_EmployeeUpdate =
+  s_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate
 
 export const s_EmployeeListResult = z.object({
   value: z.array(s_Employee),
