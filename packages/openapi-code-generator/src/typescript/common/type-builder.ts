@@ -145,13 +145,7 @@ export class TypeBuilder implements ICompilable {
       result.push(...schemaObject.anyOf.flatMap(this.schemaObjectToTypes))
     }
 
-    if (schemaObject["x-alpha-transform"]?.type) {
-      result.push(schemaObject["x-alpha-transform"]?.type)
-    } else if (schemaObject["x-transform"]) {
-      // TODO: differentiate between serialization / deserialization
-      const dereferenced = this.input.transform(schemaObject["x-transform"])
-      result.push(dereferenced.serialize.type)
-    } else if (result.length === 0) {
+    if (result.length === 0) {
       switch (schemaObject.type) {
         case "array": {
           result.push(array(this.schemaObjectToType(schemaObject.items)))

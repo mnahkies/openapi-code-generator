@@ -9,7 +9,7 @@ import type {
   RequestBody,
   Responses,
   Schema,
-  xTransform,
+  xInternalPreproccess,
 } from "./openapi-types"
 import type {
   IRModel,
@@ -21,9 +21,9 @@ import type {
   IRModelString,
   IROperation,
   IRParameter,
+  IRPreprocess,
   IRRef,
   IRResponse,
-  IRTransform,
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
@@ -197,8 +197,8 @@ export class Input {
     return normalizeSchemaObject(schema)
   }
 
-  transform(maybeTransform: Reference | xTransform): IRTransform {
-    return this.loader.transform(maybeTransform)
+  preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
+    return this.loader.preprocess(maybePreprocess)
   }
 
   private normalizeRequestBodyObject(
@@ -374,8 +374,7 @@ function normalizeSchemaObject(
   const base: IRModelBase = {
     nullable: schemaObject.nullable || false,
     readOnly: schemaObject.readOnly || false,
-    "x-alpha-transform": schemaObject["x-alpha-transform"],
-    "x-transform": schemaObject["x-transform"],
+    "x-internal-preprocess": schemaObject["x-internal-preprocess"],
   }
 
   switch (schemaObject.type) {

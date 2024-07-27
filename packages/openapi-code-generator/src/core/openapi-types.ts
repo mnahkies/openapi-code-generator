@@ -172,11 +172,6 @@ export interface Components {
   callbacks?: {
     [callbackName: string]: Callback | Reference
   }
-  "x-transforms"?:
-    | {
-        [transformName: string]: xTransform | Reference
-      }
-    | undefined
 }
 
 export interface Header {
@@ -254,24 +249,17 @@ export interface Schema {
   deprecated?: boolean | undefined
   // xml?: XML | undefined
 
-  // TODO: not yet supported by joi
-  "x-alpha-transform"?:
-    | {
-        fn?: string | undefined
-        type?: string | undefined
-      }
-    | undefined
-  "x-transform"?: xTransform | Reference | undefined
+  "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
 }
 
-export interface xTransform {
-  serialize: {
+export interface xInternalPreproccess {
+  serialize?: {
     fn: string
-    type: string
+    type?: string
   }
-  deserialize: {
+  deserialize?: {
     fn: string
-    type: string
+    type?: string
   }
 }
 

@@ -14,7 +14,7 @@ import type {
   RequestBody,
   Response,
   Schema,
-  xTransform,
+  xInternalPreproccess,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
 import type {OpenapiValidator} from "./openapi-validator"
@@ -74,7 +74,7 @@ export class OpenapiLoader {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 
-  transform(maybeRef: Reference | xTransform): xTransform {
+  preprocess(maybeRef: Reference | xInternalPreproccess): xInternalPreproccess {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 

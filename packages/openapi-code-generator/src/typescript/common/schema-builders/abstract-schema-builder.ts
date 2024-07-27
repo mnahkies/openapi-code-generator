@@ -180,9 +180,11 @@ export abstract class AbstractSchemaBuilder<
           oneOf: [],
           required: [],
           anyOf: [parameter.schema, parameter.schema.items],
-          "x-alpha-transform": {
-            fn: ((it: unknown) =>
-              Array.isArray(it) || it === undefined ? it : [it]).toString(),
+          "x-internal-preprocess": {
+            deserialize: {
+              fn: ((it: unknown) =>
+                Array.isArray(it) || it === undefined ? it : [it]).toString(),
+            },
           },
         }
       } else {
@@ -322,8 +324,13 @@ export abstract class AbstractSchemaBuilder<
       }
     }
 
-    if (model["x-transform"]) {
-      result = model["x-transform"]
+    if (model["x-internal-preprocess"]) {
+      const dereferenced = this.input.loader.preprocess(
+        model["x-internal-preprocess"],
+      )
+      if (dereferenced.deserialize) {
+        result = this.preprocess(result, dereferenced.deserialize.fn)
+      }
     }
 
     if (nullable || model.nullable) {
@@ -331,10 +338,6 @@ export abstract class AbstractSchemaBuilder<
     }
 
     result = required ? this.required(result) : this.optional(result)
-
-    if (model["x-alpha-transform"]?.fn) {
-      result = this.transform(result, model["x-alpha-transform"]?.fn)
-    }
 
     return result
   }
@@ -359,7 +362,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract union(schemas: string[]): string
 
-  protected abstract transform(
+  protected abstract preprocess(
     schema: string,
     transformation: string | ((it: unknown) => unknown),
   ): string

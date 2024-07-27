@@ -9,26 +9,19 @@ export interface IRModelBase {
   nullable: boolean /* false */
   readOnly: boolean /* false */
 
-  "x-alpha-transform"?:
-    | {
-        fn?: string | undefined
-        type?: string | undefined
-      }
-    | undefined
-
-  "x-transform"?: MaybeIRTransform | undefined
+  "x-internal-preprocess"?: MaybeIRPreprocess | undefined
 }
 
-export type MaybeIRTransform = IRTransform | IRRef
+export type MaybeIRPreprocess = IRPreprocess | IRRef
 
-export type IRTransform = {
-  serialize: {
+export type IRPreprocess = {
+  serialize?: {
     fn: string
-    type: string
+    type?: string
   }
-  deserialize: {
+  deserialize?: {
     fn: string
-    type: string
+    type?: string
   }
 }
 

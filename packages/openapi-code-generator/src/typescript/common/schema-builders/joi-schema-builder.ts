@@ -108,7 +108,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected transform(
+  protected preprocess(
     schema: string,
     transformation: string | ((it: unknown) => unknown),
   ) {
