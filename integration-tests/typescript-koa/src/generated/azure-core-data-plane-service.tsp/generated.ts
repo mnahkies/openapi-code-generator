@@ -1040,7 +1040,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     top: z.coerce.number().optional(),
     skip: z.coerce.number().optional(),
     maxpagesize: z.coerce.number().optional(),
-    select: z.array(z.string()).optional(),
+    select: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()),
+      )
+      .optional(),
   })
 
   const widgetsListWidgetsResponseValidator = responseValidationFactory(

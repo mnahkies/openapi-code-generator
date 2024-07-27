@@ -10,13 +10,17 @@ paths:
         schema:
           type: string
           format: date-time
-      - name: status
+      - name: statuses
         in: query
         schema:
-          type: string
-          enum:
-            - incomplete
-            - complete
+          $ref: '#/components/schemas/Statuses'
+      - name: tags
+        in: query
+        schema:
+          type: array
+          items:
+            type:
+              string
     get:
       operationId: getTodoLists
       responses:
@@ -174,7 +178,13 @@ components:
         updated:
           type: string
           format: date-time
-
+    Statuses:
+      type: array
+      items:
+        type: string
+        enum:
+          - incomplete
+          - complete
   parameters:
     listId:
       name: listId

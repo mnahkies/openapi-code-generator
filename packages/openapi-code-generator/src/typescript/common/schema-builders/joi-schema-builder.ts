@@ -108,6 +108,26 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected preprocess(
+    schema: string,
+    transformation: string | ((it: unknown) => unknown),
+  ) {
+    // TODO: yep this is horrid, but trying to create an extension like:
+    //       joi.extend({type: 'maybeArray', prepare: (it) => ({value: Array.isArray(it) || it === undefined ? it : [it]})})
+    //       doesn't appear to be chainable, so not sure where else to go, eg:
+    //       > custom.maybeArray().validate([1,2])
+    //       { value: [ 1, 2 ] }
+    //       > custom.maybeArray().validate(1)
+    //       { value: [ 1 ] }
+    //       > custom.maybeArray().array().items(custom.string()).validate([1,2])
+    //       Uncaught TypeError: custom.maybeArray(...).array is not a function
+    return `{
+      validate(it: unknown, opts: any) {
+        const transformation = ${transformation.toString()}
+        return ${schema}.validate(transformation(it), opts)}
+      }`
+  }
+
   protected nullable(schema: string): string {
     return [schema, "allow(null)"].join(".")
   }

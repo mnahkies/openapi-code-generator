@@ -133,6 +133,15 @@ export class ZodBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
+  protected preprocess(
+    schema: string,
+    transformation: string | ((it: unknown) => unknown),
+  ) {
+    return [zod, `preprocess(${transformation.toString()}, ${schema})`]
+      .filter(isDefined)
+      .join(".")
+  }
+
   protected nullable(schema: string): string {
     return [schema, "nullable()"].filter(isDefined).join(".")
   }

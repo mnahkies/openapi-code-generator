@@ -248,6 +248,19 @@ export interface Schema {
   externalDocs?: ExternalDocumentation | undefined
   deprecated?: boolean | undefined
   // xml?: XML | undefined
+
+  "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
+}
+
+export interface xInternalPreproccess {
+  serialize?: {
+    fn: string
+    type?: string
+  }
+  deserialize?: {
+    fn: string
+    type?: string
+  }
 }
 
 export interface Discriminator {
@@ -265,6 +278,7 @@ export interface Example {
 }
 
 export interface Reference {
+  "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
   $ref: string
 }
 

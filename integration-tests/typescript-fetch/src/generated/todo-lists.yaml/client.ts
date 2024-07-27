@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
+import {
+  t_CreateUpdateTodoList,
+  t_Error,
+  t_Statuses,
+  t_TodoList,
+} from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
@@ -23,13 +28,18 @@ export class ApiClient extends AbstractFetchClient {
   async getTodoLists(
     p: {
       created?: string
-      status?: "incomplete" | "complete"
+      statuses?: t_Statuses
+      tags?: string[]
     } = {},
     timeout?: number,
     opts?: RequestInit,
   ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
     const url = this.basePath + `/list`
-    const query = this._query({ created: p["created"], status: p["status"] })
+    const query = this._query({
+      created: p["created"],
+      statuses: p["statuses"],
+      tags: p["tags"],
+    })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }

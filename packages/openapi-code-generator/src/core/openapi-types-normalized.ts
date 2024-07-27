@@ -1,6 +1,8 @@
+import {xInternalPreproccess} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
+  "x-internal-preprocess"?: MaybeIRPreprocess | undefined
   $ref: string
 }
 
@@ -8,6 +10,21 @@ export interface IRModelBase {
   // Note: meaningless for top level objects, maybe we can exclude these somehow in that case
   nullable: boolean /* false */
   readOnly: boolean /* false */
+
+  "x-internal-preprocess"?: MaybeIRPreprocess | undefined
+}
+
+export type MaybeIRPreprocess = IRPreprocess | IRRef
+
+export type IRPreprocess = {
+  serialize?: {
+    fn: string
+    type?: string
+  }
+  deserialize?: {
+    fn: string
+    type?: string
+  }
 }
 
 export type IRModelNumericFormat = "int32" | "int64" | "float" | "double"

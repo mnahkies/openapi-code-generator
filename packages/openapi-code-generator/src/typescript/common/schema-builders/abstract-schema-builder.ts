@@ -163,7 +163,21 @@ export abstract class AbstractSchemaBuilder<
       if (parameter.required) {
         model.required.push(parameter.name)
       }
-      model.properties[parameter.name] = parameter.schema
+
+      const dereferenced = this.input.loader.schema(parameter.schema)
+
+      if (parameter.in === "query" && dereferenced.type === "array") {
+        model.properties[parameter.name] = {
+          ...parameter.schema,
+          "x-internal-preprocess": {
+            deserialize: {
+              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
+            },
+          },
+        }
+      } else {
+        model.properties[parameter.name] = parameter.schema
+      }
     }
 
     return this.fromModel(model, true, true)
@@ -190,6 +204,15 @@ export abstract class AbstractSchemaBuilder<
 
       if (nullable) {
         result = this.nullable(result)
+      }
+
+      if (maybeModel["x-internal-preprocess"]) {
+        const dereferenced = this.input.loader.preprocess(
+          maybeModel["x-internal-preprocess"],
+        )
+        if (dereferenced.deserialize) {
+          result = this.preprocess(result, dereferenced.deserialize.fn)
+        }
       }
 
       result = required ? this.required(result) : this.optional(result)
@@ -298,6 +321,15 @@ export abstract class AbstractSchemaBuilder<
       }
     }
 
+    if (model["x-internal-preprocess"]) {
+      const dereferenced = this.input.loader.preprocess(
+        model["x-internal-preprocess"],
+      )
+      if (dereferenced.deserialize) {
+        result = this.preprocess(result, dereferenced.deserialize.fn)
+      }
+    }
+
     if (nullable || model.nullable) {
       result = this.nullable(result)
     }
@@ -326,6 +358,11 @@ export abstract class AbstractSchemaBuilder<
   protected abstract intersect(schemas: string[]): string
 
   protected abstract union(schemas: string[]): string
+
+  protected abstract preprocess(
+    schema: string,
+    transformation: string | ((it: unknown) => unknown),
+  ): string
 
   protected abstract nullable(schema: string): string
 

@@ -10,7 +10,7 @@ import {ZodError} from "zod"
 import {KoaRuntimeResponder} from "@nahkies/typescript-koa-runtime/server"
 import {t_Error} from "./generated/petstore-expanded.yaml/models"
 
-const notImplemented = async (
+export const notImplemented = async (
   _: unknown,
   respond: KoaRuntimeResponder<501, t_Error>,
 ) => {
