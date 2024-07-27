@@ -14,7 +14,12 @@ import {
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
 } from "./models"
-import { s_CreateUpdateTodoList, s_Error, s_TodoList } from "./schemas"
+import {
+  s_CreateUpdateTodoList,
+  s_Error,
+  s_Statuses,
+  s_TodoList,
+} from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
@@ -167,7 +172,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getTodoListsQuerySchema = z.object({
     created: z.string().datetime({ offset: true }).optional(),
-    status: z.enum(["incomplete", "complete"]).optional(),
+    statuses: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        s_Statuses,
+      )
+      .optional(),
+    tags: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()),
+      )
+      .optional(),
   })
 
   const getTodoListsResponseValidator = responseValidationFactory(

@@ -7,6 +7,8 @@ export type t_Error = {
   message?: string
 }
 
+export type t_Statuses = ("incomplete" | "complete")[]
+
 export type t_TodoList = {
   created: string
   id: string
@@ -40,7 +42,8 @@ export type t_GetTodoListItemsParamSchema = {
 
 export type t_GetTodoListsQuerySchema = {
   created?: string
-  status?: "incomplete" | "complete"
+  statuses?: t_Statuses
+  tags?: string[]
 }
 
 export type t_UpdateTodoListByIdBodySchema = {

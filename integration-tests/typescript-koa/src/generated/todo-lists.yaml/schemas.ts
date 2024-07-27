@@ -6,6 +6,8 @@ import { z } from "zod"
 
 export const s_CreateUpdateTodoList = z.object({ name: z.string() })
 
+export const s_Statuses = z.array(z.enum(["incomplete", "complete"]))
+
 export const s_TodoList = z.object({
   id: z.string(),
   name: z.string(),

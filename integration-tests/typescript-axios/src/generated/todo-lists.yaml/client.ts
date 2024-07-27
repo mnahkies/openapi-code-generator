@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_CreateUpdateTodoList, t_TodoList } from "./models"
+import { t_CreateUpdateTodoList, t_Statuses, t_TodoList } from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -17,13 +17,18 @@ export class ApiClient extends AbstractAxiosClient {
   async getTodoLists(
     p: {
       created?: string
-      status?: "incomplete" | "complete"
+      statuses?: t_Statuses
+      tags?: string[]
     } = {},
     timeout?: number,
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_TodoList[]>> {
     const url = `/list`
-    const query = this._query({ created: p["created"], status: p["status"] })
+    const query = this._query({
+      created: p["created"],
+      statuses: p["statuses"],
+      tags: p["tags"],
+    })
 
     return this._request({
       url: url + query,

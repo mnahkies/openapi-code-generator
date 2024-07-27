@@ -278,6 +278,7 @@ export interface Example {
 }
 
 export interface Reference {
+  "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
   $ref: string
 }
 

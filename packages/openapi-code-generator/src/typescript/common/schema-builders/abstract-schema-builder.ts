@@ -164,12 +164,9 @@ export abstract class AbstractSchemaBuilder<
         model.required.push(parameter.name)
       }
 
-      // TODO: support $ref properly
-      if (
-        parameter.in === "query" &&
-        !isRef(parameter.schema) &&
-        parameter.schema.type === "array"
-      ) {
+      const dereferenced = this.input.loader.schema(parameter.schema)
+
+      if (parameter.in === "query" && dereferenced.type === "array") {
         model.properties[parameter.name] = {
           ...parameter.schema,
           "x-internal-preprocess": {
@@ -207,6 +204,15 @@ export abstract class AbstractSchemaBuilder<
 
       if (nullable) {
         result = this.nullable(result)
+      }
+
+      if (maybeModel["x-internal-preprocess"]) {
+        const dereferenced = this.input.loader.preprocess(
+          maybeModel["x-internal-preprocess"],
+        )
+        if (dereferenced.deserialize) {
+          result = this.preprocess(result, dereferenced.deserialize.fn)
+        }
       }
 
       result = required ? this.required(result) : this.optional(result)

@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_CreateUpdateTodoList, t_Error, t_TodoList } from "./models"
+import {
+  t_CreateUpdateTodoList,
+  t_Error,
+  t_Statuses,
+  t_TodoList,
+} from "./models"
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
@@ -89,14 +94,16 @@ export class ApiClient {
   getTodoLists(
     p: {
       created?: string
-      status?: "incomplete" | "complete"
+      statuses?: t_Statuses
+      tags?: string[]
     } = {},
   ): Observable<
     (HttpResponse<t_TodoList[]> & { status: 200 }) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       created: p["created"],
-      status: p["status"],
+      statuses: p["statuses"],
+      tags: p["tags"],
     })
 
     return this.httpClient.request<any>("GET", this.config.basePath + `/list`, {

@@ -1,6 +1,8 @@
+import {xInternalPreproccess} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
+  "x-internal-preprocess"?: MaybeIRPreprocess | undefined
   $ref: string
 }
 
