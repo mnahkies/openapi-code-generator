@@ -1414,6 +1414,7 @@ export type t_confirmation_token = {
   mandate_data?: t_confirmation_tokens_resource_mandate_data | null
   object: "confirmation_token"
   payment_intent?: string | null
+  payment_method_options?: t_confirmation_tokens_resource_payment_method_options | null
   payment_method_preview?: t_confirmation_tokens_resource_payment_method_preview | null
   return_url?: string | null
   setup_future_usage?: "off_session" | "on_session" | null
@@ -1438,6 +1439,15 @@ export type t_confirmation_tokens_resource_mandate_data_resource_customer_accept
     user_agent?: string | null
   }
 
+export type t_confirmation_tokens_resource_payment_method_options = {
+  card?: t_confirmation_tokens_resource_payment_method_options_resource_card | null
+}
+
+export type t_confirmation_tokens_resource_payment_method_options_resource_card =
+  {
+    cvc_token?: string | null
+  }
+
 export type t_confirmation_tokens_resource_payment_method_preview = {
   acss_debit?: t_payment_method_acss_debit
   affirm?: t_payment_method_affirm
@@ -1454,6 +1464,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   card?: t_payment_method_card
   card_present?: t_payment_method_card_present
   cashapp?: t_payment_method_cashapp
+  customer?: string | t_customer | null
   customer_balance?: t_payment_method_customer_balance
   eps?: t_payment_method_eps
   fpx?: t_payment_method_fpx
@@ -1561,6 +1572,8 @@ export type t_connect_embedded_account_session_create_components = {
   payments: t_connect_embedded_payments_config_claim
   payouts: t_connect_embedded_payouts_config_claim
   payouts_list: t_connect_embedded_base_config_claim
+  tax_registrations: t_connect_embedded_base_config_claim
+  tax_settings: t_connect_embedded_base_config_claim
 }
 
 export type t_connect_embedded_base_config_claim = {
@@ -1953,12 +1966,32 @@ export type t_customer_session = {
 
 export type t_customer_session_resource_components = {
   buy_button: t_customer_session_resource_components_resource_buy_button
+  payment_element: t_customer_session_resource_components_resource_payment_element
   pricing_table: t_customer_session_resource_components_resource_pricing_table
 }
 
 export type t_customer_session_resource_components_resource_buy_button = {
   enabled: boolean
 }
+
+export type t_customer_session_resource_components_resource_payment_element = {
+  enabled: boolean
+  features?: t_customer_session_resource_components_resource_payment_element_resource_features | null
+}
+
+export type t_customer_session_resource_components_resource_payment_element_resource_features =
+  {
+    payment_method_allow_redisplay_filters: (
+      | "always"
+      | "limited"
+      | "unspecified"
+    )[]
+    payment_method_redisplay: "disabled" | "enabled"
+    payment_method_redisplay_limit?: number | null
+    payment_method_remove: "disabled" | "enabled"
+    payment_method_save: "disabled" | "enabled"
+    payment_method_save_usage?: "off_session" | "on_session" | null
+  }
 
 export type t_customer_session_resource_components_resource_pricing_table = {
   enabled: boolean
@@ -2246,6 +2279,7 @@ export type t_dispute_payment_method_details = {
 
 export type t_dispute_payment_method_details_card = {
   brand: string
+  case_type: "chargeback" | "inquiry"
   network_reason_code?: string | null
 }
 
@@ -3178,6 +3212,7 @@ export type t_invoices_payment_settings = {
         | "ideal"
         | "konbini"
         | "link"
+        | "multibanco"
         | "p24"
         | "paynow"
         | "paypal"
@@ -4296,6 +4331,7 @@ export type t_issuing_card_google_pay = {
 
 export type t_issuing_card_shipping = {
   address: t_address
+  address_validation?: t_issuing_card_shipping_address_validation | null
   carrier?: "dhl" | "fedex" | "royal_mail" | "usps" | null
   customs?: t_issuing_card_shipping_customs | null
   eta?: number | null
@@ -4314,6 +4350,16 @@ export type t_issuing_card_shipping = {
   tracking_number?: string | null
   tracking_url?: string | null
   type: "bulk" | "individual"
+}
+
+export type t_issuing_card_shipping_address_validation = {
+  mode: "disabled" | "normalization_only" | "validation_and_normalization"
+  normalized_address?: t_address | null
+  result?:
+    | "indeterminate"
+    | "likely_deliverable"
+    | "likely_undeliverable"
+    | null
 }
 
 export type t_issuing_card_shipping_customs = {
@@ -6774,6 +6820,7 @@ export type t_payment_intent_processing_customer_notification = {
 export type t_payment_intent_type_specific_payment_method_options_client = {
   capture_method?: "manual" | "manual_preferred"
   installments?: t_payment_flows_installment_options
+  request_incremental_authorization_support?: boolean
   require_cvc_recollection?: boolean
   routing?: t_payment_method_options_card_present_routing
   setup_future_usage?: "none" | "off_session" | "on_session"
@@ -7402,12 +7449,15 @@ export type t_payment_method_card_generated_card = {
 
 export type t_payment_method_card_present = {
   brand?: string | null
+  brand_product?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
+  issuer?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
   preferred_locales?: string[] | null
@@ -7534,6 +7584,7 @@ export type t_payment_method_configuration = {
   sepa_debit?: t_payment_method_config_resource_payment_method_properties
   sofort?: t_payment_method_config_resource_payment_method_properties
   swish?: t_payment_method_config_resource_payment_method_properties
+  twint?: t_payment_method_config_resource_payment_method_properties
   us_bank_account?: t_payment_method_config_resource_payment_method_properties
   wechat_pay?: t_payment_method_config_resource_payment_method_properties
   zip?: t_payment_method_config_resource_payment_method_properties
@@ -7613,7 +7664,9 @@ export type t_payment_method_details_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_details_affirm = EmptyObject
+export type t_payment_method_details_affirm = {
+  transaction_id?: string | null
+}
 
 export type t_payment_method_details_afterpay_clearpay = {
   order_id?: string | null
@@ -7647,7 +7700,9 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_blik = EmptyObject
+export type t_payment_method_details_blik = {
+  buyer_id?: string | null
+}
 
 export type t_payment_method_details_boleto = {
   tax_id: string
@@ -7699,9 +7754,11 @@ export type t_payment_method_details_card_network_token = {
 export type t_payment_method_details_card_present = {
   amount_authorized?: number | null
   brand?: string | null
+  brand_product?: string | null
   capture_before?: number
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   emv_auth_data?: string | null
   exp_month: number
   exp_year: number
@@ -7709,8 +7766,10 @@ export type t_payment_method_details_card_present = {
   funding?: string | null
   generated_card?: string | null
   incremental_authorization_supported: boolean
+  issuer?: string | null
   last4?: string | null
   network?: string | null
+  network_transaction_id?: string | null
   offline?: t_payment_method_details_card_present_offline | null
   overcapture_supported: boolean
   preferred_locales?: string[] | null
@@ -7911,14 +7970,17 @@ export type t_payment_method_details_interac_present = {
   brand?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   emv_auth_data?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
   generated_card?: string | null
+  issuer?: string | null
   last4?: string | null
   network?: string | null
+  network_transaction_id?: string | null
   preferred_locales?: string[] | null
   read_method?:
     | "contact_emv"
@@ -8207,10 +8269,12 @@ export type t_payment_method_interac_present = {
   brand?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
+  issuer?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
   preferred_locales?: string[] | null
@@ -10010,7 +10074,9 @@ export type t_setup_intent_payment_method_options = {
   amazon_pay?:
     | t_setup_intent_payment_method_options_amazon_pay
     | t_setup_intent_type_specific_payment_method_options_client
-  card?: t_setup_intent_payment_method_options_card
+  card?:
+    | t_setup_intent_payment_method_options_card
+    | t_setup_intent_type_specific_payment_method_options_client
   card_present?:
     | t_setup_intent_payment_method_options_card_present
     | t_setup_intent_type_specific_payment_method_options_client
@@ -10829,6 +10895,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "ideal"
         | "konbini"
         | "link"
+        | "multibanco"
         | "p24"
         | "paynow"
         | "paypal"
@@ -10940,6 +11007,7 @@ export type t_tax_transaction = {
     [key: string]: string | undefined
   } | null
   object: "tax.transaction"
+  posted_at: number
   reference: string
   reversal?: t_tax_product_resource_tax_transaction_resource_reversal | null
   ship_from_details?: t_tax_product_resource_ship_from_details | null
@@ -11512,6 +11580,7 @@ export type t_terminal_reader = {
     | "mobile_phone_reader"
     | "simulated_wisepos_e"
     | "stripe_m2"
+    | "stripe_s700"
     | "verifone_P400"
   id: string
   ip_address?: string | null

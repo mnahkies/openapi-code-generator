@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: MyAccount Management
-  version: 2024.06.1
+  version: 2024.07.0
   description: |-
     APIs for managing a user's own emails, phones, profile, and app authenticators.
     > **Note:** The MyAccount API doesn't support [delegated authentication](https://help.okta.com/okta_help.htm?id=ext_Security_Authentication).

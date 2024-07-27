@@ -1055,12 +1055,14 @@ export type t_code_security_configuration = {
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
   description?: string
+  enforcement?: "enforced" | "unenforced"
   html_url?: string
   id?: number
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+  secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
   target_type?: "global" | "organization"
   updated_at?: string
   url?: string
@@ -1072,9 +1074,11 @@ export type t_code_security_configuration_repositories = {
     | "attached"
     | "attaching"
     | "detached"
+    | "removed"
     | "enforced"
     | "failed"
     | "updating"
+    | "removed_by_enterprise"
 }
 
 export type t_code_security_default_configurations = {
@@ -1315,7 +1319,7 @@ export type t_combined_commit_status = {
 }
 
 export type t_commit = {
-  author: t_nullable_simple_user
+  author: t_simple_user | t_empty_object | null
   comments_url: string
   commit: {
     author: t_nullable_git_user
@@ -1329,7 +1333,7 @@ export type t_commit = {
     url: string
     verification?: t_verification
   }
-  committer: t_nullable_simple_user
+  committer: t_simple_user | t_empty_object | null
   files?: t_diff_entry[]
   html_url: string
   node_id: string
@@ -3914,11 +3918,6 @@ export type t_organization_dependabot_secret = {
   visibility: "all" | "private" | "selected"
 }
 
-export type t_organization_fine_grained_permission = {
-  description: string
-  name: string
-}
-
 export type t_organization_full = {
   advanced_security_enabled_for_new_repositories?: boolean
   archived_at: string | null
@@ -5521,6 +5520,7 @@ export type t_repository_rule =
   | t_repository_rule_update
   | t_repository_rule_deletion
   | t_repository_rule_required_linear_history
+  | t_repository_rule_merge_queue
   | t_repository_rule_required_deployments
   | t_repository_rule_required_signatures
   | t_repository_rule_pull_request
@@ -5618,6 +5618,7 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_update & t_repository_rule_ruleset_info)
   | (t_repository_rule_deletion & t_repository_rule_ruleset_info)
   | (t_repository_rule_required_linear_history & t_repository_rule_ruleset_info)
+  | (t_repository_rule_merge_queue & t_repository_rule_ruleset_info)
   | (t_repository_rule_required_deployments & t_repository_rule_ruleset_info)
   | (t_repository_rule_required_signatures & t_repository_rule_ruleset_info)
   | (t_repository_rule_pull_request & t_repository_rule_ruleset_info)
@@ -5633,6 +5634,19 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
 export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
+
+export type t_repository_rule_merge_queue = {
+  parameters?: {
+    check_response_timeout_minutes: number
+    grouping_strategy: "ALLGREEN" | "HEADGREEN"
+    max_entries_to_build: number
+    max_entries_to_merge: number
+    merge_method: "MERGE" | "SQUASH" | "REBASE"
+    min_entries_to_merge: number
+    min_entries_to_merge_wait_minutes: number
+  }
+  type: "merge_queue"
+}
 
 export type t_repository_rule_non_fast_forward = {
   type: "non_fast_forward"
@@ -5689,6 +5703,7 @@ export type t_repository_rule_required_signatures = {
 
 export type t_repository_rule_required_status_checks = {
   parameters?: {
+    do_not_enforce_on_create?: boolean
     required_status_checks: t_repository_rule_params_status_check_configuration[]
     strict_required_status_checks_policy: boolean
   }
@@ -5720,6 +5735,7 @@ export type t_repository_rule_update = {
 
 export type t_repository_rule_workflows = {
   parameters?: {
+    do_not_enforce_on_create?: boolean
     workflows: t_repository_rule_params_workflow_file_reference[]
   }
   type: "workflows"
@@ -6183,6 +6199,9 @@ export type t_security_and_analysis = {
     status?: "enabled" | "disabled"
   }
   secret_scanning?: {
+    status?: "enabled" | "disabled"
+  }
+  secret_scanning_non_provider_patterns?: {
     status?: "enabled" | "disabled"
   }
   secret_scanning_push_protection?: {
@@ -9158,10 +9177,12 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
   description: string
+  enforcement?: "enforced" | "unenforced"
   name: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+  secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
 }
 
 export type t_CodeSecurityCreateConfigurationParamSchema = {
@@ -9170,6 +9191,14 @@ export type t_CodeSecurityCreateConfigurationParamSchema = {
 
 export type t_CodeSecurityDeleteConfigurationParamSchema = {
   configuration_id: number
+  org: string
+}
+
+export type t_CodeSecurityDetachConfigurationBodySchema = {
+  selected_repository_ids?: number[]
+}
+
+export type t_CodeSecurityDetachConfigurationParamSchema = {
   org: string
 }
 
@@ -9221,10 +9250,12 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
   description?: string
+  enforcement?: "enforced" | "unenforced"
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+  secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
 }
 
 export type t_CodeSecurityUpdateConfigurationParamSchema = {
@@ -10959,16 +10990,6 @@ export type t_OrgsConvertMemberToOutsideCollaboratorParamSchema = {
   username: string
 }
 
-export type t_OrgsCreateCustomOrganizationRoleBodySchema = {
-  description?: string
-  name: string
-  permissions: string[]
-}
-
-export type t_OrgsCreateCustomOrganizationRoleParamSchema = {
-  org: string
-}
-
 export type t_OrgsCreateInvitationBodySchema = {
   email?: string
   invitee_id?: number
@@ -11030,11 +11051,6 @@ export type t_OrgsCreateWebhookParamSchema = {
 
 export type t_OrgsDeleteParamSchema = {
   org: string
-}
-
-export type t_OrgsDeleteCustomOrganizationRoleParamSchema = {
-  org: string
-  role_id: number
 }
 
 export type t_OrgsDeleteWebhookParamSchema = {
@@ -11220,10 +11236,6 @@ export type t_OrgsListOrgRolesParamSchema = {
   org: string
 }
 
-export type t_OrgsListOrganizationFineGrainedPermissionsParamSchema = {
-  org: string
-}
-
 export type t_OrgsListOutsideCollaboratorsParamSchema = {
   org: string
 }
@@ -11333,17 +11345,6 @@ export type t_OrgsListWebhooksParamSchema = {
 export type t_OrgsListWebhooksQuerySchema = {
   page?: number
   per_page?: number
-}
-
-export type t_OrgsPatchCustomOrganizationRoleBodySchema = {
-  description?: string
-  name?: string
-  permissions?: string[]
-}
-
-export type t_OrgsPatchCustomOrganizationRoleParamSchema = {
-  org: string
-  role_id: number
 }
 
 export type t_OrgsPingWebhookParamSchema = {
@@ -13530,6 +13531,7 @@ export type t_ReposGetOrgRuleSuitesQuerySchema = {
   actor_name?: string
   page?: number
   per_page?: number
+  ref?: string
   repository_name?: number
   rule_suite_result?: "pass" | "fail" | "bypass" | "all"
   time_period?: "hour" | "day" | "week" | "month"
@@ -14278,6 +14280,9 @@ export type t_ReposUpdateBodySchema = {
       status?: string
     }
     secret_scanning?: {
+      status?: string
+    }
+    secret_scanning_non_provider_patterns?: {
       status?: string
     }
     secret_scanning_push_protection?: {

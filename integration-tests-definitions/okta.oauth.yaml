@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Okta OpenID Connect & OAuth 2.0
-  version: 2024.06.1
+  version: 2024.07.0
   description: OAuth 2.0 Protocol APIs
   termsOfService: https://developer.okta.com/terms/
   contact:

@@ -181,7 +181,6 @@ import {
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
-  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
@@ -3357,10 +3356,12 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description: string
+        enforcement?: "enforced" | "unenforced"
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -3397,6 +3398,30 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async codeSecurityDetachConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/detach`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async codeSecurityGetConfiguration(
     p: {
       org: string
@@ -3426,10 +3451,12 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description?: string
+        enforcement?: "enforced" | "unenforced"
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -5189,23 +5216,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async orgsListOrganizationFineGrainedPermissions(
-    p: {
-      org: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_fine_grained_permission[]>> {
-    const url = `/orgs/${p["org"]}/organization-fine-grained-permissions`
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
   async orgsListOrgRoles(
     p: {
       org: string
@@ -5223,32 +5233,6 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsCreateCustomOrganizationRole(
-    p: {
-      org: string
-      requestBody: {
-        description?: string
-        name: string
-        permissions: string[]
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_role>> {
-    const url = `/orgs/${p["org"]}/organization-roles`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      headers,
-      data: body,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -5379,51 +5363,6 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsPatchCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-      requestBody: {
-        description?: string
-        name?: string
-        permissions?: string[]
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_role>> {
-    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      headers,
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsDeleteCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-
-    return this._request({
-      url: url,
-      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -6399,6 +6338,7 @@ export class ApiClient extends AbstractAxiosClient {
   async reposGetOrgRuleSuites(
     p: {
       org: string
+      ref?: string
       repositoryName?: number
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
@@ -6411,6 +6351,7 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rule_suites>> {
     const url = `/orgs/${p["org"]}/rulesets/rule-suites`
     const query = this._query({
+      ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -8038,6 +7979,9 @@ export class ApiClient extends AbstractAxiosClient {
             status?: string
           }
           secret_scanning?: {
+            status?: string
+          }
+          secret_scanning_non_provider_patterns?: {
             status?: string
           }
           secret_scanning_push_protection?: {

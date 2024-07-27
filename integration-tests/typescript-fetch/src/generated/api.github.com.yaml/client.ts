@@ -182,7 +182,6 @@ import {
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
-  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
@@ -3339,10 +3338,12 @@ export class ApiClient extends AbstractFetchClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description: string
+        enforcement?: "enforced" | "unenforced"
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -3379,6 +3380,36 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
+  async codeSecurityDetachConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/code-security/configurations/detach`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async codeSecurityGetConfiguration(
     p: {
       org: string
@@ -3412,10 +3443,12 @@ export class ApiClient extends AbstractFetchClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description?: string
+        enforcement?: "enforced" | "unenforced"
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -5225,25 +5258,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
-  async orgsListOrganizationFineGrainedPermissions(
-    p: {
-      org: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_organization_fine_grained_permission[]>
-      | Res<404, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-fine-grained-permissions`
-
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
   async orgsListOrgRoles(
     p: {
       org: string
@@ -5266,36 +5280,6 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async orgsCreateCustomOrganizationRole(
-    p: {
-      org: string
-      requestBody: {
-        description?: string
-        name: string
-        permissions: string[]
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_organization_role>
-      | Res<404, t_basic_error>
-      | Res<409, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
   }
 
   async orgsRevokeAllOrgRolesTeam(
@@ -5414,52 +5398,6 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async orgsPatchCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-      requestBody: {
-        description?: string
-        name?: string
-        permissions?: string[]
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_organization_role>
-      | Res<404, t_basic_error>
-      | Res<409, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async orgsDeleteCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
   }
 
   async orgsListOrgRoleTeams(
@@ -6508,6 +6446,7 @@ export class ApiClient extends AbstractFetchClient {
   async reposGetOrgRuleSuites(
     p: {
       org: string
+      ref?: string
       repositoryName?: number
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
@@ -6526,6 +6465,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/rule-suites`
     const query = this._query({
+      ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -6723,7 +6663,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
@@ -8208,6 +8148,9 @@ export class ApiClient extends AbstractFetchClient {
             status?: string
           }
           secret_scanning?: {
+            status?: string
+          }
+          secret_scanning_non_provider_patterns?: {
             status?: string
           }
           secret_scanning_push_protection?: {

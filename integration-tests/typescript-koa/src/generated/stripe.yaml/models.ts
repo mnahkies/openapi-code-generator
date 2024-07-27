@@ -1414,6 +1414,7 @@ export type t_confirmation_token = {
   mandate_data?: t_confirmation_tokens_resource_mandate_data | null
   object: "confirmation_token"
   payment_intent?: string | null
+  payment_method_options?: t_confirmation_tokens_resource_payment_method_options | null
   payment_method_preview?: t_confirmation_tokens_resource_payment_method_preview | null
   return_url?: string | null
   setup_future_usage?: "off_session" | "on_session" | null
@@ -1438,6 +1439,15 @@ export type t_confirmation_tokens_resource_mandate_data_resource_customer_accept
     user_agent?: string | null
   }
 
+export type t_confirmation_tokens_resource_payment_method_options = {
+  card?: t_confirmation_tokens_resource_payment_method_options_resource_card | null
+}
+
+export type t_confirmation_tokens_resource_payment_method_options_resource_card =
+  {
+    cvc_token?: string | null
+  }
+
 export type t_confirmation_tokens_resource_payment_method_preview = {
   acss_debit?: t_payment_method_acss_debit
   affirm?: t_payment_method_affirm
@@ -1454,6 +1464,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   card?: t_payment_method_card
   card_present?: t_payment_method_card_present
   cashapp?: t_payment_method_cashapp
+  customer?: string | t_customer | null
   customer_balance?: t_payment_method_customer_balance
   eps?: t_payment_method_eps
   fpx?: t_payment_method_fpx
@@ -1561,6 +1572,8 @@ export type t_connect_embedded_account_session_create_components = {
   payments: t_connect_embedded_payments_config_claim
   payouts: t_connect_embedded_payouts_config_claim
   payouts_list: t_connect_embedded_base_config_claim
+  tax_registrations: t_connect_embedded_base_config_claim
+  tax_settings: t_connect_embedded_base_config_claim
 }
 
 export type t_connect_embedded_base_config_claim = {
@@ -1953,12 +1966,32 @@ export type t_customer_session = {
 
 export type t_customer_session_resource_components = {
   buy_button: t_customer_session_resource_components_resource_buy_button
+  payment_element: t_customer_session_resource_components_resource_payment_element
   pricing_table: t_customer_session_resource_components_resource_pricing_table
 }
 
 export type t_customer_session_resource_components_resource_buy_button = {
   enabled: boolean
 }
+
+export type t_customer_session_resource_components_resource_payment_element = {
+  enabled: boolean
+  features?: t_customer_session_resource_components_resource_payment_element_resource_features | null
+}
+
+export type t_customer_session_resource_components_resource_payment_element_resource_features =
+  {
+    payment_method_allow_redisplay_filters: (
+      | "always"
+      | "limited"
+      | "unspecified"
+    )[]
+    payment_method_redisplay: "disabled" | "enabled"
+    payment_method_redisplay_limit?: number | null
+    payment_method_remove: "disabled" | "enabled"
+    payment_method_save: "disabled" | "enabled"
+    payment_method_save_usage?: "off_session" | "on_session" | null
+  }
 
 export type t_customer_session_resource_components_resource_pricing_table = {
   enabled: boolean
@@ -2246,6 +2279,7 @@ export type t_dispute_payment_method_details = {
 
 export type t_dispute_payment_method_details_card = {
   brand: string
+  case_type: "chargeback" | "inquiry"
   network_reason_code?: string | null
 }
 
@@ -3178,6 +3212,7 @@ export type t_invoices_payment_settings = {
         | "ideal"
         | "konbini"
         | "link"
+        | "multibanco"
         | "p24"
         | "paynow"
         | "paypal"
@@ -4296,6 +4331,7 @@ export type t_issuing_card_google_pay = {
 
 export type t_issuing_card_shipping = {
   address: t_address
+  address_validation?: t_issuing_card_shipping_address_validation | null
   carrier?: "dhl" | "fedex" | "royal_mail" | "usps" | null
   customs?: t_issuing_card_shipping_customs | null
   eta?: number | null
@@ -4314,6 +4350,16 @@ export type t_issuing_card_shipping = {
   tracking_number?: string | null
   tracking_url?: string | null
   type: "bulk" | "individual"
+}
+
+export type t_issuing_card_shipping_address_validation = {
+  mode: "disabled" | "normalization_only" | "validation_and_normalization"
+  normalized_address?: t_address | null
+  result?:
+    | "indeterminate"
+    | "likely_deliverable"
+    | "likely_undeliverable"
+    | null
 }
 
 export type t_issuing_card_shipping_customs = {
@@ -6774,6 +6820,7 @@ export type t_payment_intent_processing_customer_notification = {
 export type t_payment_intent_type_specific_payment_method_options_client = {
   capture_method?: "manual" | "manual_preferred"
   installments?: t_payment_flows_installment_options
+  request_incremental_authorization_support?: boolean
   require_cvc_recollection?: boolean
   routing?: t_payment_method_options_card_present_routing
   setup_future_usage?: "none" | "off_session" | "on_session"
@@ -7402,12 +7449,15 @@ export type t_payment_method_card_generated_card = {
 
 export type t_payment_method_card_present = {
   brand?: string | null
+  brand_product?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
+  issuer?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
   preferred_locales?: string[] | null
@@ -7534,6 +7584,7 @@ export type t_payment_method_configuration = {
   sepa_debit?: t_payment_method_config_resource_payment_method_properties
   sofort?: t_payment_method_config_resource_payment_method_properties
   swish?: t_payment_method_config_resource_payment_method_properties
+  twint?: t_payment_method_config_resource_payment_method_properties
   us_bank_account?: t_payment_method_config_resource_payment_method_properties
   wechat_pay?: t_payment_method_config_resource_payment_method_properties
   zip?: t_payment_method_config_resource_payment_method_properties
@@ -7613,7 +7664,9 @@ export type t_payment_method_details_acss_debit = {
   transit_number?: string | null
 }
 
-export type t_payment_method_details_affirm = EmptyObject
+export type t_payment_method_details_affirm = {
+  transaction_id?: string | null
+}
 
 export type t_payment_method_details_afterpay_clearpay = {
   order_id?: string | null
@@ -7647,7 +7700,9 @@ export type t_payment_method_details_bancontact = {
   verified_name?: string | null
 }
 
-export type t_payment_method_details_blik = EmptyObject
+export type t_payment_method_details_blik = {
+  buyer_id?: string | null
+}
 
 export type t_payment_method_details_boleto = {
   tax_id: string
@@ -7699,9 +7754,11 @@ export type t_payment_method_details_card_network_token = {
 export type t_payment_method_details_card_present = {
   amount_authorized?: number | null
   brand?: string | null
+  brand_product?: string | null
   capture_before?: number
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   emv_auth_data?: string | null
   exp_month: number
   exp_year: number
@@ -7709,8 +7766,10 @@ export type t_payment_method_details_card_present = {
   funding?: string | null
   generated_card?: string | null
   incremental_authorization_supported: boolean
+  issuer?: string | null
   last4?: string | null
   network?: string | null
+  network_transaction_id?: string | null
   offline?: t_payment_method_details_card_present_offline | null
   overcapture_supported: boolean
   preferred_locales?: string[] | null
@@ -7911,14 +7970,17 @@ export type t_payment_method_details_interac_present = {
   brand?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   emv_auth_data?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
   generated_card?: string | null
+  issuer?: string | null
   last4?: string | null
   network?: string | null
+  network_transaction_id?: string | null
   preferred_locales?: string[] | null
   read_method?:
     | "contact_emv"
@@ -8207,10 +8269,12 @@ export type t_payment_method_interac_present = {
   brand?: string | null
   cardholder_name?: string | null
   country?: string | null
+  description?: string | null
   exp_month: number
   exp_year: number
   fingerprint?: string | null
   funding?: string | null
+  issuer?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
   preferred_locales?: string[] | null
@@ -10010,7 +10074,9 @@ export type t_setup_intent_payment_method_options = {
   amazon_pay?:
     | t_setup_intent_payment_method_options_amazon_pay
     | t_setup_intent_type_specific_payment_method_options_client
-  card?: t_setup_intent_payment_method_options_card
+  card?:
+    | t_setup_intent_payment_method_options_card
+    | t_setup_intent_type_specific_payment_method_options_client
   card_present?:
     | t_setup_intent_payment_method_options_card_present
     | t_setup_intent_type_specific_payment_method_options_client
@@ -10829,6 +10895,7 @@ export type t_subscriptions_resource_payment_settings = {
         | "ideal"
         | "konbini"
         | "link"
+        | "multibanco"
         | "p24"
         | "paynow"
         | "paypal"
@@ -10940,6 +11007,7 @@ export type t_tax_transaction = {
     [key: string]: string | undefined
   } | null
   object: "tax.transaction"
+  posted_at: number
   reference: string
   reversal?: t_tax_product_resource_tax_transaction_resource_reversal | null
   ship_from_details?: t_tax_product_resource_ship_from_details | null
@@ -11512,6 +11580,7 @@ export type t_terminal_reader = {
     | "mobile_phone_reader"
     | "simulated_wisepos_e"
     | "stripe_m2"
+    | "stripe_s700"
     | "verifone_P400"
   id: string
   ip_address?: string | null
@@ -16388,6 +16457,7 @@ export type t_GetTerminalReadersQuerySchema = {
     | "mobile_phone_reader"
     | "simulated_wisepos_e"
     | "stripe_m2"
+    | "stripe_s700"
     | "verifone_P400"
   ending_before?: string
   expand?: string[]
@@ -16906,6 +16976,14 @@ export type t_PostAccountSessionsBodySchema = {
       }
     }
     payouts_list?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    tax_registrations?: {
+      enabled: boolean
+      features?: EmptyObject
+    }
+    tax_settings?: {
       enabled: boolean
       features?: EmptyObject
     }
@@ -19733,6 +19811,19 @@ export type t_PostCheckoutSessionsBodySchema = {
   ui_mode?: "embedded" | "hosted"
 }
 
+export type t_PostCheckoutSessionsSessionBodySchema = {
+  expand?: string[]
+  metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+}
+
+export type t_PostCheckoutSessionsSessionParamSchema = {
+  session: string
+}
+
 export type t_PostCheckoutSessionsSessionExpireBodySchema = {
   expand?: string[]
 }
@@ -19893,6 +19984,21 @@ export type t_PostCustomerSessionsBodySchema = {
   components: {
     buy_button?: {
       enabled: boolean
+    }
+    payment_element?: {
+      enabled: boolean
+      features?: {
+        payment_method_allow_redisplay_filters?: (
+          | "always"
+          | "limited"
+          | "unspecified"
+        )[]
+        payment_method_redisplay?: "disabled" | "enabled"
+        payment_method_redisplay_limit?: number
+        payment_method_remove?: "disabled" | "enabled"
+        payment_method_save?: "disabled" | "enabled"
+        payment_method_save_usage?: "off_session" | "on_session"
+      }
     }
     pricing_table?: {
       enabled: boolean
@@ -20672,6 +20778,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
           | "ideal"
           | "konbini"
           | "link"
+          | "multibanco"
           | "p24"
           | "paynow"
           | "paypal"
@@ -20923,6 +21030,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
             | "ideal"
             | "konbini"
             | "link"
+            | "multibanco"
             | "p24"
             | "paynow"
             | "paypal"
@@ -21541,6 +21649,7 @@ export type t_PostInvoicesBodySchema = {
           | "ideal"
           | "konbini"
           | "link"
+          | "multibanco"
           | "p24"
           | "paynow"
           | "paypal"
@@ -22066,6 +22175,7 @@ export type t_PostInvoicesInvoiceBodySchema = {
           | "ideal"
           | "konbini"
           | "link"
+          | "multibanco"
           | "p24"
           | "paynow"
           | "paypal"
@@ -22145,6 +22255,88 @@ export type t_PostInvoicesInvoiceBodySchema = {
 }
 
 export type t_PostInvoicesInvoiceParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceAddLinesBodySchema = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  lines: {
+    amount?: number
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+    invoice_item?: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    period?: {
+      end: number
+      start: number
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate_data: {
+            country?: string
+            description?: string
+            display_name: string
+            inclusive: boolean
+            jurisdiction?: string
+            percentage: number
+            state?: string
+            tax_type?:
+              | "amusement_tax"
+              | "communications_tax"
+              | "gst"
+              | "hst"
+              | "igst"
+              | "jct"
+              | "lease_tax"
+              | "pst"
+              | "qst"
+              | "rst"
+              | "sales_tax"
+              | "vat"
+          }
+          taxable_amount: number
+        }[]
+      | ""
+    tax_rates?: string[] | ""
+  }[]
+}
+
+export type t_PostInvoicesInvoiceAddLinesParamSchema = {
   invoice: string
 }
 
@@ -22254,11 +22446,110 @@ export type t_PostInvoicesInvoicePayParamSchema = {
   invoice: string
 }
 
+export type t_PostInvoicesInvoiceRemoveLinesBodySchema = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  lines: {
+    behavior: "delete" | "unassign"
+    id: string
+  }[]
+}
+
+export type t_PostInvoicesInvoiceRemoveLinesParamSchema = {
+  invoice: string
+}
+
 export type t_PostInvoicesInvoiceSendBodySchema = {
   expand?: string[]
 }
 
 export type t_PostInvoicesInvoiceSendParamSchema = {
+  invoice: string
+}
+
+export type t_PostInvoicesInvoiceUpdateLinesBodySchema = {
+  expand?: string[]
+  invoice_metadata?:
+    | {
+        [key: string]: string | undefined
+      }
+    | ""
+  lines: {
+    amount?: number
+    description?: string
+    discountable?: boolean
+    discounts?:
+      | {
+          coupon?: string
+          discount?: string
+          promotion_code?: string
+        }[]
+      | ""
+    id: string
+    metadata?:
+      | {
+          [key: string]: string | undefined
+        }
+      | ""
+    period?: {
+      end: number
+      start: number
+    }
+    price?: string
+    price_data?: {
+      currency: string
+      product?: string
+      product_data?: {
+        description?: string
+        images?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name: string
+        tax_code?: string
+      }
+      tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+      unit_amount?: number
+      unit_amount_decimal?: string
+    }
+    quantity?: number
+    tax_amounts?:
+      | {
+          amount: number
+          tax_rate_data: {
+            country?: string
+            description?: string
+            display_name: string
+            inclusive: boolean
+            jurisdiction?: string
+            percentage: number
+            state?: string
+            tax_type?:
+              | "amusement_tax"
+              | "communications_tax"
+              | "gst"
+              | "hst"
+              | "igst"
+              | "jct"
+              | "lease_tax"
+              | "pst"
+              | "qst"
+              | "rst"
+              | "sales_tax"
+              | "vat"
+          }
+          taxable_amount: number
+        }[]
+      | ""
+    tax_rates?: string[] | ""
+  }[]
+}
+
+export type t_PostInvoicesInvoiceUpdateLinesParamSchema = {
   invoice: string
 }
 
@@ -24244,6 +24535,9 @@ export type t_PostIssuingCardsBodySchema = {
       postal_code: string
       state?: string
     }
+    address_validation?: {
+      mode: "disabled" | "normalization_only" | "validation_and_normalization"
+    }
     customs?: {
       eori_number?: string
     }
@@ -25173,6 +25467,27 @@ export type t_PostIssuingCardsCardBodySchema = {
   personalization_design?: string
   pin?: {
     encrypted_number?: string
+  }
+  shipping?: {
+    address: {
+      city: string
+      country: string
+      line1: string
+      line2?: string
+      postal_code: string
+      state?: string
+    }
+    address_validation?: {
+      mode: "disabled" | "normalization_only" | "validation_and_normalization"
+    }
+    customs?: {
+      eori_number?: string
+    }
+    name: string
+    phone_number?: string
+    require_signature?: boolean
+    service?: "express" | "priority" | "standard"
+    type?: "bulk" | "individual"
   }
   spending_controls?: {
     allowed_categories?: (
@@ -29644,6 +29959,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
       preference?: "none" | "off" | "on"
     }
   }
+  twint?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
   us_bank_account?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -29846,6 +30166,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   swish?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  twint?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -33391,6 +33716,7 @@ export type t_PostSubscriptionsBodySchema = {
           | "ideal"
           | "konbini"
           | "link"
+          | "multibanco"
           | "p24"
           | "paynow"
           | "paypal"
@@ -33639,6 +33965,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
           | "ideal"
           | "konbini"
           | "link"
+          | "multibanco"
           | "p24"
           | "paynow"
           | "paypal"
@@ -34263,6 +34590,7 @@ export type t_PostTaxTransactionsCreateFromCalculationBodySchema = {
   metadata?: {
     [key: string]: string | undefined
   }
+  posted_at?: number
   reference: string
 }
 
@@ -37428,6 +37756,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "invoice.finalization_failed"
     | "invoice.finalized"
     | "invoice.marked_uncollectible"
+    | "invoice.overdue"
     | "invoice.paid"
     | "invoice.payment_action_required"
     | "invoice.payment_failed"
@@ -37436,6 +37765,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "invoice.upcoming"
     | "invoice.updated"
     | "invoice.voided"
+    | "invoice.will_be_due"
     | "invoiceitem.created"
     | "invoiceitem.deleted"
     | "issuing_authorization.created"
@@ -37448,6 +37778,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "issuing_dispute.closed"
     | "issuing_dispute.created"
     | "issuing_dispute.funds_reinstated"
+    | "issuing_dispute.funds_rescinded"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
     | "issuing_personalization_design.activated"
@@ -37676,6 +38007,7 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "invoice.finalization_failed"
     | "invoice.finalized"
     | "invoice.marked_uncollectible"
+    | "invoice.overdue"
     | "invoice.paid"
     | "invoice.payment_action_required"
     | "invoice.payment_failed"
@@ -37684,6 +38016,7 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "invoice.upcoming"
     | "invoice.updated"
     | "invoice.voided"
+    | "invoice.will_be_due"
     | "invoiceitem.created"
     | "invoiceitem.deleted"
     | "issuing_authorization.created"
@@ -37696,6 +38029,7 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "issuing_dispute.closed"
     | "issuing_dispute.created"
     | "issuing_dispute.funds_reinstated"
+    | "issuing_dispute.funds_rescinded"
     | "issuing_dispute.submitted"
     | "issuing_dispute.updated"
     | "issuing_personalization_design.activated"

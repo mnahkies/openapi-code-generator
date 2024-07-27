@@ -637,9 +637,13 @@ export const s_code_security_configuration = z.object({
   secret_scanning_push_protection: z
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
+  secret_scanning_validity_checks: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
   private_vulnerability_reporting: z
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
+  enforcement: z.enum(["enforced", "unenforced"]).optional(),
   url: z.string().optional(),
   html_url: z.string().optional(),
   created_at: z.string().datetime({ offset: true }).optional(),
@@ -1806,11 +1810,6 @@ export const s_organization_dependabot_secret = z.object({
   selected_repositories_url: z.string().optional(),
 })
 
-export const s_organization_fine_grained_permission = z.object({
-  name: z.string(),
-  description: z.string(),
-})
-
 export const s_organization_full = z.object({
   login: z.string(),
   id: z.coerce.number(),
@@ -2345,6 +2344,21 @@ export const s_repository_rule_enforcement = z.enum([
   "evaluate",
 ])
 
+export const s_repository_rule_merge_queue = z.object({
+  type: z.enum(["merge_queue"]),
+  parameters: z
+    .object({
+      check_response_timeout_minutes: z.coerce.number().min(1).max(360),
+      grouping_strategy: z.enum(["ALLGREEN", "HEADGREEN"]),
+      max_entries_to_build: z.coerce.number().min(0).max(100),
+      max_entries_to_merge: z.coerce.number().min(0).max(100),
+      merge_method: z.enum(["MERGE", "SQUASH", "REBASE"]),
+      min_entries_to_merge: z.coerce.number().min(0).max(100),
+      min_entries_to_merge_wait_minutes: z.coerce.number().min(0).max(360),
+    })
+    .optional(),
+})
+
 export const s_repository_rule_non_fast_forward = z.object({
   type: z.enum(["non_fast_forward"]),
 })
@@ -2731,6 +2745,9 @@ export const s_security_and_analysis = z
       .object({ status: z.enum(["enabled", "disabled"]).optional() })
       .optional(),
     secret_scanning_push_protection: z
+      .object({ status: z.enum(["enabled", "disabled"]).optional() })
+      .optional(),
+    secret_scanning_non_provider_patterns: z
       .object({ status: z.enum(["enabled", "disabled"]).optional() })
       .optional(),
   })
@@ -3348,8 +3365,8 @@ export const s_commit = z.object({
     tree: z.object({ sha: z.string(), url: z.string() }),
     verification: s_verification.optional(),
   }),
-  author: s_nullable_simple_user,
-  committer: s_nullable_simple_user,
+  author: z.union([s_simple_user, s_empty_object]).nullable(),
+  committer: z.union([s_simple_user, s_empty_object]).nullable(),
   parents: z.array(
     z.object({
       sha: z.string(),
@@ -4676,6 +4693,7 @@ export const s_repository_rule_required_status_checks = z.object({
   type: z.enum(["required_status_checks"]),
   parameters: z
     .object({
+      do_not_enforce_on_create: PermissiveBoolean.optional(),
       required_status_checks: z.array(
         s_repository_rule_params_status_check_configuration,
       ),
@@ -4688,6 +4706,7 @@ export const s_repository_rule_workflows = z.object({
   type: z.enum(["workflows"]),
   parameters: z
     .object({
+      do_not_enforce_on_create: PermissiveBoolean.optional(),
       workflows: z.array(s_repository_rule_params_workflow_file_reference),
     })
     .optional(),
@@ -5566,9 +5585,11 @@ export const s_code_security_configuration_repositories = z.object({
       "attached",
       "attaching",
       "detached",
+      "removed",
       "enforced",
       "failed",
       "updating",
+      "removed_by_enterprise",
     ])
     .optional(),
   repository: s_simple_repository.optional(),
@@ -7125,6 +7146,7 @@ export const s_repository_rule = z.union([
   s_repository_rule_update,
   s_repository_rule_deletion,
   s_repository_rule_required_linear_history,
+  s_repository_rule_merge_queue,
   s_repository_rule_required_deployments,
   s_repository_rule_required_signatures,
   s_repository_rule_pull_request,
@@ -7170,6 +7192,7 @@ export const s_repository_rule_detailed = z.union([
   s_repository_rule_required_linear_history.merge(
     s_repository_rule_ruleset_info,
   ),
+  s_repository_rule_merge_queue.merge(s_repository_rule_ruleset_info),
   s_repository_rule_required_deployments.merge(s_repository_rule_ruleset_info),
   s_repository_rule_required_signatures.merge(s_repository_rule_ruleset_info),
   s_repository_rule_pull_request.merge(s_repository_rule_ruleset_info),
