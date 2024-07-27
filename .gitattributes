@@ -2,3 +2,5 @@
 # Any uncommitted changes will be rejected by CI using ./scripts/assert-clean-working-directory.sh
 packages/openapi-code-generater/src/core/schemas/openapi-3.0-specification-validator.js binary
 packages/openapi-code-generater/src/core/schemas/openapi-3.1-specification-validator.js binary
+integration-tests/*/src/generated/** linguist-generated=true
+integration-tests-definitions/** linguist-vendored
