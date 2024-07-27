@@ -3,9 +3,15 @@
 /* eslint-disable */
 
 import {
+  EmptyObject,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
+  t_Authenticator,
+  t_AuthenticatorEnrollment,
   t_Email,
+  t_OktaApplication,
+  t_Organization,
+  t_PasswordResponse,
   t_Phone,
   t_Profile,
   t_PushNotificationChallenge,
@@ -32,7 +38,9 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/json, okta-version=1.0.0",
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -54,7 +62,9 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/json;okta-version=1.0.0",
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -74,9 +84,11 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_UpdateAppAuthenticatorEnrollmentRequest>> {
+  ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
+    })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -114,6 +126,78 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_PushNotificationChallenge[]>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async listAuthenticators(
+    p: {
+      expand?: string
+    } = {},
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_Authenticator[]>> {
+    const url = `/idp/myaccount/authenticators`
+    const query = this._query({ expand: p["expand"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getAuthenticator(
+    p: {
+      authenticatorId: string
+      expand?: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_Authenticator>> {
+    const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}`
+    const query = this._query({ expand: p["expand"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async listEnrollments(
+    p: {
+      authenticatorId: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_AuthenticatorEnrollment[]>> {
+    const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getEnrollment(
+    p: {
+      authenticatorId: string
+      enrollmentId: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_AuthenticatorEnrollment>> {
+    const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
 
     return this._request({
       url: url,
@@ -213,13 +297,13 @@ export class ApiClient extends AbstractAxiosClient {
       _links: {
         poll: {
           hints: {
-            allow: string[]
+            allow: "GET"[]
           }
           href: string
         }
         verify: {
           hints: {
-            allow: string[]
+            allow: "POST"[]
           }
           href: string
         }
@@ -229,7 +313,7 @@ export class ApiClient extends AbstractAxiosClient {
       profile: {
         email: string
       }
-      status: string
+      status: "VERIFIED" | "UNVERIFIED"
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge`
@@ -258,13 +342,13 @@ export class ApiClient extends AbstractAxiosClient {
       _links: {
         poll: {
           hints: {
-            allow: string[]
+            allow: ("DELETE" | "GET" | "POST" | "PUT")[]
           }
           href: string
         }
         verify: {
           hints: {
-            allow: string[]
+            allow: ("DELETE" | "GET" | "POST" | "PUT")[]
           }
           href: string
         }
@@ -274,7 +358,7 @@ export class ApiClient extends AbstractAxiosClient {
       profile: {
         email: string
       }
-      status: string
+      status: "VERIFIED" | "UNVERIFIED"
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
@@ -312,6 +396,112 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async listOktaApplications(
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_OktaApplication[]>> {
+    const url = `/idp/myaccount/okta-applications`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getOrganization(
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_Organization>> {
+    const url = `/idp/myaccount/organization`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async getPassword(
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_PasswordResponse>> {
+    const url = `/idp/myaccount/password`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async createPassword(
+    p: {
+      requestBody: {
+        profile: {
+          password: string
+        }
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_PasswordResponse>> {
+    const url = `/idp/myaccount/password`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async replacePassword(
+    p: {
+      requestBody: {
+        profile: {
+          password: string
+        }
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_PasswordResponse>> {
+    const url = `/idp/myaccount/password`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async deletePassword(
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/idp/myaccount/password`
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async listPhones(
     timeout?: number,
     opts?: AxiosRequestConfig,
@@ -330,7 +520,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       requestBody: {
         method?: "SMS" | "CALL"
-        profile?: {
+        profile: {
           phoneNumber?: string
         }
         sendCode?: boolean
@@ -402,7 +592,7 @@ export class ApiClient extends AbstractAxiosClient {
       _links?: {
         verify?: {
           hints: {
-            allow: string[]
+            allow: "GET"[]
           }
           href: string
         }
@@ -464,9 +654,7 @@ export class ApiClient extends AbstractAxiosClient {
   async replaceProfile(
     p: {
       requestBody: {
-        profile?: {
-          [key: string]: unknown | undefined
-        }
+        profile?: EmptyObject
       }
     },
     timeout?: number,
@@ -495,6 +683,20 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async deleteSessions(
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/idp/myaccount/sessions`
+
+    return this._request({
+      url: url,
+      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })

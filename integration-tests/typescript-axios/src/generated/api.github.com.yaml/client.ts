@@ -181,7 +181,6 @@ import {
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
-  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
@@ -258,6 +257,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -3165,6 +3165,47 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async orgsListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      attestations?: {
+        bundle?: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+        repository_id?: number
+      }[]
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async orgsListBlockedUsers(
     p: {
       org: string
@@ -3315,10 +3356,12 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description: string
+        enforcement?: "enforced" | "unenforced"
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -3355,6 +3398,30 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async codeSecurityDetachConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/code-security/configurations/detach`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async codeSecurityGetConfiguration(
     p: {
       org: string
@@ -3384,10 +3451,12 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
         description?: string
+        enforcement?: "enforced" | "unenforced"
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
     },
     timeout?: number,
@@ -5147,23 +5216,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
-  async orgsListOrganizationFineGrainedPermissions(
-    p: {
-      org: string
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_fine_grained_permission[]>> {
-    const url = `/orgs/${p["org"]}/organization-fine-grained-permissions`
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
   async orgsListOrgRoles(
     p: {
       org: string
@@ -5181,32 +5233,6 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsCreateCustomOrganizationRole(
-    p: {
-      org: string
-      requestBody: {
-        description?: string
-        name: string
-        permissions: string[]
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_role>> {
-    const url = `/orgs/${p["org"]}/organization-roles`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      headers,
-      data: body,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -5337,51 +5363,6 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsPatchCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-      requestBody: {
-        description?: string
-        name?: string
-        permissions?: string[]
-      }
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_organization_role>> {
-    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "PATCH",
-      headers,
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
-    })
-  }
-
-  async orgsDeleteCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-    },
-    timeout?: number,
-    opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<void>> {
-    const url = `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-
-    return this._request({
-      url: url,
-      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -6357,6 +6338,7 @@ export class ApiClient extends AbstractAxiosClient {
   async reposGetOrgRuleSuites(
     p: {
       org: string
+      ref?: string
       repositoryName?: number
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
@@ -6369,6 +6351,7 @@ export class ApiClient extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_rule_suites>> {
     const url = `/orgs/${p["org"]}/rulesets/rule-suites`
     const query = this._query({
+      ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -7996,6 +7979,9 @@ export class ApiClient extends AbstractAxiosClient {
             status?: string
           }
           secret_scanning?: {
+            status?: string
+          }
+          secret_scanning_non_provider_patterns?: {
             status?: string
           }
           secret_scanning_push_protection?: {
@@ -9829,6 +9815,85 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposCreateAttestation(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        bundle: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      id?: number
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/attestations`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async reposListAttestations(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      before?: string
+      after?: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    AxiosResponse<{
+      attestations?: {
+        bundle?: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+        repository_id?: number
+      }[]
+    }>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -21698,6 +21763,23 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async usersGetById(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_private_user | t_public_user>> {
+    const url = `/user/${p["accountId"]}`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async usersList(
     p: {
       since?: number
@@ -21728,6 +21810,41 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async usersListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    | AxiosResponse<{
+        attestations?: {
+          bundle?: t_sigstore_bundle_0
+          repository_id?: number
+        }[]
+      }>
+    | AxiosResponse<t_empty_object>
+    | AxiosResponse<void>
+  > {
+    const url = `/users/${p["username"]}/attestations/${p["subjectDigest"]}`
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),

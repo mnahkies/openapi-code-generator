@@ -39,7 +39,29 @@ export const s_AppAuthenticatorEnrollment = z.object({
         .optional(),
     })
     .optional(),
-  methods: z.object({ push: z.record(z.unknown()).optional() }).optional(),
+  methods: z
+    .object({
+      push: z
+        .object({
+          id: z.string().optional(),
+          createdDate: z.string().datetime({ offset: true }).optional(),
+          lastUpdated: z.string().datetime({ offset: true }).optional(),
+          links: z
+            .object({
+              pending: z
+                .object({
+                  href: z.string().min(1).optional(),
+                  hints: z
+                    .object({ allow: z.array(z.enum(["GET"])).optional() })
+                    .optional(),
+                })
+                .optional(),
+            })
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
   user: z
     .object({ id: z.string().optional(), username: z.string().optional() })
     .optional(),
@@ -49,35 +71,75 @@ export const s_AppAuthenticatorMethodCapabilities = z.object({
   transactionTypes: z.array(z.enum(["LOGIN", "CIBA"])).optional(),
 })
 
+export const s_AuthenticatorKey = z.enum([
+  "custom_app",
+  "custom_otp",
+  "duo",
+  "external_idp",
+  "google_otp",
+  "okta_email",
+  "okta_password",
+  "okta_verify",
+  "onprem_mfa",
+  "phone_number",
+  "rsa_token",
+  "security_question",
+  "symantec_vip",
+  "webauthn",
+  "yubikey_token",
+])
+
 export const s_Email = z.object({
   id: z.string().min(1),
   profile: z.object({ email: z.string().min(1) }),
-  roles: z.array(z.string()),
-  status: z.string().min(1),
+  roles: z.array(z.enum(["PRIMARY", "SECONDARY"])),
+  status: z.enum(["VERIFIED", "UNVERIFIED"]),
   _links: z
     .object({
       self: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z.array(z.enum(["GET", "DELETE", "PUT"])).optional(),
+            })
+            .optional(),
         })
         .optional(),
       challenge: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z
+                .array(z.enum(["DELETE", "GET", "POST", "PUT"]))
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
       verify: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z
+                .array(z.enum(["DELETE", "GET", "POST", "PUT"]))
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
       poll: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z
+                .array(z.enum(["DELETE", "GET", "POST", "PUT"]))
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
     })
@@ -93,6 +155,8 @@ export const s_Error = z.object({
   errorLink: z.string().optional(),
   errorSummary: z.string().optional(),
 })
+
+export const s_HttpMethod = z.enum(["DELETE", "GET", "POST", "PUT"])
 
 export const s_KeyEC = z.object({
   crv: z.enum(["P-256"]),
@@ -111,28 +175,90 @@ export const s_KeyRSA = z.object({
   "okta:kpr": z.enum(["HARDWARE", "SOFTWARE"]),
 })
 
-export const s_Phone = z.object({
-  id: z.string().min(1),
-  profile: z.object({ phoneNumber: z.string().min(1) }),
-  status: z.string().min(1),
+export const s_OktaApplication = z.object({
+  displayName: z.string().min(1).optional(),
+  id: z.string().min(1).optional(),
+  name: z.string().min(1).optional(),
+})
+
+export const s_Organization = z.object({
+  helpLink: z.string().optional(),
+  name: z.string().min(1).optional(),
+  supportEmail: z.string().optional(),
+  url: z.string().min(1).optional(),
   _links: z
     .object({
       self: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({ allow: z.array(z.enum(["GET"])).optional() })
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
+export const s_PasswordResponse = z.object({
+  created: z.string().optional(),
+  id: z.string().min(1).optional(),
+  lastUpdated: z.string().optional(),
+  status: z.string().optional(),
+  _links: z
+    .object({
+      self: z
+        .object({
+          href: z.string().min(1).optional(),
+          hints: z
+            .object({
+              allow: z.array(z.enum(["DELETE", "GET", "PUT"])).optional(),
+            })
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
+export const s_Phone = z.object({
+  id: z.string().min(1),
+  profile: z.object({ phoneNumber: z.string().min(1) }),
+  status: z.enum(["VERIFIED", "UNVERIFIED"]),
+  _links: z
+    .object({
+      self: z
+        .object({
+          href: z.string().min(1).optional(),
+          hints: z
+            .object({
+              allow: z.array(z.enum(["GET", "DELETE", "PUT"])).optional(),
+            })
+            .optional(),
         })
         .optional(),
       challenge: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z
+                .array(z.enum(["DELETE", "GET", "POST", "PUT"]))
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
       verify: z
         .object({
           href: z.string().min(1).optional(),
-          hints: z.object({ allow: z.array(z.string()).optional() }).optional(),
+          hints: z
+            .object({
+              allow: z
+                .array(z.enum(["DELETE", "GET", "POST", "PUT"]))
+                .optional(),
+            })
+            .optional(),
         })
         .optional(),
     })
@@ -142,7 +268,7 @@ export const s_Phone = z.object({
 export const s_Profile = z.object({
   createdAt: z.string().datetime({ offset: true }).optional(),
   modifiedAt: z.string().datetime({ offset: true }).optional(),
-  profile: z.record(z.unknown()).optional(),
+  profile: z.object({}).optional(),
   _links: z
     .object({
       self: z.object({ href: z.string().optional() }).optional(),
@@ -169,6 +295,13 @@ export const s_Schema = z.object({
       user: z.object({ href: z.string().optional() }).optional(),
     })
     .optional(),
+})
+
+export const s_HrefObject = z.object({
+  hints: z.object({ allow: z.array(s_HttpMethod).optional() }).optional(),
+  href: z.string(),
+  name: z.string().optional(),
+  type: z.string().optional(),
 })
 
 export const s_KeyObject = z.union([s_KeyEC, s_KeyRSA])
@@ -202,6 +335,22 @@ export const s_AppAuthenticatorEnrollmentRequest = z.object({
   }),
 })
 
+export const s_AuthenticatorEnrollment = z.object({
+  canReset: PermissiveBoolean.optional(),
+  canUnenroll: PermissiveBoolean.optional(),
+  created: z.string().optional(),
+  id: z.string().optional(),
+  lastChallenged: z.string().optional(),
+  name: z.string().optional(),
+  profile: z.object({}).optional(),
+  _links: z
+    .object({
+      self: s_HrefObject.optional(),
+      authenticator: s_HrefObject.optional(),
+    })
+    .optional(),
+})
+
 export const s_UpdateAppAuthenticatorEnrollmentRequest = z.object({
   methods: z
     .object({
@@ -214,6 +363,22 @@ export const s_UpdateAppAuthenticatorEnrollmentRequest = z.object({
           capabilities: s_AppAuthenticatorMethodCapabilities.optional(),
         })
         .optional(),
+    })
+    .optional(),
+})
+
+export const s_Authenticator = z.object({
+  enrollable: PermissiveBoolean.optional(),
+  id: z.string().optional(),
+  key: s_AuthenticatorKey.optional(),
+  name: z.string().optional(),
+  _embedded: z
+    .object({ enrollments: z.array(s_AuthenticatorEnrollment).optional() })
+    .optional(),
+  _links: z
+    .object({
+      self: s_HrefObject.optional(),
+      enrollments: s_HrefObject.optional(),
     })
     .optional(),
 })

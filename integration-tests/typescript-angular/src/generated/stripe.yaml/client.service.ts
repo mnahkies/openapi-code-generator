@@ -370,6 +370,14 @@ export class ApiClient {
           enabled: boolean
           features?: EmptyObject
         }
+        tax_registrations?: {
+          enabled: boolean
+          features?: EmptyObject
+        }
+        tax_settings?: {
+          enabled: boolean
+          features?: EmptyObject
+        }
       }
       expand?: string[]
     }
@@ -3627,7 +3635,7 @@ export class ApiClient {
     limit?: number
     startTime: number
     startingAfter?: string
-    valueGroupingWindow?: "hour"
+    valueGroupingWindow?: "day" | "hour"
     requestBody?: EmptyObject
   }): Observable<
     | (HttpResponse<{
@@ -5564,6 +5572,38 @@ export class ApiClient {
     )
   }
 
+  postCheckoutSessionsSession(p: {
+    session: string
+    requestBody?: {
+      expand?: string[]
+      metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+    }
+  }): Observable<
+    | (HttpResponse<t_checkout_session> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/checkout/sessions/${p["session"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postCheckoutSessionsSessionExpire(p: {
     session: string
     requestBody?: {
@@ -6295,6 +6335,7 @@ export class ApiClient {
       amount?: number
       credit_amount?: number
       effective_at?: number
+      email_type?: "credit_note" | "none"
       expand?: string[]
       invoice: string
       lines?: {
@@ -6356,6 +6397,7 @@ export class ApiClient {
     amount?: number
     creditAmount?: number
     effectiveAt?: number
+    emailType?: "credit_note" | "none"
     expand?: string[]
     invoice: string
     lines?: {
@@ -6403,6 +6445,7 @@ export class ApiClient {
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       expand: p["expand"],
       invoice: p["invoice"],
       lines: p["lines"],
@@ -6433,6 +6476,7 @@ export class ApiClient {
     amount?: number
     creditAmount?: number
     effectiveAt?: number
+    emailType?: "credit_note" | "none"
     endingBefore?: string
     expand?: string[]
     invoice: string
@@ -6488,6 +6532,7 @@ export class ApiClient {
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       invoice: p["invoice"],
@@ -6649,6 +6694,21 @@ export class ApiClient {
       components: {
         buy_button?: {
           enabled: boolean
+        }
+        payment_element?: {
+          enabled: boolean
+          features?: {
+            payment_method_allow_redisplay_filters?: (
+              | "always"
+              | "limited"
+              | "unspecified"
+            )[]
+            payment_method_redisplay?: "disabled" | "enabled"
+            payment_method_redisplay_limit?: number
+            payment_method_remove?: "disabled" | "enabled"
+            payment_method_save?: "disabled" | "enabled"
+            payment_method_save_usage?: "off_session" | "on_session"
+          }
         }
         pricing_table?: {
           enabled: boolean
@@ -6825,6 +6885,7 @@ export class ApiClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -8530,6 +8591,9 @@ export class ApiClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -8562,6 +8626,7 @@ export class ApiClient {
               | "ideal"
               | "konbini"
               | "link"
+              | "multibanco"
               | "p24"
               | "paynow"
               | "paypal"
@@ -8858,6 +8923,9 @@ export class ApiClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -8890,6 +8958,7 @@ export class ApiClient {
               | "ideal"
               | "konbini"
               | "link"
+              | "multibanco"
               | "p24"
               | "paynow"
               | "paypal"
@@ -9069,6 +9138,7 @@ export class ApiClient {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -10337,6 +10407,13 @@ export class ApiClient {
       }
       expand?: string[]
       filters?: {
+        account_subcategories?: (
+          | "checking"
+          | "credit_card"
+          | "line_of_credit"
+          | "mortgage"
+          | "savings"
+        )[]
         countries?: string[]
       }
       permissions: (
@@ -11325,6 +11402,9 @@ export class ApiClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -11360,6 +11440,7 @@ export class ApiClient {
                 | "ideal"
                 | "konbini"
                 | "link"
+                | "multibanco"
                 | "p24"
                 | "paynow"
                 | "paypal"
@@ -11516,6 +11597,7 @@ export class ApiClient {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "ch_uid"
               | "ch_vat"
               | "cl_tin"
               | "cn_tin"
@@ -11904,6 +11986,7 @@ export class ApiClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -12328,6 +12411,7 @@ export class ApiClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -12851,6 +12935,9 @@ export class ApiClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -12883,6 +12970,7 @@ export class ApiClient {
               | "ideal"
               | "konbini"
               | "link"
+              | "multibanco"
               | "p24"
               | "paynow"
               | "paypal"
@@ -12973,6 +13061,107 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/v1/invoices/${p["invoice"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoicesInvoiceAddLines(p: {
+    invoice: string
+    requestBody: {
+      expand?: string[]
+      invoice_metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      lines: {
+        amount?: number
+        description?: string
+        discountable?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        invoice_item?: string
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        period?: {
+          end: number
+          start: number
+        }
+        price?: string
+        price_data?: {
+          currency: string
+          product?: string
+          product_data?: {
+            description?: string
+            images?: string[]
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            name: string
+            tax_code?: string
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_amounts?:
+          | {
+              amount: number
+              tax_rate_data: {
+                country?: string
+                description?: string
+                display_name: string
+                inclusive: boolean
+                jurisdiction?: string
+                percentage: number
+                state?: string
+                tax_type?:
+                  | "amusement_tax"
+                  | "communications_tax"
+                  | "gst"
+                  | "hst"
+                  | "igst"
+                  | "jct"
+                  | "lease_tax"
+                  | "pst"
+                  | "qst"
+                  | "rst"
+                  | "sales_tax"
+                  | "vat"
+              }
+              taxable_amount: number
+            }[]
+          | ""
+        tax_rates?: string[] | ""
+      }[]
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/invoices/${p["invoice"]}/add_lines`,
       {
         headers,
         body,
@@ -13206,6 +13395,42 @@ export class ApiClient {
     )
   }
 
+  postInvoicesInvoiceRemoveLines(p: {
+    invoice: string
+    requestBody: {
+      expand?: string[]
+      invoice_metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      lines: {
+        behavior: "delete" | "unassign"
+        id: string
+      }[]
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/invoices/${p["invoice"]}/remove_lines`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postInvoicesInvoiceSend(p: {
     invoice: string
     requestBody?: {
@@ -13224,6 +13449,107 @@ export class ApiClient {
     return this.httpClient.request<any>(
       "POST",
       this.config.basePath + `/v1/invoices/${p["invoice"]}/send`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoicesInvoiceUpdateLines(p: {
+    invoice: string
+    requestBody: {
+      expand?: string[]
+      invoice_metadata?:
+        | {
+            [key: string]: string | undefined
+          }
+        | ""
+      lines: {
+        amount?: number
+        description?: string
+        discountable?: boolean
+        discounts?:
+          | {
+              coupon?: string
+              discount?: string
+              promotion_code?: string
+            }[]
+          | ""
+        id: string
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        period?: {
+          end: number
+          start: number
+        }
+        price?: string
+        price_data?: {
+          currency: string
+          product?: string
+          product_data?: {
+            description?: string
+            images?: string[]
+            metadata?: {
+              [key: string]: string | undefined
+            }
+            name: string
+            tax_code?: string
+          }
+          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+          unit_amount?: number
+          unit_amount_decimal?: string
+        }
+        quantity?: number
+        tax_amounts?:
+          | {
+              amount: number
+              tax_rate_data: {
+                country?: string
+                description?: string
+                display_name: string
+                inclusive: boolean
+                jurisdiction?: string
+                percentage: number
+                state?: string
+                tax_type?:
+                  | "amusement_tax"
+                  | "communications_tax"
+                  | "gst"
+                  | "hst"
+                  | "igst"
+                  | "jct"
+                  | "lease_tax"
+                  | "pst"
+                  | "qst"
+                  | "rst"
+                  | "sales_tax"
+                  | "vat"
+              }
+              taxable_amount: number
+            }[]
+          | ""
+        tax_rates?: string[] | ""
+      }[]
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/invoices/${p["invoice"]}/update_lines`,
       {
         headers,
         body,
@@ -15572,6 +15898,12 @@ export class ApiClient {
           postal_code: string
           state?: string
         }
+        address_validation?: {
+          mode:
+            | "disabled"
+            | "normalization_only"
+            | "validation_and_normalization"
+        }
         customs?: {
           eori_number?: string
         }
@@ -16552,6 +16884,30 @@ export class ApiClient {
       personalization_design?: string
       pin?: {
         encrypted_number?: string
+      }
+      shipping?: {
+        address: {
+          city: string
+          country: string
+          line1: string
+          line2?: string
+          postal_code: string
+          state?: string
+        }
+        address_validation?: {
+          mode:
+            | "disabled"
+            | "normalization_only"
+            | "validation_and_normalization"
+        }
+        customs?: {
+          eori_number?: string
+        }
+        name: string
+        phone_number?: string
+        require_signature?: boolean
+        service?: "express" | "priority" | "standard"
+        type?: "bulk" | "individual"
       }
       spending_controls?: {
         allowed_categories?: (
@@ -18370,6 +18726,13 @@ export class ApiClient {
       }
       expand?: string[]
       filters?: {
+        account_subcategories?: (
+          | "checking"
+          | "credit_card"
+          | "line_of_credit"
+          | "mortgage"
+          | "savings"
+        )[]
         countries?: string[]
       }
       permissions: (
@@ -19326,6 +19689,9 @@ export class ApiClient {
         us_bank_account?:
           | {
               financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
                 permissions?: (
                   | "balances"
                   | "ownership"
@@ -20103,6 +20469,9 @@ export class ApiClient {
         us_bank_account?:
           | {
               financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
                 permissions?: (
                   | "balances"
                   | "ownership"
@@ -20920,6 +21289,9 @@ export class ApiClient {
         us_bank_account?:
           | {
               financial_connections?: {
+                filters?: {
+                  account_subcategories?: ("checking" | "savings")[]
+                }
                 permissions?: (
                   | "balances"
                   | "ownership"
@@ -21267,6 +21639,7 @@ export class ApiClient {
         | "konbini"
         | "link"
         | "mobilepay"
+        | "multibanco"
         | "oxxo"
         | "p24"
         | "paynow"
@@ -21276,8 +21649,10 @@ export class ApiClient {
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
+        | "zip"
       )[]
       phone_number_collection?: {
         enabled: boolean
@@ -21756,6 +22131,7 @@ export class ApiClient {
             | "konbini"
             | "link"
             | "mobilepay"
+            | "multibanco"
             | "oxxo"
             | "p24"
             | "paynow"
@@ -21765,8 +22141,10 @@ export class ApiClient {
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
+            | "zip"
           )[]
         | ""
       restrictions?:
@@ -22341,6 +22719,11 @@ export class ApiClient {
             preference?: "none" | "off" | "on"
           }
         }
+        twint?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         us_bank_account?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -22596,6 +22979,11 @@ export class ApiClient {
         }
       }
       swish?: {
+        display_preference?: {
+          preference?: "none" | "off" | "on"
+        }
+      }
+      twint?: {
         display_preference?: {
           preference?: "none" | "off" | "on"
         }
@@ -27017,6 +27405,9 @@ export class ApiClient {
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -27405,6 +27796,9 @@ export class ApiClient {
         }
         us_bank_account?: {
           financial_connections?: {
+            filters?: {
+              account_subcategories?: ("checking" | "savings")[]
+            }
             permissions?: (
               | "balances"
               | "ownership"
@@ -27795,6 +28189,9 @@ export class ApiClient {
         }
         us_bank_account?: {
           financial_connections?: {
+            filters?: {
+              account_subcategories?: ("checking" | "savings")[]
+            }
             permissions?: (
               | "balances"
               | "ownership"
@@ -29554,6 +29951,9 @@ export class ApiClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -29586,6 +29986,7 @@ export class ApiClient {
               | "ideal"
               | "konbini"
               | "link"
+              | "multibanco"
               | "p24"
               | "paynow"
               | "paypal"
@@ -29934,6 +30335,9 @@ export class ApiClient {
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -29966,6 +30370,7 @@ export class ApiClient {
               | "ideal"
               | "konbini"
               | "link"
+              | "multibanco"
               | "p24"
               | "paynow"
               | "paypal"
@@ -30114,6 +30519,7 @@ export class ApiClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
@@ -30738,6 +31144,7 @@ export class ApiClient {
       metadata?: {
         [key: string]: string | undefined
       }
+      posted_at?: number
       reference: string
     }
   }): Observable<
@@ -31022,6 +31429,7 @@ export class ApiClient {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "ch_uid"
         | "ch_vat"
         | "cl_tin"
         | "cn_tin"
@@ -31396,6 +31804,10 @@ export class ApiClient {
               enabled: boolean
             }
           | ""
+        reboot_window?: {
+          end_hour: number
+          start_hour: number
+        }
         stripe_s700?: {
           splashscreen?: string | ""
         }
@@ -31570,6 +31982,12 @@ export class ApiClient {
       offline?:
         | {
             enabled: boolean
+          }
+        | ""
+      reboot_window?:
+        | {
+            end_hour: number
+            start_hour: number
           }
         | ""
       stripe_s700?:
@@ -31902,6 +32320,7 @@ export class ApiClient {
         | "mobile_phone_reader"
         | "simulated_wisepos_e"
         | "stripe_m2"
+        | "stripe_s700"
         | "verifone_P400"
       endingBefore?: string
       expand?: string[]
@@ -32565,6 +32984,52 @@ export class ApiClient {
       card: string
       currency?: string
       expand?: string[]
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+        unit_cost_decimal?: string
+      }
       is_amount_controllable?: boolean
       merchant_data?: {
         category?:
@@ -32925,6 +33390,35 @@ export class ApiClient {
       close_authorization?: boolean
       expand?: string[]
       purchase_details?: {
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
         flight?: {
           departure_at?: number
           passenger_name?: string
@@ -32940,6 +33434,7 @@ export class ApiClient {
           travel_agency?: string
         }
         fuel?: {
+          industry_product_code?: string
           quantity_decimal?: string
           type?:
             | "diesel"
@@ -33013,6 +33508,81 @@ export class ApiClient {
       "POST",
       this.config.basePath +
         `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(p: {
+    authorization: string
+    requestBody: {
+      expand?: string[]
+      final_amount: number
+      fleet?: {
+        cardholder_prompt_data?: {
+          driver_id?: string
+          odometer?: number
+          unspecified_id?: string
+          user_id?: string
+          vehicle_number?: string
+        }
+        purchase_type?:
+          | "fuel_and_non_fuel_purchase"
+          | "fuel_purchase"
+          | "non_fuel_purchase"
+        reported_breakdown?: {
+          fuel?: {
+            gross_amount_decimal?: string
+          }
+          non_fuel?: {
+            gross_amount_decimal?: string
+          }
+          tax?: {
+            local_amount_decimal?: string
+            national_amount_decimal?: string
+          }
+        }
+        service_type?: "full_service" | "non_fuel_transaction" | "self_service"
+      }
+      fuel?: {
+        industry_product_code?: string
+        quantity_decimal?: string
+        type?:
+          | "diesel"
+          | "other"
+          | "unleaded_plus"
+          | "unleaded_regular"
+          | "unleaded_super"
+        unit?:
+          | "charging_minute"
+          | "imperial_gallon"
+          | "kilogram"
+          | "kilowatt_hour"
+          | "liter"
+          | "other"
+          | "pound"
+          | "us_gallon"
+        unit_cost_decimal?: string
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_authorization> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`,
       {
         headers,
         body,
@@ -33610,6 +34180,35 @@ export class ApiClient {
         url?: string
       }
       purchase_details?: {
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
         flight?: {
           departure_at?: number
           passenger_name?: string
@@ -33625,6 +34224,7 @@ export class ApiClient {
           travel_agency?: string
         }
         fuel?: {
+          industry_product_code?: string
           quantity_decimal?: string
           type?:
             | "diesel"
@@ -33991,6 +34591,35 @@ export class ApiClient {
         url?: string
       }
       purchase_details?: {
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
         flight?: {
           departure_at?: number
           passenger_name?: string
@@ -34006,6 +34635,7 @@ export class ApiClient {
           travel_agency?: string
         }
         fuel?: {
+          industry_product_code?: string
           quantity_decimal?: string
           type?:
             | "diesel"
@@ -37157,6 +37787,7 @@ export class ApiClient {
         | "invoice.finalization_failed"
         | "invoice.finalized"
         | "invoice.marked_uncollectible"
+        | "invoice.overdue"
         | "invoice.paid"
         | "invoice.payment_action_required"
         | "invoice.payment_failed"
@@ -37165,6 +37796,7 @@ export class ApiClient {
         | "invoice.upcoming"
         | "invoice.updated"
         | "invoice.voided"
+        | "invoice.will_be_due"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
         | "issuing_authorization.created"
@@ -37177,6 +37809,7 @@ export class ApiClient {
         | "issuing_dispute.closed"
         | "issuing_dispute.created"
         | "issuing_dispute.funds_reinstated"
+        | "issuing_dispute.funds_rescinded"
         | "issuing_dispute.submitted"
         | "issuing_dispute.updated"
         | "issuing_personalization_design.activated"
@@ -37481,6 +38114,7 @@ export class ApiClient {
         | "invoice.finalization_failed"
         | "invoice.finalized"
         | "invoice.marked_uncollectible"
+        | "invoice.overdue"
         | "invoice.paid"
         | "invoice.payment_action_required"
         | "invoice.payment_failed"
@@ -37489,6 +38123,7 @@ export class ApiClient {
         | "invoice.upcoming"
         | "invoice.updated"
         | "invoice.voided"
+        | "invoice.will_be_due"
         | "invoiceitem.created"
         | "invoiceitem.deleted"
         | "issuing_authorization.created"
@@ -37501,6 +38136,7 @@ export class ApiClient {
         | "issuing_dispute.closed"
         | "issuing_dispute.created"
         | "issuing_dispute.funds_reinstated"
+        | "issuing_dispute.funds_rescinded"
         | "issuing_dispute.submitted"
         | "issuing_dispute.updated"
         | "issuing_personalization_design.activated"

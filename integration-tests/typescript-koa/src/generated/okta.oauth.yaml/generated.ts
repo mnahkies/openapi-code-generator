@@ -10,6 +10,10 @@ import {
   t_BcAuthorizeBodySchema,
   t_BcAuthorizeCustomAsBodySchema,
   t_BcAuthorizeCustomAsParamSchema,
+  t_ChallengeBodySchema,
+  t_ChallengeCustomAsBodySchema,
+  t_ChallengeCustomAsParamSchema,
+  t_ChallengeResponse,
   t_Client,
   t_CreateClientBodySchema,
   t_DeleteClientParamSchema,
@@ -25,6 +29,7 @@ import {
   t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
   t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema,
   t_GetWellKnownOpenIdConfigurationQuerySchema,
+  t_GlobalTokenRevocationBodySchema,
   t_IntrospectBodySchema,
   t_IntrospectCustomAsBodySchema,
   t_IntrospectCustomAsParamSchema,
@@ -32,13 +37,20 @@ import {
   t_ListClientsQuerySchema,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
+  t_LogoutCustomAsWithPostBodySchema,
+  t_LogoutCustomAsWithPostParamSchema,
   t_LogoutQuerySchema,
+  t_LogoutWithPostBodySchema,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OauthKeysCustomAsParamSchema,
   t_OauthKeysQuerySchema,
   t_OidcMetadata,
+  t_OobAuthenticateBodySchema,
+  t_OobAuthenticateCustomAsBodySchema,
+  t_OobAuthenticateCustomAsParamSchema,
+  t_OobAuthenticateResponse,
   t_ParBodySchema,
   t_ParCustomAsBodySchema,
   t_ParCustomAsParamSchema,
@@ -62,17 +74,23 @@ import {
   s_AmrValue,
   s_BackchannelAuthorizeRequest,
   s_BackchannelAuthorizeResponse,
+  s_ChallengeRequest,
+  s_ChallengeResponse,
   s_Client,
   s_CodeChallengeMethod,
   s_DeviceAuthorizeRequest,
   s_DeviceAuthorizeResponse,
   s_Error,
+  s_GlobalTokenRevocationRequest,
   s_IntrospectionRequest,
   s_IntrospectionResponse,
+  s_LogoutWithPost,
   s_OAuthError,
   s_OAuthKeys,
   s_OAuthMetadata,
   s_OidcMetadata,
+  s_OobAuthenticateRequest,
+  s_OobAuthenticateResponse,
   s_ParRequest,
   s_ParResponse,
   s_Prompt,
@@ -145,6 +163,27 @@ export type BcAuthorize = (
   | Response<400, t_OAuthError>
   | Response<401, t_OAuthError>
   | Response<429, t_Error>
+>
+
+export type ChallengeResponder = {
+  with200(): KoaRuntimeResponse<t_ChallengeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_OAuthError>
+} & KoaRuntimeResponder
+
+export type Challenge = (
+  params: Params<void, void, t_ChallengeBodySchema>,
+  respond: ChallengeResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ChallengeResponse>
+  | Response<400, t_OAuthError>
+  | Response<401, t_OAuthError>
+  | Response<403, t_OAuthError>
+  | Response<429, t_OAuthError>
 >
 
 export type ListClientsResponder = {
@@ -280,6 +319,25 @@ export type DeviceAuthorize = (
   | Response<429, t_Error>
 >
 
+export type GlobalTokenRevocationResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with400(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_Error>
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type GlobalTokenRevocation = (
+  params: Params<void, void, t_GlobalTokenRevocationBodySchema>,
+  respond: GlobalTokenRevocationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<400, void>
+  | Response<403, t_Error>
+  | Response<429, t_Error>
+>
+
 export type IntrospectResponder = {
   with200(): KoaRuntimeResponse<t_IntrospectionResponse>
   with400(): KoaRuntimeResponse<t_OAuthError>
@@ -323,6 +381,37 @@ export type Logout = (
   respond: LogoutResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type LogoutWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type LogoutWithPost = (
+  params: Params<void, void, t_LogoutWithPostBodySchema>,
+  respond: LogoutWithPostResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type OobAuthenticateResponder = {
+  with200(): KoaRuntimeResponse<t_OobAuthenticateResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_OAuthError>
+} & KoaRuntimeResponder
+
+export type OobAuthenticate = (
+  params: Params<void, void, t_OobAuthenticateBodySchema>,
+  respond: OobAuthenticateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_OobAuthenticateResponse>
+  | Response<400, t_OAuthError>
+  | Response<401, t_OAuthError>
+  | Response<403, t_OAuthError>
+  | Response<429, t_OAuthError>
+>
 
 export type ParOptionsResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -507,6 +596,31 @@ export type BcAuthorizeCustomAs = (
   | Response<429, t_Error>
 >
 
+export type ChallengeCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_ChallengeResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_OAuthError>
+} & KoaRuntimeResponder
+
+export type ChallengeCustomAs = (
+  params: Params<
+    t_ChallengeCustomAsParamSchema,
+    void,
+    t_ChallengeCustomAsBodySchema
+  >,
+  respond: ChallengeCustomAsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ChallengeResponse>
+  | Response<400, t_OAuthError>
+  | Response<401, t_OAuthError>
+  | Response<403, t_OAuthError>
+  | Response<429, t_OAuthError>
+>
+
 export type DeviceAuthorizeCustomAsResponder = {
   with200(): KoaRuntimeResponse<t_DeviceAuthorizeResponse>
   with400(): KoaRuntimeResponse<t_OAuthError>
@@ -581,6 +695,45 @@ export type LogoutCustomAs = (
   respond: LogoutCustomAsResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type LogoutCustomAsWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type LogoutCustomAsWithPost = (
+  params: Params<
+    t_LogoutCustomAsWithPostParamSchema,
+    void,
+    t_LogoutCustomAsWithPostBodySchema
+  >,
+  respond: LogoutCustomAsWithPostResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type OobAuthenticateCustomAsResponder = {
+  with200(): KoaRuntimeResponse<t_OobAuthenticateResponse>
+  with400(): KoaRuntimeResponse<t_OAuthError>
+  with401(): KoaRuntimeResponse<t_OAuthError>
+  with403(): KoaRuntimeResponse<t_OAuthError>
+  with429(): KoaRuntimeResponse<t_OAuthError>
+} & KoaRuntimeResponder
+
+export type OobAuthenticateCustomAs = (
+  params: Params<
+    t_OobAuthenticateCustomAsParamSchema,
+    void,
+    t_OobAuthenticateCustomAsBodySchema
+  >,
+  respond: OobAuthenticateCustomAsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_OobAuthenticateResponse>
+  | Response<400, t_OAuthError>
+  | Response<401, t_OAuthError>
+  | Response<403, t_OAuthError>
+  | Response<429, t_OAuthError>
+>
 
 export type ParOptionsCustomAsResponder = {
   with204(): KoaRuntimeResponse<void>
@@ -690,6 +843,7 @@ export type Implementation = {
   getWellKnownOpenIdConfiguration: GetWellKnownOpenIdConfiguration
   authorize: Authorize
   bcAuthorize: BcAuthorize
+  challenge: Challenge
   listClients: ListClients
   createClient: CreateClient
   getClient: GetClient
@@ -697,9 +851,12 @@ export type Implementation = {
   deleteClient: DeleteClient
   generateNewClientSecret: GenerateNewClientSecret
   deviceAuthorize: DeviceAuthorize
+  globalTokenRevocation: GlobalTokenRevocation
   introspect: Introspect
   oauthKeys: OauthKeys
   logout: Logout
+  logoutWithPost: LogoutWithPost
+  oobAuthenticate: OobAuthenticate
   parOptions: ParOptions
   par: Par
   revoke: Revoke
@@ -710,10 +867,13 @@ export type Implementation = {
   getWellKnownOpenIdConfigurationCustomAs: GetWellKnownOpenIdConfigurationCustomAs
   authorizeCustomAs: AuthorizeCustomAs
   bcAuthorizeCustomAs: BcAuthorizeCustomAs
+  challengeCustomAs: ChallengeCustomAs
   deviceAuthorizeCustomAs: DeviceAuthorizeCustomAs
   introspectCustomAs: IntrospectCustomAs
   oauthKeysCustomAs: OauthKeysCustomAs
   logoutCustomAs: LogoutCustomAs
+  logoutCustomAsWithPost: LogoutCustomAsWithPost
+  oobAuthenticateCustomAs: OobAuthenticateCustomAs
   parOptionsCustomAs: ParOptionsCustomAs
   parCustomAs: ParCustomAs
   revokeCustomAs: RevokeCustomAs
@@ -892,6 +1052,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
     ctx.body = bcAuthorizeResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const challengeBodySchema = s_ChallengeRequest
+
+  const challengeResponseValidator = responseValidationFactory(
+    [
+      ["200", s_ChallengeResponse],
+      ["400", s_OAuthError],
+      ["401", s_OAuthError],
+      ["403", s_OAuthError],
+      ["429", s_OAuthError],
+    ],
+    undefined,
+  )
+
+  router.post("challenge", "/oauth2/v1/challenge", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        challengeBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_ChallengeResponse>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_OAuthError>(400)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_OAuthError>(401)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_OAuthError>(403)
+      },
+      with429() {
+        return new KoaRuntimeResponse<t_OAuthError>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .challenge(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = challengeResponseValidator(status, body)
     ctx.status = status
     return next()
   })
@@ -1307,6 +1526,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const globalTokenRevocationBodySchema = s_GlobalTokenRevocationRequest
+
+  const globalTokenRevocationResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["400", z.undefined()],
+      ["403", s_Error],
+      ["429", s_Error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "globalTokenRevocation",
+    "/oauth2/v1/global-token-revocation",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          globalTokenRevocationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with400() {
+          return new KoaRuntimeResponse<void>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .globalTokenRevocation(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = globalTokenRevocationResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const introspectBodySchema = s_IntrospectionRequest
 
   const introspectResponseValidator = responseValidationFactory(
@@ -1453,6 +1731,110 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const logoutWithPostBodySchema = s_LogoutWithPost
+
+  const logoutWithPostResponseValidator = responseValidationFactory(
+    [["429", s_Error]],
+    undefined,
+  )
+
+  router.post("logoutWithPost", "/oauth2/v1/logout", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        logoutWithPostBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+    }
+
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .logoutWithPost(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = logoutWithPostResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const oobAuthenticateBodySchema = s_OobAuthenticateRequest
+
+  const oobAuthenticateResponseValidator = responseValidationFactory(
+    [
+      ["200", s_OobAuthenticateResponse],
+      ["400", s_OAuthError],
+      ["401", s_OAuthError],
+      ["403", s_OAuthError],
+      ["429", s_OAuthError],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "oobAuthenticate",
+    "/oauth2/v1/oob-authenticate",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          oobAuthenticateBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OobAuthenticateResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_OAuthError>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_OAuthError>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .oobAuthenticate(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = oobAuthenticateResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const parOptionsResponseValidator = responseValidationFactory(
     [
@@ -2033,6 +2415,77 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const challengeCustomAsParamSchema = z.object({
+    authorizationServerId: z.string(),
+  })
+
+  const challengeCustomAsBodySchema = s_ChallengeRequest
+
+  const challengeCustomAsResponseValidator = responseValidationFactory(
+    [
+      ["200", s_ChallengeResponse],
+      ["400", s_OAuthError],
+      ["401", s_OAuthError],
+      ["403", s_OAuthError],
+      ["429", s_OAuthError],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "challengeCustomAs",
+    "/oauth2/:authorizationServerId/v1/challenge",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          challengeCustomAsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          challengeCustomAsBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ChallengeResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_OAuthError>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_OAuthError>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .challengeCustomAs(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = challengeCustomAsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const deviceAuthorizeCustomAsParamSchema = z.object({
     authorizationServerId: z.string(),
   })
@@ -2272,6 +2725,130 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = logoutCustomAsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const logoutCustomAsWithPostParamSchema = z.object({
+    authorizationServerId: z.string(),
+  })
+
+  const logoutCustomAsWithPostBodySchema = s_LogoutWithPost
+
+  const logoutCustomAsWithPostResponseValidator = responseValidationFactory(
+    [["429", s_Error]],
+    undefined,
+  )
+
+  router.post(
+    "logoutCustomAsWithPost",
+    "/oauth2/:authorizationServerId/v1/logout",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          logoutCustomAsWithPostParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          logoutCustomAsWithPostBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .logoutCustomAsWithPost(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = logoutCustomAsWithPostResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const oobAuthenticateCustomAsParamSchema = z.object({
+    authorizationServerId: z.string(),
+  })
+
+  const oobAuthenticateCustomAsBodySchema = s_OobAuthenticateRequest
+
+  const oobAuthenticateCustomAsResponseValidator = responseValidationFactory(
+    [
+      ["200", s_OobAuthenticateResponse],
+      ["400", s_OAuthError],
+      ["401", s_OAuthError],
+      ["403", s_OAuthError],
+      ["429", s_OAuthError],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "oobAuthenticateCustomAs",
+    "/oauth2/:authorizationServerId/v1/oob-authenticate",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          oobAuthenticateCustomAsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          oobAuthenticateCustomAsBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_OobAuthenticateResponse>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_OAuthError>(400)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_OAuthError>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_OAuthError>(403)
+        },
+        with429() {
+          return new KoaRuntimeResponse<t_OAuthError>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .oobAuthenticateCustomAs(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = oobAuthenticateCustomAsResponseValidator(status, body)
       ctx.status = status
       return next()
     },

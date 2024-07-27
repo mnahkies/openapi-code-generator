@@ -7,15 +7,21 @@ import {
   t_AmrValue,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
+  t_ChallengeRequest,
+  t_ChallengeResponse,
   t_Client,
   t_CodeChallengeMethod,
   t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
+  t_GlobalTokenRevocationRequest,
   t_IntrospectionRequest,
   t_IntrospectionResponse,
+  t_LogoutWithPost,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OidcMetadata,
+  t_OobAuthenticateRequest,
+  t_OobAuthenticateResponse,
   t_ParRequest,
   t_ParResponse,
   t_Prompt,
@@ -121,6 +127,29 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_BackchannelAuthorizeResponse>> {
     const url = `/oauth2/v1/bc/authorize`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async challenge(
+    p: {
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_ChallengeResponse>> {
+    const url = `/oauth2/v1/challenge`
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
     })
@@ -277,6 +306,27 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async globalTokenRevocation(
+    p: {
+      requestBody: t_GlobalTokenRevocationRequest
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/v1/global-token-revocation`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async introspect(
     p: {
       requestBody: t_IntrospectionRequest
@@ -335,6 +385,52 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async logoutWithPost(
+    p: {
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/v1/logout`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async oobAuthenticate(
+    p: {
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_OobAuthenticateResponse>> {
+    const url = `/oauth2/v1/oob-authenticate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
@@ -578,6 +674,30 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async challengeCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_ChallengeResponse>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/challenge`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
   async deviceAuthorizeCustomAs(
     p: {
       authorizationServerId: string
@@ -661,6 +781,54 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async logoutCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/logout`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async oobAuthenticateCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_OobAuthenticateResponse>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })

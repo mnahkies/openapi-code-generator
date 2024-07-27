@@ -182,7 +182,6 @@ import {
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
-  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
@@ -260,6 +259,7 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -3497,6 +3497,47 @@ export class ApiClient {
     )
   }
 
+  orgsListAttestations(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    org: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   orgsListBlockedUsers(p: {
     org: string
     perPage?: number
@@ -3659,10 +3700,12 @@ export class ApiClient {
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
       description: string
+      enforcement?: "enforced" | "unenforced"
       name: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
     }
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & { status: 201 })
@@ -3703,6 +3746,35 @@ export class ApiClient {
     )
   }
 
+  codeSecurityDetachConfiguration(p: {
+    org: string
+    requestBody: {
+      selected_repository_ids?: number[]
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/code-security/configurations/detach`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codeSecurityGetConfiguration(p: {
     org: string
     configurationId: number
@@ -3734,10 +3806,12 @@ export class ApiClient {
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
       description?: string
+      enforcement?: "enforced" | "unenforced"
       name?: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
     }
   }): Observable<
     | (HttpResponse<t_code_security_configuration> & { status: 200 })
@@ -5667,25 +5741,6 @@ export class ApiClient {
     )
   }
 
-  orgsListOrganizationFineGrainedPermissions(p: {
-    org: string
-  }): Observable<
-    | (HttpResponse<t_organization_fine_grained_permission[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/organization-fine-grained-permissions`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   orgsListOrgRoles(p: {
     org: string
   }): Observable<
@@ -5701,35 +5756,6 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/organization-roles`,
       {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsCreateCustomOrganizationRole(p: {
-    org: string
-    requestBody: {
-      description?: string
-      name: string
-      permissions: string[]
-    }
-  }): Observable<
-    | (HttpResponse<t_organization_role> & { status: 201 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/orgs/${p["org"]}/organization-roles`,
-      {
-        headers,
-        body,
         observe: "response",
         reportProgress: false,
       },
@@ -5859,54 +5885,6 @@ export class ApiClient {
   > {
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsPatchCustomOrganizationRole(p: {
-    org: string
-    roleId: number
-    requestBody: {
-      description?: string
-      name?: string
-      permissions?: string[]
-    }
-  }): Observable<
-    | (HttpResponse<t_organization_role> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
-    | HttpResponse<unknown>
-  > {
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = p["requestBody"]
-
-    return this.httpClient.request<any>(
-      "PATCH",
-      this.config.basePath +
-        `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  orgsDeleteCustomOrganizationRole(p: {
-    org: string
-    roleId: number
-  }): Observable<
-    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
-  > {
-    return this.httpClient.request<any>(
-      "DELETE",
       this.config.basePath +
         `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`,
       {
@@ -6960,6 +6938,7 @@ export class ApiClient {
 
   reposGetOrgRuleSuites(p: {
     org: string
+    ref?: string
     repositoryName?: number
     timePeriod?: "hour" | "day" | "week" | "month"
     actorName?: string
@@ -6973,6 +6952,7 @@ export class ApiClient {
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
+      ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -7181,9 +7161,7 @@ export class ApiClient {
     org: string
     teamSlug: string
   }): Observable<
-    | (HttpResponse<void> & { status: 204 })
-    | (HttpResponse<void> & { status: 409 })
-    | HttpResponse<unknown>
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
       "PUT",
@@ -8780,6 +8758,9 @@ export class ApiClient {
           status?: string
         }
         secret_scanning?: {
+          status?: string
+        }
+        secret_scanning_non_provider_patterns?: {
           status?: string
         }
         secret_scanning_push_protection?: {
@@ -10656,6 +10637,85 @@ export class ApiClient {
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposCreateAttestation(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      bundle: {
+        dsseEnvelope?: {
+          [key: string]: unknown | undefined
+        }
+        mediaType?: string
+        verificationMaterial?: {
+          [key: string]: unknown | undefined
+        }
+      }
+    }
+  }): Observable<
+    | (HttpResponse<{
+        id?: number
+      }> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/repos/${p["owner"]}/${p["repo"]}/attestations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposListAttestations(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    before?: string
+    after?: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -23881,6 +23941,23 @@ export class ApiClient {
     )
   }
 
+  usersGetById(p: {
+    accountId: number
+  }): Observable<
+    | (HttpResponse<t_private_user | t_public_user> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/user/${p["accountId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   usersList(
     p: {
       since?: number
@@ -23918,6 +23995,42 @@ export class ApiClient {
       "GET",
       this.config.basePath + `/users/${p["username"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  usersListAttestations(p: {
+    perPage?: number
+    before?: string
+    after?: string
+    username: string
+    subjectDigest: string
+  }): Observable<
+    | (HttpResponse<{
+        attestations?: {
+          bundle?: t_sigstore_bundle_0
+          repository_id?: number
+        }[]
+      }> & { status: 200 })
+    | (HttpResponse<t_empty_object> & { status: 201 })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/users/${p["username"]}/attestations/${p["subjectDigest"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
