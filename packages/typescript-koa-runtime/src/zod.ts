@@ -7,10 +7,6 @@ export type Params<Params, Query, Body> = {
   body: Body
 }
 
-function isZodSchema(z: unknown): z is z.ZodTypeAny {
-  return typeof z === "object" && z !== null && Reflect.has(z, "parse")
-}
-
 export function parseRequestInput<Schema extends z.ZodTypeAny>(
   schema: Schema,
   input: unknown,
