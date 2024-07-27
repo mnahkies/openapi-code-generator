@@ -14,6 +14,7 @@ curl -L https://raw.githubusercontent.com/OAI/OpenAPI-Specification/master/examp
 curl -L https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml -o ./integration-tests-definitions/stripe.yaml
 
 curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/dist/current/idp-minimal.yaml -o ./integration-tests-definitions/okta.idp.yaml
+# spec is currently invalid (https://github.com/okta/okta-management-openapi-spec/issues/180)
 #curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/dist/current/management-minimal.yaml -o ./integration-tests-definitions/okta.management.yaml
 curl -L https://github.com/okta/okta-management-openapi-spec/raw/master/dist/current/oauth-minimal.yaml -o ./integration-tests-definitions/okta.oauth.yaml
 
