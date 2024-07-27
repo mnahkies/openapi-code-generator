@@ -104,7 +104,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const findPetsQuerySchema = z.object({
     tags: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string()),
       )
       .optional(),

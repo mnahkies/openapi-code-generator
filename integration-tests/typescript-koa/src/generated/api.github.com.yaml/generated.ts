@@ -34475,7 +34475,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional(),
     exclude: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.enum(["repositories"])),
       )
       .optional(),
@@ -34607,7 +34607,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsGetStatusForOrgQuerySchema = z.object({
     exclude: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.enum(["repositories"])),
       )
       .optional(),
@@ -36253,7 +36253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     direction: z.enum(["asc", "desc"]).optional(),
     owner: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string()).max(10),
       )
       .optional(),
@@ -36567,7 +36567,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     direction: z.enum(["asc", "desc"]).optional(),
     owner: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string()).max(10),
       )
       .optional(),
@@ -77644,7 +77644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
     exclude: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string()),
       )
       .optional(),

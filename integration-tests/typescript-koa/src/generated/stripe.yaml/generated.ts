@@ -13628,7 +13628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -13915,7 +13915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -14643,7 +14643,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -15429,7 +15429,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountBankAccountsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -15579,7 +15579,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountCapabilitiesQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -15665,7 +15665,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountCapabilitiesCapabilityQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -15801,7 +15801,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -16043,7 +16043,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountExternalAccountsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -16253,7 +16253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -16606,7 +16606,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountPeoplePersonQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -16872,7 +16872,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -17225,7 +17225,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAccountsAccountPersonsPersonQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -17547,7 +17547,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -17734,7 +17734,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getApplePayDomainsDomainQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -17812,7 +17812,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -17895,7 +17895,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getApplicationFeesFeeRefundsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18020,7 +18020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getApplicationFeesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18150,7 +18150,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18294,7 +18294,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18480,7 +18480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getAppsSecretsFindQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18546,7 +18546,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getBalanceQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18616,7 +18616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18698,7 +18698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getBalanceHistoryIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18776,7 +18776,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -18864,7 +18864,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getBalanceTransactionsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -19038,7 +19038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -19174,7 +19174,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getBillingMetersIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -19361,7 +19361,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -19507,7 +19507,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -19729,7 +19729,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getBillingPortalConfigurationsConfigurationQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -20134,7 +20134,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -20326,7 +20326,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getChargesSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -20407,7 +20407,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getChargesChargeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -20622,7 +20622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getChargesChargeDisputeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -20908,7 +20908,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -21067,7 +21067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getChargesChargeRefundsRefundQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -21204,7 +21204,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22303,7 +22303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCheckoutSessionsSessionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22491,7 +22491,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22578,7 +22578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22708,7 +22708,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getClimateOrdersOrderQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22899,7 +22899,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -22981,7 +22981,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getClimateProductsProductQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23047,7 +23047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23129,7 +23129,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getClimateSuppliersSupplierQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23196,7 +23196,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getConfirmationTokensConfirmationTokenQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23265,7 +23265,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23343,7 +23343,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCountrySpecsCountryQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23420,7 +23420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23616,7 +23616,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCouponsCouponQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23751,7 +23751,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -23925,14 +23925,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     email_type: z.enum(["credit_note", "none"]).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     invoice: z.string().max(5000),
     lines: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             amount: z.coerce.number().optional(),
@@ -24039,7 +24039,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -24047,7 +24047,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     lines: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             amount: z.coerce.number().optional(),
@@ -24170,7 +24170,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -24255,7 +24255,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCreditNotesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -24523,7 +24523,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -24817,7 +24817,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -24960,7 +24960,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -25215,7 +25215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -25373,7 +25373,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -25527,7 +25527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -25783,7 +25783,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerBankAccountsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26020,7 +26020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26271,7 +26271,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerCardsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26438,7 +26438,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerCashBalanceQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26571,7 +26571,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26663,7 +26663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -26799,7 +26799,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerDiscountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -26942,7 +26942,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -27074,7 +27074,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerPaymentMethodsPaymentMethodQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -27148,7 +27148,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -27405,7 +27405,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerSourcesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -27636,7 +27636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -28201,7 +28201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -28786,7 +28786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -28863,7 +28863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29137,7 +29137,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getCustomersCustomerTaxIdsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29213,7 +29213,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29292,7 +29292,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getDisputesDisputeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29510,7 +29510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29596,7 +29596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getEntitlementsActiveEntitlementsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29667,7 +29667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -29806,7 +29806,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getEntitlementsFeaturesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30057,7 +30057,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30066,7 +30066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.string().max(5000).optional(),
     types: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30140,7 +30140,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getEventsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30202,7 +30202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30280,7 +30280,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getExchangeRatesRateIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30357,7 +30357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30484,7 +30484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getFileLinksLinkQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30619,7 +30619,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30780,7 +30780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getFilesFileQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30848,7 +30848,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -30935,7 +30935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getFinancialConnectionsAccountsAccountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31078,7 +31078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31447,7 +31447,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getFinancialConnectionsSessionsSessionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31520,7 +31520,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31621,7 +31621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getFinancialConnectionsTransactionsTransactionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31704,7 +31704,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31854,7 +31854,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getForwardingRequestsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -31932,7 +31932,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32020,7 +32020,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIdentityVerificationReportsReportQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32102,7 +32102,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32269,7 +32269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIdentityVerificationSessionsSessionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32563,7 +32563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32784,7 +32784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getInvoiceitemsInvoiceitemQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -32975,7 +32975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -33910,7 +33910,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getInvoicesSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -34137,13 +34137,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     invoice_items: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             amount: z.coerce.number().optional(),
@@ -34457,7 +34457,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     subscription_items: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             billing_thresholds: z
@@ -34718,13 +34718,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     invoice_items: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             amount: z.coerce.number().optional(),
@@ -35040,7 +35040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     subscription_items: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(
           z.object({
             billing_thresholds: z
@@ -35227,7 +35227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getInvoicesInvoiceQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -35871,7 +35871,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -36555,7 +36555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -36641,7 +36641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingAuthorizationsAuthorizationQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -36909,7 +36909,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -38028,7 +38028,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingCardholdersCardholderQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -39145,7 +39145,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     exp_year: z.coerce.number().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -40241,7 +40241,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingCardsCardQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -41338,7 +41338,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -41658,7 +41658,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingDisputesDisputeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42023,14 +42023,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     limit: z.coerce.number().optional(),
     lookup_keys: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(200)),
       )
       .optional(),
@@ -42191,7 +42191,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -42362,7 +42362,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42449,7 +42449,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingPhysicalBundlesPhysicalBundleQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42521,7 +42521,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingSettlementsSettlementQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42656,7 +42656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42735,7 +42735,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingTokensTokenQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42873,7 +42873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -42959,7 +42959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getIssuingTransactionsTransactionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43169,7 +43169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getLinkAccountSessionsSessionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43242,7 +43242,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43324,7 +43324,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getLinkedAccountsAccountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43456,7 +43456,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43602,7 +43602,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getMandatesMandateQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -43680,7 +43680,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -44765,7 +44765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPaymentIntentsSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -44853,7 +44853,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     client_secret: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -47261,7 +47261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -47869,7 +47869,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPaymentLinksPaymentLinkQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -48480,7 +48480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -48568,7 +48568,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -48996,7 +48996,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPaymentMethodConfigurationsConfigurationQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -49423,7 +49423,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -49560,7 +49560,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPaymentMethodDomainsPaymentMethodDomainQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -49755,7 +49755,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -50203,7 +50203,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPaymentMethodsPaymentMethodQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -50509,7 +50509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -50640,7 +50640,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPayoutsPayoutQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -50890,7 +50890,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51108,7 +51108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPlansPlanQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51242,14 +51242,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     limit: z.coerce.number().optional(),
     lookup_keys: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51463,7 +51463,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPricesSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51544,7 +51544,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPricesPriceQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51713,13 +51713,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
     ids: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -51909,7 +51909,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getProductsSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52040,7 +52040,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getProductsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52188,7 +52188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52387,7 +52387,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getProductsProductFeaturesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52466,7 +52466,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52611,7 +52611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getPromotionCodesPromotionCodeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52743,7 +52743,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -52995,7 +52995,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getQuotesQuoteQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53351,7 +53351,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53505,7 +53505,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53589,7 +53589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getQuotesQuotePdfQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53667,7 +53667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53753,7 +53753,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getRadarEarlyFraudWarningsEarlyFraudWarningQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -53833,7 +53833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54029,7 +54029,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getRadarValueListItemsItemQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54108,7 +54108,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54311,7 +54311,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getRadarValueListsValueListQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54448,7 +54448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54586,7 +54586,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getRefundsRefundQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -54770,7 +54770,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55559,7 +55559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getReportingReportRunsReportRunQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55622,7 +55622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getReportingReportTypesQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55702,7 +55702,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getReportingReportTypesReportTypeQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55780,7 +55780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55856,7 +55856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getReviewsReviewQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -55987,7 +55987,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -56076,7 +56076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -56650,7 +56650,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     client_secret: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -57822,7 +57822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -57983,7 +57983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getShippingRatesShippingRateTokenQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -58130,7 +58130,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -58215,7 +58215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getSigmaScheduledQueryRunsScheduledQueryRunQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -58436,7 +58436,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     client_secret: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -58644,7 +58644,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -58722,7 +58722,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -58815,7 +58815,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -58948,7 +58948,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -59195,7 +59195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getSubscriptionItemsItemQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -59374,7 +59374,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ending_before: z.string().max(5000).optional(),
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -59569,7 +59569,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -59935,7 +59935,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getSubscriptionSchedulesScheduleQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -60442,7 +60442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -60927,7 +60927,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getSubscriptionsSearchQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -61095,7 +61095,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getSubscriptionsSubscriptionExposedIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -61915,7 +61915,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(500).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -62007,7 +62007,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -62467,7 +62467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxRegistrationsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -62596,7 +62596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxSettingsQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -62851,7 +62851,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxTransactionsTransactionQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -62919,7 +62919,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(500).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63011,7 +63011,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63087,7 +63087,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxCodesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63149,7 +63149,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63411,7 +63411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxIdsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63485,7 +63485,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63635,7 +63635,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTaxRatesTaxRateQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -63784,7 +63784,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -64111,7 +64111,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTerminalConfigurationsConfigurationQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -64460,7 +64460,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -64660,7 +64660,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTerminalLocationsLocationQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -64819,7 +64819,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -65012,7 +65012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTerminalReadersReaderQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -68484,7 +68484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -68681,7 +68681,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTestHelpersTestClocksTestClockQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70136,7 +70136,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTokensTokenQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70220,7 +70220,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70350,7 +70350,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTopupsTopupQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70538,7 +70538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70672,7 +70672,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70822,7 +70822,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTransfersTransferQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -70954,7 +70954,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTransfersTransferReversalsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71078,7 +71078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71213,7 +71213,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryCreditReversalsCreditReversalQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71282,7 +71282,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71420,7 +71420,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryDebitReversalsDebitReversalQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71500,7 +71500,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71679,7 +71679,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryFinancialAccountsFinancialAccountQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -71856,7 +71856,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     z.object({
       expand: z
         .preprocess(
-          (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
           z.array(z.string().max(5000)),
         )
         .optional(),
@@ -72030,7 +72030,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72172,7 +72172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryInboundTransfersIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72312,7 +72312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72509,7 +72509,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryOutboundPaymentsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72632,7 +72632,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72786,7 +72786,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryOutboundTransfersOutboundTransferQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -72918,7 +72918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73012,7 +73012,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryReceivedCreditsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73076,7 +73076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73160,7 +73160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryReceivedDebitsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73246,7 +73246,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73335,7 +73335,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryTransactionEntriesIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73410,7 +73410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73510,7 +73510,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getTreasuryTransactionsIdQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -73576,7 +73576,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ending_before: z.string().max(5000).optional(),
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),
@@ -74118,7 +74118,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const getWebhookEndpointsWebhookEndpointQuerySchema = z.object({
     expand: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string().max(5000)),
       )
       .optional(),

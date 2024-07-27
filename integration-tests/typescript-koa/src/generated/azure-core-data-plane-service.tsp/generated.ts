@@ -1042,7 +1042,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     maxpagesize: z.coerce.number().optional(),
     select: z
       .preprocess(
-        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
         z.array(z.string()),
       )
       .optional(),

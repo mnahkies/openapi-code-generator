@@ -174,8 +174,7 @@ export abstract class AbstractSchemaBuilder<
           ...parameter.schema,
           "x-internal-preprocess": {
             deserialize: {
-              fn: ((it: unknown) =>
-                Array.isArray(it) || it === undefined ? it : [it]).toString(),
+              fn: "(it: unknown) => Array.isArray(it) || it === undefined ? it : [it]",
             },
           },
         }
