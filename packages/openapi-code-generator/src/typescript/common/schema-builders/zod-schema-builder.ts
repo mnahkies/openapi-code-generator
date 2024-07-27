@@ -137,7 +137,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     schema: string,
     transformation: string | ((it: unknown) => unknown),
   ) {
-    return [schema, `transform(${transformation.toString()})`]
+    return [zod, `preprocess(${transformation.toString()}, ${schema})`]
       .filter(isDefined)
       .join(".")
   }

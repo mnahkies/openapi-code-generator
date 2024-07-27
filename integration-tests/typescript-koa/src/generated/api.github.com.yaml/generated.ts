@@ -34474,9 +34474,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional(),
     page: z.coerce.number().optional(),
     exclude: z
-      .union([z.array(z.enum(["repositories"])), z.enum(["repositories"])])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.enum(["repositories"])),
+      )
+      .optional(),
   })
 
   const migrationsListForOrgResponseValidator = responseValidationFactory(
@@ -34604,9 +34606,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsGetStatusForOrgQuerySchema = z.object({
     exclude: z
-      .union([z.array(z.enum(["repositories"])), z.enum(["repositories"])])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.enum(["repositories"])),
+      )
+      .optional(),
   })
 
   const migrationsGetStatusForOrgResponseValidator = responseValidationFactory(
@@ -36248,9 +36252,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     owner: z
-      .union([z.array(z.string()).max(10), z.string()])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()).max(10),
+      )
+      .optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
@@ -36560,9 +36566,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     sort: z.enum(["created_at"]).optional(),
     direction: z.enum(["asc", "desc"]).optional(),
     owner: z
-      .union([z.array(z.string()).max(10), z.string()])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()).max(10),
+      )
+      .optional(),
     repository: z.string().optional(),
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
@@ -77635,9 +77643,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
     exclude: z
-      .union([z.array(z.string()), z.string()])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()),
+      )
+      .optional(),
   })
 
   const migrationsGetStatusForAuthenticatedUserResponseValidator =

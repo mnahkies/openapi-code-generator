@@ -171,15 +171,7 @@ export abstract class AbstractSchemaBuilder<
         parameter.schema.type === "array"
       ) {
         model.properties[parameter.name] = {
-          type: "object",
-          additionalProperties: false,
-          properties: {},
-          readOnly: false,
-          allOf: [],
-          nullable: false,
-          oneOf: [],
-          required: [],
-          anyOf: [parameter.schema, parameter.schema.items],
+          ...parameter.schema,
           "x-internal-preprocess": {
             deserialize: {
               fn: ((it: unknown) =>

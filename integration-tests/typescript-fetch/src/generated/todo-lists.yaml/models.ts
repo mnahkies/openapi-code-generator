@@ -12,7 +12,7 @@ export type t_CreateUpdateTodoList = {
 }
 
 export type t_TodoList = {
-  created: Date
+  created: string
   id: string
   incompleteItemCount: number
   name: string

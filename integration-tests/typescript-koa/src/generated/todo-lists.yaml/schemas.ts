@@ -11,10 +11,7 @@ export const s_TodoList = z.object({
   name: z.string(),
   totalItemCount: z.coerce.number(),
   incompleteItemCount: z.coerce.number(),
-  created: z
-    .string()
-    .datetime({ offset: true })
-    .transform((it) => new Date(it)),
+  created: z.string().datetime({ offset: true }),
   updated: z.string().datetime({ offset: true }),
 })
 

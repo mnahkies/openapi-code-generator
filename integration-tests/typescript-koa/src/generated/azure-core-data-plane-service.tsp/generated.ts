@@ -1041,9 +1041,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
     skip: z.coerce.number().optional(),
     maxpagesize: z.coerce.number().optional(),
     select: z
-      .union([z.array(z.string()), z.string()])
-      .optional()
-      .transform((it) => (Array.isArray(it) || it === undefined ? it : [it])),
+      .preprocess(
+        (it) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()),
+      )
+      .optional(),
   })
 
   const widgetsListWidgetsResponseValidator = responseValidationFactory(

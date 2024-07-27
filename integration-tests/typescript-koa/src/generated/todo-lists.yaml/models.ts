@@ -8,7 +8,7 @@ export type t_Error = {
 }
 
 export type t_TodoList = {
-  created: Date
+  created: string
   id: string
   incompleteItemCount: number
   name: string
