@@ -28,7 +28,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.12.1"
+    "qs": "^6.12.3"
   },
   "peerDependencies": {
     "axios": "^1.6.0"

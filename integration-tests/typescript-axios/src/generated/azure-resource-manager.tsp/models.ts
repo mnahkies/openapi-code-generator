@@ -27,17 +27,17 @@ export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
 
 export type t_Azure_ResourceManager_CommonTypes_Operation = {
   actionType?: t_ActionType
-  display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay
+  readonly display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay
   readonly isDataAction?: boolean
   readonly name?: string
   readonly origin?: t_Origin
 }
 
 export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
-  description?: string
-  operation?: string
-  provider?: string
-  resource?: string
+  readonly description?: string
+  readonly operation?: string
+  readonly provider?: string
+  readonly resource?: string
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
@@ -59,6 +59,9 @@ export type t_Azure_ResourceManager_CommonTypes_SystemData = {
 export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
   t_Azure_ResourceManager_CommonTypes_Resource
 
+export type t_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate =
+  t_Azure_ResourceManager_CommonTypes_Resource
+
 export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
 
 export type t_EmployeeListResult = {
@@ -66,18 +69,8 @@ export type t_EmployeeListResult = {
   value: t_Employee[]
 }
 
-export type t_EmployeeUpdate = {
-  properties?: t_EmployeeUpdateProperties
-  tags?: {
-    [key: string]: string | undefined
-  }
-}
-
-export type t_EmployeeUpdateProperties = {
-  age?: number
-  city?: string
-  profile?: string
-}
+export type t_EmployeeUpdate =
+  t_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate
 
 export type t_MoveRequest = {
   from: string
