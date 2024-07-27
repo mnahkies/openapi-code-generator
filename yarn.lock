@@ -480,19 +480,20 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-client-generator-core@npm:^0.43.2":
-  version: 0.43.2
-  resolution: "@azure-tools/typespec-client-generator-core@npm:0.43.2"
+"@azure-tools/typespec-client-generator-core@npm:^0.44.2":
+  version: 0.44.2
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.44.2"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ~0.43.0
-    "@typespec/compiler": ~0.57.0
-    "@typespec/http": ~0.57.0
-    "@typespec/rest": ~0.57.0
-    "@typespec/versioning": ~0.57.0
-  checksum: 10/89042d723870c3c1a1e455f56d100705c79b3d0abe33bcd774772dbd7517d9e7fc975156578d5414facba70364af8996bfe2a34bf358b6cbcea3a53194e455a3
+    "@azure-tools/typespec-azure-core": ~0.44.0
+    "@typespec/compiler": ~0.58.0
+    "@typespec/http": ~0.58.0
+    "@typespec/openapi": ~0.58.0
+    "@typespec/rest": ~0.58.0
+    "@typespec/versioning": ~0.58.0
+  checksum: 10/8eed16f7ee9f0085bb0cbccbd0cc1f0c39f663da5351d8040051fedc01384b5530f991be74524a91a5ca3fc28ed75d950240e3320f76aeb55672d93202f069e0
   languageName: node
   linkType: hard
 
@@ -3183,7 +3184,7 @@ __metadata:
     "@azure-tools/typespec-autorest": "npm:^0.44.1"
     "@azure-tools/typespec-azure-core": "npm:^0.44.0"
     "@azure-tools/typespec-azure-resource-manager": "npm:^0.44.0"
-    "@azure-tools/typespec-client-generator-core": "npm:^0.43.2"
+    "@azure-tools/typespec-client-generator-core": "npm:^0.44.2"
     "@biomejs/biome": "npm:1.8.3"
     "@biomejs/js-api": "npm:0.6.2"
     "@biomejs/wasm-nodejs": "npm:1.8.3"
