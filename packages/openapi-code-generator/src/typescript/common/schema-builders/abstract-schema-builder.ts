@@ -322,6 +322,10 @@ export abstract class AbstractSchemaBuilder<
       }
     }
 
+    if (model["x-transform"]) {
+      result = model["x-transform"]
+    }
+
     if (nullable || model.nullable) {
       result = this.nullable(result)
     }

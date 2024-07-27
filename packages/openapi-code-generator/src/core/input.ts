@@ -9,6 +9,7 @@ import type {
   RequestBody,
   Responses,
   Schema,
+  xTransform,
 } from "./openapi-types"
 import type {
   IRModel,
@@ -22,6 +23,7 @@ import type {
   IRParameter,
   IRRef,
   IRResponse,
+  IRTransform,
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
@@ -193,6 +195,10 @@ export class Input {
   schema(maybeRef: Reference | Schema): IRModel {
     const schema = this.loader.schema(maybeRef)
     return normalizeSchemaObject(schema)
+  }
+
+  transform(maybeTransform: Reference | xTransform): IRTransform {
+    return this.loader.transform(maybeTransform)
   }
 
   private normalizeRequestBodyObject(
@@ -369,6 +375,7 @@ function normalizeSchemaObject(
     nullable: schemaObject.nullable || false,
     readOnly: schemaObject.readOnly || false,
     "x-alpha-transform": schemaObject["x-alpha-transform"],
+    "x-transform": schemaObject["x-transform"],
   }
 
   switch (schemaObject.type) {

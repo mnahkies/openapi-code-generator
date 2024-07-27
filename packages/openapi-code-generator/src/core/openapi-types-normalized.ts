@@ -15,6 +15,21 @@ export interface IRModelBase {
         type?: string | undefined
       }
     | undefined
+
+  "x-transform"?: MaybeIRTransform | undefined
+}
+
+export type MaybeIRTransform = IRTransform | IRRef
+
+export type IRTransform = {
+  serialize: {
+    fn: string
+    type: string
+  }
+  deserialize: {
+    fn: string
+    type: string
+  }
 }
 
 export type IRModelNumericFormat = "int32" | "int64" | "float" | "double"

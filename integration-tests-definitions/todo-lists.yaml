@@ -177,6 +177,8 @@ components:
         updated:
           type: string
           format: date-time
+          x-transform:
+            $ref: '#/components/x-transforms/DateTime'
 
   parameters:
     listId:
@@ -186,3 +188,12 @@ components:
       schema:
         type: string
         format: uuid
+
+  x-transforms:
+    DateTime:
+      serialize:
+        fn: z.string().datetime().transform(it => new Date(it))
+        type: Date
+      deserialize:
+        fn: z.date()
+        type: Date

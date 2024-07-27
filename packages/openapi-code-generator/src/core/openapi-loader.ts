@@ -14,6 +14,7 @@ import type {
   RequestBody,
   Response,
   Schema,
+  xTransform,
 } from "./openapi-types"
 import {isRef} from "./openapi-utils"
 import type {OpenapiValidator} from "./openapi-validator"
@@ -70,6 +71,10 @@ export class OpenapiLoader {
   }
 
   schema(maybeRef: Reference | Schema): Schema {
+    return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
+  }
+
+  transform(maybeRef: Reference | xTransform): xTransform {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 

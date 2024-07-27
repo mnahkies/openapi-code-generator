@@ -172,6 +172,11 @@ export interface Components {
   callbacks?: {
     [callbackName: string]: Callback | Reference
   }
+  "x-transforms"?:
+    | {
+        [transformName: string]: xTransform | Reference
+      }
+    | undefined
 }
 
 export interface Header {
@@ -256,6 +261,18 @@ export interface Schema {
         type?: string | undefined
       }
     | undefined
+  "x-transform"?: xTransform | Reference | undefined
+}
+
+export interface xTransform {
+  serialize: {
+    fn: string
+    type: string
+  }
+  deserialize: {
+    fn: string
+    type: string
+  }
 }
 
 export interface Discriminator {
