@@ -1,37 +1,16 @@
-import {GA_ID} from "@/lib/ga"
 import {Head, Html, Main, NextScript} from "next/document"
 
 export default function Document() {
   return (
     <Html lang="en">
       <Head>
-        {/* https://developers.google.com/tag-platform/security/guides/consent?consentmode=advanced */}
         <script
-          // biome-ignore lint/security/noDangerouslySetInnerHtml: <explanation>
-          dangerouslySetInnerHTML={{
-            __html: `
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){dataLayer.push(arguments);}
-          gtag('consent', 'default', {
-            'ad_storage': 'denied',
-            'ad_user_data': 'denied',
-            'ad_personalization': 'denied',
-            'analytics_storage': 'denied',
-            'personalization_storage': 'denied',
-          });
-
-          gtag('js', new Date());
-
-          gtag('config', '${GA_ID}', {
-            page_path: window.location.pathname,
-            allow_google_signals: false,
-            allow_ad_personalization_signals: false,
-            restricted_data_processing: true
-          });
-        `,
-          }}
+          defer={true}
+          data-domain="openapi-code-generator.nahkies.co.nz"
+          src="https://plausible.io/js/script.js"
         />
       </Head>
+
       <body>
         <Main />
         <NextScript />
