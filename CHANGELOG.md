@@ -3,6 +3,13 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.11.2](https://github.com/mnahkies/openapi-code-generator/compare/v0.11.1...v0.11.2) (2024-07-29)
+
+### Bug Fixes
+
+- improve seo, use plausible ([#226](https://github.com/mnahkies/openapi-code-generator/issues/226)) ([e32afd5](https://github.com/mnahkies/openapi-code-generator/commit/e32afd5b486b4547029121031782b6585fd93321))
+- include schemas from all documents in dependency graph ([#227](https://github.com/mnahkies/openapi-code-generator/issues/227)) ([5fa614d](https://github.com/mnahkies/openapi-code-generator/commit/5fa614dd5365af675dab2856a4d17adcad018253))
+
 ## [0.11.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.11.0...v0.11.1) (2024-07-27)
 
 ### Bug Fixes
