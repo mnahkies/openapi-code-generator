@@ -6,6 +6,11 @@ import { z } from "zod"
 
 export const s_CreateUpdateTodoList = z.object({ name: z.string() })
 
+export const s_Error = z.object({
+  message: z.string().optional(),
+  code: z.coerce.number().optional(),
+})
+
 export const s_Statuses = z.array(z.enum(["incomplete", "complete"]))
 
 export const s_TodoList = z.object({
@@ -15,9 +20,4 @@ export const s_TodoList = z.object({
   incompleteItemCount: z.coerce.number(),
   created: z.string().datetime({ offset: true }),
   updated: z.string().datetime({ offset: true }),
-})
-
-export const s_Error = z.object({
-  message: z.string().optional(),
-  code: z.coerce.number().optional(),
 })

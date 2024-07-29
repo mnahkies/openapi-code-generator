@@ -106,6 +106,7 @@ export function buildDependencyGraph(
    * Create an object mapping name -> Set(direct dependencies)
    */
   const dependencyGraph = Object.fromEntries(
+    // TODO: this may miss extracted in-line schemas
     Object.entries(input.allSchemas()).map(([name, schema]) => {
       return [
         getNameForRef({$ref: name}),
