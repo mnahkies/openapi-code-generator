@@ -36,6 +36,7 @@ import {
 
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
+
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
@@ -47,7 +48,17 @@ export class Input {
   }
 
   allSchemas(): Record<string, IRModel> {
-    const schemas = this.loader.entryPoint.components?.schemas ?? {}
+    const allDocuments = this.loader.allDocuments()
+
+    const schemas = allDocuments.reduce(
+      (acc, it) => {
+        return Object.assign(acc, it.components?.schemas ?? {})
+      },
+      {} as {
+        [schemaName: string]: Schema | Reference
+      },
+    )
+
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
         return [name, this.schema(normalizeSchemaObject(maybeSchema))]

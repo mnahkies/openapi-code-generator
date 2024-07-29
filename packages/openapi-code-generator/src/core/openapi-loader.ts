@@ -21,8 +21,7 @@ import type {OpenapiValidator} from "./openapi-validator"
 
 export class OpenapiLoader {
   private readonly virtualLibrary = new Map<string, VirtualDefinition>()
-  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  private readonly library = new Map<string, any>()
+  private readonly library = new Map<string, OpenapiDocument>()
 
   private constructor(
     private readonly entryPointKey: string,
@@ -48,6 +47,10 @@ export class OpenapiLoader {
     // and the factory function loading the entry point at this key.
     // biome-ignore lint/style/noNonNullAssertion: <explanation>
     return this.library.get(this.entryPointKey)!
+  }
+
+  allDocuments(): OpenapiDocument[] {
+    return Array.from(this.library.values())
   }
 
   paths(maybeRef: Reference | Path): Path {
@@ -81,7 +84,8 @@ export class OpenapiLoader {
   private $ref<T>({$ref}: Reference): T {
     const [key, objPath] = $ref.split("#")
 
-    const obj = key && this.library.get(key)
+    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+    const obj: any = key && this.library.get(key)
 
     if (!obj) {
       throw new Error(`could not load $ref, key not loaded. $ref: '${$ref}'`)
