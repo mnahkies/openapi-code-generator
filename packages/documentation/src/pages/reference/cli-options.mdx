@@ -115,6 +115,72 @@ Default: `false` (use `unknown` rather than `any`)
 
 ### Misc
 
+#### `--remote-spec-request-headers` (authenticated remote specifications)
+As environment variable `OPENAPI_REMOTE_SPEC_REQUEST_HEADERS`
+
+Allows providing request headers to use when fetching remote specifications. This allows for running
+generation against remote sources that require authentication.
+
+Common examples include [private github repositories](https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api),
+urls secured by an authenticating proxy like [GCP IAP Proxy](https://cloud.google.com/iap/docs/concepts-overview),
+or just generally authenticated servers
+
+
+<Callout type="warning" emoji="⚠️">
+  We strongly recommend using the **environment variable** variant of this option
+  (`OPENAPI_REMOTE_SPEC_REQUEST_HEADERS`), as values for this option will likely include secrets, and it
+  is best to keep these out of your shell history.
+</Callout>
+
+The format of the value is a JSON object keyed by URI, with values being either an object,
+or array of `{name, value}` pairs. As a typescript type:
+```typescript
+type value = {
+  [uri: string]: { name: string, value: string }[] | { name: string, value: string }
+}
+```
+
+For example:
+```json
+{
+  "https://example.com": [
+    {"name": "X-Client-Id", "value": "my-client-id"},
+    {"name": "X-Client-Secret", "value": "some-secret-value"}
+  ],
+  "https://example.org/some/path": {"name": "Proxy-Authorization", "value": "some token"}
+}
+```
+
+A full match on the provided uri is required for the headers to be sent.
+Eg: given a uri of "https://exmaple.com:8080/openapi.yaml" the headers would **not**
+be sent for requests to other ports, resource paths, or protocols, but a less specific
+uri like "https://example.com" will send headers on any (`https`) request to that domain.
+
+<Callout emoji="💡">
+  Why JSON you ask? Simply put it has well defined semantics, and is easy to parse without fear of jumbling the pieces together.
+
+  Unfortunately it is a little annoying to formulate in shell scripts, so here's some examples to get you started
+
+  Using [jq](https://jqlang.github.io/jq/):
+  ```shell
+  jq --null-input --compact-output \
+    --arg domain "https://example.com" \
+    --arg name "authorization" \
+    --arg value "secret value" '{$domain: {$name, $value}}'
+  ```
+
+  Using [nodejs](https://nodejs.org/):
+  ```shell
+  node -p 'JSON.stringify({[process.argv[1]]: {name: process.argv[2], value: process.argv[3]}})' \
+    https://example.com \
+    authorization \
+    'some secret value'
+  ```
+
+  Where typically in either example the values would be coming from shell variables, eg: storing a short-lived
+  access token, etc.
+</Callout>
+
 #### `-h, --help`
 Displays help text for command
 

@@ -3207,6 +3207,7 @@ __metadata:
     source-map-support: "npm:^0.5.21"
     tslib: "npm:^2.6.3"
     typescript: "npm:~5.5.4"
+    zod: "npm:^3.23.8"
   peerDependencies:
     "@typespec/compiler": ^0.58.0
     "@typespec/http": ^0.58.0

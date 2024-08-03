@@ -6,8 +6,32 @@ import type {IFsAdaptor} from "../file-system/fs-adaptor"
 import {logger} from "../logger"
 import {isRemote} from "./utils"
 
+export type GenericLoaderRequestHeaders = {
+  [uri: string]: {name: string; value: string}[]
+}
+
+export function headersForRemoteUri(
+  uri: string,
+  possibleRequestHeaders: GenericLoaderRequestHeaders,
+): Headers {
+  const headers = new Headers()
+
+  const desiredHeaders = Object.entries(possibleRequestHeaders)
+    .filter(([it]) => uri.includes(it))
+    .flatMap(([, it]) => it)
+
+  for (const {name, value} of desiredHeaders) {
+    headers.append(name, value)
+  }
+
+  return headers
+}
+
 export class GenericLoader {
-  constructor(private readonly fsAdaptor: IFsAdaptor) {}
+  constructor(
+    private readonly fsAdaptor: IFsAdaptor,
+    private readonly requestHeaders: GenericLoaderRequestHeaders = {},
+  ) {}
 
   async loadFile(location: string): Promise<[string, unknown]> {
     if (isRemote(location)) {
@@ -24,7 +48,9 @@ export class GenericLoader {
   }
 
   private async loadRemoteFile(uri: string): Promise<[string, unknown]> {
-    const res = await fetch(uri)
+    const res = await fetch(uri, {
+      headers: headersForRemoteUri(uri, this.requestHeaders),
+    })
 
     if (!res.ok) {
       throw new Error(`failed to fetch remote file '${uri}'`)

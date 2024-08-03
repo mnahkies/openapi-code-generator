@@ -1,7 +1,10 @@
 import type {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import {Input} from "./core/input"
 import type {IFormatter} from "./core/interfaces"
-import {GenericLoader} from "./core/loaders/generic.loader"
+import {
+  GenericLoader,
+  type GenericLoaderRequestHeaders,
+} from "./core/loaders/generic.loader"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import type {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
@@ -26,6 +29,7 @@ export type Config = {
   groupingStrategy: "none" | "first-slug" | "first-tag"
   tsAllowAny: boolean
   tsCompilerOptions: CompilerOptions
+  remoteSpecRequestHeaders?: GenericLoaderRequestHeaders | undefined
 }
 
 export async function generate(
@@ -39,7 +43,10 @@ export async function generate(
   logger.info(`running on input file '${config.input}'`)
   logger.time("load files")
 
-  const genericLoader = new GenericLoader(fsAdaptor)
+  const genericLoader = new GenericLoader(
+    fsAdaptor,
+    config.remoteSpecRequestHeaders,
+  )
   const loader = await OpenapiLoader.create(
     {entryPoint: config.input, fileType: config.inputType},
     validator,

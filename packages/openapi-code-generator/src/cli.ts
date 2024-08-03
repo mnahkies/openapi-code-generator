@@ -8,6 +8,7 @@ import {
   InvalidArgumentError,
   Option,
 } from "@commander-js/extra-typings"
+import {z} from "zod"
 import {promptContinue} from "./core/cli-utils"
 import {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
 import type {OperationGroupStrategy} from "./core/input"
@@ -19,7 +20,7 @@ import {generate} from "./index"
 import type {templates} from "./templates"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
-const boolParser = (arg: string): boolean => {
+export const boolParser = (arg: string): boolean => {
   const TRUTHY_VALUES = ["true", "1", "on"]
   const FALSY_VALUES = ["false", "0", "off", ""]
 
@@ -39,17 +40,38 @@ const boolParser = (arg: string): boolean => {
   )
 }
 
+export const remoteSpecRequestHeadersParser = (arg: string) => {
+  return z
+    .preprocess(
+      (str) =>
+        z
+          .string()
+          .transform((it) => JSON.parse(it))
+          .parse(str),
+      z.record(
+        z.string(),
+        z.preprocess(
+          (it) => (!it || Array.isArray(it) ? it : [it]),
+          z.array(
+            z.object({
+              name: z.string(),
+              value: z.string(),
+            }),
+          ),
+        ),
+      ),
+    )
+    .parse(arg)
+}
+
 const program = new Command()
   .addOption(
-    new Option("-i --input <value>", "input file to generate from")
+    new Option("-i --input <value>", "input specification to generate from")
       .env("OPENAPI_INPUT")
       .makeOptionMandatory(),
   )
   .addOption(
-    new Option(
-      "--input-type <value>",
-      "type of input file. this can be openapi3 or typespec",
-    )
+    new Option("--input-type <value>", "type of input specification")
       .env("OPENAPI_INPUT_TYPE")
       .choices(["openapi3", "typespec"] as const)
       .default("openapi3" as const)
@@ -74,7 +96,7 @@ const program = new Command()
   .addOption(
     new Option(
       "-s --schema-builder <value>",
-      "runtime schema parsing library to use",
+      "(typescript) runtime schema parsing library to use",
     )
       .env("OPENAPI_SCHEMA_BUILDER")
       .choices(["zod", "joi"] as const)
@@ -84,7 +106,7 @@ const program = new Command()
   .addOption(
     new Option(
       "--ts-allow-any [bool]",
-      "(typescript) whether to use `any` or `unknown` for unspecified types",
+      `(typescript) whether to use "any" or "unknown" for unspecified types`,
     )
       .env("OPENAPI_TS_ALLOW_ANY")
       .argParser(boolParser)
@@ -93,7 +115,7 @@ const program = new Command()
   .addOption(
     new Option(
       "--enable-runtime-response-validation [bool]",
-      "(experimental) whether to validate response bodies using the chosen runtime schema library",
+      "(experimental) (client sdks only) whether to validate response bodies using the chosen runtime schema library",
     )
       .env("OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION")
       .argParser(boolParser)
@@ -111,7 +133,7 @@ const program = new Command()
   .addOption(
     new Option(
       "--allow-unused-imports [bool]",
-      "Keep unused imports. Especially useful if there is a bug in the unused-import elimination.",
+      "Keep unused imports. Primarily useful if a bug occurs in the unused-import elimination.",
     )
       .env("OPENAPI_ALLOW_UNUSED_IMPORTS")
       .argParser(boolParser)
@@ -120,7 +142,10 @@ const program = new Command()
   .addOption(
     new Option(
       "--grouping-strategy <value>",
-      "(experimental) Strategy to use for splitting output into separate files. Set to none for a single generated.ts",
+      `
+    (experimental) Strategy to use for splitting output into separate files.
+
+    Set to none for a single generated.ts`,
     )
       .env("OPENAPI_GROUPING_STRATEGY")
       .choices([
@@ -131,12 +156,32 @@ const program = new Command()
       .default("none" as const)
       .makeOptionMandatory(),
   )
-  .showHelpAfterError()
-  .parse()
+  .addOption(
+    new Option(
+      "--remote-spec-request-headers <value>",
+      `
+    Request headers to use when fetching remote specifications.
 
-const config = program.opts()
+    Format is a JSON object keyed by domain name/uri, with values {name, value}[].
+    Eg: '{"https://example.com": [{"name": "Authorization", "value": "some arbitrary value"}]}'.
+
+    Use this if you're generating from a uri that requires authentication.
+
+    A full match on the provided domain/uri is required for the headers to be sent.
+    Eg: given a uri of "https://exmaple.com:8080/openapi.yaml" the headers would not
+    be sent for requests to other ports, resource paths, or protocols, but a less specific
+    uri like "https://example.com" will send headers on any request to that domain.
+
+    Using the environment variable variant is recommended to keep secrets out of your shell history`,
+    )
+      .env("OPENAPI_REMOTE_SPEC_REQUEST_HEADERS")
+      .argParser(remoteSpecRequestHeadersParser),
+  )
+  .showHelpAfterError()
 
 async function main() {
+  const config = program.parse().opts()
+
   const fsAdaptor = new NodeFsAdaptor()
   // TODO: make switchable with prettier / auto-detect from project?
   const formatter = await TypescriptFormatterBiome.createNodeFormatter()
@@ -173,15 +218,17 @@ async function main() {
   )
 }
 
-main()
-  .then(() => {
-    logger.info("generation complete!")
-    logger.info("elapsed", logger.toJSON())
+if (require.main === module) {
+  main()
+    .then(() => {
+      logger.info("generation complete!")
+      logger.info("elapsed", logger.toJSON())
 
-    process.exit(0)
-  })
-  .catch((err) => {
-    logger.error("unhandled error", err)
+      process.exit(0)
+    })
+    .catch((err) => {
+      logger.error("unhandled error", err)
 
-    process.exit(1)
-  })
+      process.exit(1)
+    })
+}
