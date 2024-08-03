@@ -54,11 +54,11 @@
     "tslib": "^2.6.3"
   },
   "peerDependencies": {
-    "@typespec/compiler": "^0.57.0",
-    "@typespec/http": "^0.57.0",
-    "@typespec/openapi": "^0.57.0",
-    "@typespec/openapi3": "^0.57.0",
-    "@typespec/versioning": "^0.57.0"
+    "@typespec/compiler": "^0.58.0",
+    "@typespec/http": "^0.58.0",
+    "@typespec/openapi": "^0.58.0",
+    "@typespec/openapi3": "^0.58.0",
+    "@typespec/versioning": "^0.58.0"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {
