@@ -20,7 +20,7 @@ import {generate} from "./index"
 import type {templates} from "./templates"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
-const boolParser = (arg: string): boolean => {
+export const boolParser = (arg: string): boolean => {
   const TRUTHY_VALUES = ["true", "1", "on"]
   const FALSY_VALUES = ["false", "0", "off", ""]
 
@@ -38,6 +38,30 @@ const boolParser = (arg: string): boolean => {
       JSON.stringify(it),
     ).join(", ")}`,
   )
+}
+
+export const remoteSpecRequestHeadersParser = (arg: string) => {
+  return z
+    .preprocess(
+      (str) =>
+        z
+          .string()
+          .transform((it) => JSON.parse(it))
+          .parse(str),
+      z.record(
+        z.string(),
+        z.preprocess(
+          (it) => (!it || Array.isArray(it) ? it : [it]),
+          z.array(
+            z.object({
+              name: z.string(),
+              value: z.string(),
+            }),
+          ),
+        ),
+      ),
+    )
+    .parse(arg)
 }
 
 const program = new Command()
@@ -151,36 +175,13 @@ const program = new Command()
     Using the environment variable variant is recommended to keep secrets out of your shell history`,
     )
       .env("OPENAPI_REMOTE_SPEC_REQUEST_HEADERS")
-      .argParser((value) => {
-        return z
-          .preprocess(
-            (str) =>
-              z
-                .string()
-                .transform((it) => JSON.parse(it))
-                .parse(str),
-            z.record(
-              z.string(),
-              z.preprocess(
-                (it) => (!it || Array.isArray(it) ? it : [it]),
-                z.array(
-                  z.object({
-                    name: z.string(),
-                    value: z.string(),
-                  }),
-                ),
-              ),
-            ),
-          )
-          .parse(value)
-      }),
+      .argParser(remoteSpecRequestHeadersParser),
   )
   .showHelpAfterError()
-  .parse()
-
-const config = program.opts()
 
 async function main() {
+  const config = program.parse().opts()
+
   const fsAdaptor = new NodeFsAdaptor()
   // TODO: make switchable with prettier / auto-detect from project?
   const formatter = await TypescriptFormatterBiome.createNodeFormatter()
@@ -217,15 +218,17 @@ async function main() {
   )
 }
 
-main()
-  .then(() => {
-    logger.info("generation complete!")
-    logger.info("elapsed", logger.toJSON())
+if (require.main === module) {
+  main()
+    .then(() => {
+      logger.info("generation complete!")
+      logger.info("elapsed", logger.toJSON())
 
-    process.exit(0)
-  })
-  .catch((err) => {
-    logger.error("unhandled error", err)
+      process.exit(0)
+    })
+    .catch((err) => {
+      logger.error("unhandled error", err)
 
-    process.exit(1)
-  })
+      process.exit(1)
+    })
+}
