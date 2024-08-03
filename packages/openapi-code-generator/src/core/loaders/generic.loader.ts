@@ -10,6 +10,23 @@ export type GenericLoaderRequestHeaders = {
   [uri: string]: {name: string; value: string}[]
 }
 
+export function headersForRemoteUri(
+  uri: string,
+  possibleRequestHeaders: GenericLoaderRequestHeaders,
+): Headers {
+  const headers = new Headers()
+
+  const desiredHeaders = Object.entries(possibleRequestHeaders)
+    .filter(([it]) => uri.includes(it))
+    .flatMap(([, it]) => it)
+
+  for (const {name, value} of desiredHeaders) {
+    headers.append(name, value)
+  }
+
+  return headers
+}
+
 export class GenericLoader {
   constructor(
     private readonly fsAdaptor: IFsAdaptor,
@@ -30,22 +47,10 @@ export class GenericLoader {
     return [resolvedPath, await this.parseFile(raw, resolvedPath)]
   }
 
-  private headersForRemoteUri(uri: string): Headers {
-    const headers = new Headers()
-
-    const desiredHeaders = Object.entries(this.requestHeaders)
-      .filter(([it]) => uri.includes(it))
-      .flatMap(([, it]) => it)
-
-    for (const {name, value} of desiredHeaders) {
-      headers.append(name, value)
-    }
-
-    return headers
-  }
-
   private async loadRemoteFile(uri: string): Promise<[string, unknown]> {
-    const res = await fetch(uri, {headers: this.headersForRemoteUri(uri)})
+    const res = await fetch(uri, {
+      headers: headersForRemoteUri(uri, this.requestHeaders),
+    })
 
     if (!res.ok) {
       throw new Error(`failed to fetch remote file '${uri}'`)
