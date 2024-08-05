@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.12.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.11.2...v0.12.0) (2024-08-05)
+
+### Features
+
+- support remote specs with authentication ([#230](https://github.com/mnahkies/openapi-code-generator/issues/230)) ([5beee35](https://github.com/mnahkies/openapi-code-generator/commit/5beee35b44b8351410cd98eff5409d076f87157a)), closes [#229](https://github.com/mnahkies/openapi-code-generator/issues/229)
+
 ## [0.11.2](https://github.com/mnahkies/openapi-code-generator/compare/v0.11.1...v0.11.2) (2024-07-29)
 
 ### Bug Fixes
