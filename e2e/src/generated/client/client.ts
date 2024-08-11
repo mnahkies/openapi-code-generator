@@ -24,15 +24,20 @@ export class ApiClient extends AbstractFetchClient {
       forbidden?: number[]
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_RandomNumber>>> {
     const url = this.basePath + `/validation/numbers/random-number`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       max: p["max"],
       min: p["min"],
       forbidden: p["forbidden"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 }

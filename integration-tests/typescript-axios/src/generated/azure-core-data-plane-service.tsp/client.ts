@@ -36,7 +36,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       statusString: string
@@ -51,9 +51,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -64,7 +64,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<
       | {
@@ -87,7 +87,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -105,7 +105,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetCreateOrUpdate
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
     const headers = this._headers({
@@ -124,10 +124,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "PATCH",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -142,7 +142,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
     const headers = this._headers({
@@ -157,9 +157,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -176,7 +176,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -199,9 +199,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -215,7 +215,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidget>> {
     const url = `/widgets`
     const headers = this._headers({
@@ -232,9 +232,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -249,7 +249,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers({
@@ -264,9 +264,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -284,7 +284,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetAnalyticsCreateOrUpdate
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers({
@@ -303,10 +303,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "PATCH",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -317,7 +317,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -333,7 +333,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -347,7 +347,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetRepairRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -375,10 +375,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -390,7 +390,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -406,7 +406,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -424,7 +424,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetPart
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers({
@@ -443,10 +443,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -457,7 +457,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers({
@@ -468,9 +468,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -486,7 +486,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
     const headers = this._headers({
@@ -501,9 +501,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -521,7 +521,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
     const headers = this._headers({
@@ -538,9 +538,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -554,7 +554,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetPartReorderRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -575,10 +575,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -589,7 +589,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -605,7 +605,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -623,7 +623,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_Manufacturer
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers({
@@ -642,10 +642,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "PUT",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -660,7 +660,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers({
@@ -675,9 +675,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -694,7 +694,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -717,9 +717,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -729,7 +729,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedManufacturer>> {
     const url = `/manufacturers`
     const headers = this._headers({
@@ -740,9 +740,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 }

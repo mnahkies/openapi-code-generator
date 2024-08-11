@@ -1185,7 +1185,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_copilot_usage_metrics[]>
@@ -1198,6 +1198,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       until: p["until"],
@@ -1205,7 +1206,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListPublicEvents(
@@ -7311,7 +7316,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_copilot_usage_metrics[]>
@@ -7323,6 +7328,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       until: p["until"],
@@ -7330,7 +7336,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsList(
@@ -12811,7 +12821,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_security_configuration_for_repository>
@@ -12824,8 +12834,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCodeownersErrors(
@@ -19962,7 +19973,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_push_protection_bypass>
@@ -19982,14 +19993,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesListRepositoryAdvisories(

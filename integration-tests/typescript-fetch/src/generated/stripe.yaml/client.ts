@@ -3245,7 +3245,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3261,9 +3261,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing/alerts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       alert_type: p["alertType"],
       ending_before: p["endingBefore"],
@@ -3276,7 +3277,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3298,21 +3299,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/alerts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingAlertsId(
@@ -3322,20 +3320,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3348,21 +3347,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/activate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingAlertsIdArchive(
@@ -3373,21 +3369,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/archive`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingAlertsIdDeactivate(
@@ -3398,21 +3391,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/deactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMeterEventAdjustments(
@@ -30144,20 +30134,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -33289,23 +33280,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
     >
   > {
     const url = this.basePath + `/v1/test_helpers/issuing/settlements`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsCreateForceCapture(

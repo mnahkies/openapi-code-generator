@@ -20,7 +20,7 @@ export class ApiClient extends AbstractAxiosClient {
       limit?: number
     } = {},
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet[]>> {
     const url = `/pets`
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
@@ -29,7 +29,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -38,7 +38,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_NewPet
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets`
     const headers = this._headers({ "Content-Type": "application/json" })
@@ -47,10 +47,10 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -59,7 +59,7 @@ export class ApiClient extends AbstractAxiosClient {
       id: number
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
 
@@ -67,7 +67,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 
@@ -76,7 +76,7 @@ export class ApiClient extends AbstractAxiosClient {
       id: number
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
 
@@ -84,7 +84,7 @@ export class ApiClient extends AbstractAxiosClient {
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
     })
   }
 }
