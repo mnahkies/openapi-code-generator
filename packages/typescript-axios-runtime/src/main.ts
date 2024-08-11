@@ -1,4 +1,9 @@
-import axios, {type AxiosInstance, type AxiosRequestConfig} from "axios"
+import axios, {
+  AxiosHeaders,
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type RawAxiosRequestHeaders,
+} from "axios"
 import qs from "qs"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
@@ -44,7 +49,10 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type HeaderParams = Record<string, string | undefined>
+export type HeaderParams =
+  | Record<string, string | number | undefined>
+  | [string, string | number | undefined][]
+  | Headers
 
 export interface AbstractAxiosConfig {
   axios?: AxiosInstance
@@ -67,7 +75,7 @@ export abstract class AbstractAxiosClient {
   }
 
   protected _request(opts: AxiosRequestConfig) {
-    const headers = opts.headers ?? this._headers({})
+    const headers = opts.headers ?? this._headers()
 
     return this.axios.request({
       baseURL: this.basePath,
@@ -90,11 +98,53 @@ export abstract class AbstractAxiosClient {
     })}`
   }
 
-  protected _headers(headers: HeaderParams): Record<string, string> {
-    return Object.fromEntries(
-      Object.entries({...this.defaultHeaders, ...headers}).filter(
-        (it): it is [string, string] => it[1] !== undefined,
-      ),
-    )
+  protected _headers(
+    paramHeaders: HeaderParams = {},
+    optsHeaders: HeaderParams = {},
+  ): RawAxiosRequestHeaders {
+    const headers = new AxiosHeaders()
+
+    this.setHeaders(headers, this.defaultHeaders)
+    this.setHeaders(headers, paramHeaders)
+    this.setHeaders(headers, optsHeaders)
+
+    return headers
+  }
+
+  private setHeaders(
+    headers: Pick<Headers, "set" | "delete">,
+    headersInit: HeaderParams,
+  ) {
+    const headersArray = this.headersAsArray(headersInit)
+
+    for (const [headerName, headerValue] of headersArray) {
+      if (headerValue === undefined) {
+        headers.delete(headerName)
+      } else {
+        headers.set(headerName, headerValue.toString())
+      }
+    }
+  }
+
+  private headersAsArray(
+    headers: HeaderParams,
+  ): [string, string | number | undefined][] {
+    if (Array.isArray(headers)) {
+      return headers
+    }
+
+    if (headers instanceof Headers) {
+      const result: [string, string][] = []
+      headers.forEach((value, key) => {
+        result.push([key, value])
+      })
+      return result
+    }
+
+    if (headers && typeof headers === "object") {
+      return Object.entries(headers)
+    }
+
+    return []
   }
 }

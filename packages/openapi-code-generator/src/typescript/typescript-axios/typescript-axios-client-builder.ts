@@ -49,12 +49,12 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
     const axiosFragment = `this._request({${[
       `url: url ${queryString ? "+ query" : ""}`,
       `method: "${method}"`,
-      headers ? "headers" : "",
       requestBodyParameter ? "data: body" : "",
       // ensure compatibility with `exactOptionalPropertyTypes` compiler option
       // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
       "...(timeout ? {timeout} : {})",
-      "...(opts ?? {})",
+      "...opts",
+      headers ? "headers" : "",
     ]
       .filter(Boolean)
       .join(",\n")}})`
@@ -86,7 +86,12 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       parameters: [
         operationParameter,
         {name: "timeout", type: "number", required: false},
-        {name: "opts", type: "AxiosRequestConfig", required: false},
+        {
+          name: "opts",
+          type: "AxiosRequestConfig",
+          required: true,
+          default: "{}",
+        },
       ],
       returnType: `${returnType}`,
       body,
