@@ -35,13 +35,18 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
     const url = this.basePath + `/list`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       created: p["created"],
       statuses: p["statuses"],
       tags: p["tags"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async getTodoListById(
@@ -56,8 +61,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async updateTodoListById(
@@ -73,10 +79,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "PUT", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async deleteTodoListById(
@@ -91,8 +100,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async getTodoListItems(
@@ -122,8 +132,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/list/${p["listId"]}/items`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async createTodoListItem(
@@ -139,9 +150,12 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }

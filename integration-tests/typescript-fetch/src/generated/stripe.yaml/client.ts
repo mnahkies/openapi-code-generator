@@ -184,15 +184,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/account`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -218,12 +219,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/account_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountSessions(
@@ -311,12 +313,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/account_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccounts(
@@ -352,9 +355,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -366,7 +370,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -840,12 +844,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccount(
@@ -859,14 +864,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -883,15 +889,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1338,12 +1345,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountBankAccounts(
@@ -1381,12 +1389,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountBankAccountsId(
@@ -1404,14 +1413,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -1430,15 +1440,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1481,12 +1492,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountCapabilities(
@@ -1512,15 +1524,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1540,15 +1553,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1570,12 +1584,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountExternalAccounts(
@@ -1605,9 +1620,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -1619,7 +1635,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1659,12 +1675,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountExternalAccountsId(
@@ -1683,14 +1700,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -1710,15 +1728,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1762,12 +1781,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountLoginLinks(
@@ -1783,12 +1803,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/login_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountPeople(
@@ -1824,9 +1845,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -1838,7 +1860,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1956,12 +1978,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountPeoplePerson(
@@ -1977,14 +2000,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -2003,15 +2027,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2131,12 +2156,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountPersons(
@@ -2172,9 +2198,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2186,7 +2213,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2304,12 +2331,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountPersonsPerson(
@@ -2325,14 +2353,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -2351,15 +2380,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2479,12 +2509,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountReject(
@@ -2501,12 +2532,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/reject`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplePayDomains(
@@ -2535,9 +2567,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       domain_name: p["domainName"],
       ending_before: p["endingBefore"],
@@ -2549,7 +2582,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2567,12 +2600,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteApplePayDomainsDomain(
@@ -2588,14 +2622,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -2612,15 +2647,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2659,9 +2695,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/application_fees`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -2674,7 +2711,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2693,15 +2730,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2726,12 +2764,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplicationFeesId(
@@ -2746,15 +2785,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2774,12 +2814,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplicationFeesIdRefunds(
@@ -2808,9 +2849,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2821,7 +2863,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2843,12 +2885,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAppsSecrets(
@@ -2880,9 +2923,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/apps/secrets`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2894,7 +2938,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2918,12 +2962,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apps/secrets`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAppsSecretsDelete(
@@ -2943,12 +2988,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apps/secrets/delete`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAppsSecretsFind(
@@ -2967,9 +3013,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/apps/secrets/find`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       name: p["name"],
@@ -2979,7 +3026,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2995,15 +3042,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3045,9 +3093,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/balance/history`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       currency: p["currency"],
@@ -3063,7 +3112,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3082,15 +3131,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3132,9 +3182,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       currency: p["currency"],
@@ -3150,7 +3201,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3169,15 +3220,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3382,12 +3434,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing/meter_event_adjustments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMeterEvents(
@@ -3410,12 +3463,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing/meter_events`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMeters(
@@ -3444,9 +3498,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing/meters`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -3458,7 +3513,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3488,12 +3543,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/meters`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMetersId(
@@ -3508,15 +3564,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3535,12 +3592,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMetersIdDeactivate(
@@ -3556,12 +3614,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/deactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMetersIdEventSummaries(
@@ -3594,9 +3653,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       end_time: p["endTime"],
@@ -3611,7 +3671,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3629,12 +3689,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/reactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingPortalConfigurations(
@@ -3664,9 +3725,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -3679,7 +3741,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3764,12 +3826,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingPortalConfigurationsConfiguration(
@@ -3787,15 +3850,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3885,12 +3949,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingPortalSessions(
@@ -3999,12 +4064,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/billing_portal/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCharges(
@@ -4043,9 +4109,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/charges`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -4060,7 +4127,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4141,12 +4208,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesSearch(
@@ -4176,9 +4244,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/charges/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -4189,7 +4258,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4206,15 +4275,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4258,12 +4328,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeCapture(
@@ -4289,12 +4360,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeDispute(
@@ -4309,15 +4381,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4370,12 +4443,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeDisputeClose(
@@ -4391,12 +4465,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute/close`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeRefund(
@@ -4423,12 +4498,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeRefunds(
@@ -4457,9 +4533,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -4470,7 +4547,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4502,12 +4579,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeRefundsRefund(
@@ -4524,15 +4602,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4557,12 +4636,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessions(
@@ -4606,9 +4686,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/checkout/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -4626,7 +4707,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5414,12 +5495,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessionsSession(
@@ -5434,15 +5516,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5465,12 +5548,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCheckoutSessionsSessionExpire(
@@ -5486,12 +5570,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessionsSessionLineItems(
@@ -5521,9 +5606,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5534,7 +5620,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5564,9 +5650,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/climate/orders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5577,7 +5664,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5604,12 +5691,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/orders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getClimateOrdersOrder(
@@ -5624,15 +5712,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5658,12 +5747,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postClimateOrdersOrderCancel(
@@ -5679,12 +5769,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getClimateProducts(
@@ -5712,9 +5803,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/climate/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5725,7 +5817,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5742,15 +5834,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/products/${p["product"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5780,9 +5873,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/climate/suppliers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5793,7 +5887,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5810,15 +5904,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_climate_supplier> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/climate/suppliers/${p["supplier"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5838,15 +5933,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/confirmation_tokens/${p["confirmationToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5876,9 +5972,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/country_specs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5889,7 +5986,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5906,15 +6003,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5952,9 +6050,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/coupons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -5966,7 +6065,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6007,12 +6106,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/coupons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCouponsCoupon(
@@ -6026,14 +6126,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -6050,15 +6151,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6089,12 +6191,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCreditNotes(
@@ -6132,9 +6235,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/credit_notes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -6148,7 +6252,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6202,12 +6306,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/credit_notes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCreditNotesPreview(
@@ -6258,9 +6363,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/credit_notes/preview`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
@@ -6281,7 +6387,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6348,9 +6454,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/credit_notes/preview/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
@@ -6374,7 +6481,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6405,9 +6512,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -6418,7 +6526,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6435,15 +6543,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6465,12 +6574,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCreditNotesIdVoid(
@@ -6486,12 +6596,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}/void`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomerSessions(
@@ -6530,12 +6641,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_customer_session> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customer_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomers(
@@ -6573,9 +6685,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       email: p["email"],
@@ -6589,7 +6702,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6753,12 +6866,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersSearch(
@@ -6788,9 +6902,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -6801,7 +6916,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6817,14 +6932,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_customer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -6843,15 +6959,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6971,12 +7088,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactions(
@@ -7006,9 +7124,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7019,7 +7138,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7048,12 +7167,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactionsTransaction(
@@ -7073,15 +7193,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7110,12 +7231,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBankAccounts(
@@ -7144,9 +7266,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7157,7 +7280,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7210,12 +7333,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerBankAccountsId(
@@ -7236,14 +7360,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7262,15 +7387,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7321,12 +7447,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomersCustomerBankAccountsIdVerify(
@@ -7346,12 +7473,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCards(
@@ -7380,9 +7508,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7393,7 +7522,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7446,12 +7575,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerCardsId(
@@ -7472,14 +7602,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7496,15 +7627,16 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7555,12 +7687,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCashBalance(
@@ -7575,15 +7708,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7604,12 +7738,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCashBalanceTransactions(
@@ -7639,9 +7774,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cash_balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7652,7 +7788,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7674,15 +7810,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7698,14 +7835,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7722,15 +7860,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7765,12 +7904,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/funding_instructions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerPaymentMethods(
@@ -7838,9 +7978,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       allow_redisplay: p["allowRedisplay"],
       ending_before: p["endingBefore"],
@@ -7853,7 +7994,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7873,15 +8014,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7913,9 +8055,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7927,7 +8070,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7980,12 +8123,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSourcesId(
@@ -8006,14 +8150,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8032,15 +8177,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8091,12 +8237,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomersCustomerSourcesIdVerify(
@@ -8115,12 +8262,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerSubscriptions(
@@ -8149,9 +8297,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -8162,7 +8311,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8408,12 +8557,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8434,14 +8584,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8461,15 +8612,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8742,12 +8894,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8764,14 +8917,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8791,15 +8945,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8830,9 +8985,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -8843,7 +8999,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8936,12 +9092,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerTaxIdsId(
@@ -8957,14 +9114,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8983,15 +9141,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9031,9 +9190,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -9047,7 +9207,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9064,15 +9224,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9125,12 +9286,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postDisputesDisputeClose(
@@ -9146,12 +9308,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}/close`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getEntitlementsActiveEntitlements(
@@ -9180,9 +9343,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/entitlements/active_entitlements`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -9194,7 +9358,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9214,15 +9378,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9254,9 +9419,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/entitlements/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       archived: p["archived"],
       ending_before: p["endingBefore"],
@@ -9269,7 +9435,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9293,12 +9459,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/entitlements/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getEntitlementsFeaturesId(
@@ -9315,15 +9482,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9350,12 +9518,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postEphemeralKeys(
@@ -9374,12 +9543,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/ephemeral_keys`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteEphemeralKeysKey(
@@ -9395,14 +9565,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/ephemeral_keys/${p["key"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -9443,9 +9614,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/events`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       delivery_success: p["deliverySuccess"],
@@ -9460,7 +9632,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9475,15 +9647,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9513,9 +9686,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/exchange_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9526,7 +9700,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9543,15 +9717,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9591,9 +9766,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/file_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -9607,7 +9783,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9631,12 +9807,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/file_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFileLinksLink(
@@ -9651,15 +9828,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9683,12 +9861,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFiles(
@@ -9740,9 +9919,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/files`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -9755,7 +9935,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9791,10 +9971,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files`
-    const headers = this._headers({ "Content-Type": "multipart/form-data" })
+    const headers = this._headers(
+      { "Content-Type": "multipart/form-data" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFilesFile(
@@ -9807,15 +9990,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9850,9 +10034,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/financial_connections/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -9865,7 +10050,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9885,15 +10070,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9915,12 +10101,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/disconnect`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFinancialConnectionsAccountsAccountOwners(
@@ -9952,9 +10139,10 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/owners`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9966,7 +10154,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9989,12 +10177,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/refresh`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountSubscribe(
@@ -10015,12 +10204,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/subscribe`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountUnsubscribe(
@@ -10041,12 +10231,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/unsubscribe`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsSessions(
@@ -10086,12 +10277,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/financial_connections/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFinancialConnectionsSessionsSession(
@@ -10109,15 +10301,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10159,9 +10352,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/financial_connections/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account: p["account"],
       ending_before: p["endingBefore"],
@@ -10175,7 +10369,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10196,15 +10390,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/financial_connections/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10240,9 +10435,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/forwarding/requests`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -10254,7 +10450,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10288,12 +10484,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/forwarding/requests`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getForwardingRequestsId(
@@ -10310,15 +10507,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/forwarding/requests/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10359,9 +10557,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/identity/verification_reports`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
@@ -10376,7 +10575,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10396,15 +10595,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10445,9 +10645,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
@@ -10462,7 +10663,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10503,12 +10704,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIdentityVerificationSessionsSession(
@@ -10526,15 +10728,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10573,12 +10776,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionCancel(
@@ -10598,12 +10802,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/identity/verification_sessions/${p["session"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionRedact(
@@ -10623,12 +10828,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/identity/verification_sessions/${p["session"]}/redact`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoiceitems(
@@ -10667,9 +10873,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoiceitems`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -10684,7 +10891,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10738,12 +10945,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoiceitems`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteInvoiceitemsInvoiceitem(
@@ -10759,14 +10967,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10783,15 +10992,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10842,12 +11052,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoices(
@@ -10895,9 +11106,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       collection_method: p["collectionMethod"],
       created: p["created"],
@@ -10914,7 +11126,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -11141,12 +11353,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesCreatePreview(
@@ -11481,12 +11694,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/create_preview`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoicesSearch(
@@ -11516,9 +11730,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoices/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -11529,7 +11744,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -11914,9 +12129,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/upcoming`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       automatic_tax: p["automaticTax"],
       coupon: p["coupon"],
@@ -11949,7 +12165,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12348,9 +12564,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoices/upcoming/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       automatic_tax: p["automaticTax"],
       coupon: p["coupon"],
@@ -12386,7 +12603,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12402,14 +12619,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -12426,15 +12644,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12663,12 +12882,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceAddLines(
@@ -12758,12 +12978,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/add_lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceFinalize(
@@ -12780,12 +13001,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/finalize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoicesInvoiceLines(
@@ -12814,9 +13036,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -12827,7 +13050,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12913,12 +13136,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/lines/${p["lineItemId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceMarkUncollectible(
@@ -12935,12 +13159,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/mark_uncollectible`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoicePay(
@@ -12962,12 +13187,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/pay`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceRemoveLines(
@@ -12992,12 +13218,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/remove_lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceSend(
@@ -13013,12 +13240,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/send`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceUpdateLines(
@@ -13108,12 +13336,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/update_lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceVoid(
@@ -13129,12 +13358,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/void`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingAuthorizations(
@@ -13173,9 +13403,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/authorizations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -13190,7 +13421,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -13210,15 +13441,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -13244,12 +13476,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationApprove(
@@ -13274,12 +13507,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/approve`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationDecline(
@@ -13303,12 +13537,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/decline`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardholders(
@@ -13348,9 +13583,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       email: p["email"],
@@ -13366,7 +13602,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -14335,12 +14571,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardholdersCardholder(
@@ -14357,15 +14594,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -15333,12 +15571,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCards(
@@ -15381,9 +15620,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       cardholder: p["cardholder"],
       created: p["created"],
@@ -15402,7 +15642,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -16363,12 +16603,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardsCard(
@@ -16383,15 +16624,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17349,12 +17591,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingDisputes(
@@ -17392,9 +17635,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -17408,7 +17652,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17516,12 +17760,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingDisputesDispute(
@@ -17536,15 +17781,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17651,12 +17897,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingDisputesDisputeSubmit(
@@ -17677,12 +17924,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}/submit`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPersonalizationDesigns(
@@ -17716,9 +17964,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -17732,7 +17981,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17768,12 +18017,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPersonalizationDesignsPersonalizationDesign(
@@ -17792,15 +18042,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17841,12 +18092,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPhysicalBundles(
@@ -17876,9 +18128,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/physical_bundles`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -17891,7 +18144,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17911,15 +18164,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17938,15 +18192,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17969,12 +18224,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingTokens(
@@ -18012,9 +18268,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       created: p["created"],
@@ -18028,7 +18285,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18045,15 +18302,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18072,12 +18330,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingTransactions(
@@ -18116,9 +18375,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -18133,7 +18393,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18152,15 +18412,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18185,12 +18446,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postLinkAccountSessions(
@@ -18230,12 +18492,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/link_account_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getLinkAccountSessionsSession(
@@ -18252,15 +18515,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18295,9 +18559,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/linked_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -18310,7 +18575,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18329,15 +18594,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18357,12 +18623,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/disconnect`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getLinkedAccountsAccountOwners(
@@ -18392,9 +18659,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/owners`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -18406,7 +18674,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18427,12 +18695,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/refresh`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getMandatesMandate(
@@ -18447,15 +18716,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18494,9 +18764,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -18509,7 +18780,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -19234,12 +19505,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentIntentsSearch(
@@ -19269,9 +19541,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_intents/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -19282,7 +19555,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -19300,9 +19573,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -19311,7 +19585,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -20011,12 +20285,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentApplyCustomerBalance(
@@ -20036,12 +20311,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/apply_customer_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentCancel(
@@ -20062,12 +20338,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentCapture(
@@ -20096,12 +20373,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentConfirm(
@@ -20814,12 +21092,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/confirm`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentIncrementAuthorization(
@@ -20847,12 +21126,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/increment_authorization`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentVerifyMicrodeposits(
@@ -20872,12 +21152,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_intents/${p["intent"]}/verify_microdeposits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinks(
@@ -20906,9 +21187,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -20920,7 +21202,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21381,12 +21663,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinksPaymentLink(
@@ -21401,15 +21684,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21860,12 +22144,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinksPaymentLinkLineItems(
@@ -21895,9 +22180,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -21908,7 +22194,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21939,9 +22225,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       application: p["application"],
       ending_before: p["endingBefore"],
@@ -21953,7 +22240,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22179,12 +22466,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodConfigurationsConfiguration(
@@ -22202,15 +22490,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22438,12 +22727,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodDomains(
@@ -22473,9 +22763,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_method_domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       domain_name: p["domainName"],
       enabled: p["enabled"],
@@ -22488,7 +22779,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22509,12 +22800,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_method_domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodDomainsPaymentMethodDomain(
@@ -22532,15 +22824,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22562,12 +22855,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodDomainsPaymentMethodDomainValidate(
@@ -22587,12 +22881,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/payment_method_domains/${p["paymentMethodDomain"]}/validate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethods(
@@ -22659,9 +22954,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -22674,7 +22970,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22931,12 +23227,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodsPaymentMethod(
@@ -22951,15 +23248,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23010,12 +23308,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodAttach(
@@ -23033,12 +23332,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/attach`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodDetach(
@@ -23055,12 +23355,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/detach`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPayouts(
@@ -23106,9 +23407,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/payouts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       arrival_date: p["arrivalDate"],
       created: p["created"],
@@ -23123,7 +23425,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23150,12 +23452,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payouts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPayoutsPayout(
@@ -23170,15 +23473,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23201,12 +23505,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPayoutsPayoutCancel(
@@ -23222,12 +23527,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPayoutsPayoutReverse(
@@ -23246,12 +23552,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/reverse`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPlans(
@@ -23289,9 +23596,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/plans`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23305,7 +23613,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23363,12 +23671,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deletePlansPlan(
@@ -23382,14 +23691,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -23404,15 +23714,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23437,12 +23748,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPrices(
@@ -23488,9 +23800,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/prices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23508,7 +23821,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23594,12 +23907,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPricesSearch(
@@ -23629,9 +23943,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/prices/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -23642,7 +23957,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23657,15 +23972,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23715,12 +24031,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProducts(
@@ -23760,9 +24077,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23778,7 +24096,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23849,12 +24167,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProductsSearch(
@@ -23884,9 +24203,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/products/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -23897,7 +24217,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23913,14 +24233,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -23937,15 +24258,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23991,12 +24313,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProductsProductFeatures(
@@ -24025,9 +24348,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -24038,7 +24362,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24057,12 +24381,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteProductsProductFeaturesId(
@@ -24080,14 +24405,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -24106,15 +24432,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24156,9 +24483,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/promotion_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       code: p["code"],
@@ -24174,7 +24502,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24212,12 +24540,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/promotion_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPromotionCodesPromotionCode(
@@ -24232,15 +24561,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24273,12 +24603,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotes(
@@ -24309,9 +24640,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/quotes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -24325,7 +24657,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24417,12 +24749,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuote(
@@ -24435,15 +24768,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24532,12 +24866,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postQuotesQuoteAccept(
@@ -24551,12 +24886,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/accept`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postQuotesQuoteCancel(
@@ -24570,12 +24906,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuoteComputedUpfrontLineItems(
@@ -24605,9 +24942,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -24618,7 +24956,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24635,12 +24973,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/finalize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuoteLineItems(
@@ -24669,9 +25008,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -24682,7 +25022,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24697,15 +25037,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24745,9 +25086,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/early_fraud_warnings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -24761,7 +25103,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24781,15 +25123,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24829,9 +25172,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -24845,7 +25189,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24866,12 +25210,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteRadarValueListItemsItem(
@@ -24887,14 +25232,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -24913,15 +25259,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24961,9 +25308,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_lists`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       alias: p["alias"],
       contains: p["contains"],
@@ -24977,7 +25325,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25010,12 +25358,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteRadarValueListsValueList(
@@ -25031,14 +25380,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -25055,15 +25405,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25086,12 +25437,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getRefunds(
@@ -25129,9 +25481,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -25145,7 +25498,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25177,12 +25530,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getRefundsRefund(
@@ -25197,15 +25551,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25228,12 +25583,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postRefundsRefundCancel(
@@ -25249,12 +25605,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/refunds/${p["refund"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getReportingReportRuns(
@@ -25290,9 +25647,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -25304,7 +25662,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25969,12 +26327,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getReportingReportRunsReportRun(
@@ -25991,15 +26350,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26026,15 +26386,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reporting/report_types`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26053,15 +26414,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26099,9 +26461,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/reviews`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -26113,7 +26476,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26130,15 +26493,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26156,12 +26520,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/reviews/${p["review"]}/approve`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSetupAttempts(
@@ -26198,9 +26563,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/setup_attempts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -26213,7 +26579,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26254,9 +26620,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/setup_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       attach_to_self: p["attachToSelf"],
       created: p["created"],
@@ -26271,7 +26638,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26641,12 +27008,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/setup_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSetupIntentsIntent(
@@ -26662,9 +27030,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -26673,7 +27042,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27019,12 +27388,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentCancel(
@@ -27044,12 +27414,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentConfirm(
@@ -27408,12 +27779,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/confirm`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentVerifyMicrodeposits(
@@ -27433,12 +27805,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/setup_intents/${p["intent"]}/verify_microdeposits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getShippingRates(
@@ -27476,9 +27849,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/shipping_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -27492,7 +27866,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27538,12 +27912,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/shipping_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getShippingRatesShippingRateToken(
@@ -27558,15 +27933,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27601,12 +27977,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSigmaScheduledQueryRuns(
@@ -27634,9 +28011,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/sigma/scheduled_query_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -27647,7 +28025,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27667,15 +28045,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27773,12 +28152,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSourcesSource(
@@ -27794,9 +28174,10 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -27805,7 +28186,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27892,12 +28273,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSourcesSourceMandateNotificationsMandateNotification(
@@ -27917,15 +28299,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27956,9 +28339,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/source_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -27969,7 +28353,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27991,15 +28375,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28018,12 +28403,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionItems(
@@ -28052,9 +28438,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -28066,7 +28453,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28120,12 +28507,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteSubscriptionItemsItem(
@@ -28145,14 +28533,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -28169,15 +28558,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28234,12 +28624,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
@@ -28270,9 +28661,10 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/subscription_items/${p["subscriptionItem"]}/usage_record_summaries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -28283,7 +28675,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28306,12 +28698,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/subscription_items/${p["subscriptionItem"]}/usage_records`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionSchedules(
@@ -28373,9 +28766,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_schedules`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       canceled_at: p["canceledAt"],
       completed_at: p["completedAt"],
@@ -28392,7 +28786,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28554,12 +28948,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_schedules`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionSchedulesSchedule(
@@ -28576,15 +28971,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28745,12 +29141,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleCancel(
@@ -28771,12 +29168,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleRelease(
@@ -28796,12 +29194,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/release`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptions(
@@ -28871,9 +29270,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       automatic_tax: p["automaticTax"],
       collection_method: p["collectionMethod"],
@@ -28893,7 +29293,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29148,12 +29548,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionsSearch(
@@ -29183,9 +29584,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/subscriptions/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -29196,7 +29598,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29230,14 +29632,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -29255,15 +29658,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29536,12 +29940,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
@@ -29556,14 +29961,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -29584,12 +29990,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/subscriptions/${p["subscription"]}/resume`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxCalculations(
@@ -29721,12 +30128,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/calculations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxCalculationsCalculation(
@@ -29781,9 +30189,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/tax/calculations/${p["calculation"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -29794,7 +30203,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29825,9 +30234,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/tax/registrations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -29839,7 +30249,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30124,12 +30534,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/registrations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxRegistrationsId(
@@ -30144,15 +30555,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30172,12 +30584,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxSettings(
@@ -30191,15 +30604,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/settings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30230,12 +30644,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/settings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxTransactionsCreateFromCalculation(
@@ -30256,12 +30671,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/create_from_calculation`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxTransactionsCreateReversal(
@@ -30297,12 +30713,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/create_reversal`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxTransactionsTransaction(
@@ -30317,15 +30734,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30357,9 +30775,10 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/tax/transactions/${p["transaction"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30370,7 +30789,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30400,9 +30819,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/tax_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30413,7 +30833,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30430,15 +30850,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30473,9 +30894,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30487,7 +30909,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30584,12 +31006,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTaxIdsId(
@@ -30603,14 +31026,15 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -30627,15 +31051,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30675,9 +31100,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/tax_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -30691,7 +31117,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30732,12 +31158,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxRatesTaxRate(
@@ -30752,15 +31179,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30802,12 +31230,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalConfigurations(
@@ -30836,9 +31265,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30850,7 +31280,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30962,12 +31392,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalConfigurationsConfiguration(
@@ -30984,14 +31415,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -31012,15 +31444,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31143,12 +31576,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalConnectionTokens(
@@ -31166,12 +31600,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/connection_tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalLocations(
@@ -31199,9 +31634,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/locations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -31212,7 +31648,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31244,12 +31680,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_terminal_location> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/terminal/locations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalLocationsLocation(
@@ -31265,14 +31702,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -31292,15 +31730,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31336,12 +31775,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalReaders(
@@ -31381,9 +31821,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/readers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       device_type: p["deviceType"],
       ending_before: p["endingBefore"],
@@ -31398,7 +31839,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31423,12 +31864,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/terminal/readers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalReadersReader(
@@ -31444,14 +31886,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -31471,15 +31914,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31506,12 +31950,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderCancelAction(
@@ -31528,12 +31973,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/cancel_action`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderProcessPaymentIntent(
@@ -31559,12 +32005,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/terminal/readers/${p["reader"]}/process_payment_intent`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderProcessSetupIntent(
@@ -31586,12 +32033,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/process_setup_intent`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderRefundPayment(
@@ -31619,12 +32067,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/refund_payment`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderSetReaderDisplay(
@@ -31652,12 +32101,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/set_reader_display`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersConfirmationTokens(
@@ -31915,12 +32365,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/confirmation_tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersCustomersCustomerFundCashBalance(
@@ -31943,12 +32394,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/customers/${p["customer"]}/fund_cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizations(
@@ -32357,12 +32809,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/issuing/authorizations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationCapture(
@@ -32460,12 +32913,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationExpire(
@@ -32485,12 +32939,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
@@ -32560,12 +33015,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
@@ -32587,12 +33043,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/increment`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationReverse(
@@ -32613,12 +33070,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/reverse`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingDeliver(
@@ -32636,12 +33094,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/deliver`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingFail(
@@ -32659,12 +33118,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingReturn(
@@ -32682,12 +33142,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingShip(
@@ -32705,12 +33166,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(
@@ -32730,12 +33192,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/activate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(
@@ -32755,12 +33218,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/deactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(
@@ -32801,12 +33265,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/reject`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingSettlements(
@@ -33243,12 +33708,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_force_capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
@@ -33651,12 +34117,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_unlinked_refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsTransactionRefund(
@@ -33677,12 +34144,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/${p["transaction"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersRefundsRefundExpire(
@@ -33698,12 +34166,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/test_helpers/refunds/${p["refund"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
@@ -33729,12 +34198,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/terminal/readers/${p["reader"]}/present_payment_method`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTestHelpersTestClocks(
@@ -33762,9 +34232,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -33775,7 +34246,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -33796,12 +34267,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTestHelpersTestClocksTestClock(
@@ -33817,14 +34289,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -33843,15 +34316,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -33873,12 +34347,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}/advance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdFail(
@@ -33914,12 +34389,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdReturn(
@@ -33939,12 +34415,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdSucceed(
@@ -33964,12 +34441,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/succeed`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsId(
@@ -33999,12 +34477,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/test_helpers/treasury/outbound_payments/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
@@ -34024,12 +34503,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdPost(
@@ -34049,12 +34529,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/post`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdReturn(
@@ -34087,12 +34568,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
@@ -34123,12 +34605,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
@@ -34148,12 +34631,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
@@ -34173,12 +34657,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/post`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
@@ -34211,12 +34696,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedCredits(
@@ -34246,12 +34732,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/treasury/received_credits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedDebits(
@@ -34281,12 +34768,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/test_helpers/treasury/received_debits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTokens(
@@ -34602,12 +35090,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTokensToken(
@@ -34620,15 +35109,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34675,9 +35165,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/topups`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       created: p["created"],
@@ -34691,7 +35182,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34717,12 +35208,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTopupsTopup(
@@ -34735,15 +35227,16 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34765,12 +35258,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTopupsTopupCancel(
@@ -34784,12 +35278,13 @@ export class ApiClient extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfers(
@@ -34827,9 +35322,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       destination: p["destination"],
@@ -34843,7 +35339,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34870,12 +35366,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersIdReversals(
@@ -34904,9 +35401,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -34917,7 +35415,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34943,12 +35441,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersTransfer(
@@ -34963,15 +35462,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34995,12 +35495,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersTransferReversalsId(
@@ -35017,15 +35518,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35050,12 +35552,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryCreditReversals(
@@ -35086,9 +35589,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35102,7 +35606,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35125,12 +35629,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryCreditReversalsCreditReversal(
@@ -35148,15 +35653,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35190,9 +35696,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35207,7 +35714,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35230,12 +35737,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryDebitReversalsDebitReversal(
@@ -35253,15 +35761,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35299,9 +35808,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -35313,7 +35823,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35377,12 +35887,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccount(
@@ -35400,15 +35911,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35473,12 +35985,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -35497,15 +36010,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35562,12 +36076,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryInboundTransfers(
@@ -35597,9 +36112,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35612,7 +36128,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35640,12 +36156,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryInboundTransfersId(
@@ -35662,15 +36179,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35692,12 +36210,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/treasury/inbound_transfers/${p["inboundTransfer"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundPayments(
@@ -35736,9 +36255,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -35753,7 +36273,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35822,12 +36342,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundPaymentsId(
@@ -35844,15 +36365,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35873,12 +36395,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_payments/${p["id"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundTransfers(
@@ -35908,9 +36431,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35923,7 +36447,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35958,12 +36482,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundTransfersOutboundTransfer(
@@ -35981,15 +36506,16 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36011,12 +36537,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryReceivedCredits(
@@ -36053,9 +36580,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/received_credits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36069,7 +36597,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36088,15 +36616,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36128,9 +36657,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/received_debits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36143,7 +36673,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36162,15 +36692,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36219,9 +36750,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       effective_at: p["effectiveAt"],
@@ -36237,7 +36769,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36256,15 +36788,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36315,9 +36848,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -36333,7 +36867,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36352,15 +36886,16 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36390,9 +36925,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36403,7 +36939,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36771,12 +37307,13 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteWebhookEndpointsWebhookEndpoint(
@@ -36792,14 +37329,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...opts },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -36816,15 +37354,16 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...opts },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -37090,11 +37629,12 @@ export class ApiClient extends AbstractFetchClient {
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }
