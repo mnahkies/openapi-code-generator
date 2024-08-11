@@ -54,7 +54,10 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type HeaderParams = Record<string, string | number | undefined>
+export type HeaderParams =
+  | Record<string, string | number | undefined>
+  | [string, string | number | undefined][]
+  | Headers
 
 export abstract class AbstractFetchClient {
   protected readonly basePath: string
@@ -92,7 +95,7 @@ export abstract class AbstractFetchClient {
       )
     }
 
-    const headers = opts.headers ?? this._headers({})
+    const headers = opts.headers ?? this._headers()
 
     return fetch(url, {
       ...opts,
@@ -123,11 +126,50 @@ export abstract class AbstractFetchClient {
     })}`
   }
 
-  protected _headers(headers: HeaderParams): Record<string, string> {
-    return Object.fromEntries(
-      Object.entries({...this.defaultHeaders, ...headers})
-        .filter((it): it is [string, string | number] => it[1] !== undefined)
-        .map((it): [string, string] => [it[0], String(it[1])]),
-    )
+  protected _headers(
+    paramHeaders: HeaderParams = {},
+    optsHeaders: HeaderParams = {},
+  ): Headers {
+    const headers = new Headers()
+
+    this.setHeaders(headers, this.defaultHeaders)
+    this.setHeaders(headers, paramHeaders)
+    this.setHeaders(headers, optsHeaders)
+
+    return headers
+  }
+
+  private setHeaders(headers: Headers, headersInit: HeaderParams) {
+    const headersArray = this.headersAsArray(headersInit)
+
+    for (const [headerName, headerValue] of headersArray) {
+      if (headerValue === undefined) {
+        headers.delete(headerName)
+      } else {
+        headers.set(headerName, headerValue.toString())
+      }
+    }
+  }
+
+  private headersAsArray(
+    headers: HeaderParams,
+  ): [string, string | number | undefined][] {
+    if (Array.isArray(headers)) {
+      return headers
+    }
+
+    if (headers instanceof Headers) {
+      const result: [string, string][] = []
+      headers.forEach((value, key) => {
+        result.push([key, value])
+      })
+      return result
+    }
+
+    if (headers && typeof headers === "object") {
+      return Object.entries(headers)
+    }
+
+    return []
   }
 }
