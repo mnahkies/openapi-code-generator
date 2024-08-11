@@ -59,7 +59,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       `method: "${method}",`,
       headers ? "headers," : "",
       requestBodyParameter ? "body," : "",
-      "...(opts ?? {})",
+      "...opts",
     ]
       .filter(Boolean)
       .join("\n")}}, timeout)`
@@ -93,7 +93,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         {
           name: "opts",
           type: "RequestInit",
-          required: false,
+          required: true,
+          default: "{}",
         },
       ],
       returnType: `TypedFetchResponse<${returnType}>`,
