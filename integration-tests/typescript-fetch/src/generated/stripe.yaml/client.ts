@@ -179,7 +179,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
@@ -192,7 +192,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -213,7 +213,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>>
   > {
@@ -223,11 +223,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postAccountSessions(
@@ -310,7 +306,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account_session> | Res<StatusCode, t_error>>
   > {
@@ -320,11 +316,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAccounts(
@@ -344,7 +336,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -374,7 +366,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -843,7 +835,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
@@ -853,11 +845,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteAccountsAccount(
@@ -866,7 +854,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_account> | Res<StatusCode, t_error>>
   > {
@@ -878,7 +866,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -890,7 +878,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
@@ -903,7 +891,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1345,7 +1333,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
@@ -1355,11 +1343,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postAccountsAccountBankAccounts(
@@ -1392,7 +1376,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1402,11 +1386,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteAccountsAccountBankAccountsId(
@@ -1416,7 +1396,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
@@ -1431,7 +1411,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -1444,7 +1424,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1458,7 +1438,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1495,7 +1475,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1506,11 +1486,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAccountsAccountCapabilities(
@@ -1520,7 +1496,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1544,7 +1520,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1557,7 +1533,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
   > {
@@ -1572,7 +1548,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1587,7 +1563,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
   > {
@@ -1599,11 +1575,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAccountsAccountExternalAccounts(
@@ -1617,7 +1589,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1647,7 +1619,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1682,7 +1654,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1692,11 +1664,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteAccountsAccountExternalAccountsId(
@@ -1706,7 +1674,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
@@ -1722,7 +1690,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -1735,7 +1703,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1750,7 +1718,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1787,7 +1755,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
   > {
@@ -1799,11 +1767,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postAccountsAccountLoginLinks(
@@ -1814,7 +1778,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>>
   > {
@@ -1824,11 +1788,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAccountsAccountPeople(
@@ -1848,7 +1808,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1878,7 +1838,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -1991,7 +1951,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2001,11 +1961,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteAccountsAccountPeoplePerson(
@@ -2015,7 +1971,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
   > {
@@ -2028,7 +1984,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -2041,7 +1997,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2055,7 +2011,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2169,7 +2125,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2180,11 +2136,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAccountsAccountPersons(
@@ -2204,7 +2156,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2234,7 +2186,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2347,7 +2299,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2357,11 +2309,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteAccountsAccountPersonsPerson(
@@ -2371,7 +2319,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
   > {
@@ -2384,7 +2332,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -2397,7 +2345,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2411,7 +2359,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2525,7 +2473,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
   > {
@@ -2536,11 +2484,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postAccountsAccountReject(
@@ -2552,7 +2496,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
   > {
@@ -2562,11 +2506,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getApplePayDomains(
@@ -2579,7 +2519,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2609,7 +2549,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2622,7 +2562,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
@@ -2632,11 +2572,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteApplePayDomainsDomain(
@@ -2645,7 +2581,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>
@@ -2659,7 +2595,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -2671,7 +2607,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
   > {
@@ -2684,7 +2620,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2707,7 +2643,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2738,7 +2674,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2751,7 +2687,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
   > {
@@ -2765,7 +2701,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2784,7 +2720,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
   > {
@@ -2795,11 +2731,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getApplicationFeesId(
@@ -2809,7 +2741,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
@@ -2822,7 +2754,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2837,7 +2769,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
   > {
@@ -2847,11 +2779,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getApplicationFeesIdRefunds(
@@ -2864,7 +2792,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2893,7 +2821,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2910,7 +2838,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
   > {
@@ -2920,11 +2848,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAppsSecrets(
@@ -2940,7 +2864,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2970,7 +2894,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -2989,7 +2913,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
@@ -2999,11 +2923,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postAppsSecretsDelete(
@@ -3018,7 +2938,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
@@ -3028,11 +2948,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getAppsSecretsFind(
@@ -3046,7 +2962,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
   > {
@@ -3063,7 +2979,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3074,7 +2990,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>>
   > {
@@ -3087,7 +3003,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3113,7 +3029,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3147,7 +3063,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3159,7 +3075,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_balance_transaction> | Res<StatusCode, t_error>
@@ -3174,7 +3090,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3200,7 +3116,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3234,7 +3150,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3246,7 +3162,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_balance_transaction> | Res<StatusCode, t_error>
@@ -3261,7 +3177,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3459,7 +3375,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_meter_event_adjustment> | Res<StatusCode, t_error>
@@ -3471,11 +3387,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postBillingMeterEvents(
@@ -3491,7 +3403,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_meter_event> | Res<StatusCode, t_error>
@@ -3503,11 +3415,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getBillingMeters(
@@ -3520,7 +3428,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3550,7 +3458,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3575,7 +3483,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
@@ -3585,11 +3493,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getBillingMetersId(
@@ -3599,7 +3503,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
@@ -3612,7 +3516,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3626,7 +3530,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
@@ -3636,11 +3540,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postBillingMetersIdDeactivate(
@@ -3651,7 +3551,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
@@ -3661,11 +3561,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getBillingMetersIdEventSummaries(
@@ -3682,7 +3578,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3715,7 +3611,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3728,7 +3624,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
   > {
@@ -3738,11 +3634,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getBillingPortalConfigurations(
@@ -3756,7 +3648,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3787,7 +3679,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3865,7 +3757,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
@@ -3877,11 +3769,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getBillingPortalConfigurationsConfiguration(
@@ -3891,7 +3779,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
@@ -3907,7 +3795,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -3989,7 +3877,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
@@ -4002,11 +3890,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postBillingPortalSessions(
@@ -4108,7 +3992,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_billing_portal_session> | Res<StatusCode, t_error>
@@ -4120,11 +4004,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCharges(
@@ -4147,7 +4027,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4180,7 +4060,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4256,7 +4136,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
@@ -4266,11 +4146,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getChargesSearch(
@@ -4282,7 +4158,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4313,7 +4189,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4325,7 +4201,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
@@ -4338,7 +4214,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4377,7 +4253,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
@@ -4387,11 +4263,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postChargesChargeCapture(
@@ -4412,7 +4284,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
@@ -4422,11 +4294,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getChargesChargeDispute(
@@ -4436,7 +4304,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -4449,7 +4317,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4497,7 +4365,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -4507,11 +4375,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postChargesChargeDisputeClose(
@@ -4522,7 +4386,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -4532,11 +4396,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postChargesChargeRefund(
@@ -4558,7 +4418,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
   > {
@@ -4568,11 +4428,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getChargesChargeRefunds(
@@ -4585,7 +4441,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4614,7 +4470,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4641,7 +4497,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -4651,11 +4507,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getChargesChargeRefundsRefund(
@@ -4666,7 +4518,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -4680,7 +4532,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -4699,7 +4551,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -4710,11 +4562,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCheckoutSessions(
@@ -4742,7 +4590,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4778,7 +4626,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5561,7 +5409,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
@@ -5571,11 +5419,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCheckoutSessionsSession(
@@ -5585,7 +5429,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
@@ -5598,7 +5442,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5616,7 +5460,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
@@ -5626,11 +5470,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postCheckoutSessionsSessionExpire(
@@ -5641,7 +5481,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
   > {
@@ -5651,11 +5491,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCheckoutSessionsSessionLineItems(
@@ -5668,7 +5504,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5698,7 +5534,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5712,7 +5548,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5741,7 +5577,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5763,7 +5599,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
@@ -5773,11 +5609,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getClimateOrdersOrder(
@@ -5787,7 +5619,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
@@ -5800,7 +5632,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5821,7 +5653,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
@@ -5831,11 +5663,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postClimateOrdersOrderCancel(
@@ -5846,7 +5674,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
   > {
@@ -5856,11 +5684,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getClimateProducts(
@@ -5872,7 +5696,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5901,7 +5725,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5913,7 +5737,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_product> | Res<StatusCode, t_error>>
   > {
@@ -5926,7 +5750,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5940,7 +5764,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5969,7 +5793,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -5981,7 +5805,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_climate_supplier> | Res<StatusCode, t_error>>
   > {
@@ -5994,7 +5818,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6006,7 +5830,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_confirmation_token> | Res<StatusCode, t_error>
@@ -6022,7 +5846,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6036,7 +5860,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6065,7 +5889,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6077,7 +5901,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>>
   > {
@@ -6090,7 +5914,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6112,7 +5936,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6142,7 +5966,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6178,7 +6002,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
@@ -6188,11 +6012,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCouponsCoupon(
@@ -6201,7 +6021,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>>
   > {
@@ -6213,7 +6033,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -6225,7 +6045,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
@@ -6238,7 +6058,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6264,7 +6084,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
   > {
@@ -6274,11 +6094,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCreditNotes(
@@ -6300,7 +6116,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6332,7 +6148,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6381,7 +6197,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
@@ -6391,11 +6207,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCreditNotesPreview(
@@ -6441,7 +6253,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
@@ -6469,7 +6281,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6520,7 +6332,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6562,7 +6374,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6577,7 +6389,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6606,7 +6418,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6618,7 +6430,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
@@ -6631,7 +6443,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6648,7 +6460,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
@@ -6658,11 +6470,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postCreditNotesIdVoid(
@@ -6673,7 +6481,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
   > {
@@ -6683,11 +6491,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postCustomerSessions(
@@ -6721,7 +6525,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_customer_session> | Res<StatusCode, t_error>>
   > {
@@ -6731,11 +6535,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomers(
@@ -6757,7 +6557,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -6789,7 +6589,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -6948,7 +6748,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
   > {
@@ -6958,11 +6758,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersSearch(
@@ -6974,7 +6770,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7005,7 +6801,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7016,7 +6812,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_customer> | Res<StatusCode, t_error>>
   > {
@@ -7028,7 +6824,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -7040,7 +6836,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
@@ -7055,7 +6851,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7170,7 +6966,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
   > {
@@ -7180,11 +6976,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactions(
@@ -7197,7 +6989,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7227,7 +7019,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7248,7 +7040,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
@@ -7261,11 +7053,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactionsTransaction(
@@ -7276,7 +7064,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
@@ -7293,7 +7081,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7313,7 +7101,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
@@ -7327,11 +7115,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerBankAccounts(
@@ -7344,7 +7128,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7373,7 +7157,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7421,7 +7205,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
@@ -7431,11 +7215,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerBankAccountsId(
@@ -7447,7 +7227,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_payment_source | t_deleted_payment_source>
@@ -7463,7 +7243,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -7476,7 +7256,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
   > {
@@ -7490,7 +7270,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7533,7 +7313,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
@@ -7546,11 +7326,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postCustomersCustomerBankAccountsIdVerify(
@@ -7563,7 +7339,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
   > {
@@ -7575,11 +7351,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerCards(
@@ -7592,7 +7364,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7621,7 +7393,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7669,7 +7441,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
@@ -7679,11 +7451,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerCardsId(
@@ -7695,7 +7463,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_payment_source | t_deleted_payment_source>
@@ -7711,7 +7479,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -7724,7 +7492,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -7736,7 +7504,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7779,7 +7547,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
@@ -7792,11 +7560,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerCashBalance(
@@ -7806,7 +7570,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
   > {
@@ -7819,7 +7583,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7835,7 +7599,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
   > {
@@ -7845,11 +7609,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerCashBalanceTransactions(
@@ -7862,7 +7622,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -7892,7 +7652,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7905,7 +7665,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
@@ -7922,7 +7682,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7933,7 +7693,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
@@ -7945,7 +7705,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -7957,7 +7717,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
   > {
@@ -7970,7 +7730,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -7997,7 +7757,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_funding_instructions> | Res<StatusCode, t_error>
@@ -8010,11 +7770,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerPaymentMethods(
@@ -8066,7 +7822,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8097,7 +7853,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8110,7 +7866,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -8125,7 +7881,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8141,7 +7897,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8171,7 +7927,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8219,7 +7975,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
@@ -8229,11 +7985,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerSourcesId(
@@ -8245,7 +7997,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_payment_source | t_deleted_payment_source>
@@ -8261,7 +8013,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -8274,7 +8026,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
   > {
@@ -8288,7 +8040,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8331,7 +8083,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
@@ -8344,11 +8096,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postCustomersCustomerSourcesIdVerify(
@@ -8361,7 +8109,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
   > {
@@ -8372,11 +8120,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getCustomersCustomerSubscriptions(
@@ -8389,7 +8133,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8418,7 +8162,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8659,7 +8403,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -8669,11 +8413,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8687,7 +8427,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -8701,7 +8441,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -8714,7 +8454,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -8729,7 +8469,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -8995,7 +8735,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -9007,11 +8747,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -9021,7 +8757,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
@@ -9035,7 +8771,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -9048,7 +8784,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
   > {
@@ -9063,7 +8799,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9078,7 +8814,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9107,7 +8843,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9195,7 +8931,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -9205,11 +8941,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteCustomersCustomerTaxIdsId(
@@ -9219,7 +8951,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -9232,7 +8964,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -9245,7 +8977,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -9259,7 +8991,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9283,7 +9015,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9315,7 +9047,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9327,7 +9059,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -9340,7 +9072,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9388,7 +9120,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -9398,11 +9130,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postDisputesDisputeClose(
@@ -9413,7 +9141,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
   > {
@@ -9423,11 +9151,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getEntitlementsActiveEntitlements(
@@ -9440,7 +9164,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9470,7 +9194,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9482,7 +9206,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_entitlements_active_entitlement> | Res<StatusCode, t_error>
@@ -9498,7 +9222,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9514,7 +9238,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9545,7 +9269,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9562,7 +9286,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
@@ -9574,11 +9298,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getEntitlementsFeaturesId(
@@ -9588,7 +9308,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
@@ -9603,7 +9323,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9623,7 +9343,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
@@ -9635,11 +9355,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postEphemeralKeys(
@@ -9653,7 +9369,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
   > {
@@ -9663,11 +9379,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteEphemeralKeysKey(
@@ -9678,7 +9390,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
   > {
@@ -9690,7 +9402,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -9715,7 +9427,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9748,7 +9460,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9760,7 +9472,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
     const headers = this._headers({
@@ -9771,7 +9483,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9785,7 +9497,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9814,7 +9526,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9826,7 +9538,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>>
   > {
@@ -9839,7 +9551,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9863,7 +9575,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -9895,7 +9607,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9914,7 +9626,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
@@ -9924,11 +9636,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getFileLinksLink(
@@ -9938,7 +9646,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
@@ -9951,7 +9659,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -9970,7 +9678,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
   > {
@@ -9980,11 +9688,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getFiles(
@@ -10020,7 +9724,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10051,7 +9755,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10084,17 +9788,13 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files`
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getFilesFile(
@@ -10104,7 +9804,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
     const headers = this._headers({
@@ -10115,7 +9815,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10134,7 +9834,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10165,7 +9865,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10177,7 +9877,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -10193,7 +9893,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10206,7 +9906,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -10220,11 +9920,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getFinancialConnectionsAccountsAccountOwners(
@@ -10238,7 +9934,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10270,7 +9966,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10284,7 +9980,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -10298,11 +9994,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountSubscribe(
@@ -10314,7 +10006,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -10328,11 +10020,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountUnsubscribe(
@@ -10344,7 +10032,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -10358,11 +10046,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postFinancialConnectionsSessions(
@@ -10395,7 +10079,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
@@ -10407,11 +10091,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getFinancialConnectionsSessionsSession(
@@ -10421,7 +10101,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
@@ -10437,7 +10117,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10463,7 +10143,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10495,7 +10175,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10507,7 +10187,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_transaction> | Res<StatusCode, t_error>
@@ -10524,7 +10204,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10544,7 +10224,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10574,7 +10254,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10601,7 +10281,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_forwarding_request> | Res<StatusCode, t_error>
@@ -10613,11 +10293,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getForwardingRequestsId(
@@ -10627,7 +10303,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_forwarding_request> | Res<StatusCode, t_error>
@@ -10642,7 +10318,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10667,7 +10343,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10700,7 +10376,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10712,7 +10388,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
@@ -10728,7 +10404,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10753,7 +10429,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -10786,7 +10462,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10820,7 +10496,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
@@ -10832,11 +10508,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIdentityVerificationSessionsSession(
@@ -10846,7 +10518,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
@@ -10862,7 +10534,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -10893,7 +10565,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
@@ -10906,11 +10578,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionCancel(
@@ -10921,7 +10589,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
@@ -10935,11 +10603,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionRedact(
@@ -10950,7 +10614,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
@@ -10964,11 +10628,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getInvoiceitems(
@@ -10991,7 +10651,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11024,7 +10684,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -11073,7 +10733,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
@@ -11083,11 +10743,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteInvoiceitemsInvoiceitem(
@@ -11096,7 +10752,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>
@@ -11110,7 +10766,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -11122,7 +10778,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
@@ -11135,7 +10791,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -11181,7 +10837,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
   > {
@@ -11191,11 +10847,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getInvoices(
@@ -11227,7 +10879,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11262,7 +10914,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -11484,7 +11136,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -11494,11 +11146,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesCreatePreview(
@@ -11828,7 +11476,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -11838,11 +11486,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getInvoicesSearch(
@@ -11854,7 +11498,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11885,7 +11529,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -12265,7 +11909,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -12305,7 +11949,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -12688,7 +12332,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -12742,7 +12386,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -12753,7 +12397,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>>
   > {
@@ -12765,7 +12409,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -12777,7 +12421,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -12790,7 +12434,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -13014,7 +12658,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13024,11 +12668,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceAddLines(
@@ -13113,7 +12753,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13123,11 +12763,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceFinalize(
@@ -13139,7 +12775,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13149,11 +12785,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getInvoicesInvoiceLines(
@@ -13166,7 +12798,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -13195,7 +12827,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -13275,7 +12907,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_line_item> | Res<StatusCode, t_error>>
   > {
@@ -13286,11 +12918,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceMarkUncollectible(
@@ -13301,7 +12929,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13312,11 +12940,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoicePay(
@@ -13333,7 +12957,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13343,11 +12967,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceRemoveLines(
@@ -13367,7 +12987,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13377,11 +12997,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceSend(
@@ -13392,7 +13008,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13402,11 +13018,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceUpdateLines(
@@ -13491,7 +13103,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13501,11 +13113,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postInvoicesInvoiceVoid(
@@ -13516,7 +13124,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
   > {
@@ -13526,11 +13134,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingAuthorizations(
@@ -13553,7 +13157,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -13586,7 +13190,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -13598,7 +13202,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -13614,7 +13218,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -13632,7 +13236,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -13645,11 +13249,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationApprove(
@@ -13666,7 +13266,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -13679,11 +13279,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationDecline(
@@ -13699,7 +13295,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -13712,11 +13308,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingCardholders(
@@ -13740,7 +13332,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -13774,7 +13366,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -14736,7 +14328,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
@@ -14748,11 +14340,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingCardholdersCardholder(
@@ -14762,7 +14350,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
@@ -14777,7 +14365,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -15738,7 +15326,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
@@ -15750,11 +15338,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingCards(
@@ -15781,7 +15365,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -15818,7 +15402,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -16774,7 +16358,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -16784,11 +16368,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingCardsCard(
@@ -16798,7 +16378,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -16811,7 +16391,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -17764,7 +17344,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -17774,11 +17354,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingDisputes(
@@ -17800,7 +17376,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17832,7 +17408,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -17935,7 +17511,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
@@ -17945,11 +17521,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingDisputesDispute(
@@ -17959,7 +17531,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
@@ -17972,7 +17544,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18074,7 +17646,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
@@ -18084,11 +17656,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postIssuingDisputesDisputeSubmit(
@@ -18104,7 +17672,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
   > {
@@ -18114,11 +17682,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingPersonalizationDesigns(
@@ -18136,7 +17700,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18168,7 +17732,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18197,7 +17761,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -18209,11 +17773,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingPersonalizationDesignsPersonalizationDesign(
@@ -18223,7 +17783,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -18240,7 +17800,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18272,7 +17832,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -18286,11 +17846,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingPhysicalBundles(
@@ -18304,7 +17860,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18335,7 +17891,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18347,7 +17903,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>
@@ -18363,7 +17919,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18375,7 +17931,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
@@ -18390,7 +17946,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18406,7 +17962,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
@@ -18418,11 +17974,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingTokens(
@@ -18444,7 +17996,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18476,7 +18028,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18488,7 +18040,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
   > {
@@ -18501,7 +18053,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18515,7 +18067,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
   > {
@@ -18525,11 +18077,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getIssuingTransactions(
@@ -18552,7 +18100,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18585,7 +18133,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18597,7 +18145,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
@@ -18612,7 +18160,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18630,7 +18178,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
@@ -18642,11 +18190,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postLinkAccountSessions(
@@ -18679,7 +18223,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
@@ -18691,11 +18235,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getLinkAccountSessionsSession(
@@ -18705,7 +18245,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
@@ -18720,7 +18260,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18739,7 +18279,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18770,7 +18310,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18782,7 +18322,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -18797,7 +18337,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18810,7 +18350,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -18822,11 +18362,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getLinkedAccountsAccountOwners(
@@ -18840,7 +18376,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18870,7 +18406,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18884,7 +18420,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
@@ -18896,11 +18432,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getMandatesMandate(
@@ -18910,7 +18442,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>>
   > {
@@ -18923,7 +18455,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -18946,7 +18478,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18977,7 +18509,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -19697,7 +19229,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -19707,11 +19239,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentIntentsSearch(
@@ -19723,7 +19251,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19754,7 +19282,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -19767,7 +19295,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -19783,7 +19311,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -20478,7 +20006,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -20488,11 +20016,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentApplyCustomerBalance(
@@ -20505,7 +20029,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -20517,11 +20041,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentCancel(
@@ -20537,7 +20057,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -20547,11 +20067,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentCapture(
@@ -20575,7 +20091,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -20585,11 +20101,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentConfirm(
@@ -21297,7 +20809,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -21307,11 +20819,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentIncrementAuthorization(
@@ -21332,7 +20840,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -21344,11 +20852,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentIntentsIntentVerifyMicrodeposits(
@@ -21362,7 +20866,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
   > {
@@ -21373,11 +20877,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentLinks(
@@ -21390,7 +20890,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -21420,7 +20920,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -21876,7 +21376,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
@@ -21886,11 +21386,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentLinksPaymentLink(
@@ -21900,7 +21396,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
@@ -21913,7 +21409,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -22359,7 +21855,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
   > {
@@ -22369,11 +21865,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentLinksPaymentLinkLineItems(
@@ -22386,7 +21878,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -22416,7 +21908,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -22431,7 +21923,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -22461,7 +21953,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -22680,7 +22172,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
@@ -22692,11 +22184,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentMethodConfigurationsConfiguration(
@@ -22706,7 +22194,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
@@ -22722,7 +22210,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -22942,7 +22430,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
@@ -22955,11 +22443,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentMethodDomains(
@@ -22973,7 +22457,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -23004,7 +22488,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23018,7 +22502,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
@@ -23030,11 +22514,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentMethodDomainsPaymentMethodDomain(
@@ -23044,7 +22524,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
@@ -23060,7 +22540,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23074,7 +22554,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
@@ -23087,11 +22567,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentMethodDomainsPaymentMethodDomainValidate(
@@ -23102,7 +22578,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
@@ -23116,11 +22592,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentMethods(
@@ -23171,7 +22643,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -23202,7 +22674,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23454,7 +22926,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -23464,11 +22936,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPaymentMethodsPaymentMethod(
@@ -23478,7 +22946,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -23491,7 +22959,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23537,7 +23005,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -23547,11 +23015,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodAttach(
@@ -23563,7 +23027,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -23574,11 +23038,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodDetach(
@@ -23589,7 +23049,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
   > {
@@ -23600,11 +23060,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPayouts(
@@ -23634,7 +23090,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -23667,7 +23123,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23689,7 +23145,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
@@ -23699,11 +23155,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPayoutsPayout(
@@ -23713,7 +23165,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
@@ -23726,7 +23178,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23744,7 +23196,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
@@ -23754,11 +23206,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPayoutsPayoutCancel(
@@ -23769,7 +23217,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
@@ -23779,11 +23227,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postPayoutsPayoutReverse(
@@ -23797,7 +23241,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
   > {
@@ -23807,11 +23251,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPlans(
@@ -23833,7 +23273,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -23865,7 +23305,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23920,7 +23360,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans`
     const headers = this._headers({
@@ -23928,11 +23368,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deletePlansPlan(
@@ -23941,7 +23377,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>>
   > {
@@ -23953,7 +23389,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -23965,7 +23401,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
@@ -23976,7 +23412,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -23998,7 +23434,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers({
@@ -24006,11 +23442,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPrices(
@@ -24040,7 +23472,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24076,7 +23508,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24159,7 +23591,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices`
     const headers = this._headers({
@@ -24167,11 +23599,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPricesSearch(
@@ -24183,7 +23611,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24214,7 +23642,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24226,7 +23654,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({
@@ -24237,7 +23665,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24284,7 +23712,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers({
@@ -24292,11 +23720,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getProducts(
@@ -24320,7 +23744,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24354,7 +23778,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24420,7 +23844,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
@@ -24430,11 +23854,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getProductsSearch(
@@ -24446,7 +23866,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24477,7 +23897,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24488,7 +23908,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_product> | Res<StatusCode, t_error>>
   > {
@@ -24500,7 +23920,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -24512,7 +23932,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
@@ -24525,7 +23945,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24566,7 +23986,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
   > {
@@ -24576,11 +23996,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getProductsProductFeatures(
@@ -24593,7 +24009,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24622,7 +24038,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24636,7 +24052,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
   > {
@@ -24646,11 +24062,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteProductsProductFeaturesId(
@@ -24660,7 +24072,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>
@@ -24675,7 +24087,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -24688,7 +24100,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
   > {
@@ -24702,7 +24114,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24728,7 +24140,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24762,7 +24174,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24795,7 +24207,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
@@ -24805,11 +24217,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPromotionCodesPromotionCode(
@@ -24819,7 +24227,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
@@ -24832,7 +24240,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -24860,7 +24268,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
   > {
@@ -24870,11 +24278,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getQuotes(
@@ -24889,7 +24293,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -24921,7 +24325,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25010,7 +24414,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes`
     const headers = this._headers({
@@ -25018,11 +24422,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getQuotesQuote(
@@ -25032,7 +24432,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({
@@ -25043,7 +24443,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25129,7 +24529,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers({
@@ -25137,11 +24537,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postQuotesQuoteAccept(
@@ -25152,7 +24548,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/accept`
     const headers = this._headers({
@@ -25160,11 +24556,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postQuotesQuoteCancel(
@@ -25175,7 +24567,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/cancel`
     const headers = this._headers({
@@ -25183,11 +24575,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getQuotesQuoteComputedUpfrontLineItems(
@@ -25200,7 +24588,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25230,7 +24618,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25244,7 +24632,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/finalize`
     const headers = this._headers({
@@ -25252,11 +24640,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getQuotesQuoteLineItems(
@@ -25269,7 +24653,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25298,7 +24682,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25310,7 +24694,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers({
@@ -25321,7 +24705,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25345,7 +24729,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25377,7 +24761,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25389,7 +24773,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>
@@ -25405,7 +24789,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25429,7 +24813,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25461,7 +24845,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25475,7 +24859,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
@@ -25487,11 +24871,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteRadarValueListItemsItem(
@@ -25500,7 +24880,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
@@ -25514,7 +24894,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -25526,7 +24906,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
@@ -25541,7 +24921,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25565,7 +24945,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25597,7 +24977,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25625,7 +25005,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
@@ -25635,11 +25015,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteRadarValueListsValueList(
@@ -25648,7 +25024,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>
@@ -25662,7 +25038,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -25674,7 +25050,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
@@ -25687,7 +25063,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25705,7 +25081,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
   > {
@@ -25715,11 +25091,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getRefunds(
@@ -25741,7 +25113,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25773,7 +25145,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25800,7 +25172,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -25810,11 +25182,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getRefundsRefund(
@@ -25824,7 +25192,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -25837,7 +25205,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -25855,7 +25223,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -25865,11 +25233,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postRefundsRefundCancel(
@@ -25880,7 +25244,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -25890,11 +25254,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getReportingReportRuns(
@@ -25914,7 +25274,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -25944,7 +25304,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26602,7 +25962,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
@@ -26614,11 +25974,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getReportingReportRunsReportRun(
@@ -26628,7 +25984,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
@@ -26643,7 +25999,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26654,7 +26010,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -26678,7 +26034,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26690,7 +26046,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reporting_report_type> | Res<StatusCode, t_error>
@@ -26705,7 +26061,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26727,7 +26083,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -26757,7 +26113,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26769,7 +26125,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
   > {
@@ -26782,7 +26138,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26795,7 +26151,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
   > {
@@ -26805,11 +26161,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSetupAttempts(
@@ -26830,7 +26182,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -26861,7 +26213,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -26886,7 +26238,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -26919,7 +26271,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -27284,7 +26636,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -27294,11 +26646,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSetupIntentsIntent(
@@ -27309,7 +26657,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -27325,7 +26673,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -27666,7 +27014,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -27676,11 +27024,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postSetupIntentsIntentCancel(
@@ -27695,7 +27039,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -27705,11 +27049,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postSetupIntentsIntentConfirm(
@@ -28063,7 +27403,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -28073,11 +27413,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postSetupIntentsIntentVerifyMicrodeposits(
@@ -28091,7 +27427,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
   > {
@@ -28102,11 +27438,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getShippingRates(
@@ -28128,7 +27460,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -28160,7 +27492,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28201,7 +27533,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
@@ -28211,11 +27543,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getShippingRatesShippingRateToken(
@@ -28225,7 +27553,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
@@ -28238,7 +27566,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28268,7 +27596,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
   > {
@@ -28278,11 +27606,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSigmaScheduledQueryRuns(
@@ -28294,7 +27618,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -28323,7 +27647,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28335,7 +27659,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>
@@ -28351,7 +27675,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28444,7 +27768,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
@@ -28454,11 +27778,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSourcesSource(
@@ -28469,7 +27789,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
@@ -28485,7 +27805,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28567,7 +27887,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
@@ -28577,11 +27897,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSourcesSourceMandateNotificationsMandateNotification(
@@ -28592,7 +27908,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
@@ -28609,7 +27925,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28624,7 +27940,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -28653,7 +27969,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28666,7 +27982,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_source_transaction> | Res<StatusCode, t_error>
@@ -28683,7 +27999,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28697,7 +28013,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
   > {
@@ -28707,11 +28023,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptionItems(
@@ -28724,7 +28036,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -28754,7 +28066,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28803,7 +28115,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
@@ -28813,11 +28125,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteSubscriptionItemsItem(
@@ -28830,7 +28138,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>
@@ -28844,7 +28152,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -28856,7 +28164,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
@@ -28869,7 +28177,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28921,7 +28229,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
   > {
@@ -28931,11 +28239,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
@@ -28948,7 +28252,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -28979,7 +28283,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -28995,7 +28299,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_usage_record> | Res<StatusCode, t_error>>
   > {
@@ -29007,11 +28311,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptionSchedules(
@@ -29057,7 +28357,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -29092,7 +28392,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -29247,7 +28547,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
@@ -29259,11 +28559,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptionSchedulesSchedule(
@@ -29273,7 +28569,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
@@ -29288,7 +28584,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -29442,7 +28738,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
@@ -29454,11 +28750,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleCancel(
@@ -29471,7 +28763,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
@@ -29484,11 +28776,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleRelease(
@@ -29500,7 +28788,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
@@ -29513,11 +28801,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptions(
@@ -29571,7 +28855,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -29609,7 +28893,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -29859,7 +29143,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -29869,11 +29153,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getSubscriptionsSearch(
@@ -29885,7 +29165,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -29916,7 +29196,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -29944,7 +29224,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -29957,7 +29237,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -29969,7 +29249,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -29983,7 +29263,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -30250,7 +29530,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -30261,11 +29541,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
@@ -30274,7 +29550,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
   > {
@@ -30287,7 +29563,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -30303,7 +29579,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
   > {
@@ -30313,11 +29589,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTaxCalculations(
@@ -30444,7 +29716,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
   > {
@@ -30454,11 +29726,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTaxCalculationsCalculation(
@@ -30496,7 +29764,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -30526,7 +29794,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -30541,7 +29809,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -30571,7 +29839,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -30851,7 +30119,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
@@ -30861,11 +30129,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTaxRegistrationsId(
@@ -30875,7 +30139,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
@@ -30888,7 +30152,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -30903,7 +30167,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
   > {
@@ -30913,11 +30177,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTaxSettings(
@@ -30926,7 +30186,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
   > {
@@ -30939,7 +30199,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -30965,7 +30225,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
   > {
@@ -30975,11 +30235,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTaxTransactionsCreateFromCalculation(
@@ -30995,7 +30251,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
@@ -31005,11 +30261,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTaxTransactionsCreateReversal(
@@ -31040,7 +30292,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
@@ -31050,11 +30302,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTaxTransactionsTransaction(
@@ -31064,7 +30312,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
   > {
@@ -31077,7 +30325,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31092,7 +30340,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31122,7 +30370,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31136,7 +30384,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31165,7 +30413,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31177,7 +30425,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>>
   > {
@@ -31190,7 +30438,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31209,7 +30457,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31239,7 +30487,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31331,7 +30579,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -31341,11 +30589,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteTaxIdsId(
@@ -31354,7 +30598,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -31366,7 +30610,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -31378,7 +30622,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
   > {
@@ -31391,7 +30635,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31415,7 +30659,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31447,7 +30691,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31483,7 +30727,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
@@ -31493,11 +30737,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTaxRatesTaxRate(
@@ -31507,7 +30747,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
@@ -31520,7 +30760,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31557,7 +30797,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
   > {
@@ -31567,11 +30807,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTerminalConfigurations(
@@ -31584,7 +30820,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31614,7 +30850,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31719,7 +30955,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_terminal_configuration> | Res<StatusCode, t_error>
@@ -31731,11 +30967,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteTerminalConfigurationsConfiguration(
@@ -31744,7 +30976,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
@@ -31759,7 +30991,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -31771,7 +31003,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -31788,7 +31020,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -31902,7 +31134,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
@@ -31916,11 +31148,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalConnectionTokens(
@@ -31931,7 +31159,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>
@@ -31943,11 +31171,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTerminalLocations(
@@ -31959,7 +31183,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -31988,7 +31212,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -32015,7 +31239,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_location> | Res<StatusCode, t_error>>
   > {
@@ -32025,11 +31249,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteTerminalLocationsLocation(
@@ -32038,7 +31258,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>
@@ -32052,7 +31272,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -32064,7 +31284,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_location | t_deleted_terminal_location>
@@ -32080,7 +31300,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -32108,7 +31328,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_location | t_deleted_terminal_location>
@@ -32121,11 +31341,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTerminalReaders(
@@ -32149,7 +31365,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -32182,7 +31398,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -32202,7 +31418,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32212,11 +31428,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteTerminalReadersReader(
@@ -32225,7 +31437,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>
@@ -32239,7 +31451,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -32251,7 +31463,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -32267,7 +31479,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -32286,7 +31498,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_terminal_reader | t_deleted_terminal_reader>
@@ -32299,11 +31511,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalReadersReaderCancelAction(
@@ -32314,7 +31522,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32325,11 +31533,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalReadersReaderProcessPaymentIntent(
@@ -32348,7 +31552,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32360,11 +31564,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalReadersReaderProcessSetupIntent(
@@ -32380,7 +31580,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32391,11 +31591,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalReadersReaderRefundPayment(
@@ -32417,7 +31613,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32428,11 +31624,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTerminalReadersReaderSetReaderDisplay(
@@ -32454,7 +31646,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -32465,11 +31657,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersConfirmationTokens(
@@ -32720,7 +31908,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_confirmation_token> | Res<StatusCode, t_error>
@@ -32732,11 +31920,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersCustomersCustomerFundCashBalance(
@@ -32750,7 +31934,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
@@ -32764,11 +31948,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizations(
@@ -33170,7 +32350,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33182,11 +32362,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationCapture(
@@ -33275,7 +32451,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33289,11 +32465,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationExpire(
@@ -33304,7 +32476,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33318,11 +32490,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
@@ -33383,7 +32551,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33397,11 +32565,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
@@ -33414,7 +32578,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33428,11 +32592,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationReverse(
@@ -33444,7 +32604,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
@@ -33458,11 +32618,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingDeliver(
@@ -33473,7 +32629,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -33485,11 +32641,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingFail(
@@ -33500,7 +32652,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -33512,11 +32664,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingReturn(
@@ -33527,7 +32675,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -33539,11 +32687,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingShip(
@@ -33554,7 +32698,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
   > {
@@ -33566,11 +32710,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(
@@ -33581,7 +32721,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -33595,11 +32735,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(
@@ -33610,7 +32746,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -33624,11 +32760,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(
@@ -33660,7 +32792,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
@@ -33674,11 +32806,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingSettlements(
@@ -34106,7 +33234,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
@@ -34120,11 +33248,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
@@ -34518,7 +33642,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
@@ -34532,11 +33656,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsTransactionRefund(
@@ -34548,7 +33668,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
@@ -34562,11 +33682,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersRefundsRefundExpire(
@@ -34577,7 +33693,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
   > {
@@ -34587,11 +33703,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
@@ -34610,7 +33722,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
   > {
@@ -34622,11 +33734,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTestHelpersTestClocks(
@@ -34638,7 +33746,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -34667,7 +33775,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -34681,7 +33789,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
@@ -34693,11 +33801,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteTestHelpersTestClocksTestClock(
@@ -34706,7 +33810,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
@@ -34720,7 +33824,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -34732,7 +33836,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
@@ -34747,7 +33851,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -34761,7 +33865,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
@@ -34774,11 +33878,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdFail(
@@ -34805,7 +33905,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -34819,11 +33919,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdReturn(
@@ -34834,7 +33930,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -34848,11 +33944,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdSucceed(
@@ -34863,7 +33955,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -34877,11 +33969,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsId(
@@ -34903,7 +33991,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -34916,11 +34004,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
@@ -34931,7 +34015,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -34945,11 +34029,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdPost(
@@ -34960,7 +34040,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -34974,11 +34054,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdReturn(
@@ -35002,7 +34078,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -35016,11 +34092,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
@@ -35042,7 +34114,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -35056,11 +34128,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
@@ -35071,7 +34139,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -35085,11 +34153,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
@@ -35100,7 +34164,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -35114,11 +34178,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
@@ -35142,7 +34202,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -35156,11 +34216,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedCredits(
@@ -35183,7 +34239,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
@@ -35195,11 +34251,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedDebits(
@@ -35222,7 +34274,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
@@ -35234,11 +34286,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTokens(
@@ -35551,7 +34599,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens`
     const headers = this._headers({
@@ -35559,11 +34607,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTokensToken(
@@ -35573,7 +34617,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
     const headers = this._headers({
@@ -35584,7 +34628,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35615,7 +34659,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -35647,7 +34691,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35670,7 +34714,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups`
     const headers = this._headers({
@@ -35678,11 +34722,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTopupsTopup(
@@ -35692,7 +34732,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({
@@ -35703,7 +34743,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35722,7 +34762,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers({
@@ -35730,11 +34770,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async postTopupsTopupCancel(
@@ -35745,7 +34781,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}/cancel`
     const headers = this._headers({
@@ -35753,11 +34789,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTransfers(
@@ -35779,7 +34811,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -35811,7 +34843,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35833,7 +34865,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
@@ -35843,11 +34875,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTransfersIdReversals(
@@ -35860,7 +34888,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -35889,7 +34917,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35910,7 +34938,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
@@ -35920,11 +34948,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTransfersTransfer(
@@ -35934,7 +34958,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
@@ -35947,7 +34971,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -35966,7 +34990,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
   > {
@@ -35976,11 +35000,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTransfersTransferReversalsId(
@@ -35991,7 +35011,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
@@ -36005,7 +35025,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36024,7 +35044,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
   > {
@@ -36035,11 +35055,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryCreditReversals(
@@ -36054,7 +35070,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36086,7 +35102,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36102,7 +35118,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
@@ -36114,11 +35130,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryCreditReversalsCreditReversal(
@@ -36128,7 +35140,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
@@ -36144,7 +35156,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36162,7 +35174,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36195,7 +35207,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36211,7 +35223,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
@@ -36223,11 +35235,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryDebitReversalsDebitReversal(
@@ -36237,7 +35245,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
@@ -36253,7 +35261,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36275,7 +35283,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36305,7 +35313,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36362,7 +35370,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
@@ -36374,11 +35382,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccount(
@@ -36388,7 +35392,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
@@ -36404,7 +35408,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36461,7 +35465,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
@@ -36474,11 +35478,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -36488,7 +35488,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
@@ -36505,7 +35505,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36553,7 +35553,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
@@ -36567,11 +35567,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryInboundTransfers(
@@ -36585,7 +35581,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36616,7 +35612,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36637,7 +35633,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -36649,11 +35645,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryInboundTransfersId(
@@ -36663,7 +35655,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -36678,7 +35670,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36691,7 +35683,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
@@ -36705,11 +35697,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryOutboundPayments(
@@ -36732,7 +35720,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36765,7 +35753,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36827,7 +35815,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -36839,11 +35827,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryOutboundPaymentsId(
@@ -36853,7 +35837,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -36868,7 +35852,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36881,7 +35865,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
@@ -36894,11 +35878,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryOutboundTransfers(
@@ -36912,7 +35892,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -36943,7 +35923,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -36971,7 +35951,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -36983,11 +35963,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryOutboundTransfersOutboundTransfer(
@@ -36997,7 +35973,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -37013,7 +35989,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37026,7 +36002,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
@@ -37040,11 +36016,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getTreasuryReceivedCredits(
@@ -37065,7 +36037,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -37097,7 +36069,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37109,7 +36081,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
@@ -37124,7 +36096,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37140,7 +36112,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -37171,7 +36143,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37183,7 +36155,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
@@ -37198,7 +36170,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37231,7 +36203,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -37265,7 +36237,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37277,7 +36249,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
@@ -37292,7 +36264,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37327,7 +36299,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -37361,7 +36333,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37373,7 +36345,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_treasury_transaction> | Res<StatusCode, t_error>
@@ -37388,7 +36360,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37402,7 +36374,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -37431,7 +36403,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -37794,7 +36766,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
@@ -37804,11 +36776,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async deleteWebhookEndpointsWebhookEndpoint(
@@ -37817,7 +36785,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>
@@ -37831,7 +36799,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", headers, body, ...opts },
       timeout,
     )
   }
@@ -37843,7 +36811,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
@@ -37856,7 +36824,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", headers, body, ...opts },
       timeout,
     )
   }
@@ -38117,7 +37085,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
   > {
@@ -38127,10 +37095,6 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 }

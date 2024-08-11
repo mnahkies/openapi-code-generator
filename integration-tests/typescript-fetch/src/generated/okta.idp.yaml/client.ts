@@ -39,7 +39,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_AppAuthenticatorEnrollmentRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_AppAuthenticatorEnrollment>
@@ -55,11 +55,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async verifyAppAuthenticatorPushNotificationChallenge(
@@ -68,7 +64,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_PushNotificationVerification
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, void> | Res<204, void> | Res<400, void>>
   > {
@@ -80,11 +76,7 @@ export class ApiClient extends AbstractFetchClient {
     })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async updateAppAuthenticatorEnrollment(
@@ -93,7 +85,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_UpdateAppAuthenticatorEnrollmentRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_AppAuthenticatorEnrollment>
@@ -111,7 +103,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", headers, body, ...opts },
       timeout,
     )
   }
@@ -121,7 +113,7 @@ export class ApiClient extends AbstractFetchClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
@@ -130,7 +122,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
   }
 
   async listAppAuthenticatorPendingPushNotificationChallenges(
@@ -138,7 +130,7 @@ export class ApiClient extends AbstractFetchClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_PushNotificationChallenge[]> | Res<401, t_Error>
@@ -148,7 +140,7 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async listAuthenticators(
@@ -156,7 +148,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_Authenticator[]> | Res<403, t_Error> | Res<429, t_Error>
@@ -165,7 +157,7 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/idp/myaccount/authenticators`
     const query = this._query({ expand: p["expand"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async getAuthenticator(
@@ -174,7 +166,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Authenticator>
@@ -187,7 +179,7 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/idp/myaccount/authenticators/${p["authenticatorId"]}`
     const query = this._query({ expand: p["expand"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async listEnrollments(
@@ -195,7 +187,7 @@ export class ApiClient extends AbstractFetchClient {
       authenticatorId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_AuthenticatorEnrollment[]>
@@ -208,7 +200,7 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async getEnrollment(
@@ -217,7 +209,7 @@ export class ApiClient extends AbstractFetchClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_AuthenticatorEnrollment>
@@ -230,16 +222,16 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async listEmails(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Email[]> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/emails`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async createEmail(
@@ -254,7 +246,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_Email>
@@ -268,11 +260,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getEmail(
@@ -280,11 +268,11 @@ export class ApiClient extends AbstractFetchClient {
       id: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Email> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async deleteEmail(
@@ -292,7 +280,7 @@ export class ApiClient extends AbstractFetchClient {
       id: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<404, t_Error>
@@ -300,7 +288,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
   }
 
   async sendEmailChallenge(
@@ -311,7 +299,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -348,11 +336,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async pollChallengeForEmailMagicLink(
@@ -361,7 +345,7 @@ export class ApiClient extends AbstractFetchClient {
       challengeId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -397,7 +381,7 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath +
       `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async verifyEmailOtp(
@@ -409,7 +393,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
@@ -421,42 +405,38 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async listOktaApplications(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_OktaApplication[]> | Res<400, t_Error>>
   > {
     const url = this.basePath + `/idp/myaccount/okta-applications`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async getOrganization(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Organization> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/organization`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async getPassword(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_PasswordResponse> | Res<401, t_Error>>
   > {
     const url = this.basePath + `/idp/myaccount/password`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async createPassword(
@@ -468,7 +448,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_PasswordResponse>
@@ -481,11 +461,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async replacePassword(
@@ -497,7 +473,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_PasswordResponse>
@@ -510,31 +486,27 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", headers, body, ...opts }, timeout)
   }
 
   async deletePassword(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>>
   > {
     const url = this.basePath + `/idp/myaccount/password`
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
   }
 
   async listPhones(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Phone[]> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/phones`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async createPhone(
@@ -548,7 +520,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_Phone>
@@ -563,11 +535,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getPhone(
@@ -575,7 +543,7 @@ export class ApiClient extends AbstractFetchClient {
       id: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_Phone> | Res<401, t_Error> | Res<404, t_Error>
@@ -583,7 +551,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async deletePhone(
@@ -591,7 +559,7 @@ export class ApiClient extends AbstractFetchClient {
       id: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
@@ -599,7 +567,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
   }
 
   async sendPhoneChallenge(
@@ -611,7 +579,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -638,11 +606,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async verifyPhoneChallenge(
@@ -653,7 +617,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -668,20 +632,16 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", headers, body, ...opts }, timeout)
   }
 
   async getProfile(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Profile> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/profile`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async replaceProfile(
@@ -691,7 +651,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>
@@ -701,30 +661,26 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", headers, body, ...opts }, timeout)
   }
 
   async getProfileSchema(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Schema> | Res<401, t_Error>>> {
     const url = this.basePath + `/idp/myaccount/profile/schema`
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts }, timeout)
   }
 
   async deleteSessions(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>>
   > {
     const url = this.basePath + `/idp/myaccount/sessions`
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts }, timeout)
   }
 }

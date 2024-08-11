@@ -41,7 +41,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -61,7 +61,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -73,7 +73,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -98,7 +98,7 @@ export class ApiClient extends AbstractFetchClient {
       `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async widgetsCreateOrUpdateWidget(
@@ -115,7 +115,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetCreateOrUpdate
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Widget>
@@ -139,7 +139,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", headers, body, ...opts },
       timeout,
     )
   }
@@ -155,7 +155,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Widget>
@@ -174,7 +174,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -192,7 +192,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -220,7 +220,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", headers, ...opts },
       timeout,
     )
   }
@@ -235,7 +235,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedWidget>
@@ -256,7 +256,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -272,7 +272,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetAnalytics>
@@ -291,7 +291,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -310,7 +310,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetAnalyticsCreateOrUpdate
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetAnalytics>
@@ -334,7 +334,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", headers, body, ...opts },
       timeout,
     )
   }
@@ -346,7 +346,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -365,7 +365,7 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async widgetsScheduleRepairs(
@@ -378,7 +378,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetRepairRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -411,7 +411,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", headers, body, ...opts },
       timeout,
     )
   }
@@ -424,7 +424,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -444,7 +444,7 @@ export class ApiClient extends AbstractFetchClient {
       `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async widgetPartsCreateWidgetPart(
@@ -461,7 +461,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetPart
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -483,7 +483,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", headers, body, ...opts },
       timeout,
     )
   }
@@ -495,7 +495,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedWidgetPart>
@@ -510,7 +510,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -527,7 +527,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetPart>
@@ -547,7 +547,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -566,7 +566,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -587,7 +587,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", headers, ...opts },
       timeout,
     )
   }
@@ -602,7 +602,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetPartReorderRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -628,7 +628,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", headers, body, ...opts },
       timeout,
     )
   }
@@ -640,7 +640,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -660,7 +660,7 @@ export class ApiClient extends AbstractFetchClient {
       `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url + query, { method: "GET", ...opts }, timeout)
   }
 
   async manufacturersCreateManufacturer(
@@ -677,7 +677,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_Manufacturer
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Manufacturer>
@@ -701,7 +701,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
+      { method: "PUT", headers, body, ...opts },
       timeout,
     )
   }
@@ -717,7 +717,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Manufacturer>
@@ -736,7 +736,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
@@ -754,7 +754,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -782,7 +782,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", headers, ...opts },
       timeout,
     )
   }
@@ -793,7 +793,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedManufacturer>
@@ -808,7 +808,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", headers, ...opts },
       timeout,
     )
   }
