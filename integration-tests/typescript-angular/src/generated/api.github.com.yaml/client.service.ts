@@ -73,6 +73,7 @@ import {
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_code_security_configuration,
+  t_code_security_configuration_for_repository,
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
@@ -105,6 +106,7 @@ import {
   t_copilot_seat_details,
   t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
+  t_custom_property,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -174,7 +176,6 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
-  t_org_custom_property,
   t_org_hook,
   t_org_membership,
   t_org_repo_custom_property_values,
@@ -255,6 +256,9 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_secret_scanning_push_protection_bypass,
+  t_secret_scanning_push_protection_bypass_placeholder_id,
+  t_secret_scanning_push_protection_bypass_reason,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -1240,6 +1244,40 @@ export class ApiClient {
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotUsageMetricsForEnterpriseTeam(p: {
+    enterprise: string
+    teamSlug: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`,
       {
         params,
         observe: "response",
@@ -3699,6 +3737,10 @@ export class ApiClient {
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action_options?: {
+        labeled_runners?: boolean
+      }
       description: string
       enforcement?: "enforced" | "unenforced"
       name: string
@@ -3805,6 +3847,10 @@ export class ApiClient {
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action_options?: {
+        labeled_runners?: boolean
+      }
       description?: string
       enforcement?: "enforced" | "unenforced"
       name?: string
@@ -6550,7 +6596,7 @@ export class ApiClient {
   orgsGetAllCustomProperties(p: {
     org: string
   }): Observable<
-    | (HttpResponse<t_org_custom_property[]> & { status: 200 })
+    | (HttpResponse<t_custom_property[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
@@ -6568,10 +6614,10 @@ export class ApiClient {
   orgsCreateOrUpdateCustomProperties(p: {
     org: string
     requestBody: {
-      properties: t_org_custom_property[]
+      properties: t_custom_property[]
     }
   }): Observable<
-    | (HttpResponse<t_org_custom_property[]> & { status: 200 })
+    | (HttpResponse<t_custom_property[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
@@ -6595,7 +6641,7 @@ export class ApiClient {
     org: string
     customPropertyName: string
   }): Observable<
-    | (HttpResponse<t_org_custom_property> & { status: 200 })
+    | (HttpResponse<t_custom_property> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
@@ -6622,7 +6668,7 @@ export class ApiClient {
       value_type: "string" | "single_select" | "multi_select" | "true_false"
     }
   }): Observable<
-    | (HttpResponse<t_org_custom_property> & { status: 200 })
+    | (HttpResponse<t_custom_property> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
@@ -7234,6 +7280,40 @@ export class ApiClient {
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotUsageMetricsForTeam(p: {
+    org: string
+    teamSlug: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -12600,6 +12680,30 @@ export class ApiClient {
       "GET",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetConfigurationForRepository(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration_for_repository> & {
+        status: 200
+      })
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`,
       {
         observe: "response",
         reportProgress: false,
@@ -18811,6 +18915,7 @@ export class ApiClient {
     ref?: string
   }): Observable<
     | (HttpResponse<t_content_file> & { status: 200 })
+    | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
@@ -19620,6 +19725,41 @@ export class ApiClient {
         `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`,
       {
         params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningCreatePushProtectionBypass(p: {
+    owner: string
+    repo: string
+    requestBody: {
+      placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+      reason: t_secret_scanning_push_protection_bypass_reason
+    }
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_push_protection_bypass> & { status: 200 })
+    | (HttpResponse<void> & { status: 403 })
+    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },

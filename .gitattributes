@@ -3,5 +3,5 @@
 packages/openapi-code-generater/src/core/schemas/openapi-3.0-specification-validator.js binary
 packages/openapi-code-generater/src/core/schemas/openapi-3.1-specification-validator.js binary
 integration-tests/*/src/generated/** linguist-generated=true
-integration-tests-definitions/** linguist-vendored
+integration-tests-definitions/** linguist-vendored=true
 yarn.lock linguist-generated=true

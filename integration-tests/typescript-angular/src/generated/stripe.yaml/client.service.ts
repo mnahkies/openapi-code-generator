@@ -13,6 +13,7 @@ import {
   t_balance,
   t_balance_transaction,
   t_bank_account,
+  t_billing_alert,
   t_billing_meter,
   t_billing_meter_event,
   t_billing_meter_event_adjustment,
@@ -3389,6 +3390,197 @@ export class ApiClient {
       this.config.basePath + `/v1/balance_transactions/${p["id"]}`,
       {
         params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getBillingAlerts(
+    p: {
+      alertType?: "usage_threshold"
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      meter?: string
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_billing_alert[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      alert_type: p["alertType"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      meter: p["meter"],
+      starting_after: p["startingAfter"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/billing/alerts`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingAlerts(p: {
+    requestBody: {
+      alert_type: "usage_threshold"
+      expand?: string[]
+      filter?: {
+        customer?: string
+      }
+      title: string
+      usage_threshold_config?: {
+        gte: number
+        meter?: string
+        recurrence: "one_time"
+      }
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_alert> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/alerts`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getBillingAlertsId(p: {
+    expand?: string[]
+    id: string
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_billing_alert> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/billing/alerts/${p["id"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingAlertsIdActivate(p: {
+    id: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_alert> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/alerts/${p["id"]}/activate`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingAlertsIdArchive(p: {
+    id: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_alert> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/alerts/${p["id"]}/archive`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postBillingAlertsIdDeactivate(p: {
+    id: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_billing_alert> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/billing/alerts/${p["id"]}/deactivate`,
+      {
         headers,
         body,
         observe: "response",
@@ -8566,6 +8758,7 @@ export class ApiClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -8898,6 +9091,7 @@ export class ApiClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -10777,6 +10971,7 @@ export class ApiClient {
       endingBefore?: string
       expand?: string[]
       limit?: number
+      relatedCustomer?: string
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
       requestBody?: EmptyObject
@@ -10800,6 +10995,7 @@ export class ApiClient {
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      related_customer: p["relatedCustomer"],
       starting_after: p["startingAfter"],
       status: p["status"],
     })
@@ -10840,6 +11036,7 @@ export class ApiClient {
           email?: string
           phone?: string
         }
+        related_customer?: string
         return_url?: string
         type?: "document" | "id_number"
         verification_flow?: string
@@ -11377,8 +11574,8 @@ export class ApiClient {
                     enabled?: boolean
                     plan?:
                       | {
-                          count: number
-                          interval: "month"
+                          count?: number
+                          interval?: "month"
                           type: "fixed_count"
                         }
                       | ""
@@ -12910,8 +13107,8 @@ export class ApiClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -19359,6 +19556,7 @@ export class ApiClient {
           | ""
         bacs_debit?:
           | {
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -19388,8 +19586,8 @@ export class ApiClient {
                 enabled?: boolean
                 plan?:
                   | {
-                      count: number
-                      interval: "month"
+                      count?: number
+                      interval?: "month"
                       type: "fixed_count"
                     }
                   | ""
@@ -19411,6 +19609,7 @@ export class ApiClient {
                 | "diners"
                 | "discover"
                 | "eftpos_au"
+                | "girocard"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -20139,6 +20338,7 @@ export class ApiClient {
           | ""
         bacs_debit?:
           | {
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -20168,8 +20368,8 @@ export class ApiClient {
                 enabled?: boolean
                 plan?:
                   | {
-                      count: number
-                      interval: "month"
+                      count?: number
+                      interval?: "month"
                       type: "fixed_count"
                     }
                   | ""
@@ -20191,6 +20391,7 @@ export class ApiClient {
                 | "diners"
                 | "discover"
                 | "eftpos_au"
+                | "girocard"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -20959,6 +21160,7 @@ export class ApiClient {
           | ""
         bacs_debit?:
           | {
+              mandate_options?: EmptyObject
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -20988,8 +21190,8 @@ export class ApiClient {
                 enabled?: boolean
                 plan?:
                   | {
-                      count: number
-                      interval: "month"
+                      count?: number
+                      interval?: "month"
                       type: "fixed_count"
                     }
                   | ""
@@ -21011,6 +21213,7 @@ export class ApiClient {
                 | "diners"
                 | "discover"
                 | "eftpos_au"
+                | "girocard"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -27353,6 +27556,9 @@ export class ApiClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: EmptyObject
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -27372,6 +27578,7 @@ export class ApiClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -27744,6 +27951,9 @@ export class ApiClient {
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
         amazon_pay?: EmptyObject
+        bacs_debit?: {
+          mandate_options?: EmptyObject
+        }
         card?: {
           mandate_options?: {
             amount: number
@@ -27763,6 +27973,7 @@ export class ApiClient {
             | "diners"
             | "discover"
             | "eftpos_au"
+            | "girocard"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -28137,6 +28348,9 @@ export class ApiClient {
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
         amazon_pay?: EmptyObject
+        bacs_debit?: {
+          mandate_options?: EmptyObject
+        }
         card?: {
           mandate_options?: {
             amount: number
@@ -28156,6 +28370,7 @@ export class ApiClient {
             | "diners"
             | "discover"
             | "eftpos_au"
+            | "girocard"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -29926,6 +30141,7 @@ export class ApiClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -30310,6 +30526,7 @@ export class ApiClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -30621,6 +30838,34 @@ export class ApiClient {
       "POST",
       this.config.basePath + `/v1/tax/calculations`,
       {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getTaxCalculationsCalculation(p: {
+    calculation: string
+    expand?: string[]
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_tax_calculation> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({ expand: p["expand"] })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/tax/calculations/${p["calculation"]}`,
+      {
+        params,
         headers,
         body,
         observe: "response",
@@ -33868,6 +34113,40 @@ export class ApiClient {
     )
   }
 
+  postTestHelpersIssuingSettlements(p: {
+    requestBody: {
+      bin: string
+      clearing_date: number
+      currency: string
+      expand?: string[]
+      interchange_fees?: number
+      net_total: number
+      network_settlement_identifier?: string
+      transaction_count?: number
+      transaction_volume?: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issuing_settlement> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/v1/test_helpers/issuing/settlements`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   postTestHelpersIssuingTransactionsCreateForceCapture(p: {
     requestBody: {
       amount: number
@@ -35044,6 +35323,7 @@ export class ApiClient {
         }
         type: "ach" | "us_domestic_wire"
         us_domestic_wire?: {
+          chips?: string
           imad?: string
           omad?: string
         }
@@ -35179,6 +35459,7 @@ export class ApiClient {
         }
         type: "ach" | "us_domestic_wire"
         us_domestic_wire?: {
+          chips?: string
           imad?: string
           omad?: string
         }
@@ -37710,6 +37991,7 @@ export class ApiClient {
         | "application_fee.refund.updated"
         | "application_fee.refunded"
         | "balance.available"
+        | "billing.alert.triggered"
         | "billing_portal.configuration.created"
         | "billing_portal.configuration.updated"
         | "billing_portal.session.created"
@@ -38037,6 +38319,7 @@ export class ApiClient {
         | "application_fee.refund.updated"
         | "application_fee.refunded"
         | "balance.available"
+        | "billing.alert.triggered"
         | "billing_portal.configuration.created"
         | "billing_portal.configuration.updated"
         | "billing_portal.session.created"

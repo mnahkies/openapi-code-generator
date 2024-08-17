@@ -133,6 +133,11 @@ import {
   t_GetBalanceTransactionsIdParamSchema,
   t_GetBalanceTransactionsIdQuerySchema,
   t_GetBalanceTransactionsQuerySchema,
+  t_GetBillingAlertsBodySchema,
+  t_GetBillingAlertsIdBodySchema,
+  t_GetBillingAlertsIdParamSchema,
+  t_GetBillingAlertsIdQuerySchema,
+  t_GetBillingAlertsQuerySchema,
   t_GetBillingMetersBodySchema,
   t_GetBillingMetersIdBodySchema,
   t_GetBillingMetersIdEventSummariesBodySchema,
@@ -579,9 +584,12 @@ import {
   t_GetSubscriptionsSubscriptionExposedIdBodySchema,
   t_GetSubscriptionsSubscriptionExposedIdParamSchema,
   t_GetSubscriptionsSubscriptionExposedIdQuerySchema,
+  t_GetTaxCalculationsCalculationBodySchema,
   t_GetTaxCalculationsCalculationLineItemsBodySchema,
   t_GetTaxCalculationsCalculationLineItemsParamSchema,
   t_GetTaxCalculationsCalculationLineItemsQuerySchema,
+  t_GetTaxCalculationsCalculationParamSchema,
+  t_GetTaxCalculationsCalculationQuerySchema,
   t_GetTaxCodesBodySchema,
   t_GetTaxCodesIdBodySchema,
   t_GetTaxCodesIdParamSchema,
@@ -743,6 +751,13 @@ import {
   t_PostApplicationFeesIdRefundsParamSchema,
   t_PostAppsSecretsBodySchema,
   t_PostAppsSecretsDeleteBodySchema,
+  t_PostBillingAlertsBodySchema,
+  t_PostBillingAlertsIdActivateBodySchema,
+  t_PostBillingAlertsIdActivateParamSchema,
+  t_PostBillingAlertsIdArchiveBodySchema,
+  t_PostBillingAlertsIdArchiveParamSchema,
+  t_PostBillingAlertsIdDeactivateBodySchema,
+  t_PostBillingAlertsIdDeactivateParamSchema,
   t_PostBillingMeterEventAdjustmentsBodySchema,
   t_PostBillingMeterEventsBodySchema,
   t_PostBillingMetersBodySchema,
@@ -1076,6 +1091,7 @@ import {
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateParamSchema,
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
   t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectParamSchema,
+  t_PostTestHelpersIssuingSettlementsBodySchema,
   t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
   t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
   t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema,
@@ -1152,6 +1168,7 @@ import {
   t_balance,
   t_balance_transaction,
   t_bank_account,
+  t_billing_alert,
   t_billing_meter,
   t_billing_meter_event,
   t_billing_meter_event_adjustment,
@@ -1307,6 +1324,7 @@ import {
   s_balance,
   s_balance_transaction,
   s_bank_account,
+  s_billing_alert,
   s_billing_meter,
   s_billing_meter_event,
   s_billing_meter_event_adjustment,
@@ -2575,6 +2593,129 @@ export type GetBalanceTransactionsId = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_balance_transaction>
+  | Response<StatusCode, t_error>
+>
+
+export type GetBillingAlertsResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_billing_alert[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetBillingAlerts = (
+  params: Params<
+    void,
+    t_GetBillingAlertsQuerySchema,
+    t_GetBillingAlertsBodySchema | undefined
+  >,
+  respond: GetBillingAlertsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_billing_alert[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type PostBillingAlertsResponder = {
+  with200(): KoaRuntimeResponse<t_billing_alert>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostBillingAlerts = (
+  params: Params<void, void, t_PostBillingAlertsBodySchema>,
+  respond: PostBillingAlertsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_alert>
+  | Response<StatusCode, t_error>
+>
+
+export type GetBillingAlertsIdResponder = {
+  with200(): KoaRuntimeResponse<t_billing_alert>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetBillingAlertsId = (
+  params: Params<
+    t_GetBillingAlertsIdParamSchema,
+    t_GetBillingAlertsIdQuerySchema,
+    t_GetBillingAlertsIdBodySchema | undefined
+  >,
+  respond: GetBillingAlertsIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_alert>
+  | Response<StatusCode, t_error>
+>
+
+export type PostBillingAlertsIdActivateResponder = {
+  with200(): KoaRuntimeResponse<t_billing_alert>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostBillingAlertsIdActivate = (
+  params: Params<
+    t_PostBillingAlertsIdActivateParamSchema,
+    void,
+    t_PostBillingAlertsIdActivateBodySchema | undefined
+  >,
+  respond: PostBillingAlertsIdActivateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_alert>
+  | Response<StatusCode, t_error>
+>
+
+export type PostBillingAlertsIdArchiveResponder = {
+  with200(): KoaRuntimeResponse<t_billing_alert>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostBillingAlertsIdArchive = (
+  params: Params<
+    t_PostBillingAlertsIdArchiveParamSchema,
+    void,
+    t_PostBillingAlertsIdArchiveBodySchema | undefined
+  >,
+  respond: PostBillingAlertsIdArchiveResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_alert>
+  | Response<StatusCode, t_error>
+>
+
+export type PostBillingAlertsIdDeactivateResponder = {
+  with200(): KoaRuntimeResponse<t_billing_alert>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostBillingAlertsIdDeactivate = (
+  params: Params<
+    t_PostBillingAlertsIdDeactivateParamSchema,
+    void,
+    t_PostBillingAlertsIdDeactivateBodySchema | undefined
+  >,
+  respond: PostBillingAlertsIdDeactivateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_alert>
   | Response<StatusCode, t_error>
 >
 
@@ -10308,6 +10449,25 @@ export type PostTaxCalculations = (
   | Response<StatusCode, t_error>
 >
 
+export type GetTaxCalculationsCalculationResponder = {
+  with200(): KoaRuntimeResponse<t_tax_calculation>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetTaxCalculationsCalculation = (
+  params: Params<
+    t_GetTaxCalculationsCalculationParamSchema,
+    t_GetTaxCalculationsCalculationQuerySchema,
+    t_GetTaxCalculationsCalculationBodySchema | undefined
+  >,
+  respond: GetTaxCalculationsCalculationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_tax_calculation>
+  | Response<StatusCode, t_error>
+>
+
 export type GetTaxCalculationsCalculationLineItemsResponder = {
   with200(): KoaRuntimeResponse<{
     data: t_tax_calculation_line_item[]
@@ -11498,6 +11658,21 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
     | Response<200, t_issuing_personalization_design>
     | Response<StatusCode, t_error>
   >
+
+export type PostTestHelpersIssuingSettlementsResponder = {
+  with200(): KoaRuntimeResponse<t_issuing_settlement>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostTestHelpersIssuingSettlements = (
+  params: Params<void, void, t_PostTestHelpersIssuingSettlementsBodySchema>,
+  respond: PostTestHelpersIssuingSettlementsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_issuing_settlement>
+  | Response<StatusCode, t_error>
+>
 
 export type PostTestHelpersIssuingTransactionsCreateForceCaptureResponder = {
   with200(): KoaRuntimeResponse<t_issuing_transaction>
@@ -13134,6 +13309,12 @@ export type Implementation = {
   getBalanceHistoryId: GetBalanceHistoryId
   getBalanceTransactions: GetBalanceTransactions
   getBalanceTransactionsId: GetBalanceTransactionsId
+  getBillingAlerts: GetBillingAlerts
+  postBillingAlerts: PostBillingAlerts
+  getBillingAlertsId: GetBillingAlertsId
+  postBillingAlertsIdActivate: PostBillingAlertsIdActivate
+  postBillingAlertsIdArchive: PostBillingAlertsIdArchive
+  postBillingAlertsIdDeactivate: PostBillingAlertsIdDeactivate
   postBillingMeterEventAdjustments: PostBillingMeterEventAdjustments
   postBillingMeterEvents: PostBillingMeterEvents
   getBillingMeters: GetBillingMeters
@@ -13488,6 +13669,7 @@ export type Implementation = {
   deleteSubscriptionsSubscriptionExposedIdDiscount: DeleteSubscriptionsSubscriptionExposedIdDiscount
   postSubscriptionsSubscriptionResume: PostSubscriptionsSubscriptionResume
   postTaxCalculations: PostTaxCalculations
+  getTaxCalculationsCalculation: GetTaxCalculationsCalculation
   getTaxCalculationsCalculationLineItems: GetTaxCalculationsCalculationLineItems
   getTaxRegistrations: GetTaxRegistrations
   postTaxRegistrations: PostTaxRegistrations
@@ -13545,6 +13727,7 @@ export type Implementation = {
   postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate
   postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate
   postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject
+  postTestHelpersIssuingSettlements: PostTestHelpersIssuingSettlements
   postTestHelpersIssuingTransactionsCreateForceCapture: PostTestHelpersIssuingTransactionsCreateForceCapture
   postTestHelpersIssuingTransactionsCreateUnlinkedRefund: PostTestHelpersIssuingTransactionsCreateUnlinkedRefund
   postTestHelpersIssuingTransactionsTransactionRefund: PostTestHelpersIssuingTransactionsTransactionRefund
@@ -18921,6 +19104,376 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getBalanceTransactionsIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getBillingAlertsQuerySchema = z.object({
+    alert_type: z.enum(["usage_threshold"]).optional(),
+    ending_before: z.string().max(5000).optional(),
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    limit: z.coerce.number().optional(),
+    meter: z.string().max(5000).optional(),
+    starting_after: z.string().max(5000).optional(),
+  })
+
+  const getBillingAlertsBodySchema = z.object({}).optional()
+
+  const getBillingAlertsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          data: z.array(z.lazy(() => s_billing_alert)),
+          has_more: PermissiveBoolean,
+          object: z.enum(["list"]),
+          url: z.string().max(5000).regex(new RegExp("^/v1/billing/alerts")),
+        }),
+      ],
+    ],
+    s_error,
+  )
+
+  router.get("getBillingAlerts", "/v1/billing/alerts", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: parseRequestInput(
+        getBillingAlertsQuerySchema,
+        ctx.query,
+        RequestInputType.QueryString,
+      ),
+      body: parseRequestInput(
+        getBillingAlertsBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<{
+          data: t_billing_alert[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getBillingAlerts(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = getBillingAlertsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const postBillingAlertsBodySchema = z.object({
+    alert_type: z.enum(["usage_threshold"]),
+    expand: z.array(z.string().max(5000)).optional(),
+    filter: z.object({ customer: z.string().max(5000).optional() }).optional(),
+    title: z.string().max(256),
+    usage_threshold_config: z
+      .object({
+        gte: z.coerce.number(),
+        meter: z.string().max(5000).optional(),
+        recurrence: z.enum(["one_time"]),
+      })
+      .optional(),
+  })
+
+  const postBillingAlertsResponseValidator = responseValidationFactory(
+    [["200", s_billing_alert]],
+    s_error,
+  )
+
+  router.post("postBillingAlerts", "/v1/billing/alerts", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        postBillingAlertsBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_billing_alert>(200)
+      },
+      withDefault(status: StatusCode) {
+        return new KoaRuntimeResponse<t_error>(status)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .postBillingAlerts(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = postBillingAlertsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const getBillingAlertsIdParamSchema = z.object({ id: z.string().max(5000) })
+
+  const getBillingAlertsIdQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getBillingAlertsIdBodySchema = z.object({}).optional()
+
+  const getBillingAlertsIdResponseValidator = responseValidationFactory(
+    [["200", s_billing_alert]],
+    s_error,
+  )
+
+  router.get(
+    "getBillingAlertsId",
+    "/v1/billing/alerts/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getBillingAlertsIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getBillingAlertsIdQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getBillingAlertsIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_alert>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getBillingAlertsId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getBillingAlertsIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postBillingAlertsIdActivateParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postBillingAlertsIdActivateBodySchema = z
+    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .optional()
+
+  const postBillingAlertsIdActivateResponseValidator =
+    responseValidationFactory([["200", s_billing_alert]], s_error)
+
+  router.post(
+    "postBillingAlertsIdActivate",
+    "/v1/billing/alerts/:id/activate",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postBillingAlertsIdActivateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postBillingAlertsIdActivateBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_alert>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postBillingAlertsIdActivate(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postBillingAlertsIdActivateResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postBillingAlertsIdArchiveParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postBillingAlertsIdArchiveBodySchema = z
+    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .optional()
+
+  const postBillingAlertsIdArchiveResponseValidator = responseValidationFactory(
+    [["200", s_billing_alert]],
+    s_error,
+  )
+
+  router.post(
+    "postBillingAlertsIdArchive",
+    "/v1/billing/alerts/:id/archive",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postBillingAlertsIdArchiveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postBillingAlertsIdArchiveBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_alert>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postBillingAlertsIdArchive(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postBillingAlertsIdArchiveResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postBillingAlertsIdDeactivateParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postBillingAlertsIdDeactivateBodySchema = z
+    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .optional()
+
+  const postBillingAlertsIdDeactivateResponseValidator =
+    responseValidationFactory([["200", s_billing_alert]], s_error)
+
+  router.post(
+    "postBillingAlertsIdDeactivate",
+    "/v1/billing/alerts/:id/deactivate",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postBillingAlertsIdDeactivateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postBillingAlertsIdDeactivateBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_alert>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postBillingAlertsIdDeactivate(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postBillingAlertsIdDeactivateResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -27920,6 +28473,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "diners",
                         "discover",
                         "eftpos_au",
+                        "girocard",
                         "interac",
                         "jcb",
                         "mastercard",
@@ -28502,6 +29056,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "diners",
                         "discover",
                         "eftpos_au",
+                        "girocard",
                         "interac",
                         "jcb",
                         "mastercard",
@@ -32107,6 +32662,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       )
       .optional(),
     limit: z.coerce.number().optional(),
+    related_customer: z.string().max(5000).optional(),
     starting_after: z.string().max(5000).optional(),
     status: z
       .enum(["canceled", "processing", "requires_input", "verified"])
@@ -32209,6 +32765,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       provided_details: z
         .object({ email: z.string().optional(), phone: z.string().optional() })
         .optional(),
+      related_customer: z.string().max(5000).optional(),
       return_url: z.string().optional(),
       type: z.enum(["document", "id_number"]).optional(),
       verification_flow: z.string().max(5000).optional(),
@@ -33157,8 +33714,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         plan: z
                           .union([
                             z.object({
-                              count: z.coerce.number(),
-                              interval: z.enum(["month"]),
+                              count: z.coerce.number().optional(),
+                              interval: z.enum(["month"]).optional(),
                               type: z.enum(["fixed_count"]),
                             }),
                             z.enum([""]),
@@ -35397,8 +35954,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         plan: z
                           .union([
                             z.object({
-                              count: z.coerce.number(),
-                              interval: z.enum(["month"]),
+                              count: z.coerce.number().optional(),
+                              interval: z.enum(["month"]).optional(),
                               type: z.enum(["fixed_count"]),
                             }),
                             z.enum([""]),
@@ -44138,6 +44695,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         bacs_debit: z
           .union([
             z.object({
+              mandate_options: z.object({}).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -44187,8 +44745,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   plan: z
                     .union([
                       z.object({
-                        count: z.coerce.number(),
-                        interval: z.enum(["month"]),
+                        count: z.coerce.number().optional(),
+                        interval: z.enum(["month"]).optional(),
                         type: z.enum(["fixed_count"]),
                       }),
                       z.enum([""]),
@@ -44222,6 +44780,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "diners",
                   "discover",
                   "eftpos_au",
+                  "girocard",
                   "interac",
                   "jcb",
                   "mastercard",
@@ -45278,6 +45837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bacs_debit: z
             .union([
               z.object({
+                mandate_options: z.object({}).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -45327,8 +45887,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     plan: z
                       .union([
                         z.object({
-                          count: z.coerce.number(),
-                          interval: z.enum(["month"]),
+                          count: z.coerce.number().optional(),
+                          interval: z.enum(["month"]).optional(),
                           type: z.enum(["fixed_count"]),
                         }),
                         z.enum([""]),
@@ -45362,6 +45922,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "diners",
                     "discover",
                     "eftpos_au",
+                    "girocard",
                     "interac",
                     "jcb",
                     "mastercard",
@@ -46492,6 +47053,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bacs_debit: z
             .union([
               z.object({
+                mandate_options: z.object({}).optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -46541,8 +47103,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     plan: z
                       .union([
                         z.object({
-                          count: z.coerce.number(),
-                          interval: z.enum(["month"]),
+                          count: z.coerce.number().optional(),
+                          interval: z.enum(["month"]).optional(),
                           type: z.enum(["fixed_count"]),
                         }),
                         z.enum([""]),
@@ -46576,6 +47138,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "diners",
                     "discover",
                     "eftpos_au",
+                    "girocard",
                     "interac",
                     "jcb",
                     "mastercard",
@@ -56471,6 +57034,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           amazon_pay: z.object({}).optional(),
+          bacs_debit: z
+            .object({ mandate_options: z.object({}).optional() })
+            .optional(),
           card: z
             .object({
               mandate_options: z
@@ -56500,6 +57066,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "diners",
                   "discover",
                   "eftpos_au",
+                  "girocard",
                   "interac",
                   "jcb",
                   "mastercard",
@@ -57012,6 +57579,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           amazon_pay: z.object({}).optional(),
+          bacs_debit: z
+            .object({ mandate_options: z.object({}).optional() })
+            .optional(),
           card: z
             .object({
               mandate_options: z
@@ -57041,6 +57611,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "diners",
                   "discover",
                   "eftpos_au",
+                  "girocard",
                   "interac",
                   "jcb",
                   "mastercard",
@@ -57569,6 +58140,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           amazon_pay: z.object({}).optional(),
+          bacs_debit: z
+            .object({ mandate_options: z.object({}).optional() })
+            .optional(),
           card: z
             .object({
               mandate_options: z
@@ -57598,6 +58172,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "diners",
                   "discover",
                   "eftpos_au",
+                  "girocard",
                   "interac",
                   "jcb",
                   "mastercard",
@@ -60737,6 +61312,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       "diners",
                       "discover",
                       "eftpos_au",
+                      "girocard",
                       "interac",
                       "jcb",
                       "mastercard",
@@ -61391,6 +61967,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "diners",
                         "discover",
                         "eftpos_au",
+                        "girocard",
                         "interac",
                         "jcb",
                         "mastercard",
@@ -61902,6 +62479,73 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postTaxCalculationsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getTaxCalculationsCalculationParamSchema = z.object({
+    calculation: z.string().max(5000),
+  })
+
+  const getTaxCalculationsCalculationQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getTaxCalculationsCalculationBodySchema = z.object({}).optional()
+
+  const getTaxCalculationsCalculationResponseValidator =
+    responseValidationFactory([["200", s_tax_calculation]], s_error)
+
+  router.get(
+    "getTaxCalculationsCalculation",
+    "/v1/tax/calculations/:calculation",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getTaxCalculationsCalculationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getTaxCalculationsCalculationQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getTaxCalculationsCalculationBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_tax_calculation>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getTaxCalculationsCalculation(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getTaxCalculationsCalculationResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -67326,6 +67970,65 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const postTestHelpersIssuingSettlementsBodySchema = z.object({
+    bin: z.string().max(5000),
+    clearing_date: z.coerce.number(),
+    currency: z.string(),
+    expand: z.array(z.string().max(5000)).optional(),
+    interchange_fees: z.coerce.number().optional(),
+    net_total: z.coerce.number(),
+    network_settlement_identifier: z.string().max(5000).optional(),
+    transaction_count: z.coerce.number().optional(),
+    transaction_volume: z.coerce.number().optional(),
+  })
+
+  const postTestHelpersIssuingSettlementsResponseValidator =
+    responseValidationFactory([["200", s_issuing_settlement]], s_error)
+
+  router.post(
+    "postTestHelpersIssuingSettlements",
+    "/v1/test_helpers/issuing/settlements",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          postTestHelpersIssuingSettlementsBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issuing_settlement>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postTestHelpersIssuingSettlements(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postTestHelpersIssuingSettlementsResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const postTestHelpersIssuingTransactionsCreateForceCaptureBodySchema =
     z.object({
       amount: z.coerce.number(),
@@ -69017,6 +69720,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       type: z.enum(["ach", "us_domestic_wire"]),
       us_domestic_wire: z
         .object({
+          chips: z.string().max(5000).optional(),
           imad: z.string().max(5000).optional(),
           omad: z.string().max(5000).optional(),
         })
@@ -69284,6 +69988,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         type: z.enum(["ach", "us_domestic_wire"]),
         us_domestic_wire: z
           .object({
+            chips: z.string().max(5000).optional(),
             imad: z.string().max(5000).optional(),
             omad: z.string().max(5000).optional(),
           })
@@ -73773,6 +74478,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "application_fee.refund.updated",
         "application_fee.refunded",
         "balance.available",
+        "billing.alert.triggered",
         "billing_portal.configuration.created",
         "billing_portal.configuration.updated",
         "billing_portal.session.created",
@@ -74203,6 +74909,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "application_fee.refund.updated",
             "application_fee.refunded",
             "balance.available",
+            "billing.alert.triggered",
             "billing_portal.configuration.created",
             "billing_portal.configuration.updated",
             "billing_portal.session.created",

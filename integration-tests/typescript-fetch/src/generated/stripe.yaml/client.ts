@@ -13,6 +13,7 @@ import {
   t_balance,
   t_balance_transaction,
   t_bank_account,
+  t_billing_alert,
   t_billing_meter,
   t_billing_meter_event,
   t_billing_meter_event_adjustment,
@@ -3261,6 +3262,187 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url + query,
       { method: "GET", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async getBillingAlerts(
+    p: {
+      alertType?: "usage_threshold"
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      meter?: string
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            data: t_billing_alert[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }
+        >
+      | Res<StatusCode, t_error>
+    >
+  > {
+    const url = this.basePath + `/v1/billing/alerts`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({
+      alert_type: p["alertType"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      meter: p["meter"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async postBillingAlerts(
+    p: {
+      requestBody: {
+        alert_type: "usage_threshold"
+        expand?: string[]
+        filter?: {
+          customer?: string
+        }
+        title: string
+        usage_threshold_config?: {
+          gte: number
+          meter?: string
+          recurrence: "one_time"
+        }
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/billing/alerts`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async getBillingAlertsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async postBillingAlertsIdActivate(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/activate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async postBillingAlertsIdArchive(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/archive`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async postBillingAlertsIdDeactivate(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/deactivate`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
       timeout,
     )
   }
@@ -8375,6 +8557,7 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
                     | "mastercard"
@@ -8708,6 +8891,7 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
                     | "mastercard"
@@ -10563,6 +10747,7 @@ export class ApiClient extends AbstractFetchClient {
       endingBefore?: string
       expand?: string[]
       limit?: number
+      relatedCustomer?: string
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
       requestBody?: EmptyObject
@@ -10593,6 +10778,7 @@ export class ApiClient extends AbstractFetchClient {
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      related_customer: p["relatedCustomer"],
       starting_after: p["startingAfter"],
       status: p["status"],
     })
@@ -10627,6 +10813,7 @@ export class ApiClient extends AbstractFetchClient {
           email?: string
           phone?: string
         }
+        related_customer?: string
         return_url?: string
         type?: "document" | "id_number"
         verification_flow?: string
@@ -11158,8 +11345,8 @@ export class ApiClient extends AbstractFetchClient {
                     enabled?: boolean
                     plan?:
                       | {
-                          count: number
-                          interval: "month"
+                          count?: number
+                          interval?: "month"
                           type: "fixed_count"
                         }
                       | ""
@@ -12681,8 +12868,8 @@ export class ApiClient extends AbstractFetchClient {
                     enabled?: boolean
                     plan?:
                       | {
-                          count: number
-                          interval: "month"
+                          count?: number
+                          interval?: "month"
                           type: "fixed_count"
                         }
                       | ""
@@ -19105,6 +19292,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19134,8 +19322,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -19157,6 +19345,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -19888,6 +20077,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19917,8 +20107,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -19940,6 +20130,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -20706,6 +20897,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
+                mandate_options?: EmptyObject
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20735,8 +20927,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -20758,6 +20950,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
                   | "mastercard"
@@ -27003,6 +27196,9 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: EmptyObject
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -27022,6 +27218,7 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -27388,6 +27585,9 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: EmptyObject
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -27407,6 +27607,7 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -27780,6 +27981,9 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: EmptyObject
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -27799,6 +28003,7 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -29552,6 +29757,7 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
                     | "mastercard"
@@ -29940,6 +30146,7 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
                     | "mastercard"
@@ -30250,6 +30457,31 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(
       url,
       { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
+  async getTaxCalculationsCalculation(
+    p: {
+      calculation: string
+      expand?: string[]
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
+  > {
+    const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", headers, body, ...(opts ?? {}) },
       timeout,
     )
   }
@@ -33449,6 +33681,40 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 
+  async postTestHelpersIssuingSettlements(
+    p: {
+      requestBody: {
+        bin: string
+        clearing_date: number
+        currency: string
+        expand?: string[]
+        interchange_fees?: number
+        net_total: number
+        network_settlement_identifier?: string
+        transaction_count?: number
+        transaction_volume?: number
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
+    >
+  > {
+    const url = this.basePath + `/v1/test_helpers/issuing/settlements`
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
+  }
+
   async postTestHelpersIssuingTransactionsCreateForceCapture(
     p: {
       requestBody: {
@@ -34629,6 +34895,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           type: "ach" | "us_domestic_wire"
           us_domestic_wire?: {
+            chips?: string
             imad?: string
             omad?: string
           }
@@ -34767,6 +35034,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           type: "ach" | "us_domestic_wire"
           us_domestic_wire?: {
+            chips?: string
             imad?: string
             omad?: string
           }
@@ -37288,6 +37556,7 @@ export class ApiClient extends AbstractFetchClient {
           | "application_fee.refund.updated"
           | "application_fee.refunded"
           | "balance.available"
+          | "billing.alert.triggered"
           | "billing_portal.configuration.created"
           | "billing_portal.configuration.updated"
           | "billing_portal.session.created"
@@ -37610,6 +37879,7 @@ export class ApiClient extends AbstractFetchClient {
           | "application_fee.refund.updated"
           | "application_fee.refunded"
           | "balance.available"
+          | "billing.alert.triggered"
           | "billing_portal.configuration.created"
           | "billing_portal.configuration.updated"
           | "billing_portal.session.created"

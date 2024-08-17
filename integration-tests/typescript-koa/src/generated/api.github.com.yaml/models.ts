@@ -171,6 +171,7 @@ export type t_api_overview = {
   actions?: string[]
   actions_macos?: string[]
   api?: string[]
+  copilot?: string[]
   dependabot?: string[]
   domains?: {
     actions?: string[]
@@ -1054,6 +1055,10 @@ export type t_code_security_configuration = {
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
   description?: string
   enforcement?: "enforced" | "unenforced"
   html_url?: string
@@ -1066,6 +1071,19 @@ export type t_code_security_configuration = {
   target_type?: "global" | "organization"
   updated_at?: string
   url?: string
+}
+
+export type t_code_security_configuration_for_repository = {
+  configuration?: t_code_security_configuration
+  status?:
+    | "attached"
+    | "attaching"
+    | "detached"
+    | "removed"
+    | "enforced"
+    | "failed"
+    | "updating"
+    | "removed_by_enterprise"
 }
 
 export type t_code_security_configuration_repositories = {
@@ -1602,7 +1620,7 @@ export type t_copilot_seat_breakdown = {
 }
 
 export type t_copilot_seat_details = {
-  assignee: t_simple_user | t_team | t_organization
+  assignee: t_simple_user
   assigning_team?: t_team | t_enterprise_team | null
   created_at: string
   last_activity_at?: string | null
@@ -1641,6 +1659,17 @@ export type t_custom_deployment_rule_app = {
   integration_url: string
   node_id: string
   slug: string
+}
+
+export type t_custom_property = {
+  allowed_values?: string[] | null
+  default_value?: string | string[] | null
+  description?: string | null
+  property_name: string
+  required?: boolean
+  url?: string
+  value_type: "string" | "single_select" | "multi_select" | "true_false"
+  values_editable_by?: "org_actors" | "org_and_repo_actors" | null
 }
 
 export type t_custom_property_value = {
@@ -3799,16 +3828,6 @@ export type t_oidc_custom_sub_repo = {
   use_default: boolean
 }
 
-export type t_org_custom_property = {
-  allowed_values?: string[] | null
-  default_value?: string | string[] | null
-  description?: string | null
-  property_name: string
-  required?: boolean
-  value_type: "string" | "single_select" | "multi_select" | "true_false"
-  values_editable_by?: "org_actors" | "org_and_repo_actors" | null
-}
-
 export type t_org_hook = {
   active: boolean
   config: {
@@ -3854,44 +3873,6 @@ export type t_org_ruleset_conditions =
       t_repository_ruleset_conditions_repository_id_target)
   | (t_repository_ruleset_conditions &
       t_repository_ruleset_conditions_repository_property_target)
-
-export type t_organization = {
-  avatar_url: string
-  blog?: string
-  company?: string
-  created_at: string
-  description: string | null
-  email?: string
-  events_url: string
-  followers: number
-  following: number
-  has_organization_projects: boolean
-  has_repository_projects: boolean
-  hooks_url: string
-  html_url: string
-  id: number
-  is_verified?: boolean
-  issues_url: string
-  location?: string
-  login: string
-  members_url: string
-  name?: string
-  node_id: string
-  plan?: {
-    filled_seats?: number
-    name?: string
-    private_repos?: number
-    seats?: number
-    space?: number
-  }
-  public_gists: number
-  public_members_url: string
-  public_repos: number
-  repos_url: string
-  type: string
-  updated_at: string
-  url: string
-}
 
 export type t_organization_actions_secret = {
   created_at: string
@@ -5773,6 +5754,7 @@ export type t_repository_ruleset_bypass_actor = {
     | "RepositoryRole"
     | "Team"
     | "DeployKey"
+    | "EnterpriseTeam"
   bypass_mode: "always" | "pull_request"
 }
 
@@ -6163,6 +6145,19 @@ export type t_secret_scanning_location_wiki_commit = {
   start_column: number
   start_line: number
 }
+
+export type t_secret_scanning_push_protection_bypass = {
+  expire_at?: string | null
+  reason?: t_secret_scanning_push_protection_bypass_reason
+  token_type?: string
+}
+
+export type t_secret_scanning_push_protection_bypass_placeholder_id = string
+
+export type t_secret_scanning_push_protection_bypass_reason =
+  | "false_positive"
+  | "used_in_tests"
+  | "will_fix_later"
 
 export type t_security_advisory_credit_types =
   | "analyst"
@@ -9176,6 +9171,10 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
   description: string
   enforcement?: "enforced" | "unenforced"
   name: string
@@ -9205,6 +9204,11 @@ export type t_CodeSecurityDetachConfigurationParamSchema = {
 export type t_CodeSecurityGetConfigurationParamSchema = {
   configuration_id: number
   org: string
+}
+
+export type t_CodeSecurityGetConfigurationForRepositoryParamSchema = {
+  owner: string
+  repo: string
 }
 
 export type t_CodeSecurityGetConfigurationsForOrgParamSchema = {
@@ -9249,6 +9253,10 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+  dependency_graph_autosubmit_action_options?: {
+    labeled_runners?: boolean
+  }
   description?: string
   enforcement?: "enforced" | "unenforced"
   name?: string
@@ -9724,11 +9732,35 @@ export type t_CopilotUsageMetricsForEnterpriseQuerySchema = {
   until?: string
 }
 
+export type t_CopilotUsageMetricsForEnterpriseTeamParamSchema = {
+  enterprise: string
+  team_slug: string
+}
+
+export type t_CopilotUsageMetricsForEnterpriseTeamQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
+}
+
 export type t_CopilotUsageMetricsForOrgParamSchema = {
   org: string
 }
 
 export type t_CopilotUsageMetricsForOrgQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
+}
+
+export type t_CopilotUsageMetricsForTeamParamSchema = {
+  org: string
+  team_slug: string
+}
+
+export type t_CopilotUsageMetricsForTeamQuerySchema = {
   page?: number
   per_page?: number
   since?: string
@@ -11002,7 +11034,7 @@ export type t_OrgsCreateInvitationParamSchema = {
 }
 
 export type t_OrgsCreateOrUpdateCustomPropertiesBodySchema = {
-  properties: t_org_custom_property[]
+  properties: t_custom_property[]
 }
 
 export type t_OrgsCreateOrUpdateCustomPropertiesParamSchema = {
@@ -14597,6 +14629,16 @@ export type t_SearchUsersQuerySchema = {
   per_page?: number
   q: string
   sort?: "followers" | "repositories" | "joined"
+}
+
+export type t_SecretScanningCreatePushProtectionBypassBodySchema = {
+  placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+  reason: t_secret_scanning_push_protection_bypass_reason
+}
+
+export type t_SecretScanningCreatePushProtectionBypassParamSchema = {
+  owner: string
+  repo: string
 }
 
 export type t_SecretScanningGetAlertParamSchema = {

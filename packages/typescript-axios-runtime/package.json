@@ -28,14 +28,14 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.12.3"
+    "qs": "^6.13.0"
   },
   "peerDependencies": {
     "axios": "^1.6.0"
   },
   "devDependencies": {
     "@types/qs": "^6.9.15",
-    "axios": "^1.7.2"
+    "axios": "^1.7.4"
   },
   "files": [
     "src",

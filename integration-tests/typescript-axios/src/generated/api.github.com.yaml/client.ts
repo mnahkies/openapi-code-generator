@@ -72,6 +72,7 @@ import {
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_code_security_configuration,
+  t_code_security_configuration_for_repository,
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
@@ -104,6 +105,7 @@ import {
   t_copilot_seat_details,
   t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
+  t_custom_property,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -173,7 +175,6 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
-  t_org_custom_property,
   t_org_hook,
   t_org_membership,
   t_org_repo_custom_property_values,
@@ -253,6 +254,9 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_secret_scanning_push_protection_bypass,
+  t_secret_scanning_push_protection_bypass_placeholder_id,
+  t_secret_scanning_push_protection_bypass_reason,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -1096,6 +1100,34 @@ export class ApiClient extends AbstractAxiosClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async copilotUsageMetricsForEnterpriseTeam(
+    p: {
+      enterprise: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
+    const url = `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this._request({
@@ -3355,6 +3387,10 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
         description: string
         enforcement?: "enforced" | "unenforced"
         name: string
@@ -3450,6 +3486,10 @@ export class ApiClient extends AbstractAxiosClient {
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
         description?: string
         enforcement?: "enforced" | "unenforced"
         name?: string
@@ -5983,7 +6023,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_org_custom_property[]>> {
+  ): Promise<AxiosResponse<t_custom_property[]>> {
     const url = `/orgs/${p["org"]}/properties/schema`
 
     return this._request({
@@ -5998,12 +6038,12 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        properties: t_org_custom_property[]
+        properties: t_custom_property[]
       }
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_org_custom_property[]>> {
+  ): Promise<AxiosResponse<t_custom_property[]>> {
     const url = `/orgs/${p["org"]}/properties/schema`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -6025,7 +6065,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_org_custom_property>> {
+  ): Promise<AxiosResponse<t_custom_property>> {
     const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
 
     return this._request({
@@ -6050,7 +6090,7 @@ export class ApiClient extends AbstractAxiosClient {
     },
     timeout?: number,
     opts?: AxiosRequestConfig,
-  ): Promise<AxiosResponse<t_org_custom_property>> {
+  ): Promise<AxiosResponse<t_custom_property>> {
     const url = `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
     const headers = this._headers({ "Content-Type": "application/json" })
     const body = JSON.stringify(p.requestBody)
@@ -6620,6 +6660,34 @@ export class ApiClient extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async copilotUsageMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
+    const url = `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
@@ -11585,6 +11653,27 @@ export class ApiClient extends AbstractAxiosClient {
     opts?: AxiosRequestConfig,
   ): Promise<AxiosResponse<t_code_scanning_sarifs_status>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async codeSecurityGetConfigurationForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<
+    | AxiosResponse<t_code_security_configuration_for_repository>
+    | AxiosResponse<void>
+  > {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`
 
     return this._request({
       url: url,
@@ -17949,6 +18038,32 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...(opts ?? {}),
+    })
+  }
+
+  async secretScanningCreatePushProtectionBypass(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+        reason: t_secret_scanning_push_protection_bypass_reason
+      }
+    },
+    timeout?: number,
+    opts?: AxiosRequestConfig,
+  ): Promise<AxiosResponse<t_secret_scanning_push_protection_bypass>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      headers,
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...(opts ?? {}),
     })
