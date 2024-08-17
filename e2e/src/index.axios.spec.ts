@@ -1,10 +1,10 @@
 import type {Server} from "node:http"
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import {ApiClient} from "./generated/client/client"
+import {ApiClient} from "./generated/client/axios/client"
 import {main} from "./index"
 import {numberBetween} from "./test-utils"
 
-describe("e2e", () => {
+describe("e2e - typescript-axios client", () => {
   let server: Server
   let client: ApiClient
 
@@ -25,13 +25,9 @@ describe("e2e", () => {
 
   describe("GET /headers/request", () => {
     it("provides the default headers", async () => {
-      const res = await client.getHeadersRequest()
+      const {data} = await client.getHeadersRequest()
 
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer default-header",
         }),
@@ -39,15 +35,11 @@ describe("e2e", () => {
     })
 
     it("provides route level header with default headers", async () => {
-      const res = await client.getHeadersRequest({
+      const {data} = await client.getHeadersRequest({
         routeLevelHeader: "route-header",
       })
 
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
@@ -56,15 +48,11 @@ describe("e2e", () => {
     })
 
     it("overrides the default headers when a route level header is provided", async () => {
-      const res = await client.getHeadersRequest({
+      const {data} = await client.getHeadersRequest({
         authorization: "Bearer override",
       })
 
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer override",
         }),
@@ -72,17 +60,13 @@ describe("e2e", () => {
     })
 
     it("provides route level header with default headers, and arbitrary extra headers", async () => {
-      const res = await client.getHeadersRequest(
+      const {data} = await client.getHeadersRequest(
         {routeLevelHeader: "route-header"},
         undefined,
         {headers: {"some-random-header": "arbitrary-header"}},
       )
 
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
@@ -92,17 +76,13 @@ describe("e2e", () => {
     })
 
     it("provides route level header with default headers, and arbitrary extra headers", async () => {
-      const res = await client.getHeadersRequest(
+      const {data} = await client.getHeadersRequest(
         {routeLevelHeader: "route-header"},
         undefined,
         {headers: {authorization: "Bearer override"}},
       )
 
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer override",
           "route-level-header": "route-header",
@@ -113,12 +93,9 @@ describe("e2e", () => {
 
   describe("GET /validation/numbers/random-number", () => {
     it("returns a random number", async () => {
-      const res = await client.getValidationNumbersRandomNumber()
-      expect(res.status).toBe(200)
+      const {data} = await client.getValidationNumbersRandomNumber()
 
-      const body = await res.json()
-
-      expect(body).toEqual({
+      expect(data).toEqual({
         result: numberBetween(0, 10),
         params: {
           min: 0,
@@ -129,27 +106,21 @@ describe("e2e", () => {
     })
 
     it("handles a query param array of 1 element", async () => {
-      const res = await client.getValidationNumbersRandomNumber({
+      const {data} = await client.getValidationNumbersRandomNumber({
         forbidden: [1],
       })
-      expect(res.status).toBe(200)
 
-      const body = await res.json()
-
-      expect(body.params).toMatchObject({
+      expect(data.params).toMatchObject({
         forbidden: [1],
       })
     })
 
     it("handles a query param array of multiple elements", async () => {
-      const res = await client.getValidationNumbersRandomNumber({
+      const {data} = await client.getValidationNumbersRandomNumber({
         forbidden: [1, 2, 3],
       })
-      expect(res.status).toBe(200)
 
-      const body = await res.json()
-
-      expect(body.params).toMatchObject({
+      expect(data.params).toMatchObject({
         forbidden: [1, 2, 3],
       })
     })
