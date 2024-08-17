@@ -65,7 +65,7 @@ export type HeaderParams =
 export type HeadersInit =
   | string[][]
   | readonly (readonly [string, string])[]
-  | Record<string, string>
+  | Record<string, string | ReadonlyArray<string>>
   | Headers
 
 export abstract class AbstractFetchClient {
