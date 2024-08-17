@@ -7,6 +7,7 @@
     "name": "Michael Nahkies",
     "email": "support@nahkies.co.nz"
   },
+  "homepage": "https://openapi-code-generator.nahkies.co.nz/",
   "repository": {
     "type": "git",
     "url": "https://github.com/mnahkies/openapi-code-generator.git",
@@ -83,17 +84,21 @@
     "dist",
     "README.md",
     "CHANGELOG.md",
+    "package.json",
     "tsconfig.json"
   ],
   "keywords": [
     "openapi",
     "openapi3",
+    "typespec",
+    "zod",
     "typescript",
     "sdk",
     "generator",
     "codegen",
     "koa",
     "fetch",
+    "axios",
     "angular"
   ],
   "publishConfig": {
