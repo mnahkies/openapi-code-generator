@@ -38,7 +38,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.12.3"
+    "qs": "^6.13.0"
   },
   "peerDependencies": {
     "zod": "^3.20.6"
