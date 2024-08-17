@@ -6,6 +6,7 @@ const getHeadersRequest: GetHeadersRequest = async (_, respond, ctx) => {
 
 export function createHeadersRouter() {
   return createRouter({
+    getHeadersUndeclared: getHeadersRequest,
     getHeadersRequest,
   })
 }

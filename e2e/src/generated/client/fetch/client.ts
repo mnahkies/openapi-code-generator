@@ -2,7 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_RandomNumber, t_getHeadersRequestJson200Response } from "./models"
+import {
+  t_RandomNumber,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+} from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
@@ -15,6 +19,18 @@ export interface ApiClientConfig extends AbstractFetchClientConfig {}
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {
     super(config)
+  }
+
+  async getHeadersUndeclared(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<Res<200, t_getHeadersUndeclaredJson200Response>>
+  > {
+    const url = this.basePath + `/headers/undeclared`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async getHeadersRequest(

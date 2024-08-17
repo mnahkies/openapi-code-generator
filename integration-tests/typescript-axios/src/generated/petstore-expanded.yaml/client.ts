@@ -23,6 +23,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet[]>> {
     const url = `/pets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
     return this._request({
@@ -30,6 +31,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -65,12 +67,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Pet>> {
     const url = `/pets/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -82,12 +86,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/pets/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 }

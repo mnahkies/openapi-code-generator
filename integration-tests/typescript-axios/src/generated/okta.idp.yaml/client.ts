@@ -112,12 +112,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -129,12 +131,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PushNotificationChallenge[]>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -146,6 +150,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Authenticator[]>> {
     const url = `/idp/myaccount/authenticators`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ expand: p["expand"] })
 
     return this._request({
@@ -153,6 +158,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -165,6 +171,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Authenticator>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ expand: p["expand"] })
 
     return this._request({
@@ -172,6 +179,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -183,12 +191,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AuthenticatorEnrollment[]>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -201,12 +211,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AuthenticatorEnrollment>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -215,12 +227,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email[]>> {
     const url = `/idp/myaccount/emails`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -263,12 +277,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -280,12 +296,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -371,12 +389,14 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -413,12 +433,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_OktaApplication[]>> {
     const url = `/idp/myaccount/okta-applications`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -427,12 +449,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Organization>> {
     const url = `/idp/myaccount/organization`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -441,12 +465,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -511,12 +537,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/password`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -525,12 +553,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone[]>> {
     const url = `/idp/myaccount/phones`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -572,12 +602,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -589,12 +621,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -669,12 +703,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -709,12 +745,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Schema>> {
     const url = `/idp/myaccount/profile/schema`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -723,12 +761,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/sessions`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 }

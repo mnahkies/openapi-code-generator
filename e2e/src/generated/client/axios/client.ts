@@ -2,7 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_RandomNumber, t_getHeadersRequestJson200Response } from "./models"
+import {
+  t_RandomNumber,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+} from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -12,6 +16,22 @@ import { AxiosRequestConfig, AxiosResponse } from "axios"
 export class ApiClient extends AbstractAxiosClient {
   constructor(config: AbstractAxiosConfig) {
     super(config)
+  }
+
+  async getHeadersUndeclared(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_getHeadersUndeclaredJson200Response>> {
+    const url = `/headers/undeclared`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
   }
 
   async getHeadersRequest(
@@ -50,6 +70,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_RandomNumber>> {
     const url = `/validation/numbers/random-number`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       max: p["max"],
       min: p["min"],
@@ -61,6 +82,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 }

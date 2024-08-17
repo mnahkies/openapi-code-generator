@@ -76,7 +76,7 @@ export abstract class AbstractAxiosClient {
   }
 
   protected _request(opts: AxiosRequestConfig) {
-    const headers = opts.headers ?? this._headers(undefined, opts.headers)
+    const headers = opts.headers ?? this._headers()
 
     return this.axios.request({
       baseURL: this.basePath,

@@ -30,6 +30,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_OperationListResult>> {
     const url = `/providers/Microsoft.ContosoProviderHub/operations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -37,6 +38,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -51,6 +53,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Employee>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -58,6 +61,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -130,6 +134,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -137,6 +142,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -150,6 +156,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_EmployeeListResult>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -157,6 +164,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -169,6 +177,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_EmployeeListResult>> {
     const url = `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -176,6 +185,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 

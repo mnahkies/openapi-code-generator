@@ -23,6 +23,38 @@ describe("e2e - typescript-fetch client", () => {
     server.close()
   })
 
+  describe("GET /headers/undeclared", () => {
+    it("provides the default headers", async () => {
+      const res = await client.getHeadersUndeclared()
+
+      expect(res.status).toBe(200)
+
+      const body = await res.json()
+
+      expect(body).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer default-header",
+        }),
+      })
+    })
+    it("provides default headers, and arbitrary extra headers", async () => {
+      const res = await client.getHeadersUndeclared(undefined, {
+        headers: {"some-random-header": "arbitrary-header"},
+      })
+
+      expect(res.status).toBe(200)
+
+      const body = await res.json()
+
+      expect(body).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer default-header",
+          "some-random-header": "arbitrary-header",
+        }),
+      })
+    })
+  })
+
   describe("GET /headers/request", () => {
     it("provides the default headers", async () => {
       const res = await client.getHeadersRequest()
@@ -67,6 +99,22 @@ describe("e2e - typescript-fetch client", () => {
       expect(body).toEqual({
         headers: expect.objectContaining({
           authorization: "Bearer override",
+        }),
+      })
+    })
+
+    it("overrides the default headers when a config level header is provided", async () => {
+      const res = await client.getHeadersRequest(undefined, undefined, {
+        headers: {authorization: "Bearer config"},
+      })
+
+      expect(res.status).toBe(200)
+
+      const body = await res.json()
+
+      expect(body).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer config",
         }),
       })
     })

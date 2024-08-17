@@ -82,6 +82,7 @@ export class ApiClient extends AbstractAxiosClient {
     >
   > {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -89,6 +90,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -344,6 +346,7 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -351,6 +354,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -420,6 +424,7 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -427,6 +432,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -632,6 +638,7 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -639,6 +646,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 

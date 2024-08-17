@@ -23,6 +23,31 @@ describe("e2e - typescript-axios client", () => {
     server.close()
   })
 
+  describe("GET /headers/undeclared", () => {
+    it("provides the default headers", async () => {
+      const {data} = await client.getHeadersUndeclared()
+
+      expect(data).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer default-header",
+        }),
+      })
+    })
+
+    it("provides default headers, and arbitrary extra headers", async () => {
+      const {data} = await client.getHeadersUndeclared(undefined, {
+        headers: {"some-random-header": "arbitrary-header"},
+      })
+
+      expect(data).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer default-header",
+          "some-random-header": "arbitrary-header",
+        }),
+      })
+    })
+  })
+
   describe("GET /headers/request", () => {
     it("provides the default headers", async () => {
       const {data} = await client.getHeadersRequest()
@@ -59,6 +84,17 @@ describe("e2e - typescript-axios client", () => {
       })
     })
 
+    it("overrides the default headers when a config level header is provided", async () => {
+      const {data} = await client.getHeadersRequest(undefined, undefined, {
+        headers: {authorization: "Bearer config"},
+      })
+
+      expect(data).toEqual({
+        headers: expect.objectContaining({
+          authorization: "Bearer config",
+        }),
+      })
+    })
     it("provides route level header with default headers, and arbitrary extra headers", async () => {
       const {data} = await client.getHeadersRequest(
         {routeLevelHeader: "route-header"},

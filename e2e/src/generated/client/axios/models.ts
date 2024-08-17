@@ -16,3 +16,9 @@ export type t_getHeadersRequestJson200Response = {
     [key: string]: (string | string[]) | undefined
   }
 }
+
+export type t_getHeadersUndeclaredJson200Response = {
+  headers?: {
+    [key: string]: (string | string[]) | undefined
+  }
+}

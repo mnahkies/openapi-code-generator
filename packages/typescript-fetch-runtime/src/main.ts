@@ -102,7 +102,7 @@ export abstract class AbstractFetchClient {
       )
     }
 
-    const headers = opts.headers ?? this._headers(undefined, opts.headers)
+    const headers = opts.headers ?? this._headers()
 
     return fetch(url, {
       ...opts,

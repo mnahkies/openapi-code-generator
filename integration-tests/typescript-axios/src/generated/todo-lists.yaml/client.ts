@@ -24,6 +24,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList[]>> {
     const url = `/list`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       created: p["created"],
       statuses: p["statuses"],
@@ -35,6 +36,7 @@ export class ApiClient extends AbstractAxiosClient {
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -46,12 +48,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -88,12 +92,14 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
@@ -112,12 +118,14 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/list/${p["listId"]}/items`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
+      headers,
     })
   }
 
