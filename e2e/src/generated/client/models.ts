@@ -10,3 +10,9 @@ export type t_RandomNumber = {
   }
   result?: number
 }
+
+export type t_getHeadersRequestJson200Response = {
+  headers?: {
+    [key: string]: (string | string[]) | undefined
+  }
+}

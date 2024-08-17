@@ -14,3 +14,7 @@ export const s_RandomNumber = z.object({
     })
     .optional(),
 })
+
+export const s_getHeadersRequestJson200Response = z.object({
+  headers: z.record(z.union([z.string(), z.array(z.string())])).optional(),
+})

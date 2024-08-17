@@ -1,4 +1,5 @@
 import qs from "qs"
+import {array} from "zod"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -57,6 +58,7 @@ export type QueryParams = {
 export type HeaderParams =
   | Record<string, string | number | undefined>
   | [string, string | number | undefined][]
+  | string[]
   | Headers
 
 export abstract class AbstractFetchClient {
@@ -126,6 +128,27 @@ export abstract class AbstractFetchClient {
     })}`
   }
 
+  /**
+   * Combines headers for a request, with precedence
+   * 1. default headers
+   * 2. route level header parameters
+   * 3. raw request config (escape hatch)
+   *
+   * following these rules:
+   * - header values of `undefined` are skipped
+   * - header values of `null` will remove/delete any previously set headers
+   *
+   * Eg:
+   * Passing `Authorization: null` as a parameter, will clear out any
+   * default `Authorization` header.
+   *
+   * But passing `Authorization: undefined` as parameter will fallthrough
+   * to the default `Authorization` header.
+   *
+   * @param paramHeaders
+   * @param optsHeaders
+   * @protected
+   */
   protected _headers(
     paramHeaders: HeaderParams = {},
     optsHeaders: HeaderParams = {},
@@ -144,6 +167,10 @@ export abstract class AbstractFetchClient {
 
     for (const [headerName, headerValue] of headersArray) {
       if (headerValue === undefined) {
+        continue
+      }
+
+      if (headerValue === null) {
         headers.delete(headerName)
       } else {
         headers.set(headerName, headerValue.toString())
@@ -155,7 +182,17 @@ export abstract class AbstractFetchClient {
     headers: HeaderParams,
   ): [string, string | number | undefined][] {
     if (Array.isArray(headers)) {
-      return headers
+      if (isMultiDimArray(headers)) {
+        return headers
+      }
+
+      const name = headers[0]
+
+      if (!name) {
+        return []
+      }
+
+      return headers.slice(1).map((value) => [name, value])
     }
 
     if (headers instanceof Headers) {
@@ -172,4 +209,8 @@ export abstract class AbstractFetchClient {
 
     return []
   }
+}
+
+function isMultiDimArray<T>(arr: T[] | T[][]): arr is T[][] {
+  return Array.isArray(arr) && Array.isArray(arr[0])
 }

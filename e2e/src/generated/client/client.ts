@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_RandomNumber } from "./models"
+import { t_RandomNumber, t_getHeadersRequestJson200Response } from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
@@ -15,6 +15,26 @@ export interface ApiClientConfig extends AbstractFetchClientConfig {}
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {
     super(config)
+  }
+
+  async getHeadersRequest(
+    p: {
+      routeLevelHeader?: string
+      authorization?: string
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_getHeadersRequestJson200Response>>> {
+    const url = this.basePath + `/headers/request`
+    const headers = this._headers(
+      {
+        "route-level-header": p["routeLevelHeader"],
+        Authorization: p["authorization"],
+      },
+      opts.headers,
+    )
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async getValidationNumbersRandomNumber(
