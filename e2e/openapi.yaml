@@ -1,0 +1,57 @@
+openapi: "3.0.0"
+info:
+  title: E2E Tests for @nahkies/openapi-code-generator
+  version: "0.0.1"
+tags:
+  - name: validation
+paths:
+  /validation/numbers/random-number:
+    get:
+      tags:
+        - validation
+      parameters:
+        - name: max
+          in: query
+          schema:
+            type: number
+            minimum: 1
+            default: 10
+        - name: min
+          in: query
+          schema:
+            type: number
+            minimum: 0
+            default: 0
+        - name: forbidden
+          in: query
+          schema:
+            type: array
+            items:
+              type: number
+              format: int
+      responses:
+        200:
+          description: success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RandomNumber'
+
+components:
+  schemas:
+    RandomNumber:
+      type: object
+      properties:
+        result:
+          type: number
+        params:
+          type: object
+          properties:
+            min:
+              type: number
+            max:
+              type: number
+            forbidden:
+              type: array
+              items:
+                type: number
