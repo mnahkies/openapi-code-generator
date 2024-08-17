@@ -52,7 +52,8 @@
   },
   "workspaces": [
     "packages/*",
-    "integration-tests/*"
+    "integration-tests/*",
+    "e2e"
   ],
   "lint-staged": {
     "*.{ts,js,tsx,jsx}": [

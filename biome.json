@@ -42,6 +42,7 @@
       "packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
       "integration-tests/**/*",
       "integration-tests-definitions/**/*",
+      "e2e/src/generated/**/*",
       "schemas/*.json",
       "packages/*/package.json",
       "package.json"

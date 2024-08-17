@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [20.x]
+        node-version: [20.x, 22.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
@@ -50,6 +50,11 @@ jobs:
 
       - run: yarn integration:generate
       - run: yarn integration:validate
+
+      - run: yarn workspace e2e clean
+      - run: yarn workspace e2e generate
+      - run: yarn workspace e2e build
+      - run: yarn workspace e2e test
 
       - name: Check for uncommitted changes
         run: ./scripts/assert-clean-working-directory.sh
