@@ -35,21 +35,22 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_AppAuthenticatorEnrollmentRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators`
-    const headers = this._headers({
-      "Content-Type": "application/json, okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/json, okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -59,21 +60,22 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_PushNotificationVerification
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/json;okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/json;okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -83,21 +85,22 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_UpdateAppAuthenticatorEnrollmentRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "PATCH",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -106,15 +109,17 @@ export class ApiClient extends AbstractAxiosClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -123,15 +128,17 @@ export class ApiClient extends AbstractAxiosClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PushNotificationChallenge[]>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -140,16 +147,18 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string
     } = {},
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Authenticator[]>> {
     const url = `/idp/myaccount/authenticators`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ expand: p["expand"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -159,16 +168,18 @@ export class ApiClient extends AbstractAxiosClient {
       expand?: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Authenticator>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ expand: p["expand"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -177,15 +188,17 @@ export class ApiClient extends AbstractAxiosClient {
       authenticatorId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AuthenticatorEnrollment[]>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -195,29 +208,33 @@ export class ApiClient extends AbstractAxiosClient {
       enrollmentId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AuthenticatorEnrollment>> {
     const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async listEmails(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email[]>> {
     const url = `/idp/myaccount/emails`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -233,19 +250,22 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -254,15 +274,17 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -271,15 +293,17 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -291,7 +315,7 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       _links: {
@@ -317,16 +341,19 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -336,7 +363,7 @@ export class ApiClient extends AbstractAxiosClient {
       challengeId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       _links: {
@@ -362,12 +389,14 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -380,61 +409,70 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}/verify`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async listOktaApplications(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_OktaApplication[]>> {
     const url = `/idp/myaccount/okta-applications`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async getOrganization(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Organization>> {
     const url = `/idp/myaccount/organization`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async getPassword(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -447,19 +485,22 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -472,47 +513,54 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "PUT",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async deletePassword(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/password`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async listPhones(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone[]>> {
     const url = `/idp/myaccount/phones`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -527,19 +575,22 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -548,15 +599,17 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -565,15 +618,17 @@ export class ApiClient extends AbstractAxiosClient {
       id: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -586,7 +641,7 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       _links?: {
@@ -600,16 +655,19 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/phones/${p["id"]}/challenge`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -621,33 +679,38 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}/verify`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async getProfile(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -658,47 +721,54 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "PUT",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async getProfileSchema(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Schema>> {
     const url = `/idp/myaccount/profile/schema`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
   async deleteSessions(
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/sessions`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 }

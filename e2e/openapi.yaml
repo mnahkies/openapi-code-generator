@@ -3,8 +3,32 @@ info:
   title: E2E Tests for @nahkies/openapi-code-generator
   version: "0.0.1"
 tags:
+  - name: headers
   - name: validation
 paths:
+  /headers/undeclared:
+    get:
+      tags:
+        - headers
+      responses:
+        200:
+          $ref: '#/components/responses/GetHeaders'
+  /headers/request:
+    get:
+      tags:
+        - headers
+      parameters:
+        - name: route-level-header
+          in: header
+          schema:
+            type: string
+        - name: Authorization
+          in: header
+          schema:
+            type: string
+      responses:
+        200:
+          $ref: '#/components/responses/GetHeaders'
   /validation/numbers/random-number:
     get:
       tags:
@@ -38,6 +62,22 @@ paths:
                 $ref: '#/components/schemas/RandomNumber'
 
 components:
+  responses:
+    GetHeaders:
+      description: success
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              headers:
+                additionalProperties:
+                  anyOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+
   schemas:
     RandomNumber:
       type: object

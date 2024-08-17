@@ -2,7 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_NewPet, t_Pet } from "./models"
+import {
+  t_RandomNumber,
+  t_getHeadersRequestJson200Response,
+  t_getHeadersUndeclaredJson200Response,
+} from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
@@ -14,83 +18,68 @@ export class ApiClient extends AbstractAxiosClient {
     super(config)
   }
 
-  async findPets(
+  async getHeadersUndeclared(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_getHeadersUndeclaredJson200Response>> {
+    const url = `/headers/undeclared`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getHeadersRequest(
     p: {
-      tags?: string[]
-      limit?: number
+      routeLevelHeader?: string
+      authorization?: string
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_Pet[]>> {
-    const url = `/pets`
+  ): Promise<AxiosResponse<t_getHeadersRequestJson200Response>> {
+    const url = `/headers/request`
+    const headers = this._headers(
+      {
+        "route-level-header": p["routeLevelHeader"],
+        Authorization: p["authorization"],
+      },
+      opts.headers,
+    )
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getValidationNumbersRandomNumber(
+    p: {
+      max?: number
+      min?: number
+      forbidden?: number[]
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_RandomNumber>> {
+    const url = `/validation/numbers/random-number`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ tags: p["tags"], limit: p["limit"] })
+    const query = this._query({
+      max: p["max"],
+      min: p["min"],
+      forbidden: p["forbidden"],
+    })
 
     return this._request({
       url: url + query,
       method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async addPet(
-    p: {
-      requestBody: t_NewPet
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_Pet>> {
-    const url = `/pets`
-    const headers = this._headers(
-      { "Content-Type": "application/json" },
-      opts.headers,
-    )
-    const body = JSON.stringify(p.requestBody)
-
-    return this._request({
-      url: url,
-      method: "POST",
-      data: body,
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async findPetById(
-    p: {
-      id: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_Pet>> {
-    const url = `/pets/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async deletePet(
-    p: {
-      id: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<void>> {
-    const url = `/pets/${p["id"]}`
-    const headers = this._headers({}, opts.headers)
-
-    return this._request({
-      url: url,
-      method: "DELETE",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

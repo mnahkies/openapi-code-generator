@@ -32,7 +32,7 @@ export class ApiClient extends AbstractFetchClient {
       apiVersion: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_OperationListResult>
@@ -41,9 +41,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/providers/Microsoft.ContosoProviderHub/operations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async employeesGet(
@@ -54,7 +59,7 @@ export class ApiClient extends AbstractFetchClient {
       employeeName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Employee>
@@ -64,9 +69,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async employeesCreateOrUpdate(
@@ -78,7 +88,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_Employee
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Employee>
@@ -89,13 +99,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
+      { method: "PUT", body, ...opts, headers },
       timeout,
     )
   }
@@ -109,7 +122,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_EmployeeUpdate
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Employee>
@@ -119,13 +132,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -138,7 +154,7 @@ export class ApiClient extends AbstractFetchClient {
       employeeName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, void>
@@ -149,11 +165,12 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -165,7 +182,7 @@ export class ApiClient extends AbstractFetchClient {
       resourceGroupName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_EmployeeListResult>
@@ -175,9 +192,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async employeesListBySubscription(
@@ -186,7 +208,7 @@ export class ApiClient extends AbstractFetchClient {
       subscriptionId: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_EmployeeListResult>
@@ -196,9 +218,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/providers/Microsoft.ContosoProviderHub/employees`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async employeesMove(
@@ -210,7 +237,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_MoveRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_MoveResponse>
@@ -220,13 +247,16 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}/move`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", body, ...opts, headers },
       timeout,
     )
   }

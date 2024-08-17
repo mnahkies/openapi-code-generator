@@ -36,24 +36,25 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       statusString: string
     }>
   > {
     const url = `/service-status`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -64,7 +65,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<
       | {
@@ -81,13 +82,15 @@ export class ApiClient extends AbstractAxiosClient {
     >
   > {
     const url = `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -105,29 +108,32 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetCreateOrUpdate
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PATCH",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -142,24 +148,27 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -176,7 +185,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -185,23 +194,26 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -215,12 +227,13 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidget>> {
     const url = `/widgets`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({
       "api-version": p["apiVersion"],
       top: p["top"],
@@ -232,9 +245,9 @@ export class ApiClient extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -249,24 +262,27 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -284,29 +300,32 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetAnalyticsCreateOrUpdate
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PATCH",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -317,7 +336,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -327,13 +346,15 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -347,7 +368,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetRepairRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -363,22 +384,25 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}:scheduleRepairs`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -390,7 +414,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -400,13 +424,15 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -424,29 +450,32 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetPart
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -457,20 +486,21 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -486,24 +516,27 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -521,26 +554,29 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -554,7 +590,7 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_WidgetPartReorderRequest
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -563,22 +599,25 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts:reorderParts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -589,7 +628,7 @@ export class ApiClient extends AbstractAxiosClient {
       operationId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -599,13 +638,15 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -623,29 +664,32 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_Manufacturer
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url + query,
       method: "PUT",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -660,24 +704,27 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -694,7 +741,7 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       error?: t_Azure_Core_Foundations_Error
@@ -703,23 +750,26 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "DELETE",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -729,20 +779,21 @@ export class ApiClient extends AbstractAxiosClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedManufacturer>> {
     const url = `/manufacturers`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
       url: url + query,
       method: "GET",
-      headers,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 }

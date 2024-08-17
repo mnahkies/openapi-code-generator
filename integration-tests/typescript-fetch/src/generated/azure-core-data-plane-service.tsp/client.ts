@@ -41,7 +41,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -54,14 +54,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/service-status`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -73,7 +74,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -96,9 +97,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/widgets/${p["widgetName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async widgetsCreateOrUpdateWidget(
@@ -115,7 +121,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetCreateOrUpdate
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Widget>
@@ -124,22 +130,25 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -155,7 +164,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Widget>
@@ -163,18 +172,21 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -192,7 +204,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -207,20 +219,23 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -235,7 +250,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedWidget>
@@ -243,9 +258,10 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({
       "api-version": p["apiVersion"],
       top: p["top"],
@@ -256,7 +272,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -272,7 +288,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetAnalytics>
@@ -280,18 +296,21 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -310,7 +329,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetAnalyticsCreateOrUpdate
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetAnalytics>
@@ -319,22 +338,25 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -346,7 +368,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -363,9 +385,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async widgetsScheduleRepairs(
@@ -378,7 +405,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetRepairRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -400,18 +427,21 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}:scheduleRepairs`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", body, ...opts, headers },
       timeout,
     )
   }
@@ -424,7 +454,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -442,9 +472,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async widgetPartsCreateWidgetPart(
@@ -461,29 +496,32 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetPart
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", body, ...opts, headers },
       timeout,
     )
   }
@@ -495,7 +533,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedWidgetPart>
@@ -503,14 +541,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -527,7 +566,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_WidgetPart>
@@ -536,18 +575,21 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -566,7 +608,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
@@ -574,20 +616,23 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -602,7 +647,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_WidgetPartReorderRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -617,18 +662,21 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts:reorderParts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", body, ...opts, headers },
       timeout,
     )
   }
@@ -640,7 +688,7 @@ export class ApiClient extends AbstractFetchClient {
       operationId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -658,9 +706,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/manufacturers/${p["manufacturerId"]}/operations/${p["operationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ "api-version": p["apiVersion"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async manufacturersCreateManufacturer(
@@ -677,7 +730,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_Manufacturer
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Manufacturer>
@@ -686,22 +739,25 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
+      { method: "PUT", body, ...opts, headers },
       timeout,
     )
   }
@@ -717,7 +773,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_Manufacturer>
@@ -725,18 +781,21 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -754,7 +813,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -769,20 +828,23 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", headers, ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -793,7 +855,7 @@ export class ApiClient extends AbstractFetchClient {
       xMsClientRequestId?: t_Azure_Core_uuid
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_PagedManufacturer>
@@ -801,14 +863,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/manufacturers`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, ...(opts ?? {}) },
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }

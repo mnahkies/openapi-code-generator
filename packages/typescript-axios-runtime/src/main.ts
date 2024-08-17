@@ -1,4 +1,9 @@
-import axios, {type AxiosInstance, type AxiosRequestConfig} from "axios"
+import axios, {
+  AxiosHeaders,
+  type AxiosInstance,
+  type AxiosRequestConfig,
+  type RawAxiosRequestHeaders,
+} from "axios"
 import qs from "qs"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
@@ -36,6 +41,7 @@ export type QueryParams = {
   [name: string]:
     | string
     | number
+    | number[]
     | boolean
     | string[]
     | undefined
@@ -44,7 +50,10 @@ export type QueryParams = {
     | QueryParams[]
 }
 
-export type HeaderParams = Record<string, string | undefined>
+export type HeaderParams =
+  | Record<string, string | number | undefined | null>
+  | [string, string | number | undefined | null][]
+  | Headers
 
 export interface AbstractAxiosConfig {
   axios?: AxiosInstance
@@ -67,7 +76,7 @@ export abstract class AbstractAxiosClient {
   }
 
   protected _request(opts: AxiosRequestConfig) {
-    const headers = opts.headers ?? this._headers({})
+    const headers = opts.headers ?? this._headers()
 
     return this.axios.request({
       baseURL: this.basePath,
@@ -90,11 +99,77 @@ export abstract class AbstractAxiosClient {
     })}`
   }
 
-  protected _headers(headers: HeaderParams): Record<string, string> {
-    return Object.fromEntries(
-      Object.entries({...this.defaultHeaders, ...headers}).filter(
-        (it): it is [string, string] => it[1] !== undefined,
-      ),
-    )
+  /**
+   * Combines headers for a request, with precedence
+   * 1. default headers
+   * 2. route level header parameters
+   * 3. raw request config (escape hatch)
+   *
+   * following these rules:
+   * - header values of `undefined` are skipped
+   * - header values of `null` will remove/delete any previously set headers
+   *
+   * Eg:
+   * Passing `Authorization: null` as a parameter, will clear out any
+   * default `Authorization` header.
+   *
+   * But passing `Authorization: undefined` as parameter will fallthrough
+   * to the default `Authorization` header.
+   *
+   * @param paramHeaders
+   * @param optsHeaders
+   * @protected
+   */
+  protected _headers(
+    paramHeaders: HeaderParams = {},
+    optsHeaders: AxiosRequestConfig["headers"] = {},
+  ): RawAxiosRequestHeaders {
+    const headers = new AxiosHeaders()
+
+    // axios doesn't know how to append headers, so we just apply
+    // from the lowest priority to highest.
+
+    this.setHeaders(headers, this.defaultHeaders)
+    this.setHeaders(headers, paramHeaders)
+    this.setHeaders(headers, optsHeaders)
+
+    return headers
+  }
+
+  private setHeaders(
+    headers: Pick<Headers, "set" | "delete">,
+    headersInit: HeaderParams | AxiosRequestConfig["headers"],
+  ) {
+    const headersArray = this.headersAsArray(headersInit)
+
+    for (const [headerName, headerValue] of headersArray) {
+      if (headerValue === null) {
+        headers.delete(headerName)
+      } else if (headerValue !== undefined) {
+        headers.set(headerName.toLowerCase(), headerValue.toString())
+      }
+    }
+  }
+
+  private headersAsArray(
+    headers: HeaderParams | AxiosRequestConfig["headers"],
+  ): [string, string | number | undefined | null][] {
+    if (Array.isArray(headers)) {
+      return headers
+    }
+
+    if (headers instanceof Headers) {
+      const result: [string, string][] = []
+      headers.forEach((value, key) => {
+        result.push([key, value])
+      })
+      return result
+    }
+
+    if (headers && typeof headers === "object") {
+      return Object.entries(headers)
+    }
+
+    return []
   }
 }

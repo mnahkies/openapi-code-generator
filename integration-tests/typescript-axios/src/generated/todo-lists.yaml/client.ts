@@ -21,9 +21,10 @@ export class ApiClient extends AbstractAxiosClient {
       tags?: string[]
     } = {},
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList[]>> {
     const url = `/list`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       created: p["created"],
       statuses: p["statuses"],
@@ -34,7 +35,8 @@ export class ApiClient extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -43,15 +45,17 @@ export class ApiClient extends AbstractAxiosClient {
       listId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -61,19 +65,22 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: t_CreateUpdateTodoList
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TodoList>> {
     const url = `/list/${p["listId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "PUT",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -82,15 +89,17 @@ export class ApiClient extends AbstractAxiosClient {
       listId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "DELETE",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -99,7 +108,7 @@ export class ApiClient extends AbstractAxiosClient {
       listId: string
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
       completedAt?: string
@@ -109,12 +118,14 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/list/${p["listId"]}/items`
+    const headers = this._headers({}, opts.headers)
 
     return this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 
@@ -128,19 +139,22 @@ export class ApiClient extends AbstractAxiosClient {
       }
     },
     timeout?: number,
-    opts?: AxiosRequestConfig,
+    opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/list/${p["listId"]}/items`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
       url: url,
       method: "POST",
-      headers,
       data: body,
       ...(timeout ? { timeout } : {}),
-      ...(opts ?? {}),
+      ...opts,
+      headers,
     })
   }
 }

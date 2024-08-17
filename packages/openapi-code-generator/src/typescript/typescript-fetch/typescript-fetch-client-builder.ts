@@ -57,9 +57,9 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
     const fetchFragment = `this._fetch(url ${queryString ? "+ query" : ""},
     {${[
       `method: "${method}",`,
-      headers ? "headers," : "",
       requestBodyParameter ? "body," : "",
-      "...(opts ?? {})",
+      "...opts,",
+      "headers",
     ]
       .filter(Boolean)
       .join("\n")}}, timeout)`
@@ -67,7 +67,9 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
     const body = `
     const url = this.basePath + \`${routeToTemplateString(route)}\`
     ${[
-      headers ? `const headers = this._headers(${headers})` : "",
+      headers
+        ? `const headers = this._headers(${headers}, opts.headers)`
+        : "const headers = this._headers({}, opts.headers)",
       queryString ? `const query = this._query({ ${queryString} })` : "",
       requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
     ]
@@ -93,7 +95,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         {
           name: "opts",
           type: "RequestInit",
-          required: false,
+          required: true,
+          default: "{}",
         },
       ],
       returnType: `TypedFetchResponse<${returnType}>`,
