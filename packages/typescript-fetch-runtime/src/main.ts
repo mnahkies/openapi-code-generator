@@ -57,8 +57,6 @@ export type QueryParams = {
 export type HeaderParams =
   | Record<string, string | number | undefined | null>
   | [string, string | number | undefined | null][]
-  | string[]
-  | string[][]
   | Headers
 
 // fetch HeadersInit type
@@ -174,6 +172,7 @@ export abstract class AbstractFetchClient {
      */
 
     const nullSet = new Set<string>()
+
     this.setHeaders(headers, optsHeaders, nullSet)
     this.setHeaders(headers, paramHeaders, nullSet)
     this.setHeaders(headers, this.defaultHeaders, nullSet)
@@ -196,14 +195,10 @@ export abstract class AbstractFetchClient {
     )
 
     for (const [headerName, headerValue] of filteredHeadersArray) {
-      if (headerValue === undefined) {
-        continue
-      }
-
       if (headerValue === null) {
         headers.delete(headerName)
         nullSet.add(headerName)
-      } else {
+      } else if (headerValue !== undefined) {
         headers.append(headerName, headerValue.toString())
       }
     }
@@ -211,15 +206,11 @@ export abstract class AbstractFetchClient {
 
   private headersAsArray(
     headers: HeaderParams | HeadersInit,
-  ): [string, string | number | undefined][] {
-    if (Array.isArray(headers)) {
-      if (isMultiDimArray(headers)) {
-        return headers.flatMap((it) =>
-          headerArrayToTuples<string>(it as unknown as string[]),
-        )
-      }
-
-      return headerArrayToTuples(headers)
+  ): [string, string | number | undefined | null][] {
+    if (isMultiDimArray(headers)) {
+      return headers.flatMap((it) =>
+        isNonEmptyArray(it) ? headerArrayToTuples(it) : [],
+      )
     }
 
     if (headers instanceof Headers) {
@@ -231,23 +222,38 @@ export abstract class AbstractFetchClient {
     }
 
     if (headers && typeof headers === "object") {
-      return Object.entries(headers)
+      const result: [string, string][] = []
+
+      for (const [headerName, values] of Object.entries(headers)) {
+        if (Array.isArray(values)) {
+          for (const value of values) {
+            result.push([headerName, value])
+          }
+        } else {
+          result.push([headerName, values])
+        }
+      }
+
+      return result
     }
 
-    return []
+    throw new Error(`couldn't process headers '${headers}'`)
   }
 }
 
-function isMultiDimArray<T>(arr: T[] | T[][]): arr is T[][] {
+function isMultiDimArray<T>(arr: unknown): arr is T[][] {
   return Array.isArray(arr) && Array.isArray(arr[0])
 }
 
-function headerArrayToTuples<T>(arr: T[]): [T, T][] {
-  const name = arr[0]
+type NonEmptyArray<T> = [T, ...T[]]
 
-  if (!name) {
-    return []
-  }
+function isNonEmptyArray<T>(it: T[]): it is NonEmptyArray<T> {
+  return Array.isArray(it) && it.length > 0
+}
 
-  return arr.slice(1).map((value) => [name, value])
+function headerArrayToTuples<T extends string | number | undefined | null>([
+  head,
+  ...rest
+]: [string, ...T[]]): [string, T][] {
+  return rest.map((value) => [head, value] as const)
 }

@@ -1,4 +1,4 @@
-import {describe, expect} from "@jest/globals"
+import {describe, expect, it} from "@jest/globals"
 import {
   AbstractFetchClient,
   type AbstractFetchClientConfig,
@@ -155,6 +155,7 @@ describe("main", () => {
           ["x-rate-limit", "10"],
         ])
       })
+
       it("ignores undefined values and lets the default apply", () => {
         const actual = getActual({
           defaultHeaders: {"X-Rate-Limit": "10"},
@@ -163,6 +164,39 @@ describe("main", () => {
 
         expect(Array.from(actual.entries())).toStrictEqual([
           ["x-rate-limit", "10"],
+        ])
+      })
+
+      it("applies tuple array headers", () => {
+        const actual = getActual({
+          defaultHeaders: {"X-Rate-Limit": "10"},
+          routeHeaders: [
+            ["X-Rate-Limit", 20],
+            ["Foo", "bar"],
+          ],
+        })
+
+        expect(Array.from(actual.entries())).toStrictEqual([
+          ["foo", "bar"],
+          ["x-rate-limit", "20"],
+        ])
+      })
+
+      it("applies Headers", () => {
+        const headers = new Headers()
+        headers.append("X-Rate-Limit", "20")
+        headers.append("Foo", "bar")
+        headers.append("Foo", "foobar")
+
+        const actual = getActual({
+          defaultHeaders: {"X-Rate-Limit": "10"},
+          routeHeaders: headers,
+        })
+
+        expect(Array.from(actual.entries())).toStrictEqual([
+          // Headers that aren't Set-Cookie get concatenated by the Headers built-in.
+          ["foo", "bar, foobar"],
+          ["x-rate-limit", "20"],
         ])
       })
     })
@@ -214,6 +248,28 @@ describe("main", () => {
           ],
           ["Foo", "bar"],
         ]
+
+        const actual = getActual({
+          defaultHeaders: {"X-Rate-Limit": "10"},
+          routeHeaders: {"X-Rate-Limit": undefined},
+          configHeaders: headers,
+        })
+
+        expect(Array.from(actual.entries())).toStrictEqual([
+          ["foo", "bar"],
+          ["set-cookie", "one=cookie-1; SameSite=None; Secure"],
+          ["set-cookie", "two=cookie-2; SameSite=None; Secure"],
+          ["x-rate-limit", "10"],
+        ])
+      })
+      it("can receive a Record<string, string|string[]> correctly", () => {
+        const headers = {
+          "Set-Cookie": [
+            "one=cookie-1; SameSite=None; Secure",
+            "two=cookie-2; SameSite=None; Secure",
+          ],
+          Foo: "bar",
+        }
 
         const actual = getActual({
           defaultHeaders: {"X-Rate-Limit": "10"},
