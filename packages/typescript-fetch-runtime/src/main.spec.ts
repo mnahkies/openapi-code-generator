@@ -25,7 +25,7 @@ class ConcreteFetchClient extends AbstractFetchClient {
   }
 }
 
-describe("main", () => {
+describe("typescript-fetch-runtime/main", () => {
   describe("_query", () => {
     const client = new ConcreteFetchClient({
       basePath: "http://localhost:8080",
@@ -115,7 +115,6 @@ describe("main", () => {
       it("can override default headers with config headers", () => {
         const actual = getActual({
           defaultHeaders: {Authorization: "Bearer: default"},
-          routeHeaders: {Authorization: "Bearer: route"},
           configHeaders: {Authorization: "Bearer: config"},
         })
 

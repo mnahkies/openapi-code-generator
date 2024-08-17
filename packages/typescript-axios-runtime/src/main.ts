@@ -41,6 +41,7 @@ export type QueryParams = {
   [name: string]:
     | string
     | number
+    | number[]
     | boolean
     | string[]
     | undefined
@@ -50,8 +51,8 @@ export type QueryParams = {
 }
 
 export type HeaderParams =
-  | Record<string, string | number | undefined>
-  | [string, string | number | undefined][]
+  | Record<string, string | number | undefined | null>
+  | [string, string | number | undefined | null][]
   | Headers
 
 export interface AbstractAxiosConfig {
@@ -75,7 +76,7 @@ export abstract class AbstractAxiosClient {
   }
 
   protected _request(opts: AxiosRequestConfig) {
-    const headers = opts.headers ?? this._headers()
+    const headers = opts.headers ?? this._headers(undefined, opts.headers)
 
     return this.axios.request({
       baseURL: this.basePath,
@@ -100,9 +101,12 @@ export abstract class AbstractAxiosClient {
 
   protected _headers(
     paramHeaders: HeaderParams = {},
-    optsHeaders: HeaderParams = {},
+    optsHeaders: AxiosRequestConfig["headers"] = {},
   ): RawAxiosRequestHeaders {
     const headers = new AxiosHeaders()
+
+    // axios doesn't know how to append headers, so we just apply
+    // from the lowest priority to highest.
 
     this.setHeaders(headers, this.defaultHeaders)
     this.setHeaders(headers, paramHeaders)
@@ -113,22 +117,22 @@ export abstract class AbstractAxiosClient {
 
   private setHeaders(
     headers: Pick<Headers, "set" | "delete">,
-    headersInit: HeaderParams,
+    headersInit: HeaderParams | AxiosRequestConfig["headers"],
   ) {
     const headersArray = this.headersAsArray(headersInit)
 
     for (const [headerName, headerValue] of headersArray) {
-      if (headerValue === undefined) {
+      if (headerValue === null) {
         headers.delete(headerName)
-      } else {
-        headers.set(headerName, headerValue.toString())
+      } else if (headerValue !== undefined) {
+        headers.set(headerName.toLowerCase(), headerValue.toString())
       }
     }
   }
 
   private headersAsArray(
-    headers: HeaderParams,
-  ): [string, string | number | undefined][] {
+    headers: HeaderParams | AxiosRequestConfig["headers"],
+  ): [string, string | number | undefined | null][] {
     if (Array.isArray(headers)) {
       return headers
     }

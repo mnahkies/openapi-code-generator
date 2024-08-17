@@ -62,7 +62,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
     const body = `
     const url = \`${routeToTemplateString(route)}\`
     ${[
-      headers ? `const headers = this._headers(${headers})` : "",
+      headers ? `const headers = this._headers(${headers}, opts.headers)` : "",
       queryString ? `const query = this._query({ ${queryString} })` : "",
       requestBodyParameter ? "const body = JSON.stringify(p.requestBody)" : "",
     ]
