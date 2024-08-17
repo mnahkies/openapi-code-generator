@@ -23,10 +23,13 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_getHeadersRequestJson200Response>> {
     const url = `/headers/request`
-    const headers = this._headers({
-      "route-level-header": p["routeLevelHeader"],
-      Authorization: p["authorization"],
-    })
+    const headers = this._headers(
+      {
+        "route-level-header": p["routeLevelHeader"],
+        Authorization: p["authorization"],
+      },
+      opts.headers,
+    )
 
     return this._request({
       url: url,

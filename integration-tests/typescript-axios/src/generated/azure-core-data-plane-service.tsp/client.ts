@@ -43,9 +43,10 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/service-status`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -108,16 +109,19 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -145,13 +149,16 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Widget>> {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -185,15 +192,18 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -218,9 +228,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidget>> {
     const url = `/widgets`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({
       "api-version": p["apiVersion"],
       top: p["top"],
@@ -252,13 +263,16 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -287,16 +301,19 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetAnalytics>> {
     const url = `/widgets/${p["widgetName"]}/analytics/current`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/merge-patch+json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -363,12 +380,15 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}:scheduleRepairs`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -427,16 +447,19 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -460,9 +483,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedWidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -489,13 +513,16 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_WidgetPart>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -524,15 +551,18 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -563,12 +593,15 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/widgets/${p["widgetName"]}/parts:reorderParts`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -626,16 +659,19 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/json",
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Content-Type": "application/json",
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -663,13 +699,16 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Manufacturer>> {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -703,15 +742,18 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/manufacturers/${p["manufacturerId"]}`
-    const headers = this._headers({
-      "Repeatability-Request-ID": p["repeatabilityRequestId"],
-      "Repeatability-First-Sent": p["repeatabilityFirstSent"],
-      "If-Match": p["ifMatch"],
-      "If-None-Match": p["ifNoneMatch"],
-      "If-Unmodified-Since": p["ifUnmodifiedSince"],
-      "If-Modified-Since": p["ifModifiedSince"],
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      {
+        "Repeatability-Request-ID": p["repeatabilityRequestId"],
+        "Repeatability-First-Sent": p["repeatabilityFirstSent"],
+        "If-Match": p["ifMatch"],
+        "If-None-Match": p["ifNoneMatch"],
+        "If-Unmodified-Since": p["ifUnmodifiedSince"],
+        "If-Modified-Since": p["ifModifiedSince"],
+        "x-ms-client-request-id": p["xMsClientRequestId"],
+      },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({
@@ -732,9 +774,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PagedManufacturer>> {
     const url = `/manufacturers`
-    const headers = this._headers({
-      "x-ms-client-request-id": p["xMsClientRequestId"],
-    })
+    const headers = this._headers(
+      { "x-ms-client-request-id": p["xMsClientRequestId"] },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
 
     return this._request({

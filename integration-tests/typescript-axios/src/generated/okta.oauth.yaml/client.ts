@@ -127,9 +127,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_BackchannelAuthorizeResponse>> {
     const url = `/oauth2/v1/bc/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -150,9 +151,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_ChallengeResponse>> {
     const url = `/oauth2/v1/challenge`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -197,7 +199,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Client>> {
     const url = `/oauth2/v1/clients`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -236,7 +241,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Client>> {
     const url = `/oauth2/v1/clients/${p["clientId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -291,9 +299,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_DeviceAuthorizeResponse>> {
     const url = `/oauth2/v1/device/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -314,7 +323,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/global-token-revocation`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -335,7 +347,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_IntrospectionResponse>> {
     const url = `/oauth2/v1/introspect`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -398,9 +413,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/logout`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -421,9 +437,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_OobAuthenticateResponse>> {
     const url = `/oauth2/v1/oob-authenticate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -444,7 +461,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/par`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
     return this._request({
       url: url,
@@ -463,7 +480,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_ParResponse>> {
     const url = `/oauth2/v1/par`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -484,7 +504,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/revoke`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -505,7 +528,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/v1/token`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
     return this._request({
       url: url,
@@ -524,9 +547,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TokenResponse>> {
     const url = `/oauth2/v1/token`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -659,9 +683,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_BackchannelAuthorizeResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/bc/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -683,9 +708,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_ChallengeResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/challenge`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -707,9 +733,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_DeviceAuthorizeResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/device/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -731,7 +758,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_IntrospectionResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/introspect`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -795,9 +825,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/logout`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -819,9 +850,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_OobAuthenticateResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -843,7 +875,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/par`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
     return this._request({
       url: url,
@@ -863,7 +895,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_ParResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/par`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -885,7 +920,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/revoke`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -907,7 +945,7 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/token`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
     return this._request({
       url: url,
@@ -927,9 +965,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_TokenResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/token`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({

@@ -38,9 +38,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators`
-    const headers = this._headers({
-      "Content-Type": "application/json, okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/json, okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -62,9 +63,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/json;okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/json;okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -86,9 +88,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_AppAuthenticatorEnrollment>> {
     const url = `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -236,7 +239,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Email>> {
     const url = `/idp/myaccount/emails`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -317,7 +323,10 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -383,7 +392,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}/verify`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -450,7 +462,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -475,7 +490,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_PasswordResponse>> {
     const url = `/idp/myaccount/password`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -530,7 +548,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Phone>> {
     const url = `/idp/myaccount/phones`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -600,7 +621,10 @@ export class ApiClient extends AbstractAxiosClient {
     }>
   > {
     const url = `/idp/myaccount/phones/${p["id"]}/challenge`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -624,7 +648,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
     const url = `/idp/myaccount/phones/${p["id"]}/verify`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({
@@ -661,7 +688,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Profile>> {
     const url = `/idp/myaccount/profile`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._request({

@@ -73,7 +73,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Employee>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -99,7 +102,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_Employee>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
@@ -185,7 +191,10 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_MoveResponse>> {
     const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}/move`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const query = this._query({ "api-version": p["apiVersion"] })
     const body = JSON.stringify(p.requestBody)
 
