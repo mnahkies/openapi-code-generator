@@ -46,6 +46,8 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.15",
+    "jest": "^30.0.0-alpha.6",
+    "typescript": "~5.5.4",
     "zod": "^3.23.8"
   },
   "files": [
