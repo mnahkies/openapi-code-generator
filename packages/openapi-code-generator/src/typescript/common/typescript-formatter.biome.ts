@@ -30,11 +30,7 @@ export class TypescriptFormatterBiome implements IFormatter {
 
   async format(filename: string, raw: string): Promise<string> {
     try {
-      const trimmed = raw
-        .split("\n")
-        .map((it) => it.trim())
-        .join("\n")
-      const formatted = this.biome.formatContent(trimmed, {
+      const formatted = this.biome.formatContent(raw, {
         filePath: filename,
       })
 
