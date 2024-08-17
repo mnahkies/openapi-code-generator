@@ -38,7 +38,7 @@
     "@biomejs/biome": "1.8.3",
     "@swc/core": "^1.7.11",
     "@swc/jest": "^0.2.36",
-    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/node22": "^22.0.0",
     "@tsconfig/strictest": "^2.0.5",
     "@types/node": "^22.4.0",
     "husky": "^9.1.4",
@@ -65,7 +65,7 @@
     ]
   },
   "engines": {
-    "node": ">=20 <22"
+    "node": ">=20 <23"
   },
   "packageManager": "yarn@4.4.0"
 }
