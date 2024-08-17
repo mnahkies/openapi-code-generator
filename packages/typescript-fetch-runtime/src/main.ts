@@ -55,10 +55,17 @@ export type QueryParams = {
 }
 
 export type HeaderParams =
-  | Record<string, string | number | undefined>
-  | [string, string | number | undefined][]
+  | Record<string, string | number | undefined | null>
+  | [string, string | number | undefined | null][]
   | string[]
   | string[][]
+  | Headers
+
+// fetch HeadersInit type
+export type HeadersInit =
+  | string[][]
+  | readonly (readonly [string, string])[]
+  | Record<string, string>
   | Headers
 
 export abstract class AbstractFetchClient {
@@ -155,9 +162,21 @@ export abstract class AbstractFetchClient {
   ): Headers {
     const headers = new Headers()
 
-    this.setHeaders(headers, this.defaultHeaders)
-    this.setHeaders(headers, paramHeaders)
-    this.setHeaders(headers, optsHeaders)
+    /*
+    This is pretty hideous, but basically we:
+    - Maintain a set of deleted headers, the nullSet
+    - Apply headers from most specific, to least
+    - Delete headers if we encounter a null value and note this in the nullSet
+
+    The primary reason is to enable the use of headers.append to support setting
+    the same header multiple times (aka `Set-Cookie`), whilst *also* allowing more
+    specific header sources to override all instances of the less specific source.
+     */
+
+    const nullSet = new Set<string>()
+    this.setHeaders(headers, optsHeaders, nullSet)
+    this.setHeaders(headers, paramHeaders, nullSet)
+    this.setHeaders(headers, this.defaultHeaders, nullSet)
 
     return headers
   }
@@ -165,18 +184,27 @@ export abstract class AbstractFetchClient {
   private setHeaders(
     headers: Headers,
     headersInit: HeaderParams | HeadersInit,
+    nullSet: Set<string>,
   ) {
     const headersArray = this.headersAsArray(headersInit)
 
-    for (const [headerName, headerValue] of headersArray) {
+    const filteredHeadersArray = headersArray.filter(
+      ([headerName, headerValue]) =>
+        !headers.has(headerName) &&
+        headerValue !== undefined &&
+        !nullSet.has(headerName),
+    )
+
+    for (const [headerName, headerValue] of filteredHeadersArray) {
       if (headerValue === undefined) {
         continue
       }
 
       if (headerValue === null) {
         headers.delete(headerName)
+        nullSet.add(headerName)
       } else {
-        headers.set(headerName, headerValue.toString())
+        headers.append(headerName, headerValue.toString())
       }
     }
   }
@@ -186,7 +214,9 @@ export abstract class AbstractFetchClient {
   ): [string, string | number | undefined][] {
     if (Array.isArray(headers)) {
       if (isMultiDimArray(headers)) {
-        return headers.flatMap(headerArrayToTuples) as [string, string][]
+        return headers.flatMap((it) =>
+          headerArrayToTuples<string>(it as unknown as string[]),
+        )
       }
 
       return headerArrayToTuples(headers)
