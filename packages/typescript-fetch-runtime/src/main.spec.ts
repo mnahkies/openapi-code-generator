@@ -1,18 +1,31 @@
 import {describe, expect} from "@jest/globals"
-import {AbstractFetchClient, type QueryParams} from "./main"
+import {
+  AbstractFetchClient,
+  type AbstractFetchClientConfig,
+  type HeaderParams,
+  type QueryParams,
+} from "./main"
 
 class ConcreteFetchClient extends AbstractFetchClient {
-  constructor() {
-    super({basePath: "", defaultHeaders: {}})
+  // biome-ignore lint/complexity/noUselessConstructor: <explanation>
+  constructor(config: AbstractFetchClientConfig) {
+    super(config)
   }
 
   query(params: QueryParams) {
     return this._query(params)
   }
+
+  headers(paramHeaders: HeaderParams = {}, optsHeaders: HeadersInit = {}) {
+    return this._headers(paramHeaders, optsHeaders)
+  }
 }
 
 describe("main", () => {
-  const client = new ConcreteFetchClient()
+  const client = new ConcreteFetchClient({
+    basePath: "http://localhost:8080",
+    defaultHeaders: {Authorization: "Bearer: default"},
+  })
 
   describe("_query", () => {
     it("returns an empty string when all params are undefined", () => {

@@ -1,5 +1,4 @@
 import qs from "qs"
-import {array} from "zod"
 
 // from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
 type Enumerate<
@@ -59,6 +58,7 @@ export type HeaderParams =
   | Record<string, string | number | undefined>
   | [string, string | number | undefined][]
   | string[]
+  | string[][]
   | Headers
 
 export abstract class AbstractFetchClient {
@@ -151,7 +151,7 @@ export abstract class AbstractFetchClient {
    */
   protected _headers(
     paramHeaders: HeaderParams = {},
-    optsHeaders: HeaderParams = {},
+    optsHeaders: HeadersInit = {},
   ): Headers {
     const headers = new Headers()
 
@@ -162,7 +162,10 @@ export abstract class AbstractFetchClient {
     return headers
   }
 
-  private setHeaders(headers: Headers, headersInit: HeaderParams) {
+  private setHeaders(
+    headers: Headers,
+    headersInit: HeaderParams | HeadersInit,
+  ) {
     const headersArray = this.headersAsArray(headersInit)
 
     for (const [headerName, headerValue] of headersArray) {
@@ -179,20 +182,14 @@ export abstract class AbstractFetchClient {
   }
 
   private headersAsArray(
-    headers: HeaderParams,
+    headers: HeaderParams | HeadersInit,
   ): [string, string | number | undefined][] {
     if (Array.isArray(headers)) {
       if (isMultiDimArray(headers)) {
-        return headers
+        return headers.flatMap(headerArrayToTuples) as [string, string][]
       }
 
-      const name = headers[0]
-
-      if (!name) {
-        return []
-      }
-
-      return headers.slice(1).map((value) => [name, value])
+      return headerArrayToTuples(headers)
     }
 
     if (headers instanceof Headers) {
@@ -213,4 +210,14 @@ export abstract class AbstractFetchClient {
 
 function isMultiDimArray<T>(arr: T[] | T[][]): arr is T[][] {
   return Array.isArray(arr) && Array.isArray(arr[0])
+}
+
+function headerArrayToTuples<T>(arr: T[]): [T, T][] {
+  const name = arr[0]
+
+  if (!name) {
+    return []
+  }
+
+  return arr.slice(1).map((value) => [name, value])
 }
