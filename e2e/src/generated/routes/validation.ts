@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import KoaRouter, {RouterContext} from "@koa/router"
+import {
+  t_GetValidationNumbersRandomNumberQuerySchema,
+  t_RandomNumber,
+} from "../models"
+import { s_RandomNumber } from "../schemas"
+import KoaRouter, { RouterContext } from "@koa/router"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -18,12 +23,7 @@ import {
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
-import {z} from "zod"
-import {
-  t_GetValidationNumbersRandomNumberQuerySchema,
-  t_RandomNumber,
-} from "../models"
-import {s_RandomNumber} from "../schemas"
+import { z } from "zod"
 
 export type GetValidationNumbersRandomNumberResponder = {
   with200(): KoaRuntimeResponse<t_RandomNumber>
@@ -85,7 +85,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           throw KoaRuntimeError.HandlerError(err)
         })
 
-      const {status, body} =
+      const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getValidationNumbersRandomNumberResponseValidator(status, body)

@@ -2,7 +2,7 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import {z} from "zod"
+import { z } from "zod"
 
 export const s_RandomNumber = z.object({
   result: z.coerce.number().optional(),

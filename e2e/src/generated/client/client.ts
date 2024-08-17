@@ -2,13 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { t_RandomNumber } from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-import {t_RandomNumber} from "./models"
 
 export interface ApiClientConfig extends AbstractFetchClientConfig {}
 
@@ -33,6 +33,6 @@ export class ApiClient extends AbstractFetchClient {
       forbidden: p["forbidden"],
     })
 
-    return this._fetch(url + query, {method: "GET", ...(opts ?? {})}, timeout)
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 }
