@@ -8,6 +8,7 @@
     "name": "Michael Nahkies",
     "email": "support@nahkies.co.nz"
   },
+  "homepage": "https://openapi-code-generator.nahkies.co.nz/",
   "repository": {
     "type": "git",
     "url": "https://github.com/mnahkies/openapi-code-generator.git"
