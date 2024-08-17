@@ -151,6 +151,7 @@ export const s_api_overview = z.object({
   actions: z.array(z.string()).optional(),
   actions_macos: z.array(z.string()).optional(),
   dependabot: z.array(z.string()).optional(),
+  copilot: z.array(z.string()).optional(),
   domains: z
     .object({
       website: z.array(z.string()).optional(),
@@ -464,13 +465,13 @@ export const s_code_scanning_alert_rule = z.object({
 export const s_code_scanning_alert_rule_summary = z.object({
   id: z.string().nullable().optional(),
   name: z.string().optional(),
-  tags: z.array(z.string()).nullable().optional(),
   severity: z.enum(["none", "note", "warning", "error"]).nullable().optional(),
   security_severity_level: z
     .enum(["low", "medium", "high", "critical"])
     .nullable()
     .optional(),
   description: z.string().optional(),
+  tags: z.array(z.string()).nullable().optional(),
 })
 
 export const s_code_scanning_alert_set_state = z.enum(["open", "dismissed"])
@@ -626,6 +627,12 @@ export const s_code_security_configuration = z.object({
   description: z.string().optional(),
   advanced_security: z.enum(["enabled", "disabled"]).optional(),
   dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  dependency_graph_autosubmit_action: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  dependency_graph_autosubmit_action_options: z
+    .object({ labeled_runners: PermissiveBoolean.optional() })
+    .optional(),
   dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
   dependabot_security_updates: z
     .enum(["enabled", "disabled", "not_set"])
@@ -920,6 +927,23 @@ export const s_custom_deployment_rule_app = z.object({
   slug: z.string(),
   integration_url: z.string(),
   node_id: z.string(),
+})
+
+export const s_custom_property = z.object({
+  property_name: z.string(),
+  url: z.string().optional(),
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
+  required: PermissiveBoolean.optional(),
+  default_value: z
+    .union([z.string(), z.array(z.string())])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
+  values_editable_by: z
+    .enum(["org_actors", "org_and_repo_actors"])
+    .nullable()
+    .optional(),
 })
 
 export const s_custom_property_value = z.object({
@@ -1710,22 +1734,6 @@ export const s_oidc_custom_sub_repo = z.object({
   include_claim_keys: z.array(z.string()).optional(),
 })
 
-export const s_org_custom_property = z.object({
-  property_name: z.string(),
-  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
-  required: PermissiveBoolean.optional(),
-  default_value: z
-    .union([z.string(), z.array(z.string())])
-    .nullable()
-    .optional(),
-  description: z.string().nullable().optional(),
-  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
-  values_editable_by: z
-    .enum(["org_actors", "org_and_repo_actors"])
-    .nullable()
-    .optional(),
-})
-
 export const s_org_hook = z.object({
   id: z.coerce.number(),
   url: z.string(),
@@ -1743,46 +1751,6 @@ export const s_org_hook = z.object({
   updated_at: z.string().datetime({ offset: true }),
   created_at: z.string().datetime({ offset: true }),
   type: z.string(),
-})
-
-export const s_organization = z.object({
-  login: z.string(),
-  url: z.string(),
-  id: z.coerce.number(),
-  node_id: z.string(),
-  repos_url: z.string(),
-  events_url: z.string(),
-  hooks_url: z.string(),
-  issues_url: z.string(),
-  members_url: z.string(),
-  public_members_url: z.string(),
-  avatar_url: z.string(),
-  description: z.string().nullable(),
-  blog: z.string().optional(),
-  html_url: z.string(),
-  name: z.string().optional(),
-  company: z.string().optional(),
-  location: z.string().optional(),
-  email: z.string().email().optional(),
-  has_organization_projects: PermissiveBoolean,
-  has_repository_projects: PermissiveBoolean,
-  is_verified: PermissiveBoolean.optional(),
-  public_repos: z.coerce.number(),
-  public_gists: z.coerce.number(),
-  followers: z.coerce.number(),
-  following: z.coerce.number(),
-  type: z.string(),
-  created_at: z.string().datetime({ offset: true }),
-  updated_at: z.string().datetime({ offset: true }),
-  plan: z
-    .object({
-      name: z.string().optional(),
-      space: z.coerce.number().optional(),
-      private_repos: z.coerce.number().optional(),
-      filled_seats: z.coerce.number().optional(),
-      seats: z.coerce.number().optional(),
-    })
-    .optional(),
 })
 
 export const s_organization_actions_secret = z.object({
@@ -2448,6 +2416,7 @@ export const s_repository_ruleset_bypass_actor = z.object({
     "RepositoryRole",
     "Team",
     "DeployKey",
+    "EnterpriseTeam",
   ]),
   bypass_mode: z.enum(["always", "pull_request"]),
 })
@@ -2703,6 +2672,15 @@ export const s_secret_scanning_location_wiki_commit = z.object({
   commit_sha: z.string(),
   commit_url: z.string(),
 })
+
+export const s_secret_scanning_push_protection_bypass_placeholder_id =
+  z.string()
+
+export const s_secret_scanning_push_protection_bypass_reason = z.enum([
+  "false_positive",
+  "used_in_tests",
+  "will_fix_later",
+])
 
 export const s_security_advisory_credit_types = z.enum([
   "analyst",
@@ -3348,6 +3326,22 @@ export const s_code_scanning_sarifs_receipt = z.object({
 export const s_code_scanning_variant_analysis_skipped_repo_group = z.object({
   repository_count: z.coerce.number(),
   repositories: z.array(s_code_scanning_variant_analysis_repository),
+})
+
+export const s_code_security_configuration_for_repository = z.object({
+  status: z
+    .enum([
+      "attached",
+      "attaching",
+      "detached",
+      "removed",
+      "enforced",
+      "failed",
+      "updating",
+      "removed_by_enterprise",
+    ])
+    .optional(),
+  configuration: s_code_security_configuration.optional(),
 })
 
 export const s_commit = z.object({
@@ -4827,6 +4821,12 @@ export const s_secret_scanning_location = z.object({
     .optional(),
 })
 
+export const s_secret_scanning_push_protection_bypass = z.object({
+  reason: s_secret_scanning_push_protection_bypass_reason.optional(),
+  expire_at: z.string().datetime({ offset: true }).nullable().optional(),
+  token_type: z.string().optional(),
+})
+
 export const s_simple_classroom_assignment = z.object({
   id: z.coerce.number(),
   public_repo: PermissiveBoolean,
@@ -5744,7 +5744,7 @@ export const s_converted_note_to_issue_issue_event = z.object({
 })
 
 export const s_copilot_seat_details = z.object({
-  assignee: z.union([s_simple_user, s_team, s_organization]),
+  assignee: s_simple_user,
   organization: s_organization_simple.nullable().optional(),
   assigning_team: z.union([s_team, s_enterprise_team]).nullable().optional(),
   pending_cancellation_date: z.string().nullable().optional(),

@@ -73,6 +73,7 @@ import {
   t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
   t_code_security_configuration,
+  t_code_security_configuration_for_repository,
   t_code_security_configuration_repositories,
   t_code_security_default_configurations,
   t_codeowners_errors,
@@ -105,6 +106,7 @@ import {
   t_copilot_seat_details,
   t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
+  t_custom_property,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -174,7 +176,6 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
-  t_org_custom_property,
   t_org_hook,
   t_org_membership,
   t_org_repo_custom_property_values,
@@ -255,6 +256,9 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_secret_scanning_push_protection_bypass,
+  t_secret_scanning_push_protection_bypass_placeholder_id,
+  t_secret_scanning_push_protection_bypass_reason,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -1084,6 +1088,39 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async copilotUsageMetricsForEnterpriseTeam(
+    p: {
+      enterprise: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
@@ -3337,6 +3374,10 @@ export class ApiClient extends AbstractFetchClient {
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
         description: string
         enforcement?: "enforced" | "unenforced"
         name: string
@@ -3442,6 +3483,10 @@ export class ApiClient extends AbstractFetchClient {
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
         description?: string
         enforcement?: "enforced" | "unenforced"
         name?: string
@@ -6090,7 +6135,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property[]>
+      | Res<200, t_custom_property[]>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -6104,14 +6149,14 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        properties: t_org_custom_property[]
+        properties: t_custom_property[]
       }
     },
     timeout?: number,
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property[]>
+      | Res<200, t_custom_property[]>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -6136,7 +6181,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property>
+      | Res<200, t_custom_property>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -6164,7 +6209,7 @@ export class ApiClient extends AbstractFetchClient {
     opts?: RequestInit,
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property>
+      | Res<200, t_custom_property>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -6721,6 +6766,38 @@ export class ApiClient extends AbstractFetchClient {
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async copilotUsageMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
   }
 
   async teamsList(
@@ -11894,6 +11971,29 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
+
+    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async codeSecurityGetConfigurationForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration_for_repository>
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`
 
     return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
   }
@@ -17780,6 +17880,7 @@ export class ApiClient extends AbstractFetchClient {
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_content_file>
+      | Res<304, void>
       | Res<404, t_basic_error>
       | Res<422, t_validation_error>
     >
@@ -18542,6 +18643,46 @@ export class ApiClient extends AbstractFetchClient {
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
     return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+  }
+
+  async secretScanningCreatePushProtectionBypass(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+        reason: t_secret_scanning_push_protection_bypass_reason
+      }
+    },
+    timeout?: number,
+    opts?: RequestInit,
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_push_protection_bypass>
+      | Res<403, void>
+      | Res<404, void>
+      | Res<422, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "POST", headers, body, ...(opts ?? {}) },
+      timeout,
+    )
   }
 
   async securityAdvisoriesListRepositoryAdvisories(

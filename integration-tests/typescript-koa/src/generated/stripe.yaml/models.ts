@@ -690,6 +690,17 @@ export type t_bank_connections_resource_transaction_resource_status_transitions 
     void_at?: number | null
   }
 
+export type t_billing_alert = {
+  alert_type: "usage_threshold"
+  filter?: t_thresholds_resource_alert_filter | null
+  id: string
+  livemode: boolean
+  object: "billing.alert"
+  status?: "active" | "archived" | "inactive" | null
+  title: string
+  usage_threshold_config?: t_thresholds_resource_usage_threshold_config | null
+}
+
 export type t_billing_meter = {
   created: number
   customer_mapping: t_billing_meter_resource_customer_mapping_settings
@@ -2864,6 +2875,7 @@ export type t_identity_verification_session = {
   options?: t_gelato_verification_session_options | null
   provided_details?: t_gelato_provided_details | null
   redaction?: t_verification_session_redaction | null
+  related_customer?: string | null
   status: "canceled" | "processing" | "requires_input" | "verified"
   type: "document" | "id_number" | "verification_flow"
   url?: string | null
@@ -3500,7 +3512,7 @@ export type t_issuing_settlement = {
     [key: string]: string | undefined
   }
   net_total: number
-  network: "visa"
+  network: "maestro" | "visa"
   network_fees: number
   network_settlement_identifier: string
   object: "issuing.settlement"
@@ -6347,6 +6359,11 @@ export type t_payment_flows_private_payment_methods_card_details_api_resource_mu
     status: "available" | "unavailable"
   }
 
+export type t_payment_flows_private_payment_methods_card_present_common_wallet =
+  {
+    type: "apple_pay" | "google_pay" | "samsung_pay" | "unknown"
+  }
+
 export type t_payment_flows_private_payment_methods_klarna_dob = {
   day?: number | null
   month?: number | null
@@ -6622,7 +6639,7 @@ export type t_payment_intent_payment_method_options = {
     | t_payment_intent_payment_method_options_au_becs_debit
     | t_payment_intent_type_specific_payment_method_options_client
   bacs_debit?:
-    | t_payment_method_options_bacs_debit
+    | t_payment_intent_payment_method_options_bacs_debit
     | t_payment_intent_type_specific_payment_method_options_client
   bancontact?:
     | t_payment_method_options_bancontact
@@ -6732,6 +6749,11 @@ export type t_payment_intent_payment_method_options_au_becs_debit = {
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
+export type t_payment_intent_payment_method_options_bacs_debit = {
+  mandate_options?: t_payment_intent_payment_method_options_mandate_options_bacs_debit
+  setup_future_usage?: "none" | "off_session" | "on_session"
+}
+
 export type t_payment_intent_payment_method_options_blik = {
   setup_future_usage?: "none"
 }
@@ -6746,6 +6768,7 @@ export type t_payment_intent_payment_method_options_card = {
     | "diners"
     | "discover"
     | "eftpos_au"
+    | "girocard"
     | "interac"
     | "jcb"
     | "mastercard"
@@ -6780,6 +6803,9 @@ export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
     payment_schedule?: "combined" | "interval" | "sporadic" | null
     transaction_type?: "business" | "personal" | null
   }
+
+export type t_payment_intent_payment_method_options_mandate_options_bacs_debit =
+  EmptyObject
 
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
   EmptyObject
@@ -7460,6 +7486,7 @@ export type t_payment_method_card_present = {
   issuer?: string | null
   last4?: string | null
   networks?: t_payment_method_card_present_networks | null
+  offline?: t_payment_method_details_card_present_offline | null
   preferred_locales?: string[] | null
   read_method?:
     | "contact_emv"
@@ -7468,6 +7495,7 @@ export type t_payment_method_card_present = {
     | "magnetic_stripe_fallback"
     | "magnetic_stripe_track2"
     | null
+  wallet?: t_payment_flows_private_payment_methods_card_present_common_wallet
 }
 
 export type t_payment_method_card_present_networks = {
@@ -7710,6 +7738,7 @@ export type t_payment_method_details_boleto = {
 
 export type t_payment_method_details_card = {
   amount_authorized?: number | null
+  authorization_code?: string | null
   brand?: string | null
   capture_before?: number
   checks?: t_payment_method_details_card_checks | null
@@ -7781,10 +7810,12 @@ export type t_payment_method_details_card_present = {
     | "magnetic_stripe_track2"
     | null
   receipt?: t_payment_method_details_card_present_receipt | null
+  wallet?: t_payment_flows_private_payment_methods_card_present_common_wallet
 }
 
 export type t_payment_method_details_card_present_offline = {
   stored_at?: number | null
+  type?: "deferred" | null
 }
 
 export type t_payment_method_details_card_present_receipt = {
@@ -8320,10 +8351,6 @@ export type t_payment_method_options_alipay = {
 export type t_payment_method_options_amazon_pay = {
   capture_method?: "manual"
   setup_future_usage?: "none" | "off_session"
-}
-
-export type t_payment_method_options_bacs_debit = {
-  setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
 export type t_payment_method_options_bancontact = {
@@ -9169,7 +9196,7 @@ export type t_person_additional_tos_acceptance = {
 }
 
 export type t_person_additional_tos_acceptances = {
-  account: t_person_additional_tos_acceptance
+  account?: t_person_additional_tos_acceptance | null
 }
 
 export type t_person_future_requirements = {
@@ -10074,6 +10101,9 @@ export type t_setup_intent_payment_method_options = {
   amazon_pay?:
     | t_setup_intent_payment_method_options_amazon_pay
     | t_setup_intent_type_specific_payment_method_options_client
+  bacs_debit?:
+    | t_setup_intent_payment_method_options_bacs_debit
+    | t_setup_intent_type_specific_payment_method_options_client
   card?:
     | t_setup_intent_payment_method_options_card
     | t_setup_intent_type_specific_payment_method_options_client
@@ -10102,6 +10132,10 @@ export type t_setup_intent_payment_method_options_acss_debit = {
 
 export type t_setup_intent_payment_method_options_amazon_pay = EmptyObject
 
+export type t_setup_intent_payment_method_options_bacs_debit = {
+  mandate_options?: t_setup_intent_payment_method_options_mandate_options_bacs_debit
+}
+
 export type t_setup_intent_payment_method_options_card = {
   mandate_options?: t_setup_intent_payment_method_options_card_mandate_options | null
   network?:
@@ -10110,6 +10144,7 @@ export type t_setup_intent_payment_method_options_card = {
     | "diners"
     | "discover"
     | "eftpos_au"
+    | "girocard"
     | "interac"
     | "jcb"
     | "mastercard"
@@ -10144,6 +10179,9 @@ export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   payment_schedule?: "combined" | "interval" | "sporadic" | null
   transaction_type?: "business" | "personal" | null
 }
+
+export type t_setup_intent_payment_method_options_mandate_options_bacs_debit =
+  EmptyObject
 
 export type t_setup_intent_payment_method_options_mandate_options_sepa_debit =
   EmptyObject
@@ -10740,6 +10778,7 @@ export type t_subscription_payment_method_options_card = {
     | "diners"
     | "discover"
     | "eftpos_au"
+    | "girocard"
     | "interac"
     | "jcb"
     | "mastercard"
@@ -11774,6 +11813,16 @@ export type t_three_d_secure_usage = {
   supported: boolean
 }
 
+export type t_thresholds_resource_alert_filter = {
+  customer?: string | t_customer | null
+}
+
+export type t_thresholds_resource_usage_threshold_config = {
+  gte: number
+  meter: string | t_billing_meter
+  recurrence: "one_time"
+}
+
 export type t_token = {
   bank_account?: t_bank_account
   card?: t_card
@@ -11919,6 +11968,7 @@ export type t_treasury_financial_account = {
     | "card_issuing"
     | "deposit_insurance"
     | "financial_addresses.aba"
+    | "financial_addresses.aba.forwarding"
     | "inbound_transfers.ach"
     | "intra_stripe_flows"
     | "outbound_payments.ach"
@@ -11942,6 +11992,7 @@ export type t_treasury_financial_account = {
     | "card_issuing"
     | "deposit_insurance"
     | "financial_addresses.aba"
+    | "financial_addresses.aba.forwarding"
     | "inbound_transfers.ach"
     | "intra_stripe_flows"
     | "outbound_payments.ach"
@@ -11955,6 +12006,7 @@ export type t_treasury_financial_account = {
     | "card_issuing"
     | "deposit_insurance"
     | "financial_addresses.aba"
+    | "financial_addresses.aba.forwarding"
     | "inbound_transfers.ach"
     | "intra_stripe_flows"
     | "outbound_payments.ach"
@@ -12343,7 +12395,8 @@ export type t_treasury_outbound_payments_resource_returned_status = {
 
 export type t_treasury_outbound_payments_resource_us_domestic_wire_tracking_details =
   {
-    imad: string
+    chips?: string | null
+    imad?: string | null
     omad?: string | null
   }
 
@@ -12382,7 +12435,8 @@ export type t_treasury_outbound_transfers_resource_status_transitions = {
 
 export type t_treasury_outbound_transfers_resource_us_domestic_wire_tracking_details =
   {
-    imad: string
+    chips?: string | null
+    imad?: string | null
     omad?: string | null
   }
 
@@ -13104,6 +13158,27 @@ export type t_GetBalanceTransactionsIdParamSchema = {
 }
 
 export type t_GetBalanceTransactionsIdQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetBillingAlertsBodySchema = EmptyObject
+
+export type t_GetBillingAlertsQuerySchema = {
+  alert_type?: "usage_threshold"
+  ending_before?: string
+  expand?: string[]
+  limit?: number
+  meter?: string
+  starting_after?: string
+}
+
+export type t_GetBillingAlertsIdBodySchema = EmptyObject
+
+export type t_GetBillingAlertsIdParamSchema = {
+  id: string
+}
+
+export type t_GetBillingAlertsIdQuerySchema = {
   expand?: string[]
 }
 
@@ -14186,6 +14261,7 @@ export type t_GetIdentityVerificationSessionsQuerySchema = {
   ending_before?: string
   expand?: string[]
   limit?: number
+  related_customer?: string
   starting_after?: string
   status?: "canceled" | "processing" | "requires_input" | "verified"
 }
@@ -16271,6 +16347,16 @@ export type t_GetSubscriptionsSubscriptionExposedIdParamSchema = {
 }
 
 export type t_GetSubscriptionsSubscriptionExposedIdQuerySchema = {
+  expand?: string[]
+}
+
+export type t_GetTaxCalculationsCalculationBodySchema = EmptyObject
+
+export type t_GetTaxCalculationsCalculationParamSchema = {
+  calculation: string
+}
+
+export type t_GetTaxCalculationsCalculationQuerySchema = {
   expand?: string[]
 }
 
@@ -18527,6 +18613,44 @@ export type t_PostAppsSecretsDeleteBodySchema = {
   }
 }
 
+export type t_PostBillingAlertsBodySchema = {
+  alert_type: "usage_threshold"
+  expand?: string[]
+  filter?: {
+    customer?: string
+  }
+  title: string
+  usage_threshold_config?: {
+    gte: number
+    meter?: string
+    recurrence: "one_time"
+  }
+}
+
+export type t_PostBillingAlertsIdActivateBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostBillingAlertsIdActivateParamSchema = {
+  id: string
+}
+
+export type t_PostBillingAlertsIdArchiveBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostBillingAlertsIdArchiveParamSchema = {
+  id: string
+}
+
+export type t_PostBillingAlertsIdDeactivateBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostBillingAlertsIdDeactivateParamSchema = {
+  id: string
+}
+
 export type t_PostBillingMeterEventAdjustmentsBodySchema = {
   cancel?: {
     identifier?: string
@@ -20718,6 +20842,7 @@ export type t_PostCustomersCustomerSubscriptionsBodySchema = {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -20970,6 +21095,7 @@ export type t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema 
                 | "diners"
                 | "discover"
                 | "eftpos_au"
+                | "girocard"
                 | "interac"
                 | "jcb"
                 | "mastercard"
@@ -21387,6 +21513,7 @@ export type t_PostIdentityVerificationSessionsBodySchema = {
     email?: string
     phone?: string
   }
+  related_customer?: string
   return_url?: string
   type?: "document" | "id_number"
   verification_flow?: string
@@ -21589,8 +21716,8 @@ export type t_PostInvoicesBodySchema = {
               enabled?: boolean
               plan?:
                 | {
-                    count: number
-                    interval: "month"
+                    count?: number
+                    interval?: "month"
                     type: "fixed_count"
                   }
                 | ""
@@ -22115,8 +22242,8 @@ export type t_PostInvoicesInvoiceBodySchema = {
               enabled?: boolean
               plan?:
                 | {
-                    count: number
-                    interval: "month"
+                    count?: number
+                    interval?: "month"
                     type: "fixed_count"
                   }
                 | ""
@@ -27036,6 +27163,7 @@ export type t_PostPaymentIntentsBodySchema = {
       | ""
     bacs_debit?:
       | {
+          mandate_options?: EmptyObject
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
@@ -27065,8 +27193,8 @@ export type t_PostPaymentIntentsBodySchema = {
             enabled?: boolean
             plan?:
               | {
-                  count: number
-                  interval: "month"
+                  count?: number
+                  interval?: "month"
                   type: "fixed_count"
                 }
               | ""
@@ -27088,6 +27216,7 @@ export type t_PostPaymentIntentsBodySchema = {
             | "diners"
             | "discover"
             | "eftpos_au"
+            | "girocard"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -27719,6 +27848,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       | ""
     bacs_debit?:
       | {
+          mandate_options?: EmptyObject
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
@@ -27748,8 +27878,8 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             enabled?: boolean
             plan?:
               | {
-                  count: number
-                  interval: "month"
+                  count?: number
+                  interval?: "month"
                   type: "fixed_count"
                 }
               | ""
@@ -27771,6 +27901,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             | "diners"
             | "discover"
             | "eftpos_au"
+            | "girocard"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -28462,6 +28593,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       | ""
     bacs_debit?:
       | {
+          mandate_options?: EmptyObject
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
         }
       | ""
@@ -28491,8 +28623,8 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             enabled?: boolean
             plan?:
               | {
-                  count: number
-                  interval: "month"
+                  count?: number
+                  interval?: "month"
                   type: "fixed_count"
                 }
               | ""
@@ -28514,6 +28646,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             | "diners"
             | "discover"
             | "eftpos_au"
+            | "girocard"
             | "interac"
             | "jcb"
             | "mastercard"
@@ -32093,6 +32226,9 @@ export type t_PostSetupIntentsBodySchema = {
       verification_method?: "automatic" | "instant" | "microdeposits"
     }
     amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: EmptyObject
+    }
     card?: {
       mandate_options?: {
         amount: number
@@ -32112,6 +32248,7 @@ export type t_PostSetupIntentsBodySchema = {
         | "diners"
         | "discover"
         | "eftpos_au"
+        | "girocard"
         | "interac"
         | "jcb"
         | "mastercard"
@@ -32428,6 +32565,9 @@ export type t_PostSetupIntentsIntentBodySchema = {
       verification_method?: "automatic" | "instant" | "microdeposits"
     }
     amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: EmptyObject
+    }
     card?: {
       mandate_options?: {
         amount: number
@@ -32447,6 +32587,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
         | "diners"
         | "discover"
         | "eftpos_au"
+        | "girocard"
         | "interac"
         | "jcb"
         | "mastercard"
@@ -32783,6 +32924,9 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       verification_method?: "automatic" | "instant" | "microdeposits"
     }
     amazon_pay?: EmptyObject
+    bacs_debit?: {
+      mandate_options?: EmptyObject
+    }
     card?: {
       mandate_options?: {
         amount: number
@@ -32802,6 +32946,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
         | "diners"
         | "discover"
         | "eftpos_au"
+        | "girocard"
         | "interac"
         | "jcb"
         | "mastercard"
@@ -33656,6 +33801,7 @@ export type t_PostSubscriptionsBodySchema = {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -33905,6 +34051,7 @@ export type t_PostSubscriptionsSubscriptionExposedIdBodySchema = {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
               | "mastercard"
@@ -35873,6 +36020,18 @@ export type t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignR
     personalization_design: string
   }
 
+export type t_PostTestHelpersIssuingSettlementsBodySchema = {
+  bin: string
+  clearing_date: number
+  currency: string
+  expand?: string[]
+  interchange_fees?: number
+  net_total: number
+  network_settlement_identifier?: string
+  transaction_count?: number
+  transaction_volume?: number
+}
+
 export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
   amount: number
   card: string
@@ -36742,6 +36901,7 @@ export type t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema = {
     }
     type: "ach" | "us_domestic_wire"
     us_domestic_wire?: {
+      chips?: string
       imad?: string
       omad?: string
     }
@@ -36798,6 +36958,7 @@ export type t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema
       }
       type: "ach" | "us_domestic_wire"
       us_domestic_wire?: {
+        chips?: string
         imad?: string
         omad?: string
       }
@@ -37679,6 +37840,7 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "application_fee.refund.updated"
     | "application_fee.refunded"
     | "balance.available"
+    | "billing.alert.triggered"
     | "billing_portal.configuration.created"
     | "billing_portal.configuration.updated"
     | "billing_portal.session.created"
@@ -37930,6 +38092,7 @@ export type t_PostWebhookEndpointsWebhookEndpointBodySchema = {
     | "application_fee.refund.updated"
     | "application_fee.refunded"
     | "balance.available"
+    | "billing.alert.triggered"
     | "billing_portal.configuration.created"
     | "billing_portal.configuration.updated"
     | "billing_portal.session.created"
