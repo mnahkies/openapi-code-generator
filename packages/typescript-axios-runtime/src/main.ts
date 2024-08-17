@@ -99,6 +99,27 @@ export abstract class AbstractAxiosClient {
     })}`
   }
 
+  /**
+   * Combines headers for a request, with precedence
+   * 1. default headers
+   * 2. route level header parameters
+   * 3. raw request config (escape hatch)
+   *
+   * following these rules:
+   * - header values of `undefined` are skipped
+   * - header values of `null` will remove/delete any previously set headers
+   *
+   * Eg:
+   * Passing `Authorization: null` as a parameter, will clear out any
+   * default `Authorization` header.
+   *
+   * But passing `Authorization: undefined` as parameter will fallthrough
+   * to the default `Authorization` header.
+   *
+   * @param paramHeaders
+   * @param optsHeaders
+   * @protected
+   */
   protected _headers(
     paramHeaders: HeaderParams = {},
     optsHeaders: AxiosRequestConfig["headers"] = {},
