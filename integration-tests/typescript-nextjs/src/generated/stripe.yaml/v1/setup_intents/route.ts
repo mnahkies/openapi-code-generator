@@ -69,7 +69,12 @@ const getSetupIntentsQuerySchema = z.object({
     .optional(),
   customer: z.string().max(5000).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   payment_method: z.string().max(5000).optional(),
   starting_after: z.string().max(5000).optional(),
@@ -322,6 +327,7 @@ const postSetupIntentsBodySchema = z
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -370,6 +376,7 @@ const postSetupIntentsBodySchema = z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -392,6 +399,7 @@ const postSetupIntentsBodySchema = z
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -402,6 +410,7 @@ const postSetupIntentsBodySchema = z
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
@@ -445,6 +454,9 @@ const postSetupIntentsBodySchema = z
           })
           .optional(),
         amazon_pay: z.object({}).optional(),
+        bacs_debit: z
+          .object({ mandate_options: z.object({}).optional() })
+          .optional(),
         card: z
           .object({
             mandate_options: z
@@ -468,6 +480,7 @@ const postSetupIntentsBodySchema = z
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -518,6 +531,13 @@ const postSetupIntentsBodySchema = z
           .object({
             financial_connections: z
               .object({
+                filters: z
+                  .object({
+                    account_subcategories: z
+                      .array(z.enum(["checking", "savings"]))
+                      .optional(),
+                  })
+                  .optional(),
                 permissions: z
                   .array(
                     z.enum([

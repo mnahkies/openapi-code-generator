@@ -60,7 +60,12 @@ const getIdentityVerificationSessionsSessionParamSchema = z.object({
 })
 
 const getIdentityVerificationSessionsSessionQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getIdentityVerificationSessionsSessionBodySchema = z.object({}).optional()
@@ -133,18 +138,6 @@ const postIdentityVerificationSessionsSessionBodySchema = z
               require_live_capture: PermissiveBoolean.optional(),
               require_matching_selfie: PermissiveBoolean.optional(),
             }),
-            z.enum([""]),
-          ])
-          .optional(),
-        email: z
-          .union([
-            z.object({ require_verification: PermissiveBoolean.optional() }),
-            z.enum([""]),
-          ])
-          .optional(),
-        phone: z
-          .union([
-            z.object({ require_verification: PermissiveBoolean.optional() }),
             z.enum([""]),
           ])
           .optional(),

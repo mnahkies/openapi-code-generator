@@ -26,7 +26,7 @@ export type SendPhoneChallengeResponder = {
     _links?: {
       verify?: {
         hints: {
-          allow: string[]
+          allow: "GET"[]
         }
         href: string
       }
@@ -83,7 +83,7 @@ export const _POST =
           _links?: {
             verify?: {
               hints: {
-                allow: string[]
+                allow: "GET"[]
               }
               href: string
             }

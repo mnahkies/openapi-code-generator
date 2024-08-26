@@ -24,6 +24,7 @@ import { z } from "zod"
 
 export type ReposGetReadmeResponder = {
   with200(): KoaRuntimeResponse<t_content_file>
+  with304(): KoaRuntimeResponse<void>
   with404(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
@@ -69,6 +70,9 @@ export const _GET =
     const responder = {
       with200() {
         return new KoaRuntimeResponse<t_content_file>(200)
+      },
+      with304() {
+        return new KoaRuntimeResponse<void>(304)
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)

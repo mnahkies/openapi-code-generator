@@ -134,7 +134,12 @@ const getTerminalConfigurationsConfigurationParamSchema = z.object({
 })
 
 const getTerminalConfigurationsConfigurationQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getTerminalConfigurationsConfigurationBodySchema = z.object({}).optional()
@@ -207,6 +212,23 @@ const postTerminalConfigurationsConfigurationBodySchema = z
     name: z.string().max(100).optional(),
     offline: z
       .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+      .optional(),
+    reboot_window: z
+      .union([
+        z.object({
+          end_hour: z.coerce.number(),
+          start_hour: z.coerce.number(),
+        }),
+        z.enum([""]),
+      ])
+      .optional(),
+    stripe_s700: z
+      .union([
+        z.object({
+          splashscreen: z.union([z.string(), z.enum([""])]).optional(),
+        }),
+        z.enum([""]),
+      ])
       .optional(),
     tipping: z
       .union([

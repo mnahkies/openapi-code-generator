@@ -21,7 +21,6 @@ import { z } from "zod"
 
 export type OrgsAddSecurityManagerTeamResponder = {
   with204(): KoaRuntimeResponse<void>
-  with409(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
 export type OrgsAddSecurityManagerTeam = (
@@ -65,9 +64,6 @@ export const _PUT =
     const responder = {
       with204() {
         return new KoaRuntimeResponse<void>(204)
-      },
-      with409() {
-        return new KoaRuntimeResponse<void>(409)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

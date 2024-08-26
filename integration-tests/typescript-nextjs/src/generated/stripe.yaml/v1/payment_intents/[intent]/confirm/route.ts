@@ -241,6 +241,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -289,6 +290,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -311,6 +313,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -321,6 +324,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
@@ -419,6 +423,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
         bacs_debit: z
           .union([
             z.object({
+              mandate_options: z.object({}).optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -468,8 +473,8 @@ const postPaymentIntentsIntentConfirmBodySchema = z
                   plan: z
                     .union([
                       z.object({
-                        count: z.coerce.number(),
-                        interval: z.enum(["month"]),
+                        count: z.coerce.number().optional(),
+                        interval: z.enum(["month"]).optional(),
                         type: z.enum(["fixed_count"]),
                       }),
                       z.enum([""]),
@@ -503,6 +508,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
                   "diners",
                   "discover",
                   "eftpos_au",
+                  "girocard",
                   "interac",
                   "jcb",
                   "mastercard",
@@ -570,6 +576,13 @@ const postPaymentIntentsIntentConfirmBodySchema = z
               request_extended_authorization: PermissiveBoolean.optional(),
               request_incremental_authorization_support:
                 PermissiveBoolean.optional(),
+              routing: z
+                .object({
+                  requested_priority: z
+                    .enum(["domestic", "international"])
+                    .optional(),
+                })
+                .optional(),
             }),
             z.enum([""]),
           ])
@@ -688,6 +701,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
                   "en-NZ",
                   "en-PL",
                   "en-PT",
+                  "en-RO",
                   "en-SE",
                   "en-US",
                   "es-ES",
@@ -704,6 +718,7 @@ const postPaymentIntentsIntentConfirmBodySchema = z
                   "nl-NL",
                   "pl-PL",
                   "pt-PT",
+                  "ro-RO",
                   "sv-FI",
                   "sv-SE",
                 ])
@@ -748,6 +763,12 @@ const postPaymentIntentsIntentConfirmBodySchema = z
               capture_method: z.enum(["", "manual"]).optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
+            z.enum([""]),
+          ])
+          .optional(),
+        multibanco: z
+          .union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
             z.enum([""]),
           ])
           .optional(),
@@ -875,11 +896,24 @@ const postPaymentIntentsIntentConfirmBodySchema = z
             z.enum([""]),
           ])
           .optional(),
+        twint: z
+          .union([
+            z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+            z.enum([""]),
+          ])
+          .optional(),
         us_bank_account: z
           .union([
             z.object({
               financial_connections: z
                 .object({
+                  filters: z
+                    .object({
+                      account_subcategories: z
+                        .array(z.enum(["checking", "savings"]))
+                        .optional(),
+                    })
+                    .optional(),
                   permissions: z
                     .array(
                       z.enum([

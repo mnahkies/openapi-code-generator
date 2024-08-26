@@ -44,7 +44,7 @@ const reposCreateDispatchEventParamSchema = z.object({
 
 const reposCreateDispatchEventBodySchema = z.object({
   event_type: z.string().min(1).max(100),
-  client_payload: z.record(z.any()).optional(),
+  client_payload: z.record(z.unknown()).optional(),
 })
 
 export const _POST =

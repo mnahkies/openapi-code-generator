@@ -141,7 +141,14 @@ const getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema =
-  z.object({ expand: z.array(z.string().max(5000)).optional() })
+  z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
   .object({})
@@ -426,6 +433,7 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                       "diners",
                       "discover",
                       "eftpos_au",
+                      "girocard",
                       "interac",
                       "jcb",
                       "mastercard",
@@ -464,6 +472,13 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 z.object({
                   financial_connections: z
                     .object({
+                      filters: z
+                        .object({
+                          account_subcategories: z
+                            .array(z.enum(["checking", "savings"]))
+                            .optional(),
+                        })
+                        .optional(),
                       permissions: z
                         .array(
                           z.enum([
@@ -497,6 +512,7 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 "ach_credit_transfer",
                 "ach_debit",
                 "acss_debit",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -511,12 +527,15 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 "ideal",
                 "konbini",
                 "link",
+                "multibanco",
                 "p24",
                 "paynow",
                 "paypal",
                 "promptpay",
+                "revolut_pay",
                 "sepa_debit",
                 "sofort",
+                "swish",
                 "us_bank_account",
                 "wechat_pay",
               ]),

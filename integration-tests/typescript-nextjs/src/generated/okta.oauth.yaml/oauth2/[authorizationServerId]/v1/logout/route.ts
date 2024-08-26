@@ -6,7 +6,10 @@ import {
   t_Error,
   t_LogoutCustomAsParamSchema,
   t_LogoutCustomAsQuerySchema,
+  t_LogoutCustomAsWithPostBodySchema,
+  t_LogoutCustomAsWithPostParamSchema,
 } from "../../../../models"
+import { s_LogoutWithPost } from "../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -31,6 +34,20 @@ export type LogoutCustomAs = (
     void
   >,
   respond: LogoutCustomAsResponder,
+  ctx: { request: NextRequest },
+) => Promise<KoaRuntimeResponse<unknown>>
+
+export type LogoutCustomAsWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type LogoutCustomAsWithPost = (
+  params: Params<
+    t_LogoutCustomAsWithPostParamSchema,
+    void,
+    t_LogoutCustomAsWithPostBodySchema
+  >,
+  respond: LogoutCustomAsWithPostResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
@@ -63,6 +80,53 @@ export const _GET =
         RequestInputType.QueryString,
       ),
       body: undefined,
+    }
+
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const { status, body } = await implementation(input, responder, { request })
+      .then((it) => it.unpack())
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
+  }
+
+const logoutCustomAsWithPostParamSchema = z.object({
+  authorizationServerId: z.string(),
+})
+
+const logoutCustomAsWithPostBodySchema = s_LogoutWithPost
+
+export const _POST =
+  (implementation: LogoutCustomAsWithPost) =>
+  async (
+    request: NextRequest,
+    { params }: { params: unknown },
+  ): Promise<Response> => {
+    const input = {
+      params: parseRequestInput(
+        logoutCustomAsWithPostParamSchema,
+        params,
+        RequestInputType.RouteParam,
+      ),
+      // TODO: this swallows repeated parameters
+      query: undefined,
+      body: parseRequestInput(
+        logoutCustomAsWithPostBodySchema,
+        await request.json(),
+        RequestInputType.RequestBody,
+      ),
     }
 
     const responder = {

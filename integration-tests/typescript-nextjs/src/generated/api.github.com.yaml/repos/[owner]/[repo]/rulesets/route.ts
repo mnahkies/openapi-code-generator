@@ -127,7 +127,7 @@ const reposCreateRepoRulesetParamSchema = z.object({
 
 const reposCreateRepoRulesetBodySchema = z.object({
   name: z.string(),
-  target: z.enum(["branch", "tag"]).optional(),
+  target: z.enum(["branch", "tag", "push"]).optional(),
   enforcement: s_repository_rule_enforcement,
   bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
   conditions: s_repository_ruleset_conditions.optional(),

@@ -24,12 +24,17 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async addPet(
@@ -37,17 +42,16 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_NewPet
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async findPetById(
@@ -55,11 +59,12 @@ export class ApiClient extends AbstractFetchClient {
       id: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async deletePet(
@@ -67,10 +72,11 @@ export class ApiClient extends AbstractFetchClient {
       id: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>>> {
     const url = this.basePath + `/pets/${p["id"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 }

@@ -108,11 +108,13 @@ const getInvoicesUpcomingQuerySchema = z.object({
               "ca_pst_mb",
               "ca_pst_sk",
               "ca_qst",
+              "ch_uid",
               "ch_vat",
               "cl_tin",
               "cn_tin",
               "co_nit",
               "cr_tin",
+              "de_stn",
               "do_rcn",
               "ec_ruc",
               "eg_tin",
@@ -182,54 +184,62 @@ const getInvoicesUpcomingQuerySchema = z.object({
       z.enum([""]),
     ])
     .optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   invoice_items: z
-    .array(
-      z.object({
-        amount: z.coerce.number().optional(),
-        currency: z.string().optional(),
-        description: z.string().max(5000).optional(),
-        discountable: PermissiveBoolean.optional(),
-        discounts: z
-          .union([
-            z.array(
-              z.object({
-                coupon: z.string().max(5000).optional(),
-                discount: z.string().max(5000).optional(),
-                promotion_code: z.string().max(5000).optional(),
-              }),
-            ),
-            z.enum([""]),
-          ])
-          .optional(),
-        invoiceitem: z.string().max(5000).optional(),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-        period: z
-          .object({ end: z.coerce.number(), start: z.coerce.number() })
-          .optional(),
-        price: z.string().max(5000).optional(),
-        price_data: z
-          .object({
-            currency: z.string(),
-            product: z.string().max(5000),
-            tax_behavior: z
-              .enum(["exclusive", "inclusive", "unspecified"])
-              .optional(),
-            unit_amount: z.coerce.number().optional(),
-            unit_amount_decimal: z.string().optional(),
-          })
-          .optional(),
-        quantity: z.coerce.number().optional(),
-        tax_behavior: z
-          .enum(["exclusive", "inclusive", "unspecified"])
-          .optional(),
-        tax_code: z.union([z.string(), z.enum([""])]).optional(),
-        tax_rates: z
-          .union([z.array(z.string().max(5000)), z.enum([""])])
-          .optional(),
-        unit_amount: z.coerce.number().optional(),
-        unit_amount_decimal: z.string().optional(),
-      }),
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(
+        z.object({
+          amount: z.coerce.number().optional(),
+          currency: z.string().optional(),
+          description: z.string().max(5000).optional(),
+          discountable: PermissiveBoolean.optional(),
+          discounts: z
+            .union([
+              z.array(
+                z.object({
+                  coupon: z.string().max(5000).optional(),
+                  discount: z.string().max(5000).optional(),
+                  promotion_code: z.string().max(5000).optional(),
+                }),
+              ),
+              z.enum([""]),
+            ])
+            .optional(),
+          invoiceitem: z.string().max(5000).optional(),
+          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          period: z
+            .object({ end: z.coerce.number(), start: z.coerce.number() })
+            .optional(),
+          price: z.string().max(5000).optional(),
+          price_data: z
+            .object({
+              currency: z.string(),
+              product: z.string().max(5000),
+              tax_behavior: z
+                .enum(["exclusive", "inclusive", "unspecified"])
+                .optional(),
+              unit_amount: z.coerce.number().optional(),
+              unit_amount_decimal: z.string().optional(),
+            })
+            .optional(),
+          quantity: z.coerce.number().optional(),
+          tax_behavior: z
+            .enum(["exclusive", "inclusive", "unspecified"])
+            .optional(),
+          tax_code: z.union([z.string(), z.enum([""])]).optional(),
+          tax_rates: z
+            .union([z.array(z.string().max(5000)), z.enum([""])])
+            .optional(),
+          unit_amount: z.coerce.number().optional(),
+          unit_amount_decimal: z.string().optional(),
+        }),
+      ),
     )
     .optional(),
   issuer: z
@@ -239,6 +249,7 @@ const getInvoicesUpcomingQuerySchema = z.object({
     })
     .optional(),
   on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+  preview_mode: z.enum(["next", "recurring"]).optional(),
   schedule: z.string().max(5000).optional(),
   schedule_details: z
     .object({
@@ -483,48 +494,51 @@ const getInvoicesUpcomingQuerySchema = z.object({
     })
     .optional(),
   subscription_items: z
-    .array(
-      z.object({
-        billing_thresholds: z
-          .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-          .optional(),
-        clear_usage: PermissiveBoolean.optional(),
-        deleted: PermissiveBoolean.optional(),
-        discounts: z
-          .union([
-            z.array(
-              z.object({
-                coupon: z.string().max(5000).optional(),
-                discount: z.string().max(5000).optional(),
-                promotion_code: z.string().max(5000).optional(),
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(
+        z.object({
+          billing_thresholds: z
+            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
+            .optional(),
+          clear_usage: PermissiveBoolean.optional(),
+          deleted: PermissiveBoolean.optional(),
+          discounts: z
+            .union([
+              z.array(
+                z.object({
+                  coupon: z.string().max(5000).optional(),
+                  discount: z.string().max(5000).optional(),
+                  promotion_code: z.string().max(5000).optional(),
+                }),
+              ),
+              z.enum([""]),
+            ])
+            .optional(),
+          id: z.string().max(5000).optional(),
+          metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          price: z.string().max(5000).optional(),
+          price_data: z
+            .object({
+              currency: z.string(),
+              product: z.string().max(5000),
+              recurring: z.object({
+                interval: z.enum(["day", "month", "week", "year"]),
+                interval_count: z.coerce.number().optional(),
               }),
-            ),
-            z.enum([""]),
-          ])
-          .optional(),
-        id: z.string().max(5000).optional(),
-        metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-        price: z.string().max(5000).optional(),
-        price_data: z
-          .object({
-            currency: z.string(),
-            product: z.string().max(5000),
-            recurring: z.object({
-              interval: z.enum(["day", "month", "week", "year"]),
-              interval_count: z.coerce.number().optional(),
-            }),
-            tax_behavior: z
-              .enum(["exclusive", "inclusive", "unspecified"])
-              .optional(),
-            unit_amount: z.coerce.number().optional(),
-            unit_amount_decimal: z.string().optional(),
-          })
-          .optional(),
-        quantity: z.coerce.number().optional(),
-        tax_rates: z
-          .union([z.array(z.string().max(5000)), z.enum([""])])
-          .optional(),
-      }),
+              tax_behavior: z
+                .enum(["exclusive", "inclusive", "unspecified"])
+                .optional(),
+              unit_amount: z.coerce.number().optional(),
+              unit_amount_decimal: z.string().optional(),
+            })
+            .optional(),
+          quantity: z.coerce.number().optional(),
+          tax_rates: z
+            .union([z.array(z.string().max(5000)), z.enum([""])])
+            .optional(),
+        }),
+      ),
     )
     .optional(),
   subscription_proration_behavior: z

@@ -60,7 +60,12 @@ const getChargesChargeDisputeParamSchema = z.object({
 })
 
 const getChargesChargeDisputeQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getChargesChargeDisputeBodySchema = z.object({}).optional()

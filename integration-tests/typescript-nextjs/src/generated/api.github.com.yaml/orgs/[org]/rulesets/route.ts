@@ -119,7 +119,7 @@ const reposCreateOrgRulesetParamSchema = z.object({ org: z.string() })
 
 const reposCreateOrgRulesetBodySchema = z.object({
   name: z.string(),
-  target: z.enum(["branch", "tag"]).optional(),
+  target: z.enum(["branch", "tag", "push"]).optional(),
   enforcement: s_repository_rule_enforcement,
   bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
   conditions: s_org_ruleset_conditions.optional(),

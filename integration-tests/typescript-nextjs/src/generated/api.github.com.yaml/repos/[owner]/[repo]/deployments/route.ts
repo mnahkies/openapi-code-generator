@@ -122,7 +122,7 @@ const reposCreateDeploymentBodySchema = z.object({
   task: z.string().optional(),
   auto_merge: PermissiveBoolean.optional(),
   required_contexts: z.array(z.string()).optional(),
-  payload: z.union([z.record(z.any()), z.string()]).optional(),
+  payload: z.union([z.record(z.unknown()), z.string()]).optional(),
   environment: z.string().optional(),
   description: z.string().nullable().optional(),
   transient_environment: PermissiveBoolean.optional(),

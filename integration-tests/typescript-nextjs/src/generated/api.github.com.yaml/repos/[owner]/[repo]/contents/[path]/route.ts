@@ -38,6 +38,7 @@ export type ReposGetContentResponder = {
     | t_content_submodule
   >
   with302(): KoaRuntimeResponse<void>
+  with304(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -132,6 +133,9 @@ export const _GET =
       },
       with302() {
         return new KoaRuntimeResponse<void>(302)
+      },
+      with304() {
+        return new KoaRuntimeResponse<void>(304)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

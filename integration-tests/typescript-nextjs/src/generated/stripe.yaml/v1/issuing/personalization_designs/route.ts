@@ -56,9 +56,19 @@ export type PostIssuingPersonalizationDesigns = (
 
 const getIssuingPersonalizationDesignsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
-  lookup_keys: z.array(z.string().max(200)).optional(),
+  lookup_keys: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(200)),
+    )
+    .optional(),
   preferences: z
     .object({
       is_default: PermissiveBoolean.optional(),

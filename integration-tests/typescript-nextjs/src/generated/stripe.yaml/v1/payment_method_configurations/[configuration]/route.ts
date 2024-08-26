@@ -60,7 +60,12 @@ const getPaymentMethodConfigurationsConfigurationParamSchema = z.object({
 })
 
 const getPaymentMethodConfigurationsConfigurationQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getPaymentMethodConfigurationsConfigurationBodySchema = z
@@ -305,6 +310,20 @@ const postPaymentMethodConfigurationsConfigurationBodySchema = z
           .optional(),
       })
       .optional(),
+    mobilepay: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    multibanco: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     name: z.string().max(100).optional(),
     oxxo: z
       .object({
@@ -363,6 +382,13 @@ const postPaymentMethodConfigurationsConfigurationBodySchema = z
       })
       .optional(),
     swish: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    twint: z
       .object({
         display_preference: z
           .object({ preference: z.enum(["none", "off", "on"]).optional() })

@@ -8,7 +8,7 @@ import {
   t_OrgsGetCustomPropertyParamSchema,
   t_OrgsRemoveCustomPropertyParamSchema,
   t_basic_error,
-  t_org_custom_property,
+  t_custom_property,
 } from "../../../../../models"
 import { PermissiveBoolean } from "../../../../../schemas"
 import {
@@ -25,7 +25,7 @@ import { NextRequest } from "next/server"
 import { z } from "zod"
 
 export type OrgsGetCustomPropertyResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property>
+  with200(): KoaRuntimeResponse<t_custom_property>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -37,7 +37,7 @@ export type OrgsGetCustomProperty = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type OrgsCreateOrUpdateCustomPropertyResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property>
+  with200(): KoaRuntimeResponse<t_custom_property>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -88,7 +88,7 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property>(200)
+        return new KoaRuntimeResponse<t_custom_property>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -118,7 +118,7 @@ const orgsCreateOrUpdateCustomPropertyParamSchema = z.object({
 })
 
 const orgsCreateOrUpdateCustomPropertyBodySchema = z.object({
-  value_type: z.enum(["string", "single_select"]),
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
   required: PermissiveBoolean.optional(),
   default_value: z
     .union([z.string(), z.array(z.string())])
@@ -151,7 +151,7 @@ export const _PUT =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property>(200)
+        return new KoaRuntimeResponse<t_custom_property>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

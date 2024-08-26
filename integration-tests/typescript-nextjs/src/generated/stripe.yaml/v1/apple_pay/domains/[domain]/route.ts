@@ -110,7 +110,12 @@ const getApplePayDomainsDomainParamSchema = z.object({
 })
 
 const getApplePayDomainsDomainQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getApplePayDomainsDomainBodySchema = z.object({}).optional()

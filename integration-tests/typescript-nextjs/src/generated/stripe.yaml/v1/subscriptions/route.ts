@@ -94,7 +94,12 @@ const getSubscriptionsQuerySchema = z.object({
     .optional(),
   customer: z.string().max(5000).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   price: z.string().max(5000).optional(),
   starting_after: z.string().max(5000).optional(),
@@ -372,6 +377,7 @@ const postSubscriptionsBodySchema = z.object({
                     "diners",
                     "discover",
                     "eftpos_au",
+                    "girocard",
                     "interac",
                     "jcb",
                     "mastercard",
@@ -410,6 +416,13 @@ const postSubscriptionsBodySchema = z.object({
               z.object({
                 financial_connections: z
                   .object({
+                    filters: z
+                      .object({
+                        account_subcategories: z
+                          .array(z.enum(["checking", "savings"]))
+                          .optional(),
+                      })
+                      .optional(),
                     permissions: z
                       .array(
                         z.enum([
@@ -441,6 +454,7 @@ const postSubscriptionsBodySchema = z.object({
               "ach_credit_transfer",
               "ach_debit",
               "acss_debit",
+              "amazon_pay",
               "au_becs_debit",
               "bacs_debit",
               "bancontact",
@@ -455,12 +469,15 @@ const postSubscriptionsBodySchema = z.object({
               "ideal",
               "konbini",
               "link",
+              "multibanco",
               "p24",
               "paynow",
               "paypal",
               "promptpay",
+              "revolut_pay",
               "sepa_debit",
               "sofort",
+              "swish",
               "us_bank_account",
               "wechat_pay",
             ]),

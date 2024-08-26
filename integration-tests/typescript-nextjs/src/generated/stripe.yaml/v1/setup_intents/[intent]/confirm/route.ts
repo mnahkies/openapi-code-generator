@@ -233,6 +233,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -281,6 +282,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -303,6 +305,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -313,6 +316,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
@@ -356,6 +360,9 @@ const postSetupIntentsIntentConfirmBodySchema = z
           })
           .optional(),
         amazon_pay: z.object({}).optional(),
+        bacs_debit: z
+          .object({ mandate_options: z.object({}).optional() })
+          .optional(),
         card: z
           .object({
             mandate_options: z
@@ -379,6 +386,7 @@ const postSetupIntentsIntentConfirmBodySchema = z
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
                 "mastercard",
@@ -429,6 +437,13 @@ const postSetupIntentsIntentConfirmBodySchema = z
           .object({
             financial_connections: z
               .object({
+                filters: z
+                  .object({
+                    account_subcategories: z
+                      .array(z.enum(["checking", "savings"]))
+                      .optional(),
+                  })
+                  .optional(),
                 permissions: z
                   .array(
                     z.enum([

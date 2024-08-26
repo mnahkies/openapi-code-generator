@@ -56,7 +56,12 @@ export type PostPaymentMethods = (
 const getPaymentMethodsQuerySchema = z.object({
   customer: z.string().max(5000).optional(),
   ending_before: z.string().optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().optional(),
   type: z
@@ -83,6 +88,7 @@ const getPaymentMethodsQuerySchema = z.object({
       "konbini",
       "link",
       "mobilepay",
+      "multibanco",
       "oxxo",
       "p24",
       "paynow",
@@ -93,6 +99,7 @@ const getPaymentMethodsQuerySchema = z.object({
       "sepa_debit",
       "sofort",
       "swish",
+      "twint",
       "us_bank_account",
       "wechat_pay",
       "zip",
@@ -328,6 +335,7 @@ const postPaymentMethodsBodySchema = z
     link: z.object({}).optional(),
     metadata: z.record(z.string()).optional(),
     mobilepay: z.object({}).optional(),
+    multibanco: z.object({}).optional(),
     oxxo: z.object({}).optional(),
     p24: z
       .object({
@@ -377,6 +385,7 @@ const postPaymentMethodsBodySchema = z
       .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
       .optional(),
     swish: z.object({}).optional(),
+    twint: z.object({}).optional(),
     type: z
       .enum([
         "acss_debit",
@@ -401,6 +410,7 @@ const postPaymentMethodsBodySchema = z
         "konbini",
         "link",
         "mobilepay",
+        "multibanco",
         "oxxo",
         "p24",
         "paynow",
@@ -411,6 +421,7 @@ const postPaymentMethodsBodySchema = z
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
         "zip",

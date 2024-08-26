@@ -3,11 +3,11 @@
 /* eslint-disable */
 
 import {
+  t_AppAuthenticatorEnrollment,
   t_DeleteAppAuthenticatorEnrollmentParamSchema,
   t_Error,
   t_UpdateAppAuthenticatorEnrollmentBodySchema,
   t_UpdateAppAuthenticatorEnrollmentParamSchema,
-  t_UpdateAppAuthenticatorEnrollmentRequest,
 } from "../../../../models"
 import { s_UpdateAppAuthenticatorEnrollmentRequest } from "../../../../schemas"
 import {
@@ -24,7 +24,7 @@ import { NextRequest } from "next/server"
 import { z } from "zod"
 
 export type UpdateAppAuthenticatorEnrollmentResponder = {
-  with200(): KoaRuntimeResponse<t_UpdateAppAuthenticatorEnrollmentRequest>
+  with200(): KoaRuntimeResponse<t_AppAuthenticatorEnrollment>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
@@ -83,9 +83,7 @@ export const _PATCH =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_UpdateAppAuthenticatorEnrollmentRequest>(
-          200,
-        )
+        return new KoaRuntimeResponse<t_AppAuthenticatorEnrollment>(200)
       },
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)

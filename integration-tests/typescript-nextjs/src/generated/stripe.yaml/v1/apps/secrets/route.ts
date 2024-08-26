@@ -55,7 +55,12 @@ export type PostAppsSecrets = (
 
 const getAppsSecretsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   scope: z.object({
     type: z.enum(["account", "user"]),

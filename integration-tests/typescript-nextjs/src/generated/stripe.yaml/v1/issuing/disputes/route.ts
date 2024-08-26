@@ -67,7 +67,12 @@ const getIssuingDisputesQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
   status: z
@@ -145,16 +150,16 @@ const postIssuingDisputesBodySchema = z
                 .union([PermissiveBoolean, z.enum([""])])
                 .optional(),
               cancellation_reason: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               expected_at: z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_description: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
               return_status: z
@@ -177,7 +182,7 @@ const postIssuingDisputesBodySchema = z
               cash_receipt: z.union([z.string(), z.enum([""])]).optional(),
               check_image: z.union([z.string(), z.enum([""])]).optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               original_transaction: z.string().max(5000).optional(),
             }),
@@ -191,7 +196,7 @@ const postIssuingDisputesBodySchema = z
                 .union([z.string(), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
             }),
             z.enum([""]),
@@ -204,19 +209,32 @@ const postIssuingDisputesBodySchema = z
                 .union([z.string(), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               received_at: z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
               return_description: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               return_status: z
                 .enum(["", "merchant_rejected", "successful"])
                 .optional(),
               returned_at: z
                 .union([z.coerce.number(), z.enum([""])])
+                .optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
+        no_valid_authorization: z
+          .union([
+            z.object({
+              additional_documentation: z
+                .union([z.string(), z.enum([""])])
+                .optional(),
+              explanation: z
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
             }),
             z.enum([""]),
@@ -232,10 +250,10 @@ const postIssuingDisputesBodySchema = z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_description: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
@@ -249,10 +267,10 @@ const postIssuingDisputesBodySchema = z
                 .union([z.string(), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_description: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               product_type: z.enum(["", "merchandise", "service"]).optional(),
             }),
@@ -265,6 +283,7 @@ const postIssuingDisputesBodySchema = z
             "duplicate",
             "fraudulent",
             "merchandise_not_as_described",
+            "no_valid_authorization",
             "not_received",
             "other",
             "service_not_as_described",
@@ -280,10 +299,10 @@ const postIssuingDisputesBodySchema = z
                 .union([z.coerce.number(), z.enum([""])])
                 .optional(),
               cancellation_reason: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               explanation: z
-                .union([z.string().max(1500), z.enum([""])])
+                .union([z.string().max(2500), z.enum([""])])
                 .optional(),
               received_at: z
                 .union([z.coerce.number(), z.enum([""])])

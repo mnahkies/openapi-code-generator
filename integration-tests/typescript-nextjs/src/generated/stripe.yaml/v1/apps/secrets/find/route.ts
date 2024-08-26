@@ -37,7 +37,12 @@ export type GetAppsSecretsFind = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getAppsSecretsFindQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   name: z.string().max(5000),
   scope: z.object({
     type: z.enum(["account", "user"]),

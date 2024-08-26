@@ -60,7 +60,12 @@ const getPaymentLinksPaymentLinkParamSchema = z.object({
 })
 
 const getPaymentLinksPaymentLinkQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getPaymentLinksPaymentLinkBodySchema = z.object({}).optional()
@@ -295,6 +300,8 @@ const postPaymentLinksPaymentLinkBodySchema = z
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
             "paynow",
@@ -304,8 +311,10 @@ const postPaymentLinksPaymentLinkBodySchema = z
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
+            "zip",
           ]),
         ),
         z.enum([""]),
@@ -596,6 +605,7 @@ const postPaymentLinksPaymentLinkBodySchema = z
           .optional(),
       })
       .optional(),
+    tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
   })
   .optional()
 

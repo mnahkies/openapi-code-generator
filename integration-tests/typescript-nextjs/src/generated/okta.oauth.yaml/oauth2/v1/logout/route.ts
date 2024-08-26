@@ -2,7 +2,12 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { t_Error, t_LogoutQuerySchema } from "../../../models"
+import {
+  t_Error,
+  t_LogoutQuerySchema,
+  t_LogoutWithPostBodySchema,
+} from "../../../models"
+import { s_LogoutWithPost } from "../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -23,6 +28,16 @@ export type LogoutResponder = {
 export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void>,
   respond: LogoutResponder,
+  ctx: { request: NextRequest },
+) => Promise<KoaRuntimeResponse<unknown>>
+
+export type LogoutWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type LogoutWithPost = (
+  params: Params<void, void, t_LogoutWithPostBodySchema>,
+  respond: LogoutWithPostResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
@@ -47,6 +62,45 @@ export const _GET =
         RequestInputType.QueryString,
       ),
       body: undefined,
+    }
+
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const { status, body } = await implementation(input, responder, { request })
+      .then((it) => it.unpack())
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
+  }
+
+const logoutWithPostBodySchema = s_LogoutWithPost
+
+export const _POST =
+  (implementation: LogoutWithPost) =>
+  async (
+    request: NextRequest,
+    { params }: { params: unknown },
+  ): Promise<Response> => {
+    const input = {
+      params: undefined,
+      // TODO: this swallows repeated parameters
+      query: undefined,
+      body: parseRequestInput(
+        logoutWithPostBodySchema,
+        await request.json(),
+        RequestInputType.RequestBody,
+      ),
     }
 
     const responder = {

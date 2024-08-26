@@ -138,6 +138,9 @@ const reposUpdateBodySchema = z
         secret_scanning_push_protection: z
           .object({ status: z.string().optional() })
           .optional(),
+        secret_scanning_non_provider_patterns: z
+          .object({ status: z.string().optional() })
+          .optional(),
       })
       .nullable()
       .optional(),

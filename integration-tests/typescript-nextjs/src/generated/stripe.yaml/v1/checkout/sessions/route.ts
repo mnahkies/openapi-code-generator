@@ -69,7 +69,12 @@ const getCheckoutSessionsQuerySchema = z.object({
   customer: z.string().max(5000).optional(),
   customer_details: z.object({ email: z.string() }).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   payment_intent: z.string().max(5000).optional(),
   payment_link: z.string().max(5000).optional(),
@@ -171,6 +176,7 @@ const postCheckoutSessionsBodySchema = z
         z.object({
           dropdown: z
             .object({
+              default_value: z.string().max(100).optional(),
               options: z.array(
                 z.object({
                   label: z.string().max(100),
@@ -186,6 +192,7 @@ const postCheckoutSessionsBodySchema = z
           }),
           numeric: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -193,6 +200,7 @@ const postCheckoutSessionsBodySchema = z
           optional: PermissiveBoolean.optional(),
           text: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -566,6 +574,9 @@ const postCheckoutSessionsBodySchema = z
         mobilepay: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
           .optional(),
+        multibanco: z
+          .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .optional(),
         oxxo: z
           .object({
             expires_after_days: z.coerce.number().optional(),
@@ -694,6 +705,7 @@ const postCheckoutSessionsBodySchema = z
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -704,6 +716,7 @@ const postCheckoutSessionsBodySchema = z
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",

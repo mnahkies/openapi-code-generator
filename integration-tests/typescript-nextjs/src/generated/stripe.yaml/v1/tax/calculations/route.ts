@@ -68,11 +68,13 @@ const postTaxCalculationsBodySchema = z.object({
               "ca_pst_mb",
               "ca_pst_sk",
               "ca_qst",
+              "ch_uid",
               "ch_vat",
               "cl_tin",
               "cn_tin",
               "co_nit",
               "cr_tin",
+              "de_stn",
               "do_rcn",
               "ec_ruc",
               "eg_tin",
@@ -144,6 +146,18 @@ const postTaxCalculationsBodySchema = z.object({
       tax_code: z.string().optional(),
     }),
   ),
+  ship_from_details: z
+    .object({
+      address: z.object({
+        city: z.union([z.string().max(5000), z.enum([""])]).optional(),
+        country: z.string().max(5000),
+        line1: z.union([z.string().max(5000), z.enum([""])]).optional(),
+        line2: z.union([z.string().max(5000), z.enum([""])]).optional(),
+        postal_code: z.union([z.string().max(5000), z.enum([""])]).optional(),
+        state: z.union([z.string().max(5000), z.enum([""])]).optional(),
+      }),
+    })
+    .optional(),
   shipping_cost: z
     .object({
       amount: z.coerce.number().optional(),

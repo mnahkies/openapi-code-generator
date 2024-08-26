@@ -46,6 +46,73 @@ const postTestHelpersIssuingAuthorizationsBodySchema = z.object({
   card: z.string().max(5000),
   currency: z.string().optional(),
   expand: z.array(z.string().max(5000)).optional(),
+  fleet: z
+    .object({
+      cardholder_prompt_data: z
+        .object({
+          driver_id: z.string().max(5000).optional(),
+          odometer: z.coerce.number().optional(),
+          unspecified_id: z.string().max(5000).optional(),
+          user_id: z.string().max(5000).optional(),
+          vehicle_number: z.string().max(5000).optional(),
+        })
+        .optional(),
+      purchase_type: z
+        .enum([
+          "fuel_and_non_fuel_purchase",
+          "fuel_purchase",
+          "non_fuel_purchase",
+        ])
+        .optional(),
+      reported_breakdown: z
+        .object({
+          fuel: z
+            .object({ gross_amount_decimal: z.string().optional() })
+            .optional(),
+          non_fuel: z
+            .object({ gross_amount_decimal: z.string().optional() })
+            .optional(),
+          tax: z
+            .object({
+              local_amount_decimal: z.string().optional(),
+              national_amount_decimal: z.string().optional(),
+            })
+            .optional(),
+        })
+        .optional(),
+      service_type: z
+        .enum(["full_service", "non_fuel_transaction", "self_service"])
+        .optional(),
+    })
+    .optional(),
+  fuel: z
+    .object({
+      industry_product_code: z.string().max(5000).optional(),
+      quantity_decimal: z.string().optional(),
+      type: z
+        .enum([
+          "diesel",
+          "other",
+          "unleaded_plus",
+          "unleaded_regular",
+          "unleaded_super",
+        ])
+        .optional(),
+      unit: z
+        .enum([
+          "charging_minute",
+          "imperial_gallon",
+          "kilogram",
+          "kilowatt_hour",
+          "liter",
+          "other",
+          "pound",
+          "us_gallon",
+        ])
+        .optional(),
+      unit_cost_decimal: z.string().optional(),
+    })
+    .optional(),
   is_amount_controllable: PermissiveBoolean.optional(),
   merchant_data: z
     .object({
