@@ -44,7 +44,7 @@ const reposCreateCommitStatusBodySchema = z.object({
   state: z.enum(["error", "failure", "pending", "success"]),
   target_url: z.string().nullable().optional(),
   description: z.string().nullable().optional(),
-  context: z.string().optional(),
+  context: z.string().optional().default("default"),
 })
 
 export const _POST =

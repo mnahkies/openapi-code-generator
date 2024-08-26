@@ -51,8 +51,8 @@ export type TeamsCreate = (
 const teamsListParamSchema = z.object({ org: z.string() })
 
 const teamsListQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -110,7 +110,7 @@ const teamsCreateBodySchema = z.object({
   notification_setting: z
     .enum(["notifications_enabled", "notifications_disabled"])
     .optional(),
-  permission: z.enum(["pull", "push"]).optional(),
+  permission: z.enum(["pull", "push"]).optional().default("pull"),
   parent_team_id: z.coerce.number().optional(),
 })
 

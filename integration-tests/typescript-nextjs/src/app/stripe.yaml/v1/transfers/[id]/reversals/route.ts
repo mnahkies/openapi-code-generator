@@ -3,11 +3,11 @@ import {
   _POST,
 } from "../../../../../../generated/stripe.yaml/v1/transfers/[id]/reversals/route"
 
-export const GET = _GET(async ({params, query, body}, respond, context) => {
+export const GET = _GET(async ({ params, query, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })
-export const POST = _POST(async ({params, body}, respond, context) => {
+export const POST = _POST(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

@@ -39,7 +39,10 @@ const postAccountSessionsBodySchema = z.object({
       .object({
         enabled: PermissiveBoolean,
         features: z
-          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
+          })
           .optional(),
       })
       .optional(),
@@ -47,7 +50,10 @@ const postAccountSessionsBodySchema = z.object({
       .object({
         enabled: PermissiveBoolean,
         features: z
-          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
+          })
           .optional(),
       })
       .optional(),
@@ -56,7 +62,9 @@ const postAccountSessionsBodySchema = z.object({
         enabled: PermissiveBoolean,
         features: z
           .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
             edit_payout_schedule: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
             instant_payouts: PermissiveBoolean.optional(),
             standard_payouts: PermissiveBoolean.optional(),
           })
@@ -66,11 +74,64 @@ const postAccountSessionsBodySchema = z.object({
     documents: z
       .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
       .optional(),
+    financial_account: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
+            send_money: PermissiveBoolean.optional(),
+            transfer_balance: PermissiveBoolean.optional(),
+          })
+          .optional(),
+      })
+      .optional(),
+    financial_account_transactions: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            card_spend_dispute_management: PermissiveBoolean.optional(),
+          })
+          .optional(),
+      })
+      .optional(),
+    issuing_card: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            card_management: PermissiveBoolean.optional(),
+            card_spend_dispute_management: PermissiveBoolean.optional(),
+            cardholder_management: PermissiveBoolean.optional(),
+            spend_control_management: PermissiveBoolean.optional(),
+          })
+          .optional(),
+      })
+      .optional(),
+    issuing_cards_list: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            card_management: PermissiveBoolean.optional(),
+            card_spend_dispute_management: PermissiveBoolean.optional(),
+            cardholder_management: PermissiveBoolean.optional(),
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
+            spend_control_management: PermissiveBoolean.optional(),
+          })
+          .optional(),
+      })
+      .optional(),
     notification_banner: z
       .object({
         enabled: PermissiveBoolean,
         features: z
-          .object({ external_account_collection: PermissiveBoolean.optional() })
+          .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
+          })
           .optional(),
       })
       .optional(),
@@ -107,7 +168,9 @@ const postAccountSessionsBodySchema = z.object({
         enabled: PermissiveBoolean,
         features: z
           .object({
+            disable_stripe_user_authentication: PermissiveBoolean.optional(),
             edit_payout_schedule: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
             instant_payouts: PermissiveBoolean.optional(),
             standard_payouts: PermissiveBoolean.optional(),
           })
@@ -115,6 +178,12 @@ const postAccountSessionsBodySchema = z.object({
       })
       .optional(),
     payouts_list: z
+      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
+    tax_registrations: z
+      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
+    tax_settings: z
       .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
       .optional(),
   }),

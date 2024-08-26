@@ -45,8 +45,8 @@ export type CopilotListCopilotSeats = (
 const copilotListCopilotSeatsParamSchema = z.object({ org: z.string() })
 
 const copilotListCopilotSeatsQuerySchema = z.object({
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(50),
 })
 
 export const _GET =

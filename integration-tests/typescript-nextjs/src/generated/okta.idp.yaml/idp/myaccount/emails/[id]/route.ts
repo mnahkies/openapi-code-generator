@@ -36,7 +36,6 @@ export type DeleteEmailResponder = {
   with204(): KoaRuntimeResponse<void>
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
-  with403(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -116,9 +115,6 @@ export const _DELETE =
       },
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<t_Error>(403)
       },
       with404() {
         return new KoaRuntimeResponse<t_Error>(404)

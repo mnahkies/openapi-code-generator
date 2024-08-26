@@ -72,8 +72,14 @@ const getIdentityVerificationSessionsQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
+  related_customer: z.string().max(5000).optional(),
   starting_after: z.string().max(5000).optional(),
   status: z
     .enum(["canceled", "processing", "requires_input", "verified"])
@@ -151,23 +157,12 @@ const postIdentityVerificationSessionsBodySchema = z
             z.enum([""]),
           ])
           .optional(),
-        email: z
-          .union([
-            z.object({ require_verification: PermissiveBoolean.optional() }),
-            z.enum([""]),
-          ])
-          .optional(),
-        phone: z
-          .union([
-            z.object({ require_verification: PermissiveBoolean.optional() }),
-            z.enum([""]),
-          ])
-          .optional(),
       })
       .optional(),
     provided_details: z
       .object({ email: z.string().optional(), phone: z.string().optional() })
       .optional(),
+    related_customer: z.string().max(5000).optional(),
     return_url: z.string().optional(),
     type: z.enum(["document", "id_number"]).optional(),
     verification_flow: z.string().max(5000).optional(),

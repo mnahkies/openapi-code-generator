@@ -65,10 +65,10 @@ const actionsListWorkflowRunsForRepoQuerySchema = z.object({
       "pending",
     ])
     .optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   created: z.string().datetime({ offset: true }).optional(),
-  exclude_pull_requests: PermissiveBoolean.optional(),
+  exclude_pull_requests: PermissiveBoolean.optional().default(false),
   check_suite_id: z.coerce.number().optional(),
   head_sha: z.string().optional(),
 })

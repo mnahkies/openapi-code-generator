@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  t_Error,
   t_ListAppAuthenticatorPendingPushNotificationChallengesParamSchema,
   t_PushNotificationChallenge,
 } from "../../../../../../models"
@@ -21,6 +22,7 @@ import { z } from "zod"
 
 export type ListAppAuthenticatorPendingPushNotificationChallengesResponder = {
   with200(): KoaRuntimeResponse<t_PushNotificationChallenge[]>
+  with401(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
 export type ListAppAuthenticatorPendingPushNotificationChallenges = (
@@ -56,6 +58,9 @@ export const _GET =
     const responder = {
       with200() {
         return new KoaRuntimeResponse<t_PushNotificationChallenge[]>(200)
+      },
+      with401() {
+        return new KoaRuntimeResponse<t_Error>(401)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

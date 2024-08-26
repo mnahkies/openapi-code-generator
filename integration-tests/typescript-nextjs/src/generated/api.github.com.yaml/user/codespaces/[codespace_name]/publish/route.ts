@@ -47,7 +47,7 @@ const codespacesPublishForAuthenticatedUserParamSchema = z.object({
 
 const codespacesPublishForAuthenticatedUserBodySchema = z.object({
   name: z.string().optional(),
-  private: PermissiveBoolean.optional(),
+  private: PermissiveBoolean.optional().default(false),
 })
 
 export const _POST =

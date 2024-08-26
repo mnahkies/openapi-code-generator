@@ -69,7 +69,12 @@ const getCheckoutSessionsQuerySchema = z.object({
   customer: z.string().max(5000).optional(),
   customer_details: z.object({ email: z.string() }).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   payment_intent: z.string().max(5000).optional(),
   payment_link: z.string().max(5000).optional(),
@@ -131,6 +136,9 @@ export const _GET =
 
 const postCheckoutSessionsBodySchema = z
   .object({
+    adaptive_pricing: z
+      .object({ enabled: PermissiveBoolean.optional() })
+      .optional(),
     after_expiration: z
       .object({
         recovery: z
@@ -171,6 +179,7 @@ const postCheckoutSessionsBodySchema = z
         z.object({
           dropdown: z
             .object({
+              default_value: z.string().max(100).optional(),
               options: z.array(
                 z.object({
                   label: z.string().max(100),
@@ -186,6 +195,7 @@ const postCheckoutSessionsBodySchema = z
           }),
           numeric: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -193,6 +203,7 @@ const postCheckoutSessionsBodySchema = z
           optional: PermissiveBoolean.optional(),
           text: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -369,6 +380,21 @@ const postCheckoutSessionsBodySchema = z
       .optional(),
     metadata: z.record(z.string()).optional(),
     mode: z.enum(["payment", "setup", "subscription"]).optional(),
+    optional_items: z
+      .array(
+        z.object({
+          adjustable_quantity: z
+            .object({
+              enabled: PermissiveBoolean,
+              maximum: z.coerce.number().optional(),
+              minimum: z.coerce.number().optional(),
+            })
+            .optional(),
+          price: z.string().max(5000),
+          quantity: z.coerce.number(),
+        }),
+      )
+      .optional(),
     payment_intent_data: z
       .object({
         application_fee_amount: z.coerce.number().optional(),
@@ -439,6 +465,7 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z
               .enum(["none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
             verification_method: z
               .enum(["automatic", "instant", "microdeposits"])
               .optional(),
@@ -459,13 +486,24 @@ const postCheckoutSessionsBodySchema = z
           })
           .optional(),
         au_becs_debit: z
-          .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .object({
+            setup_future_usage: z.enum(["none"]).optional(),
+            target_date: z.string().max(5000).optional(),
+          })
           .optional(),
         bacs_debit: z
           .object({
+            mandate_options: z
+              .object({
+                reference_prefix: z
+                  .union([z.string().max(12), z.enum([""])])
+                  .optional(),
+              })
+              .optional(),
             setup_future_usage: z
               .enum(["none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
           })
           .optional(),
         bancontact: z
@@ -484,8 +522,30 @@ const postCheckoutSessionsBodySchema = z
             installments: z
               .object({ enabled: PermissiveBoolean.optional() })
               .optional(),
+            request_extended_authorization: z
+              .enum(["if_available", "never"])
+              .optional(),
+            request_incremental_authorization: z
+              .enum(["if_available", "never"])
+              .optional(),
+            request_multicapture: z.enum(["if_available", "never"]).optional(),
+            request_overcapture: z.enum(["if_available", "never"]).optional(),
             request_three_d_secure: z
               .enum(["any", "automatic", "challenge"])
+              .optional(),
+            restrictions: z
+              .object({
+                brands_blocked: z
+                  .array(
+                    z.enum([
+                      "american_express",
+                      "discover_global_network",
+                      "mastercard",
+                      "visa",
+                    ]),
+                  )
+                  .optional(),
+              })
               .optional(),
             setup_future_usage: z
               .enum(["off_session", "on_session"])
@@ -549,6 +609,12 @@ const postCheckoutSessionsBodySchema = z
         ideal: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
           .optional(),
+        kakao_pay: z
+          .object({
+            capture_method: z.enum(["manual"]).optional(),
+            setup_future_usage: z.enum(["none", "off_session"]).optional(),
+          })
+          .optional(),
         klarna: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
           .optional(),
@@ -558,6 +624,12 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z.enum(["none"]).optional(),
           })
           .optional(),
+        kr_card: z
+          .object({
+            capture_method: z.enum(["manual"]).optional(),
+            setup_future_usage: z.enum(["none", "off_session"]).optional(),
+          })
+          .optional(),
         link: z
           .object({
             setup_future_usage: z.enum(["none", "off_session"]).optional(),
@@ -565,6 +637,15 @@ const postCheckoutSessionsBodySchema = z
           .optional(),
         mobilepay: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .optional(),
+        multibanco: z
+          .object({ setup_future_usage: z.enum(["none"]).optional() })
+          .optional(),
+        naver_pay: z
+          .object({
+            capture_method: z.enum(["manual"]).optional(),
+            setup_future_usage: z.enum(["none", "off_session"]).optional(),
+          })
           .optional(),
         oxxo: z
           .object({
@@ -577,6 +658,10 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z.enum(["none"]).optional(),
             tos_shown_and_accepted: PermissiveBoolean.optional(),
           })
+          .optional(),
+        pay_by_bank: z.object({}).optional(),
+        payco: z
+          .object({ capture_method: z.enum(["manual"]).optional() })
           .optional(),
         paynow: z
           .object({ setup_future_usage: z.enum(["none"]).optional() })
@@ -622,11 +707,22 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z.enum(["none", "off_session"]).optional(),
           })
           .optional(),
+        samsung_pay: z
+          .object({ capture_method: z.enum(["manual"]).optional() })
+          .optional(),
         sepa_debit: z
           .object({
+            mandate_options: z
+              .object({
+                reference_prefix: z
+                  .union([z.string().max(12), z.enum([""])])
+                  .optional(),
+              })
+              .optional(),
             setup_future_usage: z
               .enum(["none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
           })
           .optional(),
         sofort: z
@@ -657,6 +753,7 @@ const postCheckoutSessionsBodySchema = z
             setup_future_usage: z
               .enum(["none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
             verification_method: z.enum(["automatic", "instant"]).optional(),
           })
           .optional(),
@@ -676,10 +773,12 @@ const postCheckoutSessionsBodySchema = z
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "alma",
           "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
+          "billie",
           "blik",
           "boleto",
           "card",
@@ -690,25 +789,41 @@ const postCheckoutSessionsBodySchema = z
           "giropay",
           "grabpay",
           "ideal",
+          "kakao_pay",
           "klarna",
           "konbini",
+          "kr_card",
           "link",
           "mobilepay",
+          "multibanco",
+          "naver_pay",
           "oxxo",
           "p24",
+          "pay_by_bank",
+          "payco",
           "paynow",
           "paypal",
           "pix",
           "promptpay",
           "revolut_pay",
+          "samsung_pay",
+          "satispay",
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",
         ]),
       )
+      .optional(),
+    permissions: z
+      .object({
+        update_shipping_details: z
+          .enum(["client_only", "server_only"])
+          .optional(),
+      })
       .optional(),
     phone_number_collection: z
       .object({ enabled: PermissiveBoolean })
@@ -920,6 +1035,7 @@ const postCheckoutSessionsBodySchema = z
             "SA",
             "SB",
             "SC",
+            "SD",
             "SE",
             "SG",
             "SH",
@@ -1039,7 +1155,9 @@ const postCheckoutSessionsBodySchema = z
         }),
       )
       .optional(),
-    submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
+    submit_type: z
+      .enum(["auto", "book", "donate", "pay", "subscribe"])
+      .optional(),
     subscription_data: z
       .object({
         application_fee_percent: z.coerce.number().optional(),
@@ -1081,8 +1199,13 @@ const postCheckoutSessionsBodySchema = z
       })
       .optional(),
     success_url: z.string().max(5000).optional(),
-    tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
-    ui_mode: z.enum(["embedded", "hosted"]).optional(),
+    tax_id_collection: z
+      .object({
+        enabled: PermissiveBoolean,
+        required: z.enum(["if_supported", "never"]).optional(),
+      })
+      .optional(),
+    ui_mode: z.enum(["custom", "embedded", "hosted"]).optional(),
   })
   .optional()
 

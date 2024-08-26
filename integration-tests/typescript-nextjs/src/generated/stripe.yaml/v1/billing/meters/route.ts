@@ -55,7 +55,12 @@ export type PostBillingMeters = (
 
 const getBillingMetersQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
   status: z.enum(["active", "inactive"]).optional(),
@@ -116,7 +121,7 @@ const postBillingMetersBodySchema = z.object({
   customer_mapping: z
     .object({ event_payload_key: z.string().max(100), type: z.enum(["by_id"]) })
     .optional(),
-  default_aggregation: z.object({ formula: z.enum(["count", "sum"]) }),
+  default_aggregation: z.object({ formula: z.enum(["count", "last", "sum"]) }),
   display_name: z.string().max(250),
   event_name: z.string().max(100),
   event_time_window: z.enum(["day", "hour"]).optional(),

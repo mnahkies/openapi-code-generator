@@ -60,9 +60,10 @@ const searchIssuesAndPullRequestsQuerySchema = z.object({
       "updated",
     ])
     .optional(),
-  order: z.enum(["desc", "asc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  order: z.enum(["desc", "asc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
+  advanced_search: z.string().optional(),
 })
 
 export const _GET =

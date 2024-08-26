@@ -57,9 +57,9 @@ const teamsListDiscussionsInOrgParamSchema = z.object({
 })
 
 const teamsListDiscussionsInOrgQuerySchema = z.object({
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   pinned: z.string().optional(),
 })
 
@@ -112,7 +112,7 @@ const teamsCreateDiscussionInOrgParamSchema = z.object({
 const teamsCreateDiscussionInOrgBodySchema = z.object({
   title: z.string(),
   body: z.string(),
-  private: PermissiveBoolean.optional(),
+  private: PermissiveBoolean.optional().default(false),
 })
 
 export const _POST =

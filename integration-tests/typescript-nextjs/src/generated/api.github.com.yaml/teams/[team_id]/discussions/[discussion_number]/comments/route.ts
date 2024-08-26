@@ -56,9 +56,9 @@ const teamsListDiscussionCommentsLegacyParamSchema = z.object({
 })
 
 const teamsListDiscussionCommentsLegacyQuerySchema = z.object({
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

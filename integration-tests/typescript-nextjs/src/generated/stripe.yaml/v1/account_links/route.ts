@@ -36,7 +36,7 @@ const postAccountLinksBodySchema = z.object({
   collect: z.enum(["currently_due", "eventually_due"]).optional(),
   collection_options: z
     .object({
-      fields: z.enum(["currently_due", "eventually_due"]),
+      fields: z.enum(["currently_due", "eventually_due"]).optional(),
       future_requirements: z.enum(["include", "omit"]).optional(),
     })
     .optional(),

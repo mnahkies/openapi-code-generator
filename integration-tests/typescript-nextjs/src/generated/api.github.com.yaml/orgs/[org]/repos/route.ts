@@ -61,11 +61,15 @@ const reposListForOrgParamSchema = z.object({ org: z.string() })
 const reposListForOrgQuerySchema = z.object({
   type: z
     .enum(["all", "public", "private", "forks", "sources", "member"])
-    .optional(),
-  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+    .optional()
+    .default("all"),
+  sort: z
+    .enum(["created", "updated", "pushed", "full_name"])
+    .optional()
+    .default("created"),
   direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -115,23 +119,23 @@ const reposCreateInOrgBodySchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   homepage: z.string().optional(),
-  private: PermissiveBoolean.optional(),
+  private: PermissiveBoolean.optional().default(false),
   visibility: z.enum(["public", "private"]).optional(),
-  has_issues: PermissiveBoolean.optional(),
-  has_projects: PermissiveBoolean.optional(),
-  has_wiki: PermissiveBoolean.optional(),
-  has_downloads: PermissiveBoolean.optional(),
-  is_template: PermissiveBoolean.optional(),
+  has_issues: PermissiveBoolean.optional().default(true),
+  has_projects: PermissiveBoolean.optional().default(true),
+  has_wiki: PermissiveBoolean.optional().default(true),
+  has_downloads: PermissiveBoolean.optional().default(true),
+  is_template: PermissiveBoolean.optional().default(false),
   team_id: z.coerce.number().optional(),
-  auto_init: PermissiveBoolean.optional(),
+  auto_init: PermissiveBoolean.optional().default(false),
   gitignore_template: z.string().optional(),
   license_template: z.string().optional(),
-  allow_squash_merge: PermissiveBoolean.optional(),
-  allow_merge_commit: PermissiveBoolean.optional(),
-  allow_rebase_merge: PermissiveBoolean.optional(),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
-  use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+  allow_squash_merge: PermissiveBoolean.optional().default(true),
+  allow_merge_commit: PermissiveBoolean.optional().default(true),
+  allow_rebase_merge: PermissiveBoolean.optional().default(true),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+  use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
   squash_merge_commit_title: z
     .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
     .optional(),
@@ -140,7 +144,7 @@ const reposCreateInOrgBodySchema = z.object({
     .optional(),
   merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
   merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-  custom_properties: z.record(z.any()).optional(),
+  custom_properties: z.record(z.unknown()).optional(),
 })
 
 export const _POST =

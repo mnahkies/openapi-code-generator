@@ -72,8 +72,8 @@ export type UsersDeleteEmailForAuthenticatedUser = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const usersListEmailsForAuthenticatedUserQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -127,8 +127,8 @@ export const _GET =
 
 const usersAddEmailForAuthenticatedUserBodySchema = z
   .union([
-    z.object({ emails: z.array(z.string()) }),
-    z.array(z.string()),
+    z.object({ emails: z.array(z.string()).min(1) }),
+    z.array(z.string()).min(1),
     z.string(),
   ])
   .optional()
@@ -186,8 +186,8 @@ export const _POST =
   }
 
 const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
-  z.object({ emails: z.array(z.string()) }),
-  z.array(z.string()),
+  z.object({ emails: z.array(z.string()).min(1) }),
+  z.array(z.string()).min(1),
   z.string(),
 ])
 

@@ -63,12 +63,12 @@ const reposListDeploymentsParamSchema = z.object({
 })
 
 const reposListDeploymentsQuerySchema = z.object({
-  sha: z.string().optional(),
-  ref: z.string().optional(),
-  task: z.string().optional(),
-  environment: z.string().nullable().optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  sha: z.string().optional().default("none"),
+  ref: z.string().optional().default("none"),
+  task: z.string().optional().default("none"),
+  environment: z.string().nullable().optional().default("none"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -119,13 +119,13 @@ const reposCreateDeploymentParamSchema = z.object({
 
 const reposCreateDeploymentBodySchema = z.object({
   ref: z.string(),
-  task: z.string().optional(),
-  auto_merge: PermissiveBoolean.optional(),
+  task: z.string().optional().default("deploy"),
+  auto_merge: PermissiveBoolean.optional().default(true),
   required_contexts: z.array(z.string()).optional(),
-  payload: z.union([z.record(z.any()), z.string()]).optional(),
-  environment: z.string().optional(),
-  description: z.string().nullable().optional(),
-  transient_environment: PermissiveBoolean.optional(),
+  payload: z.union([z.record(z.unknown()), z.string().default("")]).optional(),
+  environment: z.string().optional().default("production"),
+  description: z.string().nullable().optional().default(""),
+  transient_environment: PermissiveBoolean.optional().default(false),
   production_environment: PermissiveBoolean.optional(),
 })
 

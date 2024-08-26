@@ -43,11 +43,14 @@ const securityAdvisoriesListOrgRepositoryAdvisoriesParamSchema = z.object({
 })
 
 const securityAdvisoriesListOrgRepositoryAdvisoriesQuerySchema = z.object({
-  direction: z.enum(["asc", "desc"]).optional(),
-  sort: z.enum(["created", "updated", "published"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  sort: z
+    .enum(["created", "updated", "published"])
+    .optional()
+    .default("created"),
   before: z.string().optional(),
   after: z.string().optional(),
-  per_page: z.coerce.number().min(1).max(100).optional(),
+  per_page: z.coerce.number().min(1).max(100).optional().default(30),
   state: z.enum(["triage", "draft", "published", "closed"]).optional(),
 })
 

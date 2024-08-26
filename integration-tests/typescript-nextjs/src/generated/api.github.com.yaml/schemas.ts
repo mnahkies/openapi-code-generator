@@ -68,6 +68,28 @@ export const s_actions_default_workflow_permissions = z.enum(["read", "write"])
 
 export const s_actions_enabled = PermissiveBoolean
 
+export const s_actions_hosted_runner_image = z.object({
+  id: z.string(),
+  platform: z.string(),
+  size_gb: z.coerce.number(),
+  display_name: z.string(),
+  source: z.enum(["github", "partner", "custom"]),
+})
+
+export const s_actions_hosted_runner_limits = z.object({
+  public_ips: z.object({
+    maximum: z.coerce.number(),
+    current_usage: z.coerce.number(),
+  }),
+})
+
+export const s_actions_hosted_runner_machine_spec = z.object({
+  id: z.string(),
+  cpu_cores: z.coerce.number(),
+  memory_gb: z.coerce.number(),
+  storage_gb: z.coerce.number(),
+})
+
 export const s_actions_public_key = z.object({
   key_id: z.string(),
   key: z.string(),
@@ -129,6 +151,56 @@ export const s_alert_url = z.string()
 
 export const s_allowed_actions = z.enum(["all", "local_only", "selected"])
 
+export const s_api_insights_route_stats = z.array(
+  z.object({
+    http_method: z.string().optional(),
+    api_route: z.string().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
+export const s_api_insights_subject_stats = z.array(
+  z.object({
+    subject_type: z.string().optional(),
+    subject_name: z.string().optional(),
+    subject_id: z.coerce.number().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
+export const s_api_insights_summary_stats = z.object({
+  total_request_count: z.coerce.number().optional(),
+  rate_limited_request_count: z.coerce.number().optional(),
+})
+
+export const s_api_insights_time_stats = z.array(
+  z.object({
+    timestamp: z.string().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+  }),
+)
+
+export const s_api_insights_user_stats = z.array(
+  z.object({
+    actor_type: z.string().optional(),
+    actor_name: z.string().optional(),
+    actor_id: z.coerce.number().optional(),
+    integration_id: z.coerce.number().nullable().optional(),
+    oauth_application_id: z.coerce.number().nullable().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
 export const s_api_overview = z.object({
   verifiable_password_authentication: PermissiveBoolean,
   ssh_key_fingerprints: z
@@ -149,7 +221,10 @@ export const s_api_overview = z.object({
   pages: z.array(z.string()).optional(),
   importer: z.array(z.string()).optional(),
   actions: z.array(z.string()).optional(),
+  actions_macos: z.array(z.string()).optional(),
+  codespaces: z.array(z.string()).optional(),
   dependabot: z.array(z.string()).optional(),
+  copilot: z.array(z.string()).optional(),
   domains: z
     .object({
       website: z.array(z.string()).optional(),
@@ -157,6 +232,18 @@ export const s_api_overview = z.object({
       copilot: z.array(z.string()).optional(),
       packages: z.array(z.string()).optional(),
       actions: z.array(z.string()).optional(),
+      actions_inbound: z
+        .object({
+          full_domains: z.array(z.string()).optional(),
+          wildcard_domains: z.array(z.string()).optional(),
+        })
+        .optional(),
+      artifact_attestations: z
+        .object({
+          trust_domain: z.string().optional(),
+          services: z.array(z.string()).optional(),
+        })
+        .optional(),
     })
     .optional(),
 })
@@ -225,6 +312,7 @@ export const s_artifact = z.object({
   created_at: z.string().datetime({ offset: true }).nullable(),
   expires_at: z.string().datetime({ offset: true }).nullable(),
   updated_at: z.string().datetime({ offset: true }).nullable(),
+  digest: z.string().nullable().optional(),
   workflow_run: z
     .object({
       id: z.coerce.number().optional(),
@@ -262,6 +350,26 @@ export const s_basic_error = z.object({
   status: z.string().optional(),
 })
 
+export const s_billing_usage_report = z.object({
+  usageItems: z
+    .array(
+      z.object({
+        date: z.string(),
+        product: z.string(),
+        sku: z.string(),
+        quantity: z.coerce.number(),
+        unitType: z.string(),
+        pricePerUnit: z.coerce.number(),
+        grossAmount: z.coerce.number(),
+        discountAmount: z.coerce.number(),
+        netAmount: z.coerce.number(),
+        organizationName: z.string(),
+        repositoryName: z.string().optional(),
+      }),
+    )
+    .optional(),
+})
+
 export const s_blob = z.object({
   content: z.string(),
   encoding: z.string(),
@@ -297,6 +405,7 @@ export const s_branch_restriction_policy = z.object({
       received_events_url: z.string().optional(),
       type: z.string().optional(),
       site_admin: PermissiveBoolean.optional(),
+      user_view_type: z.string().optional(),
     }),
   ),
   teams: z.array(
@@ -346,9 +455,11 @@ export const s_branch_restriction_policy = z.object({
           received_events_url: z.string().optional(),
           type: z.string().optional(),
           site_admin: PermissiveBoolean.optional(),
+          user_view_type: z.string().optional(),
         })
         .optional(),
       name: z.string().optional(),
+      client_id: z.string().optional(),
       description: z.string().optional(),
       external_url: z.string().optional(),
       html_url: z.string().optional(),
@@ -372,6 +483,8 @@ export const s_branch_short = z.object({
   commit: z.object({ sha: z.string(), url: z.string() }),
   protected: PermissiveBoolean,
 })
+
+export const s_campaign_state = z.enum(["open", "closed"])
 
 export const s_check_annotation = z.object({
   path: z.string(),
@@ -426,6 +539,8 @@ export const s_code_scanning_alert_classification = z
   .enum(["source", "generated", "test", "library"])
   .nullable()
 
+export const s_code_scanning_alert_create_request = PermissiveBoolean
+
 export const s_code_scanning_alert_dismissed_comment = z
   .string()
   .max(280)
@@ -463,13 +578,16 @@ export const s_code_scanning_alert_rule = z.object({
 export const s_code_scanning_alert_rule_summary = z.object({
   id: z.string().nullable().optional(),
   name: z.string().optional(),
-  tags: z.array(z.string()).nullable().optional(),
   severity: z.enum(["none", "note", "warning", "error"]).nullable().optional(),
   security_severity_level: z
     .enum(["low", "medium", "high", "critical"])
     .nullable()
     .optional(),
   description: z.string().optional(),
+  full_description: z.string().optional(),
+  tags: z.array(z.string()).nullable().optional(),
+  help: z.string().nullable().optional(),
+  help_uri: z.string().nullable().optional(),
 })
 
 export const s_code_scanning_alert_set_state = z.enum(["open", "dismissed"])
@@ -484,11 +602,9 @@ export const s_code_scanning_alert_severity = z.enum([
   "error",
 ])
 
-export const s_code_scanning_alert_state = z.enum([
-  "open",
-  "dismissed",
-  "fixed",
-])
+export const s_code_scanning_alert_state = z
+  .enum(["open", "dismissed", "fixed"])
+  .nullable()
 
 export const s_code_scanning_alert_state_query = z.enum([
   "open",
@@ -530,11 +646,34 @@ export const s_code_scanning_analysis_tool_version = z.string().nullable()
 
 export const s_code_scanning_analysis_url = z.string()
 
+export const s_code_scanning_autofix_commits = z
+  .object({ target_ref: z.string().optional(), message: z.string().optional() })
+  .nullable()
+
+export const s_code_scanning_autofix_commits_response = z.object({
+  target_ref: z.string().optional(),
+  sha: z.string().optional(),
+})
+
+export const s_code_scanning_autofix_description = z.string().nullable()
+
+export const s_code_scanning_autofix_started_at = z
+  .string()
+  .datetime({ offset: true })
+
+export const s_code_scanning_autofix_status = z.enum([
+  "pending",
+  "error",
+  "success",
+  "outdated",
+])
+
 export const s_code_scanning_default_setup = z.object({
   state: z.enum(["configured", "not-configured"]).optional(),
   languages: z
     .array(
       z.enum([
+        "actions",
         "c-cpp",
         "csharp",
         "go",
@@ -548,17 +687,29 @@ export const s_code_scanning_default_setup = z.object({
       ]),
     )
     .optional(),
+  runner_type: z.enum(["standard", "labeled"]).nullable().optional(),
+  runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
   updated_at: z.string().datetime({ offset: true }).nullable().optional(),
   schedule: z.enum(["weekly"]).nullable().optional(),
 })
 
+export const s_code_scanning_default_setup_options = z
+  .object({
+    runner_type: z.enum(["standard", "labeled", "not_set"]).optional(),
+    runner_label: z.string().nullable().optional(),
+  })
+  .nullable()
+
 export const s_code_scanning_default_setup_update = z.object({
   state: z.enum(["configured", "not-configured"]).optional(),
+  runner_type: z.enum(["standard", "labeled"]).optional(),
+  runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
   languages: z
     .array(
       z.enum([
+        "actions",
         "c-cpp",
         "csharp",
         "go",
@@ -588,6 +739,119 @@ export const s_code_scanning_sarifs_status = z.object({
   analyses_url: z.string().nullable().optional(),
   errors: z.array(z.string()).nullable().optional(),
 })
+
+export const s_code_scanning_variant_analysis_language = z.enum([
+  "cpp",
+  "csharp",
+  "go",
+  "java",
+  "javascript",
+  "python",
+  "ruby",
+  "rust",
+  "swift",
+])
+
+export const s_code_scanning_variant_analysis_repository = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  full_name: z.string(),
+  private: PermissiveBoolean,
+  stargazers_count: z.coerce.number(),
+  updated_at: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const s_code_scanning_variant_analysis_status = z.enum([
+  "pending",
+  "in_progress",
+  "succeeded",
+  "failed",
+  "canceled",
+  "timed_out",
+])
+
+export const s_code_security_configuration = z.object({
+  id: z.coerce.number().optional(),
+  name: z.string().optional(),
+  target_type: z.enum(["global", "organization", "enterprise"]).optional(),
+  description: z.string().optional(),
+  advanced_security: z
+    .enum(["enabled", "disabled", "code_security", "secret_protection"])
+    .optional(),
+  dependency_graph: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  dependency_graph_autosubmit_action: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  dependency_graph_autosubmit_action_options: z
+    .object({ labeled_runners: PermissiveBoolean.optional() })
+    .optional(),
+  dependabot_alerts: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  dependabot_security_updates: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  code_scanning_default_setup: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  code_scanning_default_setup_options: z
+    .object({
+      runner_type: z
+        .enum(["standard", "labeled", "not_set"])
+        .nullable()
+        .optional(),
+      runner_label: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
+  code_scanning_delegated_alert_dismissal: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
+  secret_scanning_push_protection: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_delegated_bypass: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_delegated_bypass_options: z
+    .object({
+      reviewers: z
+        .array(
+          z.object({
+            reviewer_id: z.coerce.number(),
+            reviewer_type: z.enum(["TEAM", "ROLE"]),
+          }),
+        )
+        .optional(),
+    })
+    .optional(),
+  secret_scanning_validity_checks: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_non_provider_patterns: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_generic_secrets: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_delegated_alert_dismissal: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  private_vulnerability_reporting: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  enforcement: z.enum(["enforced", "unenforced"]).optional(),
+  url: z.string().optional(),
+  html_url: z.string().optional(),
+  created_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.string().datetime({ offset: true }).optional(),
+})
+
+export const s_code_security_default_configurations = z.array(
+  z.object({
+    default_for_new_repos: z.object({}).optional(),
+    configuration: s_code_security_configuration.optional(),
+  }),
+)
 
 export const s_codeowners_errors = z.object({
   errors: z.array(
@@ -688,6 +952,7 @@ export const s_collaborator = z.object({
     })
     .optional(),
   role_name: z.string(),
+  user_view_type: z.string().optional(),
 })
 
 export const s_combined_billing_usage = z.object({
@@ -808,9 +1073,145 @@ export const s_contributor = z.object({
   contributions: z.coerce.number(),
   email: z.string().optional(),
   name: z.string().optional(),
+  user_view_type: z.string().optional(),
 })
 
-export const s_copilot_seat_breakdown = z.object({
+export const s_copilot_dotcom_chat = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      models: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            is_custom_model: PermissiveBoolean.optional(),
+            custom_model_training_date: z.string().nullable().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            total_chats: z.coerce.number().optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_dotcom_pull_requests = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      repositories: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            models: z
+              .array(
+                z.object({
+                  name: z.string().optional(),
+                  is_custom_model: PermissiveBoolean.optional(),
+                  custom_model_training_date: z.string().nullable().optional(),
+                  total_pr_summaries_created: z.coerce.number().optional(),
+                  total_engaged_users: z.coerce.number().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_ide_chat = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      editors: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            models: z
+              .array(
+                z.object({
+                  name: z.string().optional(),
+                  is_custom_model: PermissiveBoolean.optional(),
+                  custom_model_training_date: z.string().nullable().optional(),
+                  total_engaged_users: z.coerce.number().optional(),
+                  total_chats: z.coerce.number().optional(),
+                  total_chat_insertion_events: z.coerce.number().optional(),
+                  total_chat_copy_events: z.coerce.number().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_ide_code_completions = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      languages: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+          }),
+        )
+        .optional(),
+      editors: z
+        .array(
+          z.intersection(
+            z.object({
+              name: z.string().optional(),
+              total_engaged_users: z.coerce.number().optional(),
+              models: z
+                .array(
+                  z.object({
+                    name: z.string().optional(),
+                    is_custom_model: PermissiveBoolean.optional(),
+                    custom_model_training_date: z
+                      .string()
+                      .nullable()
+                      .optional(),
+                    total_engaged_users: z.coerce.number().optional(),
+                    languages: z
+                      .array(
+                        z.object({
+                          name: z.string().optional(),
+                          total_engaged_users: z.coerce.number().optional(),
+                          total_code_suggestions: z.coerce.number().optional(),
+                          total_code_acceptances: z.coerce.number().optional(),
+                          total_code_lines_suggested: z.coerce
+                            .number()
+                            .optional(),
+                          total_code_lines_accepted: z.coerce
+                            .number()
+                            .optional(),
+                        }),
+                      )
+                      .optional(),
+                  }),
+                )
+                .optional(),
+            }),
+            z.record(z.unknown()),
+          ),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_organization_seat_breakdown = z.object({
   total: z.coerce.number().optional(),
   added_this_cycle: z.coerce.number().optional(),
   pending_cancellation: z.coerce.number().optional(),
@@ -826,10 +1227,62 @@ export const s_custom_deployment_rule_app = z.object({
   node_id: z.string(),
 })
 
+export const s_custom_property = z.object({
+  property_name: z.string(),
+  url: z.string().optional(),
+  source_type: z.enum(["organization", "enterprise"]).optional(),
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
+  required: PermissiveBoolean.optional(),
+  default_value: z
+    .union([z.string(), z.array(z.string())])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
+  values_editable_by: z
+    .enum(["org_actors", "org_and_repo_actors"])
+    .nullable()
+    .optional(),
+})
+
+export const s_custom_property_set_payload = z.object({
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
+  required: PermissiveBoolean.optional(),
+  default_value: z
+    .union([z.string(), z.array(z.string())])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
+  values_editable_by: z
+    .enum(["org_actors", "org_and_repo_actors"])
+    .nullable()
+    .optional(),
+})
+
 export const s_custom_property_value = z.object({
   property_name: z.string(),
   value: z.union([z.string(), z.array(z.string())]).nullable(),
 })
+
+export const s_cvss_severities = z
+  .object({
+    cvss_v3: z
+      .object({
+        vector_string: z.string().nullable(),
+        score: z.coerce.number().min(0).max(10).nullable(),
+      })
+      .nullable()
+      .optional(),
+    cvss_v4: z
+      .object({
+        vector_string: z.string().nullable(),
+        score: z.coerce.number().min(0).max(10).nullable(),
+      })
+      .nullable()
+      .optional(),
+  })
+  .nullable()
 
 export const s_dependabot_alert_package = z.object({
   ecosystem: z.string(),
@@ -873,13 +1326,13 @@ export const s_dependency_graph_spdx_sbom = z.object({
   sbom: z.object({
     SPDXID: z.string(),
     spdxVersion: z.string(),
+    comment: z.string().optional(),
     creationInfo: z.object({
       created: z.string(),
       creators: z.array(z.string()),
     }),
     name: z.string(),
     dataLicense: z.string(),
-    documentDescribes: z.array(z.string()),
     documentNamespace: z.string(),
     packages: z.array(
       z.object({
@@ -891,6 +1344,7 @@ export const s_dependency_graph_spdx_sbom = z.object({
         licenseConcluded: z.string().optional(),
         licenseDeclared: z.string().optional(),
         supplier: z.string().optional(),
+        copyrightText: z.string().optional(),
         externalRefs: z
           .array(
             z.object({
@@ -902,6 +1356,15 @@ export const s_dependency_graph_spdx_sbom = z.object({
           .optional(),
       }),
     ),
+    relationships: z
+      .array(
+        z.object({
+          relationshipType: z.string().optional(),
+          spdxElementId: z.string().optional(),
+          relatedSpdxElement: z.string().optional(),
+        }),
+      )
+      .optional(),
   }),
 })
 
@@ -915,6 +1378,7 @@ export const s_deploy_key = z.object({
   read_only: PermissiveBoolean,
   added_by: z.string().nullable().optional(),
   last_used: z.string().nullable().optional(),
+  enabled: PermissiveBoolean.optional(),
 })
 
 export const s_deployment_branch_policy = z.object({
@@ -988,6 +1452,20 @@ export const s_enterprise = z.object({
   avatar_url: z.string(),
 })
 
+export const s_enterprise_team = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  slug: z.string(),
+  url: z.string(),
+  sync_to_organizations: z.string(),
+  group_id: z.string().nullable().optional(),
+  group_name: z.string().nullable().optional(),
+  html_url: z.string(),
+  members_url: z.string(),
+  created_at: z.string().datetime({ offset: true }),
+  updated_at: z.string().datetime({ offset: true }),
+})
+
 export const s_file_commit = z.object({
   content: z
     .object({
@@ -1047,6 +1525,7 @@ export const s_file_commit = z.object({
         reason: z.string().optional(),
         signature: z.string().nullable().optional(),
         payload: z.string().nullable().optional(),
+        verified_at: z.string().nullable().optional(),
       })
       .optional(),
   }),
@@ -1076,6 +1555,7 @@ export const s_git_commit = z.object({
     reason: z.string(),
     signature: z.string().nullable(),
     payload: z.string().nullable(),
+    verified_at: z.string().nullable(),
   }),
   html_url: z.string(),
 })
@@ -1093,14 +1573,14 @@ export const s_git_ref = z.object({
 
 export const s_git_tree = z.object({
   sha: z.string(),
-  url: z.string(),
+  url: z.string().optional(),
   truncated: PermissiveBoolean,
   tree: z.array(
     z.object({
-      path: z.string().optional(),
-      mode: z.string().optional(),
-      type: z.string().optional(),
-      sha: z.string().optional(),
+      path: z.string(),
+      mode: z.string(),
+      type: z.string(),
+      sha: z.string(),
       size: z.coerce.number().optional(),
       url: z.string().optional(),
     }),
@@ -1138,7 +1618,7 @@ export const s_gpg_key = z.object({
           }),
         )
         .optional(),
-      subkeys: z.array(z.object({})).optional(),
+      subkeys: z.array(z.unknown()).optional(),
       can_sign: PermissiveBoolean.optional(),
       can_encrypt_comms: PermissiveBoolean.optional(),
       can_encrypt_storage: PermissiveBoolean.optional(),
@@ -1171,13 +1651,14 @@ export const s_hook_delivery = z.object({
   action: z.string().nullable(),
   installation_id: z.coerce.number().nullable(),
   repository_id: z.coerce.number().nullable(),
+  throttled_at: z.string().datetime({ offset: true }).nullable().optional(),
   url: z.string().optional(),
   request: z.object({
-    headers: z.record(z.any()).nullable(),
-    payload: z.record(z.any()).nullable(),
+    headers: z.record(z.unknown()).nullable(),
+    payload: z.record(z.unknown()).nullable(),
   }),
   response: z.object({
-    headers: z.record(z.any()).nullable(),
+    headers: z.record(z.unknown()).nullable(),
     payload: z.string().nullable(),
   }),
 })
@@ -1194,6 +1675,7 @@ export const s_hook_delivery_item = z.object({
   action: z.string().nullable(),
   installation_id: z.coerce.number().nullable(),
   repository_id: z.coerce.number().nullable(),
+  throttled_at: z.string().datetime({ offset: true }).nullable().optional(),
 })
 
 export const s_hook_response = z.object({
@@ -1298,6 +1780,31 @@ export const s_issue_event_rename = z.object({
   from: z.string(),
   to: z.string(),
 })
+
+export const s_issue_type = z
+  .object({
+    id: z.coerce.number(),
+    node_id: z.string(),
+    name: z.string(),
+    description: z.string().nullable(),
+    color: z
+      .enum([
+        "gray",
+        "blue",
+        "green",
+        "yellow",
+        "orange",
+        "red",
+        "pink",
+        "purple",
+      ])
+      .nullable()
+      .optional(),
+    created_at: z.string().datetime({ offset: true }).optional(),
+    updated_at: z.string().datetime({ offset: true }).optional(),
+    is_enabled: PermissiveBoolean.optional(),
+  })
+  .nullable()
 
 export const s_job = z.object({
   id: z.coerce.number(),
@@ -1446,6 +1953,31 @@ export const s_metadata = z.record(
   z.union([z.string(), z.coerce.number(), PermissiveBoolean]).nullable(),
 )
 
+export const s_network_configuration = z.object({
+  id: z.string(),
+  name: z.string(),
+  compute_service: z.enum(["none", "actions", "codespaces"]).optional(),
+  network_settings_ids: z.array(z.string()).optional(),
+  created_on: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const s_network_settings = z.object({
+  id: z.string(),
+  network_configuration_id: z.string().optional(),
+  name: z.string(),
+  subnet_id: z.string(),
+  region: z.string(),
+})
+
+export const s_nullable_actions_hosted_runner_pool_image = z
+  .object({
+    id: z.string(),
+    size_gb: z.coerce.number(),
+    display_name: z.string(),
+    source: z.enum(["github", "partner", "custom"]),
+  })
+  .nullable()
+
 export const s_nullable_alert_updated_at = z
   .string()
   .datetime({ offset: true })
@@ -1504,6 +2036,7 @@ export const s_nullable_collaborator = z
       })
       .optional(),
     role_name: z.string(),
+    user_view_type: z.string().optional(),
   })
   .nullable()
 
@@ -1527,6 +2060,23 @@ export const s_nullable_license_simple = z
     spdx_id: z.string().nullable(),
     node_id: z.string(),
     html_url: z.string().optional(),
+  })
+  .nullable()
+
+export const s_nullable_organization_simple = z
+  .object({
+    login: z.string(),
+    id: z.coerce.number(),
+    node_id: z.string(),
+    url: z.string(),
+    repos_url: z.string(),
+    events_url: z.string(),
+    hooks_url: z.string(),
+    issues_url: z.string(),
+    members_url: z.string(),
+    public_members_url: z.string(),
+    avatar_url: z.string(),
+    description: z.string().nullable(),
   })
   .nullable()
 
@@ -1568,6 +2118,7 @@ export const s_nullable_simple_user = z
     type: z.string(),
     site_admin: PermissiveBoolean,
     starred_at: z.string().optional(),
+    user_view_type: z.string().optional(),
   })
   .nullable()
 
@@ -1598,22 +2149,6 @@ export const s_oidc_custom_sub_repo = z.object({
   include_claim_keys: z.array(z.string()).optional(),
 })
 
-export const s_org_custom_property = z.object({
-  property_name: z.string(),
-  value_type: z.enum(["string", "single_select"]),
-  required: PermissiveBoolean.optional(),
-  default_value: z
-    .union([z.string(), z.array(z.string())])
-    .nullable()
-    .optional(),
-  description: z.string().nullable().optional(),
-  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
-  values_editable_by: z
-    .enum(["org_actors", "org_and_repo_actors"])
-    .nullable()
-    .optional(),
-})
-
 export const s_org_hook = z.object({
   id: z.coerce.number(),
   url: z.string(),
@@ -1633,45 +2168,25 @@ export const s_org_hook = z.object({
   type: z.string(),
 })
 
-export const s_organization = z.object({
-  login: z.string(),
-  url: z.string(),
-  id: z.coerce.number(),
-  node_id: z.string(),
-  repos_url: z.string(),
-  events_url: z.string(),
-  hooks_url: z.string(),
-  issues_url: z.string(),
-  members_url: z.string(),
-  public_members_url: z.string(),
-  avatar_url: z.string(),
-  description: z.string().nullable(),
-  blog: z.string().optional(),
-  html_url: z.string(),
-  name: z.string().optional(),
-  company: z.string().optional(),
-  location: z.string().optional(),
-  email: z.string().email().optional(),
-  has_organization_projects: PermissiveBoolean,
-  has_repository_projects: PermissiveBoolean,
-  is_verified: PermissiveBoolean.optional(),
-  public_repos: z.coerce.number(),
-  public_gists: z.coerce.number(),
-  followers: z.coerce.number(),
-  following: z.coerce.number(),
-  type: z.string(),
+export const s_org_private_registry_configuration = z.object({
+  name: z.string(),
+  registry_type: z.enum(["maven_repository"]),
+  username: z.string().nullable().optional(),
+  visibility: z.enum(["all", "private", "selected"]),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
-  plan: z
-    .object({
-      name: z.string().optional(),
-      space: z.coerce.number().optional(),
-      private_repos: z.coerce.number().optional(),
-      filled_seats: z.coerce.number().optional(),
-      seats: z.coerce.number().optional(),
-    })
-    .optional(),
 })
+
+export const s_org_private_registry_configuration_with_selected_repositories =
+  z.object({
+    name: z.string(),
+    registry_type: z.enum(["maven_repository"]),
+    username: z.string().optional(),
+    visibility: z.enum(["all", "private", "selected"]),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    created_at: z.string().datetime({ offset: true }),
+    updated_at: z.string().datetime({ offset: true }),
+  })
 
 export const s_organization_actions_secret = z.object({
   name: z.string(),
@@ -1690,17 +2205,31 @@ export const s_organization_actions_variable = z.object({
   selected_repositories_url: z.string().optional(),
 })
 
+export const s_organization_create_issue_type = z.object({
+  name: z.string(),
+  is_enabled: PermissiveBoolean,
+  description: z.string().nullable().optional(),
+  color: z
+    .enum([
+      "gray",
+      "blue",
+      "green",
+      "yellow",
+      "orange",
+      "red",
+      "pink",
+      "purple",
+    ])
+    .nullable()
+    .optional(),
+})
+
 export const s_organization_dependabot_secret = z.object({
   name: z.string(),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
   visibility: z.enum(["all", "private", "selected"]),
   selected_repositories_url: z.string().optional(),
-})
-
-export const s_organization_fine_grained_permission = z.object({
-  name: z.string(),
-  description: z.string(),
 })
 
 export const s_organization_full = z.object({
@@ -1773,6 +2302,7 @@ export const s_organization_full = z.object({
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
   archived_at: z.string().datetime({ offset: true }).nullable(),
+  deploy_keys_enabled_for_repositories: PermissiveBoolean.optional(),
 })
 
 export const s_organization_simple = z.object({
@@ -1788,6 +2318,25 @@ export const s_organization_simple = z.object({
   public_members_url: z.string(),
   avatar_url: z.string(),
   description: z.string().nullable(),
+})
+
+export const s_organization_update_issue_type = z.object({
+  name: z.string(),
+  is_enabled: PermissiveBoolean,
+  description: z.string().nullable().optional(),
+  color: z
+    .enum([
+      "gray",
+      "blue",
+      "green",
+      "yellow",
+      "orange",
+      "red",
+      "pink",
+      "purple",
+    ])
+    .nullable()
+    .optional(),
 })
 
 export const s_package_version = z.object({
@@ -1975,6 +2524,7 @@ export const s_prevent_self_review = PermissiveBoolean
 export const s_private_user = z.object({
   login: z.string(),
   id: z.coerce.number(),
+  user_view_type: z.string().optional(),
   node_id: z.string(),
   avatar_url: z.string(),
   gravatar_id: z.string().nullable(),
@@ -1996,6 +2546,7 @@ export const s_private_user = z.object({
   blog: z.string().nullable(),
   location: z.string().nullable(),
   email: z.string().email().nullable(),
+  notification_email: z.string().email().nullable().optional(),
   hireable: PermissiveBoolean.nullable(),
   bio: z.string().nullable(),
   twitter_username: z.string().nullable().optional(),
@@ -2019,7 +2570,6 @@ export const s_private_user = z.object({
       private_repos: z.coerce.number(),
     })
     .optional(),
-  suspended_at: z.string().datetime({ offset: true }).nullable().optional(),
   business_plus: PermissiveBoolean.optional(),
   ldap_dn: z.string().optional(),
 })
@@ -2051,9 +2601,16 @@ export const s_protected_branch_required_status_check = z.object({
   strict: PermissiveBoolean.optional(),
 })
 
+export const s_public_ip = z.object({
+  enabled: PermissiveBoolean.optional(),
+  prefix: z.string().optional(),
+  length: z.coerce.number().optional(),
+})
+
 export const s_public_user = z.object({
   login: z.string(),
   id: z.coerce.number(),
+  user_view_type: z.string().optional(),
   node_id: z.string(),
   avatar_url: z.string(),
   gravatar_id: z.string().nullable(),
@@ -2075,6 +2632,7 @@ export const s_public_user = z.object({
   blog: z.string().nullable(),
   location: z.string().nullable(),
   email: z.string().email().nullable(),
+  notification_email: z.string().email().nullable().optional(),
   hireable: PermissiveBoolean.nullable(),
   bio: z.string().nullable(),
   twitter_username: z.string().nullable().optional(),
@@ -2092,7 +2650,6 @@ export const s_public_user = z.object({
       private_repos: z.coerce.number(),
     })
     .optional(),
-  suspended_at: z.string().datetime({ offset: true }).nullable().optional(),
   private_gists: z.coerce.number().optional(),
   total_private_repos: z.coerce.number().optional(),
   owned_private_repos: z.coerce.number().optional(),
@@ -2235,8 +2792,63 @@ export const s_repository_rule_enforcement = z.enum([
   "evaluate",
 ])
 
+export const s_repository_rule_file_extension_restriction = z.object({
+  type: z.enum(["file_extension_restriction"]),
+  parameters: z
+    .object({ restricted_file_extensions: z.array(z.string()) })
+    .optional(),
+})
+
+export const s_repository_rule_file_path_restriction = z.object({
+  type: z.enum(["file_path_restriction"]),
+  parameters: z
+    .object({ restricted_file_paths: z.array(z.string()) })
+    .optional(),
+})
+
+export const s_repository_rule_max_file_path_length = z.object({
+  type: z.enum(["max_file_path_length"]),
+  parameters: z
+    .object({ max_file_path_length: z.coerce.number().min(1).max(256) })
+    .optional(),
+})
+
+export const s_repository_rule_max_file_size = z.object({
+  type: z.enum(["max_file_size"]),
+  parameters: z
+    .object({ max_file_size: z.coerce.number().min(1).max(100) })
+    .optional(),
+})
+
+export const s_repository_rule_merge_queue = z.object({
+  type: z.enum(["merge_queue"]),
+  parameters: z
+    .object({
+      check_response_timeout_minutes: z.coerce.number().min(1).max(360),
+      grouping_strategy: z.enum(["ALLGREEN", "HEADGREEN"]),
+      max_entries_to_build: z.coerce.number().min(0).max(100),
+      max_entries_to_merge: z.coerce.number().min(0).max(100),
+      merge_method: z.enum(["MERGE", "SQUASH", "REBASE"]),
+      min_entries_to_merge: z.coerce.number().min(0).max(100),
+      min_entries_to_merge_wait_minutes: z.coerce.number().min(0).max(360),
+    })
+    .optional(),
+})
+
 export const s_repository_rule_non_fast_forward = z.object({
   type: z.enum(["non_fast_forward"]),
+})
+
+export const s_repository_rule_params_code_scanning_tool = z.object({
+  alerts_threshold: z.enum(["none", "errors", "errors_and_warnings", "all"]),
+  security_alerts_threshold: z.enum([
+    "none",
+    "critical",
+    "high_or_higher",
+    "medium_or_higher",
+    "all",
+  ]),
+  tool: z.string(),
 })
 
 export const s_repository_rule_params_status_check_configuration = z.object({
@@ -2255,6 +2867,10 @@ export const s_repository_rule_pull_request = z.object({
   type: z.enum(["pull_request"]),
   parameters: z
     .object({
+      allowed_merge_methods: z
+        .array(z.enum(["merge", "squash", "rebase"]))
+        .optional(),
+      automatic_copilot_code_review_enabled: PermissiveBoolean.optional(),
       dismiss_stale_reviews_on_push: PermissiveBoolean,
       require_code_owner_review: PermissiveBoolean,
       require_last_push_approval: PermissiveBoolean,
@@ -2305,14 +2921,15 @@ export const s_repository_rule_update = z.object({
 })
 
 export const s_repository_ruleset_bypass_actor = z.object({
-  actor_id: z.coerce.number(),
+  actor_id: z.coerce.number().nullable().optional(),
   actor_type: z.enum([
     "Integration",
     "OrganizationAdmin",
     "RepositoryRole",
     "Team",
+    "DeployKey",
   ]),
-  bypass_mode: z.enum(["always", "pull_request"]),
+  bypass_mode: z.enum(["always", "pull_request"]).optional().default("always"),
 })
 
 export const s_repository_ruleset_conditions = z.object({
@@ -2339,7 +2956,11 @@ export const s_repository_ruleset_conditions_repository_name_target = z.object({
 })
 
 export const s_repository_ruleset_conditions_repository_property_spec =
-  z.object({ name: z.string(), property_values: z.array(z.string()) })
+  z.object({
+    name: z.string(),
+    property_values: z.array(z.string()),
+    source: z.enum(["custom", "system"]).optional(),
+  })
 
 export const s_repository_subscription = z.object({
   subscribed: PermissiveBoolean,
@@ -2408,7 +3029,7 @@ export const s_rule_suite = z.object({
   repository_name: z.string().optional(),
   pushed_at: z.string().datetime({ offset: true }).optional(),
   result: z.enum(["pass", "fail", "bypass"]).optional(),
-  evaluation_result: z.enum(["pass", "fail"]).optional(),
+  evaluation_result: z.enum(["pass", "fail", "bypass"]).nullable().optional(),
   rule_evaluations: z
     .array(
       z.object({
@@ -2424,7 +3045,7 @@ export const s_rule_suite = z.object({
           .optional(),
         result: z.enum(["pass", "fail"]).optional(),
         rule_type: z.string().optional(),
-        details: z.string().optional(),
+        details: z.string().nullable().optional(),
       }),
     )
     .optional(),
@@ -2442,9 +3063,18 @@ export const s_rule_suites = z.array(
     repository_name: z.string().optional(),
     pushed_at: z.string().datetime({ offset: true }).optional(),
     result: z.enum(["pass", "fail", "bypass"]).optional(),
-    evaluation_result: z.enum(["pass", "fail"]).optional(),
+    evaluation_result: z.enum(["pass", "fail", "bypass"]).optional(),
   }),
 )
+
+export const s_ruleset_version = z.object({
+  version_id: z.coerce.number(),
+  actor: z.object({
+    id: z.coerce.number().optional(),
+    type: z.string().optional(),
+  }),
+  updated_at: z.string().datetime({ offset: true }),
+})
 
 export const s_runner_application = z.object({
   os: z.string(),
@@ -2453,6 +3083,23 @@ export const s_runner_application = z.object({
   filename: z.string(),
   temp_download_token: z.string().optional(),
   sha256_checksum: z.string().optional(),
+})
+
+export const s_runner_groups_org = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  visibility: z.string(),
+  default: PermissiveBoolean,
+  selected_repositories_url: z.string().optional(),
+  runners_url: z.string(),
+  hosted_runners_url: z.string().optional(),
+  network_configuration_id: z.string().optional(),
+  inherited: PermissiveBoolean,
+  inherited_allows_public_repositories: PermissiveBoolean.optional(),
+  allows_public_repositories: PermissiveBoolean,
+  workflow_restrictions_read_only: PermissiveBoolean.optional().default(false),
+  restricted_to_workflows: PermissiveBoolean.optional().default(false),
+  selected_workflows: z.array(z.string()).optional(),
 })
 
 export const s_runner_label = z.object({
@@ -2563,6 +3210,22 @@ export const s_secret_scanning_location_wiki_commit = z.object({
   commit_url: z.string(),
 })
 
+export const s_secret_scanning_push_protection_bypass_placeholder_id =
+  z.string()
+
+export const s_secret_scanning_push_protection_bypass_reason = z.enum([
+  "false_positive",
+  "used_in_tests",
+  "will_fix_later",
+])
+
+export const s_secret_scanning_scan = z.object({
+  type: z.string().optional(),
+  status: z.string().optional(),
+  completed_at: z.string().datetime({ offset: true }).nullable().optional(),
+  started_at: z.string().datetime({ offset: true }).nullable().optional(),
+})
+
 export const s_security_advisory_credit_types = z.enum([
   "analyst",
   "finder",
@@ -2592,9 +3255,19 @@ export const s_security_advisory_ecosystems = z.enum([
   "swift",
 ])
 
+export const s_security_advisory_epss = z
+  .object({
+    percentage: z.coerce.number().min(0).max(100).optional(),
+    percentile: z.coerce.number().min(0).max(100).optional(),
+  })
+  .nullable()
+
 export const s_security_and_analysis = z
   .object({
     advanced_security: z
+      .object({ status: z.enum(["enabled", "disabled"]).optional() })
+      .optional(),
+    code_security: z
       .object({ status: z.enum(["enabled", "disabled"]).optional() })
       .optional(),
     dependabot_security_updates: z
@@ -2604,6 +3277,12 @@ export const s_security_and_analysis = z
       .object({ status: z.enum(["enabled", "disabled"]).optional() })
       .optional(),
     secret_scanning_push_protection: z
+      .object({ status: z.enum(["enabled", "disabled"]).optional() })
+      .optional(),
+    secret_scanning_non_provider_patterns: z
+      .object({ status: z.enum(["enabled", "disabled"]).optional() })
+      .optional(),
+    secret_scanning_ai_detection: z
       .object({ status: z.enum(["enabled", "disabled"]).optional() })
       .optional(),
   })
@@ -2698,6 +3377,7 @@ export const s_simple_user = z.object({
   type: z.string(),
   site_admin: PermissiveBoolean,
   starred_at: z.string().optional(),
+  user_view_type: z.string().optional(),
 })
 
 export const s_social_account = z.object({
@@ -2722,6 +3402,12 @@ export const s_status_check_policy = z.object({
   contexts_url: z.string(),
 })
 
+export const s_sub_issues_summary = z.object({
+  total: z.coerce.number(),
+  completed: z.coerce.number(),
+  percent_completed: z.coerce.number(),
+})
+
 export const s_tag = z.object({
   name: z.string(),
   commit: z.object({ sha: z.string(), url: z.string() }),
@@ -2740,7 +3426,7 @@ export const s_tag_protection = z.object({
 
 export const s_team_membership = z.object({
   url: z.string(),
-  role: z.enum(["member", "maintainer"]),
+  role: z.enum(["member", "maintainer"]).default("member"),
   state: z.enum(["active", "pending"]),
 })
 
@@ -2856,6 +3542,7 @@ export const s_timeline_committed_event = z.object({
     reason: z.string(),
     signature: z.string().nullable(),
     payload: z.string().nullable(),
+    verified_at: z.string().nullable(),
   }),
   html_url: z.string(),
 })
@@ -2902,6 +3589,7 @@ export const s_verification = z.object({
   reason: z.string(),
   payload: z.string().nullable(),
   signature: z.string().nullable(),
+  verified_at: z.string().nullable(),
 })
 
 export const s_wait_timer = z.coerce.number()
@@ -2998,6 +3686,20 @@ export const s_actions_get_default_workflow_permissions = z.object({
   can_approve_pull_request_reviews: s_actions_can_approve_pull_request_reviews,
 })
 
+export const s_actions_hosted_runner = z.object({
+  id: z.coerce.number(),
+  name: z.string(),
+  runner_group_id: z.coerce.number().optional(),
+  image_details: s_nullable_actions_hosted_runner_pool_image,
+  machine_size_details: s_actions_hosted_runner_machine_spec,
+  status: z.enum(["Ready", "Provisioning", "Shutdown", "Deleting", "Stuck"]),
+  platform: z.string(),
+  maximum_runners: z.coerce.number().optional().default(10),
+  public_ip_enabled: PermissiveBoolean,
+  public_ips: z.array(s_public_ip).optional(),
+  last_active_on: z.string().datetime({ offset: true }).nullable().optional(),
+})
+
 export const s_actions_organization_permissions = z.object({
   enabled_repositories: s_enabled_repositories,
   selected_repositories_url: z.string().optional(),
@@ -3061,6 +3763,7 @@ export const s_base_gist = z.object({
       language: z.string().optional(),
       raw_url: z.string().optional(),
       size: z.coerce.number().optional(),
+      encoding: z.string().optional().default("utf-8"),
     }),
   ),
   public: PermissiveBoolean,
@@ -3068,12 +3771,13 @@ export const s_base_gist = z.object({
   updated_at: z.string().datetime({ offset: true }),
   description: z.string().nullable(),
   comments: z.coerce.number(),
+  comments_enabled: PermissiveBoolean.optional(),
   user: s_nullable_simple_user,
   comments_url: z.string(),
   owner: s_simple_user.optional(),
   truncated: PermissiveBoolean.optional(),
-  forks: z.array(z.object({})).optional(),
-  history: z.array(z.object({})).optional(),
+  forks: z.array(z.unknown()).optional(),
+  history: z.array(z.unknown()).optional(),
 })
 
 export const s_classroom = z.object({
@@ -3109,6 +3813,12 @@ export const s_code_scanning_analysis_tool = z.object({
   guid: s_code_scanning_analysis_tool_guid.optional(),
 })
 
+export const s_code_scanning_autofix = z.object({
+  status: s_code_scanning_autofix_status,
+  description: s_code_scanning_autofix_description,
+  started_at: s_code_scanning_autofix_started_at,
+})
+
 export const s_code_scanning_codeql_database = z.object({
   id: z.coerce.number(),
   name: z.string(),
@@ -3127,6 +3837,27 @@ export const s_code_scanning_sarifs_receipt = z.object({
   url: z.string().optional(),
 })
 
+export const s_code_scanning_variant_analysis_skipped_repo_group = z.object({
+  repository_count: z.coerce.number(),
+  repositories: z.array(s_code_scanning_variant_analysis_repository),
+})
+
+export const s_code_security_configuration_for_repository = z.object({
+  status: z
+    .enum([
+      "attached",
+      "attaching",
+      "detached",
+      "removed",
+      "enforced",
+      "failed",
+      "updating",
+      "removed_by_enterprise",
+    ])
+    .optional(),
+  configuration: s_code_security_configuration.optional(),
+})
+
 export const s_commit = z.object({
   url: z.string(),
   sha: z.string(),
@@ -3142,8 +3873,8 @@ export const s_commit = z.object({
     tree: z.object({ sha: z.string(), url: z.string() }),
     verification: s_verification.optional(),
   }),
-  author: s_nullable_simple_user,
-  committer: s_nullable_simple_user,
+  author: z.union([s_simple_user, s_empty_object]).nullable(),
+  committer: z.union([s_simple_user, s_empty_object]).nullable(),
   parents: z.array(
     z.object({
       sha: z.string(),
@@ -3210,13 +3941,8 @@ export const s_contributor_activity = z.object({
 
 export const s_copilot_organization_details = z.intersection(
   z.object({
-    seat_breakdown: s_copilot_seat_breakdown,
-    public_code_suggestions: z.enum([
-      "allow",
-      "block",
-      "unconfigured",
-      "unknown",
-    ]),
+    seat_breakdown: s_copilot_organization_seat_breakdown,
+    public_code_suggestions: z.enum(["allow", "block", "unconfigured"]),
     ide_chat: z.enum(["enabled", "disabled", "unconfigured"]).optional(),
     platform_chat: z.enum(["enabled", "disabled", "unconfigured"]).optional(),
     cli: z.enum(["enabled", "disabled", "unconfigured"]).optional(),
@@ -3226,8 +3952,22 @@ export const s_copilot_organization_details = z.intersection(
       "disabled",
       "unconfigured",
     ]),
+    plan_type: z.enum(["business", "enterprise"]).optional(),
   }),
-  z.record(z.any()),
+  z.record(z.unknown()),
+)
+
+export const s_copilot_usage_metrics_day = z.intersection(
+  z.object({
+    date: z.string(),
+    total_active_users: z.coerce.number().optional(),
+    total_engaged_users: z.coerce.number().optional(),
+    copilot_ide_code_completions: s_copilot_ide_code_completions.optional(),
+    copilot_ide_chat: s_copilot_ide_chat.optional(),
+    copilot_dotcom_chat: s_copilot_dotcom_chat.optional(),
+    copilot_dotcom_pull_requests: s_copilot_dotcom_pull_requests.optional(),
+  }),
+  z.record(z.unknown()),
 )
 
 export const s_dependabot_alert_security_vulnerability = z.object({
@@ -3365,34 +4105,36 @@ export const s_installation = z.object({
   contact_email: z.string().nullable().optional(),
 })
 
-export const s_integration = z.object({
-  id: z.coerce.number(),
-  slug: z.string().optional(),
-  node_id: z.string(),
-  owner: s_nullable_simple_user,
-  name: z.string(),
-  description: z.string().nullable(),
-  external_url: z.string(),
-  html_url: z.string(),
-  created_at: z.string().datetime({ offset: true }),
-  updated_at: z.string().datetime({ offset: true }),
-  permissions: z.intersection(
-    z.object({
-      issues: z.string().optional(),
-      checks: z.string().optional(),
-      metadata: z.string().optional(),
-      contents: z.string().optional(),
-      deployments: z.string().optional(),
-    }),
-    z.record(z.string()),
-  ),
-  events: z.array(z.string()),
-  installations_count: z.coerce.number().optional(),
-  client_id: z.string().optional(),
-  client_secret: z.string().optional(),
-  webhook_secret: z.string().nullable().optional(),
-  pem: z.string().optional(),
-})
+export const s_integration = z
+  .object({
+    id: z.coerce.number(),
+    slug: z.string().optional(),
+    node_id: z.string(),
+    client_id: z.string().optional(),
+    owner: z.union([s_simple_user, s_enterprise]),
+    name: z.string(),
+    description: z.string().nullable(),
+    external_url: z.string(),
+    html_url: z.string(),
+    created_at: z.string().datetime({ offset: true }),
+    updated_at: z.string().datetime({ offset: true }),
+    permissions: z.intersection(
+      z.object({
+        issues: z.string().optional(),
+        checks: z.string().optional(),
+        metadata: z.string().optional(),
+        contents: z.string().optional(),
+        deployments: z.string().optional(),
+      }),
+      z.record(z.string()),
+    ),
+    events: z.array(z.string()),
+    installations_count: z.coerce.number().optional(),
+    client_secret: z.string().optional(),
+    webhook_secret: z.string().nullable().optional(),
+    pem: z.string().optional(),
+  })
+  .nullable()
 
 export const s_integration_installation_request = z.object({
   id: z.coerce.number(),
@@ -3481,7 +4223,7 @@ export const s_milestone = z.object({
   id: z.coerce.number(),
   node_id: z.string(),
   number: z.coerce.number(),
-  state: z.enum(["open", "closed"]),
+  state: z.enum(["open", "closed"]).default("open"),
   title: z.string(),
   description: z.string().nullable(),
   creator: s_nullable_simple_user,
@@ -3605,7 +4347,8 @@ export const s_nullable_integration = z
     id: z.coerce.number(),
     slug: z.string().optional(),
     node_id: z.string(),
-    owner: s_nullable_simple_user,
+    client_id: z.string().optional(),
+    owner: z.union([s_simple_user, s_enterprise]),
     name: z.string(),
     description: z.string().nullable(),
     external_url: z.string(),
@@ -3624,7 +4367,6 @@ export const s_nullable_integration = z
     ),
     events: z.array(z.string()),
     installations_count: z.coerce.number().optional(),
-    client_id: z.string().optional(),
     client_secret: z.string().optional(),
     webhook_secret: z.string().nullable().optional(),
     pem: z.string().optional(),
@@ -3639,7 +4381,7 @@ export const s_nullable_milestone = z
     id: z.coerce.number(),
     node_id: z.string(),
     number: z.coerce.number(),
-    state: z.enum(["open", "closed"]),
+    state: z.enum(["open", "closed"]).default("open"),
     title: z.string(),
     description: z.string().nullable(),
     creator: s_nullable_simple_user,
@@ -3779,7 +4521,7 @@ export const s_nullable_repository = z
       })
       .optional(),
     owner: s_simple_user,
-    private: PermissiveBoolean,
+    private: PermissiveBoolean.default(false),
     html_url: z.string(),
     description: z.string().nullable(),
     fork: PermissiveBoolean,
@@ -3833,27 +4575,27 @@ export const s_nullable_repository = z
     size: z.coerce.number(),
     default_branch: z.string(),
     open_issues_count: z.coerce.number(),
-    is_template: PermissiveBoolean.optional(),
+    is_template: PermissiveBoolean.optional().default(false),
     topics: z.array(z.string()).optional(),
-    has_issues: PermissiveBoolean,
-    has_projects: PermissiveBoolean,
-    has_wiki: PermissiveBoolean,
+    has_issues: PermissiveBoolean.default(true),
+    has_projects: PermissiveBoolean.default(true),
+    has_wiki: PermissiveBoolean.default(true),
     has_pages: PermissiveBoolean,
-    has_downloads: PermissiveBoolean,
-    has_discussions: PermissiveBoolean.optional(),
-    archived: PermissiveBoolean,
+    has_downloads: PermissiveBoolean.default(true),
+    has_discussions: PermissiveBoolean.optional().default(false),
+    archived: PermissiveBoolean.default(false),
     disabled: PermissiveBoolean,
-    visibility: z.string().optional(),
+    visibility: z.string().optional().default("public"),
     pushed_at: z.string().datetime({ offset: true }).nullable(),
     created_at: z.string().datetime({ offset: true }).nullable(),
     updated_at: z.string().datetime({ offset: true }).nullable(),
-    allow_rebase_merge: PermissiveBoolean.optional(),
+    allow_rebase_merge: PermissiveBoolean.optional().default(true),
     temp_clone_token: z.string().optional(),
-    allow_squash_merge: PermissiveBoolean.optional(),
-    allow_auto_merge: PermissiveBoolean.optional(),
-    delete_branch_on_merge: PermissiveBoolean.optional(),
-    allow_update_branch: PermissiveBoolean.optional(),
-    use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+    allow_squash_merge: PermissiveBoolean.optional().default(true),
+    allow_auto_merge: PermissiveBoolean.optional().default(false),
+    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+    allow_update_branch: PermissiveBoolean.optional().default(false),
+    use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
     squash_merge_commit_title: z
       .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
       .optional(),
@@ -3862,9 +4604,9 @@ export const s_nullable_repository = z
       .optional(),
     merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    allow_merge_commit: PermissiveBoolean.optional(),
+    allow_merge_commit: PermissiveBoolean.optional().default(true),
     allow_forking: PermissiveBoolean.optional(),
-    web_commit_signoff_required: PermissiveBoolean.optional(),
+    web_commit_signoff_required: PermissiveBoolean.optional().default(false),
     open_issues: z.coerce.number(),
     watchers: z.coerce.number(),
     master_branch: z.string().optional(),
@@ -3930,6 +4672,8 @@ export const s_organization_programmatic_access_grant = z.object({
     other: z.record(z.string()).optional(),
   }),
   access_granted_at: z.string(),
+  token_id: z.coerce.number(),
+  token_name: z.string(),
   token_expired: PermissiveBoolean,
   token_expires_at: z.string().nullable(),
   token_last_used_at: z.string().nullable(),
@@ -3947,6 +4691,8 @@ export const s_organization_programmatic_access_grant_request = z.object({
     other: z.record(z.string()).optional(),
   }),
   created_at: z.string(),
+  token_id: z.coerce.number(),
+  token_name: z.string(),
   token_expired: PermissiveBoolean,
   token_expires_at: z.string().nullable(),
   token_last_used_at: z.string().nullable(),
@@ -3956,6 +4702,14 @@ export const s_organization_role = z.object({
   id: z.coerce.number(),
   name: z.string(),
   description: z.string().nullable().optional(),
+  base_role: z
+    .enum(["read", "triage", "write", "maintain", "admin"])
+    .nullable()
+    .optional(),
+  source: z
+    .enum(["Organization", "Enterprise", "Predefined"])
+    .nullable()
+    .optional(),
   permissions: z.array(z.string()),
   organization: s_nullable_simple_user,
   created_at: z.string().datetime({ offset: true }),
@@ -3975,7 +4729,7 @@ export const s_page = z.object({
     .datetime({ offset: true })
     .nullable()
     .optional(),
-  custom_404: PermissiveBoolean,
+  custom_404: PermissiveBoolean.default(false),
   html_url: z.string().optional(),
   build_type: z.enum(["legacy", "workflow"]).nullable().optional(),
   source: s_pages_source_hash.optional(),
@@ -4015,7 +4769,7 @@ export const s_private_vulnerability_report_create = z.object({
   cwe_ids: z.array(z.string()).nullable().optional(),
   severity: z.enum(["critical", "high", "medium", "low"]).nullable().optional(),
   cvss_vector_string: z.string().nullable().optional(),
-  start_private_fork: PermissiveBoolean.optional(),
+  start_private_fork: PermissiveBoolean.optional().default(false),
 })
 
 export const s_project = z.object({
@@ -4104,10 +4858,10 @@ export const s_pull_request_review_comment = z.object({
   }),
   start_line: z.coerce.number().nullable().optional(),
   original_start_line: z.coerce.number().nullable().optional(),
-  start_side: z.enum(["LEFT", "RIGHT"]).nullable().optional(),
+  start_side: z.enum(["LEFT", "RIGHT"]).nullable().optional().default("RIGHT"),
   line: z.coerce.number().optional(),
   original_line: z.coerce.number().optional(),
-  side: z.enum(["LEFT", "RIGHT"]).optional(),
+  side: z.enum(["LEFT", "RIGHT"]).optional().default("RIGHT"),
   subject_type: z.enum(["line", "file"]).optional(),
   reactions: s_reaction_rollup.optional(),
   body_html: z.string().optional(),
@@ -4126,6 +4880,7 @@ export const s_rate_limit_overview = z.object({
     actions_runner_registration: s_rate_limit.optional(),
     scim: s_rate_limit.optional(),
     dependency_snapshots: s_rate_limit.optional(),
+    code_scanning_autofix: s_rate_limit.optional(),
   }),
   rate: s_rate_limit,
 })
@@ -4280,7 +5035,7 @@ export const s_repository = z.object({
     })
     .optional(),
   owner: s_simple_user,
-  private: PermissiveBoolean,
+  private: PermissiveBoolean.default(false),
   html_url: z.string(),
   description: z.string().nullable(),
   fork: PermissiveBoolean,
@@ -4334,27 +5089,27 @@ export const s_repository = z.object({
   size: z.coerce.number(),
   default_branch: z.string(),
   open_issues_count: z.coerce.number(),
-  is_template: PermissiveBoolean.optional(),
+  is_template: PermissiveBoolean.optional().default(false),
   topics: z.array(z.string()).optional(),
-  has_issues: PermissiveBoolean,
-  has_projects: PermissiveBoolean,
-  has_wiki: PermissiveBoolean,
+  has_issues: PermissiveBoolean.default(true),
+  has_projects: PermissiveBoolean.default(true),
+  has_wiki: PermissiveBoolean.default(true),
   has_pages: PermissiveBoolean,
-  has_downloads: PermissiveBoolean,
-  has_discussions: PermissiveBoolean.optional(),
-  archived: PermissiveBoolean,
+  has_downloads: PermissiveBoolean.default(true),
+  has_discussions: PermissiveBoolean.optional().default(false),
+  archived: PermissiveBoolean.default(false),
   disabled: PermissiveBoolean,
-  visibility: z.string().optional(),
+  visibility: z.string().optional().default("public"),
   pushed_at: z.string().datetime({ offset: true }).nullable(),
   created_at: z.string().datetime({ offset: true }).nullable(),
   updated_at: z.string().datetime({ offset: true }).nullable(),
-  allow_rebase_merge: PermissiveBoolean.optional(),
+  allow_rebase_merge: PermissiveBoolean.optional().default(true),
   temp_clone_token: z.string().optional(),
-  allow_squash_merge: PermissiveBoolean.optional(),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
-  allow_update_branch: PermissiveBoolean.optional(),
-  use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+  allow_squash_merge: PermissiveBoolean.optional().default(true),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+  allow_update_branch: PermissiveBoolean.optional().default(false),
+  use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
   squash_merge_commit_title: z
     .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
     .optional(),
@@ -4363,9 +5118,9 @@ export const s_repository = z.object({
     .optional(),
   merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
   merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-  allow_merge_commit: PermissiveBoolean.optional(),
+  allow_merge_commit: PermissiveBoolean.optional().default(true),
   allow_forking: PermissiveBoolean.optional(),
-  web_commit_signoff_required: PermissiveBoolean.optional(),
+  web_commit_signoff_required: PermissiveBoolean.optional().default(false),
   open_issues: z.coerce.number(),
   watchers: z.coerce.number(),
   master_branch: z.string().optional(),
@@ -4397,7 +5152,7 @@ export const s_repository_advisory_create = z.object({
     .optional(),
   severity: z.enum(["critical", "high", "medium", "low"]).nullable().optional(),
   cvss_vector_string: z.string().nullable().optional(),
-  start_private_fork: PermissiveBoolean.optional(),
+  start_private_fork: PermissiveBoolean.optional().default(false),
 })
 
 export const s_repository_advisory_credit = z.object({
@@ -4455,10 +5210,20 @@ export const s_repository_collaborator_permission = z.object({
   user: s_nullable_collaborator,
 })
 
+export const s_repository_rule_code_scanning = z.object({
+  type: z.enum(["code_scanning"]),
+  parameters: z
+    .object({
+      code_scanning_tools: z.array(s_repository_rule_params_code_scanning_tool),
+    })
+    .optional(),
+})
+
 export const s_repository_rule_required_status_checks = z.object({
   type: z.enum(["required_status_checks"]),
   parameters: z
     .object({
+      do_not_enforce_on_create: PermissiveBoolean.optional(),
       required_status_checks: z.array(
         s_repository_rule_params_status_check_configuration,
       ),
@@ -4467,10 +5232,34 @@ export const s_repository_rule_required_status_checks = z.object({
     .optional(),
 })
 
+export const s_repository_rule_violation_error = z.object({
+  message: z.string().optional(),
+  documentation_url: z.string().optional(),
+  status: z.string().optional(),
+  metadata: z
+    .object({
+      secret_scanning: z
+        .object({
+          bypass_placeholders: z
+            .array(
+              z.object({
+                placeholder_id:
+                  s_secret_scanning_push_protection_bypass_placeholder_id.optional(),
+                token_type: z.string().optional(),
+              }),
+            )
+            .optional(),
+        })
+        .optional(),
+    })
+    .optional(),
+})
+
 export const s_repository_rule_workflows = z.object({
   type: z.enum(["workflows"]),
   parameters: z
     .object({
+      do_not_enforce_on_create: PermissiveBoolean.optional(),
       workflows: z.array(s_repository_rule_params_workflow_file_reference),
     })
     .optional(),
@@ -4511,13 +5300,17 @@ export const s_review_comment = z.object({
   body_text: z.string().optional(),
   body_html: z.string().optional(),
   reactions: s_reaction_rollup.optional(),
-  side: z.enum(["LEFT", "RIGHT"]).optional(),
-  start_side: z.enum(["LEFT", "RIGHT"]).nullable().optional(),
+  side: z.enum(["LEFT", "RIGHT"]).optional().default("RIGHT"),
+  start_side: z.enum(["LEFT", "RIGHT"]).nullable().optional().default("RIGHT"),
   line: z.coerce.number().optional(),
   original_line: z.coerce.number().optional(),
   start_line: z.coerce.number().nullable().optional(),
   original_start_line: z.coerce.number().nullable().optional(),
 })
+
+export const s_ruleset_version_with_state = s_ruleset_version.merge(
+  z.object({ state: z.object({}) }),
+)
 
 export const s_runner = z.object({
   id: z.coerce.number(),
@@ -4527,6 +5320,7 @@ export const s_runner = z.object({
   status: z.string(),
   busy: PermissiveBoolean,
   labels: z.array(s_runner_label),
+  ephemeral: PermissiveBoolean.optional(),
 })
 
 export const s_secret_scanning_alert = z.object({
@@ -4551,7 +5345,17 @@ export const s_secret_scanning_alert = z.object({
     .datetime({ offset: true })
     .nullable()
     .optional(),
+  push_protection_bypass_request_reviewer: s_nullable_simple_user.optional(),
+  push_protection_bypass_request_reviewer_comment: z
+    .string()
+    .nullable()
+    .optional(),
+  push_protection_bypass_request_comment: z.string().nullable().optional(),
+  push_protection_bypass_request_html_url: z.string().nullable().optional(),
   validity: z.enum(["active", "inactive", "unknown"]).optional(),
+  publicly_leaked: PermissiveBoolean.nullable().optional(),
+  multi_repo: PermissiveBoolean.nullable().optional(),
+  is_base64_encoded: PermissiveBoolean.nullable().optional(),
 })
 
 export const s_secret_scanning_location = z.object({
@@ -4588,6 +5392,28 @@ export const s_secret_scanning_location = z.object({
       s_secret_scanning_location_pull_request_review,
       s_secret_scanning_location_pull_request_review_comment,
     ])
+    .optional(),
+})
+
+export const s_secret_scanning_push_protection_bypass = z.object({
+  reason: s_secret_scanning_push_protection_bypass_reason.optional(),
+  expire_at: z.string().datetime({ offset: true }).nullable().optional(),
+  token_type: z.string().optional(),
+})
+
+export const s_secret_scanning_scan_history = z.object({
+  incremental_scans: z.array(s_secret_scanning_scan).optional(),
+  pattern_update_scans: z.array(s_secret_scanning_scan).optional(),
+  backfill_scans: z.array(s_secret_scanning_scan).optional(),
+  custom_pattern_backfill_scans: z
+    .array(
+      s_secret_scanning_scan.merge(
+        z.object({
+          pattern_name: z.string().optional(),
+          pattern_scope: z.string().optional(),
+        }),
+      ),
+    )
     .optional(),
 })
 
@@ -4807,7 +5633,7 @@ export const s_team_repository = z.object({
     .optional(),
   role_name: z.string().optional(),
   owner: s_nullable_simple_user,
-  private: PermissiveBoolean,
+  private: PermissiveBoolean.default(false),
   html_url: z.string(),
   description: z.string().nullable(),
   fork: PermissiveBoolean,
@@ -4861,32 +5687,58 @@ export const s_team_repository = z.object({
   size: z.coerce.number(),
   default_branch: z.string(),
   open_issues_count: z.coerce.number(),
-  is_template: PermissiveBoolean.optional(),
+  is_template: PermissiveBoolean.optional().default(false),
   topics: z.array(z.string()).optional(),
-  has_issues: PermissiveBoolean,
-  has_projects: PermissiveBoolean,
-  has_wiki: PermissiveBoolean,
+  has_issues: PermissiveBoolean.default(true),
+  has_projects: PermissiveBoolean.default(true),
+  has_wiki: PermissiveBoolean.default(true),
   has_pages: PermissiveBoolean,
-  has_downloads: PermissiveBoolean,
-  archived: PermissiveBoolean,
+  has_downloads: PermissiveBoolean.default(true),
+  archived: PermissiveBoolean.default(false),
   disabled: PermissiveBoolean,
-  visibility: z.string().optional(),
+  visibility: z.string().optional().default("public"),
   pushed_at: z.string().datetime({ offset: true }).nullable(),
   created_at: z.string().datetime({ offset: true }).nullable(),
   updated_at: z.string().datetime({ offset: true }).nullable(),
-  allow_rebase_merge: PermissiveBoolean.optional(),
+  allow_rebase_merge: PermissiveBoolean.optional().default(true),
   temp_clone_token: z.string().optional(),
-  allow_squash_merge: PermissiveBoolean.optional(),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
-  allow_merge_commit: PermissiveBoolean.optional(),
-  allow_forking: PermissiveBoolean.optional(),
-  web_commit_signoff_required: PermissiveBoolean.optional(),
+  allow_squash_merge: PermissiveBoolean.optional().default(true),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+  allow_merge_commit: PermissiveBoolean.optional().default(true),
+  allow_forking: PermissiveBoolean.optional().default(false),
+  web_commit_signoff_required: PermissiveBoolean.optional().default(false),
   subscribers_count: z.coerce.number().optional(),
   network_count: z.coerce.number().optional(),
   open_issues: z.coerce.number(),
   watchers: z.coerce.number(),
   master_branch: z.string().optional(),
+})
+
+export const s_team_role_assignment = z.object({
+  assignment: z.enum(["direct", "indirect", "mixed"]).optional(),
+  id: z.coerce.number(),
+  node_id: z.string(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string().nullable(),
+  privacy: z.string().optional(),
+  notification_setting: z.string().optional(),
+  permission: z.string(),
+  permissions: z
+    .object({
+      pull: PermissiveBoolean,
+      triage: PermissiveBoolean,
+      push: PermissiveBoolean,
+      maintain: PermissiveBoolean,
+      admin: PermissiveBoolean,
+    })
+    .optional(),
+  url: z.string(),
+  html_url: z.string(),
+  members_url: z.string(),
+  repositories_url: z.string(),
+  parent: s_nullable_team_simple,
 })
 
 export const s_timeline_reviewed_event = z.object({
@@ -4967,6 +5819,33 @@ export const s_user_marketplace_purchase = z.object({
   plan: s_marketplace_listing_plan,
 })
 
+export const s_user_role_assignment = z.object({
+  assignment: z.enum(["direct", "indirect", "mixed"]).optional(),
+  inherited_from: z.array(s_team_simple).optional(),
+  name: z.string().nullable().optional(),
+  email: z.string().nullable().optional(),
+  login: z.string(),
+  id: z.coerce.number(),
+  node_id: z.string(),
+  avatar_url: z.string(),
+  gravatar_id: z.string().nullable(),
+  url: z.string(),
+  html_url: z.string(),
+  followers_url: z.string(),
+  following_url: z.string(),
+  gists_url: z.string(),
+  starred_url: z.string(),
+  subscriptions_url: z.string(),
+  organizations_url: z.string(),
+  repos_url: z.string(),
+  events_url: z.string(),
+  received_events_url: z.string(),
+  type: z.string(),
+  site_admin: PermissiveBoolean,
+  starred_at: z.string().optional(),
+  user_view_type: z.string().optional(),
+})
+
 export const s_user_search_result_item = z.object({
   login: z.string(),
   id: z.coerce.number(),
@@ -5002,6 +5881,7 @@ export const s_user_search_result_item = z.object({
   blog: z.string().nullable().optional(),
   company: z.string().nullable().optional(),
   suspended_at: z.string().datetime({ offset: true }).nullable().optional(),
+  user_view_type: z.string().optional(),
 })
 
 export const s_view_traffic = z.object({
@@ -5090,6 +5970,28 @@ export const s_authorization = z.object({
   user: s_nullable_simple_user.optional(),
   installation: s_nullable_scoped_installation.optional(),
   expires_at: z.string().datetime({ offset: true }).nullable(),
+})
+
+export const s_campaign_summary = z.object({
+  number: z.coerce.number(),
+  created_at: z.string().datetime({ offset: true }),
+  updated_at: z.string().datetime({ offset: true }),
+  name: z.string().optional(),
+  description: z.string(),
+  managers: z.array(s_simple_user),
+  team_managers: z.array(s_team).optional(),
+  published_at: z.string().datetime({ offset: true }).optional(),
+  ends_at: z.string().datetime({ offset: true }),
+  closed_at: z.string().datetime({ offset: true }).nullable().optional(),
+  state: s_campaign_state,
+  contact_link: z.string().nullable(),
+  alert_stats: z
+    .object({
+      open_count: z.coerce.number(),
+      closed_count: z.coerce.number(),
+      in_progress_count: z.coerce.number(),
+    })
+    .optional(),
 })
 
 export const s_check_suite = z.object({
@@ -5195,6 +6097,7 @@ export const s_code_scanning_alert = z.object({
   rule: s_code_scanning_alert_rule,
   tool: s_code_scanning_analysis_tool,
   most_recent_instance: s_code_scanning_alert_instance,
+  dismissal_approved_by: s_nullable_simple_user.optional(),
 })
 
 export const s_code_scanning_alert_items = z.object({
@@ -5213,6 +6116,7 @@ export const s_code_scanning_alert_items = z.object({
   rule: s_code_scanning_alert_rule_summary,
   tool: s_code_scanning_analysis_tool,
   most_recent_instance: s_code_scanning_alert_instance,
+  dismissal_approved_by: s_nullable_simple_user.optional(),
 })
 
 export const s_code_scanning_analysis = z.object({
@@ -5250,6 +6154,57 @@ export const s_code_scanning_organization_alert_items = z.object({
   tool: s_code_scanning_analysis_tool,
   most_recent_instance: s_code_scanning_alert_instance,
   repository: s_simple_repository,
+  dismissal_approved_by: s_nullable_simple_user.optional(),
+})
+
+export const s_code_scanning_variant_analysis = z.object({
+  id: z.coerce.number(),
+  controller_repo: s_simple_repository,
+  actor: s_simple_user,
+  query_language: s_code_scanning_variant_analysis_language,
+  query_pack_url: z.string(),
+  created_at: z.string().datetime({ offset: true }).optional(),
+  updated_at: z.string().datetime({ offset: true }).optional(),
+  completed_at: z.string().datetime({ offset: true }).nullable().optional(),
+  status: z.enum(["in_progress", "succeeded", "failed", "cancelled"]),
+  actions_workflow_run_id: z.coerce.number().optional(),
+  failure_reason: z
+    .enum(["no_repos_queried", "actions_workflow_run_failed", "internal_error"])
+    .optional(),
+  scanned_repositories: z
+    .array(
+      z.object({
+        repository: s_code_scanning_variant_analysis_repository,
+        analysis_status: s_code_scanning_variant_analysis_status,
+        result_count: z.coerce.number().optional(),
+        artifact_size_in_bytes: z.coerce.number().optional(),
+        failure_message: z.string().optional(),
+      }),
+    )
+    .optional(),
+  skipped_repositories: z
+    .object({
+      access_mismatch_repos:
+        s_code_scanning_variant_analysis_skipped_repo_group,
+      not_found_repos: z.object({
+        repository_count: z.coerce.number(),
+        repository_full_names: z.array(z.string()),
+      }),
+      no_codeql_db_repos: s_code_scanning_variant_analysis_skipped_repo_group,
+      over_limit_repos: s_code_scanning_variant_analysis_skipped_repo_group,
+    })
+    .optional(),
+})
+
+export const s_code_scanning_variant_analysis_repo_task = z.object({
+  repository: s_simple_repository,
+  analysis_status: s_code_scanning_variant_analysis_status,
+  artifact_size_in_bytes: z.coerce.number().optional(),
+  result_count: z.coerce.number().optional(),
+  failure_message: z.string().optional(),
+  database_commit_sha: z.string().optional(),
+  source_location_prefix: z.string().optional(),
+  artifact_url: z.string().optional(),
 })
 
 export const s_code_search_result_item = z.object({
@@ -5266,6 +6221,22 @@ export const s_code_search_result_item = z.object({
   last_modified_at: z.string().datetime({ offset: true }).optional(),
   line_numbers: z.array(z.string()).optional(),
   text_matches: s_search_result_text_matches.optional(),
+})
+
+export const s_code_security_configuration_repositories = z.object({
+  status: z
+    .enum([
+      "attached",
+      "attaching",
+      "detached",
+      "removed",
+      "enforced",
+      "failed",
+      "updating",
+      "removed_by_enterprise",
+    ])
+    .optional(),
+  repository: s_simple_repository.optional(),
 })
 
 export const s_codespace = z.object({
@@ -5417,13 +6388,15 @@ export const s_converted_note_to_issue_issue_event = z.object({
 })
 
 export const s_copilot_seat_details = z.object({
-  assignee: z.union([s_simple_user, s_team, s_organization]),
-  assigning_team: s_team.nullable().optional(),
+  assignee: s_nullable_simple_user.optional(),
+  organization: s_nullable_organization_simple.optional(),
+  assigning_team: z.union([s_team, s_enterprise_team]).nullable().optional(),
   pending_cancellation_date: z.string().nullable().optional(),
   last_activity_at: z.string().datetime({ offset: true }).nullable().optional(),
   last_activity_editor: z.string().nullable().optional(),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }).optional(),
+  plan_type: z.enum(["business", "enterprise", "unknown"]).optional(),
 })
 
 export const s_demilestoned_issue_event = z.object({
@@ -5450,6 +6423,8 @@ export const s_dependabot_alert_security_advisory = z.object({
     score: z.coerce.number().min(0).max(10),
     vector_string: z.string().nullable(),
   }),
+  cvss_severities: s_cvss_severities.optional(),
+  epss: s_security_advisory_epss.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })),
   identifiers: z.array(
     z.object({ type: z.enum(["CVE", "GHSA"]), value: z.string() }),
@@ -5467,7 +6442,7 @@ export const s_deployment = z.object({
   sha: z.string(),
   ref: z.string(),
   task: z.string(),
-  payload: z.union([z.record(z.any()), z.string()]),
+  payload: z.union([z.record(z.unknown()), z.string()]),
   original_environment: z.string().optional(),
   environment: z.string(),
   description: z.string().nullable(),
@@ -5512,15 +6487,15 @@ export const s_deployment_status = z.object({
     "in_progress",
   ]),
   creator: s_nullable_simple_user,
-  description: z.string().max(140),
-  environment: z.string().optional(),
-  target_url: z.string(),
+  description: z.string().max(140).default(""),
+  environment: z.string().optional().default(""),
+  target_url: z.string().default(""),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
   deployment_url: z.string(),
   repository_url: z.string(),
-  environment_url: z.string().optional(),
-  log_url: z.string().optional(),
+  environment_url: z.string().optional().default(""),
+  log_url: z.string().optional().default(""),
   performed_via_github_app: s_nullable_integration.optional(),
 })
 
@@ -5678,10 +6653,10 @@ export const s_full_repository = z.object({
   master_branch: z.string().optional(),
   open_issues: z.coerce.number(),
   watchers: z.coerce.number(),
-  anonymous_access_enabled: PermissiveBoolean.optional(),
+  anonymous_access_enabled: PermissiveBoolean.optional().default(true),
   code_of_conduct: s_code_of_conduct_simple.optional(),
   security_and_analysis: s_security_and_analysis.optional(),
-  custom_properties: z.record(z.any()).optional(),
+  custom_properties: z.record(z.unknown()).optional(),
 })
 
 export const s_gist_simple = z.object({
@@ -5722,12 +6697,13 @@ export const s_gist_simple = z.object({
       updated_at: z.string().datetime({ offset: true }),
       description: z.string().nullable(),
       comments: z.coerce.number(),
+      comments_enabled: PermissiveBoolean.optional(),
       user: s_nullable_simple_user,
       comments_url: z.string(),
       owner: s_nullable_simple_user.optional(),
       truncated: PermissiveBoolean.optional(),
-      forks: z.array(z.object({})).optional(),
-      history: z.array(z.object({})).optional(),
+      forks: z.array(z.unknown()).optional(),
+      history: z.array(z.unknown()).optional(),
     })
     .nullable()
     .optional(),
@@ -5750,6 +6726,7 @@ export const s_gist_simple = z.object({
           size: z.coerce.number().optional(),
           truncated: PermissiveBoolean.optional(),
           content: z.string().optional(),
+          encoding: z.string().optional().default("utf-8"),
         })
         .nullable(),
     )
@@ -5759,6 +6736,7 @@ export const s_gist_simple = z.object({
   updated_at: z.string().optional(),
   description: z.string().nullable().optional(),
   comments: z.coerce.number().optional(),
+  comments_enabled: PermissiveBoolean.optional(),
   user: z.string().nullable().optional(),
   comments_url: z.string().optional(),
   owner: s_simple_user.optional(),
@@ -5792,6 +6770,8 @@ export const s_global_advisory = z.object({
       score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
+  cvss_severities: s_cvss_severities.optional(),
+  epss: s_security_advisory_epss.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
   credits: z
     .array(
@@ -5882,10 +6862,12 @@ export const s_issue = z.object({
   body_html: z.string().optional(),
   body_text: z.string().optional(),
   timeline_url: z.string().optional(),
+  type: s_issue_type.optional(),
   repository: s_repository.optional(),
   performed_via_github_app: s_nullable_integration.optional(),
   author_association: s_author_association,
   reactions: s_reaction_rollup.optional(),
+  sub_issues_summary: s_sub_issues_summary.optional(),
 })
 
 export const s_issue_comment = z.object({
@@ -5931,6 +6913,13 @@ export const s_issue_search_result_item = z.object({
       description: z.string().nullable().optional(),
     }),
   ),
+  sub_issues_summary: z
+    .object({
+      total: z.coerce.number(),
+      completed: z.coerce.number(),
+      percent_completed: z.coerce.number(),
+    })
+    .optional(),
   state: z.string(),
   state_reason: z.string().nullable().optional(),
   assignee: s_nullable_simple_user,
@@ -5957,6 +6946,7 @@ export const s_issue_search_result_item = z.object({
   body_html: z.string().optional(),
   body_text: z.string().optional(),
   timeline_url: z.string().optional(),
+  type: s_issue_type.optional(),
   performed_via_github_app: s_nullable_integration.optional(),
   reactions: s_reaction_rollup.optional(),
 })
@@ -6106,10 +7096,12 @@ export const s_nullable_issue = z
     body_html: z.string().optional(),
     body_text: z.string().optional(),
     timeline_url: z.string().optional(),
+    type: s_issue_type.optional(),
     repository: s_repository.optional(),
     performed_via_github_app: s_nullable_integration.optional(),
     author_association: s_author_association,
     reactions: s_reaction_rollup.optional(),
+    sub_issues_summary: s_sub_issues_summary.optional(),
   })
   .nullable()
 
@@ -6147,8 +7139,18 @@ export const s_organization_secret_scanning_alert = z.object({
     .datetime({ offset: true })
     .nullable()
     .optional(),
+  push_protection_bypass_request_reviewer: s_nullable_simple_user.optional(),
+  push_protection_bypass_request_reviewer_comment: z
+    .string()
+    .nullable()
+    .optional(),
+  push_protection_bypass_request_comment: z.string().nullable().optional(),
+  push_protection_bypass_request_html_url: z.string().nullable().optional(),
   resolution_comment: z.string().nullable().optional(),
   validity: z.enum(["active", "inactive", "unknown"]).optional(),
+  publicly_leaked: PermissiveBoolean.nullable().optional(),
+  multi_repo: PermissiveBoolean.nullable().optional(),
+  is_base64_encoded: PermissiveBoolean.nullable().optional(),
 })
 
 export const s_package = z.object({
@@ -6200,7 +7202,7 @@ export const s_protected_branch = z.object({
       dismiss_stale_reviews: PermissiveBoolean.optional(),
       require_code_owner_reviews: PermissiveBoolean.optional(),
       required_approving_review_count: z.coerce.number().optional(),
-      require_last_push_approval: PermissiveBoolean.optional(),
+      require_last_push_approval: PermissiveBoolean.optional().default(false),
       dismissal_restrictions: z
         .object({
           url: z.string(),
@@ -6234,9 +7236,11 @@ export const s_protected_branch = z.object({
     .object({ enabled: PermissiveBoolean.optional() })
     .optional(),
   block_creations: z.object({ enabled: PermissiveBoolean }).optional(),
-  lock_branch: z.object({ enabled: PermissiveBoolean.optional() }).optional(),
+  lock_branch: z
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
+    .optional(),
   allow_fork_syncing: z
-    .object({ enabled: PermissiveBoolean.optional() })
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
     .optional(),
 })
 
@@ -6262,7 +7266,7 @@ export const s_protected_branch_pull_request_review = z.object({
   dismiss_stale_reviews: PermissiveBoolean,
   require_code_owner_reviews: PermissiveBoolean,
   required_approving_review_count: z.coerce.number().min(0).max(6).optional(),
-  require_last_push_approval: PermissiveBoolean.optional(),
+  require_last_push_approval: PermissiveBoolean.optional().default(false),
 })
 
 export const s_pull_request = z.object({
@@ -6309,290 +7313,16 @@ export const s_pull_request = z.object({
   head: z.object({
     label: z.string(),
     ref: z.string(),
-    repo: z
-      .object({
-        archive_url: z.string(),
-        assignees_url: z.string(),
-        blobs_url: z.string(),
-        branches_url: z.string(),
-        collaborators_url: z.string(),
-        comments_url: z.string(),
-        commits_url: z.string(),
-        compare_url: z.string(),
-        contents_url: z.string(),
-        contributors_url: z.string(),
-        deployments_url: z.string(),
-        description: z.string().nullable(),
-        downloads_url: z.string(),
-        events_url: z.string(),
-        fork: PermissiveBoolean,
-        forks_url: z.string(),
-        full_name: z.string(),
-        git_commits_url: z.string(),
-        git_refs_url: z.string(),
-        git_tags_url: z.string(),
-        hooks_url: z.string(),
-        html_url: z.string(),
-        id: z.coerce.number(),
-        node_id: z.string(),
-        issue_comment_url: z.string(),
-        issue_events_url: z.string(),
-        issues_url: z.string(),
-        keys_url: z.string(),
-        labels_url: z.string(),
-        languages_url: z.string(),
-        merges_url: z.string(),
-        milestones_url: z.string(),
-        name: z.string(),
-        notifications_url: z.string(),
-        owner: z.object({
-          avatar_url: z.string(),
-          events_url: z.string(),
-          followers_url: z.string(),
-          following_url: z.string(),
-          gists_url: z.string(),
-          gravatar_id: z.string().nullable(),
-          html_url: z.string(),
-          id: z.coerce.number(),
-          node_id: z.string(),
-          login: z.string(),
-          organizations_url: z.string(),
-          received_events_url: z.string(),
-          repos_url: z.string(),
-          site_admin: PermissiveBoolean,
-          starred_url: z.string(),
-          subscriptions_url: z.string(),
-          type: z.string(),
-          url: z.string(),
-        }),
-        private: PermissiveBoolean,
-        pulls_url: z.string(),
-        releases_url: z.string(),
-        stargazers_url: z.string(),
-        statuses_url: z.string(),
-        subscribers_url: z.string(),
-        subscription_url: z.string(),
-        tags_url: z.string(),
-        teams_url: z.string(),
-        trees_url: z.string(),
-        url: z.string(),
-        clone_url: z.string(),
-        default_branch: z.string(),
-        forks: z.coerce.number(),
-        forks_count: z.coerce.number(),
-        git_url: z.string(),
-        has_downloads: PermissiveBoolean,
-        has_issues: PermissiveBoolean,
-        has_projects: PermissiveBoolean,
-        has_wiki: PermissiveBoolean,
-        has_pages: PermissiveBoolean,
-        has_discussions: PermissiveBoolean,
-        homepage: z.string().nullable(),
-        language: z.string().nullable(),
-        master_branch: z.string().optional(),
-        archived: PermissiveBoolean,
-        disabled: PermissiveBoolean,
-        visibility: z.string().optional(),
-        mirror_url: z.string().nullable(),
-        open_issues: z.coerce.number(),
-        open_issues_count: z.coerce.number(),
-        permissions: z
-          .object({
-            admin: PermissiveBoolean,
-            maintain: PermissiveBoolean.optional(),
-            push: PermissiveBoolean,
-            triage: PermissiveBoolean.optional(),
-            pull: PermissiveBoolean,
-          })
-          .optional(),
-        temp_clone_token: z.string().optional(),
-        allow_merge_commit: PermissiveBoolean.optional(),
-        allow_squash_merge: PermissiveBoolean.optional(),
-        allow_rebase_merge: PermissiveBoolean.optional(),
-        license: z
-          .object({
-            key: z.string(),
-            name: z.string(),
-            url: z.string().nullable(),
-            spdx_id: z.string().nullable(),
-            node_id: z.string(),
-          })
-          .nullable(),
-        pushed_at: z.string().datetime({ offset: true }),
-        size: z.coerce.number(),
-        ssh_url: z.string(),
-        stargazers_count: z.coerce.number(),
-        svn_url: z.string(),
-        topics: z.array(z.string()).optional(),
-        watchers: z.coerce.number(),
-        watchers_count: z.coerce.number(),
-        created_at: z.string().datetime({ offset: true }),
-        updated_at: z.string().datetime({ offset: true }),
-        allow_forking: PermissiveBoolean.optional(),
-        is_template: PermissiveBoolean.optional(),
-        web_commit_signoff_required: PermissiveBoolean.optional(),
-      })
-      .nullable(),
+    repo: s_repository,
     sha: z.string(),
-    user: z.object({
-      avatar_url: z.string(),
-      events_url: z.string(),
-      followers_url: z.string(),
-      following_url: z.string(),
-      gists_url: z.string(),
-      gravatar_id: z.string().nullable(),
-      html_url: z.string(),
-      id: z.coerce.number(),
-      node_id: z.string(),
-      login: z.string(),
-      organizations_url: z.string(),
-      received_events_url: z.string(),
-      repos_url: z.string(),
-      site_admin: PermissiveBoolean,
-      starred_url: z.string(),
-      subscriptions_url: z.string(),
-      type: z.string(),
-      url: z.string(),
-    }),
+    user: s_simple_user,
   }),
   base: z.object({
     label: z.string(),
     ref: z.string(),
-    repo: z.object({
-      archive_url: z.string(),
-      assignees_url: z.string(),
-      blobs_url: z.string(),
-      branches_url: z.string(),
-      collaborators_url: z.string(),
-      comments_url: z.string(),
-      commits_url: z.string(),
-      compare_url: z.string(),
-      contents_url: z.string(),
-      contributors_url: z.string(),
-      deployments_url: z.string(),
-      description: z.string().nullable(),
-      downloads_url: z.string(),
-      events_url: z.string(),
-      fork: PermissiveBoolean,
-      forks_url: z.string(),
-      full_name: z.string(),
-      git_commits_url: z.string(),
-      git_refs_url: z.string(),
-      git_tags_url: z.string(),
-      hooks_url: z.string(),
-      html_url: z.string(),
-      id: z.coerce.number(),
-      is_template: PermissiveBoolean.optional(),
-      node_id: z.string(),
-      issue_comment_url: z.string(),
-      issue_events_url: z.string(),
-      issues_url: z.string(),
-      keys_url: z.string(),
-      labels_url: z.string(),
-      languages_url: z.string(),
-      merges_url: z.string(),
-      milestones_url: z.string(),
-      name: z.string(),
-      notifications_url: z.string(),
-      owner: z.object({
-        avatar_url: z.string(),
-        events_url: z.string(),
-        followers_url: z.string(),
-        following_url: z.string(),
-        gists_url: z.string(),
-        gravatar_id: z.string().nullable(),
-        html_url: z.string(),
-        id: z.coerce.number(),
-        node_id: z.string(),
-        login: z.string(),
-        organizations_url: z.string(),
-        received_events_url: z.string(),
-        repos_url: z.string(),
-        site_admin: PermissiveBoolean,
-        starred_url: z.string(),
-        subscriptions_url: z.string(),
-        type: z.string(),
-        url: z.string(),
-      }),
-      private: PermissiveBoolean,
-      pulls_url: z.string(),
-      releases_url: z.string(),
-      stargazers_url: z.string(),
-      statuses_url: z.string(),
-      subscribers_url: z.string(),
-      subscription_url: z.string(),
-      tags_url: z.string(),
-      teams_url: z.string(),
-      trees_url: z.string(),
-      url: z.string(),
-      clone_url: z.string(),
-      default_branch: z.string(),
-      forks: z.coerce.number(),
-      forks_count: z.coerce.number(),
-      git_url: z.string(),
-      has_downloads: PermissiveBoolean,
-      has_issues: PermissiveBoolean,
-      has_projects: PermissiveBoolean,
-      has_wiki: PermissiveBoolean,
-      has_pages: PermissiveBoolean,
-      has_discussions: PermissiveBoolean,
-      homepage: z.string().nullable(),
-      language: z.string().nullable(),
-      master_branch: z.string().optional(),
-      archived: PermissiveBoolean,
-      disabled: PermissiveBoolean,
-      visibility: z.string().optional(),
-      mirror_url: z.string().nullable(),
-      open_issues: z.coerce.number(),
-      open_issues_count: z.coerce.number(),
-      permissions: z
-        .object({
-          admin: PermissiveBoolean,
-          maintain: PermissiveBoolean.optional(),
-          push: PermissiveBoolean,
-          triage: PermissiveBoolean.optional(),
-          pull: PermissiveBoolean,
-        })
-        .optional(),
-      temp_clone_token: z.string().optional(),
-      allow_merge_commit: PermissiveBoolean.optional(),
-      allow_squash_merge: PermissiveBoolean.optional(),
-      allow_rebase_merge: PermissiveBoolean.optional(),
-      license: s_nullable_license_simple,
-      pushed_at: z.string().datetime({ offset: true }),
-      size: z.coerce.number(),
-      ssh_url: z.string(),
-      stargazers_count: z.coerce.number(),
-      svn_url: z.string(),
-      topics: z.array(z.string()).optional(),
-      watchers: z.coerce.number(),
-      watchers_count: z.coerce.number(),
-      created_at: z.string().datetime({ offset: true }),
-      updated_at: z.string().datetime({ offset: true }),
-      allow_forking: PermissiveBoolean.optional(),
-      web_commit_signoff_required: PermissiveBoolean.optional(),
-    }),
+    repo: s_repository,
     sha: z.string(),
-    user: z.object({
-      avatar_url: z.string(),
-      events_url: z.string(),
-      followers_url: z.string(),
-      following_url: z.string(),
-      gists_url: z.string(),
-      gravatar_id: z.string().nullable(),
-      html_url: z.string(),
-      id: z.coerce.number(),
-      node_id: z.string(),
-      login: z.string(),
-      organizations_url: z.string(),
-      received_events_url: z.string(),
-      repos_url: z.string(),
-      site_admin: PermissiveBoolean,
-      starred_url: z.string(),
-      subscriptions_url: z.string(),
-      type: z.string(),
-      url: z.string(),
-    }),
+    user: s_simple_user,
   }),
   _links: z.object({
     comments: s_link,
@@ -6784,6 +7514,7 @@ export const s_repository_advisory = z.object({
       score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
+  cvss_severities: s_cvss_severities.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
   cwe_ids: z.array(z.string()).nullable(),
   credits: z
@@ -6818,6 +7549,7 @@ export const s_repository_rule = z.union([
   s_repository_rule_update,
   s_repository_rule_deletion,
   s_repository_rule_required_linear_history,
+  s_repository_rule_merge_queue,
   s_repository_rule_required_deployments,
   s_repository_rule_required_signatures,
   s_repository_rule_pull_request,
@@ -6828,7 +7560,12 @@ export const s_repository_rule = z.union([
   s_repository_rule_committer_email_pattern,
   s_repository_rule_branch_name_pattern,
   s_repository_rule_tag_name_pattern,
+  s_repository_rule_file_path_restriction,
+  s_repository_rule_max_file_path_length,
+  s_repository_rule_file_extension_restriction,
+  s_repository_rule_max_file_size,
   s_repository_rule_workflows,
+  s_repository_rule_code_scanning,
 ])
 
 export const s_repository_rule_detailed = z.union([
@@ -6838,6 +7575,7 @@ export const s_repository_rule_detailed = z.union([
   s_repository_rule_required_linear_history.merge(
     s_repository_rule_ruleset_info,
   ),
+  s_repository_rule_merge_queue.merge(s_repository_rule_ruleset_info),
   s_repository_rule_required_deployments.merge(s_repository_rule_ruleset_info),
   s_repository_rule_required_signatures.merge(s_repository_rule_ruleset_info),
   s_repository_rule_pull_request.merge(s_repository_rule_ruleset_info),
@@ -6856,7 +7594,14 @@ export const s_repository_rule_detailed = z.union([
   ),
   s_repository_rule_branch_name_pattern.merge(s_repository_rule_ruleset_info),
   s_repository_rule_tag_name_pattern.merge(s_repository_rule_ruleset_info),
+  s_repository_rule_file_path_restriction.merge(s_repository_rule_ruleset_info),
+  s_repository_rule_max_file_path_length.merge(s_repository_rule_ruleset_info),
+  s_repository_rule_file_extension_restriction.merge(
+    s_repository_rule_ruleset_info,
+  ),
+  s_repository_rule_max_file_size.merge(s_repository_rule_ruleset_info),
   s_repository_rule_workflows.merge(s_repository_rule_ruleset_info),
+  s_repository_rule_code_scanning.merge(s_repository_rule_ruleset_info),
 ])
 
 export const s_review_dismissed_issue_event = z.object({
@@ -7094,9 +7839,11 @@ export const s_branch_protection = z.object({
   required_signatures: z
     .object({ url: z.string(), enabled: PermissiveBoolean })
     .optional(),
-  lock_branch: z.object({ enabled: PermissiveBoolean.optional() }).optional(),
+  lock_branch: z
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
+    .optional(),
   allow_fork_syncing: z
-    .object({ enabled: PermissiveBoolean.optional() })
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
     .optional(),
 })
 
@@ -7216,6 +7963,10 @@ export const s_dependabot_alert = z.object({
     package: s_dependabot_alert_package.optional(),
     manifest_path: z.string().optional(),
     scope: z.enum(["development", "runtime"]).nullable().optional(),
+    relationship: z
+      .enum(["unknown", "direct", "transitive"])
+      .nullable()
+      .optional(),
   }),
   security_advisory: s_dependabot_alert_security_advisory,
   security_vulnerability: s_dependabot_alert_security_vulnerability,
@@ -7246,6 +7997,10 @@ export const s_dependabot_alert_with_repository = z.object({
     package: s_dependabot_alert_package.optional(),
     manifest_path: z.string().optional(),
     scope: z.enum(["development", "runtime"]).nullable().optional(),
+    relationship: z
+      .enum(["unknown", "direct", "transitive"])
+      .nullable()
+      .optional(),
   }),
   security_advisory: s_dependabot_alert_security_advisory,
   security_vulnerability: s_dependabot_alert_security_vulnerability,
@@ -7343,8 +8098,8 @@ export const s_issue_event_for_issue = z.union([
 export const s_repository_ruleset = z.object({
   id: z.coerce.number(),
   name: z.string(),
-  target: z.enum(["branch", "tag"]).optional(),
-  source_type: z.enum(["Repository", "Organization"]).optional(),
+  target: z.enum(["branch", "tag", "push", "repository"]).optional(),
+  source_type: z.enum(["Repository", "Organization", "Enterprise"]).optional(),
   source: z.string(),
   enforcement: s_repository_rule_enforcement,
   bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
@@ -7355,7 +8110,7 @@ export const s_repository_ruleset = z.object({
   _links: z
     .object({
       self: z.object({ href: z.string().optional() }).optional(),
-      html: z.object({ href: z.string().optional() }).optional(),
+      html: z.object({ href: z.string().optional() }).nullable().optional(),
     })
     .optional(),
   conditions: z

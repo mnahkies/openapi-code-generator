@@ -66,10 +66,16 @@ const getAccountsAccountPeopleParamSchema = z.object({
 
 const getAccountsAccountPeopleQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   relationship: z
     .object({
+      authorizer: PermissiveBoolean.optional(),
       director: PermissiveBoolean.optional(),
       executive: PermissiveBoolean.optional(),
       legal_guardian: PermissiveBoolean.optional(),
@@ -240,7 +246,7 @@ const postAccountsAccountPeopleBodySchema = z
     nationality: z.string().max(5000).optional(),
     person_token: z.string().max(5000).optional(),
     phone: z.string().optional(),
-    political_exposure: z.string().max(5000).optional(),
+    political_exposure: z.enum(["existing", "none"]).optional(),
     registered_address: z
       .object({
         city: z.string().max(100).optional(),
@@ -253,6 +259,7 @@ const postAccountsAccountPeopleBodySchema = z
       .optional(),
     relationship: z
       .object({
+        authorizer: PermissiveBoolean.optional(),
         director: PermissiveBoolean.optional(),
         executive: PermissiveBoolean.optional(),
         legal_guardian: PermissiveBoolean.optional(),

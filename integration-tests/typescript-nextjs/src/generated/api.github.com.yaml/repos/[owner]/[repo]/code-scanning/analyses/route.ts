@@ -56,12 +56,13 @@ const codeScanningListRecentAnalysesParamSchema = z.object({
 const codeScanningListRecentAnalysesQuerySchema = z.object({
   tool_name: s_code_scanning_analysis_tool_name.optional(),
   tool_guid: s_code_scanning_analysis_tool_guid.optional(),
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
+  pr: z.coerce.number().optional(),
   ref: s_code_scanning_ref.optional(),
   sarif_id: s_code_scanning_analysis_sarif_id.optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  sort: z.enum(["created"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  sort: z.enum(["created"]).optional().default("created"),
 })
 
 export const _GET =

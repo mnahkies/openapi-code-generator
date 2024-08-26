@@ -141,7 +141,14 @@ const getCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema =
   })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdQuerySchema =
-  z.object({ expand: z.array(z.string().max(5000)).optional() })
+  z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
   .object({})
@@ -249,15 +256,6 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
       })
       .optional(),
     billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-    billing_thresholds: z
-      .union([
-        z.object({
-          amount_gte: z.coerce.number().optional(),
-          reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-        }),
-        z.enum([""]),
-      ])
-      .optional(),
     cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
     cancel_at_period_end: PermissiveBoolean.optional(),
     cancellation_details: z
@@ -281,7 +279,6 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    coupon: z.string().max(5000).optional(),
     days_until_due: z.coerce.number().optional(),
     default_payment_method: z.string().max(5000).optional(),
     default_source: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -317,9 +314,6 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
     items: z
       .array(
         z.object({
-          billing_thresholds: z
-            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-            .optional(),
           clear_usage: PermissiveBoolean.optional(),
           deleted: PermissiveBoolean.optional(),
           discounts: z
@@ -426,8 +420,10 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                       "diners",
                       "discover",
                       "eftpos_au",
+                      "girocard",
                       "interac",
                       "jcb",
+                      "link",
                       "mastercard",
                       "unionpay",
                       "unknown",
@@ -464,6 +460,13 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 z.object({
                   financial_connections: z
                     .object({
+                      filters: z
+                        .object({
+                          account_subcategories: z
+                            .array(z.enum(["checking", "savings"]))
+                            .optional(),
+                        })
+                        .optional(),
                       permissions: z
                         .array(
                           z.enum([
@@ -497,6 +500,7 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 "ach_credit_transfer",
                 "ach_debit",
                 "acss_debit",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -509,14 +513,25 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
                 "giropay",
                 "grabpay",
                 "ideal",
+                "jp_credit_transfer",
+                "kakao_pay",
+                "klarna",
                 "konbini",
+                "kr_card",
                 "link",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
                 "p24",
+                "payco",
                 "paynow",
                 "paypal",
                 "promptpay",
+                "revolut_pay",
+                "sepa_credit_transfer",
                 "sepa_debit",
                 "sofort",
+                "swish",
                 "us_bank_account",
                 "wechat_pay",
               ]),
@@ -538,7 +553,6 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedIdBodySchema = z
         z.enum([""]),
       ])
       .optional(),
-    promotion_code: z.string().max(5000).optional(),
     proration_behavior: z
       .enum(["always_invoice", "create_prorations", "none"])
       .optional(),

@@ -53,13 +53,16 @@ export type PullsCreate = (
 const pullsListParamSchema = z.object({ owner: z.string(), repo: z.string() })
 
 const pullsListQuerySchema = z.object({
-  state: z.enum(["open", "closed", "all"]).optional(),
+  state: z.enum(["open", "closed", "all"]).optional().default("open"),
   head: z.string().optional(),
   base: z.string().optional(),
-  sort: z.enum(["created", "updated", "popularity", "long-running"]).optional(),
+  sort: z
+    .enum(["created", "updated", "popularity", "long-running"])
+    .optional()
+    .default("created"),
   direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

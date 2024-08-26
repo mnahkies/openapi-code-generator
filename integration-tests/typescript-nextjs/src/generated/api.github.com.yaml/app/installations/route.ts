@@ -30,8 +30,8 @@ export type AppsListInstallations = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const appsListInstallationsQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   since: z.string().datetime({ offset: true }).optional(),
   outdated: z.string().optional(),
 })

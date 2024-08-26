@@ -62,8 +62,8 @@ const reposListDeploymentStatusesParamSchema = z.object({
 })
 
 const reposListDeploymentStatusesQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -126,11 +126,11 @@ const reposCreateDeploymentStatusBodySchema = z.object({
     "pending",
     "success",
   ]),
-  target_url: z.string().optional(),
-  log_url: z.string().optional(),
-  description: z.string().optional(),
+  target_url: z.string().optional().default(""),
+  log_url: z.string().optional().default(""),
+  description: z.string().optional().default(""),
   environment: z.string().optional(),
-  environment_url: z.string().optional(),
+  environment_url: z.string().optional().default(""),
   auto_inactive: PermissiveBoolean.optional(),
 })
 

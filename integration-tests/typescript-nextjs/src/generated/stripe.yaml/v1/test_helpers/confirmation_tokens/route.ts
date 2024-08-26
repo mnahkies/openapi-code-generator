@@ -54,6 +54,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
         allow_redisplay: z
           .enum(["always", "limited", "unspecified"])
           .optional(),
+        alma: z.object({}).optional(),
         amazon_pay: z.object({}).optional(),
         au_becs_debit: z
           .object({
@@ -68,6 +69,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
           })
           .optional(),
         bancontact: z.object({}).optional(),
+        billie: z.object({}).optional(),
         billing_details: z
           .object({
             address: z
@@ -183,6 +185,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
           })
           .optional(),
         interac_present: z.object({}).optional(),
+        kakao_pay: z.object({}).optional(),
         klarna: z
           .object({
             dob: z
@@ -195,9 +198,24 @@ const postTestHelpersConfirmationTokensBodySchema = z
           })
           .optional(),
         konbini: z.object({}).optional(),
+        kr_card: z.object({}).optional(),
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
+        naver_pay: z
+          .object({ funding: z.enum(["card", "points"]).optional() })
+          .optional(),
+        nz_bank_account: z
+          .object({
+            account_holder_name: z.string().max(5000).optional(),
+            account_number: z.string().max(5000),
+            bank_code: z.string().max(5000),
+            branch_code: z.string().max(5000),
+            reference: z.string().max(128).optional(),
+            suffix: z.string().max(5000),
+          })
+          .optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -233,6 +251,8 @@ const postTestHelpersConfirmationTokensBodySchema = z
               .optional(),
           })
           .optional(),
+        pay_by_bank: z.object({}).optional(),
+        payco: z.object({}).optional(),
         paynow: z.object({}).optional(),
         paypal: z.object({}).optional(),
         pix: z.object({}).optional(),
@@ -241,20 +261,25 @@ const postTestHelpersConfirmationTokensBodySchema = z
           .object({ session: z.string().max(5000).optional() })
           .optional(),
         revolut_pay: z.object({}).optional(),
+        samsung_pay: z.object({}).optional(),
+        satispay: z.object({}).optional(),
         sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
         sofort: z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
           "afterpay_clearpay",
           "alipay",
+          "alma",
           "amazon_pay",
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
+          "billie",
           "blik",
           "boleto",
           "cashapp",
@@ -264,20 +289,30 @@ const postTestHelpersConfirmationTokensBodySchema = z
           "giropay",
           "grabpay",
           "ideal",
+          "kakao_pay",
           "klarna",
           "konbini",
+          "kr_card",
           "link",
           "mobilepay",
+          "multibanco",
+          "naver_pay",
+          "nz_bank_account",
           "oxxo",
           "p24",
+          "pay_by_bank",
+          "payco",
           "paynow",
           "paypal",
           "pix",
           "promptpay",
           "revolut_pay",
+          "samsung_pay",
+          "satispay",
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",

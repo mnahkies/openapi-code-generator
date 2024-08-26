@@ -63,7 +63,12 @@ const getFilesQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   purpose: z
     .enum([
@@ -75,8 +80,10 @@ const getFilesQuerySchema = z.object({
       "dispute_evidence",
       "document_provider_identity_document",
       "finance_report_run",
+      "financial_account_statement",
       "identity_document",
       "identity_document_downloadable",
+      "issuing_regulatory_reporting",
       "pci_document",
       "selfie",
       "sigma_scheduled_query",
@@ -156,6 +163,7 @@ const postFilesBodySchema = z.object({
     "customer_signature",
     "dispute_evidence",
     "identity_document",
+    "issuing_regulatory_reporting",
     "pci_document",
     "tax_document_user_upload",
     "terminal_reader_splashscreen",

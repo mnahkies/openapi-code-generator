@@ -57,7 +57,12 @@ export type PostBillingPortalConfigurations = (
 const getBillingPortalConfigurationsQuerySchema = z.object({
   active: PermissiveBoolean.optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   is_default: PermissiveBoolean.optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
@@ -115,11 +120,13 @@ export const _GET =
   }
 
 const postBillingPortalConfigurationsBodySchema = z.object({
-  business_profile: z.object({
-    headline: z.union([z.string().max(60), z.enum([""])]).optional(),
-    privacy_policy_url: z.string().optional(),
-    terms_of_service_url: z.string().optional(),
-  }),
+  business_profile: z
+    .object({
+      headline: z.union([z.string().max(60), z.enum([""])]).optional(),
+      privacy_policy_url: z.string().optional(),
+      terms_of_service_url: z.string().optional(),
+    })
+    .optional(),
   default_return_url: z.union([z.string(), z.enum([""])]).optional(),
   expand: z.array(z.string().max(5000)).optional(),
   features: z.object({
@@ -176,22 +183,40 @@ const postBillingPortalConfigurationsBodySchema = z.object({
       .optional(),
     subscription_update: z
       .object({
-        default_allowed_updates: z.union([
-          z.array(z.enum(["price", "promotion_code", "quantity"])),
-          z.enum([""]),
-        ]),
+        default_allowed_updates: z
+          .union([
+            z.array(z.enum(["price", "promotion_code", "quantity"])),
+            z.enum([""]),
+          ])
+          .optional(),
         enabled: PermissiveBoolean,
-        products: z.union([
-          z.array(
-            z.object({
-              prices: z.array(z.string().max(5000)),
-              product: z.string().max(5000),
-            }),
-          ),
-          z.enum([""]),
-        ]),
+        products: z
+          .union([
+            z.array(
+              z.object({
+                prices: z.array(z.string().max(5000)),
+                product: z.string().max(5000),
+              }),
+            ),
+            z.enum([""]),
+          ])
+          .optional(),
         proration_behavior: z
           .enum(["always_invoice", "create_prorations", "none"])
+          .optional(),
+        schedule_at_period_end: z
+          .object({
+            conditions: z
+              .array(
+                z.object({
+                  type: z.enum([
+                    "decreasing_item_amount",
+                    "shortening_interval",
+                  ]),
+                }),
+              )
+              .optional(),
+          })
           .optional(),
       })
       .optional(),

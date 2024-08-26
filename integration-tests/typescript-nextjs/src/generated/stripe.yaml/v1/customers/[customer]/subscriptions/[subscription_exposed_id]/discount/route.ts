@@ -122,7 +122,14 @@ const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema 
   })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountQuerySchema =
-  z.object({ expand: z.array(z.string().max(5000)).optional() })
+  z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
 
 const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountBodySchema =
   z.object({}).optional()

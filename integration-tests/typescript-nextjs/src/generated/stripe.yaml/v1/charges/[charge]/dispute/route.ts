@@ -60,7 +60,12 @@ const getChargesChargeDisputeParamSchema = z.object({
 })
 
 const getChargesChargeDisputeQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getChargesChargeDisputeBodySchema = z.object({}).optional()
@@ -134,6 +139,114 @@ const postChargesChargeDisputeBodySchema = z
         duplicate_charge_documentation: z.string().optional(),
         duplicate_charge_explanation: z.string().max(20000).optional(),
         duplicate_charge_id: z.string().max(5000).optional(),
+        enhanced_evidence: z
+          .union([
+            z.object({
+              visa_compelling_evidence_3: z
+                .object({
+                  disputed_transaction: z
+                    .object({
+                      customer_account_id: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      customer_device_fingerprint: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      customer_device_id: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      customer_email_address: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      customer_purchase_ip: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      merchandise_or_services: z
+                        .enum(["merchandise", "services"])
+                        .optional(),
+                      product_description: z
+                        .union([z.string().max(5000), z.enum([""])])
+                        .optional(),
+                      shipping_address: z
+                        .object({
+                          city: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                          country: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                          line1: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                          line2: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                          postal_code: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                          state: z
+                            .union([z.string().max(5000), z.enum([""])])
+                            .optional(),
+                        })
+                        .optional(),
+                    })
+                    .optional(),
+                  prior_undisputed_transactions: z
+                    .array(
+                      z.object({
+                        charge: z.string().max(5000),
+                        customer_account_id: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        customer_device_fingerprint: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        customer_device_id: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        customer_email_address: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        customer_purchase_ip: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        product_description: z
+                          .union([z.string().max(5000), z.enum([""])])
+                          .optional(),
+                        shipping_address: z
+                          .object({
+                            city: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                            country: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                            line1: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                            line2: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                            postal_code: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                            state: z
+                              .union([z.string().max(5000), z.enum([""])])
+                              .optional(),
+                          })
+                          .optional(),
+                      }),
+                    )
+                    .optional(),
+                })
+                .optional(),
+              visa_compliance: z
+                .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                .optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
         product_description: z.string().max(20000).optional(),
         receipt: z.string().optional(),
         refund_policy: z.string().optional(),

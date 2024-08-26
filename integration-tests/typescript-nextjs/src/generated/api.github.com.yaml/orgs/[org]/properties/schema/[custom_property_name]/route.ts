@@ -8,9 +8,9 @@ import {
   t_OrgsGetCustomPropertyParamSchema,
   t_OrgsRemoveCustomPropertyParamSchema,
   t_basic_error,
-  t_org_custom_property,
+  t_custom_property,
 } from "../../../../../models"
-import { PermissiveBoolean } from "../../../../../schemas"
+import { s_custom_property_set_payload } from "../../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -25,7 +25,7 @@ import { NextRequest } from "next/server"
 import { z } from "zod"
 
 export type OrgsGetCustomPropertyResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property>
+  with200(): KoaRuntimeResponse<t_custom_property>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -37,7 +37,7 @@ export type OrgsGetCustomProperty = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type OrgsCreateOrUpdateCustomPropertyResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property>
+  with200(): KoaRuntimeResponse<t_custom_property>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -88,7 +88,7 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property>(200)
+        return new KoaRuntimeResponse<t_custom_property>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -117,16 +117,7 @@ const orgsCreateOrUpdateCustomPropertyParamSchema = z.object({
   custom_property_name: z.string(),
 })
 
-const orgsCreateOrUpdateCustomPropertyBodySchema = z.object({
-  value_type: z.enum(["string", "single_select"]),
-  required: PermissiveBoolean.optional(),
-  default_value: z
-    .union([z.string(), z.array(z.string())])
-    .nullable()
-    .optional(),
-  description: z.string().nullable().optional(),
-  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
-})
+const orgsCreateOrUpdateCustomPropertyBodySchema = s_custom_property_set_payload
 
 export const _PUT =
   (implementation: OrgsCreateOrUpdateCustomProperty) =>
@@ -151,7 +142,7 @@ export const _PUT =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property>(200)
+        return new KoaRuntimeResponse<t_custom_property>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

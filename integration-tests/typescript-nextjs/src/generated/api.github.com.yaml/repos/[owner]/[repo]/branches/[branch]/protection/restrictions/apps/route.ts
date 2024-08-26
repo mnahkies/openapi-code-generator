@@ -51,7 +51,7 @@ export type ReposAddAppAccessRestrictions = (
   params: Params<
     t_ReposAddAppAccessRestrictionsParamSchema,
     void,
-    t_ReposAddAppAccessRestrictionsBodySchema | undefined
+    t_ReposAddAppAccessRestrictionsBodySchema
   >,
   respond: ReposAddAppAccessRestrictionsResponder,
   ctx: { request: NextRequest },
@@ -66,7 +66,7 @@ export type ReposSetAppAccessRestrictions = (
   params: Params<
     t_ReposSetAppAccessRestrictionsParamSchema,
     void,
-    t_ReposSetAppAccessRestrictionsBodySchema | undefined
+    t_ReposSetAppAccessRestrictionsBodySchema
   >,
   respond: ReposSetAppAccessRestrictionsResponder,
   ctx: { request: NextRequest },
@@ -139,9 +139,9 @@ const reposAddAppAccessRestrictionsParamSchema = z.object({
   branch: z.string(),
 })
 
-const reposAddAppAccessRestrictionsBodySchema = z
-  .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
-  .optional()
+const reposAddAppAccessRestrictionsBodySchema = z.object({
+  apps: z.array(z.string()),
+})
 
 export const _POST =
   (implementation: ReposAddAppAccessRestrictions) =>
@@ -193,9 +193,9 @@ const reposSetAppAccessRestrictionsParamSchema = z.object({
   branch: z.string(),
 })
 
-const reposSetAppAccessRestrictionsBodySchema = z
-  .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
-  .optional()
+const reposSetAppAccessRestrictionsBodySchema = z.object({
+  apps: z.array(z.string()),
+})
 
 export const _PUT =
   (implementation: ReposSetAppAccessRestrictions) =>
@@ -247,10 +247,9 @@ const reposRemoveAppAccessRestrictionsParamSchema = z.object({
   branch: z.string(),
 })
 
-const reposRemoveAppAccessRestrictionsBodySchema = z.union([
-  z.object({ apps: z.array(z.string()) }),
-  z.array(z.string()),
-])
+const reposRemoveAppAccessRestrictionsBodySchema = z.object({
+  apps: z.array(z.string()),
+})
 
 export const _DELETE =
   (implementation: ReposRemoveAppAccessRestrictions) =>

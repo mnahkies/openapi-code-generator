@@ -26,7 +26,7 @@ export type SendPhoneChallengeResponder = {
     _links?: {
       verify?: {
         hints: {
-          allow: string[]
+          allow: "GET"[]
         }
         href: string
       }
@@ -53,7 +53,7 @@ const sendPhoneChallengeParamSchema = z.object({ id: z.string() })
 
 const sendPhoneChallengeBodySchema = z.object({
   method: z.enum(["SMS", "CALL"]),
-  retry: PermissiveBoolean.optional(),
+  retry: PermissiveBoolean.optional().default(false),
 })
 
 export const _POST =
@@ -83,7 +83,7 @@ export const _POST =
           _links?: {
             verify?: {
               hints: {
-                allow: string[]
+                allow: "GET"[]
               }
               href: string
             }

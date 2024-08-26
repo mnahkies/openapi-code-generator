@@ -49,6 +49,45 @@ const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
     expand: z.array(z.string().max(5000)).optional(),
     purchase_details: z
       .object({
+        fleet: z
+          .object({
+            cardholder_prompt_data: z
+              .object({
+                driver_id: z.string().max(5000).optional(),
+                odometer: z.coerce.number().optional(),
+                unspecified_id: z.string().max(5000).optional(),
+                user_id: z.string().max(5000).optional(),
+                vehicle_number: z.string().max(5000).optional(),
+              })
+              .optional(),
+            purchase_type: z
+              .enum([
+                "fuel_and_non_fuel_purchase",
+                "fuel_purchase",
+                "non_fuel_purchase",
+              ])
+              .optional(),
+            reported_breakdown: z
+              .object({
+                fuel: z
+                  .object({ gross_amount_decimal: z.string().optional() })
+                  .optional(),
+                non_fuel: z
+                  .object({ gross_amount_decimal: z.string().optional() })
+                  .optional(),
+                tax: z
+                  .object({
+                    local_amount_decimal: z.string().optional(),
+                    national_amount_decimal: z.string().optional(),
+                  })
+                  .optional(),
+              })
+              .optional(),
+            service_type: z
+              .enum(["full_service", "non_fuel_transaction", "self_service"])
+              .optional(),
+          })
+          .optional(),
         flight: z
           .object({
             departure_at: z.coerce.number().optional(),
@@ -71,6 +110,8 @@ const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
           .optional(),
         fuel: z
           .object({
+            industry_product_code: z.string().max(5000).optional(),
+            quantity_decimal: z.string().optional(),
             type: z
               .enum([
                 "diesel",
@@ -80,9 +121,19 @@ const postTestHelpersIssuingAuthorizationsAuthorizationCaptureBodySchema = z
                 "unleaded_super",
               ])
               .optional(),
-            unit: z.enum(["liter", "other", "us_gallon"]).optional(),
+            unit: z
+              .enum([
+                "charging_minute",
+                "imperial_gallon",
+                "kilogram",
+                "kilowatt_hour",
+                "liter",
+                "other",
+                "pound",
+                "us_gallon",
+              ])
+              .optional(),
             unit_cost_decimal: z.string().optional(),
-            volume_decimal: z.string().optional(),
           })
           .optional(),
         lodging: z

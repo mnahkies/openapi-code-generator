@@ -1,6 +1,6 @@
-import {_DELETE} from "../../../../../../../generated/api.github.com.yaml/orgs/[org]/organization-roles/users/[username]/route"
+import { _DELETE } from "../../../../../../../generated/api.github.com.yaml/orgs/[org]/organization-roles/users/[username]/route"
 
-export const DELETE = _DELETE(async ({params}, respond, context) => {
+export const DELETE = _DELETE(async ({ params }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

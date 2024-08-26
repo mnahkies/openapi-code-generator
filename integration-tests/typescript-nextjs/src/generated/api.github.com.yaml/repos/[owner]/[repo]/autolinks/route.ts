@@ -98,7 +98,7 @@ const reposCreateAutolinkParamSchema = z.object({
 const reposCreateAutolinkBodySchema = z.object({
   key_prefix: z.string(),
   url_template: z.string(),
-  is_alphanumeric: PermissiveBoolean.optional(),
+  is_alphanumeric: PermissiveBoolean.optional().default(true),
 })
 
 export const _POST =

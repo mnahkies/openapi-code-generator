@@ -8,9 +8,11 @@ import {
   t_CodeScanningUpdateAlertParamSchema,
   t_basic_error,
   t_code_scanning_alert,
+  t_scim_error,
 } from "../../../../../../models"
 import {
   s_alert_number,
+  s_code_scanning_alert_create_request,
   s_code_scanning_alert_dismissed_comment,
   s_code_scanning_alert_dismissed_reason,
   s_code_scanning_alert_set_state,
@@ -48,6 +50,7 @@ export type CodeScanningGetAlert = (
 
 export type CodeScanningUpdateAlertResponder = {
   with200(): KoaRuntimeResponse<t_code_scanning_alert>
+  with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
@@ -136,6 +139,7 @@ const codeScanningUpdateAlertBodySchema = z.object({
   state: s_code_scanning_alert_set_state,
   dismissed_reason: s_code_scanning_alert_dismissed_reason.optional(),
   dismissed_comment: s_code_scanning_alert_dismissed_comment.optional(),
+  create_request: s_code_scanning_alert_create_request.optional(),
 })
 
 export const _PATCH =
@@ -162,6 +166,9 @@ export const _PATCH =
     const responder = {
       with200() {
         return new KoaRuntimeResponse<t_code_scanning_alert>(200)
+      },
+      with400() {
+        return new KoaRuntimeResponse<t_scim_error>(400)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

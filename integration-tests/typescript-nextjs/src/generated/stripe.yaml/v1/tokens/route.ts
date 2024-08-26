@@ -70,6 +70,13 @@ const postTokensBodySchema = z
               })
               .optional(),
             directors_provided: PermissiveBoolean.optional(),
+            directorship_declaration: z
+              .object({
+                date: z.coerce.number().optional(),
+                ip: z.string().optional(),
+                user_agent: z.string().max(5000).optional(),
+              })
+              .optional(),
             executives_provided: PermissiveBoolean.optional(),
             export_license_id: z.string().max(5000).optional(),
             export_purpose_code: z.string().max(5000).optional(),
@@ -86,6 +93,13 @@ const postTokensBodySchema = z
               .optional(),
             ownership_declaration_shown_and_signed:
               PermissiveBoolean.optional(),
+            ownership_exemption_reason: z
+              .enum([
+                "",
+                "qualified_entity_exceeds_ownership_threshold",
+                "qualifies_as_financial_institution",
+              ])
+              .optional(),
             phone: z.string().max(5000).optional(),
             registration_number: z.string().max(5000).optional(),
             structure: z
@@ -377,7 +391,7 @@ const postTokensBodySchema = z
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
         nationality: z.string().max(5000).optional(),
         phone: z.string().optional(),
-        political_exposure: z.string().max(5000).optional(),
+        political_exposure: z.enum(["existing", "none"]).optional(),
         registered_address: z
           .object({
             city: z.string().max(100).optional(),
@@ -390,6 +404,7 @@ const postTokensBodySchema = z
           .optional(),
         relationship: z
           .object({
+            authorizer: PermissiveBoolean.optional(),
             director: PermissiveBoolean.optional(),
             executive: PermissiveBoolean.optional(),
             legal_guardian: PermissiveBoolean.optional(),

@@ -58,8 +58,8 @@ export type OrgsCreateInvitation = (
 const orgsListPendingInvitationsParamSchema = z.object({ org: z.string() })
 
 const orgsListPendingInvitationsQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   role: z
     .enum([
       "all",
@@ -68,8 +68,12 @@ const orgsListPendingInvitationsQuerySchema = z.object({
       "billing_manager",
       "hiring_manager",
     ])
-    .optional(),
-  invitation_source: z.enum(["all", "member", "scim"]).optional(),
+    .optional()
+    .default("all"),
+  invitation_source: z
+    .enum(["all", "member", "scim"])
+    .optional()
+    .default("all"),
 })
 
 export const _GET =
@@ -124,7 +128,8 @@ const orgsCreateInvitationBodySchema = z
     email: z.string().optional(),
     role: z
       .enum(["admin", "direct_member", "billing_manager", "reinstate"])
-      .optional(),
+      .optional()
+      .default("direct_member"),
     team_ids: z.array(z.coerce.number()).optional(),
   })
   .optional()

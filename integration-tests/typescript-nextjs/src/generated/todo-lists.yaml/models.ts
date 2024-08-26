@@ -11,6 +11,8 @@ export type t_CreateUpdateTodoList = {
   name: string
 }
 
+export type t_Statuses = ("incomplete" | "complete")[]
+
 export type t_TodoList = {
   created: string
   id: string
@@ -34,6 +36,10 @@ export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }
 
+export type t_UnknownObject = {
+  [key: string]: unknown | undefined
+}
+
 export type t_GetTodoListByIdParamSchema = {
   listId: string
 }
@@ -44,7 +50,8 @@ export type t_GetTodoListItemsParamSchema = {
 
 export type t_GetTodoListsQuerySchema = {
   created?: string
-  status?: "incomplete" | "complete"
+  statuses?: t_Statuses
+  tags?: string[]
 }
 
 export type t_UpdateTodoListByIdBodySchema = {
@@ -53,4 +60,8 @@ export type t_UpdateTodoListByIdBodySchema = {
 
 export type t_UpdateTodoListByIdParamSchema = {
   listId: string
+}
+
+export type t_UploadAttachmentBodySchema = {
+  file?: unknown
 }

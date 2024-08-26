@@ -59,7 +59,12 @@ const getPaymentMethodsPaymentMethodParamSchema = z.object({
 })
 
 const getPaymentMethodsPaymentMethodQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getPaymentMethodsPaymentMethodBodySchema = z.object({}).optional()
@@ -155,6 +160,7 @@ const postPaymentMethodsPaymentMethodBodySchema = z
     expand: z.array(z.string().max(5000)).optional(),
     link: z.object({}).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+    pay_by_bank: z.object({}).optional(),
     us_bank_account: z
       .object({
         account_holder_type: z.enum(["company", "individual"]).optional(),

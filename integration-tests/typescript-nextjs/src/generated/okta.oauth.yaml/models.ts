@@ -29,10 +29,33 @@ export type t_AmrValue =
 
 export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
+export type t_AuthorizeWithPost = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
+  request?: string
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string
+  state: string
+}
+
 export type t_BackchannelAuthorizeRequest = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -45,18 +68,46 @@ export type t_BackchannelAuthorizeResponse = {
   interval?: number
 }
 
+export type t_BindingMethod = "none" | "prompt" | "transfer"
+
+export type t_ChallengeRequest = {
+  challenge_types_supported?: t_ChallengeType[]
+  channel_hint?: t_Channel
+  mfa_token: string
+}
+
+export type t_ChallengeResponse = {
+  binding_code?: string
+  binding_method?: t_BindingMethod
+  challenge_type?: string
+  channel?: t_Channel
+  expires_in?: number
+  interval?: number
+  oob_code?: string
+}
+
+export type t_ChallengeType =
+  | "http://auth0.com/oauth/grant-type/mfa-oob"
+  | "http://auth0.com/oauth/grant-type/mfa-otp"
+
+export type t_Channel = "push" | "sms" | "voice"
+
 export type t_Claim = string
 
 export type t_Client = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
+  frontchannel_logout_session_required?: boolean
+  frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -101,6 +152,10 @@ export type t_Error = {
   errorSummary?: string
 }
 
+export type t_GlobalTokenRevocationRequest = {
+  sub_id?: t_sub_id
+}
+
 export type t_GrantType =
   | "authorization_code"
   | "client_credentials"
@@ -113,6 +168,10 @@ export type t_GrantType =
   | "urn:ietf:params:oauth:grant-type:saml2-bearer"
   | "urn:ietf:params:oauth:grant-type:token-exchange"
   | "urn:openid:params:grant-type:ciba"
+  | "urn:okta:params:oauth:grant-type:otp"
+  | "urn:okta:params:oauth:grant-type:oob"
+  | "http://auth0.com/oauth/grant-type/mfa-otp"
+  | "http://auth0.com/oauth/grant-type/mfa-oob"
 
 export type t_IntrospectionRequest = {
   token?: string
@@ -145,11 +204,17 @@ export type t_JsonWebKey = {
   use?: t_JsonWebKeyUse
 }
 
-export type t_JsonWebKeyStatus = "ACTIVE" | "EXPIRED" | "NEXT"
+export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE"
 
 export type t_JsonWebKeyType = "EC" | "RSA"
 
 export type t_JsonWebKeyUse = "enc" | "sig"
+
+export type t_LogoutWithPost = {
+  id_token_hint: string
+  post_logout_redirect_uri?: string
+  state?: string
+}
 
 export type t_OAuthError = {
   error?: string
@@ -167,6 +232,14 @@ export type t_OAuthMetadata = {
   claims_supported?: t_Claim[]
   code_challenge_methods_supported?: t_CodeChallengeMethod[]
   device_authorization_endpoint?: string
+  dpop_signing_alg_values_supported?: (
+    | "ES256"
+    | "ES384"
+    | "ES512"
+    | "RS256"
+    | "RS384"
+    | "RS512"
+  )[]
   end_session_endpoint?: string
   grant_types_supported?: t_GrantType[]
   introspection_endpoint?: string
@@ -190,6 +263,20 @@ export type t_OAuthMetadata = {
 export type t_OidcMetadata = t_OAuthMetadata & {
   id_token_signing_alg_values_supported?: t_SigningAlgorithm[]
   userinfo_endpoint?: string
+}
+
+export type t_OobAuthenticateRequest = {
+  channel_hint: t_Channel
+  login_hint: string
+}
+
+export type t_OobAuthenticateResponse = {
+  binding_code?: string
+  binding_method?: t_BindingMethod
+  channel?: t_Channel
+  expires_in?: number
+  interval?: number
+  oob_code?: string
 }
 
 export type t_ParRequest = {
@@ -242,7 +329,7 @@ export type t_ResponseTypesSupported =
   | "token"
 
 export type t_RevokeRequest = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 
@@ -306,9 +393,14 @@ export type t_UserInfo = {
   [key: string]: unknown | undefined
 }
 
+export type t_sub_id = {
+  format?: "opaque"
+  id?: string
+}
+
 export type t_AuthorizeQuerySchema = {
   acr_values?: t_AcrValue
-  client_id?: string
+  client_id: string
   code_challenge?: string
   code_challenge_method?: t_CodeChallengeMethod
   display?: string
@@ -319,14 +411,14 @@ export type t_AuthorizeQuerySchema = {
   max_age?: number
   nonce?: string
   prompt?: t_Prompt
-  redirect_uri?: string
+  redirect_uri: string
   request?: string
   request_uri?: string
   response_mode?: t_ResponseMode
-  response_type?: t_ResponseTypesSupported
-  scope?: string
+  response_type: t_ResponseTypesSupported
+  scope: string
   sessionToken?: string
-  state?: string
+  state: string
 }
 
 export type t_AuthorizeCustomAsParamSchema = {
@@ -335,7 +427,7 @@ export type t_AuthorizeCustomAsParamSchema = {
 
 export type t_AuthorizeCustomAsQuerySchema = {
   acr_values?: t_AcrValue
-  client_id?: string
+  client_id: string
   code_challenge?: string
   code_challenge_method?: t_CodeChallengeMethod
   display?: string
@@ -346,20 +438,70 @@ export type t_AuthorizeCustomAsQuerySchema = {
   max_age?: number
   nonce?: string
   prompt?: t_Prompt
-  redirect_uri?: string
+  redirect_uri: string
   request?: string
   request_uri?: string
   response_mode?: t_ResponseMode
-  response_type?: t_ResponseTypesSupported
-  scope?: string
+  response_type: t_ResponseTypesSupported
+  scope: string
   sessionToken?: string
-  state?: string
+  state: string
+}
+
+export type t_AuthorizeCustomAsWithPostBodySchema = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
+  request?: string
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string
+  state: string
+}
+
+export type t_AuthorizeCustomAsWithPostParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_AuthorizeWithPostBodySchema = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
+  request?: string
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string
+  state: string
 }
 
 export type t_BcAuthorizeBodySchema = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -368,8 +510,8 @@ export type t_BcAuthorizeBodySchema = {
 
 export type t_BcAuthorizeCustomAsBodySchema = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -380,16 +522,36 @@ export type t_BcAuthorizeCustomAsParamSchema = {
   authorizationServerId: string
 }
 
+export type t_ChallengeBodySchema = {
+  challenge_types_supported?: t_ChallengeType[]
+  channel_hint?: t_Channel
+  mfa_token: string
+}
+
+export type t_ChallengeCustomAsBodySchema = {
+  challenge_types_supported?: t_ChallengeType[]
+  channel_hint?: t_Channel
+  mfa_token: string
+}
+
+export type t_ChallengeCustomAsParamSchema = {
+  authorizationServerId: string
+}
+
 export type t_CreateClientBodySchema = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
+  frontchannel_logout_session_required?: boolean
+  frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -447,6 +609,10 @@ export type t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema = {
   client_id?: string
 }
 
+export type t_GlobalTokenRevocationBodySchema = {
+  sub_id?: t_sub_id
+}
+
 export type t_IntrospectBodySchema = {
   token?: string
   token_type_hint?: t_TokenTypeHintIntrospect
@@ -483,11 +649,41 @@ export type t_LogoutCustomAsQuerySchema = {
   state?: string
 }
 
+export type t_LogoutCustomAsWithPostBodySchema = {
+  id_token_hint: string
+  post_logout_redirect_uri?: string
+  state?: string
+}
+
+export type t_LogoutCustomAsWithPostParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_LogoutWithPostBodySchema = {
+  id_token_hint: string
+  post_logout_redirect_uri?: string
+  state?: string
+}
+
 export type t_OauthKeysQuerySchema = {
   client_id?: string
 }
 
 export type t_OauthKeysCustomAsParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_OobAuthenticateBodySchema = {
+  channel_hint: t_Channel
+  login_hint: string
+}
+
+export type t_OobAuthenticateCustomAsBodySchema = {
+  channel_hint: t_Channel
+  login_hint: string
+}
+
+export type t_OobAuthenticateCustomAsParamSchema = {
   authorizationServerId: string
 }
 
@@ -543,12 +739,16 @@ export type t_ReplaceClientBodySchema = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
+  frontchannel_logout_session_required?: boolean
+  frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -565,12 +765,12 @@ export type t_ReplaceClientParamSchema = {
 }
 
 export type t_RevokeBodySchema = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 
 export type t_RevokeCustomAsBodySchema = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 

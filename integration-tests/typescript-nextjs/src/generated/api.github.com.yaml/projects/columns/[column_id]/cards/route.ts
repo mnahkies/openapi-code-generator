@@ -72,9 +72,12 @@ export type ProjectsCreateCard = (
 const projectsListCardsParamSchema = z.object({ column_id: z.coerce.number() })
 
 const projectsListCardsQuerySchema = z.object({
-  archived_state: z.enum(["all", "archived", "not_archived"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  archived_state: z
+    .enum(["all", "archived", "not_archived"])
+    .optional()
+    .default("not_archived"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

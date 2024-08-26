@@ -114,7 +114,7 @@ const issuesUpdateMilestoneParamSchema = z.object({
 const issuesUpdateMilestoneBodySchema = z
   .object({
     title: z.string().optional(),
-    state: z.enum(["open", "closed"]).optional(),
+    state: z.enum(["open", "closed"]).optional().default("open"),
     description: z.string().optional(),
     due_on: z.string().datetime({ offset: true }).optional(),
   })

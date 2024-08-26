@@ -60,7 +60,12 @@ export type PostTerminalConfigurations = (
 
 const getTerminalConfigurationsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   is_account_default: PermissiveBoolean.optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
@@ -127,6 +132,12 @@ const postTerminalConfigurationsBodySchema = z
     offline: z
       .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
       .optional(),
+    reboot_window: z
+      .object({ end_hour: z.coerce.number(), start_hour: z.coerce.number() })
+      .optional(),
+    stripe_s700: z
+      .object({ splashscreen: z.union([z.string(), z.enum([""])]).optional() })
+      .optional(),
     tipping: z
       .union([
         z.object({
@@ -186,6 +197,13 @@ const postTerminalConfigurationsBodySchema = z
               smart_tip_threshold: z.coerce.number().optional(),
             })
             .optional(),
+          jpy: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
           myr: z
             .object({
               fixed_amounts: z.array(z.coerce.number()).optional(),
@@ -201,6 +219,13 @@ const postTerminalConfigurationsBodySchema = z
             })
             .optional(),
           nzd: z
+            .object({
+              fixed_amounts: z.array(z.coerce.number()).optional(),
+              percentages: z.array(z.coerce.number()).optional(),
+              smart_tip_threshold: z.coerce.number().optional(),
+            })
+            .optional(),
+          pln: z
             .object({
               fixed_amounts: z.array(z.coerce.number()).optional(),
               percentages: z.array(z.coerce.number()).optional(),
@@ -234,6 +259,41 @@ const postTerminalConfigurationsBodySchema = z
       .optional(),
     verifone_p400: z
       .object({ splashscreen: z.union([z.string(), z.enum([""])]).optional() })
+      .optional(),
+    wifi: z
+      .union([
+        z.object({
+          enterprise_eap_peap: z
+            .object({
+              ca_certificate_file: z.string().optional(),
+              password: z.string().max(5000),
+              ssid: z.string().max(5000),
+              username: z.string().max(5000),
+            })
+            .optional(),
+          enterprise_eap_tls: z
+            .object({
+              ca_certificate_file: z.string().optional(),
+              client_certificate_file: z.string(),
+              private_key_file: z.string(),
+              private_key_file_password: z.string().max(5000).optional(),
+              ssid: z.string().max(5000),
+            })
+            .optional(),
+          personal_psk: z
+            .object({
+              password: z.string().max(63),
+              ssid: z.string().max(5000),
+            })
+            .optional(),
+          type: z.enum([
+            "enterprise_eap_peap",
+            "enterprise_eap_tls",
+            "personal_psk",
+          ]),
+        }),
+        z.enum([""]),
+      ])
       .optional(),
   })
   .optional()

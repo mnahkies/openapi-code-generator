@@ -39,7 +39,7 @@ export type GitUpdateRef = (
 export type GitDeleteRefResponder = {
   with204(): KoaRuntimeResponse<void>
   with409(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
+  with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
 
 export type GitDeleteRef = (
@@ -56,7 +56,7 @@ const gitUpdateRefParamSchema = z.object({
 
 const gitUpdateRefBodySchema = z.object({
   sha: z.string(),
-  force: PermissiveBoolean.optional(),
+  force: PermissiveBoolean.optional().default(false),
 })
 
 export const _PATCH =
@@ -137,7 +137,7 @@ export const _DELETE =
         return new KoaRuntimeResponse<t_basic_error>(409)
       },
       with422() {
-        return new KoaRuntimeResponse<t_validation_error>(422)
+        return new KoaRuntimeResponse<void>(422)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

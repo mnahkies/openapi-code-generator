@@ -54,11 +54,11 @@ const codeScanningListAlertsForOrgQuerySchema = z.object({
   tool_guid: s_code_scanning_analysis_tool_guid.optional(),
   before: z.string().optional(),
   after: z.string().optional(),
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
   state: s_code_scanning_alert_state_query.optional(),
-  sort: z.enum(["created", "updated"]).optional(),
+  sort: z.enum(["created", "updated"]).optional().default("created"),
   severity: s_code_scanning_alert_severity.optional(),
 })
 

@@ -46,6 +46,7 @@ const postTerminalReadersReaderProcessPaymentIntentBodySchema = z.object({
   payment_intent: z.string().max(5000),
   process_config: z
     .object({
+      allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
       enable_customer_cancellation: PermissiveBoolean.optional(),
       skip_tipping: PermissiveBoolean.optional(),
       tipping: z

@@ -52,8 +52,8 @@ const packagesListPackagesForOrganizationQuerySchema = z.object({
     "container",
   ]),
   visibility: z.enum(["public", "private", "internal"]).optional(),
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
 })
 
 export const _GET =

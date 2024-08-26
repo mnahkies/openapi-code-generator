@@ -145,7 +145,7 @@ const reposUpdateBranchProtectionBodySchema = z.object({
       dismiss_stale_reviews: PermissiveBoolean.optional(),
       require_code_owner_reviews: PermissiveBoolean.optional(),
       required_approving_review_count: z.coerce.number().optional(),
-      require_last_push_approval: PermissiveBoolean.optional(),
+      require_last_push_approval: PermissiveBoolean.optional().default(false),
       bypass_pull_request_allowances: z
         .object({
           users: z.array(z.string()).optional(),
@@ -167,8 +167,8 @@ const reposUpdateBranchProtectionBodySchema = z.object({
   allow_deletions: PermissiveBoolean.optional(),
   block_creations: PermissiveBoolean.optional(),
   required_conversation_resolution: PermissiveBoolean.optional(),
-  lock_branch: PermissiveBoolean.optional(),
-  allow_fork_syncing: PermissiveBoolean.optional(),
+  lock_branch: PermissiveBoolean.optional().default(false),
+  allow_fork_syncing: PermissiveBoolean.optional().default(false),
 })
 
 export const _PUT =

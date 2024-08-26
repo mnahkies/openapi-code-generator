@@ -64,7 +64,6 @@ const postInvoicesInvoiceLinesLineItemIdBodySchema = z
     period: z
       .object({ end: z.coerce.number(), start: z.coerce.number() })
       .optional(),
-    price: z.string().max(5000).optional(),
     price_data: z
       .object({
         currency: z.string(),
@@ -85,6 +84,7 @@ const postInvoicesInvoiceLinesLineItemIdBodySchema = z
         unit_amount_decimal: z.string().optional(),
       })
       .optional(),
+    pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
     quantity: z.coerce.number().optional(),
     tax_amounts: z
       .union([
@@ -94,11 +94,21 @@ const postInvoicesInvoiceLinesLineItemIdBodySchema = z
             tax_rate_data: z.object({
               country: z.string().max(5000).optional(),
               description: z.string().max(5000).optional(),
-              display_name: z.string().max(50),
+              display_name: z.string().max(100),
               inclusive: PermissiveBoolean,
-              jurisdiction: z.string().max(50).optional(),
+              jurisdiction: z.string().max(200).optional(),
+              jurisdiction_level: z
+                .enum([
+                  "city",
+                  "country",
+                  "county",
+                  "district",
+                  "multiple",
+                  "state",
+                ])
+                .optional(),
               percentage: z.coerce.number(),
-              state: z.string().max(2).optional(),
+              state: z.string().max(5000).optional(),
               tax_type: z
                 .enum([
                   "amusement_tax",
@@ -110,12 +120,33 @@ const postInvoicesInvoiceLinesLineItemIdBodySchema = z
                   "lease_tax",
                   "pst",
                   "qst",
+                  "retail_delivery_fee",
                   "rst",
                   "sales_tax",
+                  "service_tax",
                   "vat",
                 ])
                 .optional(),
             }),
+            taxability_reason: z
+              .enum([
+                "customer_exempt",
+                "not_collecting",
+                "not_subject_to_tax",
+                "not_supported",
+                "portion_product_exempt",
+                "portion_reduced_rated",
+                "portion_standard_rated",
+                "product_exempt",
+                "product_exempt_holiday",
+                "proportionally_rated",
+                "reduced_rated",
+                "reverse_charge",
+                "standard_rated",
+                "taxable_basis_reduced",
+                "zero_rated",
+              ])
+              .optional(),
             taxable_amount: z.coerce.number(),
           }),
         ),

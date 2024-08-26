@@ -39,10 +39,10 @@ export type OrgsListMembers = (
 const orgsListMembersParamSchema = z.object({ org: z.string() })
 
 const orgsListMembersQuerySchema = z.object({
-  filter: z.enum(["2fa_disabled", "all"]).optional(),
-  role: z.enum(["all", "admin", "member"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+  role: z.enum(["all", "admin", "member"]).optional().default("all"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

@@ -58,9 +58,14 @@ export type MigrationsStartForOrg = (
 const migrationsListForOrgParamSchema = z.object({ org: z.string() })
 
 const migrationsListForOrgQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
-  exclude: z.array(z.enum(["repositories"])).optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
+  exclude: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.enum(["repositories"])),
+    )
+    .optional(),
 })
 
 export const _GET =
@@ -108,13 +113,13 @@ const migrationsStartForOrgParamSchema = z.object({ org: z.string() })
 
 const migrationsStartForOrgBodySchema = z.object({
   repositories: z.array(z.string()),
-  lock_repositories: PermissiveBoolean.optional(),
-  exclude_metadata: PermissiveBoolean.optional(),
-  exclude_git_data: PermissiveBoolean.optional(),
-  exclude_attachments: PermissiveBoolean.optional(),
-  exclude_releases: PermissiveBoolean.optional(),
-  exclude_owner_projects: PermissiveBoolean.optional(),
-  org_metadata_only: PermissiveBoolean.optional(),
+  lock_repositories: PermissiveBoolean.optional().default(false),
+  exclude_metadata: PermissiveBoolean.optional().default(false),
+  exclude_git_data: PermissiveBoolean.optional().default(false),
+  exclude_attachments: PermissiveBoolean.optional().default(false),
+  exclude_releases: PermissiveBoolean.optional().default(false),
+  exclude_owner_projects: PermissiveBoolean.optional().default(false),
+  org_metadata_only: PermissiveBoolean.optional().default(false),
   exclude: z.array(z.enum(["repositories"])).optional(),
 })
 

@@ -37,9 +37,9 @@ export type OrgsListOutsideCollaborators = (
 const orgsListOutsideCollaboratorsParamSchema = z.object({ org: z.string() })
 
 const orgsListOutsideCollaboratorsQuerySchema = z.object({
-  filter: z.enum(["2fa_disabled", "all"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  filter: z.enum(["2fa_disabled", "all"]).optional().default("all"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

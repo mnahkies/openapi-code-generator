@@ -80,7 +80,7 @@ export const _GET =
 
 const createEmailBodySchema = z.object({
   profile: z.object({ email: z.string().email() }),
-  sendEmail: PermissiveBoolean.optional(),
+  sendEmail: PermissiveBoolean.optional().default(true),
   state: z.string().optional(),
   role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
 })

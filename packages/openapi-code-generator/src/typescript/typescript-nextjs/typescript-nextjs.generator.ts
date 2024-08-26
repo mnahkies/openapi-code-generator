@@ -223,7 +223,7 @@ export class ServerRouterBuilder implements ICompilable {
       operationId: operation.operationId,
       statements: [
         buildExport({
-          name: titleCase(operation.operationId) + "Responder",
+          name: `${titleCase(operation.operationId)}Responder`,
           value: intersect(
             object([
               ...responseSchemas.specific.map((it) =>
@@ -247,7 +247,7 @@ export class ServerRouterBuilder implements ICompilable {
                         ? ""
                         : " | undefined")
                     }>,
-                    respond: ${titleCase(operation.operationId) + "Responder"},
+                    respond: ${titleCase(operation.operationId)}Responder,
                     ctx: {request: NextRequest}
                   ) => Promise<KoaRuntimeResponse<unknown>>`,
           kind: "type",
@@ -366,12 +366,15 @@ export class NextJSAppRouterBuilder implements ICompilable {
       })
 
     // Replace the params based on what inputs we have
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const declarations = variableDeclaration.getDeclarations()[0]!
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const innerFunction = declarations
       .getInitializerIfKindOrThrow(SyntaxKind.CallExpression)
       .getArguments()[0]!
       .asKind(SyntaxKind.ArrowFunction)!
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     innerFunction?.getParameters().forEach((parameter) => {
       parameter.remove()
     })
@@ -398,9 +401,10 @@ export class NextJSAppRouterBuilder implements ICompilable {
     // Reconcile imports - attempt to find an existing one and replace it with correct one
     const imports = this.sourceFile.getImportDeclarations()
     const from = this.imports.normalizeFrom(
-      "./" + this.companionFilename,
-      "./" + this.filename,
+      `./${this.companionFilename}`,
+      `./${this.filename}`,
     )
+    // biome-ignore lint/complexity/noForEach: <explanation>
     imports
       .filter((it) => it.getModuleSpecifierValue().includes(from))
       .forEach((it) => it.remove())
@@ -411,6 +415,7 @@ export class NextJSAppRouterBuilder implements ICompilable {
     })
 
     // Remove any methods that were removed from the spec
+    // biome-ignore lint/complexity/noForEach: <explanation>
     this.sourceFile
       .getVariableDeclarations()
       .filter((it) => {

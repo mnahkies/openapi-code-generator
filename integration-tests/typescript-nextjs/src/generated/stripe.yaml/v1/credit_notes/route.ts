@@ -67,7 +67,12 @@ const getCreditNotesQuerySchema = z.object({
     .optional(),
   customer: z.string().max(5000).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   invoice: z.string().max(5000).optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
@@ -128,6 +133,7 @@ const postCreditNotesBodySchema = z.object({
   amount: z.coerce.number().optional(),
   credit_amount: z.coerce.number().optional(),
   effective_at: z.coerce.number().optional(),
+  email_type: z.enum(["credit_note", "none"]).optional(),
   expand: z.array(z.string().max(5000)).optional(),
   invoice: z.string().max(5000),
   lines: z
@@ -164,8 +170,15 @@ const postCreditNotesBodySchema = z.object({
   reason: z
     .enum(["duplicate", "fraudulent", "order_change", "product_unsatisfactory"])
     .optional(),
-  refund: z.string().optional(),
   refund_amount: z.coerce.number().optional(),
+  refunds: z
+    .array(
+      z.object({
+        amount_refunded: z.coerce.number().optional(),
+        refund: z.string().optional(),
+      }),
+    )
+    .optional(),
   shipping_cost: z
     .object({ shipping_rate: z.string().max(5000).optional() })
     .optional(),

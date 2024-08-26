@@ -31,7 +31,6 @@ export type ReplaceProfileResponder = {
   with200(): KoaRuntimeResponse<t_Profile>
   with400(): KoaRuntimeResponse<t_Error>
   with401(): KoaRuntimeResponse<t_Error>
-  with403(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
 export type ReplaceProfile = (
@@ -76,9 +75,7 @@ export const _GET =
       : new Response(undefined, { status })
   }
 
-const replaceProfileBodySchema = z.object({
-  profile: z.record(z.any()).optional(),
-})
+const replaceProfileBodySchema = z.object({ profile: z.object({}).optional() })
 
 export const _PUT =
   (implementation: ReplaceProfile) =>
@@ -106,9 +103,6 @@ export const _PUT =
       },
       with401() {
         return new KoaRuntimeResponse<t_Error>(401)
-      },
-      with403() {
-        return new KoaRuntimeResponse<t_Error>(403)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

@@ -29,7 +29,7 @@ export type OrgsList = (
 
 const orgsListQuerySchema = z.object({
   since: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
 })
 
 export const _GET =

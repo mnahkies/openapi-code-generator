@@ -38,10 +38,10 @@ export type ActivityListReposStarredByAuthenticatedUser = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const activityListReposStarredByAuthenticatedUserQuerySchema = z.object({
-  sort: z.enum(["created", "updated"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  sort: z.enum(["created", "updated"]).optional().default("created"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

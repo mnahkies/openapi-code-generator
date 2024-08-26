@@ -7,6 +7,7 @@ import {
   t_SecretScanningListAlertsForRepoQuerySchema,
   t_secret_scanning_alert,
 } from "../../../../../models"
+import { PermissiveBoolean } from "../../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -49,13 +50,15 @@ const secretScanningListAlertsForRepoQuerySchema = z.object({
   state: z.enum(["open", "resolved"]).optional(),
   secret_type: z.string().optional(),
   resolution: z.string().optional(),
-  sort: z.enum(["created", "updated"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  sort: z.enum(["created", "updated"]).optional().default("created"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
   before: z.string().optional(),
   after: z.string().optional(),
   validity: z.string().optional(),
+  is_publicly_leaked: PermissiveBoolean.optional().default(false),
+  is_multi_repo: PermissiveBoolean.optional().default(false),
 })
 
 export const _GET =

@@ -6,6 +6,7 @@ import {
   t_GitCreateBlobBodySchema,
   t_GitCreateBlobParamSchema,
   t_basic_error,
+  t_repository_rule_violation_error,
   t_short_blob,
   t_validation_error,
 } from "../../../../../models"
@@ -27,7 +28,9 @@ export type GitCreateBlobResponder = {
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with409(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
+  with422(): KoaRuntimeResponse<
+    t_validation_error | t_repository_rule_violation_error
+  >
 } & KoaRuntimeResponder
 
 export type GitCreateBlob = (
@@ -43,7 +46,7 @@ const gitCreateBlobParamSchema = z.object({
 
 const gitCreateBlobBodySchema = z.object({
   content: z.string(),
-  encoding: z.string().optional(),
+  encoding: z.string().optional().default("utf-8"),
 })
 
 export const _POST =
@@ -81,7 +84,9 @@ export const _POST =
         return new KoaRuntimeResponse<t_basic_error>(409)
       },
       with422() {
-        return new KoaRuntimeResponse<t_validation_error>(422)
+        return new KoaRuntimeResponse<
+          t_validation_error | t_repository_rule_violation_error
+        >(422)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

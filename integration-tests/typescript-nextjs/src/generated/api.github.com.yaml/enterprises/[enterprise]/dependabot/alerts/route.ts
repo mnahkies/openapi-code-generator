@@ -49,14 +49,18 @@ const dependabotListAlertsForEnterpriseQuerySchema = z.object({
   severity: z.string().optional(),
   ecosystem: z.string().optional(),
   package: z.string().optional(),
+  epss_percentage: z.string().optional(),
   scope: z.enum(["development", "runtime"]).optional(),
-  sort: z.enum(["created", "updated"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
+  sort: z
+    .enum(["created", "updated", "epss_percentage"])
+    .optional()
+    .default("created"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
   before: z.string().optional(),
   after: z.string().optional(),
-  first: z.coerce.number().min(1).max(100).optional(),
+  first: z.coerce.number().min(1).max(100).optional().default(30),
   last: z.coerce.number().min(1).max(100).optional(),
-  per_page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
 })
 
 export const _GET =

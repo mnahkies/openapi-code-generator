@@ -42,7 +42,12 @@ const checksSetSuitesPreferencesParamSchema = z.object({
 
 const checksSetSuitesPreferencesBodySchema = z.object({
   auto_trigger_checks: z
-    .array(z.object({ app_id: z.coerce.number(), setting: PermissiveBoolean }))
+    .array(
+      z.object({
+        app_id: z.coerce.number(),
+        setting: PermissiveBoolean.default(true),
+      }),
+    )
     .optional(),
 })
 

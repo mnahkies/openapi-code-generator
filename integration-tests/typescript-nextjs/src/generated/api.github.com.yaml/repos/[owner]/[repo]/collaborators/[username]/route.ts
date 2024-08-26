@@ -117,7 +117,7 @@ const reposAddCollaboratorParamSchema = z.object({
 })
 
 const reposAddCollaboratorBodySchema = z
-  .object({ permission: z.string().optional() })
+  .object({ permission: z.string().optional().default("push") })
   .optional()
 
 export const _PUT =

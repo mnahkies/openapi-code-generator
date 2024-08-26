@@ -128,7 +128,12 @@ const getWebhookEndpointsWebhookEndpointParamSchema = z.object({
 })
 
 const getWebhookEndpointsWebhookEndpointQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getWebhookEndpointsWebhookEndpointBodySchema = z.object({}).optional()
@@ -203,6 +208,7 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "application_fee.refund.updated",
           "application_fee.refunded",
           "balance.available",
+          "billing.alert.triggered",
           "billing_portal.configuration.created",
           "billing_portal.configuration.updated",
           "billing_portal.session.created",
@@ -280,6 +286,8 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "invoice.finalization_failed",
           "invoice.finalized",
           "invoice.marked_uncollectible",
+          "invoice.overdue",
+          "invoice.overpaid",
           "invoice.paid",
           "invoice.payment_action_required",
           "invoice.payment_failed",
@@ -288,6 +296,7 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "invoice.upcoming",
           "invoice.updated",
           "invoice.voided",
+          "invoice.will_be_due",
           "invoiceitem.created",
           "invoiceitem.deleted",
           "issuing_authorization.created",
@@ -300,11 +309,17 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "issuing_dispute.closed",
           "issuing_dispute.created",
           "issuing_dispute.funds_reinstated",
+          "issuing_dispute.funds_rescinded",
           "issuing_dispute.submitted",
           "issuing_dispute.updated",
+          "issuing_personalization_design.activated",
+          "issuing_personalization_design.deactivated",
+          "issuing_personalization_design.rejected",
+          "issuing_personalization_design.updated",
           "issuing_token.created",
           "issuing_token.updated",
           "issuing_transaction.created",
+          "issuing_transaction.purchase_details_receipt_updated",
           "issuing_transaction.updated",
           "mandate.updated",
           "payment_intent.amount_capturable_updated",
@@ -348,6 +363,7 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "radar.early_fraud_warning.created",
           "radar.early_fraud_warning.updated",
           "refund.created",
+          "refund.failed",
           "refund.updated",
           "reporting.report_run.failed",
           "reporting.report_run.succeeded",
@@ -410,12 +426,14 @@ const postWebhookEndpointsWebhookEndpointBodySchema = z
           "treasury.outbound_payment.failed",
           "treasury.outbound_payment.posted",
           "treasury.outbound_payment.returned",
+          "treasury.outbound_payment.tracking_details_updated",
           "treasury.outbound_transfer.canceled",
           "treasury.outbound_transfer.created",
           "treasury.outbound_transfer.expected_arrival_date_updated",
           "treasury.outbound_transfer.failed",
           "treasury.outbound_transfer.posted",
           "treasury.outbound_transfer.returned",
+          "treasury.outbound_transfer.tracking_details_updated",
           "treasury.received_credit.created",
           "treasury.received_credit.failed",
           "treasury.received_credit.succeeded",

@@ -64,7 +64,12 @@ const getPlansQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   product: z.string().max(5000).optional(),
   starting_after: z.string().max(5000).optional(),
@@ -123,9 +128,6 @@ export const _GET =
 
 const postPlansBodySchema = z.object({
   active: PermissiveBoolean.optional(),
-  aggregate_usage: z
-    .enum(["last_during_period", "last_ever", "max", "sum"])
-    .optional(),
   amount: z.coerce.number().optional(),
   amount_decimal: z.string().optional(),
   billing_scheme: z.enum(["per_unit", "tiered"]).optional(),

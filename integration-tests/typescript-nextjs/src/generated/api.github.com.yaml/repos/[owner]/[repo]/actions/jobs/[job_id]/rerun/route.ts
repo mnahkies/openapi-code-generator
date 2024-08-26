@@ -44,7 +44,7 @@ const actionsReRunJobForWorkflowRunParamSchema = z.object({
 })
 
 const actionsReRunJobForWorkflowRunBodySchema = z
-  .object({ enable_debug_logging: PermissiveBoolean.optional() })
+  .object({ enable_debug_logging: PermissiveBoolean.optional().default(false) })
   .nullable()
   .optional()
 

@@ -49,7 +49,7 @@ export type CreateClient = (
 
 const listClientsQuerySchema = z.object({
   after: z.string().optional(),
-  limit: z.coerce.number().min(1).max(200).optional(),
+  limit: z.coerce.number().min(1).max(200).optional().default(20),
   q: z.string().optional(),
 })
 

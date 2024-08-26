@@ -67,15 +67,26 @@ export type OrgsReviewPatGrantRequestsInBulk = (
 const orgsListPatGrantRequestsParamSchema = z.object({ org: z.string() })
 
 const orgsListPatGrantRequestsQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
-  sort: z.enum(["created_at"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  owner: z.array(z.string()).max(10).optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
+  sort: z.enum(["created_at"]).optional().default("created_at"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  owner: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string()).max(10),
+    )
+    .optional(),
   repository: z.string().optional(),
   permission: z.string().optional(),
   last_used_before: z.string().datetime({ offset: true }).optional(),
   last_used_after: z.string().datetime({ offset: true }).optional(),
+  token_id: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string()).max(50),
+    )
+    .optional(),
 })
 
 export const _GET =

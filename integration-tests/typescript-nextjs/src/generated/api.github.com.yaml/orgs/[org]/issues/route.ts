@@ -41,14 +41,19 @@ const issuesListForOrgParamSchema = z.object({ org: z.string() })
 const issuesListForOrgQuerySchema = z.object({
   filter: z
     .enum(["assigned", "created", "mentioned", "subscribed", "repos", "all"])
-    .optional(),
-  state: z.enum(["open", "closed", "all"]).optional(),
+    .optional()
+    .default("assigned"),
+  state: z.enum(["open", "closed", "all"]).optional().default("open"),
   labels: z.string().optional(),
-  sort: z.enum(["created", "updated", "comments"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
+  type: z.string().optional(),
+  sort: z
+    .enum(["created", "updated", "comments"])
+    .optional()
+    .default("created"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
   since: z.string().datetime({ offset: true }).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

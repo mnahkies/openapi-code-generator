@@ -60,7 +60,12 @@ const getPaymentLinksPaymentLinkParamSchema = z.object({
 })
 
 const getPaymentLinksPaymentLinkQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getPaymentLinksPaymentLinkBodySchema = z.object({}).optional()
@@ -148,6 +153,7 @@ const postPaymentLinksPaymentLinkBodySchema = z
           z.object({
             dropdown: z
               .object({
+                default_value: z.string().max(100).optional(),
                 options: z.array(
                   z.object({
                     label: z.string().max(100),
@@ -163,6 +169,7 @@ const postPaymentLinksPaymentLinkBodySchema = z
             }),
             numeric: z
               .object({
+                default_value: z.string().max(255).optional(),
                 maximum_length: z.coerce.number().optional(),
                 minimum_length: z.coerce.number().optional(),
               })
@@ -170,6 +177,7 @@ const postPaymentLinksPaymentLinkBodySchema = z
             optional: PermissiveBoolean.optional(),
             text: z
               .object({
+                default_value: z.string().max(255).optional(),
                 maximum_length: z.coerce.number().optional(),
                 minimum_length: z.coerce.number().optional(),
               })
@@ -280,9 +288,11 @@ const postPaymentLinksPaymentLinkBodySchema = z
             "affirm",
             "afterpay_clearpay",
             "alipay",
+            "alma",
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "card",
@@ -295,21 +305,30 @@ const postPaymentLinksPaymentLinkBodySchema = z
             "klarna",
             "konbini",
             "link",
+            "mobilepay",
+            "multibanco",
             "oxxo",
             "p24",
+            "pay_by_bank",
             "paynow",
             "paypal",
             "pix",
             "promptpay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
+            "twint",
             "us_bank_account",
             "wechat_pay",
+            "zip",
           ]),
         ),
         z.enum([""]),
       ])
+      .optional(),
+    phone_number_collection: z
+      .object({ enabled: PermissiveBoolean })
       .optional(),
     restrictions: z
       .union([
@@ -508,6 +527,7 @@ const postPaymentLinksPaymentLinkBodySchema = z
               "SA",
               "SB",
               "SC",
+              "SD",
               "SE",
               "SG",
               "SH",
@@ -567,6 +587,9 @@ const postPaymentLinksPaymentLinkBodySchema = z
         z.enum([""]),
       ])
       .optional(),
+    submit_type: z
+      .enum(["auto", "book", "donate", "pay", "subscribe"])
+      .optional(),
     subscription_data: z
       .object({
         invoice_settings: z
@@ -580,6 +603,9 @@ const postPaymentLinksPaymentLinkBodySchema = z
           })
           .optional(),
         metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+        trial_period_days: z
+          .union([z.coerce.number(), z.enum([""])])
+          .optional(),
         trial_settings: z
           .union([
             z.object({
@@ -594,6 +620,12 @@ const postPaymentLinksPaymentLinkBodySchema = z
             z.enum([""]),
           ])
           .optional(),
+      })
+      .optional(),
+    tax_id_collection: z
+      .object({
+        enabled: PermissiveBoolean,
+        required: z.enum(["if_supported", "never"]).optional(),
       })
       .optional(),
   })

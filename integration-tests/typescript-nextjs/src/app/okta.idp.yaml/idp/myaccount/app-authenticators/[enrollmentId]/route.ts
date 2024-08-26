@@ -1,13 +1,13 @@
 import {
-  _DELETE,
   _PATCH,
+  _DELETE,
 } from "../../../../../../generated/okta.idp.yaml/idp/myaccount/app-authenticators/[enrollmentId]/route"
 
-export const PATCH = _PATCH(async ({params, body}, respond, context) => {
+export const PATCH = _PATCH(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })
-export const DELETE = _DELETE(async ({params}, respond, context) => {
+export const DELETE = _DELETE(async ({ params }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

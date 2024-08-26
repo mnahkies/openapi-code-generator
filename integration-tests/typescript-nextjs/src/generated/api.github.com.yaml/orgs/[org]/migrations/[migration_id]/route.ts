@@ -42,7 +42,12 @@ const migrationsGetStatusForOrgParamSchema = z.object({
 })
 
 const migrationsGetStatusForOrgQuerySchema = z.object({
-  exclude: z.array(z.enum(["repositories"])).optional(),
+  exclude: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.enum(["repositories"])),
+    )
+    .optional(),
 })
 
 export const _GET =

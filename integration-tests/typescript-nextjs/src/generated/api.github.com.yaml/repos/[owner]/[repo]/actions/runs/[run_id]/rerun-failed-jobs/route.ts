@@ -42,7 +42,7 @@ const actionsReRunWorkflowFailedJobsParamSchema = z.object({
 })
 
 const actionsReRunWorkflowFailedJobsBodySchema = z
-  .object({ enable_debug_logging: PermissiveBoolean.optional() })
+  .object({ enable_debug_logging: PermissiveBoolean.optional().default(false) })
   .nullable()
   .optional()
 

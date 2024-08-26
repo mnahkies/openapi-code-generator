@@ -13,6 +13,10 @@ import {
   t_balance,
   t_balance_transaction,
   t_bank_account,
+  t_billing_alert,
+  t_billing_credit_balance_summary,
+  t_billing_credit_balance_transaction,
+  t_billing_credit_grant,
   t_billing_meter,
   t_billing_meter_event,
   t_billing_meter_event_adjustment,
@@ -79,6 +83,8 @@ import {
   t_identity_verification_report,
   t_identity_verification_session,
   t_invoice,
+  t_invoice_payment,
+  t_invoice_rendering_template,
   t_invoiceitem,
   t_issuing_authorization,
   t_issuing_card,
@@ -118,6 +124,7 @@ import {
   t_setup_attempt,
   t_setup_intent,
   t_shipping_rate,
+  t_sigma_sigma_api_query,
   t_source,
   t_source_mandate_notification,
   t_source_transaction,
@@ -153,19 +160,77 @@ import {
   t_treasury_received_debit,
   t_treasury_transaction,
   t_treasury_transaction_entry,
-  t_usage_record,
-  t_usage_record_summary,
   t_webhook_endpoint,
 } from "../models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export class ApiClientServersOperations {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_ApiClient"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_ApiClient"> {
+            return "https://files.stripe.com/" as Server<"postFiles_ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_ApiClient"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_ApiClient"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class ApiClientServers {
+  static default(): Server<"ApiClient"> {
+    return ApiClientServers.server().build()
+  }
+
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
+    build: () => Server<"ApiClient">
+  } {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"ApiClient"> {
+            return "https://api.stripe.com/" as Server<"ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = ApiClientServersOperations
+}
+
+export interface ApiClientConfig extends AbstractFetchClientConfig {
+  basePath: Server<"ApiClient"> | string
+}
 
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {
@@ -178,20 +243,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -202,7 +266,7 @@ export class ApiClient extends AbstractFetchClient {
         account: string
         collect?: "currently_due" | "eventually_due"
         collection_options?: {
-          fields: "currently_due" | "eventually_due"
+          fields?: "currently_due" | "eventually_due"
           future_requirements?: "include" | "omit"
         }
         expand?: string[]
@@ -212,21 +276,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountSessions(
@@ -237,19 +296,23 @@ export class ApiClient extends AbstractFetchClient {
           account_management?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
           account_onboarding?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
           balances?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               edit_payout_schedule?: boolean
+              external_account_collection?: boolean
               instant_payouts?: boolean
               standard_payouts?: boolean
             }
@@ -258,9 +321,44 @@ export class ApiClient extends AbstractFetchClient {
             enabled: boolean
             features?: EmptyObject
           }
+          financial_account?: {
+            enabled: boolean
+            features?: {
+              disable_stripe_user_authentication?: boolean
+              external_account_collection?: boolean
+              send_money?: boolean
+              transfer_balance?: boolean
+            }
+          }
+          financial_account_transactions?: {
+            enabled: boolean
+            features?: {
+              card_spend_dispute_management?: boolean
+            }
+          }
+          issuing_card?: {
+            enabled: boolean
+            features?: {
+              card_management?: boolean
+              card_spend_dispute_management?: boolean
+              cardholder_management?: boolean
+              spend_control_management?: boolean
+            }
+          }
+          issuing_cards_list?: {
+            enabled: boolean
+            features?: {
+              card_management?: boolean
+              card_spend_dispute_management?: boolean
+              cardholder_management?: boolean
+              disable_stripe_user_authentication?: boolean
+              spend_control_management?: boolean
+            }
+          }
           notification_banner?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
@@ -285,7 +383,9 @@ export class ApiClient extends AbstractFetchClient {
           payouts?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               edit_payout_schedule?: boolean
+              external_account_collection?: boolean
               instant_payouts?: boolean
               standard_payouts?: boolean
             }
@@ -294,26 +394,29 @@ export class ApiClient extends AbstractFetchClient {
             enabled: boolean
             features?: EmptyObject
           }
+          tax_registrations?: {
+            enabled: boolean
+            features?: EmptyObject
+          }
+          tax_settings?: {
+            enabled: boolean
+            features?: EmptyObject
+          }
         }
         expand?: string[]
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account_session> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccounts(
@@ -333,25 +436,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -363,7 +465,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -431,6 +533,9 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay_payments?: {
             requested?: boolean
           }
+          alma_payments?: {
+            requested?: boolean
+          }
           amazon_pay_payments?: {
             requested?: boolean
           }
@@ -444,6 +549,9 @@ export class ApiClient extends AbstractFetchClient {
             requested?: boolean
           }
           bank_transfer_payments?: {
+            requested?: boolean
+          }
+          billie_payments?: {
             requested?: boolean
           }
           blik_payments?: {
@@ -470,6 +578,9 @@ export class ApiClient extends AbstractFetchClient {
           fpx_payments?: {
             requested?: boolean
           }
+          gb_bank_transfer_payments?: {
+            requested?: boolean
+          }
           giropay_payments?: {
             requested?: boolean
           }
@@ -485,10 +596,19 @@ export class ApiClient extends AbstractFetchClient {
           jcb_payments?: {
             requested?: boolean
           }
+          jp_bank_transfer_payments?: {
+            requested?: boolean
+          }
+          kakao_pay_payments?: {
+            requested?: boolean
+          }
           klarna_payments?: {
             requested?: boolean
           }
           konbini_payments?: {
+            requested?: boolean
+          }
+          kr_card_payments?: {
             requested?: boolean
           }
           legacy_payments?: {
@@ -500,10 +620,28 @@ export class ApiClient extends AbstractFetchClient {
           mobilepay_payments?: {
             requested?: boolean
           }
+          multibanco_payments?: {
+            requested?: boolean
+          }
+          mx_bank_transfer_payments?: {
+            requested?: boolean
+          }
+          naver_pay_payments?: {
+            requested?: boolean
+          }
+          nz_bank_account_becs_debit_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
           p24_payments?: {
+            requested?: boolean
+          }
+          pay_by_bank_payments?: {
+            requested?: boolean
+          }
+          payco_payments?: {
             requested?: boolean
           }
           paynow_payments?: {
@@ -513,6 +651,15 @@ export class ApiClient extends AbstractFetchClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          samsung_pay_payments?: {
+            requested?: boolean
+          }
+          satispay_payments?: {
+            requested?: boolean
+          }
+          sepa_bank_transfer_payments?: {
             requested?: boolean
           }
           sepa_debit_payments?: {
@@ -536,7 +683,13 @@ export class ApiClient extends AbstractFetchClient {
           treasury?: {
             requested?: boolean
           }
+          twint_payments?: {
+            requested?: boolean
+          }
           us_bank_account_ach_payments?: {
+            requested?: boolean
+          }
+          us_bank_transfer_payments?: {
             requested?: boolean
           }
           zip_payments?: {
@@ -571,6 +724,11 @@ export class ApiClient extends AbstractFetchClient {
             town?: string
           }
           directors_provided?: boolean
+          directorship_declaration?: {
+            date?: number
+            ip?: string
+            user_agent?: string
+          }
           executives_provided?: boolean
           export_license_id?: string
           export_purpose_code?: string
@@ -583,6 +741,10 @@ export class ApiClient extends AbstractFetchClient {
             ip?: string
             user_agent?: string
           }
+          ownership_exemption_reason?:
+            | ""
+            | "qualified_entity_exceeds_ownership_threshold"
+            | "qualifies_as_financial_institution"
           phone?: string
           registration_number?: string
           structure?:
@@ -656,10 +818,16 @@ export class ApiClient extends AbstractFetchClient {
           proof_of_registration?: {
             files?: string[]
           }
+          proof_of_ultimate_beneficial_ownership?: {
+            files?: string[]
+          }
         }
         email?: string
         expand?: string[]
         external_account?: string
+        groups?: {
+          payments_pricing?: string | ""
+        }
         individual?: {
           address?: {
             city?: string
@@ -771,6 +939,9 @@ export class ApiClient extends AbstractFetchClient {
             statement_descriptor_prefix_kana?: string | ""
             statement_descriptor_prefix_kanji?: string | ""
           }
+          invoices?: {
+            hosted_payment_method_save?: "always" | "never" | "offer"
+          }
           payments?: {
             statement_descriptor?: string
             statement_descriptor_kana?: string
@@ -811,21 +982,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccount(
@@ -834,19 +1000,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -858,20 +1023,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -923,6 +1087,9 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay_payments?: {
             requested?: boolean
           }
+          alma_payments?: {
+            requested?: boolean
+          }
           amazon_pay_payments?: {
             requested?: boolean
           }
@@ -936,6 +1103,9 @@ export class ApiClient extends AbstractFetchClient {
             requested?: boolean
           }
           bank_transfer_payments?: {
+            requested?: boolean
+          }
+          billie_payments?: {
             requested?: boolean
           }
           blik_payments?: {
@@ -962,6 +1132,9 @@ export class ApiClient extends AbstractFetchClient {
           fpx_payments?: {
             requested?: boolean
           }
+          gb_bank_transfer_payments?: {
+            requested?: boolean
+          }
           giropay_payments?: {
             requested?: boolean
           }
@@ -977,10 +1150,19 @@ export class ApiClient extends AbstractFetchClient {
           jcb_payments?: {
             requested?: boolean
           }
+          jp_bank_transfer_payments?: {
+            requested?: boolean
+          }
+          kakao_pay_payments?: {
+            requested?: boolean
+          }
           klarna_payments?: {
             requested?: boolean
           }
           konbini_payments?: {
+            requested?: boolean
+          }
+          kr_card_payments?: {
             requested?: boolean
           }
           legacy_payments?: {
@@ -992,10 +1174,28 @@ export class ApiClient extends AbstractFetchClient {
           mobilepay_payments?: {
             requested?: boolean
           }
+          multibanco_payments?: {
+            requested?: boolean
+          }
+          mx_bank_transfer_payments?: {
+            requested?: boolean
+          }
+          naver_pay_payments?: {
+            requested?: boolean
+          }
+          nz_bank_account_becs_debit_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
           p24_payments?: {
+            requested?: boolean
+          }
+          pay_by_bank_payments?: {
+            requested?: boolean
+          }
+          payco_payments?: {
             requested?: boolean
           }
           paynow_payments?: {
@@ -1005,6 +1205,15 @@ export class ApiClient extends AbstractFetchClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          samsung_pay_payments?: {
+            requested?: boolean
+          }
+          satispay_payments?: {
+            requested?: boolean
+          }
+          sepa_bank_transfer_payments?: {
             requested?: boolean
           }
           sepa_debit_payments?: {
@@ -1028,7 +1237,13 @@ export class ApiClient extends AbstractFetchClient {
           treasury?: {
             requested?: boolean
           }
+          twint_payments?: {
+            requested?: boolean
+          }
           us_bank_account_ach_payments?: {
+            requested?: boolean
+          }
+          us_bank_transfer_payments?: {
             requested?: boolean
           }
           zip_payments?: {
@@ -1063,6 +1278,11 @@ export class ApiClient extends AbstractFetchClient {
             town?: string
           }
           directors_provided?: boolean
+          directorship_declaration?: {
+            date?: number
+            ip?: string
+            user_agent?: string
+          }
           executives_provided?: boolean
           export_license_id?: string
           export_purpose_code?: string
@@ -1075,6 +1295,10 @@ export class ApiClient extends AbstractFetchClient {
             ip?: string
             user_agent?: string
           }
+          ownership_exemption_reason?:
+            | ""
+            | "qualified_entity_exceeds_ownership_threshold"
+            | "qualifies_as_financial_institution"
           phone?: string
           registration_number?: string
           structure?:
@@ -1135,10 +1359,16 @@ export class ApiClient extends AbstractFetchClient {
           proof_of_registration?: {
             files?: string[]
           }
+          proof_of_ultimate_beneficial_ownership?: {
+            files?: string[]
+          }
         }
         email?: string
         expand?: string[]
         external_account?: string
+        groups?: {
+          payments_pricing?: string | ""
+        }
         individual?: {
           address?: {
             city?: string
@@ -1252,6 +1482,7 @@ export class ApiClient extends AbstractFetchClient {
           }
           invoices?: {
             default_account_tax_ids?: string[] | ""
+            hosted_payment_method_save?: "always" | "never" | "offer"
           }
           payments?: {
             statement_descriptor?: string
@@ -1292,21 +1523,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountBankAccounts(
@@ -1339,21 +1565,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountBankAccountsId(
@@ -1363,22 +1584,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -1391,21 +1609,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1442,22 +1659,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountCapabilities(
@@ -1467,31 +1679,30 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_capability[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_capability[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1504,22 +1715,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_capability> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1534,23 +1744,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_capability> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountExternalAccounts(
@@ -1564,25 +1769,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: (t_bank_account | t_card)[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: (t_bank_account | t_card)[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -1594,7 +1798,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1629,21 +1833,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountExternalAccountsId(
@@ -1653,23 +1852,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -1682,22 +1878,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1734,23 +1929,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountLoginLinks(
@@ -1761,21 +1951,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_login_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/login_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountPeople(
@@ -1785,6 +1970,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       relationship?: {
+        authorizer?: boolean
         director?: boolean
         executive?: boolean
         legal_guardian?: boolean
@@ -1795,25 +1981,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_person[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_person[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -1825,7 +2010,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -1906,7 +2091,7 @@ export class ApiClient extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -1916,6 +2101,7 @@ export class ApiClient extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -1938,21 +2124,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountPeoplePerson(
@@ -1962,20 +2143,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -1988,21 +2168,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2084,7 +2263,7 @@ export class ApiClient extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2094,6 +2273,7 @@ export class ApiClient extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2116,22 +2296,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAccountsAccountPersons(
@@ -2141,6 +2316,7 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       relationship?: {
+        authorizer?: boolean
         director?: boolean
         executive?: boolean
         legal_guardian?: boolean
@@ -2151,25 +2327,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_person[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_person[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2181,7 +2356,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2262,7 +2437,7 @@ export class ApiClient extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2272,6 +2447,7 @@ export class ApiClient extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2294,21 +2470,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteAccountsAccountPersonsPerson(
@@ -2318,20 +2489,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -2344,21 +2514,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2440,7 +2609,7 @@ export class ApiClient extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2450,6 +2619,7 @@ export class ApiClient extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2472,22 +2642,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAccountsAccountReject(
@@ -2499,21 +2664,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/reject`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplePayDomains(
@@ -2526,25 +2686,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_apple_pay_domain[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_apple_pay_domain[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       domain_name: p["domainName"],
       ending_before: p["endingBefore"],
@@ -2556,7 +2715,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2569,21 +2728,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteApplePayDomainsDomain(
@@ -2592,21 +2746,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -2618,20 +2769,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2654,25 +2804,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_application_fee[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_application_fee[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -2685,7 +2834,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2698,21 +2847,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2731,22 +2879,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplicationFeesId(
@@ -2756,20 +2899,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_application_fee> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2784,21 +2926,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_application_fee> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getApplicationFeesIdRefunds(
@@ -2811,25 +2948,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_fee_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_fee_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2840,7 +2976,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2857,21 +2993,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAppsSecrets(
@@ -2887,25 +3018,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_apps_secret[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_apps_secret[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apps/secrets`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -2917,7 +3047,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -2936,21 +3066,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postAppsSecretsDelete(
@@ -2965,21 +3090,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/delete`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getAppsSecretsFind(
@@ -2993,14 +3113,13 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/find`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       name: p["name"],
@@ -3010,7 +3129,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3021,20 +3140,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3060,25 +3178,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance/history`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       currency: p["currency"],
@@ -3094,7 +3211,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3106,22 +3223,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3147,25 +3261,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       currency: p["currency"],
@@ -3181,7 +3294,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3193,24 +3306,469 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
+  }
+
+  async getBillingAlerts(
+    p: {
+      alertType?: "usage_threshold"
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      meter?: string
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          data: t_billing_alert[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/billing/alerts`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      alert_type: p["alertType"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      meter: p["meter"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async postBillingAlerts(
+    p: {
+      requestBody: {
+        alert_type: "usage_threshold"
+        expand?: string[]
+        title: string
+        usage_threshold?: {
+          filters?: {
+            customer?: string
+            type: "customer"
+          }[]
+          gte: number
+          meter?: string
+          recurrence: "one_time"
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/alerts`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async getBillingAlertsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async postBillingAlertsIdActivate(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/activate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postBillingAlertsIdArchive(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/archive`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postBillingAlertsIdDeactivate(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/alerts/${p["id"]}/deactivate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async getBillingCreditBalanceSummary(
+    p: {
+      customer: string
+      expand?: string[]
+      filter: {
+        applicability_scope?: {
+          price_type?: "metered"
+          prices?: {
+            id: string
+          }[]
+        }
+        credit_grant?: string
+        type: "applicability_scope" | "credit_grant"
+      }
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_billing_credit_balance_summary> | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/billing/credit_balance_summary`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      customer: p["customer"],
+      expand: p["expand"],
+      filter: p["filter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async getBillingCreditBalanceTransactions(
+    p: {
+      creditGrant?: string
+      customer: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          data: t_billing_credit_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/billing/credit_balance_transactions`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      credit_grant: p["creditGrant"],
+      customer: p["customer"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async getBillingCreditBalanceTransactionsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_billing_credit_balance_transaction> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath + `/v1/billing/credit_balance_transactions/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async getBillingCreditGrants(
+    p: {
+      customer?: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          data: t_billing_credit_grant[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/billing/credit_grants`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      customer: p["customer"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async postBillingCreditGrants(
+    p: {
+      requestBody: {
+        amount: {
+          monetary?: {
+            currency: string
+            value: number
+          }
+          type: "monetary"
+        }
+        applicability_config: {
+          scope: {
+            price_type?: "metered"
+            prices?: {
+              id: string
+            }[]
+          }
+        }
+        category: "paid" | "promotional"
+        customer: string
+        effective_at?: number
+        expand?: string[]
+        expires_at?: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+        priority?: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/credit_grants`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async getBillingCreditGrantsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async postBillingCreditGrantsId(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+        expires_at?: number | ""
+        metadata?: {
+          [key: string]: string | undefined
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postBillingCreditGrantsIdExpire(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}/expire`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postBillingCreditGrantsIdVoid(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}/void`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMeterEventAdjustments(
@@ -3225,23 +3783,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_meter_event_adjustment> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_meter_event_adjustment> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meter_event_adjustments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMeterEvents(
@@ -3257,23 +3810,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_meter_event> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter_event> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meter_events`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMeters(
@@ -3286,25 +3832,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_meter[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_meter[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -3316,7 +3861,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3329,7 +3874,7 @@ export class ApiClient extends AbstractFetchClient {
           type: "by_id"
         }
         default_aggregation: {
-          formula: "count" | "sum"
+          formula: "count" | "last" | "sum"
         }
         display_name: string
         event_name: string
@@ -3341,21 +3886,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMetersId(
@@ -3365,20 +3905,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3392,21 +3931,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingMetersIdDeactivate(
@@ -3417,21 +3951,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/deactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingMetersIdEventSummaries(
@@ -3444,29 +3973,28 @@ export class ApiClient extends AbstractFetchClient {
       limit?: number
       startTime: number
       startingAfter?: string
-      valueGroupingWindow?: "hour"
+      valueGroupingWindow?: "day" | "hour"
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_meter_event_summary[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_meter_event_summary[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       end_time: p["endTime"],
@@ -3481,7 +4009,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3494,21 +4022,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/reactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingPortalConfigurations(
@@ -3522,25 +4045,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_portal_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_portal_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -3553,7 +4075,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3561,7 +4083,7 @@ export class ApiClient extends AbstractFetchClient {
   async postBillingPortalConfigurations(
     p: {
       requestBody: {
-        business_profile: {
+        business_profile?: {
           headline?: string | ""
           privacy_policy_url?: string
           terms_of_service_url?: string
@@ -3609,17 +4131,22 @@ export class ApiClient extends AbstractFetchClient {
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
           }
           subscription_update?: {
-            default_allowed_updates:
+            default_allowed_updates?:
               | ("price" | "promotion_code" | "quantity")[]
               | ""
             enabled: boolean
-            products:
+            products?:
               | {
                   prices: string[]
                   product: string
                 }[]
               | ""
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
+            schedule_at_period_end?: {
+              conditions?: {
+                type: "decreasing_item_amount" | "shortening_interval"
+              }[]
+            }
           }
         }
         login_page?: {
@@ -3631,23 +4158,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getBillingPortalConfigurationsConfiguration(
@@ -3657,23 +4179,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -3742,6 +4263,13 @@ export class ApiClient extends AbstractFetchClient {
                 }[]
               | ""
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
+            schedule_at_period_end?: {
+              conditions?:
+                | {
+                    type: "decreasing_item_amount" | "shortening_interval"
+                  }[]
+                | ""
+            }
           }
         }
         login_page?: {
@@ -3755,24 +4283,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postBillingPortalSessions(
@@ -3874,23 +4397,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_session> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_billing_portal_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing_portal/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCharges(
@@ -3913,25 +4429,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_charge[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_charge[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -3946,7 +4461,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4022,21 +4537,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesSearch(
@@ -4048,27 +4558,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_charge[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_charge[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -4079,7 +4588,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4091,20 +4600,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4143,21 +4651,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeCapture(
@@ -4178,21 +4681,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeDispute(
@@ -4202,20 +4700,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4238,6 +4735,49 @@ export class ApiClient extends AbstractFetchClient {
           duplicate_charge_documentation?: string
           duplicate_charge_explanation?: string
           duplicate_charge_id?: string
+          enhanced_evidence?:
+            | {
+                visa_compelling_evidence_3?: {
+                  disputed_transaction?: {
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    merchandise_or_services?: "merchandise" | "services"
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }
+                  prior_undisputed_transactions?: {
+                    charge: string
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }[]
+                }
+                visa_compliance?: {
+                  fee_acknowledged?: boolean
+                }
+              }
+            | ""
           product_description?: string
           receipt?: string
           refund_policy?: string
@@ -4263,21 +4803,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeDisputeClose(
@@ -4288,21 +4823,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute/close`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postChargesChargeRefund(
@@ -4324,21 +4854,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeRefunds(
@@ -4351,25 +4876,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -4380,7 +4904,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4407,21 +4931,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getChargesChargeRefundsRefund(
@@ -4432,21 +4951,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4465,22 +4983,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessions(
@@ -4508,25 +5021,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_checkout_session[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_checkout_session[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/checkout/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -4544,7 +5056,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -4552,6 +5064,9 @@ export class ApiClient extends AbstractFetchClient {
   async postCheckoutSessions(
     p: {
       requestBody?: {
+        adaptive_pricing?: {
+          enabled?: boolean
+        }
         after_expiration?: {
           recovery?: {
             allow_promotion_codes?: boolean
@@ -4579,6 +5094,7 @@ export class ApiClient extends AbstractFetchClient {
         currency?: string
         custom_fields?: {
           dropdown?: {
+            default_value?: string
             options: {
               label: string
               value: string
@@ -4590,11 +5106,13 @@ export class ApiClient extends AbstractFetchClient {
             type: "custom"
           }
           numeric?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
           optional?: boolean
           text?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
@@ -4742,6 +5260,15 @@ export class ApiClient extends AbstractFetchClient {
           [key: string]: string | undefined
         }
         mode?: "payment" | "setup" | "subscription"
+        optional_items?: {
+          adjustable_quantity?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+          }
+          price: string
+          quantity: number
+        }[]
         payment_intent_data?: {
           application_fee_amount?: number
           capture_method?: "automatic" | "automatic_async" | "manual"
@@ -4790,6 +5317,7 @@ export class ApiClient extends AbstractFetchClient {
               transaction_type?: "business" | "personal"
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           affirm?: {
@@ -4806,9 +5334,14 @@ export class ApiClient extends AbstractFetchClient {
           }
           au_becs_debit?: {
             setup_future_usage?: "none"
+            target_date?: string
           }
           bacs_debit?: {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
           }
           bancontact?: {
             setup_future_usage?: "none"
@@ -4821,7 +5354,19 @@ export class ApiClient extends AbstractFetchClient {
             installments?: {
               enabled?: boolean
             }
+            request_extended_authorization?: "if_available" | "never"
+            request_incremental_authorization?: "if_available" | "never"
+            request_multicapture?: "if_available" | "never"
+            request_overcapture?: "if_available" | "never"
             request_three_d_secure?: "any" | "automatic" | "challenge"
+            restrictions?: {
+              brands_blocked?: (
+                | "american_express"
+                | "discover_global_network"
+                | "mastercard"
+                | "visa"
+              )[]
+            }
             setup_future_usage?: "off_session" | "on_session"
             statement_descriptor_suffix_kana?: string
             statement_descriptor_suffix_kanji?: string
@@ -4868,6 +5413,10 @@ export class ApiClient extends AbstractFetchClient {
           ideal?: {
             setup_future_usage?: "none"
           }
+          kakao_pay?: {
+            capture_method?: "manual"
+            setup_future_usage?: "none" | "off_session"
+          }
           klarna?: {
             setup_future_usage?: "none"
           }
@@ -4875,11 +5424,22 @@ export class ApiClient extends AbstractFetchClient {
             expires_after_days?: number
             setup_future_usage?: "none"
           }
+          kr_card?: {
+            capture_method?: "manual"
+            setup_future_usage?: "none" | "off_session"
+          }
           link?: {
             setup_future_usage?: "none" | "off_session"
           }
           mobilepay?: {
             setup_future_usage?: "none"
+          }
+          multibanco?: {
+            setup_future_usage?: "none"
+          }
+          naver_pay?: {
+            capture_method?: "manual"
+            setup_future_usage?: "none" | "off_session"
           }
           oxxo?: {
             expires_after_days?: number
@@ -4888,6 +5448,10 @@ export class ApiClient extends AbstractFetchClient {
           p24?: {
             setup_future_usage?: "none"
             tos_shown_and_accepted?: boolean
+          }
+          pay_by_bank?: EmptyObject
+          payco?: {
+            capture_method?: "manual"
           }
           paynow?: {
             setup_future_usage?: "none"
@@ -4926,8 +5490,15 @@ export class ApiClient extends AbstractFetchClient {
           revolut_pay?: {
             setup_future_usage?: "none" | "off_session"
           }
+          samsung_pay?: {
+            capture_method?: "manual"
+          }
           sepa_debit?: {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
           }
           sofort?: {
             setup_future_usage?: "none"
@@ -4946,6 +5517,7 @@ export class ApiClient extends AbstractFetchClient {
               prefetch?: ("balances" | "ownership" | "transactions")[]
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
             verification_method?: "automatic" | "instant"
           }
           wechat_pay?: {
@@ -4959,10 +5531,12 @@ export class ApiClient extends AbstractFetchClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
+          | "billie"
           | "blik"
           | "boleto"
           | "card"
@@ -4973,24 +5547,36 @@ export class ApiClient extends AbstractFetchClient {
           | "giropay"
           | "grabpay"
           | "ideal"
+          | "kakao_pay"
           | "klarna"
           | "konbini"
+          | "kr_card"
           | "link"
           | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
+          | "payco"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
         )[]
+        permissions?: {
+          update_shipping_details?: "client_only" | "server_only"
+        }
         phone_number_collection?: {
           enabled: boolean
         }
@@ -5193,6 +5779,7 @@ export class ApiClient extends AbstractFetchClient {
             | "SA"
             | "SB"
             | "SC"
+            | "SD"
             | "SE"
             | "SG"
             | "SH"
@@ -5282,7 +5869,7 @@ export class ApiClient extends AbstractFetchClient {
             type?: "fixed_amount"
           }
         }[]
-        submit_type?: "auto" | "book" | "donate" | "pay"
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           application_fee_percent?: number
           billing_cycle_anchor?: number
@@ -5314,26 +5901,22 @@ export class ApiClient extends AbstractFetchClient {
         success_url?: string
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
-        ui_mode?: "embedded" | "hosted"
+        ui_mode?: "custom" | "embedded" | "hosted"
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessionsSession(
@@ -5343,22 +5926,98 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
+  }
+
+  async postCheckoutSessionsSession(
+    p: {
+      session: string
+      requestBody?: {
+        collected_information?: {
+          shipping_details?: {
+            address: {
+              city?: string
+              country: string
+              line1: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            name: string
+          }
+        }
+        expand?: string[]
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        shipping_options?:
+          | {
+              shipping_rate?: string
+              shipping_rate_data?: {
+                delivery_estimate?: {
+                  maximum?: {
+                    unit: "business_day" | "day" | "hour" | "month" | "week"
+                    value: number
+                  }
+                  minimum?: {
+                    unit: "business_day" | "day" | "hour" | "month" | "week"
+                    value: number
+                  }
+                }
+                display_name: string
+                fixed_amount?: {
+                  amount: number
+                  currency: string
+                  currency_options?: {
+                    [key: string]:
+                      | {
+                          amount: number
+                          tax_behavior?:
+                            | "exclusive"
+                            | "inclusive"
+                            | "unspecified"
+                        }
+                      | undefined
+                  }
+                }
+                metadata?: {
+                  [key: string]: string | undefined
+                }
+                tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+                tax_code?: string
+                type?: "fixed_amount"
+              }
+            }[]
+          | ""
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCheckoutSessionsSessionExpire(
@@ -5369,21 +6028,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCheckoutSessionsSessionLineItems(
@@ -5396,26 +6050,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5426,7 +6079,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5440,25 +6093,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_order[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_order[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/orders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5469,7 +6121,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5491,21 +6143,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getClimateOrdersOrder(
@@ -5515,20 +6162,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5549,21 +6195,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postClimateOrdersOrderCancel(
@@ -5574,21 +6215,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getClimateProducts(
@@ -5600,25 +6236,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_product[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_product[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5629,7 +6264,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5641,20 +6276,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_product> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/products/${p["product"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5668,25 +6302,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_supplier[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_supplier[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/suppliers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5697,7 +6330,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5709,20 +6342,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_supplier> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_climate_supplier> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/suppliers/${p["supplier"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5734,23 +6366,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_confirmation_token> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_confirmation_token> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/confirmation_tokens/${p["confirmationToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5764,25 +6393,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_country_spec[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_country_spec[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/country_specs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -5793,7 +6421,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5805,20 +6433,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_country_spec> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5840,25 +6467,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_coupon[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_coupon[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/coupons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -5870,7 +6496,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5906,21 +6532,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCouponsCoupon(
@@ -5929,19 +6550,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -5953,20 +6573,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -5992,21 +6611,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCreditNotes(
@@ -6028,25 +6642,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -6060,7 +6673,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6071,6 +6684,7 @@ export class ApiClient extends AbstractFetchClient {
         amount?: number
         credit_amount?: number
         effective_at?: number
+        email_type?: "credit_note" | "none"
         expand?: string[]
         invoice: string
         lines?: {
@@ -6100,29 +6714,27 @@ export class ApiClient extends AbstractFetchClient {
           | "fraudulent"
           | "order_change"
           | "product_unsatisfactory"
-        refund?: string
         refund_amount?: number
+        refunds?: {
+          amount_refunded?: number
+          refund?: string
+        }[]
         shipping_cost?: {
           shipping_rate?: string
         }
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCreditNotesPreview(
@@ -6130,6 +6742,7 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       creditAmount?: number
       effectiveAt?: number
+      emailType?: "credit_note" | "none"
       expand?: string[]
       invoice: string
       lines?: {
@@ -6159,26 +6772,29 @@ export class ApiClient extends AbstractFetchClient {
         | "fraudulent"
         | "order_change"
         | "product_unsatisfactory"
-      refund?: string
       refundAmount?: number
+      refunds?: {
+        amount_refunded?: number
+        refund?: string
+      }[]
       shippingCost?: {
         shipping_rate?: string
       }
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/preview`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       expand: p["expand"],
       invoice: p["invoice"],
       lines: p["lines"],
@@ -6186,15 +6802,15 @@ export class ApiClient extends AbstractFetchClient {
       metadata: p["metadata"],
       out_of_band_amount: p["outOfBandAmount"],
       reason: p["reason"],
-      refund: p["refund"],
       refund_amount: p["refundAmount"],
+      refunds: p["refunds"],
       shipping_cost: p["shippingCost"],
     })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6204,6 +6820,7 @@ export class ApiClient extends AbstractFetchClient {
       amount?: number
       creditAmount?: number
       effectiveAt?: number
+      emailType?: "credit_note" | "none"
       endingBefore?: string
       expand?: string[]
       invoice: string
@@ -6235,8 +6852,11 @@ export class ApiClient extends AbstractFetchClient {
         | "fraudulent"
         | "order_change"
         | "product_unsatisfactory"
-      refund?: string
       refundAmount?: number
+      refunds?: {
+        amount_refunded?: number
+        refund?: string
+      }[]
       shippingCost?: {
         shipping_rate?: string
       }
@@ -6244,29 +6864,29 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/preview/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       credit_amount: p["creditAmount"],
       effective_at: p["effectiveAt"],
+      email_type: p["emailType"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       invoice: p["invoice"],
@@ -6276,8 +6896,8 @@ export class ApiClient extends AbstractFetchClient {
       metadata: p["metadata"],
       out_of_band_amount: p["outOfBandAmount"],
       reason: p["reason"],
-      refund: p["refund"],
       refund_amount: p["refundAmount"],
+      refunds: p["refunds"],
       shipping_cost: p["shippingCost"],
       starting_after: p["startingAfter"],
     })
@@ -6285,7 +6905,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6300,25 +6920,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -6329,7 +6948,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6341,20 +6960,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6371,21 +6989,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCreditNotesIdVoid(
@@ -6396,21 +7009,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}/void`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomerSessions(
@@ -6419,6 +7027,21 @@ export class ApiClient extends AbstractFetchClient {
         components: {
           buy_button?: {
             enabled: boolean
+          }
+          payment_element?: {
+            enabled: boolean
+            features?: {
+              payment_method_allow_redisplay_filters?: (
+                | "always"
+                | "limited"
+                | "unspecified"
+              )[]
+              payment_method_redisplay?: "disabled" | "enabled"
+              payment_method_redisplay_limit?: number
+              payment_method_remove?: "disabled" | "enabled"
+              payment_method_save?: "disabled" | "enabled"
+              payment_method_save_usage?: "off_session" | "on_session"
+            }
           }
           pricing_table?: {
             enabled: boolean
@@ -6429,21 +7052,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer_session> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_customer_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customer_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomers(
@@ -6465,25 +7083,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       email: p["email"],
@@ -6497,7 +7114,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6521,7 +7138,6 @@ export class ApiClient extends AbstractFetchClient {
             reconciliation_mode?: "automatic" | "manual" | "merchant_default"
           }
         }
-        coupon?: string
         description?: string
         email?: string
         expand?: string[]
@@ -6541,6 +7157,7 @@ export class ApiClient extends AbstractFetchClient {
                   | ""
                   | "exclude_tax"
                   | "include_inclusive_tax"
+                template?: string
               }
             | ""
         }
@@ -6554,7 +7171,6 @@ export class ApiClient extends AbstractFetchClient {
         payment_method?: string
         phone?: string
         preferred_locales?: string[]
-        promotion_code?: string
         shipping?:
           | {
               address: {
@@ -6579,25 +7195,35 @@ export class ApiClient extends AbstractFetchClient {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
+            | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
             | "ca_pst_bc"
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
+            | "ch_uid"
             | "ch_vat"
             | "cl_tin"
             | "cn_tin"
             | "co_nit"
             | "cr_tin"
+            | "de_stn"
             | "do_rcn"
             | "ec_ruc"
             | "eg_tin"
@@ -6606,7 +7232,9 @@ export class ApiClient extends AbstractFetchClient {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -6616,9 +7244,16 @@ export class ApiClient extends AbstractFetchClient {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "li_vat"
+            | "ma_vat"
+            | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -6626,6 +7261,7 @@ export class ApiClient extends AbstractFetchClient {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -6638,37 +7274,41 @@ export class ApiClient extends AbstractFetchClient {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
+            | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
+            | "uz_tin"
+            | "uz_vat"
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
         test_clock?: string
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersSearch(
@@ -6680,27 +7320,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -6711,7 +7350,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6722,19 +7361,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_customer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -6746,22 +7384,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6816,7 +7453,6 @@ export class ApiClient extends AbstractFetchClient {
             reconciliation_mode?: "automatic" | "manual" | "merchant_default"
           }
         }
-        coupon?: string
         default_alipay_account?: string
         default_bank_account?: string
         default_card?: string
@@ -6840,6 +7476,7 @@ export class ApiClient extends AbstractFetchClient {
                   | ""
                   | "exclude_tax"
                   | "include_inclusive_tax"
+                template?: string
               }
             | ""
         }
@@ -6852,7 +7489,6 @@ export class ApiClient extends AbstractFetchClient {
         next_invoice_sequence?: number
         phone?: string
         preferred_locales?: string[]
-        promotion_code?: string
         shipping?:
           | {
               address: {
@@ -6870,27 +7506,22 @@ export class ApiClient extends AbstractFetchClient {
         source?: string
         tax?: {
           ip_address?: string | ""
-          validate_location?: "deferred" | "immediately"
+          validate_location?: "auto" | "deferred" | "immediately"
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactions(
@@ -6903,26 +7534,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -6933,7 +7563,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -6954,24 +7584,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBalanceTransactionsTransaction(
@@ -6982,24 +7607,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7019,25 +7643,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerBankAccounts(
@@ -7050,25 +7669,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_bank_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_bank_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7079,7 +7697,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7127,21 +7745,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerBankAccountsId(
@@ -7153,23 +7766,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7182,21 +7794,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7239,24 +7850,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomersCustomerBankAccountsIdVerify(
@@ -7269,23 +7875,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCards(
@@ -7298,25 +7899,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_card[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_card[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7327,7 +7927,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7375,21 +7975,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerCardsId(
@@ -7401,23 +7996,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7430,19 +8024,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7485,24 +8080,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCashBalance(
@@ -7512,20 +8102,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7541,21 +8130,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerCashBalanceTransactions(
@@ -7568,26 +8152,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer_cash_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer_cash_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cash_balance_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7598,7 +8181,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7611,24 +8194,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/cash_balance_transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7639,19 +8221,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7663,20 +8244,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7703,24 +8283,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_funding_instructions> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_funding_instructions> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/funding_instructions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerPaymentMethods(
@@ -7736,10 +8309,12 @@ export class ApiClient extends AbstractFetchClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "alma"
         | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
+        | "billie"
         | "blik"
         | "boleto"
         | "card"
@@ -7750,45 +8325,54 @@ export class ApiClient extends AbstractFetchClient {
         | "giropay"
         | "grabpay"
         | "ideal"
+        | "kakao_pay"
         | "klarna"
         | "konbini"
+        | "kr_card"
         | "link"
         | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
+        | "payco"
         | "paynow"
         | "paypal"
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       allow_redisplay: p["allowRedisplay"],
       ending_before: p["endingBefore"],
@@ -7801,7 +8385,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7814,22 +8398,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7845,25 +8428,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: (t_bank_account | t_card | t_source)[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: (t_bank_account | t_card | t_source)[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -7875,7 +8457,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -7923,21 +8505,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSourcesId(
@@ -7949,23 +8526,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -7978,21 +8554,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8035,24 +8610,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postCustomersCustomerSourcesIdVerify(
@@ -8065,22 +8635,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getCustomersCustomerSubscriptions(
@@ -8093,25 +8658,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -8122,7 +8686,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8158,16 +8722,9 @@ export class ApiClient extends AbstractFetchClient {
         }
         backdate_start_date?: number
         billing_cycle_anchor?: number
-        billing_thresholds?:
-          | {
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }
-          | ""
         cancel_at?: number
         cancel_at_period_end?: boolean
         collection_method?: "charge_automatically" | "send_invoice"
-        coupon?: string
         currency?: string
         days_until_due?: number
         default_payment_method?: string
@@ -8189,11 +8746,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
           discounts?:
             | {
                 coupon?: string
@@ -8261,8 +8813,10 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -8286,6 +8840,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -8306,6 +8863,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -8318,14 +8876,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -8338,7 +8907,6 @@ export class ApiClient extends AbstractFetchClient {
               interval_count?: number
             }
           | ""
-        promotion_code?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
         transfer_data?: {
           amount_percent?: number
@@ -8355,21 +8923,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedId(
@@ -8383,21 +8946,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8410,22 +8972,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8461,12 +9022,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         billing_cycle_anchor?: "now" | "unchanged"
-        billing_thresholds?:
-          | {
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }
-          | ""
         cancel_at?: number | ""
         cancel_at_period_end?: boolean
         cancellation_details?: {
@@ -8483,7 +9038,6 @@ export class ApiClient extends AbstractFetchClient {
             | "unused"
         }
         collection_method?: "charge_automatically" | "send_invoice"
-        coupon?: string
         days_until_due?: number
         default_payment_method?: string
         default_source?: string | ""
@@ -8504,11 +9058,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
           clear_usage?: boolean
           deleted?: boolean
           discounts?:
@@ -8587,8 +9136,10 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -8612,6 +9163,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -8632,6 +9186,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -8644,14 +9199,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -8664,7 +9230,6 @@ export class ApiClient extends AbstractFetchClient {
               interval_count?: number
             }
           | ""
-        promotion_code?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
         proration_date?: number
         transfer_data?:
@@ -8683,23 +9248,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount(
@@ -8709,21 +9269,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8736,22 +9295,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8766,25 +9324,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_id[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_id[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -8795,7 +9352,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8808,25 +9365,35 @@ export class ApiClient extends AbstractFetchClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
+          | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
           | "ca_pst_bc"
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
+          | "ch_uid"
           | "ch_vat"
           | "cl_tin"
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
@@ -8835,7 +9402,9 @@ export class ApiClient extends AbstractFetchClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
+          | "hr_oib"
           | "hu_tin"
           | "id_npwp"
           | "il_vat"
@@ -8845,9 +9414,16 @@ export class ApiClient extends AbstractFetchClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "li_vat"
+          | "ma_vat"
+          | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -8855,6 +9431,7 @@ export class ApiClient extends AbstractFetchClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -8867,35 +9444,39 @@ export class ApiClient extends AbstractFetchClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
+          | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
+          | "uz_tin"
+          | "uz_vat"
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteCustomersCustomerTaxIdsId(
@@ -8905,20 +9486,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -8931,21 +9511,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -8969,25 +9548,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_dispute[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_dispute[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -9001,7 +9579,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9013,20 +9591,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9049,6 +9626,49 @@ export class ApiClient extends AbstractFetchClient {
           duplicate_charge_documentation?: string
           duplicate_charge_explanation?: string
           duplicate_charge_id?: string
+          enhanced_evidence?:
+            | {
+                visa_compelling_evidence_3?: {
+                  disputed_transaction?: {
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    merchandise_or_services?: "merchandise" | "services"
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }
+                  prior_undisputed_transactions?: {
+                    charge: string
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }[]
+                }
+                visa_compliance?: {
+                  fee_acknowledged?: boolean
+                }
+              }
+            | ""
           product_description?: string
           receipt?: string
           refund_policy?: string
@@ -9074,21 +9694,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postDisputesDisputeClose(
@@ -9099,21 +9714,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}/close`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getEntitlementsActiveEntitlements(
@@ -9126,25 +9736,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_entitlements_active_entitlement[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_entitlements_active_entitlement[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/active_entitlements`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -9156,7 +9765,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9168,66 +9777,68 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_active_entitlement> | Res<StatusCode, t_error>
-    >
+    Res<200, t_entitlements_active_entitlement> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
 
   async getEntitlementsFeatures(
     p: {
+      archived?: boolean
       endingBefore?: string
       expand?: string[]
       limit?: number
+      lookupKey?: string
       startingAfter?: string
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_entitlements_feature[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_entitlements_feature[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
+      archived: p["archived"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      lookup_key: p["lookupKey"],
       starting_after: p["startingAfter"],
     })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9244,23 +9855,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getEntitlementsFeaturesId(
@@ -9270,22 +9874,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9296,30 +9897,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: {
         active?: boolean
         expand?: string[]
-        metadata?: {
-          [key: string]: string | undefined
-        }
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
         name?: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postEphemeralKeys(
@@ -9333,21 +9929,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/ephemeral_keys`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteEphemeralKeysKey(
@@ -9358,19 +9949,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/ephemeral_keys/${p["key"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -9395,25 +9985,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_event[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_event[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/events`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       delivery_success: p["deliverySuccess"],
@@ -9428,7 +10017,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9440,18 +10029,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_event> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9465,25 +10055,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_exchange_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_exchange_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/exchange_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9494,7 +10083,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9506,22 +10095,64 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_exchange_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
+  }
+
+  async postExternalAccountsId(
+    p: {
+      id: string
+      requestBody?: {
+        account_holder_name?: string
+        account_holder_type?: "" | "company" | "individual"
+        account_type?: "checking" | "futsu" | "savings" | "toza"
+        address_city?: string
+        address_country?: string
+        address_line1?: string
+        address_line2?: string
+        address_state?: string
+        address_zip?: string
+        default_for_currency?: boolean
+        documents?: {
+          bank_account_ownership_verification?: {
+            files?: string[]
+          }
+        }
+        exp_month?: string
+        exp_year?: string
+        expand?: string[]
+        metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        name?: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/external_accounts/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFileLinks(
@@ -9543,25 +10174,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_file_link[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_file_link[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/file_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -9575,7 +10205,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9594,21 +10224,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFileLinksLink(
@@ -9618,20 +10243,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9650,21 +10274,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFiles(
@@ -9689,8 +10308,10 @@ export class ApiClient extends AbstractFetchClient {
         | "dispute_evidence"
         | "document_provider_identity_document"
         | "finance_report_run"
+        | "financial_account_statement"
         | "identity_document"
         | "identity_document_downloadable"
+        | "issuing_regulatory_reporting"
         | "pci_document"
         | "selfie"
         | "sigma_scheduled_query"
@@ -9700,25 +10321,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_file[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_file[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/files`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -9731,7 +10351,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9758,23 +10378,26 @@ export class ApiClient extends AbstractFetchClient {
           | "customer_signature"
           | "dispute_evidence"
           | "identity_document"
+          | "issuing_regulatory_reporting"
           | "pci_document"
           | "tax_document_user_upload"
           | "terminal_reader_splashscreen"
       }
     },
+    basePath:
+      | Server<"postFiles_ApiClient">
+      | string = ApiClientServers.operations.postFiles().build(),
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/files`
-    const headers = this._headers({ "Content-Type": "multipart/form-data" })
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_file> | Res<StatusCode, t_error>> {
+    const url = basePath + `/v1/files`
+    const headers = this._headers(
+      { "Content-Type": "multipart/form-data" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFilesFile(
@@ -9784,18 +10407,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_file> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9814,25 +10438,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -9845,7 +10468,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9857,23 +10480,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9886,25 +10508,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/disconnect`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFinancialConnectionsAccountsAccountOwners(
@@ -9918,27 +10535,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account_owner[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account_owner[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/owners`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -9950,7 +10566,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -9964,25 +10580,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/refresh`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountSubscribe(
@@ -9994,25 +10605,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/subscribe`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsAccountsAccountUnsubscribe(
@@ -10024,25 +10630,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/accounts/${p["account"]}/unsubscribe`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postFinancialConnectionsSessions(
@@ -10055,7 +10656,14 @@ export class ApiClient extends AbstractFetchClient {
         }
         expand?: string[]
         filters?: {
-          countries: string[]
+          account_subcategories?: (
+            | "checking"
+            | "credit_card"
+            | "line_of_credit"
+            | "mortgage"
+            | "savings"
+          )[]
+          countries?: string[]
         }
         permissions: (
           | "balances"
@@ -10068,23 +10676,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getFinancialConnectionsSessionsSession(
@@ -10094,23 +10697,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10136,25 +10738,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account: p["account"],
       ending_before: p["endingBefore"],
@@ -10168,7 +10769,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10180,24 +10781,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/financial_connections/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10217,25 +10817,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_forwarding_request[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_forwarding_request[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/forwarding/requests`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -10247,7 +10846,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10256,12 +10855,16 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       requestBody: {
         expand?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
         payment_method: string
         replacements: (
           | "card_cvc"
           | "card_expiry"
           | "card_number"
           | "cardholder_name"
+          | "request_signature"
         )[]
         request?: {
           body?: string
@@ -10274,23 +10877,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_forwarding_request> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_forwarding_request> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/forwarding/requests`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getForwardingRequestsId(
@@ -10300,22 +10896,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_forwarding_request> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_forwarding_request> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/forwarding/requests/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10340,25 +10933,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_identity_verification_report[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_identity_verification_report[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_reports`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
@@ -10373,7 +10965,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10385,23 +10977,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10420,36 +11011,37 @@ export class ApiClient extends AbstractFetchClient {
       endingBefore?: string
       expand?: string[]
       limit?: number
+      relatedCustomer?: string
       startingAfter?: string
       status?: "canceled" | "processing" | "requires_input" | "verified"
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_identity_verification_session[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_identity_verification_session[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_reference_id: p["clientReferenceId"],
       created: p["created"],
       ending_before: p["endingBefore"],
       expand: p["expand"],
       limit: p["limit"],
+      related_customer: p["relatedCustomer"],
       starting_after: p["startingAfter"],
       status: p["status"],
     })
@@ -10457,7 +11049,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10479,44 +11071,30 @@ export class ApiClient extends AbstractFetchClient {
                 require_matching_selfie?: boolean
               }
             | ""
-          email?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
-          phone?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
         }
         provided_details?: {
           email?: string
           phone?: string
         }
+        related_customer?: string
         return_url?: string
         type?: "document" | "id_number"
         verification_flow?: string
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIdentityVerificationSessionsSession(
@@ -10526,23 +11104,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10564,16 +11141,6 @@ export class ApiClient extends AbstractFetchClient {
                 require_matching_selfie?: boolean
               }
             | ""
-          email?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
-          phone?:
-            | {
-                require_verification?: boolean
-              }
-            | ""
         }
         provided_details?: {
           email?: string
@@ -10583,24 +11150,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionCancel(
@@ -10611,25 +11173,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/identity/verification_sessions/${p["session"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIdentityVerificationSessionsSessionRedact(
@@ -10640,25 +11197,214 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/identity/verification_sessions/${p["session"]}/redact`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async getInvoicePayments(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      invoice?: string
+      limit?: number
+      payment?: {
+        payment_intent?: string
+        type: "payment_intent"
+      }
+      startingAfter?: string
+      status?: "canceled" | "open" | "paid"
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          data: t_invoice_payment[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/invoice_payments`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      invoice: p["invoice"],
+      limit: p["limit"],
+      payment: p["payment"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
     })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      url + query,
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
+  }
+
+  async getInvoicePaymentsInvoicePayment(
+    p: {
+      expand?: string[]
+      invoicePayment: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice_payment> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/invoice_payments/${p["invoicePayment"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async getInvoiceRenderingTemplates(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "archived"
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          data: t_invoice_rendering_template[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
+  > {
+    const url = this.basePath + `/v1/invoice_rendering_templates`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async getInvoiceRenderingTemplatesTemplate(
+    p: {
+      expand?: string[]
+      template: string
+      version?: number
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath + `/v1/invoice_rendering_templates/${p["template"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"], version: p["version"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url + query,
+      { method: "GET", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async postInvoiceRenderingTemplatesTemplateArchive(
+    p: {
+      template: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath + `/v1/invoice_rendering_templates/${p["template"]}/archive`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postInvoiceRenderingTemplatesTemplateUnarchive(
+    p: {
+      template: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath +
+      `/v1/invoice_rendering_templates/${p["template"]}/unarchive`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoiceitems(
@@ -10681,25 +11427,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoiceitem[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoiceitem[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoiceitems`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -10714,7 +11459,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10745,7 +11490,6 @@ export class ApiClient extends AbstractFetchClient {
           end: number
           start: number
         }
-        price?: string
         price_data?: {
           currency: string
           product: string
@@ -10753,31 +11497,28 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount?: number
           unit_amount_decimal?: string
         }
+        pricing?: {
+          price?: string
+        }
         quantity?: number
         subscription?: string
         tax_behavior?: "exclusive" | "inclusive" | "unspecified"
         tax_code?: string | ""
         tax_rates?: string[]
-        unit_amount?: number
         unit_amount_decimal?: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteInvoiceitemsInvoiceitem(
@@ -10786,21 +11527,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10812,20 +11550,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10854,7 +11591,6 @@ export class ApiClient extends AbstractFetchClient {
           end: number
           start: number
         }
-        price?: string
         price_data?: {
           currency: string
           product: string
@@ -10862,30 +11598,27 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount?: number
           unit_amount_decimal?: string
         }
+        pricing?: {
+          price?: string
+        }
         quantity?: number
         tax_behavior?: "exclusive" | "inclusive" | "unspecified"
         tax_code?: string | ""
         tax_rates?: string[] | ""
-        unit_amount?: number
         unit_amount_decimal?: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoices(
@@ -10917,25 +11650,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoice[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoice[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       collection_method: p["collectionMethod"],
       created: p["created"],
@@ -10952,7 +11684,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -10970,6 +11702,7 @@ export class ApiClient extends AbstractFetchClient {
             type: "account" | "self"
           }
         }
+        automatically_finalizes_at?: number
         collection_method?: "charge_automatically" | "send_invoice"
         currency?: string
         custom_fields?:
@@ -11035,8 +11768,8 @@ export class ApiClient extends AbstractFetchClient {
                     enabled?: boolean
                     plan?:
                       | {
-                          count: number
-                          interval: "month"
+                          count?: number
+                          interval?: "month"
                           type: "fixed_count"
                         }
                       | ""
@@ -11060,6 +11793,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -11080,6 +11816,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -11092,14 +11829,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -11111,6 +11859,8 @@ export class ApiClient extends AbstractFetchClient {
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
+          template?: string
+          template_version?: number | ""
         }
         shipping_cost?: {
           shipping_rate?: string
@@ -11167,21 +11917,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesCreatePreview(
@@ -11194,7 +11939,6 @@ export class ApiClient extends AbstractFetchClient {
             type: "account" | "self"
           }
         }
-        coupon?: string
         currency?: string
         customer?: string
         customer_details?: {
@@ -11230,25 +11974,35 @@ export class ApiClient extends AbstractFetchClient {
             type:
               | "ad_nrt"
               | "ae_trn"
+              | "al_tin"
+              | "am_tin"
+              | "ao_tin"
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "ba_tin"
+              | "bb_tin"
               | "bg_uic"
               | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "bs_tin"
+              | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
               | "ca_pst_bc"
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "cd_nif"
+              | "ch_uid"
               | "ch_vat"
               | "cl_tin"
               | "cn_tin"
               | "co_nit"
               | "cr_tin"
+              | "de_stn"
               | "do_rcn"
               | "ec_ruc"
               | "eg_tin"
@@ -11257,7 +12011,9 @@ export class ApiClient extends AbstractFetchClient {
               | "eu_vat"
               | "gb_vat"
               | "ge_vat"
+              | "gn_nif"
               | "hk_br"
+              | "hr_oib"
               | "hu_tin"
               | "id_npwp"
               | "il_vat"
@@ -11267,9 +12023,16 @@ export class ApiClient extends AbstractFetchClient {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kh_tin"
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "li_vat"
+              | "ma_vat"
+              | "md_vat"
+              | "me_pib"
+              | "mk_vat"
+              | "mr_nif"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -11277,6 +12040,7 @@ export class ApiClient extends AbstractFetchClient {
               | "ng_tin"
               | "no_vat"
               | "no_voec"
+              | "np_pan"
               | "nz_gst"
               | "om_vat"
               | "pe_ruc"
@@ -11289,16 +12053,25 @@ export class ApiClient extends AbstractFetchClient {
               | "sg_gst"
               | "sg_uen"
               | "si_tin"
+              | "sn_ninea"
+              | "sr_fin"
               | "sv_nit"
               | "th_vat"
+              | "tj_tin"
               | "tr_tin"
               | "tw_vat"
+              | "tz_vat"
               | "ua_vat"
+              | "ug_tin"
               | "us_ein"
               | "uy_ruc"
+              | "uz_tin"
+              | "uz_vat"
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
+              | "zm_tin"
+              | "zw_tin"
             value: string
           }[]
         }
@@ -11352,6 +12125,7 @@ export class ApiClient extends AbstractFetchClient {
           type: "account" | "self"
         }
         on_behalf_of?: string | ""
+        preview_mode?: "next" | "recurring"
         schedule?: string
         schedule_details?: {
           end_behavior?: "cancel" | "release"
@@ -11382,14 +12156,7 @@ export class ApiClient extends AbstractFetchClient {
               }
             }
             billing_cycle_anchor?: "automatic" | "phase_start"
-            billing_thresholds?:
-              | {
-                  amount_gte?: number
-                  reset_billing_cycle_anchor?: boolean
-                }
-              | ""
             collection_method?: "charge_automatically" | "send_invoice"
-            coupon?: string
             default_payment_method?: string
             default_tax_rates?: string[] | ""
             description?: string | ""
@@ -11410,11 +12177,6 @@ export class ApiClient extends AbstractFetchClient {
               }
             }
             items: {
-              billing_thresholds?:
-                | {
-                    usage_gte: number
-                  }
-                | ""
               discounts?:
                 | {
                     coupon?: string
@@ -11464,11 +12226,6 @@ export class ApiClient extends AbstractFetchClient {
           cancel_now?: boolean
           default_tax_rates?: string[] | ""
           items?: {
-            billing_thresholds?:
-              | {
-                  usage_gte: number
-                }
-              | ""
             clear_usage?: boolean
             deleted?: boolean
             discounts?:
@@ -11508,21 +12265,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/create_preview`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoicesSearch(
@@ -11534,27 +12286,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoice[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoice[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -11565,856 +12316,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async getInvoicesUpcoming(
-    p: {
-      automaticTax?: {
-        enabled: boolean
-        liability?: {
-          account?: string
-          type: "account" | "self"
-        }
-      }
-      coupon?: string
-      currency?: string
-      customer?: string
-      customerDetails?: {
-        address?:
-          | {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-          | ""
-        shipping?:
-          | {
-              address: {
-                city?: string
-                country?: string
-                line1?: string
-                line2?: string
-                postal_code?: string
-                state?: string
-              }
-              name: string
-              phone?: string
-            }
-          | ""
-        tax?: {
-          ip_address?: string | ""
-        }
-        tax_exempt?: "" | "exempt" | "none" | "reverse"
-        tax_ids?: {
-          type:
-            | "ad_nrt"
-            | "ae_trn"
-            | "ar_cuit"
-            | "au_abn"
-            | "au_arn"
-            | "bg_uic"
-            | "bh_vat"
-            | "bo_tin"
-            | "br_cnpj"
-            | "br_cpf"
-            | "ca_bn"
-            | "ca_gst_hst"
-            | "ca_pst_bc"
-            | "ca_pst_mb"
-            | "ca_pst_sk"
-            | "ca_qst"
-            | "ch_vat"
-            | "cl_tin"
-            | "cn_tin"
-            | "co_nit"
-            | "cr_tin"
-            | "do_rcn"
-            | "ec_ruc"
-            | "eg_tin"
-            | "es_cif"
-            | "eu_oss_vat"
-            | "eu_vat"
-            | "gb_vat"
-            | "ge_vat"
-            | "hk_br"
-            | "hu_tin"
-            | "id_npwp"
-            | "il_vat"
-            | "in_gst"
-            | "is_vat"
-            | "jp_cn"
-            | "jp_rn"
-            | "jp_trn"
-            | "ke_pin"
-            | "kr_brn"
-            | "kz_bin"
-            | "li_uid"
-            | "mx_rfc"
-            | "my_frp"
-            | "my_itn"
-            | "my_sst"
-            | "ng_tin"
-            | "no_vat"
-            | "no_voec"
-            | "nz_gst"
-            | "om_vat"
-            | "pe_ruc"
-            | "ph_tin"
-            | "ro_tin"
-            | "rs_pib"
-            | "ru_inn"
-            | "ru_kpp"
-            | "sa_vat"
-            | "sg_gst"
-            | "sg_uen"
-            | "si_tin"
-            | "sv_nit"
-            | "th_vat"
-            | "tr_tin"
-            | "tw_vat"
-            | "ua_vat"
-            | "us_ein"
-            | "uy_ruc"
-            | "ve_rif"
-            | "vn_tin"
-            | "za_vat"
-          value: string
-        }[]
-      }
-      discounts?:
-        | {
-            coupon?: string
-            discount?: string
-            promotion_code?: string
-          }[]
-        | ""
-      expand?: string[]
-      invoiceItems?: {
-        amount?: number
-        currency?: string
-        description?: string
-        discountable?: boolean
-        discounts?:
-          | {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-          | ""
-        invoiceitem?: string
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        period?: {
-          end: number
-          start: number
-        }
-        price?: string
-        price_data?: {
-          currency: string
-          product: string
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        tax_code?: string | ""
-        tax_rates?: string[] | ""
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }[]
-      issuer?: {
-        account?: string
-        type: "account" | "self"
-      }
-      onBehalfOf?: string | ""
-      schedule?: string
-      scheduleDetails?: {
-        end_behavior?: "cancel" | "release"
-        phases?: {
-          add_invoice_items?: {
-            discounts?: {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-            price?: string
-            price_data?: {
-              currency: string
-              product: string
-              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              unit_amount?: number
-              unit_amount_decimal?: string
-            }
-            quantity?: number
-            tax_rates?: string[] | ""
-          }[]
-          application_fee_percent?: number
-          automatic_tax?: {
-            enabled: boolean
-            liability?: {
-              account?: string
-              type: "account" | "self"
-            }
-          }
-          billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
-          collection_method?: "charge_automatically" | "send_invoice"
-          coupon?: string
-          default_payment_method?: string
-          default_tax_rates?: string[] | ""
-          description?: string | ""
-          discounts?:
-            | {
-                coupon?: string
-                discount?: string
-                promotion_code?: string
-              }[]
-            | ""
-          end_date?: number | "now"
-          invoice_settings?: {
-            account_tax_ids?: string[] | ""
-            days_until_due?: number
-            issuer?: {
-              account?: string
-              type: "account" | "self"
-            }
-          }
-          items: {
-            billing_thresholds?:
-              | {
-                  usage_gte: number
-                }
-              | ""
-            discounts?:
-              | {
-                  coupon?: string
-                  discount?: string
-                  promotion_code?: string
-                }[]
-              | ""
-            metadata?: {
-              [key: string]: string | undefined
-            }
-            price?: string
-            price_data?: {
-              currency: string
-              product: string
-              recurring: {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number
-              }
-              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              unit_amount?: number
-              unit_amount_decimal?: string
-            }
-            quantity?: number
-            tax_rates?: string[] | ""
-          }[]
-          iterations?: number
-          metadata?: {
-            [key: string]: string | undefined
-          }
-          on_behalf_of?: string
-          proration_behavior?: "always_invoice" | "create_prorations" | "none"
-          start_date?: number | "now"
-          transfer_data?: {
-            amount_percent?: number
-            destination: string
-          }
-          trial?: boolean
-          trial_end?: number | "now"
-        }[]
-        proration_behavior?: "always_invoice" | "create_prorations" | "none"
-      }
-      subscription?: string
-      subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
-      subscriptionCancelAt?: number | ""
-      subscriptionCancelAtPeriodEnd?: boolean
-      subscriptionCancelNow?: boolean
-      subscriptionDefaultTaxRates?: string[] | ""
-      subscriptionDetails?: {
-        billing_cycle_anchor?: "now" | "unchanged" | number
-        cancel_at?: number | ""
-        cancel_at_period_end?: boolean
-        cancel_now?: boolean
-        default_tax_rates?: string[] | ""
-        items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
-          clear_usage?: boolean
-          deleted?: boolean
-          discounts?:
-            | {
-                coupon?: string
-                discount?: string
-                promotion_code?: string
-              }[]
-            | ""
-          id?: string
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | ""
-          price?: string
-          price_data?: {
-            currency: string
-            product: string
-            recurring: {
-              interval: "day" | "month" | "week" | "year"
-              interval_count?: number
-            }
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-            unit_amount?: number
-            unit_amount_decimal?: string
-          }
-          quantity?: number
-          tax_rates?: string[] | ""
-        }[]
-        proration_behavior?: "always_invoice" | "create_prorations" | "none"
-        proration_date?: number
-        resume_at?: "now"
-        start_date?: number
-        trial_end?: "now" | number
-      }
-      subscriptionItems?: {
-        billing_thresholds?:
-          | {
-              usage_gte: number
-            }
-          | ""
-        clear_usage?: boolean
-        deleted?: boolean
-        discounts?:
-          | {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-          | ""
-        id?: string
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        price?: string
-        price_data?: {
-          currency: string
-          product: string
-          recurring: {
-            interval: "day" | "month" | "week" | "year"
-            interval_count?: number
-          }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_rates?: string[] | ""
-      }[]
-      subscriptionProrationBehavior?:
-        | "always_invoice"
-        | "create_prorations"
-        | "none"
-      subscriptionProrationDate?: number
-      subscriptionResumeAt?: "now"
-      subscriptionStartDate?: number
-      subscriptionTrialEnd?: "now" | number
-      requestBody?: EmptyObject
-    } = {},
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
-    const url = this.basePath + `/v1/invoices/upcoming`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const query = this._query({
-      automatic_tax: p["automaticTax"],
-      coupon: p["coupon"],
-      currency: p["currency"],
-      customer: p["customer"],
-      customer_details: p["customerDetails"],
-      discounts: p["discounts"],
-      expand: p["expand"],
-      invoice_items: p["invoiceItems"],
-      issuer: p["issuer"],
-      on_behalf_of: p["onBehalfOf"],
-      schedule: p["schedule"],
-      schedule_details: p["scheduleDetails"],
-      subscription: p["subscription"],
-      subscription_billing_cycle_anchor: p["subscriptionBillingCycleAnchor"],
-      subscription_cancel_at: p["subscriptionCancelAt"],
-      subscription_cancel_at_period_end: p["subscriptionCancelAtPeriodEnd"],
-      subscription_cancel_now: p["subscriptionCancelNow"],
-      subscription_default_tax_rates: p["subscriptionDefaultTaxRates"],
-      subscription_details: p["subscriptionDetails"],
-      subscription_items: p["subscriptionItems"],
-      subscription_proration_behavior: p["subscriptionProrationBehavior"],
-      subscription_proration_date: p["subscriptionProrationDate"],
-      subscription_resume_at: p["subscriptionResumeAt"],
-      subscription_start_date: p["subscriptionStartDate"],
-      subscription_trial_end: p["subscriptionTrialEnd"],
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async getInvoicesUpcomingLines(
-    p: {
-      automaticTax?: {
-        enabled: boolean
-        liability?: {
-          account?: string
-          type: "account" | "self"
-        }
-      }
-      coupon?: string
-      currency?: string
-      customer?: string
-      customerDetails?: {
-        address?:
-          | {
-              city?: string
-              country?: string
-              line1?: string
-              line2?: string
-              postal_code?: string
-              state?: string
-            }
-          | ""
-        shipping?:
-          | {
-              address: {
-                city?: string
-                country?: string
-                line1?: string
-                line2?: string
-                postal_code?: string
-                state?: string
-              }
-              name: string
-              phone?: string
-            }
-          | ""
-        tax?: {
-          ip_address?: string | ""
-        }
-        tax_exempt?: "" | "exempt" | "none" | "reverse"
-        tax_ids?: {
-          type:
-            | "ad_nrt"
-            | "ae_trn"
-            | "ar_cuit"
-            | "au_abn"
-            | "au_arn"
-            | "bg_uic"
-            | "bh_vat"
-            | "bo_tin"
-            | "br_cnpj"
-            | "br_cpf"
-            | "ca_bn"
-            | "ca_gst_hst"
-            | "ca_pst_bc"
-            | "ca_pst_mb"
-            | "ca_pst_sk"
-            | "ca_qst"
-            | "ch_vat"
-            | "cl_tin"
-            | "cn_tin"
-            | "co_nit"
-            | "cr_tin"
-            | "do_rcn"
-            | "ec_ruc"
-            | "eg_tin"
-            | "es_cif"
-            | "eu_oss_vat"
-            | "eu_vat"
-            | "gb_vat"
-            | "ge_vat"
-            | "hk_br"
-            | "hu_tin"
-            | "id_npwp"
-            | "il_vat"
-            | "in_gst"
-            | "is_vat"
-            | "jp_cn"
-            | "jp_rn"
-            | "jp_trn"
-            | "ke_pin"
-            | "kr_brn"
-            | "kz_bin"
-            | "li_uid"
-            | "mx_rfc"
-            | "my_frp"
-            | "my_itn"
-            | "my_sst"
-            | "ng_tin"
-            | "no_vat"
-            | "no_voec"
-            | "nz_gst"
-            | "om_vat"
-            | "pe_ruc"
-            | "ph_tin"
-            | "ro_tin"
-            | "rs_pib"
-            | "ru_inn"
-            | "ru_kpp"
-            | "sa_vat"
-            | "sg_gst"
-            | "sg_uen"
-            | "si_tin"
-            | "sv_nit"
-            | "th_vat"
-            | "tr_tin"
-            | "tw_vat"
-            | "ua_vat"
-            | "us_ein"
-            | "uy_ruc"
-            | "ve_rif"
-            | "vn_tin"
-            | "za_vat"
-          value: string
-        }[]
-      }
-      discounts?:
-        | {
-            coupon?: string
-            discount?: string
-            promotion_code?: string
-          }[]
-        | ""
-      endingBefore?: string
-      expand?: string[]
-      invoiceItems?: {
-        amount?: number
-        currency?: string
-        description?: string
-        discountable?: boolean
-        discounts?:
-          | {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-          | ""
-        invoiceitem?: string
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        period?: {
-          end: number
-          start: number
-        }
-        price?: string
-        price_data?: {
-          currency: string
-          product: string
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-        tax_code?: string | ""
-        tax_rates?: string[] | ""
-        unit_amount?: number
-        unit_amount_decimal?: string
-      }[]
-      issuer?: {
-        account?: string
-        type: "account" | "self"
-      }
-      limit?: number
-      onBehalfOf?: string | ""
-      schedule?: string
-      scheduleDetails?: {
-        end_behavior?: "cancel" | "release"
-        phases?: {
-          add_invoice_items?: {
-            discounts?: {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-            price?: string
-            price_data?: {
-              currency: string
-              product: string
-              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              unit_amount?: number
-              unit_amount_decimal?: string
-            }
-            quantity?: number
-            tax_rates?: string[] | ""
-          }[]
-          application_fee_percent?: number
-          automatic_tax?: {
-            enabled: boolean
-            liability?: {
-              account?: string
-              type: "account" | "self"
-            }
-          }
-          billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
-          collection_method?: "charge_automatically" | "send_invoice"
-          coupon?: string
-          default_payment_method?: string
-          default_tax_rates?: string[] | ""
-          description?: string | ""
-          discounts?:
-            | {
-                coupon?: string
-                discount?: string
-                promotion_code?: string
-              }[]
-            | ""
-          end_date?: number | "now"
-          invoice_settings?: {
-            account_tax_ids?: string[] | ""
-            days_until_due?: number
-            issuer?: {
-              account?: string
-              type: "account" | "self"
-            }
-          }
-          items: {
-            billing_thresholds?:
-              | {
-                  usage_gte: number
-                }
-              | ""
-            discounts?:
-              | {
-                  coupon?: string
-                  discount?: string
-                  promotion_code?: string
-                }[]
-              | ""
-            metadata?: {
-              [key: string]: string | undefined
-            }
-            price?: string
-            price_data?: {
-              currency: string
-              product: string
-              recurring: {
-                interval: "day" | "month" | "week" | "year"
-                interval_count?: number
-              }
-              tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-              unit_amount?: number
-              unit_amount_decimal?: string
-            }
-            quantity?: number
-            tax_rates?: string[] | ""
-          }[]
-          iterations?: number
-          metadata?: {
-            [key: string]: string | undefined
-          }
-          on_behalf_of?: string
-          proration_behavior?: "always_invoice" | "create_prorations" | "none"
-          start_date?: number | "now"
-          transfer_data?: {
-            amount_percent?: number
-            destination: string
-          }
-          trial?: boolean
-          trial_end?: number | "now"
-        }[]
-        proration_behavior?: "always_invoice" | "create_prorations" | "none"
-      }
-      startingAfter?: string
-      subscription?: string
-      subscriptionBillingCycleAnchor?: "now" | "unchanged" | number
-      subscriptionCancelAt?: number | ""
-      subscriptionCancelAtPeriodEnd?: boolean
-      subscriptionCancelNow?: boolean
-      subscriptionDefaultTaxRates?: string[] | ""
-      subscriptionDetails?: {
-        billing_cycle_anchor?: "now" | "unchanged" | number
-        cancel_at?: number | ""
-        cancel_at_period_end?: boolean
-        cancel_now?: boolean
-        default_tax_rates?: string[] | ""
-        items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
-          clear_usage?: boolean
-          deleted?: boolean
-          discounts?:
-            | {
-                coupon?: string
-                discount?: string
-                promotion_code?: string
-              }[]
-            | ""
-          id?: string
-          metadata?:
-            | {
-                [key: string]: string | undefined
-              }
-            | ""
-          price?: string
-          price_data?: {
-            currency: string
-            product: string
-            recurring: {
-              interval: "day" | "month" | "week" | "year"
-              interval_count?: number
-            }
-            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-            unit_amount?: number
-            unit_amount_decimal?: string
-          }
-          quantity?: number
-          tax_rates?: string[] | ""
-        }[]
-        proration_behavior?: "always_invoice" | "create_prorations" | "none"
-        proration_date?: number
-        resume_at?: "now"
-        start_date?: number
-        trial_end?: "now" | number
-      }
-      subscriptionItems?: {
-        billing_thresholds?:
-          | {
-              usage_gte: number
-            }
-          | ""
-        clear_usage?: boolean
-        deleted?: boolean
-        discounts?:
-          | {
-              coupon?: string
-              discount?: string
-              promotion_code?: string
-            }[]
-          | ""
-        id?: string
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
-        price?: string
-        price_data?: {
-          currency: string
-          product: string
-          recurring: {
-            interval: "day" | "month" | "week" | "year"
-            interval_count?: number
-          }
-          tax_behavior?: "exclusive" | "inclusive" | "unspecified"
-          unit_amount?: number
-          unit_amount_decimal?: string
-        }
-        quantity?: number
-        tax_rates?: string[] | ""
-      }[]
-      subscriptionProrationBehavior?:
-        | "always_invoice"
-        | "create_prorations"
-        | "none"
-      subscriptionProrationDate?: number
-      subscriptionResumeAt?: "now"
-      subscriptionStartDate?: number
-      subscriptionTrialEnd?: "now" | number
-      requestBody?: EmptyObject
-    } = {},
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
-  > {
-    const url = this.basePath + `/v1/invoices/upcoming/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const query = this._query({
-      automatic_tax: p["automaticTax"],
-      coupon: p["coupon"],
-      currency: p["currency"],
-      customer: p["customer"],
-      customer_details: p["customerDetails"],
-      discounts: p["discounts"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      invoice_items: p["invoiceItems"],
-      issuer: p["issuer"],
-      limit: p["limit"],
-      on_behalf_of: p["onBehalfOf"],
-      schedule: p["schedule"],
-      schedule_details: p["scheduleDetails"],
-      starting_after: p["startingAfter"],
-      subscription: p["subscription"],
-      subscription_billing_cycle_anchor: p["subscriptionBillingCycleAnchor"],
-      subscription_cancel_at: p["subscriptionCancelAt"],
-      subscription_cancel_at_period_end: p["subscriptionCancelAtPeriodEnd"],
-      subscription_cancel_now: p["subscriptionCancelNow"],
-      subscription_default_tax_rates: p["subscriptionDefaultTaxRates"],
-      subscription_details: p["subscriptionDetails"],
-      subscription_items: p["subscriptionItems"],
-      subscription_proration_behavior: p["subscriptionProrationBehavior"],
-      subscription_proration_date: p["subscriptionProrationDate"],
-      subscription_resume_at: p["subscriptionResumeAt"],
-      subscription_start_date: p["subscriptionStartDate"],
-      subscription_trial_end: p["subscriptionTrialEnd"],
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12425,19 +12327,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -12449,20 +12350,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12481,6 +12381,7 @@ export class ApiClient extends AbstractFetchClient {
             type: "account" | "self"
           }
         }
+        automatically_finalizes_at?: number
         collection_method?: "charge_automatically" | "send_invoice"
         custom_fields?:
           | {
@@ -12540,8 +12441,8 @@ export class ApiClient extends AbstractFetchClient {
                     enabled?: boolean
                     plan?:
                       | {
-                          count: number
-                          interval: "month"
+                          count?: number
+                          interval?: "month"
                           type: "fixed_count"
                         }
                       | ""
@@ -12565,6 +12466,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -12585,6 +12489,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -12597,14 +12502,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -12615,6 +12531,8 @@ export class ApiClient extends AbstractFetchClient {
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
+          template?: string
+          template_version?: number | ""
         }
         shipping_cost?:
           | {
@@ -12679,21 +12597,137 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postInvoicesInvoiceAddLines(
+    p: {
+      invoice: string
+      requestBody: {
+        expand?: string[]
+        invoice_metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        lines: {
+          amount?: number
+          description?: string
+          discountable?: boolean
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          invoice_item?: string
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+          period?: {
+            end: number
+            start: number
+          }
+          price_data?: {
+            currency: string
+            product?: string
+            product_data?: {
+              description?: string
+              images?: string[]
+              metadata?: {
+                [key: string]: string | undefined
+              }
+              name: string
+              tax_code?: string
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          pricing?: {
+            price?: string
+          }
+          quantity?: number
+          tax_amounts?:
+            | {
+                amount: number
+                tax_rate_data: {
+                  country?: string
+                  description?: string
+                  display_name: string
+                  inclusive: boolean
+                  jurisdiction?: string
+                  jurisdiction_level?:
+                    | "city"
+                    | "country"
+                    | "county"
+                    | "district"
+                    | "multiple"
+                    | "state"
+                  percentage: number
+                  state?: string
+                  tax_type?:
+                    | "amusement_tax"
+                    | "communications_tax"
+                    | "gst"
+                    | "hst"
+                    | "igst"
+                    | "jct"
+                    | "lease_tax"
+                    | "pst"
+                    | "qst"
+                    | "retail_delivery_fee"
+                    | "rst"
+                    | "sales_tax"
+                    | "service_tax"
+                    | "vat"
+                }
+                taxability_reason?:
+                  | "customer_exempt"
+                  | "not_collecting"
+                  | "not_subject_to_tax"
+                  | "not_supported"
+                  | "portion_product_exempt"
+                  | "portion_reduced_rated"
+                  | "portion_standard_rated"
+                  | "product_exempt"
+                  | "product_exempt_holiday"
+                  | "proportionally_rated"
+                  | "reduced_rated"
+                  | "reverse_charge"
+                  | "standard_rated"
+                  | "taxable_basis_reduced"
+                  | "zero_rated"
+                taxable_amount: number
+              }[]
+            | ""
+          tax_rates?: string[] | ""
+        }[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/invoices/${p["invoice"]}/add_lines`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceFinalize(
@@ -12705,21 +12739,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/finalize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getInvoicesInvoiceLines(
@@ -12732,25 +12761,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/lines`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -12761,7 +12789,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -12791,7 +12819,6 @@ export class ApiClient extends AbstractFetchClient {
           end: number
           start: number
         }
-        price?: string
         price_data?: {
           currency: string
           product?: string
@@ -12808,6 +12835,9 @@ export class ApiClient extends AbstractFetchClient {
           unit_amount?: number
           unit_amount_decimal?: string
         }
+        pricing?: {
+          price?: string
+        }
         quantity?: number
         tax_amounts?:
           | {
@@ -12818,6 +12848,13 @@ export class ApiClient extends AbstractFetchClient {
                 display_name: string
                 inclusive: boolean
                 jurisdiction?: string
+                jurisdiction_level?:
+                  | "city"
+                  | "country"
+                  | "county"
+                  | "district"
+                  | "multiple"
+                  | "state"
                 percentage: number
                 state?: string
                 tax_type?:
@@ -12830,10 +12867,28 @@ export class ApiClient extends AbstractFetchClient {
                   | "lease_tax"
                   | "pst"
                   | "qst"
+                  | "retail_delivery_fee"
                   | "rst"
                   | "sales_tax"
+                  | "service_tax"
                   | "vat"
               }
+              taxability_reason?:
+                | "customer_exempt"
+                | "not_collecting"
+                | "not_subject_to_tax"
+                | "not_supported"
+                | "portion_product_exempt"
+                | "portion_reduced_rated"
+                | "portion_standard_rated"
+                | "product_exempt"
+                | "product_exempt_holiday"
+                | "proportionally_rated"
+                | "reduced_rated"
+                | "reverse_charge"
+                | "standard_rated"
+                | "taxable_basis_reduced"
+                | "zero_rated"
               taxable_amount: number
             }[]
           | ""
@@ -12841,22 +12896,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_line_item> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_line_item> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/lines/${p["lineItemId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceMarkUncollectible(
@@ -12867,22 +12917,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/mark_uncollectible`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoicePay(
@@ -12899,21 +12944,45 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/pay`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postInvoicesInvoiceRemoveLines(
+    p: {
+      invoice: string
+      requestBody: {
+        expand?: string[]
+        invoice_metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        lines: {
+          behavior: "delete" | "unassign"
+          id: string
+        }[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/invoices/${p["invoice"]}/remove_lines`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceSend(
@@ -12924,21 +12993,137 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/send`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postInvoicesInvoiceUpdateLines(
+    p: {
+      invoice: string
+      requestBody: {
+        expand?: string[]
+        invoice_metadata?:
+          | {
+              [key: string]: string | undefined
+            }
+          | ""
+        lines: {
+          amount?: number
+          description?: string
+          discountable?: boolean
+          discounts?:
+            | {
+                coupon?: string
+                discount?: string
+                promotion_code?: string
+              }[]
+            | ""
+          id: string
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+          period?: {
+            end: number
+            start: number
+          }
+          price_data?: {
+            currency: string
+            product?: string
+            product_data?: {
+              description?: string
+              images?: string[]
+              metadata?: {
+                [key: string]: string | undefined
+              }
+              name: string
+              tax_code?: string
+            }
+            tax_behavior?: "exclusive" | "inclusive" | "unspecified"
+            unit_amount?: number
+            unit_amount_decimal?: string
+          }
+          pricing?: {
+            price?: string
+          }
+          quantity?: number
+          tax_amounts?:
+            | {
+                amount: number
+                tax_rate_data: {
+                  country?: string
+                  description?: string
+                  display_name: string
+                  inclusive: boolean
+                  jurisdiction?: string
+                  jurisdiction_level?:
+                    | "city"
+                    | "country"
+                    | "county"
+                    | "district"
+                    | "multiple"
+                    | "state"
+                  percentage: number
+                  state?: string
+                  tax_type?:
+                    | "amusement_tax"
+                    | "communications_tax"
+                    | "gst"
+                    | "hst"
+                    | "igst"
+                    | "jct"
+                    | "lease_tax"
+                    | "pst"
+                    | "qst"
+                    | "retail_delivery_fee"
+                    | "rst"
+                    | "sales_tax"
+                    | "service_tax"
+                    | "vat"
+                }
+                taxability_reason?:
+                  | "customer_exempt"
+                  | "not_collecting"
+                  | "not_subject_to_tax"
+                  | "not_supported"
+                  | "portion_product_exempt"
+                  | "portion_reduced_rated"
+                  | "portion_standard_rated"
+                  | "product_exempt"
+                  | "product_exempt_holiday"
+                  | "proportionally_rated"
+                  | "reduced_rated"
+                  | "reverse_charge"
+                  | "standard_rated"
+                  | "taxable_basis_reduced"
+                  | "zero_rated"
+                taxable_amount: number
+              }[]
+            | ""
+          tax_rates?: string[] | ""
+        }[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/invoices/${p["invoice"]}/update_lines`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postInvoicesInvoiceVoid(
@@ -12949,21 +13134,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/void`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingAuthorizations(
@@ -12982,29 +13162,28 @@ export class ApiClient extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       startingAfter?: string
-      status?: "closed" | "pending" | "reversed"
+      status?: "closed" | "expired" | "pending" | "reversed"
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_authorization[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_authorization[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/authorizations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -13019,7 +13198,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -13031,23 +13210,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -13065,24 +13241,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationApprove(
@@ -13099,24 +13268,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/approve`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingAuthorizationsAuthorizationDecline(
@@ -13132,24 +13294,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/decline`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardholders(
@@ -13173,25 +13328,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_cardholder[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_cardholder[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       email: p["email"],
@@ -13207,7 +13361,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -14169,23 +14323,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardholdersCardholder(
@@ -14195,22 +14342,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -15171,23 +15315,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCards(
@@ -15214,25 +15351,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_card[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_card[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       cardholder: p["cardholder"],
       created: p["created"],
@@ -15251,7 +15387,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -15281,6 +15417,12 @@ export class ApiClient extends AbstractFetchClient {
             line2?: string
             postal_code: string
             state?: string
+          }
+          address_validation?: {
+            mode:
+              | "disabled"
+              | "normalization_only"
+              | "validation_and_normalization"
           }
           customs?: {
             eori_number?: string
@@ -16201,21 +16343,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingCardsCard(
@@ -16225,20 +16362,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -16257,6 +16393,30 @@ export class ApiClient extends AbstractFetchClient {
         personalization_design?: string
         pin?: {
           encrypted_number?: string
+        }
+        shipping?: {
+          address: {
+            city: string
+            country: string
+            line1: string
+            line2?: string
+            postal_code: string
+            state?: string
+          }
+          address_validation?: {
+            mode:
+              | "disabled"
+              | "normalization_only"
+              | "validation_and_normalization"
+          }
+          customs?: {
+            eori_number?: string
+          }
+          name: string
+          phone_number?: string
+          require_signature?: boolean
+          service?: "express" | "priority" | "standard"
+          type?: "bulk" | "individual"
         }
         spending_controls?: {
           allowed_categories?: (
@@ -17167,21 +17327,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingDisputes(
@@ -17203,25 +17358,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_dispute[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_dispute[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -17235,7 +17389,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17285,6 +17439,12 @@ export class ApiClient extends AbstractFetchClient {
                 returned_at?: number | ""
               }
             | ""
+          no_valid_authorization?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string | ""
+              }
+            | ""
           not_received?:
             | {
                 additional_documentation?: string | ""
@@ -17307,6 +17467,7 @@ export class ApiClient extends AbstractFetchClient {
             | "duplicate"
             | "fraudulent"
             | "merchandise_not_as_described"
+            | "no_valid_authorization"
             | "not_received"
             | "other"
             | "service_not_as_described"
@@ -17331,21 +17492,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingDisputesDispute(
@@ -17355,20 +17511,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17419,6 +17574,12 @@ export class ApiClient extends AbstractFetchClient {
                 returned_at?: number | ""
               }
             | ""
+          no_valid_authorization?:
+            | {
+                additional_documentation?: string | ""
+                explanation?: string | ""
+              }
+            | ""
           not_received?:
             | {
                 additional_documentation?: string | ""
@@ -17441,6 +17602,7 @@ export class ApiClient extends AbstractFetchClient {
             | "duplicate"
             | "fraudulent"
             | "merchandise_not_as_described"
+            | "no_valid_authorization"
             | "not_received"
             | "other"
             | "service_not_as_described"
@@ -17463,21 +17625,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postIssuingDisputesDisputeSubmit(
@@ -17493,21 +17650,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}/submit`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPersonalizationDesigns(
@@ -17525,25 +17677,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_personalization_design[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_personalization_design[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -17557,7 +17708,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17586,23 +17737,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPersonalizationDesignsPersonalizationDesign(
@@ -17612,24 +17758,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17661,25 +17806,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/issuing/personalization_designs/${p["personalizationDesign"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingPhysicalBundles(
@@ -17693,25 +17833,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_physical_bundle[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_physical_bundle[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/physical_bundles`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -17724,7 +17863,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17736,75 +17875,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async getIssuingSettlements(
-    p: {
-      created?:
-        | {
-            gt?: number
-            gte?: number
-            lt?: number
-            lte?: number
-          }
-        | number
-      endingBefore?: string
-      expand?: string[]
-      limit?: number
-      startingAfter?: string
-      requestBody?: EmptyObject
-    } = {},
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_settlement[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
-  > {
-    const url = this.basePath + `/v1/issuing/settlements`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const query = this._query({
-      created: p["created"],
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17816,22 +17900,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17847,23 +17928,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingTokens(
@@ -17885,25 +17959,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_token[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_token[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       created: p["created"],
@@ -17917,7 +17990,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17929,20 +18002,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -17956,21 +18028,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getIssuingTransactions(
@@ -17993,25 +18060,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       card: p["card"],
       cardholder: p["cardholder"],
@@ -18026,7 +18092,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18038,22 +18104,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18071,23 +18134,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postLinkAccountSessions(
@@ -18100,7 +18156,14 @@ export class ApiClient extends AbstractFetchClient {
         }
         expand?: string[]
         filters?: {
-          countries: string[]
+          account_subcategories?: (
+            | "checking"
+            | "credit_card"
+            | "line_of_credit"
+            | "mortgage"
+            | "savings"
+          )[]
+          countries?: string[]
         }
         permissions: (
           | "balances"
@@ -18113,23 +18176,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/link_account_sessions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getLinkAccountSessionsSession(
@@ -18139,22 +18197,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18173,25 +18230,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       account_holder: p["accountHolder"],
       ending_before: p["endingBefore"],
@@ -18204,7 +18260,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18216,22 +18272,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18244,23 +18299,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/disconnect`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getLinkedAccountsAccountOwners(
@@ -18274,25 +18324,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account_owner[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account_owner[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/owners`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -18304,7 +18353,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18318,23 +18367,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/refresh`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getMandatesMandate(
@@ -18344,20 +18388,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_mandate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18380,25 +18423,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_intent[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_intent[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -18411,7 +18453,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -18465,6 +18507,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -18475,6 +18518,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -18574,6 +18618,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -18582,11 +18627,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -18617,6 +18675,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -18625,6 +18685,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -18632,15 +18694,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -18650,20 +18715,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -18687,6 +18762,7 @@ export class ApiClient extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -18709,6 +18785,11 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           amazon_pay?:
             | {
                 capture_method?: "" | "manual"
@@ -18718,11 +18799,16 @@ export class ApiClient extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
             | {
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -18751,8 +18837,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -18774,8 +18860,10 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -18816,6 +18904,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -18876,6 +18967,12 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -18906,6 +19003,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -18922,6 +19020,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -18936,6 +19035,12 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -18948,6 +19053,23 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          multibanco?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          nz_bank_account?:
+            | {
+                setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -18958,6 +19080,12 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          pay_by_bank?: EmptyObject | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -19013,10 +19141,18 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -19039,9 +19175,17 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          twint?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -19059,13 +19203,14 @@ export class ApiClient extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
           wechat_pay?:
             | {
                 app_id?: string
-                client: "android" | "ios" | "web"
+                client?: "android" | "ios" | "web"
                 setup_future_usage?: "none"
               }
             | ""
@@ -19107,21 +19252,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentIntentsSearch(
@@ -19133,27 +19273,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_intent[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_intent[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -19164,7 +19303,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -19177,14 +19316,13 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -19193,7 +19331,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -19226,6 +19364,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -19236,6 +19375,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -19335,6 +19475,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -19343,11 +19484,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -19378,6 +19532,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -19386,6 +19542,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -19393,15 +19551,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -19411,20 +19572,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -19448,6 +19619,7 @@ export class ApiClient extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -19470,6 +19642,11 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           amazon_pay?:
             | {
                 capture_method?: "" | "manual"
@@ -19479,11 +19656,16 @@ export class ApiClient extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
             | {
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -19512,8 +19694,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -19535,8 +19717,10 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -19577,6 +19761,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -19637,6 +19824,12 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19667,6 +19860,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -19683,6 +19877,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -19697,6 +19892,12 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -19709,6 +19910,23 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          multibanco?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          nz_bank_account?:
+            | {
+                setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -19719,6 +19937,12 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          pay_by_bank?: EmptyObject | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -19774,10 +19998,18 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -19800,9 +20032,17 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          twint?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -19820,13 +20060,14 @@ export class ApiClient extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
           wechat_pay?:
             | {
                 app_id?: string
-                client: "android" | "ios" | "web"
+                client?: "android" | "ios" | "web"
                 setup_future_usage?: "none"
               }
             | ""
@@ -19864,21 +20105,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentApplyCustomerBalance(
@@ -19891,23 +20127,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/apply_customer_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentCancel(
@@ -19923,21 +20154,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentCapture(
@@ -19961,21 +20187,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentConfirm(
@@ -20022,6 +20243,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -20032,6 +20254,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -20131,6 +20354,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -20139,11 +20363,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -20174,6 +20411,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -20182,6 +20421,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -20189,15 +20430,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -20207,20 +20451,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -20244,6 +20498,7 @@ export class ApiClient extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -20266,6 +20521,11 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           amazon_pay?:
             | {
                 capture_method?: "" | "manual"
@@ -20275,11 +20535,16 @@ export class ApiClient extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
             | {
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -20308,8 +20573,8 @@ export class ApiClient extends AbstractFetchClient {
                   enabled?: boolean
                   plan?:
                     | {
-                        count: number
-                        interval: "month"
+                        count?: number
+                        interval?: "month"
                         type: "fixed_count"
                       }
                     | ""
@@ -20331,8 +20596,10 @@ export class ApiClient extends AbstractFetchClient {
                   | "diners"
                   | "discover"
                   | "eftpos_au"
+                  | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -20373,6 +20640,9 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 request_extended_authorization?: boolean
                 request_incremental_authorization_support?: boolean
+                routing?: {
+                  requested_priority?: "domestic" | "international"
+                }
               }
             | ""
           cashapp?:
@@ -20433,6 +20703,12 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -20463,6 +20739,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "en-NZ"
                   | "en-PL"
                   | "en-PT"
+                  | "en-RO"
                   | "en-SE"
                   | "en-US"
                   | "es-ES"
@@ -20479,6 +20756,7 @@ export class ApiClient extends AbstractFetchClient {
                   | "nl-NL"
                   | "pl-PL"
                   | "pt-PT"
+                  | "ro-RO"
                   | "sv-FI"
                   | "sv-SE"
                 setup_future_usage?: "none"
@@ -20493,6 +20771,12 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -20505,6 +20789,23 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          multibanco?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          nz_bank_account?:
+            | {
+                setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -20515,6 +20816,12 @@ export class ApiClient extends AbstractFetchClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          pay_by_bank?: EmptyObject | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -20570,10 +20877,18 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "" | "none" | "off_session"
               }
             | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -20596,9 +20911,17 @@ export class ApiClient extends AbstractFetchClient {
                 setup_future_usage?: "none"
               }
             | ""
+          twint?:
+            | {
+                setup_future_usage?: "none"
+              }
+            | ""
           us_bank_account?:
             | {
                 financial_connections?: {
+                  filters?: {
+                    account_subcategories?: ("checking" | "savings")[]
+                  }
                   permissions?: (
                     | "balances"
                     | "ownership"
@@ -20616,13 +20939,14 @@ export class ApiClient extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
           wechat_pay?:
             | {
                 app_id?: string
-                client: "android" | "ios" | "web"
+                client?: "android" | "ios" | "web"
                 setup_future_usage?: "none"
               }
             | ""
@@ -20659,21 +20983,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/confirm`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentIncrementAuthorization(
@@ -20694,23 +21013,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/increment_authorization`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentIntentsIntentVerifyMicrodeposits(
@@ -20724,22 +21038,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_intents/${p["intent"]}/verify_microdeposits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinks(
@@ -20752,25 +21061,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_link[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_link[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       ending_before: p["endingBefore"],
@@ -20782,7 +21090,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -20820,6 +21128,7 @@ export class ApiClient extends AbstractFetchClient {
         currency?: string
         custom_fields?: {
           dropdown?: {
+            default_value?: string
             options: {
               label: string
               value: string
@@ -20831,11 +21140,13 @@ export class ApiClient extends AbstractFetchClient {
             type: "custom"
           }
           numeric?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
           optional?: boolean
           text?: {
+            default_value?: string
             maximum_length?: number
             minimum_length?: number
           }
@@ -20910,6 +21221,15 @@ export class ApiClient extends AbstractFetchClient {
           [key: string]: string | undefined
         }
         on_behalf_of?: string
+        optional_items?: {
+          adjustable_quantity?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+          }
+          price: string
+          quantity: number
+        }[]
         payment_intent_data?: {
           capture_method?: "automatic" | "automatic_async" | "manual"
           description?: string
@@ -20926,9 +21246,11 @@ export class ApiClient extends AbstractFetchClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
+          | "billie"
           | "blik"
           | "boleto"
           | "card"
@@ -20941,17 +21263,23 @@ export class ApiClient extends AbstractFetchClient {
           | "klarna"
           | "konbini"
           | "link"
+          | "mobilepay"
+          | "multibanco"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
+          | "satispay"
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
+          | "zip"
         )[]
         phone_number_collection?: {
           enabled: boolean
@@ -21147,6 +21475,7 @@ export class ApiClient extends AbstractFetchClient {
             | "SA"
             | "SB"
             | "SC"
+            | "SD"
             | "SE"
             | "SG"
             | "SH"
@@ -21205,7 +21534,7 @@ export class ApiClient extends AbstractFetchClient {
         shipping_options?: {
           shipping_rate?: string
         }[]
-        submit_type?: "auto" | "book" | "donate" | "pay"
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           description?: string
           invoice_settings?: {
@@ -21226,6 +21555,7 @@ export class ApiClient extends AbstractFetchClient {
         }
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
         transfer_data?: {
           amount?: number
@@ -21234,21 +21564,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinksPaymentLink(
@@ -21258,20 +21583,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21302,6 +21626,7 @@ export class ApiClient extends AbstractFetchClient {
         custom_fields?:
           | {
               dropdown?: {
+                default_value?: string
                 options: {
                   label: string
                   value: string
@@ -21313,11 +21638,13 @@ export class ApiClient extends AbstractFetchClient {
                 type: "custom"
               }
               numeric?: {
+                default_value?: string
                 maximum_length?: number
                 minimum_length?: number
               }
               optional?: boolean
               text?: {
+                default_value?: string
                 maximum_length?: number
                 minimum_length?: number
               }
@@ -21409,9 +21736,11 @@ export class ApiClient extends AbstractFetchClient {
               | "affirm"
               | "afterpay_clearpay"
               | "alipay"
+              | "alma"
               | "au_becs_debit"
               | "bacs_debit"
               | "bancontact"
+              | "billie"
               | "blik"
               | "boleto"
               | "card"
@@ -21424,19 +21753,28 @@ export class ApiClient extends AbstractFetchClient {
               | "klarna"
               | "konbini"
               | "link"
+              | "mobilepay"
+              | "multibanco"
               | "oxxo"
               | "p24"
+              | "pay_by_bank"
               | "paynow"
               | "paypal"
               | "pix"
               | "promptpay"
+              | "satispay"
               | "sepa_debit"
               | "sofort"
               | "swish"
+              | "twint"
               | "us_bank_account"
               | "wechat_pay"
+              | "zip"
             )[]
           | ""
+        phone_number_collection?: {
+          enabled: boolean
+        }
         restrictions?:
           | {
               completed_sessions: {
@@ -21631,6 +21969,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "SA"
                 | "SB"
                 | "SC"
+                | "SD"
                 | "SE"
                 | "SG"
                 | "SH"
@@ -21687,6 +22026,7 @@ export class ApiClient extends AbstractFetchClient {
               )[]
             }
           | ""
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           invoice_settings?: {
             issuer?: {
@@ -21699,6 +22039,7 @@ export class ApiClient extends AbstractFetchClient {
                 [key: string]: string | undefined
               }
             | ""
+          trial_period_days?: number | ""
           trial_settings?:
             | {
                 end_behavior: {
@@ -21707,24 +22048,23 @@ export class ApiClient extends AbstractFetchClient {
               }
             | ""
         }
+        tax_id_collection?: {
+          enabled: boolean
+          required?: "if_supported" | "never"
+        }
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentLinksPaymentLinkLineItems(
@@ -21737,26 +22077,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -21767,7 +22106,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21782,25 +22121,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       application: p["application"],
       ending_before: p["endingBefore"],
@@ -21812,7 +22150,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -21836,6 +22174,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         alipay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        alma?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21866,6 +22209,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         bancontact?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        billie?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -21951,7 +22299,22 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        mobilepay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        multibanco?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         name?: string
+        nz_bank_account?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         oxxo?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -21963,6 +22326,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         parent?: string
+        pay_by_bank?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         paynow?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -21983,6 +22351,11 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        satispay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         sepa_debit?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -21994,6 +22367,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         swish?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        twint?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -22016,23 +22394,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodConfigurationsConfiguration(
@@ -22042,23 +22415,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22088,6 +22460,11 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        alma?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         amazon_pay?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -22114,6 +22491,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         bancontact?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        billie?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -22199,13 +22581,33 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        mobilepay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        multibanco?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         name?: string
+        nz_bank_account?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         oxxo?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
         }
         p24?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        pay_by_bank?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -22230,6 +22632,11 @@ export class ApiClient extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        satispay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         sepa_debit?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -22241,6 +22648,11 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         swish?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        twint?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -22263,24 +22675,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodDomains(
@@ -22294,25 +22701,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method_domain[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method_domain[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       domain_name: p["domainName"],
       enabled: p["enabled"],
@@ -22325,7 +22731,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22339,23 +22745,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_method_domains`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodDomainsPaymentMethodDomain(
@@ -22365,23 +22764,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22395,24 +22791,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodDomainsPaymentMethodDomainValidate(
@@ -22423,25 +22812,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_method_domains/${p["paymentMethodDomain"]}/validate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethods(
@@ -22456,10 +22838,12 @@ export class ApiClient extends AbstractFetchClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "alma"
         | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
         | "bancontact"
+        | "billie"
         | "blik"
         | "boleto"
         | "card"
@@ -22470,45 +22854,54 @@ export class ApiClient extends AbstractFetchClient {
         | "giropay"
         | "grabpay"
         | "ideal"
+        | "kakao_pay"
         | "klarna"
         | "konbini"
+        | "kr_card"
         | "link"
         | "mobilepay"
+        | "multibanco"
+        | "naver_pay"
+        | "nz_bank_account"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
+        | "payco"
         | "paynow"
         | "paypal"
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "samsung_pay"
+        | "satispay"
         | "sepa_debit"
         | "sofort"
         | "swish"
+        | "twint"
         | "us_bank_account"
         | "wechat_pay"
         | "zip"
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -22521,7 +22914,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22538,6 +22931,7 @@ export class ApiClient extends AbstractFetchClient {
         afterpay_clearpay?: EmptyObject
         alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
+        alma?: EmptyObject
         amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
@@ -22548,6 +22942,7 @@ export class ApiClient extends AbstractFetchClient {
           sort_code?: string
         }
         bancontact?: EmptyObject
+        billie?: EmptyObject
         billing_details?: {
           address?:
             | {
@@ -22662,6 +23057,7 @@ export class ApiClient extends AbstractFetchClient {
             | "yoursafe"
         }
         interac_present?: EmptyObject
+        kakao_pay?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -22670,11 +23066,24 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         konbini?: EmptyObject
+        kr_card?: EmptyObject
         link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
         mobilepay?: EmptyObject
+        multibanco?: EmptyObject
+        naver_pay?: {
+          funding?: "card" | "points"
+        }
+        nz_bank_account?: {
+          account_holder_name?: string
+          account_number: string
+          bank_code: string
+          branch_code: string
+          reference?: string
+          suffix: string
+        }
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -22705,6 +23114,8 @@ export class ApiClient extends AbstractFetchClient {
             | "velobank"
             | "volkswagen_bank"
         }
+        pay_by_bank?: EmptyObject
+        payco?: EmptyObject
         payment_method?: string
         paynow?: EmptyObject
         paypal?: EmptyObject
@@ -22714,6 +23125,8 @@ export class ApiClient extends AbstractFetchClient {
           session?: string
         }
         revolut_pay?: EmptyObject
+        samsung_pay?: EmptyObject
+        satispay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
@@ -22721,15 +23134,18 @@ export class ApiClient extends AbstractFetchClient {
           country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
         }
         swish?: EmptyObject
+        twint?: EmptyObject
         type?:
           | "acss_debit"
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
+          | "billie"
           | "blik"
           | "boleto"
           | "card"
@@ -22740,20 +23156,30 @@ export class ApiClient extends AbstractFetchClient {
           | "giropay"
           | "grabpay"
           | "ideal"
+          | "kakao_pay"
           | "klarna"
           | "konbini"
+          | "kr_card"
           | "link"
           | "mobilepay"
+          | "multibanco"
+          | "naver_pay"
+          | "nz_bank_account"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
+          | "payco"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "samsung_pay"
+          | "satispay"
           | "sepa_debit"
           | "sofort"
           | "swish"
+          | "twint"
           | "us_bank_account"
           | "wechat_pay"
           | "zip"
@@ -22769,21 +23195,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPaymentMethodsPaymentMethod(
@@ -22793,20 +23214,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -22845,6 +23265,7 @@ export class ApiClient extends AbstractFetchClient {
               [key: string]: string | undefined
             }
           | ""
+        pay_by_bank?: EmptyObject
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_type?: "checking" | "savings"
@@ -22852,21 +23273,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodAttach(
@@ -22878,22 +23294,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/attach`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPaymentMethodsPaymentMethodDetach(
@@ -22904,22 +23315,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/detach`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPayouts(
@@ -22949,25 +23355,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payout[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payout[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payouts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       arrival_date: p["arrivalDate"],
       created: p["created"],
@@ -22982,7 +23387,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23004,21 +23409,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPayoutsPayout(
@@ -23028,20 +23428,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23059,21 +23458,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPayoutsPayoutCancel(
@@ -23084,21 +23478,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postPayoutsPayoutReverse(
@@ -23112,21 +23501,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/reverse`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPlans(
@@ -23148,25 +23532,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_plan[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_plan[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/plans`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23180,7 +23563,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23189,7 +23572,6 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       requestBody: {
         active?: boolean
-        aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum"
         amount?: number
         amount_decimal?: string
         billing_scheme?: "per_unit" | "tiered"
@@ -23235,19 +23617,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deletePlansPlan(
@@ -23256,19 +23635,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -23280,18 +23658,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23313,19 +23692,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPrices(
@@ -23355,25 +23731,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_price[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_price[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23391,7 +23766,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23449,7 +23824,6 @@ export class ApiClient extends AbstractFetchClient {
           unit_label?: string
         }
         recurring?: {
-          aggregate_usage?: "last_during_period" | "last_ever" | "max" | "sum"
           interval: "day" | "month" | "week" | "year"
           interval_count?: number
           meter?: string
@@ -23474,19 +23848,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPricesSearch(
@@ -23498,27 +23869,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_price[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_price[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -23529,7 +23899,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23541,18 +23911,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23599,19 +23970,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProducts(
@@ -23635,25 +24003,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -23669,7 +24036,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23701,6 +24068,15 @@ export class ApiClient extends AbstractFetchClient {
                   unit_amount_decimal?: string
                 }
               | undefined
+          }
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
+          }
+          metadata?: {
+            [key: string]: string | undefined
           }
           recurring?: {
             interval: "day" | "month" | "week" | "year"
@@ -23735,21 +24111,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProductsSearch(
@@ -23761,27 +24132,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -23792,7 +24162,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23803,19 +24173,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_product> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -23827,20 +24196,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23881,21 +24249,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getProductsProductFeatures(
@@ -23908,25 +24271,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product_feature[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product_feature[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -23937,7 +24299,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -23951,21 +24313,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_product_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteProductsProductFeaturesId(
@@ -23975,22 +24332,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -24003,21 +24357,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24043,25 +24396,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_promotion_code[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_promotion_code[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/promotion_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       code: p["code"],
@@ -24077,7 +24429,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24110,21 +24462,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getPromotionCodesPromotionCode(
@@ -24134,20 +24481,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24175,21 +24521,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotes(
@@ -24204,25 +24545,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_quote[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_quote[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       customer: p["customer"],
       ending_before: p["endingBefore"],
@@ -24236,7 +24576,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24325,19 +24665,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuote(
@@ -24347,18 +24684,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24444,19 +24782,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postQuotesQuoteAccept(
@@ -24467,19 +24802,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/accept`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postQuotesQuoteCancel(
@@ -24490,19 +24822,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuoteComputedUpfrontLineItems(
@@ -24515,26 +24844,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -24545,7 +24873,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24559,19 +24887,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/finalize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getQuotesQuoteLineItems(
@@ -24584,25 +24909,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -24613,7 +24937,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24624,19 +24948,23 @@ export class ApiClient extends AbstractFetchClient {
       quote: string
       requestBody?: EmptyObject
     },
+    basePath:
+      | Server<"getQuotesQuotePdf_ApiClient">
+      | string = ApiClientServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    opts: RequestInit = {},
+  ): Promise<Res<200, string> | Res<StatusCode, t_error>> {
+    const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24660,25 +24988,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_early_fraud_warning[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_early_fraud_warning[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/early_fraud_warnings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -24692,7 +25019,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24704,23 +25031,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24744,25 +25068,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_value_list_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_value_list_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -24776,7 +25099,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24790,23 +25113,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_list_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteRadarValueListItemsItem(
@@ -24815,21 +25131,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -24841,22 +25156,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24880,25 +25192,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_value_list[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_value_list[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_lists`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       alias: p["alias"],
       contains: p["contains"],
@@ -24912,7 +25223,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -24940,21 +25251,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteRadarValueListsValueList(
@@ -24963,21 +25269,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -24989,20 +25292,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25020,21 +25322,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getRefunds(
@@ -25056,25 +25353,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       charge: p["charge"],
       created: p["created"],
@@ -25088,7 +25384,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25115,21 +25411,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getRefundsRefund(
@@ -25139,20 +25430,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25170,21 +25460,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postRefundsRefundCancel(
@@ -25195,21 +25480,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getReportingReportRuns(
@@ -25229,25 +25509,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_reporting_report_run[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_reporting_report_run[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -25259,7 +25538,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25917,23 +26196,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_reporting_report_run> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getReportingReportRunsReportRun(
@@ -25943,22 +26215,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_reporting_report_run> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -25969,31 +26238,30 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_reporting_report_type[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_reporting_report_type[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_types`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26005,22 +26273,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_type> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_reporting_report_type> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26042,25 +26307,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_review[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_review[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reviews`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -26072,7 +26336,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26084,20 +26348,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_review> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26110,21 +26373,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_review> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}/approve`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSetupAttempts(
@@ -26145,25 +26403,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_setup_attempt[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_setup_attempt[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_attempts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -26176,7 +26433,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26201,25 +26458,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_setup_intent[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_setup_intent[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       attach_to_self: p["attachToSelf"],
       created: p["created"],
@@ -26234,7 +26490,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26282,6 +26538,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -26292,6 +26549,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -26391,6 +26649,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -26399,11 +26658,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -26434,6 +26706,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -26442,6 +26716,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -26449,15 +26725,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -26467,20 +26746,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -26507,6 +26796,11 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -26526,8 +26820,10 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -26555,10 +26851,15 @@ export class ApiClient extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -26588,21 +26889,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSetupIntentsIntent(
@@ -26613,14 +26909,13 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -26629,7 +26924,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -26660,6 +26955,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -26670,6 +26966,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -26769,6 +27066,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -26777,11 +27075,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -26812,6 +27123,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -26820,6 +27133,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -26827,15 +27142,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -26845,20 +27163,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -26885,6 +27213,11 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -26904,8 +27237,10 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -26933,10 +27268,15 @@ export class ApiClient extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -26959,21 +27299,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentCancel(
@@ -26988,21 +27323,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentConfirm(
@@ -27045,6 +27375,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -27055,6 +27386,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -27154,6 +27486,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -27162,11 +27495,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -27197,6 +27543,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -27205,6 +27553,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -27212,15 +27562,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -27230,20 +27583,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -27270,6 +27633,11 @@ export class ApiClient extends AbstractFetchClient {
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           amazon_pay?: EmptyObject
+          bacs_debit?: {
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
+          }
           card?: {
             mandate_options?: {
               amount: number
@@ -27289,8 +27657,10 @@ export class ApiClient extends AbstractFetchClient {
               | "diners"
               | "discover"
               | "eftpos_au"
+              | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -27318,10 +27688,15 @@ export class ApiClient extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
+              filters?: {
+                account_subcategories?: ("checking" | "savings")[]
+              }
               permissions?: (
                 | "balances"
                 | "ownership"
@@ -27345,21 +27720,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/confirm`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSetupIntentsIntentVerifyMicrodeposits(
@@ -27373,22 +27743,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/setup_intents/${p["intent"]}/verify_microdeposits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getShippingRates(
@@ -27410,25 +27775,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_shipping_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_shipping_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/shipping_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -27442,7 +27806,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27483,21 +27847,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getShippingRatesShippingRateToken(
@@ -27507,20 +27866,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27550,21 +27908,38 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postSigmaSavedQueriesId(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+        name?: string
+        sql?: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_sigma_sigma_api_query> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/sigma/saved_queries/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSigmaScheduledQueryRuns(
@@ -27576,25 +27951,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_scheduled_query_run[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_scheduled_query_run[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sigma/scheduled_query_runs`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -27605,7 +27979,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27617,23 +27991,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27726,21 +28097,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSourcesSource(
@@ -27751,14 +28117,13 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       client_secret: p["clientSecret"],
       expand: p["expand"],
@@ -27767,7 +28132,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27849,21 +28214,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSourcesSourceMandateNotificationsMandateNotification(
@@ -27874,24 +28234,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
-    >
+    Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/mandate_notifications/${p["mandateNotification"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27906,25 +28265,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_source_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_source_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/source_transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -27935,7 +28293,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27948,24 +28306,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_source_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_source_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -27979,21 +28334,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}/verify`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionItems(
@@ -28006,25 +28356,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -28036,7 +28385,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28044,11 +28393,6 @@ export class ApiClient extends AbstractFetchClient {
   async postSubscriptionItems(
     p: {
       requestBody: {
-        billing_thresholds?:
-          | {
-              usage_gte: number
-            }
-          | ""
         discounts?:
           | {
               coupon?: string
@@ -28085,21 +28429,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteSubscriptionItemsItem(
@@ -28112,21 +28451,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -28138,20 +28474,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28160,11 +28495,6 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       item: string
       requestBody?: {
-        billing_thresholds?:
-          | {
-              usage_gte: number
-            }
-          | ""
         discounts?:
           | {
               coupon?: string
@@ -28203,97 +28533,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
-    p: {
-      endingBefore?: string
-      expand?: string[]
-      limit?: number
-      startingAfter?: string
-      subscriptionItem: string
-      requestBody?: EmptyObject
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_usage_record_summary[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
-  > {
-    const url =
-      this.basePath +
-      `/v1/subscription_items/${p["subscriptionItem"]}/usage_record_summaries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const query = this._query({
-      ending_before: p["endingBefore"],
-      expand: p["expand"],
-      limit: p["limit"],
-      starting_after: p["startingAfter"],
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async postSubscriptionItemsSubscriptionItemUsageRecords(
-    p: {
-      subscriptionItem: string
-      requestBody: {
-        action?: "increment" | "set"
-        expand?: string[]
-        quantity: number
-        timestamp?: "now" | number
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_usage_record> | Res<StatusCode, t_error>>
-  > {
-    const url =
-      this.basePath +
-      `/v1/subscription_items/${p["subscriptionItem"]}/usage_records`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionSchedules(
@@ -28339,25 +28588,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription_schedule[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription_schedule[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_schedules`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       canceled_at: p["canceledAt"],
       completed_at: p["completedAt"],
@@ -28374,7 +28622,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28393,12 +28641,6 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
           collection_method?: "charge_automatically" | "send_invoice"
           default_payment_method?: string
           description?: string | ""
@@ -28453,14 +28695,7 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
           collection_method?: "charge_automatically" | "send_invoice"
-          coupon?: string
           currency?: string
           default_payment_method?: string
           default_tax_rates?: string[] | ""
@@ -28482,11 +28717,6 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           items: {
-            billing_thresholds?:
-              | {
-                  usage_gte: number
-                }
-              | ""
             discounts?:
               | {
                   coupon?: string
@@ -28529,23 +28759,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionSchedulesSchedule(
@@ -28555,22 +28778,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28589,12 +28809,6 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
           collection_method?: "charge_automatically" | "send_invoice"
           default_payment_method?: string
           description?: string | ""
@@ -28648,14 +28862,7 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           billing_cycle_anchor?: "automatic" | "phase_start"
-          billing_thresholds?:
-            | {
-                amount_gte?: number
-                reset_billing_cycle_anchor?: boolean
-              }
-            | ""
           collection_method?: "charge_automatically" | "send_invoice"
-          coupon?: string
           default_payment_method?: string
           default_tax_rates?: string[] | ""
           description?: string | ""
@@ -28676,11 +28883,6 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           items: {
-            billing_thresholds?:
-              | {
-                  usage_gte: number
-                }
-              | ""
             discounts?:
               | {
                   coupon?: string
@@ -28724,23 +28926,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleCancel(
@@ -28753,24 +28948,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postSubscriptionSchedulesScheduleRelease(
@@ -28782,24 +28970,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/release`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptions(
@@ -28853,25 +29034,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       automatic_tax: p["automaticTax"],
       collection_method: p["collectionMethod"],
@@ -28891,7 +29071,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -28933,16 +29113,9 @@ export class ApiClient extends AbstractFetchClient {
           month?: number
           second?: number
         }
-        billing_thresholds?:
-          | {
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }
-          | ""
         cancel_at?: number
         cancel_at_period_end?: boolean
         collection_method?: "charge_automatically" | "send_invoice"
-        coupon?: string
         currency?: string
         customer: string
         days_until_due?: number
@@ -28966,11 +29139,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
           discounts?:
             | {
                 coupon?: string
@@ -29039,8 +29207,10 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -29064,6 +29234,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -29084,6 +29257,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -29096,14 +29270,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -29116,7 +29301,6 @@ export class ApiClient extends AbstractFetchClient {
               interval_count?: number
             }
           | ""
-        promotion_code?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
         transfer_data?: {
           amount_percent?: number
@@ -29133,21 +29317,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscriptions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getSubscriptionsSearch(
@@ -29159,27 +29338,26 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions/search`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       expand: p["expand"],
       limit: p["limit"],
@@ -29190,7 +29368,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29218,20 +29396,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -29243,21 +29420,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29292,12 +29468,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         billing_cycle_anchor?: "now" | "unchanged"
-        billing_thresholds?:
-          | {
-              amount_gte?: number
-              reset_billing_cycle_anchor?: boolean
-            }
-          | ""
         cancel_at?: number | ""
         cancel_at_period_end?: boolean
         cancellation_details?: {
@@ -29314,7 +29484,6 @@ export class ApiClient extends AbstractFetchClient {
             | "unused"
         }
         collection_method?: "charge_automatically" | "send_invoice"
-        coupon?: string
         days_until_due?: number
         default_payment_method?: string
         default_source?: string | ""
@@ -29336,11 +29505,6 @@ export class ApiClient extends AbstractFetchClient {
           }
         }
         items?: {
-          billing_thresholds?:
-            | {
-                usage_gte: number
-              }
-            | ""
           clear_usage?: boolean
           deleted?: boolean
           discounts?:
@@ -29420,8 +29584,10 @@ export class ApiClient extends AbstractFetchClient {
                     | "diners"
                     | "discover"
                     | "eftpos_au"
+                    | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -29445,6 +29611,9 @@ export class ApiClient extends AbstractFetchClient {
             us_bank_account?:
               | {
                   financial_connections?: {
+                    filters?: {
+                      account_subcategories?: ("checking" | "savings")[]
+                    }
                     permissions?: (
                       | "balances"
                       | "ownership"
@@ -29465,6 +29634,7 @@ export class ApiClient extends AbstractFetchClient {
                 | "ach_credit_transfer"
                 | "ach_debit"
                 | "acss_debit"
+                | "amazon_pay"
                 | "au_becs_debit"
                 | "bacs_debit"
                 | "bancontact"
@@ -29477,14 +29647,25 @@ export class ApiClient extends AbstractFetchClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
+                | "klarna"
                 | "konbini"
+                | "kr_card"
                 | "link"
+                | "multibanco"
+                | "naver_pay"
+                | "nz_bank_account"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
+                | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
+                | "swish"
                 | "us_bank_account"
                 | "wechat_pay"
               )[]
@@ -29497,7 +29678,6 @@ export class ApiClient extends AbstractFetchClient {
               interval_count?: number
             }
           | ""
-        promotion_code?: string
         proration_behavior?: "always_invoice" | "create_prorations" | "none"
         proration_date?: number
         transfer_data?:
@@ -29516,22 +29696,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteSubscriptionsSubscriptionExposedIdDiscount(
@@ -29540,20 +29715,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -29569,21 +29743,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscriptions/${p["subscription"]}/resume`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxCalculations(
@@ -29606,25 +29775,35 @@ export class ApiClient extends AbstractFetchClient {
             type:
               | "ad_nrt"
               | "ae_trn"
+              | "al_tin"
+              | "am_tin"
+              | "ao_tin"
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "ba_tin"
+              | "bb_tin"
               | "bg_uic"
               | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "bs_tin"
+              | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
               | "ca_pst_bc"
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "cd_nif"
+              | "ch_uid"
               | "ch_vat"
               | "cl_tin"
               | "cn_tin"
               | "co_nit"
               | "cr_tin"
+              | "de_stn"
               | "do_rcn"
               | "ec_ruc"
               | "eg_tin"
@@ -29633,7 +29812,9 @@ export class ApiClient extends AbstractFetchClient {
               | "eu_vat"
               | "gb_vat"
               | "ge_vat"
+              | "gn_nif"
               | "hk_br"
+              | "hr_oib"
               | "hu_tin"
               | "id_npwp"
               | "il_vat"
@@ -29643,9 +29824,16 @@ export class ApiClient extends AbstractFetchClient {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kh_tin"
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "li_vat"
+              | "ma_vat"
+              | "md_vat"
+              | "me_pib"
+              | "mk_vat"
+              | "mr_nif"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -29653,6 +29841,7 @@ export class ApiClient extends AbstractFetchClient {
               | "ng_tin"
               | "no_vat"
               | "no_voec"
+              | "np_pan"
               | "nz_gst"
               | "om_vat"
               | "pe_ruc"
@@ -29665,16 +29854,25 @@ export class ApiClient extends AbstractFetchClient {
               | "sg_gst"
               | "sg_uen"
               | "si_tin"
+              | "sn_ninea"
+              | "sr_fin"
               | "sv_nit"
               | "th_vat"
+              | "tj_tin"
               | "tr_tin"
               | "tw_vat"
+              | "tz_vat"
               | "ua_vat"
+              | "ug_tin"
               | "us_ein"
               | "uy_ruc"
+              | "uz_tin"
+              | "uz_vat"
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
+              | "zm_tin"
+              | "zw_tin"
             value: string
           }[]
           taxability_override?: "customer_exempt" | "none" | "reverse_charge"
@@ -29688,6 +29886,16 @@ export class ApiClient extends AbstractFetchClient {
           tax_behavior?: "exclusive" | "inclusive"
           tax_code?: string
         }[]
+        ship_from_details?: {
+          address: {
+            city?: string | ""
+            country: string
+            line1?: string | ""
+            line2?: string | ""
+            postal_code?: string | ""
+            state?: string | ""
+          }
+        }
         shipping_cost?: {
           amount?: number
           shipping_rate?: string
@@ -29698,19 +29906,38 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_calculation> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/calculations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async getTaxCalculationsCalculation(
+    p: {
+      calculation: string
+      expand?: string[]
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_calculation> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      url + query,
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29725,26 +29952,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_calculation_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_calculation_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/tax/calculations/${p["calculation"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -29755,7 +29981,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29770,25 +29996,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_registration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_registration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax/registrations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -29800,7 +30025,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -29814,6 +30039,15 @@ export class ApiClient extends AbstractFetchClient {
           ae?: {
             type: "standard"
           }
+          al?: {
+            type: "standard"
+          }
+          am?: {
+            type: "simplified"
+          }
+          ao?: {
+            type: "standard"
+          }
           at?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -29821,6 +30055,12 @@ export class ApiClient extends AbstractFetchClient {
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
           au?: {
+            type: "standard"
+          }
+          ba?: {
+            type: "standard"
+          }
+          bb?: {
             type: "standard"
           }
           be?: {
@@ -29835,11 +30075,23 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          bh?: {
+            type: "standard"
+          }
+          bs?: {
+            type: "standard"
+          }
+          by?: {
+            type: "simplified"
+          }
           ca?: {
             province_standard?: {
               province: string
             }
             type: "province_standard" | "simplified" | "standard"
+          }
+          cd?: {
+            type: "standard"
           }
           ch?: {
             type: "standard"
@@ -29848,6 +30100,9 @@ export class ApiClient extends AbstractFetchClient {
             type: "simplified"
           }
           co?: {
+            type: "simplified"
+          }
+          cr?: {
             type: "simplified"
           }
           cy?: {
@@ -29874,11 +30129,17 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          ec?: {
+            type: "simplified"
+          }
           ee?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+          }
+          eg?: {
+            type: "simplified"
           }
           es?: {
             standard?: {
@@ -29899,6 +30160,12 @@ export class ApiClient extends AbstractFetchClient {
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
           gb?: {
+            type: "standard"
+          }
+          ge?: {
+            type: "simplified"
+          }
+          gn?: {
             type: "standard"
           }
           gr?: {
@@ -29940,7 +30207,16 @@ export class ApiClient extends AbstractFetchClient {
           jp?: {
             type: "standard"
           }
+          ke?: {
+            type: "simplified"
+          }
+          kh?: {
+            type: "simplified"
+          }
           kr?: {
+            type: "simplified"
+          }
+          kz?: {
             type: "simplified"
           }
           lt?: {
@@ -29961,6 +30237,21 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          ma?: {
+            type: "simplified"
+          }
+          md?: {
+            type: "simplified"
+          }
+          me?: {
+            type: "standard"
+          }
+          mk?: {
+            type: "standard"
+          }
+          mr?: {
+            type: "standard"
+          }
           mt?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -29973,6 +30264,9 @@ export class ApiClient extends AbstractFetchClient {
           my?: {
             type: "simplified"
           }
+          ng?: {
+            type: "simplified"
+          }
           nl?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -29982,8 +30276,17 @@ export class ApiClient extends AbstractFetchClient {
           no?: {
             type: "standard"
           }
+          np?: {
+            type: "simplified"
+          }
           nz?: {
             type: "standard"
+          }
+          om?: {
+            type: "standard"
+          }
+          pe?: {
+            type: "simplified"
           }
           pl?: {
             standard?: {
@@ -30002,6 +30305,12 @@ export class ApiClient extends AbstractFetchClient {
               place_of_supply_scheme: "small_seller" | "standard"
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+          }
+          rs?: {
+            type: "standard"
+          }
+          ru?: {
+            type: "simplified"
           }
           sa?: {
             type: "simplified"
@@ -30027,10 +30336,25 @@ export class ApiClient extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          sn?: {
+            type: "simplified"
+          }
+          sr?: {
+            type: "standard"
+          }
           th?: {
             type: "simplified"
           }
+          tj?: {
+            type: "simplified"
+          }
           tr?: {
+            type: "simplified"
+          }
+          tz?: {
+            type: "simplified"
+          }
+          ug?: {
             type: "simplified"
           }
           us?: {
@@ -30041,16 +30365,38 @@ export class ApiClient extends AbstractFetchClient {
               jurisdiction: string
             }
             state: string
+            state_sales_tax?: {
+              elections: {
+                jurisdiction?: string
+                type:
+                  | "local_use_tax"
+                  | "simplified_sellers_use_tax"
+                  | "single_local_use_tax"
+              }[]
+            }
             type:
               | "local_amusement_tax"
               | "local_lease_tax"
               | "state_communications_tax"
+              | "state_retail_delivery_fee"
               | "state_sales_tax"
+          }
+          uy?: {
+            type: "standard"
+          }
+          uz?: {
+            type: "simplified"
           }
           vn?: {
             type: "simplified"
           }
           za?: {
+            type: "standard"
+          }
+          zm?: {
+            type: "simplified"
+          }
+          zw?: {
             type: "standard"
           }
         }
@@ -30059,21 +30405,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxRegistrationsId(
@@ -30083,20 +30424,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30111,21 +30451,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxSettings(
@@ -30134,20 +30469,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_settings> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/settings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30173,21 +30507,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_settings> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/settings`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxTransactionsCreateFromCalculation(
@@ -30198,25 +30527,21 @@ export class ApiClient extends AbstractFetchClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        posted_at?: number
         reference: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/create_from_calculation`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTaxTransactionsCreateReversal(
@@ -30247,21 +30572,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/create_reversal`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxTransactionsTransaction(
@@ -30271,20 +30591,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30299,26 +30618,25 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_transaction_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_transaction_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/tax/transactions/${p["transaction"]}/line_items`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30329,7 +30647,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30343,25 +30661,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_code[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_code[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_codes`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30372,7 +30689,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30384,20 +30701,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30416,25 +30732,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_id[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_id[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30446,7 +30761,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30463,25 +30778,35 @@ export class ApiClient extends AbstractFetchClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
+          | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
           | "ca_pst_bc"
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
+          | "ch_uid"
           | "ch_vat"
           | "cl_tin"
           | "cn_tin"
           | "co_nit"
           | "cr_tin"
+          | "de_stn"
           | "do_rcn"
           | "ec_ruc"
           | "eg_tin"
@@ -30490,7 +30815,9 @@ export class ApiClient extends AbstractFetchClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
+          | "hr_oib"
           | "hu_tin"
           | "id_npwp"
           | "il_vat"
@@ -30500,9 +30827,16 @@ export class ApiClient extends AbstractFetchClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "li_vat"
+          | "ma_vat"
+          | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -30510,6 +30844,7 @@ export class ApiClient extends AbstractFetchClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -30522,35 +30857,39 @@ export class ApiClient extends AbstractFetchClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
+          | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
+          | "uz_tin"
+          | "uz_vat"
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTaxIdsId(
@@ -30559,19 +30898,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -30583,20 +30921,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30620,25 +30957,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       active: p["active"],
       created: p["created"],
@@ -30652,7 +30988,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30682,27 +31018,24 @@ export class ApiClient extends AbstractFetchClient {
           | "lease_tax"
           | "pst"
           | "qst"
+          | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
+          | "service_tax"
           | "vat"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTaxRatesTaxRate(
@@ -30712,20 +31045,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30756,27 +31088,24 @@ export class ApiClient extends AbstractFetchClient {
           | "lease_tax"
           | "pst"
           | "qst"
+          | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
+          | "service_tax"
           | "vat"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalConfigurations(
@@ -30789,25 +31118,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -30819,7 +31147,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -30837,6 +31165,13 @@ export class ApiClient extends AbstractFetchClient {
               enabled: boolean
             }
           | ""
+        reboot_window?: {
+          end_hour: number
+          start_hour: number
+        }
+        stripe_s700?: {
+          splashscreen?: string | ""
+        }
         tipping?:
           | {
               aud?: {
@@ -30879,6 +31214,11 @@ export class ApiClient extends AbstractFetchClient {
                 percentages?: number[]
                 smart_tip_threshold?: number
               }
+              jpy?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               myr?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
@@ -30890,6 +31230,11 @@ export class ApiClient extends AbstractFetchClient {
                 smart_tip_threshold?: number
               }
               nzd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              pln?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -30914,26 +31259,44 @@ export class ApiClient extends AbstractFetchClient {
         verifone_p400?: {
           splashscreen?: string | ""
         }
+        wifi?:
+          | {
+              enterprise_eap_peap?: {
+                ca_certificate_file?: string
+                password: string
+                ssid: string
+                username: string
+              }
+              enterprise_eap_tls?: {
+                ca_certificate_file?: string
+                client_certificate_file: string
+                private_key_file: string
+                private_key_file_password?: string
+                ssid: string
+              }
+              personal_psk?: {
+                password: string
+                ssid: string
+              }
+              type:
+                | "enterprise_eap_peap"
+                | "enterprise_eap_tls"
+                | "personal_psk"
+            }
+          | ""
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_terminal_configuration> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_configuration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/configurations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalConfigurationsConfiguration(
@@ -30942,22 +31305,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -30969,24 +31331,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31005,6 +31366,17 @@ export class ApiClient extends AbstractFetchClient {
         offline?:
           | {
               enabled: boolean
+            }
+          | ""
+        reboot_window?:
+          | {
+              end_hour: number
+              start_hour: number
+            }
+          | ""
+        stripe_s700?:
+          | {
+              splashscreen?: string | ""
             }
           | ""
         tipping?:
@@ -31049,6 +31421,11 @@ export class ApiClient extends AbstractFetchClient {
                 percentages?: number[]
                 smart_tip_threshold?: number
               }
+              jpy?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               myr?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
@@ -31060,6 +31437,11 @@ export class ApiClient extends AbstractFetchClient {
                 smart_tip_threshold?: number
               }
               nzd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              pln?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -31086,28 +31468,48 @@ export class ApiClient extends AbstractFetchClient {
               splashscreen?: string | ""
             }
           | ""
+        wifi?:
+          | {
+              enterprise_eap_peap?: {
+                ca_certificate_file?: string
+                password: string
+                ssid: string
+                username: string
+              }
+              enterprise_eap_tls?: {
+                ca_certificate_file?: string
+                client_certificate_file: string
+                private_key_file: string
+                private_key_file_password?: string
+                ssid: string
+              }
+              personal_psk?: {
+                password: string
+                ssid: string
+              }
+              type:
+                | "enterprise_eap_peap"
+                | "enterprise_eap_tls"
+                | "personal_psk"
+            }
+          | ""
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalConnectionTokens(
@@ -31118,23 +31520,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/connection_tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalLocations(
@@ -31146,25 +31541,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_location[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_location[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -31175,7 +31569,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31202,21 +31596,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_location> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_location> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/locations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalLocationsLocation(
@@ -31225,21 +31614,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -31251,23 +31637,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_location | t_deleted_terminal_location>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_location | t_deleted_terminal_location>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31295,24 +31680,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_location | t_deleted_terminal_location>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_location | t_deleted_terminal_location>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTerminalReaders(
@@ -31324,6 +31704,7 @@ export class ApiClient extends AbstractFetchClient {
         | "mobile_phone_reader"
         | "simulated_wisepos_e"
         | "stripe_m2"
+        | "stripe_s700"
         | "verifone_P400"
       endingBefore?: string
       expand?: string[]
@@ -31335,25 +31716,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_reader[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_reader[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       device_type: p["deviceType"],
       ending_before: p["endingBefore"],
@@ -31368,7 +31748,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31388,21 +31768,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/readers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTerminalReadersReader(
@@ -31411,21 +31786,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -31437,23 +31809,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -31472,24 +31843,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderCancelAction(
@@ -31500,22 +31866,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/cancel_action`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderProcessPaymentIntent(
@@ -31525,6 +31886,7 @@ export class ApiClient extends AbstractFetchClient {
         expand?: string[]
         payment_intent: string
         process_config?: {
+          allow_redisplay?: "always" | "limited" | "unspecified"
           enable_customer_cancellation?: boolean
           skip_tipping?: boolean
           tipping?: {
@@ -31534,30 +31896,25 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/terminal/readers/${p["reader"]}/process_payment_intent`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderProcessSetupIntent(
     p: {
       reader: string
       requestBody: {
-        customer_consent_collected: boolean
+        allow_redisplay: "always" | "limited" | "unspecified"
         expand?: string[]
         process_config?: {
           enable_customer_cancellation?: boolean
@@ -31566,22 +31923,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/process_setup_intent`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderRefundPayment(
@@ -31603,22 +31955,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/refund_payment`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTerminalReadersReaderSetReaderDisplay(
@@ -31640,22 +31987,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/set_reader_display`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersConfirmationTokens(
@@ -31673,6 +32015,7 @@ export class ApiClient extends AbstractFetchClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -31683,6 +32026,7 @@ export class ApiClient extends AbstractFetchClient {
             sort_code?: string
           }
           bancontact?: EmptyObject
+          billie?: EmptyObject
           billing_details?: {
             address?:
               | {
@@ -31782,6 +32126,7 @@ export class ApiClient extends AbstractFetchClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -31790,11 +32135,24 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
+          multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
+          nz_bank_account?: {
+            account_holder_name?: string
+            account_number: string
+            bank_code: string
+            branch_code: string
+            reference?: string
+            suffix: string
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -31825,6 +32183,8 @@ export class ApiClient extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -31833,6 +32193,8 @@ export class ApiClient extends AbstractFetchClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
+          satispay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -31840,15 +32202,18 @@ export class ApiClient extends AbstractFetchClient {
             country: "AT" | "BE" | "DE" | "ES" | "IT" | "NL"
           }
           swish?: EmptyObject
+          twint?: EmptyObject
           type:
             | "acss_debit"
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "cashapp"
@@ -31858,20 +32223,30 @@ export class ApiClient extends AbstractFetchClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
+            | "multibanco"
+            | "naver_pay"
+            | "nz_bank_account"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
+            | "twint"
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
@@ -31902,23 +32277,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_confirmation_token> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_confirmation_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/confirmation_tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersCustomersCustomerFundCashBalance(
@@ -31932,31 +32300,26 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/customers/${p["customer"]}/fund_cash_balance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizations(
     p: {
       requestBody: {
-        amount: number
+        amount?: number
         amount_details?: {
           atm_fee?: number
           cashback_amount?: number
@@ -31970,7 +32333,58 @@ export class ApiClient extends AbstractFetchClient {
         card: string
         currency?: string
         expand?: string[]
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
+        fuel?: {
+          industry_product_code?: string
+          quantity_decimal?: string
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?:
+            | "charging_minute"
+            | "imperial_gallon"
+            | "kilogram"
+            | "kilowatt_hour"
+            | "liter"
+            | "other"
+            | "pound"
+            | "us_gallon"
+          unit_cost_decimal?: string
+        }
         is_amount_controllable?: boolean
+        merchant_amount?: number
+        merchant_currency?: string
         merchant_data?: {
           category?:
             | "ac_refrigeration_repair"
@@ -32303,23 +32717,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/issuing/authorizations`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationCapture(
@@ -32330,6 +32737,35 @@ export class ApiClient extends AbstractFetchClient {
         close_authorization?: boolean
         expand?: string[]
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -32345,15 +32781,24 @@ export class ApiClient extends AbstractFetchClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -32370,25 +32815,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationExpire(
@@ -32399,25 +32837,113 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount(
+    p: {
+      authorization: string
+      requestBody: {
+        expand?: string[]
+        final_amount: number
+        fleet?: {
+          cardholder_prompt_data?: {
+            driver_id?: string
+            odometer?: number
+            unspecified_id?: string
+            user_id?: string
+            vehicle_number?: string
+          }
+          purchase_type?:
+            | "fuel_and_non_fuel_purchase"
+            | "fuel_purchase"
+            | "non_fuel_purchase"
+          reported_breakdown?: {
+            fuel?: {
+              gross_amount_decimal?: string
+            }
+            non_fuel?: {
+              gross_amount_decimal?: string
+            }
+            tax?: {
+              local_amount_decimal?: string
+              national_amount_decimal?: string
+            }
+          }
+          service_type?:
+            | "full_service"
+            | "non_fuel_transaction"
+            | "self_service"
+        }
+        fuel?: {
+          industry_product_code?: string
+          quantity_decimal?: string
+          type?:
+            | "diesel"
+            | "other"
+            | "unleaded_plus"
+            | "unleaded_regular"
+            | "unleaded_super"
+          unit?:
+            | "charging_minute"
+            | "imperial_gallon"
+            | "kilogram"
+            | "kilowatt_hour"
+            | "liter"
+            | "other"
+            | "pound"
+            | "us_gallon"
+          unit_cost_decimal?: string
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond(
+    p: {
+      authorization: string
+      requestBody: {
+        confirmed: boolean
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/fraud_challenges/respond`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationIncrement(
@@ -32430,25 +32956,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/increment`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingAuthorizationsAuthorizationReverse(
@@ -32460,25 +32979,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/reverse`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingDeliver(
@@ -32489,23 +33001,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/deliver`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingFail(
@@ -32516,23 +33023,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingReturn(
@@ -32543,23 +33045,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingCardsCardShippingShip(
@@ -32570,23 +33067,40 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingCardsCardShippingSubmit(
+    p: {
+      card: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/submit`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate(
@@ -32597,25 +33111,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/activate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate(
@@ -32626,25 +33135,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/deactivate`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject(
@@ -32676,25 +33180,70 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/personalization_designs/${p["personalizationDesign"]}/reject`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingSettlements(
+    p: {
+      requestBody: {
+        bin: string
+        clearing_date: number
+        currency: string
+        expand?: string[]
+        interchange_fees_amount?: number
+        net_total_amount: number
+        network?: "maestro" | "visa"
+        network_settlement_identifier?: string
+        transaction_amount?: number
+        transaction_count?: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
+    const url = this.basePath + `/v1/test_helpers/issuing/settlements`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingSettlementsSettlementComplete(
+    p: {
+      settlement: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/settlements/${p["settlement"]}/complete`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsCreateForceCapture(
@@ -33010,6 +33559,35 @@ export class ApiClient extends AbstractFetchClient {
           url?: string
         }
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -33025,15 +33603,24 @@ export class ApiClient extends AbstractFetchClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -33050,25 +33637,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_force_capture`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsCreateUnlinkedRefund(
@@ -33384,6 +33964,35 @@ export class ApiClient extends AbstractFetchClient {
           url?: string
         }
         purchase_details?: {
+          fleet?: {
+            cardholder_prompt_data?: {
+              driver_id?: string
+              odometer?: number
+              unspecified_id?: string
+              user_id?: string
+              vehicle_number?: string
+            }
+            purchase_type?:
+              | "fuel_and_non_fuel_purchase"
+              | "fuel_purchase"
+              | "non_fuel_purchase"
+            reported_breakdown?: {
+              fuel?: {
+                gross_amount_decimal?: string
+              }
+              non_fuel?: {
+                gross_amount_decimal?: string
+              }
+              tax?: {
+                local_amount_decimal?: string
+                national_amount_decimal?: string
+              }
+            }
+            service_type?:
+              | "full_service"
+              | "non_fuel_transaction"
+              | "self_service"
+          }
           flight?: {
             departure_at?: number
             passenger_name?: string
@@ -33399,15 +34008,24 @@ export class ApiClient extends AbstractFetchClient {
             travel_agency?: string
           }
           fuel?: {
+            industry_product_code?: string
+            quantity_decimal?: string
             type?:
               | "diesel"
               | "other"
               | "unleaded_plus"
               | "unleaded_regular"
               | "unleaded_super"
-            unit?: "liter" | "other" | "us_gallon"
+            unit?:
+              | "charging_minute"
+              | "imperial_gallon"
+              | "kilogram"
+              | "kilowatt_hour"
+              | "liter"
+              | "other"
+              | "pound"
+              | "us_gallon"
             unit_cost_decimal?: string
-            volume_decimal?: string
           }
           lodging?: {
             check_in_at?: number
@@ -33424,25 +34042,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_unlinked_refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersIssuingTransactionsTransactionRefund(
@@ -33454,25 +34065,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/${p["transaction"]}/refund`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersRefundsRefundExpire(
@@ -33483,21 +34087,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/refunds/${p["refund"]}/expire`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTerminalReadersReaderPresentPaymentMethod(
@@ -33516,23 +34115,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/terminal/readers/${p["reader"]}/present_payment_method`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTestHelpersTestClocks(
@@ -33544,25 +34138,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_test_helpers_test_clock[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_test_helpers_test_clock[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -33573,7 +34166,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -33587,23 +34180,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteTestHelpersTestClocksTestClock(
@@ -33612,21 +34198,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -33638,22 +34223,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -33667,24 +34249,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}/advance`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdFail(
@@ -33711,25 +34286,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdReturn(
@@ -33740,25 +34308,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryInboundTransfersIdSucceed(
@@ -33769,25 +34330,50 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/succeed`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersTreasuryOutboundPaymentsId(
+    p: {
+      id: string
+      requestBody: {
+        expand?: string[]
+        tracking_details: {
+          ach?: {
+            trace_id: string
+          }
+          type: "ach" | "us_domestic_wire"
+          us_domestic_wire?: {
+            chips?: string
+            imad?: string
+            omad?: string
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath + `/v1/test_helpers/treasury/outbound_payments/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdFail(
@@ -33798,25 +34384,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdPost(
@@ -33827,25 +34406,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/post`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundPaymentsIdReturn(
@@ -33869,25 +34441,53 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersTreasuryOutboundTransfersOutboundTransfer(
+    p: {
+      outboundTransfer: string
+      requestBody: {
+        expand?: string[]
+        tracking_details: {
+          ach?: {
+            trace_id: string
+          }
+          type: "ach" | "us_domestic_wire"
+          us_domestic_wire?: {
+            chips?: string
+            imad?: string
+            omad?: string
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferFail(
@@ -33898,25 +34498,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/fail`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferPost(
@@ -33927,25 +34522,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/post`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn(
@@ -33969,25 +34559,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_transfers/${p["outboundTransfer"]}/return`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedCredits(
@@ -34010,23 +34595,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/treasury/received_credits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTestHelpersTreasuryReceivedDebits(
@@ -34049,23 +34627,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/treasury/received_debits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTokens(
@@ -34105,6 +34676,11 @@ export class ApiClient extends AbstractFetchClient {
               town?: string
             }
             directors_provided?: boolean
+            directorship_declaration?: {
+              date?: number
+              ip?: string
+              user_agent?: string
+            }
             executives_provided?: boolean
             export_license_id?: string
             export_purpose_code?: string
@@ -34118,6 +34694,10 @@ export class ApiClient extends AbstractFetchClient {
               user_agent?: string
             }
             ownership_declaration_shown_and_signed?: boolean
+            ownership_exemption_reason?:
+              | ""
+              | "qualified_entity_exceeds_ownership_threshold"
+              | "qualifies_as_financial_institution"
             phone?: string
             registration_number?: string
             structure?:
@@ -34342,7 +34922,7 @@ export class ApiClient extends AbstractFetchClient {
             | ""
           nationality?: string
           phone?: string
-          political_exposure?: string
+          political_exposure?: "existing" | "none"
           registered_address?: {
             city?: string
             country?: string
@@ -34352,6 +34932,7 @@ export class ApiClient extends AbstractFetchClient {
             state?: string
           }
           relationship?: {
+            authorizer?: boolean
             director?: boolean
             executive?: boolean
             legal_guardian?: boolean
@@ -34378,19 +34959,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTokensToken(
@@ -34400,18 +34978,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34442,25 +35021,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_topup[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_topup[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/topups`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       amount: p["amount"],
       created: p["created"],
@@ -34474,7 +35052,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34497,19 +35075,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTopupsTopup(
@@ -34519,18 +35094,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34549,19 +35125,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async postTopupsTopupCancel(
@@ -34572,19 +35145,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfers(
@@ -34606,25 +35176,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       destination: p["destination"],
@@ -34638,7 +35207,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34660,21 +35229,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersIdReversals(
@@ -34687,25 +35251,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_transfer_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_transfer_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -34716,7 +35279,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34737,21 +35300,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersTransfer(
@@ -34761,20 +35319,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34793,21 +35350,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTransfersTransferReversalsId(
@@ -34818,21 +35370,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34851,22 +35402,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryCreditReversals(
@@ -34881,25 +35427,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_credit_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_credit_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -34913,7 +35458,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34929,23 +35474,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/credit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryCreditReversalsCreditReversal(
@@ -34955,23 +35493,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -34989,25 +35524,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_debit_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_debit_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35022,7 +35556,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35038,23 +35572,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/debit_reversals`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryDebitReversalsDebitReversal(
@@ -35064,23 +35591,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35102,25 +35626,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_financial_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_financial_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -35132,7 +35655,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35181,6 +35704,7 @@ export class ApiClient extends AbstractFetchClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        nickname?: string | ""
         platform_restrictions?: {
           inbound_flows?: "restricted" | "unrestricted"
           outbound_flows?: "restricted" | "unrestricted"
@@ -35189,23 +35713,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccount(
@@ -35215,23 +35734,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35278,9 +35796,15 @@ export class ApiClient extends AbstractFetchClient {
             }
           }
         }
+        forwarding_settings?: {
+          financial_account?: string
+          payment_method?: string
+          type: "financial_account" | "payment_method"
+        }
         metadata?: {
           [key: string]: string | undefined
         }
+        nickname?: string | ""
         platform_restrictions?: {
           inbound_flows?: "restricted" | "unrestricted"
           outbound_flows?: "restricted" | "unrestricted"
@@ -35288,24 +35812,48 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTreasuryFinancialAccountsFinancialAccountClose(
+    p: {
+      financialAccount: string
+      requestBody?: {
+        expand?: string[]
+        forwarding_settings?: {
+          financial_account?: string
+          payment_method?: string
+          type: "financial_account" | "payment_method"
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath +
+      `/v1/treasury/financial_accounts/${p["financialAccount"]}/close`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryFinancialAccountsFinancialAccountFeatures(
@@ -35315,24 +35863,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35380,25 +35927,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/treasury/financial_accounts/${p["financialAccount"]}/features`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryInboundTransfers(
@@ -35412,25 +35954,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_inbound_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_inbound_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35443,7 +35984,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35464,23 +36005,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryInboundTransfersId(
@@ -35490,22 +36024,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35518,25 +36049,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/treasury/inbound_transfers/${p["inboundTransfer"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundPayments(
@@ -35559,25 +36083,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_outbound_payment[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_outbound_payment[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       customer: p["customer"],
@@ -35592,7 +36115,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35654,23 +36177,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/outbound_payments`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundPaymentsId(
@@ -35680,22 +36196,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35708,24 +36221,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/outbound_payments/${p["id"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundTransfers(
@@ -35739,25 +36245,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_outbound_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_outbound_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35770,7 +36275,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35782,6 +36287,10 @@ export class ApiClient extends AbstractFetchClient {
         currency: string
         description?: string
         destination_payment_method?: string
+        destination_payment_method_data?: {
+          financial_account?: string
+          type: "financial_account"
+        }
         destination_payment_method_options?: {
           us_bank_account?:
             | {
@@ -35798,23 +36307,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryOutboundTransfersOutboundTransfer(
@@ -35824,23 +36328,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35853,25 +36356,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
       `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}/cancel`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getTreasuryReceivedCredits(
@@ -35885,6 +36383,7 @@ export class ApiClient extends AbstractFetchClient {
           | "credit_reversal"
           | "other"
           | "outbound_payment"
+          | "outbound_transfer"
           | "payout"
       }
       startingAfter?: string
@@ -35892,25 +36391,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_received_credit[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_received_credit[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_credits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35924,7 +36422,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35936,22 +36434,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -35967,25 +36462,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_received_debit[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_received_debit[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_debits`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -35998,7 +36492,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36010,22 +36504,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36058,25 +36549,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_transaction_entry[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_transaction_entry[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       effective_at: p["effectiveAt"],
@@ -36092,7 +36582,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36104,22 +36594,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36154,25 +36643,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transactions`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       created: p["created"],
       ending_before: p["endingBefore"],
@@ -36188,7 +36676,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36200,22 +36688,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_treasury_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36229,25 +36714,24 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_webhook_endpoint[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_webhook_endpoint[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({
       ending_before: p["endingBefore"],
       expand: p["expand"],
@@ -36258,7 +36742,7 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36368,6 +36852,15 @@ export class ApiClient extends AbstractFetchClient {
           | "2023-08-16"
           | "2023-10-16"
           | "2024-04-10"
+          | "2024-06-20"
+          | "2024-09-30.acacia"
+          | "2024-10-28.acacia"
+          | "2024-11-20.acacia"
+          | "2024-12-18.acacia"
+          | "2025-01-27.acacia"
+          | "2025-02-24.acacia"
+          | "2025-03-01.dashboard"
+          | "2025-03-31.basil"
         connect?: boolean
         description?: string | ""
         enabled_events: (
@@ -36382,6 +36875,7 @@ export class ApiClient extends AbstractFetchClient {
           | "application_fee.refund.updated"
           | "application_fee.refunded"
           | "balance.available"
+          | "billing.alert.triggered"
           | "billing_portal.configuration.created"
           | "billing_portal.configuration.updated"
           | "billing_portal.session.created"
@@ -36459,6 +36953,8 @@ export class ApiClient extends AbstractFetchClient {
           | "invoice.finalization_failed"
           | "invoice.finalized"
           | "invoice.marked_uncollectible"
+          | "invoice.overdue"
+          | "invoice.overpaid"
           | "invoice.paid"
           | "invoice.payment_action_required"
           | "invoice.payment_failed"
@@ -36467,6 +36963,7 @@ export class ApiClient extends AbstractFetchClient {
           | "invoice.upcoming"
           | "invoice.updated"
           | "invoice.voided"
+          | "invoice.will_be_due"
           | "invoiceitem.created"
           | "invoiceitem.deleted"
           | "issuing_authorization.created"
@@ -36479,11 +36976,17 @@ export class ApiClient extends AbstractFetchClient {
           | "issuing_dispute.closed"
           | "issuing_dispute.created"
           | "issuing_dispute.funds_reinstated"
+          | "issuing_dispute.funds_rescinded"
           | "issuing_dispute.submitted"
           | "issuing_dispute.updated"
+          | "issuing_personalization_design.activated"
+          | "issuing_personalization_design.deactivated"
+          | "issuing_personalization_design.rejected"
+          | "issuing_personalization_design.updated"
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"
+          | "issuing_transaction.purchase_details_receipt_updated"
           | "issuing_transaction.updated"
           | "mandate.updated"
           | "payment_intent.amount_capturable_updated"
@@ -36527,6 +37030,7 @@ export class ApiClient extends AbstractFetchClient {
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
           | "refund.created"
+          | "refund.failed"
           | "refund.updated"
           | "reporting.report_run.failed"
           | "reporting.report_run.succeeded"
@@ -36589,12 +37093,14 @@ export class ApiClient extends AbstractFetchClient {
           | "treasury.outbound_payment.failed"
           | "treasury.outbound_payment.posted"
           | "treasury.outbound_payment.returned"
+          | "treasury.outbound_payment.tracking_details_updated"
           | "treasury.outbound_transfer.canceled"
           | "treasury.outbound_transfer.created"
           | "treasury.outbound_transfer.expected_arrival_date_updated"
           | "treasury.outbound_transfer.failed"
           | "treasury.outbound_transfer.posted"
           | "treasury.outbound_transfer.returned"
+          | "treasury.outbound_transfer.tracking_details_updated"
           | "treasury.received_credit.created"
           | "treasury.received_credit.failed"
           | "treasury.received_credit.succeeded"
@@ -36610,21 +37116,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deleteWebhookEndpointsWebhookEndpoint(
@@ -36633,21 +37134,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -36659,20 +37157,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const query = this._query({ expand: p["expand"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "GET", headers, body, ...(opts ?? {}) },
+      { method: "GET", body, ...opts, headers },
       timeout,
     )
   }
@@ -36695,6 +37192,7 @@ export class ApiClient extends AbstractFetchClient {
           | "application_fee.refund.updated"
           | "application_fee.refunded"
           | "balance.available"
+          | "billing.alert.triggered"
           | "billing_portal.configuration.created"
           | "billing_portal.configuration.updated"
           | "billing_portal.session.created"
@@ -36772,6 +37270,8 @@ export class ApiClient extends AbstractFetchClient {
           | "invoice.finalization_failed"
           | "invoice.finalized"
           | "invoice.marked_uncollectible"
+          | "invoice.overdue"
+          | "invoice.overpaid"
           | "invoice.paid"
           | "invoice.payment_action_required"
           | "invoice.payment_failed"
@@ -36780,6 +37280,7 @@ export class ApiClient extends AbstractFetchClient {
           | "invoice.upcoming"
           | "invoice.updated"
           | "invoice.voided"
+          | "invoice.will_be_due"
           | "invoiceitem.created"
           | "invoiceitem.deleted"
           | "issuing_authorization.created"
@@ -36792,11 +37293,17 @@ export class ApiClient extends AbstractFetchClient {
           | "issuing_dispute.closed"
           | "issuing_dispute.created"
           | "issuing_dispute.funds_reinstated"
+          | "issuing_dispute.funds_rescinded"
           | "issuing_dispute.submitted"
           | "issuing_dispute.updated"
+          | "issuing_personalization_design.activated"
+          | "issuing_personalization_design.deactivated"
+          | "issuing_personalization_design.rejected"
+          | "issuing_personalization_design.updated"
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"
+          | "issuing_transaction.purchase_details_receipt_updated"
           | "issuing_transaction.updated"
           | "mandate.updated"
           | "payment_intent.amount_capturable_updated"
@@ -36840,6 +37347,7 @@ export class ApiClient extends AbstractFetchClient {
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
           | "refund.created"
+          | "refund.failed"
           | "refund.updated"
           | "reporting.report_run.failed"
           | "reporting.report_run.succeeded"
@@ -36902,12 +37410,14 @@ export class ApiClient extends AbstractFetchClient {
           | "treasury.outbound_payment.failed"
           | "treasury.outbound_payment.posted"
           | "treasury.outbound_payment.returned"
+          | "treasury.outbound_payment.tracking_details_updated"
           | "treasury.outbound_transfer.canceled"
           | "treasury.outbound_transfer.created"
           | "treasury.outbound_transfer.expected_arrival_date_updated"
           | "treasury.outbound_transfer.failed"
           | "treasury.outbound_transfer.posted"
           | "treasury.outbound_transfer.returned"
+          | "treasury.outbound_transfer.tracking_details_updated"
           | "treasury.received_credit.created"
           | "treasury.received_credit.failed"
           | "treasury.received_credit.succeeded"
@@ -36923,20 +37433,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }
+
+export { ApiClient as ApiClient }
+export type { ApiClientConfig as ApiClientConfig }

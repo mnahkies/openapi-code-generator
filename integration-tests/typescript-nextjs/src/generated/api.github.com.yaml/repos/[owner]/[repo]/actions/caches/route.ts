@@ -56,12 +56,15 @@ const actionsGetActionsCacheListParamSchema = z.object({
 })
 
 const actionsGetActionsCacheListQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   ref: z.string().optional(),
   key: z.string().optional(),
-  sort: z.enum(["created_at", "last_accessed_at", "size_in_bytes"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
+  sort: z
+    .enum(["created_at", "last_accessed_at", "size_in_bytes"])
+    .optional()
+    .default("last_accessed_at"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
 })
 
 export const _GET =

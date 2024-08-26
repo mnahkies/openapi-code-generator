@@ -120,7 +120,7 @@ const reposUpdateReleaseBodySchema = z
     body: z.string().optional(),
     draft: PermissiveBoolean.optional(),
     prerelease: PermissiveBoolean.optional(),
-    make_latest: z.enum(["true", "false", "legacy"]).optional(),
+    make_latest: z.enum(["true", "false", "legacy"]).optional().default("true"),
     discussion_category_name: z.string().optional(),
   })
   .optional()

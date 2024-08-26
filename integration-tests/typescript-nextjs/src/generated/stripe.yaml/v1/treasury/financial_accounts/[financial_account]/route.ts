@@ -60,7 +60,12 @@ const getTreasuryFinancialAccountsFinancialAccountParamSchema = z.object({
 })
 
 const getTreasuryFinancialAccountsFinancialAccountQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getTreasuryFinancialAccountsFinancialAccountBodySchema = z
@@ -159,7 +164,15 @@ const postTreasuryFinancialAccountsFinancialAccountBodySchema = z
           .optional(),
       })
       .optional(),
+    forwarding_settings: z
+      .object({
+        financial_account: z.string().optional(),
+        payment_method: z.string().max(5000).optional(),
+        type: z.enum(["financial_account", "payment_method"]),
+      })
+      .optional(),
     metadata: z.record(z.string()).optional(),
+    nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
     platform_restrictions: z
       .object({
         inbound_flows: z.enum(["restricted", "unrestricted"]).optional(),

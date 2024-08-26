@@ -1,6 +1,6 @@
-import {_DELETE} from "../../../../../generated/stripe.yaml/v1/ephemeral_keys/[key]/route"
+import { _DELETE } from "../../../../../generated/stripe.yaml/v1/ephemeral_keys/[key]/route"
 
-export const DELETE = _DELETE(async ({params, body}, respond, context) => {
+export const DELETE = _DELETE(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

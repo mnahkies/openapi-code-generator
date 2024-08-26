@@ -60,7 +60,12 @@ const getTaxRatesTaxRateParamSchema = z.object({
 })
 
 const getTaxRatesTaxRateQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getTaxRatesTaxRateBodySchema = z.object({}).optional()
@@ -126,7 +131,7 @@ const postTaxRatesTaxRateBodySchema = z
     expand: z.array(z.string().max(5000)).optional(),
     jurisdiction: z.string().max(50).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-    state: z.string().max(2).optional(),
+    state: z.string().max(5000).optional(),
     tax_type: z
       .enum([
         "amusement_tax",
@@ -138,8 +143,10 @@ const postTaxRatesTaxRateBodySchema = z
         "lease_tax",
         "pst",
         "qst",
+        "retail_delivery_fee",
         "rst",
         "sales_tax",
+        "service_tax",
         "vat",
       ])
       .optional(),

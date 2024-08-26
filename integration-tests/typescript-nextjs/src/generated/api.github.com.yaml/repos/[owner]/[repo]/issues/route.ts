@@ -69,16 +69,20 @@ const issuesListForRepoParamSchema = z.object({
 
 const issuesListForRepoQuerySchema = z.object({
   milestone: z.string().optional(),
-  state: z.enum(["open", "closed", "all"]).optional(),
+  state: z.enum(["open", "closed", "all"]).optional().default("open"),
   assignee: z.string().optional(),
+  type: z.string().optional(),
   creator: z.string().optional(),
   mentioned: z.string().optional(),
   labels: z.string().optional(),
-  sort: z.enum(["created", "updated", "comments"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
+  sort: z
+    .enum(["created", "updated", "comments"])
+    .optional()
+    .default("created"),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
   since: z.string().datetime({ offset: true }).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -155,6 +159,7 @@ const issuesCreateBodySchema = z.object({
     )
     .optional(),
   assignees: z.array(z.string()).optional(),
+  type: z.string().nullable().optional(),
 })
 
 export const _POST =

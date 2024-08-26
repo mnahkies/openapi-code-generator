@@ -42,7 +42,7 @@ const reposGetClonesParamSchema = z.object({
 })
 
 const reposGetClonesQuerySchema = z.object({
-  per: z.enum(["day", "week"]).optional(),
+  per: z.enum(["day", "week"]).optional().default("day"),
 })
 
 export const _GET =

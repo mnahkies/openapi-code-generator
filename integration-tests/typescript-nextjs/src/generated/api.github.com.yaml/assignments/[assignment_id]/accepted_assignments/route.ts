@@ -3,8 +3,8 @@
 /* eslint-disable */
 
 import {
-  t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
-  t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+  t_ClassroomListAcceptedAssignmentsForAnAssignmentParamSchema,
+  t_ClassroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
   t_classroom_accepted_assignment,
 } from "../../../models"
 import {
@@ -20,44 +20,44 @@ import { Params, parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { NextRequest } from "next/server"
 import { z } from "zod"
 
-export type ClassroomListAcceptedAssigmentsForAnAssignmentResponder = {
+export type ClassroomListAcceptedAssignmentsForAnAssignmentResponder = {
   with200(): KoaRuntimeResponse<t_classroom_accepted_assignment[]>
 } & KoaRuntimeResponder
 
-export type ClassroomListAcceptedAssigmentsForAnAssignment = (
+export type ClassroomListAcceptedAssignmentsForAnAssignment = (
   params: Params<
-    t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
-    t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+    t_ClassroomListAcceptedAssignmentsForAnAssignmentParamSchema,
+    t_ClassroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
     void
   >,
-  respond: ClassroomListAcceptedAssigmentsForAnAssignmentResponder,
+  respond: ClassroomListAcceptedAssignmentsForAnAssignmentResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
-const classroomListAcceptedAssigmentsForAnAssignmentParamSchema = z.object({
+const classroomListAcceptedAssignmentsForAnAssignmentParamSchema = z.object({
   assignment_id: z.coerce.number(),
 })
 
-const classroomListAcceptedAssigmentsForAnAssignmentQuerySchema = z.object({
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+const classroomListAcceptedAssignmentsForAnAssignmentQuerySchema = z.object({
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
 })
 
 export const _GET =
-  (implementation: ClassroomListAcceptedAssigmentsForAnAssignment) =>
+  (implementation: ClassroomListAcceptedAssignmentsForAnAssignment) =>
   async (
     request: NextRequest,
     { params }: { params: unknown },
   ): Promise<Response> => {
     const input = {
       params: parseRequestInput(
-        classroomListAcceptedAssigmentsForAnAssignmentParamSchema,
+        classroomListAcceptedAssignmentsForAnAssignmentParamSchema,
         params,
         RequestInputType.RouteParam,
       ),
       // TODO: this swallows repeated parameters
       query: parseRequestInput(
-        classroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+        classroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
         Object.fromEntries(request.nextUrl.searchParams.entries()),
         RequestInputType.QueryString,
       ),

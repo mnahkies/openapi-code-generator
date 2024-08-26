@@ -63,7 +63,12 @@ const getForwardingRequestsQuerySchema = z.object({
     })
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -121,9 +126,16 @@ export const _GET =
 
 const postForwardingRequestsBodySchema = z.object({
   expand: z.array(z.string().max(5000)).optional(),
+  metadata: z.record(z.string()).optional(),
   payment_method: z.string().max(5000),
   replacements: z.array(
-    z.enum(["card_cvc", "card_expiry", "card_number", "cardholder_name"]),
+    z.enum([
+      "card_cvc",
+      "card_expiry",
+      "card_number",
+      "cardholder_name",
+      "request_signature",
+    ]),
   ),
   request: z
     .object({

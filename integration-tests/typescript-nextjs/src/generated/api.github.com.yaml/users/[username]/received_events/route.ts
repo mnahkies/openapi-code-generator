@@ -39,8 +39,8 @@ const activityListReceivedEventsForUserParamSchema = z.object({
 })
 
 const activityListReceivedEventsForUserQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

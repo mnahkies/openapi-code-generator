@@ -58,11 +58,14 @@ const codeScanningListAlertsForRepoParamSchema = z.object({
 const codeScanningListAlertsForRepoQuerySchema = z.object({
   tool_name: s_code_scanning_analysis_tool_name.optional(),
   tool_guid: s_code_scanning_analysis_tool_guid.optional(),
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
   ref: s_code_scanning_ref.optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  sort: z.enum(["created", "updated"]).optional(),
+  pr: z.coerce.number().optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  before: z.string().optional(),
+  after: z.string().optional(),
+  sort: z.enum(["created", "updated"]).optional().default("created"),
   state: s_code_scanning_alert_state_query.optional(),
   severity: s_code_scanning_alert_severity.optional(),
 })

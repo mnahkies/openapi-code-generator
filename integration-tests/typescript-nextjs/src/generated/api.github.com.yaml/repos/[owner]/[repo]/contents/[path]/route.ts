@@ -15,6 +15,7 @@ import {
   t_content_submodule,
   t_content_symlink,
   t_file_commit,
+  t_repository_rule_violation_error,
   t_validation_error,
 } from "../../../../../models"
 import {
@@ -38,6 +39,7 @@ export type ReposGetContentResponder = {
     | t_content_submodule
   >
   with302(): KoaRuntimeResponse<void>
+  with304(): KoaRuntimeResponse<void>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -56,7 +58,9 @@ export type ReposCreateOrUpdateFileContentsResponder = {
   with200(): KoaRuntimeResponse<t_file_commit>
   with201(): KoaRuntimeResponse<t_file_commit>
   with404(): KoaRuntimeResponse<t_basic_error>
-  with409(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<
+    t_basic_error | t_repository_rule_violation_error
+  >
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
@@ -132,6 +136,9 @@ export const _GET =
       },
       with302() {
         return new KoaRuntimeResponse<void>(302)
+      },
+      with304() {
+        return new KoaRuntimeResponse<void>(304)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -214,7 +221,9 @@ export const _PUT =
         return new KoaRuntimeResponse<t_basic_error>(404)
       },
       with409() {
-        return new KoaRuntimeResponse<t_basic_error>(409)
+        return new KoaRuntimeResponse<
+          t_basic_error | t_repository_rule_violation_error
+        >(409)
       },
       with422() {
         return new KoaRuntimeResponse<t_validation_error>(422)

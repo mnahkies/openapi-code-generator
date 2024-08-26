@@ -55,7 +55,12 @@ export type PostTerminalLocations = (
 
 const getTerminalLocationsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -120,7 +125,7 @@ const postTerminalLocationsBodySchema = z.object({
     postal_code: z.string().max(5000).optional(),
     state: z.string().max(5000).optional(),
   }),
-  configuration_overrides: z.string().max(1000).optional(),
+  configuration_overrides: z.string().max(500).optional(),
   display_name: z.string().max(1000),
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),

@@ -60,7 +60,12 @@ export type PostPaymentMethodConfigurations = (
 const getPaymentMethodConfigurationsQuerySchema = z.object({
   application: z.union([z.string().max(100), z.enum([""])]).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -146,6 +151,13 @@ const postPaymentMethodConfigurationsBodySchema = z
           .optional(),
       })
       .optional(),
+    alma: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     amazon_pay: z
       .object({
         display_preference: z
@@ -182,6 +194,13 @@ const postPaymentMethodConfigurationsBodySchema = z
       })
       .optional(),
     bancontact: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    billie: z
       .object({
         display_preference: z
           .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -301,7 +320,28 @@ const postPaymentMethodConfigurationsBodySchema = z
           .optional(),
       })
       .optional(),
+    mobilepay: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    multibanco: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     name: z.string().max(100).optional(),
+    nz_bank_account: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     oxxo: z
       .object({
         display_preference: z
@@ -317,6 +357,13 @@ const postPaymentMethodConfigurationsBodySchema = z
       })
       .optional(),
     parent: z.string().max(100).optional(),
+    pay_by_bank: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     paynow: z
       .object({
         display_preference: z
@@ -345,6 +392,13 @@ const postPaymentMethodConfigurationsBodySchema = z
           .optional(),
       })
       .optional(),
+    satispay: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
     sepa_debit: z
       .object({
         display_preference: z
@@ -360,6 +414,13 @@ const postPaymentMethodConfigurationsBodySchema = z
       })
       .optional(),
     swish: z
+      .object({
+        display_preference: z
+          .object({ preference: z.enum(["none", "off", "on"]).optional() })
+          .optional(),
+      })
+      .optional(),
+    twint: z
       .object({
         display_preference: z
           .object({ preference: z.enum(["none", "off", "on"]).optional() })

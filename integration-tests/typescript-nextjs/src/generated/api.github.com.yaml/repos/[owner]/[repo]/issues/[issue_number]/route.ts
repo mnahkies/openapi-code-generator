@@ -147,6 +147,7 @@ const issuesUpdateBodySchema = z
       )
       .optional(),
     assignees: z.array(z.string()).optional(),
+    type: z.string().nullable().optional(),
   })
   .optional()
 

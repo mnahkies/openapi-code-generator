@@ -46,9 +46,9 @@ const checksListForSuiteParamSchema = z.object({
 const checksListForSuiteQuerySchema = z.object({
   check_name: z.string().optional(),
   status: z.enum(["queued", "in_progress", "completed"]).optional(),
-  filter: z.enum(["latest", "all"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  filter: z.enum(["latest", "all"]).optional().default("latest"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

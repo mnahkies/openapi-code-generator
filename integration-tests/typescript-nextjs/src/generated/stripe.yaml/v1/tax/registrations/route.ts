@@ -55,7 +55,12 @@ export type PostTaxRegistrations = (
 
 const getTaxRegistrationsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
   status: z.enum(["active", "all", "expired", "scheduled"]).optional(),
@@ -117,6 +122,9 @@ const postTaxRegistrationsBodySchema = z.object({
   country: z.string().max(5000),
   country_options: z.object({
     ae: z.object({ type: z.enum(["standard"]) }).optional(),
+    al: z.object({ type: z.enum(["standard"]) }).optional(),
+    am: z.object({ type: z.enum(["simplified"]) }).optional(),
+    ao: z.object({ type: z.enum(["standard"]) }).optional(),
     at: z
       .object({
         standard: z
@@ -128,6 +136,8 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     au: z.object({ type: z.enum(["standard"]) }).optional(),
+    ba: z.object({ type: z.enum(["standard"]) }).optional(),
+    bb: z.object({ type: z.enum(["standard"]) }).optional(),
     be: z
       .object({
         standard: z
@@ -148,6 +158,9 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    bh: z.object({ type: z.enum(["standard"]) }).optional(),
+    bs: z.object({ type: z.enum(["standard"]) }).optional(),
+    by: z.object({ type: z.enum(["simplified"]) }).optional(),
     ca: z
       .object({
         province_standard: z
@@ -156,9 +169,11 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["province_standard", "simplified", "standard"]),
       })
       .optional(),
+    cd: z.object({ type: z.enum(["standard"]) }).optional(),
     ch: z.object({ type: z.enum(["standard"]) }).optional(),
     cl: z.object({ type: z.enum(["simplified"]) }).optional(),
     co: z.object({ type: z.enum(["simplified"]) }).optional(),
+    cr: z.object({ type: z.enum(["simplified"]) }).optional(),
     cy: z
       .object({
         standard: z
@@ -199,6 +214,7 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    ec: z.object({ type: z.enum(["simplified"]) }).optional(),
     ee: z
       .object({
         standard: z
@@ -209,6 +225,7 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    eg: z.object({ type: z.enum(["simplified"]) }).optional(),
     es: z
       .object({
         standard: z
@@ -240,6 +257,8 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     gb: z.object({ type: z.enum(["standard"]) }).optional(),
+    ge: z.object({ type: z.enum(["simplified"]) }).optional(),
+    gn: z.object({ type: z.enum(["standard"]) }).optional(),
     gr: z
       .object({
         standard: z
@@ -293,7 +312,10 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     jp: z.object({ type: z.enum(["standard"]) }).optional(),
+    ke: z.object({ type: z.enum(["simplified"]) }).optional(),
+    kh: z.object({ type: z.enum(["simplified"]) }).optional(),
     kr: z.object({ type: z.enum(["simplified"]) }).optional(),
+    kz: z.object({ type: z.enum(["simplified"]) }).optional(),
     lt: z
       .object({
         standard: z
@@ -324,6 +346,11 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    ma: z.object({ type: z.enum(["simplified"]) }).optional(),
+    md: z.object({ type: z.enum(["simplified"]) }).optional(),
+    me: z.object({ type: z.enum(["standard"]) }).optional(),
+    mk: z.object({ type: z.enum(["standard"]) }).optional(),
+    mr: z.object({ type: z.enum(["standard"]) }).optional(),
     mt: z
       .object({
         standard: z
@@ -336,6 +363,7 @@ const postTaxRegistrationsBodySchema = z.object({
       .optional(),
     mx: z.object({ type: z.enum(["simplified"]) }).optional(),
     my: z.object({ type: z.enum(["simplified"]) }).optional(),
+    ng: z.object({ type: z.enum(["simplified"]) }).optional(),
     nl: z
       .object({
         standard: z
@@ -347,7 +375,10 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     no: z.object({ type: z.enum(["standard"]) }).optional(),
+    np: z.object({ type: z.enum(["simplified"]) }).optional(),
     nz: z.object({ type: z.enum(["standard"]) }).optional(),
+    om: z.object({ type: z.enum(["standard"]) }).optional(),
+    pe: z.object({ type: z.enum(["simplified"]) }).optional(),
     pl: z
       .object({
         standard: z
@@ -378,6 +409,8 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    rs: z.object({ type: z.enum(["standard"]) }).optional(),
+    ru: z.object({ type: z.enum(["simplified"]) }).optional(),
     sa: z.object({ type: z.enum(["simplified"]) }).optional(),
     se: z
       .object({
@@ -410,8 +443,13 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    sn: z.object({ type: z.enum(["simplified"]) }).optional(),
+    sr: z.object({ type: z.enum(["standard"]) }).optional(),
     th: z.object({ type: z.enum(["simplified"]) }).optional(),
+    tj: z.object({ type: z.enum(["simplified"]) }).optional(),
     tr: z.object({ type: z.enum(["simplified"]) }).optional(),
+    tz: z.object({ type: z.enum(["simplified"]) }).optional(),
+    ug: z.object({ type: z.enum(["simplified"]) }).optional(),
     us: z
       .object({
         local_amusement_tax: z
@@ -421,16 +459,35 @@ const postTaxRegistrationsBodySchema = z.object({
           .object({ jurisdiction: z.string().max(5000) })
           .optional(),
         state: z.string().max(5000),
+        state_sales_tax: z
+          .object({
+            elections: z.array(
+              z.object({
+                jurisdiction: z.string().max(5000).optional(),
+                type: z.enum([
+                  "local_use_tax",
+                  "simplified_sellers_use_tax",
+                  "single_local_use_tax",
+                ]),
+              }),
+            ),
+          })
+          .optional(),
         type: z.enum([
           "local_amusement_tax",
           "local_lease_tax",
           "state_communications_tax",
+          "state_retail_delivery_fee",
           "state_sales_tax",
         ]),
       })
       .optional(),
+    uy: z.object({ type: z.enum(["standard"]) }).optional(),
+    uz: z.object({ type: z.enum(["simplified"]) }).optional(),
     vn: z.object({ type: z.enum(["simplified"]) }).optional(),
     za: z.object({ type: z.enum(["standard"]) }).optional(),
+    zm: z.object({ type: z.enum(["simplified"]) }).optional(),
+    zw: z.object({ type: z.enum(["standard"]) }).optional(),
   }),
   expand: z.array(z.string().max(5000)).optional(),
   expires_at: z.coerce.number().optional(),

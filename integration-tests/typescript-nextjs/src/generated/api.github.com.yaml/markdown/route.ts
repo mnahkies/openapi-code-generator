@@ -29,7 +29,7 @@ export type MarkdownRender = (
 
 const markdownRenderBodySchema = z.object({
   text: z.string(),
-  mode: z.enum(["markdown", "gfm"]).optional(),
+  mode: z.enum(["markdown", "gfm"]).optional().default("markdown"),
   context: z.string().optional(),
 })
 

@@ -44,8 +44,8 @@ const reposCreateUsingTemplateBodySchema = z.object({
   owner: z.string().optional(),
   name: z.string(),
   description: z.string().optional(),
-  include_all_branches: PermissiveBoolean.optional(),
-  private: PermissiveBoolean.optional(),
+  include_all_branches: PermissiveBoolean.optional().default(false),
+  private: PermissiveBoolean.optional().default(false),
 })
 
 export const _POST =

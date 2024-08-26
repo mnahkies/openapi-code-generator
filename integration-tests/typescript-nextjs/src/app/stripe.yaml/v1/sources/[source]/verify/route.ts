@@ -1,6 +1,6 @@
-import {_POST} from "../../../../../../generated/stripe.yaml/v1/sources/[source]/verify/route"
+import { _POST } from "../../../../../../generated/stripe.yaml/v1/sources/[source]/verify/route"
 
-export const POST = _POST(async ({params, body}, respond, context) => {
+export const POST = _POST(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

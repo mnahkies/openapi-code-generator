@@ -62,8 +62,8 @@ const reposListReleasesParamSchema = z.object({
 })
 
 const reposListReleasesQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -120,11 +120,11 @@ const reposCreateReleaseBodySchema = z.object({
   target_commitish: z.string().optional(),
   name: z.string().optional(),
   body: z.string().optional(),
-  draft: PermissiveBoolean.optional(),
-  prerelease: PermissiveBoolean.optional(),
+  draft: PermissiveBoolean.optional().default(false),
+  prerelease: PermissiveBoolean.optional().default(false),
   discussion_category_name: z.string().optional(),
-  generate_release_notes: PermissiveBoolean.optional(),
-  make_latest: z.enum(["true", "false", "legacy"]).optional(),
+  generate_release_notes: PermissiveBoolean.optional().default(false),
+  make_latest: z.enum(["true", "false", "legacy"]).optional().default("true"),
 })
 
 export const _POST =

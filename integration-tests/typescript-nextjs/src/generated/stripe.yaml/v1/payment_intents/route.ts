@@ -68,7 +68,12 @@ const getPaymentIntentsQuerySchema = z.object({
     .optional(),
   customer: z.string().max(5000).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -181,6 +186,7 @@ const postPaymentIntentsBodySchema = z.object({
       afterpay_clearpay: z.object({}).optional(),
       alipay: z.object({}).optional(),
       allow_redisplay: z.enum(["always", "limited", "unspecified"]).optional(),
+      alma: z.object({}).optional(),
       amazon_pay: z.object({}).optional(),
       au_becs_debit: z
         .object({
@@ -195,6 +201,7 @@ const postPaymentIntentsBodySchema = z.object({
         })
         .optional(),
       bancontact: z.object({}).optional(),
+      billie: z.object({}).optional(),
       billing_details: z
         .object({
           address: z
@@ -310,6 +317,7 @@ const postPaymentIntentsBodySchema = z.object({
         })
         .optional(),
       interac_present: z.object({}).optional(),
+      kakao_pay: z.object({}).optional(),
       klarna: z
         .object({
           dob: z
@@ -322,9 +330,24 @@ const postPaymentIntentsBodySchema = z.object({
         })
         .optional(),
       konbini: z.object({}).optional(),
+      kr_card: z.object({}).optional(),
       link: z.object({}).optional(),
       metadata: z.record(z.string()).optional(),
       mobilepay: z.object({}).optional(),
+      multibanco: z.object({}).optional(),
+      naver_pay: z
+        .object({ funding: z.enum(["card", "points"]).optional() })
+        .optional(),
+      nz_bank_account: z
+        .object({
+          account_holder_name: z.string().max(5000).optional(),
+          account_number: z.string().max(5000),
+          bank_code: z.string().max(5000),
+          branch_code: z.string().max(5000),
+          reference: z.string().max(128).optional(),
+          suffix: z.string().max(5000),
+        })
+        .optional(),
       oxxo: z.object({}).optional(),
       p24: z
         .object({
@@ -360,6 +383,8 @@ const postPaymentIntentsBodySchema = z.object({
             .optional(),
         })
         .optional(),
+      pay_by_bank: z.object({}).optional(),
+      payco: z.object({}).optional(),
       paynow: z.object({}).optional(),
       paypal: z.object({}).optional(),
       pix: z.object({}).optional(),
@@ -368,20 +393,25 @@ const postPaymentIntentsBodySchema = z.object({
         .object({ session: z.string().max(5000).optional() })
         .optional(),
       revolut_pay: z.object({}).optional(),
+      samsung_pay: z.object({}).optional(),
+      satispay: z.object({}).optional(),
       sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
       sofort: z
         .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
         .optional(),
       swish: z.object({}).optional(),
+      twint: z.object({}).optional(),
       type: z.enum([
         "acss_debit",
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "alma",
         "amazon_pay",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
+        "billie",
         "blik",
         "boleto",
         "cashapp",
@@ -391,20 +421,30 @@ const postPaymentIntentsBodySchema = z.object({
         "giropay",
         "grabpay",
         "ideal",
+        "kakao_pay",
         "klarna",
         "konbini",
+        "kr_card",
         "link",
         "mobilepay",
+        "multibanco",
+        "naver_pay",
+        "nz_bank_account",
         "oxxo",
         "p24",
+        "pay_by_bank",
+        "payco",
         "paynow",
         "paypal",
         "pix",
         "promptpay",
         "revolut_pay",
+        "samsung_pay",
+        "satispay",
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
         "zip",
@@ -442,6 +482,7 @@ const postPaymentIntentsBodySchema = z.object({
             setup_future_usage: z
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
             verification_method: z
               .enum(["automatic", "instant", "microdeposits"])
               .optional(),
@@ -477,6 +518,12 @@ const postPaymentIntentsBodySchema = z.object({
           z.enum([""]),
         ])
         .optional(),
+      alma: z
+        .union([
+          z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+          z.enum([""]),
+        ])
+        .optional(),
       amazon_pay: z
         .union([
           z.object({
@@ -492,6 +539,7 @@ const postPaymentIntentsBodySchema = z.object({
             setup_future_usage: z
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
           }),
           z.enum([""]),
         ])
@@ -499,9 +547,17 @@ const postPaymentIntentsBodySchema = z.object({
       bacs_debit: z
         .union([
           z.object({
+            mandate_options: z
+              .object({
+                reference_prefix: z
+                  .union([z.string().max(12), z.enum([""])])
+                  .optional(),
+              })
+              .optional(),
             setup_future_usage: z
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
           }),
           z.enum([""]),
         ])
@@ -546,8 +602,8 @@ const postPaymentIntentsBodySchema = z.object({
                 plan: z
                   .union([
                     z.object({
-                      count: z.coerce.number(),
-                      interval: z.enum(["month"]),
+                      count: z.coerce.number().optional(),
+                      interval: z.enum(["month"]).optional(),
                       type: z.enum(["fixed_count"]),
                     }),
                     z.enum([""]),
@@ -575,8 +631,10 @@ const postPaymentIntentsBodySchema = z.object({
                 "diners",
                 "discover",
                 "eftpos_au",
+                "girocard",
                 "interac",
                 "jcb",
+                "link",
                 "mastercard",
                 "unionpay",
                 "unknown",
@@ -640,6 +698,13 @@ const postPaymentIntentsBodySchema = z.object({
             request_extended_authorization: PermissiveBoolean.optional(),
             request_incremental_authorization_support:
               PermissiveBoolean.optional(),
+            routing: z
+              .object({
+                requested_priority: z
+                  .enum(["domestic", "international"])
+                  .optional(),
+              })
+              .optional(),
           }),
           z.enum([""]),
         ])
@@ -724,6 +789,15 @@ const postPaymentIntentsBodySchema = z.object({
         ])
         .optional(),
       interac_present: z.union([z.object({}), z.enum([""])]).optional(),
+      kakao_pay: z
+        .union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
       klarna: z
         .union([
           z.object({
@@ -756,6 +830,7 @@ const postPaymentIntentsBodySchema = z.object({
                 "en-NZ",
                 "en-PL",
                 "en-PT",
+                "en-RO",
                 "en-SE",
                 "en-US",
                 "es-ES",
@@ -772,6 +847,7 @@ const postPaymentIntentsBodySchema = z.object({
                 "nl-NL",
                 "pl-PL",
                 "pt-PT",
+                "ro-RO",
                 "sv-FI",
                 "sv-SE",
               ])
@@ -799,6 +875,15 @@ const postPaymentIntentsBodySchema = z.object({
           z.enum([""]),
         ])
         .optional(),
+      kr_card: z
+        .union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
       link: z
         .union([
           z.object({
@@ -813,6 +898,32 @@ const postPaymentIntentsBodySchema = z.object({
           z.object({
             capture_method: z.enum(["", "manual"]).optional(),
             setup_future_usage: z.enum(["none"]).optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
+      multibanco: z
+        .union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ])
+        .optional(),
+      naver_pay: z
+        .union([
+          z.object({
+            capture_method: z.enum(["", "manual"]).optional(),
+            setup_future_usage: z.enum(["", "none", "off_session"]).optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
+      nz_bank_account: z
+        .union([
+          z.object({
+            setup_future_usage: z
+              .enum(["", "none", "off_session", "on_session"])
+              .optional(),
+            target_date: z.string().max(5000).optional(),
           }),
           z.enum([""]),
         ])
@@ -832,6 +943,13 @@ const postPaymentIntentsBodySchema = z.object({
             setup_future_usage: z.enum(["none"]).optional(),
             tos_shown_and_accepted: PermissiveBoolean.optional(),
           }),
+          z.enum([""]),
+        ])
+        .optional(),
+      pay_by_bank: z.union([z.object({}), z.enum([""])]).optional(),
+      payco: z
+        .union([
+          z.object({ capture_method: z.enum(["", "manual"]).optional() }),
           z.enum([""]),
         ])
         .optional(),
@@ -902,13 +1020,26 @@ const postPaymentIntentsBodySchema = z.object({
           z.enum([""]),
         ])
         .optional(),
+      samsung_pay: z
+        .union([
+          z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+          z.enum([""]),
+        ])
+        .optional(),
       sepa_debit: z
         .union([
           z.object({
-            mandate_options: z.object({}).optional(),
+            mandate_options: z
+              .object({
+                reference_prefix: z
+                  .union([z.string().max(12), z.enum([""])])
+                  .optional(),
+              })
+              .optional(),
             setup_future_usage: z
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
           }),
           z.enum([""]),
         ])
@@ -933,11 +1064,24 @@ const postPaymentIntentsBodySchema = z.object({
           z.enum([""]),
         ])
         .optional(),
+      twint: z
+        .union([
+          z.object({ setup_future_usage: z.enum(["none"]).optional() }),
+          z.enum([""]),
+        ])
+        .optional(),
       us_bank_account: z
         .union([
           z.object({
             financial_connections: z
               .object({
+                filters: z
+                  .object({
+                    account_subcategories: z
+                      .array(z.enum(["checking", "savings"]))
+                      .optional(),
+                  })
+                  .optional(),
                 permissions: z
                   .array(
                     z.enum([
@@ -970,6 +1114,7 @@ const postPaymentIntentsBodySchema = z.object({
             setup_future_usage: z
               .enum(["", "none", "off_session", "on_session"])
               .optional(),
+            target_date: z.string().max(5000).optional(),
             verification_method: z
               .enum(["automatic", "instant", "microdeposits"])
               .optional(),
@@ -981,7 +1126,7 @@ const postPaymentIntentsBodySchema = z.object({
         .union([
           z.object({
             app_id: z.string().max(5000).optional(),
-            client: z.enum(["android", "ios", "web"]),
+            client: z.enum(["android", "ios", "web"]).optional(),
             setup_future_usage: z.enum(["none"]).optional(),
           }),
           z.enum([""]),

@@ -9,6 +9,7 @@ import {
   t_entitlements_feature,
   t_error,
 } from "../../../models"
+import { PermissiveBoolean } from "../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -54,9 +55,16 @@ export type PostEntitlementsFeatures = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const getEntitlementsFeaturesQuerySchema = z.object({
+  archived: PermissiveBoolean.optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
+  lookup_key: z.string().max(5000).optional(),
   starting_after: z.string().max(5000).optional(),
 })
 

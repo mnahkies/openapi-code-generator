@@ -129,8 +129,8 @@ const orgsUpdateWebhookBodySchema = z
         insecure_ssl: s_webhook_config_insecure_ssl.optional(),
       })
       .optional(),
-    events: z.array(z.string()).optional(),
-    active: PermissiveBoolean.optional(),
+    events: z.array(z.string()).optional().default(["push"]),
+    active: PermissiveBoolean.optional().default(true),
     name: z.string().optional(),
   })
   .optional()

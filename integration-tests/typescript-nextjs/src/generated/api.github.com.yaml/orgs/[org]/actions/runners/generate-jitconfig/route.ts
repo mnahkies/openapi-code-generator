@@ -28,6 +28,7 @@ export type ActionsGenerateRunnerJitconfigForOrgResponder = {
     runner: t_runner
   }>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
@@ -49,7 +50,7 @@ const actionsGenerateRunnerJitconfigForOrgBodySchema = z.object({
   name: z.string(),
   runner_group_id: z.coerce.number(),
   labels: z.array(z.string()).min(1).max(100),
-  work_folder: z.string().optional(),
+  work_folder: z.string().optional().default("_work"),
 })
 
 export const _POST =
@@ -82,6 +83,9 @@ export const _POST =
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with409() {
+        return new KoaRuntimeResponse<t_basic_error>(409)
       },
       with422() {
         return new KoaRuntimeResponse<t_validation_error_simple>(422)

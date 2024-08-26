@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  t_CodeScanningDeleteCodeqlDatabaseParamSchema,
   t_CodeScanningGetCodeqlDatabaseParamSchema,
   t_basic_error,
   t_code_scanning_codeql_database,
@@ -38,6 +39,23 @@ export type CodeScanningGetCodeqlDatabase = (
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
+export type CodeScanningDeleteCodeqlDatabaseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeScanningDeleteCodeqlDatabase = (
+  params: Params<t_CodeScanningDeleteCodeqlDatabaseParamSchema, void, void>,
+  respond: CodeScanningDeleteCodeqlDatabaseResponder,
+  ctx: { request: NextRequest },
+) => Promise<KoaRuntimeResponse<unknown>>
+
 const codeScanningGetCodeqlDatabaseParamSchema = z.object({
   owner: z.string(),
   repo: z.string(),
@@ -67,6 +85,62 @@ export const _GET =
       },
       with302() {
         return new KoaRuntimeResponse<void>(302)
+      },
+      with403() {
+        return new KoaRuntimeResponse<t_basic_error>(403)
+      },
+      with404() {
+        return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with503() {
+        return new KoaRuntimeResponse<{
+          code?: string
+          documentation_url?: string
+          message?: string
+        }>(503)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const { status, body } = await implementation(input, responder, { request })
+      .then((it) => it.unpack())
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
+  }
+
+const codeScanningDeleteCodeqlDatabaseParamSchema = z.object({
+  owner: z.string(),
+  repo: z.string(),
+  language: z.string(),
+})
+
+export const _DELETE =
+  (implementation: CodeScanningDeleteCodeqlDatabase) =>
+  async (
+    request: NextRequest,
+    { params }: { params: unknown },
+  ): Promise<Response> => {
+    const input = {
+      params: parseRequestInput(
+        codeScanningDeleteCodeqlDatabaseParamSchema,
+        params,
+        RequestInputType.RouteParam,
+      ),
+      // TODO: this swallows repeated parameters
+      query: undefined,
+      body: undefined,
+    }
+
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

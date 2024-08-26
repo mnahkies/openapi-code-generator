@@ -69,8 +69,8 @@ const reposListWebhooksParamSchema = z.object({
 })
 
 const reposListWebhooksQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -133,8 +133,8 @@ const reposCreateWebhookBodySchema = z
         insecure_ssl: s_webhook_config_insecure_ssl.optional(),
       })
       .optional(),
-    events: z.array(z.string()).optional(),
-    active: PermissiveBoolean.optional(),
+    events: z.array(z.string()).optional().default(["push"]),
+    active: PermissiveBoolean.optional().default(true),
   })
   .nullable()
   .optional()

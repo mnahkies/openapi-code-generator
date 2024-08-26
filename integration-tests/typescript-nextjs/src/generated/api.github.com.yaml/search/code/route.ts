@@ -46,9 +46,9 @@ export type SearchCode = (
 const searchCodeQuerySchema = z.object({
   q: z.string(),
   sort: z.enum(["indexed"]).optional(),
-  order: z.enum(["desc", "asc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  order: z.enum(["desc", "asc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

@@ -128,7 +128,12 @@ const getInvoiceitemsInvoiceitemParamSchema = z.object({
 })
 
 const getInvoiceitemsInvoiceitemQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getInvoiceitemsInvoiceitemBodySchema = z.object({}).optional()
@@ -207,7 +212,6 @@ const postInvoiceitemsInvoiceitemBodySchema = z
     period: z
       .object({ end: z.coerce.number(), start: z.coerce.number() })
       .optional(),
-    price: z.string().max(5000).optional(),
     price_data: z
       .object({
         currency: z.string(),
@@ -219,13 +223,13 @@ const postInvoiceitemsInvoiceitemBodySchema = z
         unit_amount_decimal: z.string().optional(),
       })
       .optional(),
+    pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
     quantity: z.coerce.number().optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
     tax_code: z.union([z.string(), z.enum([""])]).optional(),
     tax_rates: z
       .union([z.array(z.string().max(5000)), z.enum([""])])
       .optional(),
-    unit_amount: z.coerce.number().optional(),
     unit_amount_decimal: z.string().optional(),
   })
   .optional()

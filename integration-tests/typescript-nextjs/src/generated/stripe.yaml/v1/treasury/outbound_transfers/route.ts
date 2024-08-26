@@ -55,7 +55,12 @@ export type PostTreasuryOutboundTransfers = (
 
 const getTreasuryOutboundTransfersQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   financial_account: z.string(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
@@ -120,6 +125,12 @@ const postTreasuryOutboundTransfersBodySchema = z.object({
   currency: z.string(),
   description: z.string().max(5000).optional(),
   destination_payment_method: z.string().max(5000).optional(),
+  destination_payment_method_data: z
+    .object({
+      financial_account: z.string().optional(),
+      type: z.enum(["financial_account"]),
+    })
+    .optional(),
   destination_payment_method_options: z
     .object({
       us_bank_account: z

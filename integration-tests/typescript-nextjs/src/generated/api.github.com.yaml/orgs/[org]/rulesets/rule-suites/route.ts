@@ -40,12 +40,19 @@ export type ReposGetOrgRuleSuites = (
 const reposGetOrgRuleSuitesParamSchema = z.object({ org: z.string() })
 
 const reposGetOrgRuleSuitesQuerySchema = z.object({
-  repository_name: z.coerce.number().optional(),
-  time_period: z.enum(["hour", "day", "week", "month"]).optional(),
+  ref: z.string().optional(),
+  repository_name: z.string().optional(),
+  time_period: z
+    .enum(["hour", "day", "week", "month"])
+    .optional()
+    .default("day"),
   actor_name: z.string().optional(),
-  rule_suite_result: z.enum(["pass", "fail", "bypass", "all"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  rule_suite_result: z
+    .enum(["pass", "fail", "bypass", "all"])
+    .optional()
+    .default("all"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

@@ -124,19 +124,22 @@ const orgsUpdateBodySchema = z
     has_repository_projects: PermissiveBoolean.optional(),
     default_repository_permission: z
       .enum(["read", "write", "admin", "none"])
-      .optional(),
-    members_can_create_repositories: PermissiveBoolean.optional(),
+      .optional()
+      .default("read"),
+    members_can_create_repositories: PermissiveBoolean.optional().default(true),
     members_can_create_internal_repositories: PermissiveBoolean.optional(),
     members_can_create_private_repositories: PermissiveBoolean.optional(),
     members_can_create_public_repositories: PermissiveBoolean.optional(),
     members_allowed_repository_creation_type: z
       .enum(["all", "private", "none"])
       .optional(),
-    members_can_create_pages: PermissiveBoolean.optional(),
-    members_can_create_public_pages: PermissiveBoolean.optional(),
-    members_can_create_private_pages: PermissiveBoolean.optional(),
-    members_can_fork_private_repositories: PermissiveBoolean.optional(),
-    web_commit_signoff_required: PermissiveBoolean.optional(),
+    members_can_create_pages: PermissiveBoolean.optional().default(true),
+    members_can_create_public_pages: PermissiveBoolean.optional().default(true),
+    members_can_create_private_pages:
+      PermissiveBoolean.optional().default(true),
+    members_can_fork_private_repositories:
+      PermissiveBoolean.optional().default(false),
+    web_commit_signoff_required: PermissiveBoolean.optional().default(false),
     blog: z.string().optional(),
     advanced_security_enabled_for_new_repositories:
       PermissiveBoolean.optional(),
@@ -151,6 +154,7 @@ const orgsUpdateBodySchema = z
     secret_scanning_push_protection_custom_link_enabled:
       PermissiveBoolean.optional(),
     secret_scanning_push_protection_custom_link: z.string().optional(),
+    deploy_keys_enabled_for_repositories: PermissiveBoolean.optional(),
   })
   .optional()
 

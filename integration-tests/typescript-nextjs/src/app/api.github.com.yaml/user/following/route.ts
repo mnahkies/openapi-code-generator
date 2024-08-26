@@ -1,6 +1,6 @@
-import {_GET} from "../../../../generated/api.github.com.yaml/user/following/route"
+import { _GET } from "../../../../generated/api.github.com.yaml/user/following/route"
 
-export const GET = _GET(async ({query}, respond, context) => {
+export const GET = _GET(async ({ query }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

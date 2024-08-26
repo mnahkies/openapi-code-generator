@@ -40,9 +40,9 @@ const teamsListMembersInOrgParamSchema = z.object({
 })
 
 const teamsListMembersInOrgQuerySchema = z.object({
-  role: z.enum(["member", "maintainer", "all"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  role: z.enum(["member", "maintainer", "all"]).optional().default("all"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

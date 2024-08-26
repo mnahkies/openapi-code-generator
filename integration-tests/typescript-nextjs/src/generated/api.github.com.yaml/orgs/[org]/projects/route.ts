@@ -61,9 +61,9 @@ export type ProjectsCreateForOrg = (
 const projectsListForOrgParamSchema = z.object({ org: z.string() })
 
 const projectsListForOrgQuerySchema = z.object({
-  state: z.enum(["open", "closed", "all"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  state: z.enum(["open", "closed", "all"]).optional().default("open"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

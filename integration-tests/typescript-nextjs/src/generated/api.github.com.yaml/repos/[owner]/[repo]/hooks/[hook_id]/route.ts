@@ -117,10 +117,10 @@ const reposUpdateWebhookParamSchema = z.object({
 
 const reposUpdateWebhookBodySchema = z.object({
   config: s_webhook_config.optional(),
-  events: z.array(z.string()).optional(),
+  events: z.array(z.string()).optional().default(["push"]),
   add_events: z.array(z.string()).optional(),
   remove_events: z.array(z.string()).optional(),
-  active: PermissiveBoolean.optional(),
+  active: PermissiveBoolean.optional().default(true),
 })
 
 export const _PATCH =

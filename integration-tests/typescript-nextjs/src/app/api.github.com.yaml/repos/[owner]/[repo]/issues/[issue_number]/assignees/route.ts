@@ -1,13 +1,13 @@
 import {
-  _DELETE,
   _POST,
+  _DELETE,
 } from "../../../../../../../../generated/api.github.com.yaml/repos/[owner]/[repo]/issues/[issue_number]/assignees/route"
 
-export const POST = _POST(async ({params, body}, respond, context) => {
+export const POST = _POST(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })
-export const DELETE = _DELETE(async ({params, body}, respond, context) => {
+export const DELETE = _DELETE(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

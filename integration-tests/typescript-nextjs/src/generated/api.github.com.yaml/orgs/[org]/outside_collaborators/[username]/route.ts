@@ -60,7 +60,7 @@ const orgsConvertMemberToOutsideCollaboratorParamSchema = z.object({
 })
 
 const orgsConvertMemberToOutsideCollaboratorBodySchema = z
-  .object({ async: PermissiveBoolean.optional() })
+  .object({ async: PermissiveBoolean.optional().default(false) })
   .optional()
 
 export const _PUT =

@@ -68,9 +68,10 @@ const reposGetRepoRulesetsParamSchema = z.object({
 })
 
 const reposGetRepoRulesetsQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
-  includes_parents: PermissiveBoolean.optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
+  includes_parents: PermissiveBoolean.optional().default(true),
+  targets: z.string().optional(),
 })
 
 export const _GET =
@@ -127,7 +128,7 @@ const reposCreateRepoRulesetParamSchema = z.object({
 
 const reposCreateRepoRulesetBodySchema = z.object({
   name: z.string(),
-  target: z.enum(["branch", "tag"]).optional(),
+  target: z.enum(["branch", "tag", "push"]).optional().default("branch"),
   enforcement: s_repository_rule_enforcement,
   bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),
   conditions: s_repository_ruleset_conditions.optional(),

@@ -48,8 +48,8 @@ const reposCreatePagesDeploymentParamSchema = z.object({
 const reposCreatePagesDeploymentBodySchema = z.object({
   artifact_id: z.coerce.number().optional(),
   artifact_url: z.string().optional(),
-  environment: z.string().optional(),
-  pages_build_version: z.string(),
+  environment: z.string().optional().default("github-pages"),
+  pages_build_version: z.string().default("GITHUB_SHA"),
   oidc_token: z.string(),
 })
 

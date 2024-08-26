@@ -53,9 +53,10 @@ const codeScanningListAlertInstancesParamSchema = z.object({
 })
 
 const codeScanningListAlertInstancesQuerySchema = z.object({
-  page: z.coerce.number().optional(),
-  per_page: z.coerce.number().optional(),
+  page: z.coerce.number().optional().default(1),
+  per_page: z.coerce.number().optional().default(30),
   ref: s_code_scanning_ref.optional(),
+  pr: z.coerce.number().optional(),
 })
 
 export const _GET =

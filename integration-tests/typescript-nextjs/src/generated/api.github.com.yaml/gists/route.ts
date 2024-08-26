@@ -52,8 +52,8 @@ export type GistsCreate = (
 
 const gistsListQuerySchema = z.object({
   since: z.string().datetime({ offset: true }).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -102,7 +102,12 @@ export const _GET =
 const gistsCreateBodySchema = z.object({
   description: z.string().optional(),
   files: z.record(z.object({ content: z.string() })),
-  public: z.union([PermissiveBoolean, z.enum(["true", "false"])]).optional(),
+  public: z
+    .union([
+      PermissiveBoolean.default(false),
+      z.enum(["true", "false"]).default("false"),
+    ])
+    .optional(),
 })
 
 export const _POST =

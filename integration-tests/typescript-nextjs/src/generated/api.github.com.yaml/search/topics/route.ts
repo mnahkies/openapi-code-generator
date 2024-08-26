@@ -36,8 +36,8 @@ export type SearchTopics = (
 
 const searchTopicsQuerySchema = z.object({
   q: z.string(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

@@ -40,7 +40,10 @@ export type SecurityAdvisoriesListGlobalAdvisories = (
 
 const securityAdvisoriesListGlobalAdvisoriesQuerySchema = z.object({
   ghsa_id: z.string().optional(),
-  type: z.enum(["reviewed", "malware", "unreviewed"]).optional(),
+  type: z
+    .enum(["reviewed", "malware", "unreviewed"])
+    .optional()
+    .default("reviewed"),
   cve_id: z.string().optional(),
   ecosystem: s_security_advisory_ecosystems.optional(),
   severity: z.enum(["unknown", "low", "medium", "high", "critical"]).optional(),
@@ -50,11 +53,16 @@ const securityAdvisoriesListGlobalAdvisoriesQuerySchema = z.object({
   published: z.string().optional(),
   updated: z.string().optional(),
   modified: z.string().optional(),
+  epss_percentage: z.string().optional(),
+  epss_percentile: z.string().optional(),
   before: z.string().optional(),
   after: z.string().optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().min(1).max(100).optional(),
-  sort: z.enum(["updated", "published"]).optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  per_page: z.coerce.number().min(1).max(100).optional().default(30),
+  sort: z
+    .enum(["updated", "published", "epss_percentage", "epss_percentile"])
+    .optional()
+    .default("published"),
 })
 
 export const _GET =

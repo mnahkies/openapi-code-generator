@@ -43,7 +43,7 @@ const actionsGetWorkflowRunAttemptParamSchema = z.object({
 })
 
 const actionsGetWorkflowRunAttemptQuerySchema = z.object({
-  exclude_pull_requests: PermissiveBoolean.optional(),
+  exclude_pull_requests: PermissiveBoolean.optional().default(false),
 })
 
 export const _GET =

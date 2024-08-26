@@ -43,9 +43,9 @@ const searchLabelsQuerySchema = z.object({
   repository_id: z.coerce.number(),
   q: z.string(),
   sort: z.enum(["created", "updated"]).optional(),
-  order: z.enum(["desc", "asc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  order: z.enum(["desc", "asc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

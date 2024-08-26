@@ -1,6 +1,6 @@
-import {_GET} from "../../../../../generated/okta.oauth.yaml/oauth2/v1/keys/route"
+import { _GET } from "../../../../../generated/okta.oauth.yaml/oauth2/v1/keys/route"
 
-export const GET = _GET(async ({query}, respond, context) => {
+export const GET = _GET(async ({ query }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

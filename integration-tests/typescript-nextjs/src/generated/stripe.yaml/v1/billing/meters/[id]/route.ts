@@ -57,7 +57,12 @@ export type PostBillingMetersId = (
 const getBillingMetersIdParamSchema = z.object({ id: z.string().max(5000) })
 
 const getBillingMetersIdQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getBillingMetersIdBodySchema = z.object({}).optional()

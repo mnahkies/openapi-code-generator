@@ -57,7 +57,12 @@ export type PostFileLinksLink = (
 const getFileLinksLinkParamSchema = z.object({ link: z.string() })
 
 const getFileLinksLinkQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getFileLinksLinkBodySchema = z.object({}).optional()

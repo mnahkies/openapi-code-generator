@@ -60,8 +60,8 @@ export type CodespacesCreateForAuthenticatedUser = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const codespacesListForAuthenticatedUserQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   repository_id: z.coerce.number().optional(),
 })
 

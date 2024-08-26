@@ -121,7 +121,7 @@ const teamsUpdateInOrgBodySchema = z
     notification_setting: z
       .enum(["notifications_enabled", "notifications_disabled"])
       .optional(),
-    permission: z.enum(["pull", "push", "admin"]).optional(),
+    permission: z.enum(["pull", "push", "admin"]).optional().default("pull"),
     parent_team_id: z.coerce.number().nullable().optional(),
   })
   .optional()

@@ -62,7 +62,9 @@ const projectsAddCollaboratorParamSchema = z.object({
 })
 
 const projectsAddCollaboratorBodySchema = z
-  .object({ permission: z.enum(["read", "write", "admin"]).optional() })
+  .object({
+    permission: z.enum(["read", "write", "admin"]).optional().default("write"),
+  })
   .nullable()
   .optional()
 

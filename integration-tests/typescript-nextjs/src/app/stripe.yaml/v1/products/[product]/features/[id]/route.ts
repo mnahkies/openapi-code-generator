@@ -3,11 +3,11 @@ import {
   _GET,
 } from "../../../../../../../generated/stripe.yaml/v1/products/[product]/features/[id]/route"
 
-export const DELETE = _DELETE(async ({params, body}, respond, context) => {
+export const DELETE = _DELETE(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })
-export const GET = _GET(async ({params, query, body}, respond, context) => {
+export const GET = _GET(async ({ params, query, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

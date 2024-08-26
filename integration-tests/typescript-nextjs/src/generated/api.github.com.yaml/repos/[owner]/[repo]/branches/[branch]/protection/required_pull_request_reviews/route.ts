@@ -128,7 +128,7 @@ const reposUpdatePullRequestReviewProtectionBodySchema = z
     dismiss_stale_reviews: PermissiveBoolean.optional(),
     require_code_owner_reviews: PermissiveBoolean.optional(),
     required_approving_review_count: z.coerce.number().optional(),
-    require_last_push_approval: PermissiveBoolean.optional(),
+    require_last_push_approval: PermissiveBoolean.optional().default(false),
     bypass_pull_request_allowances: z
       .object({
         users: z.array(z.string()).optional(),

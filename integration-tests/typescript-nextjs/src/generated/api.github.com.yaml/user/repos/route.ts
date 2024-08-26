@@ -56,13 +56,22 @@ export type ReposCreateForAuthenticatedUser = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const reposListForAuthenticatedUserQuerySchema = z.object({
-  visibility: z.enum(["all", "public", "private"]).optional(),
-  affiliation: z.string().optional(),
-  type: z.enum(["all", "owner", "public", "private", "member"]).optional(),
-  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+  visibility: z.enum(["all", "public", "private"]).optional().default("all"),
+  affiliation: z
+    .string()
+    .optional()
+    .default("owner,collaborator,organization_member"),
+  type: z
+    .enum(["all", "owner", "public", "private", "member"])
+    .optional()
+    .default("all"),
+  sort: z
+    .enum(["created", "updated", "pushed", "full_name"])
+    .optional()
+    .default("full_name"),
   direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
   since: z.string().datetime({ offset: true }).optional(),
   before: z.string().datetime({ offset: true }).optional(),
 })
@@ -120,20 +129,20 @@ const reposCreateForAuthenticatedUserBodySchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   homepage: z.string().optional(),
-  private: PermissiveBoolean.optional(),
-  has_issues: PermissiveBoolean.optional(),
-  has_projects: PermissiveBoolean.optional(),
-  has_wiki: PermissiveBoolean.optional(),
-  has_discussions: PermissiveBoolean.optional(),
+  private: PermissiveBoolean.optional().default(false),
+  has_issues: PermissiveBoolean.optional().default(true),
+  has_projects: PermissiveBoolean.optional().default(true),
+  has_wiki: PermissiveBoolean.optional().default(true),
+  has_discussions: PermissiveBoolean.optional().default(false),
   team_id: z.coerce.number().optional(),
-  auto_init: PermissiveBoolean.optional(),
+  auto_init: PermissiveBoolean.optional().default(false),
   gitignore_template: z.string().optional(),
   license_template: z.string().optional(),
-  allow_squash_merge: PermissiveBoolean.optional(),
-  allow_merge_commit: PermissiveBoolean.optional(),
-  allow_rebase_merge: PermissiveBoolean.optional(),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
+  allow_squash_merge: PermissiveBoolean.optional().default(true),
+  allow_merge_commit: PermissiveBoolean.optional().default(true),
+  allow_rebase_merge: PermissiveBoolean.optional().default(true),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
   squash_merge_commit_title: z
     .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
     .optional(),
@@ -142,8 +151,8 @@ const reposCreateForAuthenticatedUserBodySchema = z.object({
     .optional(),
   merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
   merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-  has_downloads: PermissiveBoolean.optional(),
-  is_template: PermissiveBoolean.optional(),
+  has_downloads: PermissiveBoolean.optional().default(true),
+  is_template: PermissiveBoolean.optional().default(false),
 })
 
 export const _POST =

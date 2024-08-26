@@ -57,7 +57,12 @@ export type PostPaymentLinks = (
 const getPaymentLinksQuerySchema = z.object({
   active: PermissiveBoolean.optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -153,6 +158,7 @@ const postPaymentLinksBodySchema = z.object({
       z.object({
         dropdown: z
           .object({
+            default_value: z.string().max(100).optional(),
             options: z.array(
               z.object({
                 label: z.string().max(100),
@@ -168,6 +174,7 @@ const postPaymentLinksBodySchema = z.object({
         }),
         numeric: z
           .object({
+            default_value: z.string().max(255).optional(),
             maximum_length: z.coerce.number().optional(),
             minimum_length: z.coerce.number().optional(),
           })
@@ -175,6 +182,7 @@ const postPaymentLinksBodySchema = z.object({
         optional: PermissiveBoolean.optional(),
         text: z
           .object({
+            default_value: z.string().max(255).optional(),
             maximum_length: z.coerce.number().optional(),
             minimum_length: z.coerce.number().optional(),
           })
@@ -259,6 +267,21 @@ const postPaymentLinksBodySchema = z.object({
   ),
   metadata: z.record(z.string()).optional(),
   on_behalf_of: z.string().optional(),
+  optional_items: z
+    .array(
+      z.object({
+        adjustable_quantity: z
+          .object({
+            enabled: PermissiveBoolean,
+            maximum: z.coerce.number().optional(),
+            minimum: z.coerce.number().optional(),
+          })
+          .optional(),
+        price: z.string().max(5000),
+        quantity: z.coerce.number(),
+      }),
+    )
+    .optional(),
   payment_intent_data: z
     .object({
       capture_method: z
@@ -279,9 +302,11 @@ const postPaymentLinksBodySchema = z.object({
         "affirm",
         "afterpay_clearpay",
         "alipay",
+        "alma",
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
+        "billie",
         "blik",
         "boleto",
         "card",
@@ -294,17 +319,23 @@ const postPaymentLinksBodySchema = z.object({
         "klarna",
         "konbini",
         "link",
+        "mobilepay",
+        "multibanco",
         "oxxo",
         "p24",
+        "pay_by_bank",
         "paynow",
         "paypal",
         "pix",
         "promptpay",
+        "satispay",
         "sepa_debit",
         "sofort",
         "swish",
+        "twint",
         "us_bank_account",
         "wechat_pay",
+        "zip",
       ]),
     )
     .optional(),
@@ -500,6 +531,7 @@ const postPaymentLinksBodySchema = z.object({
           "SA",
           "SB",
           "SC",
+          "SD",
           "SE",
           "SG",
           "SH",
@@ -560,7 +592,9 @@ const postPaymentLinksBodySchema = z.object({
   shipping_options: z
     .array(z.object({ shipping_rate: z.string().max(5000).optional() }))
     .optional(),
-  submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
+  submit_type: z
+    .enum(["auto", "book", "donate", "pay", "subscribe"])
+    .optional(),
   subscription_data: z
     .object({
       description: z.string().max(500).optional(),
@@ -589,7 +623,12 @@ const postPaymentLinksBodySchema = z.object({
         .optional(),
     })
     .optional(),
-  tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
+  tax_id_collection: z
+    .object({
+      enabled: PermissiveBoolean,
+      required: z.enum(["if_supported", "never"]).optional(),
+    })
+    .optional(),
   transfer_data: z
     .object({ amount: z.coerce.number().optional(), destination: z.string() })
     .optional(),

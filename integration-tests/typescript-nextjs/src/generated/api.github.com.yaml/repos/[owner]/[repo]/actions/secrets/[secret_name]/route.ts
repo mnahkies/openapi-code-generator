@@ -114,9 +114,8 @@ const actionsCreateOrUpdateRepoSecretBodySchema = z.object({
       new RegExp(
         "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
       ),
-    )
-    .optional(),
-  key_id: z.string().optional(),
+    ),
+  key_id: z.string(),
 })
 
 export const _PUT =

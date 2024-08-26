@@ -1,6 +1,6 @@
-import {_POST} from "../../../../../../../../../generated/api.github.com.yaml/repos/[owner]/[repo]/actions/jobs/[job_id]/rerun/route"
+import { _POST } from "../../../../../../../../../generated/api.github.com.yaml/repos/[owner]/[repo]/actions/jobs/[job_id]/rerun/route"
 
-export const POST = _POST(async ({params, body}, respond, context) => {
+export const POST = _POST(async ({ params, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

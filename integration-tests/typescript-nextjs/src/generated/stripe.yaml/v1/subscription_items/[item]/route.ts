@@ -136,7 +136,12 @@ const getSubscriptionItemsItemParamSchema = z.object({
 })
 
 const getSubscriptionItemsItemQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getSubscriptionItemsItemBodySchema = z.object({}).optional()
@@ -195,9 +200,6 @@ const postSubscriptionItemsItemParamSchema = z.object({
 
 const postSubscriptionItemsItemBodySchema = z
   .object({
-    billing_thresholds: z
-      .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-      .optional(),
     discounts: z
       .union([
         z.array(

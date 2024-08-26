@@ -65,8 +65,8 @@ export type OrgsCreateWebhook = (
 const orgsListWebhooksParamSchema = z.object({ org: z.string() })
 
 const orgsListWebhooksQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -125,8 +125,8 @@ const orgsCreateWebhookBodySchema = z.object({
     username: z.string().optional(),
     password: z.string().optional(),
   }),
-  events: z.array(z.string()).optional(),
-  active: PermissiveBoolean.optional(),
+  events: z.array(z.string()).optional().default(["push"]),
+  active: PermissiveBoolean.optional().default(true),
 })
 
 export const _POST =

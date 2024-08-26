@@ -113,7 +113,9 @@ const teamsAddOrUpdateMembershipForUserInOrgParamSchema = z.object({
 })
 
 const teamsAddOrUpdateMembershipForUserInOrgBodySchema = z
-  .object({ role: z.enum(["member", "maintainer"]).optional() })
+  .object({
+    role: z.enum(["member", "maintainer"]).optional().default("member"),
+  })
   .optional()
 
 export const _PUT =

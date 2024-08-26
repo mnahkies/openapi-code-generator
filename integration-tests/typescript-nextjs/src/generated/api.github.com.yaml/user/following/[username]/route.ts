@@ -7,6 +7,7 @@ import {
   t_UsersFollowParamSchema,
   t_UsersUnfollowParamSchema,
   t_basic_error,
+  t_validation_error,
 } from "../../../models"
 import {
   KoaRuntimeError,
@@ -45,6 +46,7 @@ export type UsersFollowResponder = {
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
 export type UsersFollow = (
@@ -154,6 +156,9 @@ export const _PUT =
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with422() {
+        return new KoaRuntimeResponse<t_validation_error>(422)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

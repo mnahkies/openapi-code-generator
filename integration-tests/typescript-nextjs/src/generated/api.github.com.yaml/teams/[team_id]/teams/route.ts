@@ -42,8 +42,8 @@ export type TeamsListChildLegacy = (
 const teamsListChildLegacyParamSchema = z.object({ team_id: z.coerce.number() })
 
 const teamsListChildLegacyQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

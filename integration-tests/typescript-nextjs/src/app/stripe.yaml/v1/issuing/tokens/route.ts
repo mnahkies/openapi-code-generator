@@ -1,6 +1,6 @@
-import {_GET} from "../../../../../generated/stripe.yaml/v1/issuing/tokens/route"
+import { _GET } from "../../../../../generated/stripe.yaml/v1/issuing/tokens/route"
 
-export const GET = _GET(async ({query, body}, respond, context) => {
+export const GET = _GET(async ({ query, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

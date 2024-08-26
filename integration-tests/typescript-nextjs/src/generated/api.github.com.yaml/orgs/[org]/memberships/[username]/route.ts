@@ -118,7 +118,7 @@ const orgsSetMembershipForUserParamSchema = z.object({
 })
 
 const orgsSetMembershipForUserBodySchema = z
-  .object({ role: z.enum(["admin", "member"]).optional() })
+  .object({ role: z.enum(["admin", "member"]).optional().default("member") })
   .optional()
 
 export const _PUT =

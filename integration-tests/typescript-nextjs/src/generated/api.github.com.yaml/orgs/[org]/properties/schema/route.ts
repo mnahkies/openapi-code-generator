@@ -7,9 +7,9 @@ import {
   t_OrgsCreateOrUpdateCustomPropertiesParamSchema,
   t_OrgsGetAllCustomPropertiesParamSchema,
   t_basic_error,
-  t_org_custom_property,
+  t_custom_property,
 } from "../../../../models"
-import { s_org_custom_property } from "../../../../schemas"
+import { s_custom_property } from "../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -24,7 +24,7 @@ import { NextRequest } from "next/server"
 import { z } from "zod"
 
 export type OrgsGetAllCustomPropertiesResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property[]>
+  with200(): KoaRuntimeResponse<t_custom_property[]>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -36,7 +36,7 @@ export type OrgsGetAllCustomProperties = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 export type OrgsCreateOrUpdateCustomPropertiesResponder = {
-  with200(): KoaRuntimeResponse<t_org_custom_property[]>
+  with200(): KoaRuntimeResponse<t_custom_property[]>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
 } & KoaRuntimeResponder
@@ -72,7 +72,7 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property[]>(200)
+        return new KoaRuntimeResponse<t_custom_property[]>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)
@@ -101,7 +101,7 @@ const orgsCreateOrUpdateCustomPropertiesParamSchema = z.object({
 })
 
 const orgsCreateOrUpdateCustomPropertiesBodySchema = z.object({
-  properties: z.array(s_org_custom_property).min(1).max(100),
+  properties: z.array(s_custom_property).min(1).max(100),
 })
 
 export const _PATCH =
@@ -127,7 +127,7 @@ export const _PATCH =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_org_custom_property[]>(200)
+        return new KoaRuntimeResponse<t_custom_property[]>(200)
       },
       with403() {
         return new KoaRuntimeResponse<t_basic_error>(403)

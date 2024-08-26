@@ -60,7 +60,12 @@ const getSubscriptionSchedulesScheduleParamSchema = z.object({
 })
 
 const getSubscriptionSchedulesScheduleQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getSubscriptionSchedulesScheduleBodySchema = z.object({}).optional()
@@ -134,15 +139,6 @@ const postSubscriptionSchedulesScheduleBodySchema = z
           })
           .optional(),
         billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-        billing_thresholds: z
-          .union([
-            z.object({
-              amount_gte: z.coerce.number().optional(),
-              reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-            }),
-            z.enum([""]),
-          ])
-          .optional(),
         collection_method: z
           .enum(["charge_automatically", "send_invoice"])
           .optional(),
@@ -224,19 +220,9 @@ const postSubscriptionSchedulesScheduleBodySchema = z
             })
             .optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-          billing_thresholds: z
-            .union([
-              z.object({
-                amount_gte: z.coerce.number().optional(),
-                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-              }),
-              z.enum([""]),
-            ])
-            .optional(),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
-          coupon: z.string().max(5000).optional(),
           default_payment_method: z.string().max(5000).optional(),
           default_tax_rates: z
             .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -271,12 +257,6 @@ const postSubscriptionSchedulesScheduleBodySchema = z
             .optional(),
           items: z.array(
             z.object({
-              billing_thresholds: z
-                .union([
-                  z.object({ usage_gte: z.coerce.number() }),
-                  z.enum([""]),
-                ])
-                .optional(),
               discounts: z
                 .union([
                   z.array(

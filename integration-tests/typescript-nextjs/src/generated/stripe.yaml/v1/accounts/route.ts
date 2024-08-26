@@ -67,7 +67,12 @@ const getAccountsQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().optional(),
 })
@@ -196,6 +201,9 @@ const postAccountsBodySchema = z
         afterpay_clearpay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        alma_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         amazon_pay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
@@ -209,6 +217,9 @@ const postAccountsBodySchema = z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        billie_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         blik_payments: z
@@ -235,6 +246,9 @@ const postAccountsBodySchema = z
         fpx_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        gb_bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         giropay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
@@ -250,10 +264,19 @@ const postAccountsBodySchema = z
         jcb_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        jp_bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        kakao_pay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         klarna_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         konbini_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        kr_card_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         legacy_payments: z
@@ -265,10 +288,28 @@ const postAccountsBodySchema = z
         mobilepay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        multibanco_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        mx_bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        naver_pay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        nz_bank_account_becs_debit_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         oxxo_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         p24_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        pay_by_bank_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        payco_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         paynow_payments: z
@@ -278,6 +319,15 @@ const postAccountsBodySchema = z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         revolut_pay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        samsung_pay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        satispay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        sepa_bank_transfer_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         sepa_debit_payments: z
@@ -301,7 +351,13 @@ const postAccountsBodySchema = z
         treasury: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        twint_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         us_bank_account_ach_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        us_bank_transfer_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         zip_payments: z
@@ -344,6 +400,13 @@ const postAccountsBodySchema = z
           })
           .optional(),
         directors_provided: PermissiveBoolean.optional(),
+        directorship_declaration: z
+          .object({
+            date: z.coerce.number().optional(),
+            ip: z.string().optional(),
+            user_agent: z.string().max(5000).optional(),
+          })
+          .optional(),
         executives_provided: PermissiveBoolean.optional(),
         export_license_id: z.string().max(5000).optional(),
         export_purpose_code: z.string().max(5000).optional(),
@@ -357,6 +420,13 @@ const postAccountsBodySchema = z
             ip: z.string().optional(),
             user_agent: z.string().max(5000).optional(),
           })
+          .optional(),
+        ownership_exemption_reason: z
+          .enum([
+            "",
+            "qualified_entity_exceeds_ownership_threshold",
+            "qualifies_as_financial_institution",
+          ])
           .optional(),
         phone: z.string().max(5000).optional(),
         registration_number: z.string().max(5000).optional(),
@@ -442,11 +512,21 @@ const postAccountsBodySchema = z
         proof_of_registration: z
           .object({ files: z.array(z.string().max(500)).optional() })
           .optional(),
+        proof_of_ultimate_beneficial_ownership: z
+          .object({ files: z.array(z.string().max(500)).optional() })
+          .optional(),
       })
       .optional(),
     email: z.string().optional(),
     expand: z.array(z.string().max(5000)).optional(),
     external_account: z.string().max(5000).optional(),
+    groups: z
+      .object({
+        payments_pricing: z
+          .union([z.string().max(5000), z.enum([""])])
+          .optional(),
+      })
+      .optional(),
     individual: z
       .object({
         address: z
@@ -589,6 +669,13 @@ const postAccountsBodySchema = z
               .optional(),
             statement_descriptor_prefix_kanji: z
               .union([z.string().max(10), z.enum([""])])
+              .optional(),
+          })
+          .optional(),
+        invoices: z
+          .object({
+            hosted_payment_method_save: z
+              .enum(["always", "never", "offer"])
               .optional(),
           })
           .optional(),

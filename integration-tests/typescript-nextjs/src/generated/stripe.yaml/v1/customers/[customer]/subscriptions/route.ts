@@ -66,7 +66,12 @@ const getCustomersCustomerSubscriptionsParamSchema = z.object({
 
 const getCustomersCustomerSubscriptionsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -179,21 +184,11 @@ const postCustomersCustomerSubscriptionsBodySchema = z
       .optional(),
     backdate_start_date: z.coerce.number().optional(),
     billing_cycle_anchor: z.coerce.number().optional(),
-    billing_thresholds: z
-      .union([
-        z.object({
-          amount_gte: z.coerce.number().optional(),
-          reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-        }),
-        z.enum([""]),
-      ])
-      .optional(),
     cancel_at: z.coerce.number().optional(),
     cancel_at_period_end: PermissiveBoolean.optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    coupon: z.string().max(5000).optional(),
     currency: z.string().optional(),
     days_until_due: z.coerce.number().optional(),
     default_payment_method: z.string().max(5000).optional(),
@@ -230,9 +225,6 @@ const postCustomersCustomerSubscriptionsBodySchema = z
     items: z
       .array(
         z.object({
-          billing_thresholds: z
-            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-            .optional(),
           discounts: z
             .union([
               z.array(
@@ -327,8 +319,10 @@ const postCustomersCustomerSubscriptionsBodySchema = z
                       "diners",
                       "discover",
                       "eftpos_au",
+                      "girocard",
                       "interac",
                       "jcb",
+                      "link",
                       "mastercard",
                       "unionpay",
                       "unknown",
@@ -365,6 +359,13 @@ const postCustomersCustomerSubscriptionsBodySchema = z
                 z.object({
                   financial_connections: z
                     .object({
+                      filters: z
+                        .object({
+                          account_subcategories: z
+                            .array(z.enum(["checking", "savings"]))
+                            .optional(),
+                        })
+                        .optional(),
                       permissions: z
                         .array(
                           z.enum([
@@ -398,6 +399,7 @@ const postCustomersCustomerSubscriptionsBodySchema = z
                 "ach_credit_transfer",
                 "ach_debit",
                 "acss_debit",
+                "amazon_pay",
                 "au_becs_debit",
                 "bacs_debit",
                 "bancontact",
@@ -410,14 +412,25 @@ const postCustomersCustomerSubscriptionsBodySchema = z
                 "giropay",
                 "grabpay",
                 "ideal",
+                "jp_credit_transfer",
+                "kakao_pay",
+                "klarna",
                 "konbini",
+                "kr_card",
                 "link",
+                "multibanco",
+                "naver_pay",
+                "nz_bank_account",
                 "p24",
+                "payco",
                 "paynow",
                 "paypal",
                 "promptpay",
+                "revolut_pay",
+                "sepa_credit_transfer",
                 "sepa_debit",
                 "sofort",
+                "swish",
                 "us_bank_account",
                 "wechat_pay",
               ]),
@@ -439,7 +452,6 @@ const postCustomersCustomerSubscriptionsBodySchema = z
         z.enum([""]),
       ])
       .optional(),
-    promotion_code: z.string().max(5000).optional(),
     proration_behavior: z
       .enum(["always_invoice", "create_prorations", "none"])
       .optional(),

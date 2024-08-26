@@ -51,8 +51,8 @@ export type MigrationsStartForAuthenticatedUser = (
 ) => Promise<KoaRuntimeResponse<unknown>>
 
 const migrationsListForAuthenticatedUserQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -108,7 +108,7 @@ const migrationsStartForAuthenticatedUserBodySchema = z.object({
   exclude_attachments: PermissiveBoolean.optional(),
   exclude_releases: PermissiveBoolean.optional(),
   exclude_owner_projects: PermissiveBoolean.optional(),
-  org_metadata_only: PermissiveBoolean.optional(),
+  org_metadata_only: PermissiveBoolean.optional().default(false),
   exclude: z.array(z.enum(["repositories"])).optional(),
   repositories: z.array(z.string()),
 })

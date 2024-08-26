@@ -44,10 +44,10 @@ const appsListAccountsForPlanParamSchema = z.object({
 })
 
 const appsListAccountsForPlanQuerySchema = z.object({
-  sort: z.enum(["created", "updated"]).optional(),
+  sort: z.enum(["created", "updated"]).optional().default("created"),
   direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

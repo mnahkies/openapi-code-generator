@@ -42,7 +42,7 @@ const postTerminalReadersReaderProcessSetupIntentParamSchema = z.object({
 })
 
 const postTerminalReadersReaderProcessSetupIntentBodySchema = z.object({
-  customer_consent_collected: PermissiveBoolean,
+  allow_redisplay: z.enum(["always", "limited", "unspecified"]),
   expand: z.array(z.string().max(5000)).optional(),
   process_config: z
     .object({ enable_customer_cancellation: PermissiveBoolean.optional() })

@@ -139,7 +139,10 @@ const reposCreatePagesSiteBodySchema = z
   .object({
     build_type: z.enum(["legacy", "workflow"]).optional(),
     source: z
-      .object({ branch: z.string(), path: z.enum(["/", "/docs"]).optional() })
+      .object({
+        branch: z.string(),
+        path: z.enum(["/", "/docs"]).optional().default("/"),
+      })
       .optional(),
   })
   .nullable()

@@ -127,7 +127,12 @@ const getCustomersCustomerParamSchema = z.object({
 })
 
 const getCustomersCustomerQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getCustomersCustomerBodySchema = z.object({}).optional()
@@ -245,7 +250,6 @@ const postCustomersCustomerBodySchema = z
           .optional(),
       })
       .optional(),
-    coupon: z.string().max(5000).optional(),
     default_alipay_account: z.string().max(500).optional(),
     default_bank_account: z.string().max(500).optional(),
     default_card: z.string().max(500).optional(),
@@ -275,6 +279,7 @@ const postCustomersCustomerBodySchema = z
               amount_tax_display: z
                 .enum(["", "exclude_tax", "include_inclusive_tax"])
                 .optional(),
+              template: z.string().max(5000).optional(),
             }),
             z.enum([""]),
           ])
@@ -286,7 +291,6 @@ const postCustomersCustomerBodySchema = z
     next_invoice_sequence: z.coerce.number().optional(),
     phone: z.string().max(20).optional(),
     preferred_locales: z.array(z.string().max(5000)).optional(),
-    promotion_code: z.string().max(5000).optional(),
     shipping: z
       .union([
         z.object({
@@ -308,7 +312,9 @@ const postCustomersCustomerBodySchema = z
     tax: z
       .object({
         ip_address: z.union([z.string(), z.enum([""])]).optional(),
-        validate_location: z.enum(["deferred", "immediately"]).optional(),
+        validate_location: z
+          .enum(["auto", "deferred", "immediately"])
+          .optional(),
       })
       .optional(),
     tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),

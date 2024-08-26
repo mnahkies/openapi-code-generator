@@ -126,7 +126,7 @@ const activitySetThreadSubscriptionParamSchema = z.object({
 })
 
 const activitySetThreadSubscriptionBodySchema = z
-  .object({ ignored: PermissiveBoolean.optional() })
+  .object({ ignored: PermissiveBoolean.optional().default(false) })
   .optional()
 
 export const _PUT =

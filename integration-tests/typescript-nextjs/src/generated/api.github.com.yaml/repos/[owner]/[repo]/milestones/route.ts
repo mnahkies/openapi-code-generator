@@ -61,11 +61,11 @@ const issuesListMilestonesParamSchema = z.object({
 })
 
 const issuesListMilestonesQuerySchema = z.object({
-  state: z.enum(["open", "closed", "all"]).optional(),
-  sort: z.enum(["due_on", "completeness"]).optional(),
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  state: z.enum(["open", "closed", "all"]).optional().default("open"),
+  sort: z.enum(["due_on", "completeness"]).optional().default("due_on"),
+  direction: z.enum(["asc", "desc"]).optional().default("asc"),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -119,7 +119,7 @@ const issuesCreateMilestoneParamSchema = z.object({
 
 const issuesCreateMilestoneBodySchema = z.object({
   title: z.string(),
-  state: z.enum(["open", "closed"]).optional(),
+  state: z.enum(["open", "closed"]).optional().default("open"),
   description: z.string().optional(),
   due_on: z.string().datetime({ offset: true }).optional(),
 })

@@ -54,9 +54,9 @@ const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserParamSchema
 
 const packagesGetAllPackageVersionsForPackageOwnedByAuthenticatedUserQuerySchema =
   z.object({
-    page: z.coerce.number().optional(),
-    per_page: z.coerce.number().optional(),
-    state: z.enum(["active", "deleted"]).optional(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+    state: z.enum(["active", "deleted"]).optional().default("active"),
   })
 
 export const _GET =

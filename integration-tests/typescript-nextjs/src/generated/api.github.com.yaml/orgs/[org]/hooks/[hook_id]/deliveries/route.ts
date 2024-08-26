@@ -9,7 +9,6 @@ import {
   t_scim_error,
   t_validation_error,
 } from "../../../../../models"
-import { PermissiveBoolean } from "../../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -45,9 +44,8 @@ const orgsListWebhookDeliveriesParamSchema = z.object({
 })
 
 const orgsListWebhookDeliveriesQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
   cursor: z.string().optional(),
-  redelivery: PermissiveBoolean.optional(),
 })
 
 export const _GET =

@@ -67,7 +67,12 @@ const getTreasuryFinancialAccountsQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })
@@ -155,6 +160,7 @@ const postTreasuryFinancialAccountsBodySchema = z.object({
     })
     .optional(),
   metadata: z.record(z.string()).optional(),
+  nickname: z.union([z.string().max(5000), z.enum([""])]).optional(),
   platform_restrictions: z
     .object({
       inbound_flows: z.enum(["restricted", "unrestricted"]).optional(),

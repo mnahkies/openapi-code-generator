@@ -42,8 +42,8 @@ const reposListActivitiesParamSchema = z.object({
 })
 
 const reposListActivitiesQuerySchema = z.object({
-  direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
+  direction: z.enum(["asc", "desc"]).optional().default("desc"),
+  per_page: z.coerce.number().optional().default(30),
   before: z.string().optional(),
   after: z.string().optional(),
   ref: z.string().optional(),

@@ -5,7 +5,7 @@
 import {
   t_OrgsListOrgRoleUsersParamSchema,
   t_OrgsListOrgRoleUsersQuerySchema,
-  t_simple_user,
+  t_user_role_assignment,
 } from "../../../../../models"
 import {
   KoaRuntimeError,
@@ -21,7 +21,7 @@ import { NextRequest } from "next/server"
 import { z } from "zod"
 
 export type OrgsListOrgRoleUsersResponder = {
-  with200(): KoaRuntimeResponse<t_simple_user[]>
+  with200(): KoaRuntimeResponse<t_user_role_assignment[]>
   with404(): KoaRuntimeResponse<void>
   with422(): KoaRuntimeResponse<void>
 } & KoaRuntimeResponder
@@ -42,8 +42,8 @@ const orgsListOrgRoleUsersParamSchema = z.object({
 })
 
 const orgsListOrgRoleUsersQuerySchema = z.object({
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =
@@ -69,7 +69,7 @@ export const _GET =
 
     const responder = {
       with200() {
-        return new KoaRuntimeResponse<t_simple_user[]>(200)
+        return new KoaRuntimeResponse<t_user_role_assignment[]>(200)
       },
       with404() {
         return new KoaRuntimeResponse<void>(404)

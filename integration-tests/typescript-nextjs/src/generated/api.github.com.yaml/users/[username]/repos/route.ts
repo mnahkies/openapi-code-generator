@@ -37,11 +37,14 @@ export type ReposListForUser = (
 const reposListForUserParamSchema = z.object({ username: z.string() })
 
 const reposListForUserQuerySchema = z.object({
-  type: z.enum(["all", "owner", "member"]).optional(),
-  sort: z.enum(["created", "updated", "pushed", "full_name"]).optional(),
+  type: z.enum(["all", "owner", "member"]).optional().default("owner"),
+  sort: z
+    .enum(["created", "updated", "pushed", "full_name"])
+    .optional()
+    .default("full_name"),
   direction: z.enum(["asc", "desc"]).optional(),
-  per_page: z.coerce.number().optional(),
-  page: z.coerce.number().optional(),
+  per_page: z.coerce.number().optional().default(30),
+  page: z.coerce.number().optional().default(1),
 })
 
 export const _GET =

@@ -38,7 +38,7 @@ const reposGetViewsParamSchema = z.object({
 })
 
 const reposGetViewsQuerySchema = z.object({
-  per: z.enum(["day", "week"]).optional(),
+  per: z.enum(["day", "week"]).optional().default("day"),
 })
 
 export const _GET =

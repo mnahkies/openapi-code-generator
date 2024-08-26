@@ -127,32 +127,39 @@ const reposUpdateBodySchema = z
     name: z.string().optional(),
     description: z.string().optional(),
     homepage: z.string().optional(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
     visibility: z.enum(["public", "private"]).optional(),
     security_and_analysis: z
       .object({
         advanced_security: z
           .object({ status: z.string().optional() })
           .optional(),
+        code_security: z.object({ status: z.string().optional() }).optional(),
         secret_scanning: z.object({ status: z.string().optional() }).optional(),
         secret_scanning_push_protection: z
+          .object({ status: z.string().optional() })
+          .optional(),
+        secret_scanning_ai_detection: z
+          .object({ status: z.string().optional() })
+          .optional(),
+        secret_scanning_non_provider_patterns: z
           .object({ status: z.string().optional() })
           .optional(),
       })
       .nullable()
       .optional(),
-    has_issues: PermissiveBoolean.optional(),
-    has_projects: PermissiveBoolean.optional(),
-    has_wiki: PermissiveBoolean.optional(),
-    is_template: PermissiveBoolean.optional(),
+    has_issues: PermissiveBoolean.optional().default(true),
+    has_projects: PermissiveBoolean.optional().default(true),
+    has_wiki: PermissiveBoolean.optional().default(true),
+    is_template: PermissiveBoolean.optional().default(false),
     default_branch: z.string().optional(),
-    allow_squash_merge: PermissiveBoolean.optional(),
-    allow_merge_commit: PermissiveBoolean.optional(),
-    allow_rebase_merge: PermissiveBoolean.optional(),
-    allow_auto_merge: PermissiveBoolean.optional(),
-    delete_branch_on_merge: PermissiveBoolean.optional(),
-    allow_update_branch: PermissiveBoolean.optional(),
-    use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+    allow_squash_merge: PermissiveBoolean.optional().default(true),
+    allow_merge_commit: PermissiveBoolean.optional().default(true),
+    allow_rebase_merge: PermissiveBoolean.optional().default(true),
+    allow_auto_merge: PermissiveBoolean.optional().default(false),
+    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+    allow_update_branch: PermissiveBoolean.optional().default(false),
+    use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
     squash_merge_commit_title: z
       .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
       .optional(),
@@ -161,9 +168,9 @@ const reposUpdateBodySchema = z
       .optional(),
     merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-    archived: PermissiveBoolean.optional(),
-    allow_forking: PermissiveBoolean.optional(),
-    web_commit_signoff_required: PermissiveBoolean.optional(),
+    archived: PermissiveBoolean.optional().default(false),
+    allow_forking: PermissiveBoolean.optional().default(false),
+    web_commit_signoff_required: PermissiveBoolean.optional().default(false),
   })
   .optional()
 

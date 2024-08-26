@@ -42,7 +42,12 @@ const getBalanceTransactionsIdParamSchema = z.object({
 })
 
 const getBalanceTransactionsIdQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getBalanceTransactionsIdBodySchema = z.object({}).optional()

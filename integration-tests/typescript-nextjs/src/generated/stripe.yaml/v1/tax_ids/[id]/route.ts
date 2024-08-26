@@ -106,7 +106,12 @@ export const _DELETE =
 const getTaxIdsIdParamSchema = z.object({ id: z.string().max(5000) })
 
 const getTaxIdsIdQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getTaxIdsIdBodySchema = z.object({}).optional()

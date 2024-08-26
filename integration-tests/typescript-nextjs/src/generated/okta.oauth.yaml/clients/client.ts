@@ -5,19 +5,26 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_AuthorizeWithPost,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
+  t_ChallengeRequest,
+  t_ChallengeResponse,
   t_Client,
   t_CodeChallengeMethod,
   t_DeviceAuthorizeRequest,
   t_DeviceAuthorizeResponse,
   t_Error,
+  t_GlobalTokenRevocationRequest,
   t_IntrospectionRequest,
   t_IntrospectionResponse,
+  t_LogoutWithPost,
   t_OAuthError,
   t_OAuthKeys,
   t_OAuthMetadata,
   t_OidcMetadata,
+  t_OobAuthenticateRequest,
+  t_OobAuthenticateResponse,
   t_ParRequest,
   t_ParResponse,
   t_Prompt,
@@ -32,10 +39,37 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
-  TypedFetchResponse,
+  Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export class ApiClientServers {
+  static default(): Server<"ApiClient"> {
+    return ApiClientServers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"ApiClient">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(yourOktaDomain = "subdomain.okta.com"): Server<"ApiClient"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export interface ApiClientConfig extends AbstractFetchClientConfig {
+  basePath: Server<"ApiClient"> | string
+}
 
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {
@@ -47,18 +81,23 @@ export class ApiClient extends AbstractFetchClient {
       clientId?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_OidcMetadata> | Res<400, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_OidcMetadata> | Res<400, t_Error>> {
     const url = this.basePath + `/.well-known/openid-configuration`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async authorize(
     p: {
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -69,19 +108,20 @@ export class ApiClient extends AbstractFetchClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
-    } = {},
+      state: string
+    },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/authorize`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
@@ -105,7 +145,28 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async authorizeWithPost(
+    p: {
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
+    const url = this.basePath + `/oauth2/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async bcAuthorize(
@@ -113,26 +174,44 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_BackchannelAuthorizeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_BackchannelAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_BackchannelAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/bc/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async challenge(
+    p: {
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ChallengeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
+  > {
+    const url = this.basePath + `/oauth2/v1/challenge`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async listClients(
@@ -142,20 +221,21 @@ export class ApiClient extends AbstractFetchClient {
       q?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_Client[]> | Res<403, t_Error> | Res<429, t_Error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_Client[]> | Res<403, t_Error> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/clients`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       after: p["after"],
       limit: p["limit"],
       q: p["q"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async createClient(
@@ -163,24 +243,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_Client
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_Client>
-      | Res<400, t_Error>
-      | Res<403, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<201, t_Client>
+    | Res<400, t_Error>
+    | Res<403, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async getClient(
@@ -188,18 +265,17 @@ export class ApiClient extends AbstractFetchClient {
       clientId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async replaceClient(
@@ -208,25 +284,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_Client
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<400, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<400, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async deleteClient(
@@ -234,15 +307,14 @@ export class ApiClient extends AbstractFetchClient {
       clientId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<403, t_Error> | Res<404, t_Error> | Res<429, t_Error>
-    >
+    Res<204, void> | Res<403, t_Error> | Res<404, t_Error> | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async generateNewClientSecret(
@@ -250,19 +322,18 @@ export class ApiClient extends AbstractFetchClient {
       clientId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/v1/clients/${p["clientId"]}/lifecycle/newSecret`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async deviceAuthorize(
@@ -270,26 +341,40 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_DeviceAuthorizeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_DeviceAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_DeviceAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/device/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async globalTokenRevocation(
+    p: {
+      requestBody: t_GlobalTokenRevocationRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<400, void> | Res<403, t_Error> | Res<429, t_Error>
+  > {
+    const url = this.basePath + `/oauth2/v1/global-token-revocation`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async introspect(
@@ -297,24 +382,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_IntrospectionRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_IntrospectionResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_IntrospectionResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/introspect`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async oauthKeys(
@@ -322,12 +404,17 @@ export class ApiClient extends AbstractFetchClient {
       clientId?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_OAuthKeys> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async logout(
@@ -337,16 +424,61 @@ export class ApiClient extends AbstractFetchClient {
       state?: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/logout`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async logoutWithPost(
+    p: {
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
+    const url = this.basePath + `/oauth2/v1/logout`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async oobAuthenticate(
+    p: {
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_OobAuthenticateResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
+  > {
+    const url = this.basePath + `/oauth2/v1/oob-authenticate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async parOptions(
@@ -354,16 +486,12 @@ export class ApiClient extends AbstractFetchClient {
       origin?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/par`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
-    return this._fetch(
-      url,
-      { method: "OPTIONS", headers, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "OPTIONS", ...opts, headers }, timeout)
   }
 
   async par(
@@ -371,25 +499,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_ParRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ParResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_ParResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/par`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async revoke(
@@ -397,24 +522,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_RevokeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, void>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, void>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/revoke`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async tokenOptions(
@@ -422,16 +544,12 @@ export class ApiClient extends AbstractFetchClient {
       origin?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/token`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
-    return this._fetch(
-      url,
-      { method: "OPTIONS", headers, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "OPTIONS", ...opts, headers }, timeout)
   }
 
   async token(
@@ -439,39 +557,33 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_TokenRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_TokenResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_TokenResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/token`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async userinfo(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
-    >
+    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/userinfo`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async getWellKnownOAuthConfigurationCustomAs(
@@ -480,18 +592,21 @@ export class ApiClient extends AbstractFetchClient {
       clientId?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_OAuthMetadata> | Res<400, t_Error> | Res<404, t_Error>
-    >
+    Res<200, t_OAuthMetadata> | Res<400, t_Error> | Res<404, t_Error>
   > {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/.well-known/oauth-authorization-server`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async getWellKnownOpenIdConfigurationCustomAs(
@@ -500,25 +615,26 @@ export class ApiClient extends AbstractFetchClient {
       clientId?: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_OidcMetadata> | Res<400, t_Error> | Res<404, t_Error>
-    >
-  > {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_OidcMetadata> | Res<400, t_Error> | Res<404, t_Error>> {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async authorizeCustomAs(
     p: {
       authorizationServerId: string
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -529,20 +645,21 @@ export class ApiClient extends AbstractFetchClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
+      state: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/authorize`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       acr_values: p["acrValues"],
       client_id: p["clientId"],
@@ -566,7 +683,30 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async authorizeCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async bcAuthorizeCustomAs(
@@ -575,27 +715,47 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_BackchannelAuthorizeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_BackchannelAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_BackchannelAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/bc/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async challengeCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_ChallengeRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ChallengeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
+  > {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/challenge`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
     )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async deviceAuthorizeCustomAs(
@@ -604,28 +764,23 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_DeviceAuthorizeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_DeviceAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_DeviceAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/v1/device/authorize`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async introspectCustomAs(
@@ -634,25 +789,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_IntrospectionRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_IntrospectionResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_IntrospectionResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/introspect`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async oauthKeysCustomAs(
@@ -660,11 +812,12 @@ export class ApiClient extends AbstractFetchClient {
       authorizationServerId: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<200, t_OAuthKeys> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/keys`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async logoutCustomAs(
@@ -675,17 +828,67 @@ export class ApiClient extends AbstractFetchClient {
       state?: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       id_token_hint: p["idTokenHint"],
       post_logout_redirect_uri: p["postLogoutRedirectUri"],
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async logoutCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_LogoutWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async oobAuthenticateCustomAs(
+    p: {
+      authorizationServerId: string
+      requestBody: t_OobAuthenticateRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_OobAuthenticateResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
+  > {
+    const url =
+      this.basePath +
+      `/oauth2/${p["authorizationServerId"]}/v1/oob-authenticate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async parOptionsCustomAs(
@@ -694,16 +897,12 @@ export class ApiClient extends AbstractFetchClient {
       origin?: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
-    return this._fetch(
-      url,
-      { method: "OPTIONS", headers, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "OPTIONS", ...opts, headers }, timeout)
   }
 
   async parCustomAs(
@@ -712,25 +911,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_ParRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ParResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_ParResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async revokeCustomAs(
@@ -739,25 +935,22 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_RevokeRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, void>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, void>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/revoke`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async tokenOptionsCustomAs(
@@ -766,16 +959,12 @@ export class ApiClient extends AbstractFetchClient {
       origin?: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+    opts: RequestInit = {},
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
-    const headers = this._headers({ Origin: p["origin"] })
+    const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
-    return this._fetch(
-      url,
-      { method: "OPTIONS", headers, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "OPTIONS", ...opts, headers }, timeout)
   }
 
   async tokenCustomAs(
@@ -784,26 +973,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_TokenRequest
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_TokenResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_TokenResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
-    const headers = this._headers({
-      "Content-Type": "application/x-www-form-urlencoded",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async userinfoCustomAs(
@@ -811,15 +995,17 @@ export class ApiClient extends AbstractFetchClient {
       authorizationServerId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
-    >
+    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/userinfo`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 }
+
+export { ApiClient as ApiClient }
+export type { ApiClientConfig as ApiClientConfig }

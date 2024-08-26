@@ -5,11 +5,14 @@
 import {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
+  t_AuthorizeCustomAsWithPostBodySchema,
+  t_AuthorizeCustomAsWithPostParamSchema,
   t_Error,
 } from "../../../../models"
 import {
   s_AcrValue,
   s_AmrValue,
+  s_AuthorizeWithPost,
   s_CodeChallengeMethod,
   s_Prompt,
   s_ResponseMode,
@@ -42,13 +45,27 @@ export type AuthorizeCustomAs = (
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
+export type AuthorizeCustomAsWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type AuthorizeCustomAsWithPost = (
+  params: Params<
+    t_AuthorizeCustomAsWithPostParamSchema,
+    void,
+    t_AuthorizeCustomAsWithPostBodySchema
+  >,
+  respond: AuthorizeCustomAsWithPostResponder,
+  ctx: { request: NextRequest },
+) => Promise<KoaRuntimeResponse<unknown>>
+
 const authorizeCustomAsParamSchema = z.object({
   authorizationServerId: z.string(),
 })
 
 const authorizeCustomAsQuerySchema = z.object({
   acr_values: s_AcrValue.optional(),
-  client_id: z.string().optional(),
+  client_id: z.string(),
   code_challenge: z.string().optional(),
   code_challenge_method: s_CodeChallengeMethod.optional(),
   display: z.string().optional(),
@@ -59,14 +76,14 @@ const authorizeCustomAsQuerySchema = z.object({
   max_age: z.coerce.number().optional(),
   nonce: z.string().optional(),
   prompt: s_Prompt.optional(),
-  redirect_uri: z.string().optional(),
-  response_type: s_ResponseTypesSupported.optional(),
+  redirect_uri: z.string(),
+  response_type: s_ResponseTypesSupported,
   response_mode: s_ResponseMode.optional(),
   request_uri: z.string().optional(),
   request: z.string().optional(),
-  scope: z.string().optional(),
+  scope: z.string(),
   sessionToken: z.string().optional(),
-  state: z.string().optional(),
+  state: z.string(),
 })
 
 export const _GET =
@@ -88,6 +105,53 @@ export const _GET =
         RequestInputType.QueryString,
       ),
       body: undefined,
+    }
+
+    const responder = {
+      with429() {
+        return new KoaRuntimeResponse<t_Error>(429)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const { status, body } = await implementation(input, responder, { request })
+      .then((it) => it.unpack())
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    return body !== undefined
+      ? Response.json(body, { status })
+      : new Response(undefined, { status })
+  }
+
+const authorizeCustomAsWithPostParamSchema = z.object({
+  authorizationServerId: z.string(),
+})
+
+const authorizeCustomAsWithPostBodySchema = s_AuthorizeWithPost
+
+export const _POST =
+  (implementation: AuthorizeCustomAsWithPost) =>
+  async (
+    request: NextRequest,
+    { params }: { params: unknown },
+  ): Promise<Response> => {
+    const input = {
+      params: parseRequestInput(
+        authorizeCustomAsWithPostParamSchema,
+        params,
+        RequestInputType.RouteParam,
+      ),
+      // TODO: this swallows repeated parameters
+      query: undefined,
+      body: parseRequestInput(
+        authorizeCustomAsWithPostBodySchema,
+        await request.json(),
+        RequestInputType.RequestBody,
+      ),
     }
 
     const responder = {

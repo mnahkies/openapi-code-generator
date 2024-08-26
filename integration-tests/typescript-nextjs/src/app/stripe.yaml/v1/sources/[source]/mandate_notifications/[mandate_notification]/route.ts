@@ -1,6 +1,6 @@
-import {_GET} from "../../../../../../../generated/stripe.yaml/v1/sources/[source]/mandate_notifications/[mandate_notification]/route"
+import { _GET } from "../../../../../../../generated/stripe.yaml/v1/sources/[source]/mandate_notifications/[mandate_notification]/route"
 
-export const GET = _GET(async ({params, query, body}, respond, context) => {
+export const GET = _GET(async ({ params, query, body }, respond, context) => {
   // TODO: implementation
-  return respond.withStatus(501).body({message: "not implemented"} as any)
+  return respond.withStatus(501).body({ message: "not implemented" } as any)
 })

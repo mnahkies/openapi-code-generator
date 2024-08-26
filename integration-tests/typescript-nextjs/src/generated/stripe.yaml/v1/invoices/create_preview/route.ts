@@ -45,7 +45,6 @@ const postInvoicesCreatePreviewBodySchema = z
           .optional(),
       })
       .optional(),
-    coupon: z.string().max(5000).optional(),
     currency: z.string().optional(),
     customer: z.string().max(5000).optional(),
     customer_details: z
@@ -92,25 +91,35 @@ const postInvoicesCreatePreviewBodySchema = z
               type: z.enum([
                 "ad_nrt",
                 "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "ba_tin",
+                "bb_tin",
                 "bg_uic",
                 "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "bs_tin",
+                "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
                 "ca_pst_bc",
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "cd_nif",
+                "ch_uid",
                 "ch_vat",
                 "cl_tin",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -119,7 +128,9 @@ const postInvoicesCreatePreviewBodySchema = z
                 "eu_vat",
                 "gb_vat",
                 "ge_vat",
+                "gn_nif",
                 "hk_br",
+                "hr_oib",
                 "hu_tin",
                 "id_npwp",
                 "il_vat",
@@ -129,9 +140,16 @@ const postInvoicesCreatePreviewBodySchema = z
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kh_tin",
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
+                "ma_vat",
+                "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -139,6 +157,7 @@ const postInvoicesCreatePreviewBodySchema = z
                 "ng_tin",
                 "no_vat",
                 "no_voec",
+                "np_pan",
                 "nz_gst",
                 "om_vat",
                 "pe_ruc",
@@ -151,16 +170,25 @@ const postInvoicesCreatePreviewBodySchema = z
                 "sg_gst",
                 "sg_uen",
                 "si_tin",
+                "sn_ninea",
+                "sr_fin",
                 "sv_nit",
                 "th_vat",
+                "tj_tin",
                 "tr_tin",
                 "tw_vat",
+                "tz_vat",
                 "ua_vat",
+                "ug_tin",
                 "us_ein",
                 "uy_ruc",
+                "uz_tin",
+                "uz_vat",
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
+                "zm_tin",
+                "zw_tin",
               ]),
               value: z.string(),
             }),
@@ -237,6 +265,7 @@ const postInvoicesCreatePreviewBodySchema = z
       })
       .optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+    preview_mode: z.enum(["next", "recurring"]).optional(),
     schedule: z.string().max(5000).optional(),
     schedule_details: z
       .object({
@@ -290,19 +319,9 @@ const postInvoicesCreatePreviewBodySchema = z
               billing_cycle_anchor: z
                 .enum(["automatic", "phase_start"])
                 .optional(),
-              billing_thresholds: z
-                .union([
-                  z.object({
-                    amount_gte: z.coerce.number().optional(),
-                    reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                  }),
-                  z.enum([""]),
-                ])
-                .optional(),
               collection_method: z
                 .enum(["charge_automatically", "send_invoice"])
                 .optional(),
-              coupon: z.string().max(5000).optional(),
               default_payment_method: z.string().max(5000).optional(),
               default_tax_rates: z
                 .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -341,12 +360,6 @@ const postInvoicesCreatePreviewBodySchema = z
                 .optional(),
               items: z.array(
                 z.object({
-                  billing_thresholds: z
-                    .union([
-                      z.object({ usage_gte: z.coerce.number() }),
-                      z.enum([""]),
-                    ])
-                    .optional(),
                   discounts: z
                     .union([
                       z.array(
@@ -424,12 +437,6 @@ const postInvoicesCreatePreviewBodySchema = z
         items: z
           .array(
             z.object({
-              billing_thresholds: z
-                .union([
-                  z.object({ usage_gte: z.coerce.number() }),
-                  z.enum([""]),
-                ])
-                .optional(),
               clear_usage: PermissiveBoolean.optional(),
               deleted: PermissiveBoolean.optional(),
               discounts: z

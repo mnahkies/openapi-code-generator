@@ -113,7 +113,9 @@ const teamsAddOrUpdateMembershipForUserLegacyParamSchema = z.object({
 })
 
 const teamsAddOrUpdateMembershipForUserLegacyBodySchema = z
-  .object({ role: z.enum(["member", "maintainer"]).optional() })
+  .object({
+    role: z.enum(["member", "maintainer"]).optional().default("member"),
+  })
   .optional()
 
 export const _PUT =

@@ -60,7 +60,12 @@ const getBillingPortalConfigurationsConfigurationParamSchema = z.object({
 })
 
 const getBillingPortalConfigurationsConfigurationQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getBillingPortalConfigurationsConfigurationBodySchema = z
@@ -210,6 +215,23 @@ const postBillingPortalConfigurationsConfigurationBodySchema = z
               .optional(),
             proration_behavior: z
               .enum(["always_invoice", "create_prorations", "none"])
+              .optional(),
+            schedule_at_period_end: z
+              .object({
+                conditions: z
+                  .union([
+                    z.array(
+                      z.object({
+                        type: z.enum([
+                          "decreasing_item_amount",
+                          "shortening_interval",
+                        ]),
+                      }),
+                    ),
+                    z.enum([""]),
+                  ])
+                  .optional(),
+              })
               .optional(),
           })
           .optional(),
