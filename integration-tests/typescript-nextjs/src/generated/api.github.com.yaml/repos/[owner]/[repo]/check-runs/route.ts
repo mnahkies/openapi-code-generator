@@ -36,10 +36,10 @@ const checksCreateParamSchema = z.object({
 })
 
 const checksCreateBodySchema = z.union([
-  z.intersection(z.object({ status: z.object({}) }), z.record(z.any())),
+  z.intersection(z.object({ status: z.object({}) }), z.record(z.unknown())),
   z.intersection(
     z.object({ status: z.object({}).optional() }),
-    z.record(z.any()),
+    z.record(z.unknown()),
   ),
 ])
 

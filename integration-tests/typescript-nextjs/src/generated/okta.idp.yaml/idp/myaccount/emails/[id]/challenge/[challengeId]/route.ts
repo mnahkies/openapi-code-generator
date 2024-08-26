@@ -24,13 +24,13 @@ export type PollChallengeForEmailMagicLinkResponder = {
     _links: {
       poll: {
         hints: {
-          allow: string[]
+          allow: ("DELETE" | "GET" | "POST" | "PUT")[]
         }
         href: string
       }
       verify: {
         hints: {
-          allow: string[]
+          allow: ("DELETE" | "GET" | "POST" | "PUT")[]
         }
         href: string
       }
@@ -40,7 +40,7 @@ export type PollChallengeForEmailMagicLinkResponder = {
     profile: {
       email: string
     }
-    status: string
+    status: "VERIFIED" | "UNVERIFIED"
   }>
   with401(): KoaRuntimeResponse<t_Error>
   with404(): KoaRuntimeResponse<t_Error>
@@ -80,13 +80,13 @@ export const _GET =
           _links: {
             poll: {
               hints: {
-                allow: string[]
+                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
               }
               href: string
             }
             verify: {
               hints: {
-                allow: string[]
+                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
               }
               href: string
             }
@@ -96,7 +96,7 @@ export const _GET =
           profile: {
             email: string
           }
-          status: string
+          status: "VERIFIED" | "UNVERIFIED"
         }>(200)
       },
       with401() {

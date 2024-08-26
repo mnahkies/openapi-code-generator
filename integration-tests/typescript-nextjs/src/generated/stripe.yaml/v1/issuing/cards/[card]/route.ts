@@ -11,6 +11,7 @@ import {
   t_error,
   t_issuing_card,
 } from "../../../../models"
+import { PermissiveBoolean } from "../../../../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -57,7 +58,12 @@ export type PostIssuingCardsCard = (
 const getIssuingCardsCardParamSchema = z.object({ card: z.string().max(5000) })
 
 const getIssuingCardsCardQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getIssuingCardsCardBodySchema = z.object({}).optional()
@@ -120,6 +126,35 @@ const postIssuingCardsCardBodySchema = z
     personalization_design: z.string().max(5000).optional(),
     pin: z
       .object({ encrypted_number: z.string().max(5000).optional() })
+      .optional(),
+    shipping: z
+      .object({
+        address: z.object({
+          city: z.string().max(5000),
+          country: z.string().max(5000),
+          line1: z.string().max(5000),
+          line2: z.string().max(5000).optional(),
+          postal_code: z.string().max(5000),
+          state: z.string().max(5000).optional(),
+        }),
+        address_validation: z
+          .object({
+            mode: z.enum([
+              "disabled",
+              "normalization_only",
+              "validation_and_normalization",
+            ]),
+          })
+          .optional(),
+        customs: z
+          .object({ eori_number: z.string().max(5000).optional() })
+          .optional(),
+        name: z.string().max(5000),
+        phone_number: z.string().optional(),
+        require_signature: PermissiveBoolean.optional(),
+        service: z.enum(["express", "priority", "standard"]).optional(),
+        type: z.enum(["bulk", "individual"]).optional(),
+      })
       .optional(),
     spending_controls: z
       .object({

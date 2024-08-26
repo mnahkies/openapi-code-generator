@@ -70,7 +70,12 @@ const getIssuingCardsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
   exp_month: z.coerce.number().optional(),
   exp_year: z.coerce.number().optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   last4: z.string().max(5000).optional(),
   limit: z.coerce.number().optional(),
   personalization_design: z.string().max(5000).optional(),
@@ -155,6 +160,15 @@ const postIssuingCardsBodySchema = z.object({
         postal_code: z.string().max(5000),
         state: z.string().max(5000).optional(),
       }),
+      address_validation: z
+        .object({
+          mode: z.enum([
+            "disabled",
+            "normalization_only",
+            "validation_and_normalization",
+          ]),
+        })
+        .optional(),
       customs: z
         .object({ eori_number: z.string().max(5000).optional() })
         .optional(),

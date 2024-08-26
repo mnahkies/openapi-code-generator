@@ -3,10 +3,7 @@
 /* eslint-disable */
 
 import {
-  t_OrgsDeleteCustomOrganizationRoleParamSchema,
   t_OrgsGetOrgRoleParamSchema,
-  t_OrgsPatchCustomOrganizationRoleBodySchema,
-  t_OrgsPatchCustomOrganizationRoleParamSchema,
   t_basic_error,
   t_organization_role,
   t_validation_error,
@@ -33,33 +30,6 @@ export type OrgsGetOrgRoleResponder = {
 export type OrgsGetOrgRole = (
   params: Params<t_OrgsGetOrgRoleParamSchema, void, void>,
   respond: OrgsGetOrgRoleResponder,
-  ctx: { request: NextRequest },
-) => Promise<KoaRuntimeResponse<unknown>>
-
-export type OrgsPatchCustomOrganizationRoleResponder = {
-  with200(): KoaRuntimeResponse<t_organization_role>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with409(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type OrgsPatchCustomOrganizationRole = (
-  params: Params<
-    t_OrgsPatchCustomOrganizationRoleParamSchema,
-    void,
-    t_OrgsPatchCustomOrganizationRoleBodySchema
-  >,
-  respond: OrgsPatchCustomOrganizationRoleResponder,
-  ctx: { request: NextRequest },
-) => Promise<KoaRuntimeResponse<unknown>>
-
-export type OrgsDeleteCustomOrganizationRoleResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
-
-export type OrgsDeleteCustomOrganizationRole = (
-  params: Params<t_OrgsDeleteCustomOrganizationRoleParamSchema, void, void>,
-  respond: OrgsDeleteCustomOrganizationRoleResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
@@ -94,109 +64,6 @@ export const _GET =
       },
       with422() {
         return new KoaRuntimeResponse<t_validation_error>(422)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
-    const { status, body } = await implementation(input, responder, { request })
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
-  }
-
-const orgsPatchCustomOrganizationRoleParamSchema = z.object({
-  org: z.string(),
-  role_id: z.coerce.number(),
-})
-
-const orgsPatchCustomOrganizationRoleBodySchema = z.object({
-  name: z.string().optional(),
-  description: z.string().optional(),
-  permissions: z.array(z.string()).optional(),
-})
-
-export const _PATCH =
-  (implementation: OrgsPatchCustomOrganizationRole) =>
-  async (
-    request: NextRequest,
-    { params }: { params: unknown },
-  ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        orgsPatchCustomOrganizationRoleParamSchema,
-        params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: parseRequestInput(
-        orgsPatchCustomOrganizationRoleBodySchema,
-        await request.json(),
-        RequestInputType.RequestBody,
-      ),
-    }
-
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_organization_role>(200)
-      },
-      with404() {
-        return new KoaRuntimeResponse<t_basic_error>(404)
-      },
-      with409() {
-        return new KoaRuntimeResponse<t_basic_error>(409)
-      },
-      with422() {
-        return new KoaRuntimeResponse<t_validation_error>(422)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
-    const { status, body } = await implementation(input, responder, { request })
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
-  }
-
-const orgsDeleteCustomOrganizationRoleParamSchema = z.object({
-  org: z.string(),
-  role_id: z.coerce.number(),
-})
-
-export const _DELETE =
-  (implementation: OrgsDeleteCustomOrganizationRole) =>
-  async (
-    request: NextRequest,
-    { params }: { params: unknown },
-  ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        orgsDeleteCustomOrganizationRoleParamSchema,
-        params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: undefined,
-    }
-
-    const responder = {
-      with204() {
-        return new KoaRuntimeResponse<void>(204)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

@@ -96,7 +96,7 @@ const postInvoicesInvoiceLinesLineItemIdBodySchema = z
               description: z.string().max(5000).optional(),
               display_name: z.string().max(50),
               inclusive: PermissiveBoolean,
-              jurisdiction: z.string().max(50).optional(),
+              jurisdiction: z.string().max(200).optional(),
               percentage: z.coerce.number(),
               state: z.string().max(2).optional(),
               tax_type: z

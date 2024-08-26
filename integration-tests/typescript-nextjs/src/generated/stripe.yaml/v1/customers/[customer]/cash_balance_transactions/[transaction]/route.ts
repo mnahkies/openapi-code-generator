@@ -42,7 +42,14 @@ const getCustomersCustomerCashBalanceTransactionsTransactionParamSchema =
   z.object({ customer: z.string().max(5000), transaction: z.string() })
 
 const getCustomersCustomerCashBalanceTransactionsTransactionQuerySchema =
-  z.object({ expand: z.array(z.string().max(5000)).optional() })
+  z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
 
 const getCustomersCustomerCashBalanceTransactionsTransactionBodySchema = z
   .object({})

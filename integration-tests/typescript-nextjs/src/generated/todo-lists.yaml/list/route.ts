@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import { t_GetTodoListsQuerySchema, t_TodoList } from "../models"
+import { s_Statuses } from "../schemas"
 import {
   KoaRuntimeError,
   RequestInputType,
@@ -28,7 +29,18 @@ export type GetTodoLists = (
 
 const getTodoListsQuerySchema = z.object({
   created: z.string().datetime({ offset: true }).optional(),
-  status: z.enum(["incomplete", "complete"]).optional(),
+  statuses: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      s_Statuses,
+    )
+    .optional(),
+  tags: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string()),
+    )
+    .optional(),
 })
 
 export const _GET =

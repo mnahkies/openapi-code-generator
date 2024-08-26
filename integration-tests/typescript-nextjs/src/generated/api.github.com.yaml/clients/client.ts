@@ -69,7 +69,13 @@ import {
   t_code_scanning_ref_full,
   t_code_scanning_sarifs_receipt,
   t_code_scanning_sarifs_status,
+  t_code_scanning_variant_analysis,
+  t_code_scanning_variant_analysis_repo_task,
   t_code_search_result_item,
+  t_code_security_configuration,
+  t_code_security_configuration_for_repository,
+  t_code_security_configuration_repositories,
+  t_code_security_default_configurations,
   t_codeowners_errors,
   t_codespace,
   t_codespace_export_details,
@@ -98,7 +104,9 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
+  t_copilot_usage_metrics,
   t_custom_deployment_rule_app,
+  t_custom_property,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -168,7 +176,6 @@ import {
   t_minimal_repository,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
-  t_org_custom_property,
   t_org_hook,
   t_org_membership,
   t_org_repo_custom_property_values,
@@ -176,7 +183,6 @@ import {
   t_organization_actions_secret,
   t_organization_actions_variable,
   t_organization_dependabot_secret,
-  t_organization_fine_grained_permission,
   t_organization_full,
   t_organization_invitation,
   t_organization_programmatic_access_grant,
@@ -250,10 +256,14 @@ import {
   t_secret_scanning_alert_resolution_comment,
   t_secret_scanning_alert_state,
   t_secret_scanning_location,
+  t_secret_scanning_push_protection_bypass,
+  t_secret_scanning_push_protection_bypass_placeholder_id,
+  t_secret_scanning_push_protection_bypass_reason,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
   t_short_branch,
+  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -273,6 +283,7 @@ import {
   t_team_membership,
   t_team_project,
   t_team_repository,
+  t_team_role_assignment,
   t_team_simple,
   t_thread,
   t_thread_subscription,
@@ -280,6 +291,7 @@ import {
   t_topic,
   t_topic_search_result_item,
   t_user_marketplace_purchase,
+  t_user_role_assignment,
   t_user_search_result_item,
   t_validation_error,
   t_validation_error_simple,
@@ -311,11 +323,12 @@ export class ApiClient extends AbstractFetchClient {
 
   async metaRoot(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_root>>> {
     const url = this.basePath + `/`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesListGlobalAdvisories(
@@ -338,7 +351,7 @@ export class ApiClient extends AbstractFetchClient {
       sort?: "updated" | "published"
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_global_advisory[]>
@@ -347,6 +360,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/advisories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       ghsa_id: p["ghsaId"],
       type: p["type"],
@@ -366,7 +380,11 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async securityAdvisoriesGetGlobalAdvisory(
@@ -374,22 +392,24 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_global_advisory> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/advisories/${p["ghsaId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsGetAuthenticated(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_integration>>> {
     const url = this.basePath + `/app`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsCreateFromManifest(
@@ -397,7 +417,7 @@ export class ApiClient extends AbstractFetchClient {
       code: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -415,17 +435,19 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/app-manifests/${p["code"]}/conversions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async appsGetWebhookConfigForApp(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsUpdateWebhookConfigForApp(
@@ -438,15 +460,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/app/hook/config`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -458,7 +483,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -467,13 +492,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/app/hook/deliveries`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsGetWebhookDelivery(
@@ -481,7 +511,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -490,8 +520,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/app/hook/deliveries/${p["deliveryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsRedeliverWebhookDelivery(
@@ -499,7 +530,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -514,8 +545,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/app/hook/deliveries/${p["deliveryId"]}/attempts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async appsListInstallationRequestsForAuthenticatedApp(
@@ -524,7 +556,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_integration_installation_request[]>
@@ -533,9 +565,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/app/installation-requests`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsListInstallations(
@@ -546,9 +583,10 @@ export class ApiClient extends AbstractFetchClient {
       outdated?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_installation[]>>> {
     const url = this.basePath + `/app/installations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -556,7 +594,11 @@ export class ApiClient extends AbstractFetchClient {
       outdated: p["outdated"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsGetInstallation(
@@ -564,13 +606,14 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_installation> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/app/installations/${p["installationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsDeleteInstallation(
@@ -578,11 +621,12 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/app/installations/${p["installationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async appsCreateInstallationAccessToken(
@@ -595,7 +639,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_installation_token>
@@ -607,14 +651,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/access_tokens`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async appsSuspendInstallation(
@@ -622,12 +665,13 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async appsUnsuspendInstallation(
@@ -635,12 +679,13 @@ export class ApiClient extends AbstractFetchClient {
       installationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/app/installations/${p["installationId"]}/suspended`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async appsDeleteAuthorization(
@@ -651,17 +696,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/grant`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -674,7 +722,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_authorization>
@@ -683,14 +731,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async appsResetToken(
@@ -701,17 +748,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_authorization> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -724,17 +774,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -752,7 +805,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_authorization>
@@ -763,14 +816,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/applications/${p["clientId"]}/token/scoped`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async appsGetBySlug(
@@ -778,7 +830,7 @@ export class ApiClient extends AbstractFetchClient {
       appSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_integration>
@@ -787,8 +839,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/apps/${p["appSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async classroomGetAnAssignment(
@@ -796,15 +849,16 @@ export class ApiClient extends AbstractFetchClient {
       assignmentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_classroom_assignment> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/assignments/${p["assignmentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async classroomListAcceptedAssigmentsForAnAssignment(
@@ -814,13 +868,18 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_classroom_accepted_assignment[]>>> {
     const url =
       this.basePath + `/assignments/${p["assignmentId"]}/accepted_assignments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async classroomGetAssignmentGrades(
@@ -828,15 +887,16 @@ export class ApiClient extends AbstractFetchClient {
       assignmentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_classroom_assignment_grade[]> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/assignments/${p["assignmentId"]}/grades`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async classroomListClassrooms(
@@ -845,12 +905,17 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_classroom[]>>> {
     const url = this.basePath + `/classrooms`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async classroomGetAClassroom(
@@ -858,13 +923,14 @@ export class ApiClient extends AbstractFetchClient {
       classroomId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_classroom> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/classrooms/${p["classroomId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async classroomListAssignmentsForAClassroom(
@@ -874,23 +940,29 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_classroom_assignment[]>>> {
     const url = this.basePath + `/classrooms/${p["classroomId"]}/assignments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codesOfConductGetAllCodesOfConduct(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_code_of_conduct[]> | Res<304, void>>
   > {
     const url = this.basePath + `/codes_of_conduct`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codesOfConductGetConductCode(
@@ -898,20 +970,21 @@ export class ApiClient extends AbstractFetchClient {
       key: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_code_of_conduct> | Res<304, void> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/codes_of_conduct/${p["key"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async emojisGet(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -924,8 +997,79 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/emojis`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async copilotListCopilotSeatsForEnterprise(
+    p: {
+      enterprise: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            seats?: t_copilot_seat_details[]
+            total_seats?: number
+          }
+        >
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/copilot/billing/seats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async copilotUsageMetricsForEnterprise(
+    p: {
+      enterprise: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/enterprises/${p["enterprise"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotListAlertsForEnterprise(
@@ -945,7 +1089,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert_with_repository[]>
@@ -957,6 +1101,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/enterprises/${p["enterprise"]}/dependabot/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -972,7 +1117,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async secretScanningListAlertsForEnterprise(
@@ -989,7 +1138,7 @@ export class ApiClient extends AbstractFetchClient {
       validity?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_secret_scanning_alert[]>
@@ -1006,6 +1155,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/enterprises/${p["enterprise"]}/secret-scanning/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -1018,7 +1168,49 @@ export class ApiClient extends AbstractFetchClient {
       validity: p["validity"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async copilotUsageMetricsForEnterpriseTeam(
+    p: {
+      enterprise: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListPublicEvents(
@@ -1027,7 +1219,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_event[]>
@@ -1044,18 +1236,24 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityGetFeeds(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_feed>>> {
     const url = this.basePath + `/feeds`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gistsList(
@@ -1065,20 +1263,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_base_gist[]> | Res<304, void> | Res<403, t_basic_error>
     >
   > {
     const url = this.basePath + `/gists`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsCreate(
@@ -1096,7 +1299,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gist_simple>
@@ -1107,14 +1310,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gistsListPublic(
@@ -1124,7 +1326,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_base_gist[]>
@@ -1134,13 +1336,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/public`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsListStarred(
@@ -1150,7 +1357,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_base_gist[]>
@@ -1160,13 +1367,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/starred`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsGet(
@@ -1174,7 +1386,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1195,8 +1407,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gistsUpdate(
@@ -1215,7 +1428,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1224,12 +1437,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -1239,7 +1455,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1249,8 +1465,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async gistsListComments(
@@ -1260,7 +1477,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_comment[]>
@@ -1270,9 +1487,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsCreateComment(
@@ -1283,7 +1505,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gist_comment>
@@ -1293,14 +1515,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gistsGetComment(
@@ -1309,7 +1530,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_comment>
@@ -1331,8 +1552,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gistsUpdateComment(
@@ -1344,18 +1566,21 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_gist_comment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -1366,7 +1591,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1377,8 +1602,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/gists/${p["gistId"]}/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async gistsListCommits(
@@ -1388,7 +1614,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_commit[]>
@@ -1398,9 +1624,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/commits`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsListForks(
@@ -1410,7 +1641,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple[]>
@@ -1420,9 +1651,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/forks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async gistsFork(
@@ -1430,7 +1666,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_base_gist>
@@ -1441,8 +1677,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/forks`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async gistsCheckIsStarred(
@@ -1450,7 +1687,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1460,8 +1697,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gistsStar(
@@ -1469,7 +1707,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1479,8 +1717,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async gistsUnstar(
@@ -1488,7 +1727,7 @@ export class ApiClient extends AbstractFetchClient {
       gistId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -1498,8 +1737,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/star`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async gistsGetRevision(
@@ -1508,7 +1748,7 @@ export class ApiClient extends AbstractFetchClient {
       sha: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gist_simple>
@@ -1518,17 +1758,19 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/gists/${p["gistId"]}/${p["sha"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitignoreGetAllTemplates(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<304, void>>> {
     const url = this.basePath + `/gitignore/templates`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitignoreGetTemplate(
@@ -1536,13 +1778,14 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_gitignore_template> | Res<304, void>>
   > {
     const url = this.basePath + `/gitignore/templates/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsListReposAccessibleToInstallation(
@@ -1551,7 +1794,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1568,18 +1811,24 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/installation/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsRevokeInstallationAccessToken(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/installation/token`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesList(
@@ -1604,7 +1853,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue[]>
@@ -1614,6 +1863,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/issues`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -1629,7 +1879,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async licensesGetAllCommonlyUsed(
@@ -1639,18 +1893,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_license_simple[]> | Res<304, void>>
   > {
     const url = this.basePath + `/licenses`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       featured: p["featured"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async licensesGet(
@@ -1658,7 +1917,7 @@ export class ApiClient extends AbstractFetchClient {
       license: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_license>
@@ -1668,8 +1927,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/licenses/${p["license"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async markdownRender(
@@ -1681,17 +1941,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async markdownRenderRaw(
@@ -1699,17 +1958,16 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<304, void>>> {
     const url = this.basePath + `/markdown/raw`
-    const headers = this._headers({ "Content-Type": "text/plain" })
+    const headers = this._headers(
+      { "Content-Type": "text/plain" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async appsGetSubscriptionPlanForAccount(
@@ -1717,7 +1975,7 @@ export class ApiClient extends AbstractFetchClient {
       accountId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase>
@@ -1727,8 +1985,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/marketplace_listing/accounts/${p["accountId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsListPlans(
@@ -1737,7 +1996,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_listing_plan[]>
@@ -1746,9 +2005,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/marketplace_listing/plans`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsListAccountsForPlan(
@@ -1760,7 +2024,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase[]>
@@ -1771,6 +2035,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/marketplace_listing/plans/${p["planId"]}/accounts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -1778,7 +2043,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsGetSubscriptionPlanForAccountStubbed(
@@ -1786,7 +2055,7 @@ export class ApiClient extends AbstractFetchClient {
       accountId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_marketplace_purchase>
@@ -1796,8 +2065,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/marketplace_listing/stubbed/accounts/${p["accountId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async appsListPlansStubbed(
@@ -1806,16 +2076,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_marketplace_listing_plan[]> | Res<401, t_basic_error>
     >
   > {
     const url = this.basePath + `/marketplace_listing/stubbed/plans`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsListAccountsForPlanStubbed(
@@ -1827,7 +2102,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_marketplace_purchase[]> | Res<401, t_basic_error>
@@ -1836,6 +2111,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -1843,16 +2119,21 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async metaGet(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_api_overview> | Res<304, void>>> {
     const url = this.basePath + `/meta`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activityListPublicEventsForRepoNetwork(
@@ -1863,7 +2144,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_event[]>
@@ -1874,9 +2155,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/networks/${p["owner"]}/${p["repo"]}/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListNotificationsForAuthenticatedUser(
@@ -1889,7 +2175,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread[]>
@@ -1900,6 +2186,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/notifications`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       all: p["all"],
       participating: p["participating"],
@@ -1909,7 +2196,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityMarkNotificationsAsRead(
@@ -1920,7 +2211,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -1936,14 +2227,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/notifications`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async activityGetThread(
@@ -1951,7 +2241,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread>
@@ -1961,8 +2251,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activityMarkThreadAsRead(
@@ -1970,15 +2261,16 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<205, void> | Res<304, void> | Res<403, t_basic_error>
     >
   > {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PATCH", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PATCH", ...opts, headers }, timeout)
   }
 
   async activityMarkThreadAsDone(
@@ -1986,11 +2278,12 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/notifications/threads/${p["threadId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async activityGetThreadSubscriptionForAuthenticatedUser(
@@ -1998,7 +2291,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread_subscription>
@@ -2009,8 +2302,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activitySetThreadSubscription(
@@ -2021,7 +2315,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_thread_subscription>
@@ -2032,14 +2326,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async activityDeleteThreadSubscription(
@@ -2047,7 +2340,7 @@ export class ApiClient extends AbstractFetchClient {
       threadId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -2058,8 +2351,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/notifications/threads/${p["threadId"]}/subscription`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async metaGetOctocat(
@@ -2067,12 +2361,17 @@ export class ApiClient extends AbstractFetchClient {
       s?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/octocat`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ s: p["s"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsList(
@@ -2081,14 +2380,19 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_organization_simple[]> | Res<304, void>>
   > {
     const url = this.basePath + `/organizations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsGet(
@@ -2096,13 +2400,14 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_organization_full> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsUpdate(
@@ -2141,7 +2446,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_full>
@@ -2150,12 +2455,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -2165,7 +2473,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2179,8 +2487,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsGetActionsCacheUsageForOrg(
@@ -2188,13 +2497,14 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_cache_usage_org_enterprise>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/cache/usage`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetActionsCacheUsageByRepoForOrg(
@@ -2204,7 +2514,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2218,9 +2528,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/cache/usage-by-repository`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async oidcGetOidcCustomSubTemplateForOrg(
@@ -2228,12 +2543,13 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_oidc_custom_sub>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async oidcUpdateOidcCustomSubTemplateForOrg(
@@ -2242,7 +2558,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_oidc_custom_sub
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -2252,14 +2568,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/oidc/customization/sub`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsGetGithubActionsPermissionsOrganization(
@@ -2267,11 +2582,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_organization_permissions>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetGithubActionsPermissionsOrganization(
@@ -2283,17 +2599,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsListSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2303,7 +2618,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2317,9 +2632,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsSetSelectedRepositoriesEnabledGithubActionsOrganization(
@@ -2330,18 +2650,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsEnableSelectedRepositoryGithubActionsOrganization(
@@ -2350,13 +2669,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async actionsDisableSelectedRepositoryGithubActionsOrganization(
@@ -2365,13 +2685,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/permissions/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsGetAllowedActionsOrganization(
@@ -2379,12 +2700,13 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetAllowedActionsOrganization(
@@ -2393,18 +2715,17 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_selected_actions
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/permissions/selected-actions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2412,13 +2733,14 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsOrganization(
@@ -2427,17 +2749,16 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_actions_set_default_workflow_permissions
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/permissions/workflow`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsListSelfHostedRunnersForOrg(
@@ -2448,7 +2769,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2461,13 +2782,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsListRunnerApplicationsForOrg(
@@ -2475,11 +2801,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/downloads`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGenerateRunnerJitconfigForOrg(
@@ -2493,7 +2820,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2509,14 +2836,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/generate-jitconfig`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsCreateRegistrationTokenForOrg(
@@ -2524,12 +2850,13 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/registration-token`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsCreateRemoveTokenForOrg(
@@ -2537,11 +2864,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners/remove-token`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsGetSelfHostedRunnerForOrg(
@@ -2550,12 +2878,13 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDeleteSelfHostedRunnerFromOrg(
@@ -2564,12 +2893,13 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListLabelsForSelfHostedRunnerForOrg(
@@ -2578,7 +2908,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2594,8 +2924,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForOrg(
@@ -2607,7 +2938,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2624,14 +2955,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForOrg(
@@ -2643,7 +2973,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2660,14 +2990,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForOrg(
@@ -2676,7 +3005,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2692,8 +3021,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForOrg(
@@ -2703,7 +3033,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -2720,8 +3050,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListOrgSecrets(
@@ -2731,7 +3062,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2744,9 +3075,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetOrgPublicKey(
@@ -2754,11 +3090,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetOrgSecret(
@@ -2767,12 +3104,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_actions_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsCreateOrUpdateOrgSecret(
@@ -2787,18 +3125,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsDeleteOrgSecret(
@@ -2807,12 +3144,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListSelectedReposForOrgSecret(
@@ -2823,7 +3161,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2838,9 +3176,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsSetSelectedReposForOrgSecret(
@@ -2852,19 +3195,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsAddSelectedRepoToOrgSecret(
@@ -2874,13 +3216,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async actionsRemoveSelectedRepoFromOrgSecret(
@@ -2890,13 +3233,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListOrgVariables(
@@ -2906,7 +3250,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -2919,9 +3263,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsCreateOrgVariable(
@@ -2935,17 +3284,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsGetOrgVariable(
@@ -2954,12 +3302,13 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_actions_variable>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsUpdateOrgVariable(
@@ -2974,16 +3323,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -2994,12 +3346,13 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/actions/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListSelectedReposForOrgVariable(
@@ -3010,7 +3363,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3026,9 +3379,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsSetSelectedReposForOrgVariable(
@@ -3040,19 +3398,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsAddSelectedRepoToOrgVariable(
@@ -3062,13 +3419,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async actionsRemoveSelectedRepoFromOrgVariable(
@@ -3078,13 +3436,61 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/actions/variables/${p["name"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async orgsListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      org: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          attestations?: {
+            bundle?: {
+              dsseEnvelope?: {
+                [key: string]: unknown | undefined
+              }
+              mediaType?: string
+              verificationMaterial?: {
+                [key: string]: unknown | undefined
+              }
+            }
+            repository_id?: number
+          }[]
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListBlockedUsers(
@@ -3094,12 +3500,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCheckBlockedUser(
@@ -3108,11 +3519,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsBlockUser(
@@ -3121,13 +3533,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async orgsUnblockUser(
@@ -3136,11 +3549,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codeScanningListAlertsForOrg(
@@ -3158,7 +3572,7 @@ export class ApiClient extends AbstractFetchClient {
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_organization_alert_items[]>
@@ -3174,6 +3588,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/code-scanning/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -3187,7 +3602,336 @@ export class ApiClient extends AbstractFetchClient {
       severity: p["severity"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async codeSecurityGetConfigurationsForOrg(
+    p: {
+      org: string
+      targetType?: "global" | "all"
+      perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/code-security/configurations`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      target_type: p["targetType"],
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async codeSecurityCreateConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
+        description: string
+        enforcement?: "enforced" | "unenforced"
+        name: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<201, t_code_security_configuration>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/code-security/configurations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetDefaultConfigurations(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_default_configurations>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/code-security/configurations/defaults`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityDetachConfiguration(
+    p: {
+      org: string
+      requestBody: {
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/code-security/configurations/detach`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async codeSecurityGetConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityUpdateConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
+        description?: string
+        enforcement?: "enforced" | "unenforced"
+        name?: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<Res<200, t_code_security_configuration> | Res<204, void>>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async codeSecurityDeleteConfiguration(
+    p: {
+      org: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<409, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityAttachConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        scope: "all" | "public" | "private_or_internal" | "selected"
+        selected_repository_ids?: number[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        202,
+        {
+          [key: string]: unknown | undefined
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/attach`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecuritySetConfigurationAsDefault(
+    p: {
+      org: string
+      configurationId: number
+      requestBody: {
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            configuration?: t_code_security_configuration
+            default_for_new_repos?:
+              | "all"
+              | "none"
+              | "private_and_internal"
+              | "public"
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetRepositoriesForConfiguration(
+    p: {
+      org: string
+      configurationId: number
+      perPage?: number
+      before?: string
+      after?: string
+      status?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration_repositories[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesListInOrganization(
@@ -3197,7 +3941,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3215,9 +3959,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesSetCodespacesAccess(
@@ -3233,7 +3982,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3245,14 +3994,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/access`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesSetCodespacesAccessUsers(
@@ -3263,7 +4011,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3276,14 +4024,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/access/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codespacesDeleteCodespacesAccessUsers(
@@ -3294,7 +4041,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3307,12 +4054,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/access/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -3324,7 +4074,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3337,9 +4087,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesGetOrgPublicKey(
@@ -3347,12 +4102,13 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesGetOrgSecret(
@@ -3361,12 +4117,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_org_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesCreateOrUpdateOrgSecret(
@@ -3381,7 +4138,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -3392,14 +4149,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesDeleteOrgSecret(
@@ -3408,12 +4164,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesListSelectedReposForOrgSecret(
@@ -3424,7 +4181,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3440,9 +4197,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesSetSelectedReposForOrgSecret(
@@ -3454,7 +4216,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<409, void>
@@ -3463,14 +4225,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesAddSelectedRepoToOrgSecret(
@@ -3480,7 +4241,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3492,8 +4253,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async codespacesRemoveSelectedRepoFromOrgSecret(
@@ -3503,7 +4265,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -3515,8 +4277,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async copilotGetCopilotOrganizationDetails(
@@ -3524,7 +4287,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_copilot_organization_details>
@@ -3536,8 +4299,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/copilot/billing`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async copilotListCopilotSeats(
@@ -3547,7 +4311,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3564,9 +4328,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/copilot/billing/seats`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async copilotAddCopilotSeatsForTeams(
@@ -3577,7 +4346,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3595,14 +4364,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/copilot/billing/selected_teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async copilotCancelCopilotSeatAssignmentForTeams(
@@ -3613,7 +4381,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3631,12 +4399,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/copilot/billing/selected_teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -3649,7 +4420,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3667,14 +4438,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/copilot/billing/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async copilotCancelCopilotSeatAssignmentForUsers(
@@ -3685,7 +4455,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -3703,12 +4473,50 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/copilot/billing/selected_users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async copilotUsageMetricsForOrg(
+    p: {
+      org: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
       timeout,
     )
   }
@@ -3730,7 +4538,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert_with_repository[]>
@@ -3742,6 +4550,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -3757,7 +4566,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotListOrgSecrets(
@@ -3767,7 +4580,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3780,9 +4593,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotGetOrgPublicKey(
@@ -3790,12 +4608,13 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependabotGetOrgSecret(
@@ -3804,12 +4623,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_dependabot_secret>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependabotCreateOrUpdateOrgSecret(
@@ -3824,18 +4644,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async dependabotDeleteOrgSecret(
@@ -3844,12 +4663,13 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async dependabotListSelectedReposForOrgSecret(
@@ -3860,7 +4680,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -3875,9 +4695,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotSetSelectedReposForOrgSecret(
@@ -3889,19 +4714,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async dependabotAddSelectedRepoToOrgSecret(
@@ -3911,13 +4735,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async dependabotRemoveSelectedRepoFromOrgSecret(
@@ -3927,13 +4752,14 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/dependabot/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesListDockerMigrationConflictingPackagesForOrganization(
@@ -3941,15 +4767,16 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/docker/conflicts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activityListPublicOrgEvents(
@@ -3959,12 +4786,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListFailedInvitations(
@@ -3974,16 +4806,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/failed_invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListWebhooks(
@@ -3993,14 +4830,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_org_hook[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCreateWebhook(
@@ -4021,7 +4863,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_org_hook>
@@ -4030,14 +4872,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsGetWebhook(
@@ -4046,13 +4887,14 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_org_hook> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsUpdateWebhook(
@@ -4072,7 +4914,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_hook>
@@ -4081,12 +4923,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -4097,11 +4942,12 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsGetWebhookConfigForOrg(
@@ -4110,11 +4956,12 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsUpdateWebhookConfigForOrg(
@@ -4129,15 +4976,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/config`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -4151,7 +5001,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -4161,13 +5011,18 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsGetWebhookDelivery(
@@ -4177,7 +5032,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -4188,8 +5043,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsRedeliverWebhookDelivery(
@@ -4199,7 +5055,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4215,8 +5071,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async orgsPingWebhook(
@@ -4225,11 +5082,12 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async appsGetOrgInstallation(
@@ -4237,11 +5095,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/orgs/${p["org"]}/installation`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsListAppInstallations(
@@ -4251,7 +5110,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -4264,9 +5123,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/installations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async interactionsGetRestrictionsForOrg(
@@ -4274,13 +5138,14 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async interactionsSetRestrictionsForOrg(
@@ -4289,21 +5154,20 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async interactionsRemoveRestrictionsForOrg(
@@ -4311,11 +5175,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsListPendingInvitations(
@@ -4332,13 +5197,14 @@ export class ApiClient extends AbstractFetchClient {
       invitationSource?: "all" | "member" | "scim"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_organization_invitation[]> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -4346,7 +5212,11 @@ export class ApiClient extends AbstractFetchClient {
       invitation_source: p["invitationSource"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCreateInvitation(
@@ -4360,7 +5230,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_organization_invitation>
@@ -4369,14 +5239,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsCancelInvitation(
@@ -4385,7 +5254,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -4393,8 +5262,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsListInvitationTeams(
@@ -4405,13 +5275,18 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesListForOrg(
@@ -4433,11 +5308,12 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issue[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/issues`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -4449,7 +5325,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListMembers(
@@ -4461,11 +5341,12 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/members`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       role: p["role"],
@@ -4473,7 +5354,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCheckMembershipForUser(
@@ -4482,13 +5367,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<302, void> | Res<404, void>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsRemoveMember(
@@ -4497,11 +5383,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesGetCodespacesForUserInOrg(
@@ -4512,7 +5399,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4531,9 +5418,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/members/${p["username"]}/codespaces`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesDeleteFromOrganization(
@@ -4543,7 +5435,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4562,8 +5454,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesStopInOrganization(
@@ -4573,7 +5466,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -4587,8 +5480,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/members/${p["username"]}/codespaces/${p["codespaceName"]}/stop`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async copilotGetCopilotSeatDetailsForUser(
@@ -4597,7 +5491,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_copilot_seat_details>
@@ -4610,8 +5504,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/members/${p["username"]}/copilot`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsGetMembershipForUser(
@@ -4620,7 +5515,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -4629,8 +5524,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsSetMembershipForUser(
@@ -4642,7 +5538,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -4651,14 +5547,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async orgsRemoveMembershipForUser(
@@ -4667,15 +5562,16 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsListForOrg(
@@ -4686,16 +5582,21 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: "repositories"[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_migration[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       exclude: p["exclude"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async migrationsStartForOrg(
@@ -4714,7 +5615,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_migration>
@@ -4723,14 +5624,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async migrationsGetStatusForOrg(
@@ -4740,15 +5640,20 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: "repositories"[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_migration> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ exclude: p["exclude"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async migrationsDownloadArchiveForOrg(
@@ -4757,12 +5662,13 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async migrationsDeleteArchiveForOrg(
@@ -4771,12 +5677,13 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/migrations/${p["migrationId"]}/archive`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsUnlockRepoForOrg(
@@ -4786,13 +5693,14 @@ export class ApiClient extends AbstractFetchClient {
       repoName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsListReposForOrg(
@@ -4803,7 +5711,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
@@ -4812,28 +5720,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async orgsListOrganizationFineGrainedPermissions(
-    p: {
-      org: string
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_organization_fine_grained_permission[]>
-      | Res<404, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-fine-grained-permissions`
-
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListOrgRoles(
@@ -4841,7 +5735,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -4856,38 +5750,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async orgsCreateCustomOrganizationRole(
-    p: {
-      org: string
-      requestBody: {
-        description?: string
-        name: string
-        permissions: string[]
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_organization_role>
-      | Res<404, t_basic_error>
-      | Res<409, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/organization-roles`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsRevokeAllOrgRolesTeam(
@@ -4896,13 +5761,14 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsAssignTeamToOrgRole(
@@ -4912,15 +5778,16 @@ export class ApiClient extends AbstractFetchClient {
       roleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async orgsRevokeOrgRoleTeam(
@@ -4930,13 +5797,14 @@ export class ApiClient extends AbstractFetchClient {
       roleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/teams/${p["teamSlug"]}/${p["roleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsRevokeAllOrgRolesUser(
@@ -4945,13 +5813,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/users/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsAssignUserToOrgRole(
@@ -4961,15 +5830,16 @@ export class ApiClient extends AbstractFetchClient {
       roleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<204, void> | Res<404, void> | Res<422, void>>
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async orgsRevokeOrgRoleUser(
@@ -4979,13 +5849,14 @@ export class ApiClient extends AbstractFetchClient {
       roleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/users/${p["username"]}/${p["roleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsGetOrgRole(
@@ -4994,7 +5865,7 @@ export class ApiClient extends AbstractFetchClient {
       roleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_role>
@@ -5004,54 +5875,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
-  }
-
-  async orgsPatchCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-      requestBody: {
-        description?: string
-        name?: string
-        permissions?: string[]
-      }
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_organization_role>
-      | Res<404, t_basic_error>
-      | Res<409, t_basic_error>
-      | Res<422, t_validation_error>
-    >
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
-    const body = JSON.stringify(p.requestBody)
-
-    return this._fetch(
-      url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
-  }
-
-  async orgsDeleteCustomOrganizationRole(
-    p: {
-      org: string
-      roleId: number
-    },
-    timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/organization-roles/${p["roleId"]}`
-
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsListOrgRoleTeams(
@@ -5062,16 +5888,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<Res<200, t_team[]> | Res<404, void> | Res<422, void>>
+    TypedFetchResponse<
+      Res<200, t_team_role_assignment[]> | Res<404, void> | Res<422, void>
+    >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListOrgRoleUsers(
@@ -5082,18 +5915,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
-      Res<200, t_simple_user[]> | Res<404, void> | Res<422, void>
+      Res<200, t_user_role_assignment[]> | Res<404, void> | Res<422, void>
     >
   > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/organization-roles/${p["roleId"]}/users`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListOutsideCollaborators(
@@ -5104,16 +5942,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/outside_collaborators`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsConvertMemberToOutsideCollaborator(
@@ -5125,7 +5968,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, EmptyObject>
@@ -5136,14 +5979,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async orgsRemoveOutsideCollaborator(
@@ -5152,7 +5994,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5167,8 +6009,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/outside_collaborators/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesListPackagesForOrganization(
@@ -5186,7 +6029,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package[]>
@@ -5196,6 +6039,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/packages`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -5203,7 +6047,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesGetPackageForOrganization(
@@ -5219,13 +6067,14 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageForOrg(
@@ -5241,7 +6090,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5253,8 +6102,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageForOrg(
@@ -5271,7 +6121,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5283,11 +6133,12 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ token: p["token"] })
 
     return this._fetch(
       url + query,
-      { method: "POST", ...(opts ?? {}) },
+      { method: "POST", ...opts, headers },
       timeout,
     )
   }
@@ -5308,7 +6159,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "active" | "deleted"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -5320,13 +6171,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesGetPackageVersionForOrganization(
@@ -5343,13 +6199,14 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageVersionForOrg(
@@ -5366,7 +6223,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5378,8 +6235,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageVersionForOrg(
@@ -5396,7 +6254,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5408,8 +6266,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async orgsListPatGrantRequests(
@@ -5426,7 +6285,7 @@ export class ApiClient extends AbstractFetchClient {
       lastUsedAfter?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_programmatic_access_grant_request[]>
@@ -5438,6 +6297,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/personal-access-token-requests`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -5450,7 +6310,11 @@ export class ApiClient extends AbstractFetchClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsReviewPatGrantRequestsInBulk(
@@ -5463,7 +6327,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5480,14 +6344,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/personal-access-token-requests`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsReviewPatGrantRequest(
@@ -5500,7 +6363,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5513,14 +6376,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsListPatGrantRequestRepositories(
@@ -5531,7 +6393,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -5543,9 +6405,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/personal-access-token-requests/${p["patRequestId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListPatGrants(
@@ -5562,7 +6429,7 @@ export class ApiClient extends AbstractFetchClient {
       lastUsedAfter?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_programmatic_access_grant[]>
@@ -5573,6 +6440,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/personal-access-tokens`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -5585,7 +6453,11 @@ export class ApiClient extends AbstractFetchClient {
       last_used_after: p["lastUsedAfter"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsUpdatePatAccesses(
@@ -5597,7 +6469,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -5613,14 +6485,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/personal-access-tokens`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsUpdatePatAccess(
@@ -5632,7 +6503,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5644,14 +6515,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsListPatGrantRepositories(
@@ -5662,7 +6532,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -5674,9 +6544,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/personal-access-tokens/${p["patId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsListForOrg(
@@ -5687,20 +6562,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_project[]> | Res<422, t_validation_error_simple>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/projects`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsCreateForOrg(
@@ -5712,7 +6592,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -5724,14 +6604,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/projects`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async orgsGetAllCustomProperties(
@@ -5739,42 +6618,46 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property[]>
+      | Res<200, t_custom_property[]>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/properties/schema`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsCreateOrUpdateCustomProperties(
     p: {
       org: string
       requestBody: {
-        properties: t_org_custom_property[]
+        properties: t_custom_property[]
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property[]>
+      | Res<200, t_custom_property[]>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/properties/schema`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -5785,10 +6668,10 @@ export class ApiClient extends AbstractFetchClient {
       customPropertyName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property>
+      | Res<200, t_custom_property>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -5796,8 +6679,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsCreateOrUpdateCustomProperty(
@@ -5809,14 +6693,14 @@ export class ApiClient extends AbstractFetchClient {
         default_value?: string | string[] | null
         description?: string | null
         required?: boolean
-        value_type: "string" | "single_select"
+        value_type: "string" | "single_select" | "multi_select" | "true_false"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
-      | Res<200, t_org_custom_property>
+      | Res<200, t_custom_property>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
@@ -5824,14 +6708,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async orgsRemoveCustomProperty(
@@ -5840,7 +6723,7 @@ export class ApiClient extends AbstractFetchClient {
       customPropertyName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -5849,8 +6732,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/properties/schema/${p["customPropertyName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async orgsListCustomPropertiesValuesForRepos(
@@ -5861,7 +6745,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryQuery?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_repo_custom_property_values[]>
@@ -5870,13 +6754,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/properties/values`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       repository_query: p["repositoryQuery"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCreateOrUpdateCustomPropertiesValuesForRepos(
@@ -5888,7 +6777,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -5898,12 +6787,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/properties/values`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -5915,12 +6807,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/public_members`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsCheckPublicMembershipForUser(
@@ -5929,12 +6826,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsSetPublicMembershipForAuthenticatedUser(
@@ -5943,12 +6841,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async orgsRemovePublicMembershipForAuthenticatedUser(
@@ -5957,12 +6856,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/public_members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListForOrg(
@@ -5975,9 +6875,10 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       type: p["type"],
       sort: p["sort"],
@@ -5986,7 +6887,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateInOrg(
@@ -6023,7 +6928,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_full_repository>
@@ -6032,14 +6937,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetOrgRulesets(
@@ -6049,7 +6953,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset[]>
@@ -6058,9 +6962,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateOrgRuleset(
@@ -6072,11 +6981,11 @@ export class ApiClient extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_ruleset>
@@ -6085,19 +6994,19 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetOrgRuleSuites(
     p: {
       org: string
+      ref?: string
       repositoryName?: number
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
@@ -6106,7 +7015,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_rule_suites>
@@ -6115,7 +7024,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/rule-suites`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
+      ref: p["ref"],
       repository_name: p["repositoryName"],
       time_period: p["timePeriod"],
       actor_name: p["actorName"],
@@ -6124,7 +7035,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetOrgRuleSuite(
@@ -6133,7 +7048,7 @@ export class ApiClient extends AbstractFetchClient {
       ruleSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_rule_suite> | Res<404, t_basic_error> | Res<500, t_basic_error>
@@ -6142,8 +7057,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetOrgRuleset(
@@ -6152,7 +7068,7 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -6161,8 +7077,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateOrgRuleset(
@@ -6175,11 +7092,11 @@ export class ApiClient extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -6188,14 +7105,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteOrgRuleset(
@@ -6204,15 +7120,16 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async secretScanningListAlertsForOrg(
@@ -6230,7 +7147,7 @@ export class ApiClient extends AbstractFetchClient {
       validity?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_secret_scanning_alert[]>
@@ -6246,6 +7163,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/secret-scanning/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -6259,7 +7177,11 @@ export class ApiClient extends AbstractFetchClient {
       validity: p["validity"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async securityAdvisoriesListOrgRepositoryAdvisories(
@@ -6273,7 +7195,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "triage" | "draft" | "published" | "closed"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory[]>
@@ -6282,6 +7204,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/security-advisories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       sort: p["sort"],
@@ -6291,7 +7214,11 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListSecurityManagerTeams(
@@ -6299,11 +7226,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_simple[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/security-managers`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsAddSecurityManagerTeam(
@@ -6312,13 +7240,14 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async orgsRemoveSecurityManagerTeam(
@@ -6327,13 +7256,14 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/security-managers/teams/${p["teamSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async billingGetGithubActionsBillingOrg(
@@ -6341,11 +7271,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/actions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async billingGetGithubPackagesBillingOrg(
@@ -6353,11 +7284,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url = this.basePath + `/orgs/${p["org"]}/settings/billing/packages`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async billingGetSharedStorageBillingOrg(
@@ -6365,12 +7297,50 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async copilotUsageMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics[]>
+      | Res<401, t_basic_error>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsList(
@@ -6380,12 +7350,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<403, t_basic_error>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCreate(
@@ -6405,7 +7380,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_team_full>
@@ -6414,14 +7389,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsGetByName(
@@ -6430,13 +7404,14 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateInOrg(
@@ -6455,7 +7430,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full>
@@ -6466,12 +7441,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -6482,11 +7460,12 @@ export class ApiClient extends AbstractFetchClient {
       teamSlug: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListDiscussionsInOrg(
@@ -6499,10 +7478,11 @@ export class ApiClient extends AbstractFetchClient {
       pinned?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -6510,7 +7490,11 @@ export class ApiClient extends AbstractFetchClient {
       pinned: p["pinned"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCreateDiscussionInOrg(
@@ -6524,18 +7508,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsGetDiscussionInOrg(
@@ -6545,13 +7528,14 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateDiscussionInOrg(
@@ -6565,17 +7549,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -6587,13 +7574,14 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListDiscussionCommentsInOrg(
@@ -6606,18 +7594,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCreateDiscussionCommentInOrg(
@@ -6630,19 +7623,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsGetDiscussionCommentInOrg(
@@ -6653,13 +7645,14 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateDiscussionCommentInOrg(
@@ -6673,17 +7666,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -6696,13 +7692,14 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForTeamDiscussionCommentInOrg(
@@ -6724,18 +7721,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForTeamDiscussionCommentInOrg(
@@ -6757,19 +7759,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForTeamDiscussionComment(
@@ -6781,13 +7782,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForTeamDiscussionInOrg(
@@ -6808,18 +7810,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForTeamDiscussionInOrg(
@@ -6840,19 +7847,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction> | Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForTeamDiscussion(
@@ -6863,13 +7869,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListPendingInvitationsInOrg(
@@ -6880,13 +7887,18 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsListMembersInOrg(
@@ -6898,17 +7910,22 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsGetMembershipForUserInOrg(
@@ -6918,13 +7935,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_membership> | Res<404, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateMembershipForUserInOrg(
@@ -6937,7 +7955,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_membership> | Res<403, void> | Res<422, void>
@@ -6946,14 +7964,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveMembershipForUserInOrg(
@@ -6963,13 +7980,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListProjectsInOrg(
@@ -6980,13 +7998,18 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_project[]>>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCheckPermissionsForProjectInOrg(
@@ -6996,13 +8019,14 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateProjectPermissionsInOrg(
@@ -7015,7 +8039,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7031,14 +8055,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveProjectInOrg(
@@ -7048,13 +8071,14 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListReposInOrg(
@@ -7065,12 +8089,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCheckPermissionsForRepoInOrg(
@@ -7081,7 +8110,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_repository> | Res<204, void> | Res<404, void>
@@ -7090,8 +8119,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateRepoPermissionsInOrg(
@@ -7105,19 +8135,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveRepoInOrg(
@@ -7128,13 +8157,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListChildInOrg(
@@ -7145,12 +8175,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team[]>>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsEnableOrDisableSecurityProductOnAllOrgRepos(
@@ -7170,19 +8205,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<422, void>>> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/${p["securityProduct"]}/${p["enablement"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async projectsGetCard(
@@ -7190,7 +8224,7 @@ export class ApiClient extends AbstractFetchClient {
       cardId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card>
@@ -7201,8 +8235,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async projectsUpdateCard(
@@ -7214,7 +8249,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card>
@@ -7226,12 +8261,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -7241,7 +8279,7 @@ export class ApiClient extends AbstractFetchClient {
       cardId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7259,8 +8297,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async projectsMoveCard(
@@ -7272,7 +8311,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, EmptyObject>
@@ -7307,14 +8346,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/cards/${p["cardId"]}/moves`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async projectsGetColumn(
@@ -7322,7 +8360,7 @@ export class ApiClient extends AbstractFetchClient {
       columnId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column>
@@ -7333,8 +8371,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async projectsUpdateColumn(
@@ -7345,7 +8384,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column>
@@ -7355,12 +8394,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -7370,7 +8412,7 @@ export class ApiClient extends AbstractFetchClient {
       columnId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7380,8 +8422,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async projectsListCards(
@@ -7392,7 +8435,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_card[]>
@@ -7402,13 +8445,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       archived_state: p["archivedState"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsCreateCard(
@@ -7424,7 +8472,7 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project_card>
@@ -7447,14 +8495,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/cards`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async projectsMoveColumn(
@@ -7465,7 +8512,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, EmptyObject>
@@ -7476,14 +8523,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/columns/${p["columnId"]}/moves`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async projectsGet(
@@ -7491,7 +8537,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project>
@@ -7501,8 +8547,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async projectsUpdate(
@@ -7517,7 +8564,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project>
@@ -7537,12 +8584,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -7552,7 +8602,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7571,8 +8621,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async projectsListCollaborators(
@@ -7583,7 +8634,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -7595,13 +8646,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/collaborators`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       affiliation: p["affiliation"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsAddCollaborator(
@@ -7613,7 +8669,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7627,14 +8683,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async projectsRemoveCollaborator(
@@ -7643,7 +8698,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7657,8 +8712,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async projectsGetPermissionForUser(
@@ -7667,7 +8723,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_collaborator_permission>
@@ -7681,8 +8737,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/projects/${p["projectId"]}/collaborators/${p["username"]}/permission`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async projectsListColumns(
@@ -7692,7 +8749,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project_column[]>
@@ -7702,9 +8759,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/columns`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsCreateColumn(
@@ -7715,7 +8777,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project_column>
@@ -7726,27 +8788,27 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/projects/${p["projectId"]}/columns`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async rateLimitGet(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_rate_limit_overview> | Res<304, void> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/rate_limit`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGet(
@@ -7755,7 +8817,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_full_repository>
@@ -7765,8 +8827,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdate(
@@ -7800,6 +8863,9 @@ export class ApiClient extends AbstractFetchClient {
           secret_scanning?: {
             status?: string
           }
+          secret_scanning_non_provider_patterns?: {
+            status?: string
+          }
           secret_scanning_push_protection?: {
             status?: string
           }
@@ -7812,7 +8878,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_full_repository>
@@ -7823,12 +8889,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -7839,7 +8908,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -7855,8 +8924,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListArtifactsForRepo(
@@ -7868,7 +8938,7 @@ export class ApiClient extends AbstractFetchClient {
       name?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -7882,13 +8952,18 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetArtifact(
@@ -7898,13 +8973,14 @@ export class ApiClient extends AbstractFetchClient {
       artifactId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_artifact>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDeleteArtifact(
@@ -7914,13 +8990,14 @@ export class ApiClient extends AbstractFetchClient {
       artifactId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsDownloadArtifact(
@@ -7931,13 +9008,14 @@ export class ApiClient extends AbstractFetchClient {
       archiveFormat: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void> | Res<410, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetActionsCacheUsage(
@@ -7946,14 +9024,15 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_cache_usage_by_repository>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/cache/usage`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetActionsCacheList(
@@ -7968,10 +9047,11 @@ export class ApiClient extends AbstractFetchClient {
       direction?: "asc" | "desc"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
@@ -7981,7 +9061,11 @@ export class ApiClient extends AbstractFetchClient {
       direction: p["direction"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsDeleteActionsCacheByKey(
@@ -7992,15 +9076,16 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_cache_list>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ key: p["key"], ref: p["ref"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -8012,13 +9097,14 @@ export class ApiClient extends AbstractFetchClient {
       cacheId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/caches/${p["cacheId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsGetJobForWorkflowRun(
@@ -8028,13 +9114,14 @@ export class ApiClient extends AbstractFetchClient {
       jobId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_job>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDownloadJobLogsForWorkflowRun(
@@ -8044,13 +9131,14 @@ export class ApiClient extends AbstractFetchClient {
       jobId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsReRunJobForWorkflowRun(
@@ -8063,21 +9151,20 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<201, t_empty_object> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/rerun`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsGetCustomOidcSubClaimForRepo(
@@ -8086,7 +9173,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_oidc_custom_sub_repo>
@@ -8097,8 +9184,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetCustomOidcSubClaimForRepo(
@@ -8111,7 +9199,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -8123,14 +9211,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/oidc/customization/sub`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsListRepoOrganizationSecrets(
@@ -8141,7 +9228,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8156,9 +9243,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsListRepoOrganizationVariables(
@@ -8169,7 +9261,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8184,9 +9276,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/organization-variables`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetGithubActionsPermissionsRepository(
@@ -8195,12 +9292,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_repository_permissions>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetGithubActionsPermissionsRepository(
@@ -8213,18 +9311,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/permissions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsGetWorkflowAccessToRepository(
@@ -8233,15 +9330,16 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_workflow_access_to_repository>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetWorkflowAccessToRepository(
@@ -8251,19 +9349,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_actions_workflow_access_to_repository
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/access`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsGetAllowedActionsRepository(
@@ -8272,13 +9369,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_selected_actions>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetAllowedActionsRepository(
@@ -8288,19 +9386,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: t_selected_actions
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/selected-actions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsGetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8309,15 +9406,16 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_actions_get_default_workflow_permissions>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsSetGithubActionsDefaultWorkflowPermissionsRepository(
@@ -8327,19 +9425,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_actions_set_default_workflow_permissions
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/permissions/workflow`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsListSelfHostedRunnersForRepo(
@@ -8351,7 +9448,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8365,13 +9462,18 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runners`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       name: p["name"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsListRunnerApplicationsForRepo(
@@ -8380,13 +9482,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_runner_application[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/downloads`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGenerateRunnerJitconfigForRepo(
@@ -8401,7 +9504,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8418,14 +9521,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/generate-jitconfig`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsCreateRegistrationTokenForRepo(
@@ -8434,13 +9536,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/registration-token`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsCreateRemoveTokenForRepo(
@@ -8449,13 +9552,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_authentication_token>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/remove-token`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsGetSelfHostedRunnerForRepo(
@@ -8465,13 +9569,14 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_runner>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDeleteSelfHostedRunnerFromRepo(
@@ -8481,13 +9586,14 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListLabelsForSelfHostedRunnerForRepo(
@@ -8497,7 +9603,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8513,8 +9619,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsAddCustomLabelsToSelfHostedRunnerForRepo(
@@ -8527,7 +9634,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8544,14 +9651,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsSetCustomLabelsForSelfHostedRunnerForRepo(
@@ -8564,7 +9670,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8581,14 +9687,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepo(
@@ -8598,7 +9703,7 @@ export class ApiClient extends AbstractFetchClient {
       runnerId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8614,8 +9719,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsRemoveCustomLabelFromSelfHostedRunnerForRepo(
@@ -8626,7 +9732,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8643,8 +9749,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runners/${p["runnerId"]}/labels/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListWorkflowRunsForRepo(
@@ -8677,7 +9784,7 @@ export class ApiClient extends AbstractFetchClient {
       headSha?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8690,6 +9797,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       actor: p["actor"],
       branch: p["branch"],
@@ -8703,7 +9811,11 @@ export class ApiClient extends AbstractFetchClient {
       head_sha: p["headSha"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetWorkflowRun(
@@ -8714,16 +9826,21 @@ export class ApiClient extends AbstractFetchClient {
       excludePullRequests?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsDeleteWorkflowRun(
@@ -8733,13 +9850,14 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsGetReviewsForRun(
@@ -8749,13 +9867,14 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_environment_approvals[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approvals`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsApproveWorkflowRun(
@@ -8765,7 +9884,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -8776,8 +9895,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/approve`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsListWorkflowRunArtifacts(
@@ -8790,7 +9910,7 @@ export class ApiClient extends AbstractFetchClient {
       name?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8805,13 +9925,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/artifacts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       name: p["name"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetWorkflowRunAttempt(
@@ -8823,16 +9948,21 @@ export class ApiClient extends AbstractFetchClient {
       excludePullRequests?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       exclude_pull_requests: p["excludePullRequests"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsListJobsForWorkflowRunAttempt(
@@ -8845,7 +9975,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -8861,9 +9991,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/jobs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsDownloadWorkflowRunAttemptLogs(
@@ -8874,13 +10009,14 @@ export class ApiClient extends AbstractFetchClient {
       attemptNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsCancelWorkflowRun(
@@ -8890,15 +10026,16 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<202, t_empty_object> | Res<409, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/cancel`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsReviewCustomGatesForRun(
@@ -8911,19 +10048,18 @@ export class ApiClient extends AbstractFetchClient {
         | t_review_custom_gates_state_required
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/deployment_protection_rule`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsForceCancelWorkflowRun(
@@ -8933,15 +10069,16 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<202, t_empty_object> | Res<409, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/force-cancel`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async actionsListJobsForWorkflowRun(
@@ -8954,7 +10091,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -8969,13 +10106,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/jobs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsDownloadWorkflowRunLogs(
@@ -8985,13 +10127,14 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDeleteWorkflowRunLogs(
@@ -9001,7 +10144,7 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<500, t_basic_error>
@@ -9010,8 +10153,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsGetPendingDeploymentsForRun(
@@ -9021,13 +10165,14 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pending_deployment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsReviewPendingDeploymentsForRun(
@@ -9042,19 +10187,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/pending_deployments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsReRunWorkflow(
@@ -9067,19 +10211,18 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsReRunWorkflowFailedJobs(
@@ -9092,19 +10235,18 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/rerun-failed-jobs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsGetWorkflowRunUsage(
@@ -9114,13 +10256,14 @@ export class ApiClient extends AbstractFetchClient {
       runId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_workflow_run_usage>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/timing`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsListRepoSecrets(
@@ -9131,7 +10274,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -9145,9 +10288,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetRepoPublicKey(
@@ -9156,13 +10304,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetRepoSecret(
@@ -9172,13 +10321,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsCreateOrUpdateRepoSecret(
@@ -9192,19 +10342,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsDeleteRepoSecret(
@@ -9214,13 +10363,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListRepoVariables(
@@ -9231,7 +10381,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -9245,9 +10395,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsCreateRepoVariable(
@@ -9260,18 +10415,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsGetRepoVariable(
@@ -9281,13 +10435,14 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsUpdateRepoVariable(
@@ -9301,17 +10456,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -9323,13 +10481,14 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListRepoWorkflows(
@@ -9340,7 +10499,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -9354,9 +10513,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/workflows`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetWorkflow(
@@ -9366,13 +10530,14 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_workflow>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsDisableWorkflow(
@@ -9382,13 +10547,14 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/disable`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async actionsCreateWorkflowDispatch(
@@ -9404,19 +10570,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/dispatches`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsEnableWorkflow(
@@ -9426,13 +10591,14 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/enable`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async actionsListWorkflowRuns(
@@ -9466,7 +10632,7 @@ export class ApiClient extends AbstractFetchClient {
       headSha?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -9481,6 +10647,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/runs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       actor: p["actor"],
       branch: p["branch"],
@@ -9494,7 +10661,11 @@ export class ApiClient extends AbstractFetchClient {
       head_sha: p["headSha"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetWorkflowUsage(
@@ -9504,13 +10675,14 @@ export class ApiClient extends AbstractFetchClient {
       workflowId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_workflow_usage>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/workflows/${p["workflowId"]}/timing`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposListActivities(
@@ -9533,13 +10705,14 @@ export class ApiClient extends AbstractFetchClient {
         | "merge_queue_merge"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_activity[]> | Res<422, t_validation_error_simple>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/activity`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
@@ -9551,7 +10724,11 @@ export class ApiClient extends AbstractFetchClient {
       activity_type: p["activityType"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesListAssignees(
@@ -9562,14 +10739,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesCheckUserCanBeAssigned(
@@ -9579,13 +10761,103 @@ export class ApiClient extends AbstractFetchClient {
       assignee: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/assignees/${p["assignee"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async reposCreateAttestation(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        bundle: {
+          dsseEnvelope?: {
+            [key: string]: unknown | undefined
+          }
+          mediaType?: string
+          verificationMaterial?: {
+            [key: string]: unknown | undefined
+          }
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          201,
+          {
+            id?: number
+          }
+        >
+      | Res<403, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/attestations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async reposListAttestations(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      before?: string
+      after?: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          attestations?: {
+            bundle?: {
+              dsseEnvelope?: {
+                [key: string]: unknown | undefined
+              }
+              mediaType?: string
+              verificationMaterial?: {
+                [key: string]: unknown | undefined
+              }
+            }
+            repository_id?: number
+          }[]
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListAutolinks(
@@ -9594,11 +10866,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_autolink[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateAutolink(
@@ -9612,19 +10885,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<201, t_autolink> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetAutolink(
@@ -9634,15 +10906,16 @@ export class ApiClient extends AbstractFetchClient {
       autolinkId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_autolink> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposDeleteAutolink(
@@ -9652,13 +10925,14 @@ export class ApiClient extends AbstractFetchClient {
       autolinkId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/autolinks/${p["autolinkId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposCheckAutomatedSecurityFixes(
@@ -9667,7 +10941,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_check_automated_security_fixes> | Res<404, void>
@@ -9676,8 +10950,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposEnableAutomatedSecurityFixes(
@@ -9686,13 +10961,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async reposDisableAutomatedSecurityFixes(
@@ -9701,13 +10977,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/automated-security-fixes`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListBranches(
@@ -9719,18 +10996,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_short_branch[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       protected: p["protected"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetBranch(
@@ -9740,7 +11022,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_branch_with_protection>
@@ -9751,8 +11033,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetBranchProtection(
@@ -9762,15 +11045,16 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_branch_protection> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateBranchProtection(
@@ -9819,7 +11103,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_protected_branch>
@@ -9831,14 +11115,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteBranchProtection(
@@ -9848,13 +11131,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetAdminBranchProtection(
@@ -9864,13 +11148,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposSetAdminBranchProtection(
@@ -9880,13 +11165,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_protected_branch_admin_enforced>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposDeleteAdminBranchProtection(
@@ -9896,13 +11182,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/enforce_admins`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetPullRequestReviewProtection(
@@ -9912,15 +11199,16 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_protected_branch_pull_request_review>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdatePullRequestReviewProtection(
@@ -9946,7 +11234,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_protected_branch_pull_request_review>
@@ -9956,12 +11244,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -9973,13 +11264,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_pull_request_reviews`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetCommitSignatureProtection(
@@ -9989,7 +11281,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
@@ -9998,8 +11290,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateCommitSignatureProtection(
@@ -10009,7 +11302,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_protected_branch_admin_enforced> | Res<404, t_basic_error>
@@ -10018,8 +11311,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposDeleteCommitSignatureProtection(
@@ -10029,13 +11323,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_signatures`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetStatusChecksProtection(
@@ -10045,7 +11340,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_status_check_policy> | Res<404, t_basic_error>
@@ -10054,8 +11349,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateStatusCheckProtection(
@@ -10073,7 +11369,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_status_check_policy>
@@ -10084,12 +11380,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -10101,13 +11400,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetAllStatusCheckContexts(
@@ -10117,13 +11417,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposAddStatusCheckContexts(
@@ -10138,7 +11439,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -10150,14 +11451,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposSetStatusCheckContexts(
@@ -10172,7 +11472,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -10183,14 +11483,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposRemoveStatusCheckContexts(
@@ -10205,7 +11504,7 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, string[]>
@@ -10216,12 +11515,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/required_status_checks/contexts`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10233,7 +11535,7 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_branch_restriction_policy> | Res<404, t_basic_error>
@@ -10242,8 +11544,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposDeleteAccessRestrictions(
@@ -10253,13 +11556,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetAppsWithAccessToProtectedBranch(
@@ -10269,15 +11573,16 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposAddAppAccessRestrictions(
@@ -10292,21 +11597,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposSetAppAccessRestrictions(
@@ -10321,21 +11625,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposRemoveAppAccessRestrictions(
@@ -10350,19 +11653,22 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_integration[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/apps`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10374,13 +11680,14 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposAddTeamAccessRestrictions(
@@ -10395,21 +11702,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposSetTeamAccessRestrictions(
@@ -10424,21 +11730,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposRemoveTeamAccessRestrictions(
@@ -10453,19 +11758,22 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/teams`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10477,15 +11785,16 @@ export class ApiClient extends AbstractFetchClient {
       branch: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposAddUserAccessRestrictions(
@@ -10500,21 +11809,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposSetUserAccessRestrictions(
@@ -10529,21 +11837,20 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposRemoveUserAccessRestrictions(
@@ -10558,19 +11865,22 @@ export class ApiClient extends AbstractFetchClient {
         | string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/protection/restrictions/users`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -10585,7 +11895,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_branch_with_protection>
@@ -10597,14 +11907,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/branches/${p["branch"]}/rename`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async checksCreate(
@@ -10622,17 +11931,16 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_check_run>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-runs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async checksGet(
@@ -10642,13 +11950,14 @@ export class ApiClient extends AbstractFetchClient {
       checkRunId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async checksUpdate(
@@ -10707,17 +12016,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_check_run>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -10731,14 +12043,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_check_annotation[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async checksRerequestRun(
@@ -10748,7 +12065,7 @@ export class ApiClient extends AbstractFetchClient {
       checkRunId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -10760,8 +12077,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/rerequest`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async checksCreateSuite(
@@ -10773,19 +12091,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_check_suite> | Res<201, t_check_suite>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/check-suites`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async checksSetSuitesPreferences(
@@ -10800,17 +12117,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_check_suite_preference>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/preferences`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -10822,13 +12142,14 @@ export class ApiClient extends AbstractFetchClient {
       checkSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_check_suite>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async checksListForSuite(
@@ -10843,7 +12164,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -10858,6 +12179,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/check-runs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       check_name: p["checkName"],
       status: p["status"],
@@ -10866,7 +12188,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async checksRerequestSuite(
@@ -10876,13 +12202,14 @@ export class ApiClient extends AbstractFetchClient {
       checkSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-suites/${p["checkSuiteId"]}/rerequest`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async codeScanningListAlertsForRepo(
@@ -10900,7 +12227,7 @@ export class ApiClient extends AbstractFetchClient {
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert_items[]>
@@ -10919,6 +12246,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -10931,7 +12259,11 @@ export class ApiClient extends AbstractFetchClient {
       severity: p["severity"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codeScanningGetAlert(
@@ -10941,7 +12273,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert>
@@ -10961,8 +12293,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codeScanningUpdateAlert(
@@ -10977,7 +12310,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert>
@@ -10996,12 +12329,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -11016,7 +12352,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: t_code_scanning_ref
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_alert_instance[]>
@@ -11035,13 +12371,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/instances`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codeScanningListRecentAnalyses(
@@ -11058,7 +12399,7 @@ export class ApiClient extends AbstractFetchClient {
       sort?: "created"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_analysis[]>
@@ -11076,6 +12417,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       tool_name: p["toolName"],
       tool_guid: p["toolGuid"],
@@ -11087,7 +12429,11 @@ export class ApiClient extends AbstractFetchClient {
       sort: p["sort"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codeScanningGetAnalysis(
@@ -11097,7 +12443,7 @@ export class ApiClient extends AbstractFetchClient {
       analysisId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11121,8 +12467,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codeScanningDeleteAnalysis(
@@ -11133,7 +12480,7 @@ export class ApiClient extends AbstractFetchClient {
       confirmDelete?: string | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_analysis_deletion>
@@ -11153,11 +12500,12 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/analyses/${p["analysisId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ confirm_delete: p["confirmDelete"] })
 
     return this._fetch(
       url + query,
-      { method: "DELETE", ...(opts ?? {}) },
+      { method: "DELETE", ...opts, headers },
       timeout,
     )
   }
@@ -11168,7 +12516,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_codeql_database[]>
@@ -11187,8 +12535,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codeScanningGetCodeqlDatabase(
@@ -11198,7 +12547,7 @@ export class ApiClient extends AbstractFetchClient {
       language: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_codeql_database>
@@ -11218,8 +12567,106 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeScanningCreateVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      requestBody: EmptyObject
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_code_scanning_variant_analysis>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async codeScanningGetVariantAnalysis(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_variant_analysis>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeScanningGetVariantAnalysisRepoTask(
+    p: {
+      owner: string
+      repo: string
+      codeqlVariantAnalysisId: number
+      repoOwner: string
+      repoName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_scanning_variant_analysis_repo_task>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/variant-analyses/${p["codeqlVariantAnalysisId"]}/repos/${p["repoOwner"]}/${p["repoName"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codeScanningGetDefaultSetup(
@@ -11228,7 +12675,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_default_setup>
@@ -11247,8 +12694,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codeScanningUpdateDefaultSetup(
@@ -11258,7 +12706,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_code_scanning_default_setup_update
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_empty_object>
@@ -11279,12 +12727,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/default-setup`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -11304,7 +12755,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_code_scanning_sarifs_receipt>
@@ -11324,14 +12775,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codeScanningGetSarif(
@@ -11341,7 +12791,7 @@ export class ApiClient extends AbstractFetchClient {
       sarifId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_scanning_sarifs_status>
@@ -11360,8 +12810,33 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/code-scanning/sarifs/${p["sarifId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetConfigurationForRepository(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_code_security_configuration_for_repository>
+      | Res<204, void>
+      | Res<304, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-security-configuration`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCodeownersErrors(
@@ -11371,15 +12846,20 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_codeowners_errors> | Res<404, void>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codeowners/errors`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesListInRepositoryForAuthenticatedUser(
@@ -11390,7 +12870,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11407,9 +12887,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesCreateWithRepoForAuthenticatedUser(
@@ -11431,7 +12916,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -11451,14 +12936,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codespacesListDevcontainersInRepositoryForAuthenticatedUser(
@@ -11469,7 +12953,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11493,9 +12977,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/devcontainers`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesRepoMachinesForAuthenticatedUser(
@@ -11507,7 +12996,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11526,13 +13015,18 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/machines`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       location: p["location"],
       client_ip: p["clientIp"],
       ref: p["ref"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesPreFlightWithRepoForAuthenticatedUser(
@@ -11543,7 +13037,7 @@ export class ApiClient extends AbstractFetchClient {
       clientIp?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -11563,9 +13057,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"], client_ip: p["clientIp"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesCheckPermissionsForDevcontainer(
@@ -11576,7 +13075,7 @@ export class ApiClient extends AbstractFetchClient {
       devcontainerPath: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespaces_permissions_check_for_devcontainer>
@@ -11597,12 +13096,17 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/permissions_check`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       ref: p["ref"],
       devcontainer_path: p["devcontainerPath"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesListRepoSecrets(
@@ -11613,7 +13117,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -11627,9 +13131,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesGetRepoPublicKey(
@@ -11638,13 +13147,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesGetRepoSecret(
@@ -11654,13 +13164,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_repo_codespaces_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesCreateOrUpdateRepoSecret(
@@ -11674,19 +13185,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesDeleteRepoSecret(
@@ -11696,13 +13206,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListCollaborators(
@@ -11715,12 +13226,13 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_collaborator[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       affiliation: p["affiliation"],
       permission: p["permission"],
@@ -11728,7 +13240,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCheckCollaborator(
@@ -11738,13 +13254,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposAddCollaborator(
@@ -11757,7 +13274,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_invitation>
@@ -11769,14 +13286,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposRemoveCollaborator(
@@ -11786,7 +13302,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<422, t_validation_error>
@@ -11795,8 +13311,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetCollaboratorPermissionLevel(
@@ -11806,7 +13323,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_repository_collaborator_permission> | Res<404, t_basic_error>
@@ -11815,8 +13332,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/collaborators/${p["username"]}/permission`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposListCommitCommentsForRepo(
@@ -11827,12 +13345,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCommitComment(
@@ -11842,15 +13365,16 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateCommitComment(
@@ -11863,19 +13387,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_commit_comment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -11887,13 +13414,14 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForCommitComment(
@@ -11914,20 +13442,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForCommitComment(
@@ -11948,7 +13481,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -11957,14 +13490,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForCommitComment(
@@ -11975,13 +13507,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListCommits(
@@ -11998,7 +13531,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit[]>
@@ -12009,6 +13542,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sha: p["sha"],
       path: p["path"],
@@ -12020,7 +13554,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListBranchesForHeadCommit(
@@ -12030,7 +13568,7 @@ export class ApiClient extends AbstractFetchClient {
       commitSha: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_branch_short[]>
@@ -12041,8 +13579,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/branches-where-head`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposListCommentsForCommit(
@@ -12054,14 +13593,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_commit_comment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateCommitComment(
@@ -12077,7 +13621,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_commit_comment>
@@ -12088,14 +13632,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposListPullRequestsAssociatedWithCommit(
@@ -12107,7 +13650,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_simple[]> | Res<409, t_basic_error>
@@ -12116,9 +13659,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCommit(
@@ -12130,7 +13678,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit>
@@ -12150,9 +13698,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async checksListForRef(
@@ -12168,7 +13721,7 @@ export class ApiClient extends AbstractFetchClient {
       appId?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12183,6 +13736,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-runs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       check_name: p["checkName"],
       status: p["status"],
@@ -12192,7 +13746,11 @@ export class ApiClient extends AbstractFetchClient {
       app_id: p["appId"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async checksListSuitesForRef(
@@ -12206,7 +13764,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12221,6 +13779,7 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/check-suites`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       app_id: p["appId"],
       check_name: p["checkName"],
@@ -12228,7 +13787,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCombinedStatusForRef(
@@ -12240,7 +13803,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_combined_commit_status> | Res<404, t_basic_error>
@@ -12249,9 +13812,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/status`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListCommitStatusesForRef(
@@ -12263,16 +13831,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_status[]> | Res<301, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCommunityProfileMetrics(
@@ -12281,12 +13854,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_community_profile>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/community/profile`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCompareCommits(
@@ -12298,7 +13872,7 @@ export class ApiClient extends AbstractFetchClient {
       basehead: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit_comparison>
@@ -12317,9 +13891,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/compare/${p["basehead"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetContent(
@@ -12330,7 +13909,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -12341,15 +13920,21 @@ export class ApiClient extends AbstractFetchClient {
           | t_content_submodule
         >
       | Res<302, void>
+      | Res<304, void>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
     >
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateOrUpdateFileContents(
@@ -12375,7 +13960,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_file_commit>
@@ -12387,14 +13972,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteFile(
@@ -12417,7 +14001,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_file_commit>
@@ -12436,12 +14020,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contents/${p["path"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -12455,7 +14042,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_contributor[]>
@@ -12465,13 +14052,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/contributors`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       anon: p["anon"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotListAlertsForRepo(
@@ -12494,7 +14086,7 @@ export class ApiClient extends AbstractFetchClient {
       last?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert[]>
@@ -12507,6 +14099,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       severity: p["severity"],
@@ -12524,7 +14117,11 @@ export class ApiClient extends AbstractFetchClient {
       last: p["last"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotGetAlert(
@@ -12534,7 +14131,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert>
@@ -12546,8 +14143,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependabotUpdateAlert(
@@ -12567,7 +14165,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependabot_alert>
@@ -12581,12 +14179,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/alerts/${p["alertNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -12599,7 +14200,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12613,9 +14214,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependabotGetRepoPublicKey(
@@ -12624,13 +14230,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependabotGetRepoSecret(
@@ -12640,13 +14247,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_dependabot_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependabotCreateOrUpdateRepoSecret(
@@ -12660,19 +14268,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async dependabotDeleteRepoSecret(
@@ -12682,13 +14289,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependabot/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async dependencyGraphDiffRange(
@@ -12699,7 +14307,7 @@ export class ApiClient extends AbstractFetchClient {
       name?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependency_graph_diff>
@@ -12710,9 +14318,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/compare/${p["basehead"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ name: p["name"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async dependencyGraphExportSbom(
@@ -12721,7 +14334,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_dependency_graph_spdx_sbom>
@@ -12731,8 +14344,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/sbom`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async dependencyGraphCreateRepositorySnapshot(
@@ -12742,7 +14356,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_snapshot
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -12759,14 +14373,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/dependency-graph/snapshots`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposListDeployments(
@@ -12781,9 +14394,10 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deployment[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sha: p["sha"],
       ref: p["ref"],
@@ -12793,7 +14407,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateDeployment(
@@ -12817,7 +14435,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_deployment>
@@ -12832,14 +14450,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetDeployment(
@@ -12849,15 +14466,16 @@ export class ApiClient extends AbstractFetchClient {
       deploymentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deployment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposDeleteDeployment(
@@ -12867,7 +14485,7 @@ export class ApiClient extends AbstractFetchClient {
       deploymentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -12878,8 +14496,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListDeploymentStatuses(
@@ -12891,7 +14510,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deployment_status[]> | Res<404, t_basic_error>
@@ -12900,9 +14519,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateDeploymentStatus(
@@ -12928,7 +14552,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, t_deployment_status> | Res<422, t_validation_error>
@@ -12937,14 +14561,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetDeploymentStatus(
@@ -12955,15 +14578,16 @@ export class ApiClient extends AbstractFetchClient {
       statusId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deployment_status> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses/${p["statusId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateDispatchEvent(
@@ -12978,21 +14602,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/dispatches`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetAllEnvironments(
@@ -13003,7 +14626,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13016,9 +14639,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/environments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetEnvironment(
@@ -13028,13 +14656,14 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_environment>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateOrUpdateEnvironment(
@@ -13055,21 +14684,20 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_environment> | Res<422, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteAnEnvironment(
@@ -13079,13 +14707,14 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListDeploymentBranchPolicies(
@@ -13097,7 +14726,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13112,9 +14741,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateDeploymentBranchPolicy(
@@ -13125,7 +14759,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_deployment_branch_policy_name_pattern_with_type
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_deployment_branch_policy> | Res<303, void> | Res<404, void>
@@ -13134,14 +14768,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetDeploymentBranchPolicy(
@@ -13152,13 +14785,14 @@ export class ApiClient extends AbstractFetchClient {
       branchPolicyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateDeploymentBranchPolicy(
@@ -13170,19 +14804,18 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_deployment_branch_policy_name_pattern
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deployment_branch_policy>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteDeploymentBranchPolicy(
@@ -13193,13 +14826,14 @@ export class ApiClient extends AbstractFetchClient {
       branchPolicyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment-branch-policies/${p["branchPolicyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetAllDeploymentProtectionRules(
@@ -13209,7 +14843,7 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13224,8 +14858,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateDeploymentProtectionRule(
@@ -13238,19 +14873,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposListCustomDeploymentRuleIntegrations(
@@ -13262,7 +14896,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13277,9 +14911,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCustomDeploymentProtectionRule(
@@ -13290,13 +14929,14 @@ export class ApiClient extends AbstractFetchClient {
       protectionRuleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deployment_protection_rule>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposDisableDeploymentProtectionRule(
@@ -13307,13 +14947,14 @@ export class ApiClient extends AbstractFetchClient {
       protectionRuleId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/${p["protectionRuleId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListEnvironmentSecrets(
@@ -13325,7 +14966,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13340,9 +14981,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsGetEnvironmentPublicKey(
@@ -13352,13 +14998,14 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_public_key>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsGetEnvironmentSecret(
@@ -13369,13 +15016,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_secret>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsCreateOrUpdateEnvironmentSecret(
@@ -13390,19 +15038,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object> | Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async actionsDeleteEnvironmentSecret(
@@ -13413,13 +15060,14 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async actionsListEnvironmentVariables(
@@ -13431,7 +15079,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -13446,9 +15094,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsCreateEnvironmentVariable(
@@ -13462,19 +15115,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_empty_object>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async actionsGetEnvironmentVariable(
@@ -13485,13 +15137,14 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_variable>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async actionsUpdateEnvironmentVariable(
@@ -13506,17 +15159,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -13529,13 +15185,14 @@ export class ApiClient extends AbstractFetchClient {
       environmentName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/variables/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async activityListRepoEvents(
@@ -13546,12 +15203,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListForks(
@@ -13563,20 +15225,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<400, t_scim_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateFork(
@@ -13590,7 +15257,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_full_repository>
@@ -13601,14 +15268,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitCreateBlob(
@@ -13621,7 +15287,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_short_blob>
@@ -13632,14 +15298,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitGetBlob(
@@ -13649,7 +15314,7 @@ export class ApiClient extends AbstractFetchClient {
       fileSha: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_blob>
@@ -13662,8 +15327,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/blobs/${p["fileSha"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitCreateCommit(
@@ -13688,7 +15354,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_commit>
@@ -13698,14 +15364,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/commits`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitGetCommit(
@@ -13715,7 +15380,7 @@ export class ApiClient extends AbstractFetchClient {
       commitSha: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_git_commit> | Res<404, t_basic_error> | Res<409, t_basic_error>
@@ -13724,8 +15389,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/commits/${p["commitSha"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitListMatchingRefs(
@@ -13735,15 +15401,16 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_git_ref[]> | Res<409, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitGetRef(
@@ -13753,7 +15420,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_git_ref> | Res<404, t_basic_error> | Res<409, t_basic_error>
@@ -13761,8 +15428,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/ref/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitCreateRef(
@@ -13775,7 +15443,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_ref>
@@ -13784,14 +15452,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitUpdateRef(
@@ -13805,7 +15472,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_git_ref>
@@ -13815,12 +15482,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -13832,7 +15502,7 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<409, t_basic_error> | Res<422, t_validation_error>
@@ -13840,8 +15510,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async gitCreateTag(
@@ -13861,7 +15532,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_tag>
@@ -13870,14 +15541,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitGetTag(
@@ -13887,7 +15557,7 @@ export class ApiClient extends AbstractFetchClient {
       tagSha: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_git_tag> | Res<404, t_basic_error> | Res<409, t_basic_error>
@@ -13896,8 +15566,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/tags/${p["tagSha"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gitCreateTree(
@@ -13916,7 +15587,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_git_tree>
@@ -13927,14 +15598,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/trees`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async gitGetTree(
@@ -13945,7 +15615,7 @@ export class ApiClient extends AbstractFetchClient {
       recursive?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_git_tree>
@@ -13957,9 +15627,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/trees/${p["treeSha"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ recursive: p["recursive"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListWebhooks(
@@ -13970,12 +15645,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_hook[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateWebhook(
@@ -13995,7 +15675,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_hook>
@@ -14005,14 +15685,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetWebhook(
@@ -14022,12 +15701,13 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_hook> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateWebhook(
@@ -14044,7 +15724,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_hook> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -14052,12 +15732,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14069,12 +15752,13 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetWebhookConfigForRepo(
@@ -14084,13 +15768,14 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateWebhookConfigForRepo(
@@ -14106,17 +15791,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_webhook_config>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/config`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14131,7 +15819,7 @@ export class ApiClient extends AbstractFetchClient {
       redelivery?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery_item[]>
@@ -14142,13 +15830,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       cursor: p["cursor"],
       redelivery: p["redelivery"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetWebhookDelivery(
@@ -14159,7 +15852,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hook_delivery>
@@ -14170,8 +15863,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposRedeliverWebhookDelivery(
@@ -14182,7 +15876,7 @@ export class ApiClient extends AbstractFetchClient {
       deliveryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -14198,8 +15892,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries/${p["deliveryId"]}/attempts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposPingWebhook(
@@ -14209,13 +15904,14 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/pings`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposTestPushWebhook(
@@ -14225,13 +15921,14 @@ export class ApiClient extends AbstractFetchClient {
       hookId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/tests`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async migrationsGetImportStatus(
@@ -14240,15 +15937,16 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_import> | Res<404, t_basic_error> | Res<503, t_basic_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async migrationsStartImport(
@@ -14264,7 +15962,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_import>
@@ -14274,14 +15972,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async migrationsUpdateImport(
@@ -14296,15 +15993,18 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_import> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14315,11 +16015,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<503, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsGetCommitAuthors(
@@ -14329,7 +16030,7 @@ export class ApiClient extends AbstractFetchClient {
       since?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_porter_author[]>
@@ -14339,9 +16040,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/authors`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async migrationsMapCommitAuthor(
@@ -14355,7 +16061,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_porter_author>
@@ -14367,12 +16073,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/import/authors/${p["authorId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14383,7 +16092,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_porter_large_file[]> | Res<503, t_basic_error>
@@ -14391,8 +16100,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/large_files`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async migrationsSetLfsPreference(
@@ -14404,7 +16114,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_import>
@@ -14413,12 +16123,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/import/lfs`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14429,7 +16142,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_installation>
@@ -14438,8 +16151,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/installation`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async interactionsGetRestrictionsForRepo(
@@ -14448,14 +16162,15 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response | EmptyObject>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async interactionsSetRestrictionsForRepo(
@@ -14465,20 +16180,19 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_interaction_limit_response> | Res<409, void>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async interactionsRemoveRestrictionsForRepo(
@@ -14487,12 +16201,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<409, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListInvitations(
@@ -14503,12 +16218,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_repository_invitation[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposUpdateInvitation(
@@ -14521,17 +16241,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_repository_invitation>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14543,13 +16266,14 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/invitations/${p["invitationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListForRepo(
@@ -14569,7 +16293,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue[]>
@@ -14579,6 +16303,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       milestone: p["milestone"],
       state: p["state"],
@@ -14593,7 +16318,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesCreate(
@@ -14618,7 +16347,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_issue>
@@ -14638,14 +16367,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesListCommentsForRepo(
@@ -14659,7 +16387,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_comment[]>
@@ -14669,6 +16397,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -14677,7 +16406,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesGetComment(
@@ -14687,15 +16420,16 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_comment> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesUpdateComment(
@@ -14708,19 +16442,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_comment> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14732,13 +16469,14 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForIssueComment(
@@ -14759,20 +16497,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForIssueComment(
@@ -14793,7 +16536,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -14802,14 +16545,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForIssueComment(
@@ -14820,13 +16562,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListEventsForRepo(
@@ -14837,15 +16580,20 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_issue_event[]> | Res<422, t_validation_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesGetEvent(
@@ -14855,7 +16603,7 @@ export class ApiClient extends AbstractFetchClient {
       eventId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_event>
@@ -14867,8 +16615,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/events/${p["eventId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesGet(
@@ -14878,7 +16627,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue>
@@ -14891,8 +16640,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesUpdate(
@@ -14920,7 +16670,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue>
@@ -14942,12 +16692,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -14962,19 +16715,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_issue>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesRemoveAssignees(
@@ -14987,17 +16739,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_issue>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -15010,13 +16765,14 @@ export class ApiClient extends AbstractFetchClient {
       assignee: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/assignees/${p["assignee"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesListComments(
@@ -15029,7 +16785,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_issue_comment[]>
@@ -15040,13 +16796,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesCreateComment(
@@ -15059,7 +16820,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_issue_comment>
@@ -15072,14 +16833,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesListEvents(
@@ -15091,7 +16851,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issue_event_for_issue[]> | Res<410, t_basic_error>
@@ -15100,9 +16860,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesListLabelsOnIssue(
@@ -15114,7 +16879,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -15126,9 +16891,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesAddLabels(
@@ -15152,7 +16922,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -15165,14 +16935,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesSetLabels(
@@ -15196,7 +16965,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -15209,14 +16978,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async issuesRemoveAllLabels(
@@ -15226,7 +16994,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -15238,8 +17006,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesRemoveLabel(
@@ -15250,7 +17019,7 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_label[]>
@@ -15262,8 +17031,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/labels/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesLock(
@@ -15276,7 +17046,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -15289,14 +17059,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async issuesUnlock(
@@ -15306,7 +17075,7 @@ export class ApiClient extends AbstractFetchClient {
       issueNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -15315,8 +17084,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/lock`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForIssue(
@@ -15337,7 +17107,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
@@ -15346,13 +17116,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForIssue(
@@ -15373,7 +17148,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -15382,14 +17157,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForIssue(
@@ -15400,13 +17174,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListEventsForTimeline(
@@ -15418,7 +17193,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_timeline_issue_events[]>
@@ -15429,9 +17204,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/timeline`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListDeployKeys(
@@ -15442,12 +17222,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_deploy_key[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateDeployKey(
@@ -15461,19 +17246,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<201, t_deploy_key> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetDeployKey(
@@ -15483,14 +17267,15 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_deploy_key> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposDeleteDeployKey(
@@ -15500,12 +17285,13 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys/${p["keyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListLabelsForRepo(
@@ -15516,14 +17302,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_label[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesCreateLabel(
@@ -15537,21 +17328,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, t_label> | Res<404, t_basic_error> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesGetLabel(
@@ -15561,12 +17351,13 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_label> | Res<404, t_basic_error>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesUpdateLabel(
@@ -15581,16 +17372,19 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_label>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -15602,12 +17396,13 @@ export class ApiClient extends AbstractFetchClient {
       name: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels/${p["name"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListLanguages(
@@ -15616,11 +17411,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_language>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/languages`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async licensesGetForRepo(
@@ -15630,14 +17426,19 @@ export class ApiClient extends AbstractFetchClient {
       ref?: t_code_scanning_ref
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_license_content> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/license`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposMergeUpstream(
@@ -15649,7 +17450,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_merged_upstream> | Res<409, void> | Res<422, void>
@@ -15657,14 +17458,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merge-upstream`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposMerge(
@@ -15678,7 +17478,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_commit>
@@ -15690,14 +17490,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/merges`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesListMilestones(
@@ -15711,11 +17510,12 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_milestone[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       sort: p["sort"],
@@ -15724,7 +17524,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async issuesCreateMilestone(
@@ -15739,7 +17543,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_milestone>
@@ -15748,14 +17552,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async issuesGetMilestone(
@@ -15765,15 +17568,16 @@ export class ApiClient extends AbstractFetchClient {
       milestoneNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_milestone> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async issuesUpdateMilestone(
@@ -15789,17 +17593,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_milestone>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -15811,13 +17618,14 @@ export class ApiClient extends AbstractFetchClient {
       milestoneNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListLabelsForMilestone(
@@ -15829,14 +17637,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_label[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListRepoNotificationsForAuthenticatedUser(
@@ -15851,10 +17664,11 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_thread[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       all: p["all"],
       participating: p["participating"],
@@ -15864,7 +17678,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityMarkRepoNotificationsAsRead(
@@ -15876,7 +17694,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -15891,14 +17709,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposGetPages(
@@ -15907,11 +17724,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_page> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreatePagesSite(
@@ -15927,21 +17745,20 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, t_page> | Res<409, t_basic_error> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposUpdateInformationAboutPagesSite(
@@ -15963,7 +17780,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -15973,14 +17790,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeletePagesSite(
@@ -15989,7 +17805,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -15999,8 +17815,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListPagesBuilds(
@@ -16011,12 +17828,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_page_build[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposRequestPagesBuild(
@@ -16025,11 +17847,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_page_build_status>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposGetLatestPagesBuild(
@@ -16038,12 +17861,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds/latest`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetPagesBuild(
@@ -16053,13 +17877,14 @@ export class ApiClient extends AbstractFetchClient {
       buildId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_page_build>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pages/builds/${p["buildId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreatePagesDeployment(
@@ -16075,7 +17900,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_page_deployment>
@@ -16086,14 +17911,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/deployments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetPagesDeployment(
@@ -16103,7 +17927,7 @@ export class ApiClient extends AbstractFetchClient {
       pagesDeploymentId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pages_deployment_status> | Res<404, t_basic_error>
@@ -16112,8 +17936,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCancelPagesDeployment(
@@ -16123,13 +17948,14 @@ export class ApiClient extends AbstractFetchClient {
       pagesDeploymentId: number | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pages/deployments/${p["pagesDeploymentId"]}/cancel`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async reposGetPagesHealthCheck(
@@ -16138,7 +17964,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pages_health_check>
@@ -16149,8 +17975,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/health`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCheckPrivateVulnerabilityReporting(
@@ -16159,7 +17986,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -16174,8 +18001,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposEnablePrivateVulnerabilityReporting(
@@ -16184,13 +18012,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<422, t_scim_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async reposDisablePrivateVulnerabilityReporting(
@@ -16199,13 +18028,14 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<422, t_scim_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/private-vulnerability-reporting`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async projectsListForRepo(
@@ -16217,7 +18047,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_project[]>
@@ -16229,13 +18059,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async projectsCreateForRepo(
@@ -16248,7 +18083,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -16260,14 +18095,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/projects`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetCustomPropertiesValues(
@@ -16276,7 +18110,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_custom_property_value[]>
@@ -16286,8 +18120,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/properties/values`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateOrUpdateCustomPropertiesValues(
@@ -16299,7 +18134,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -16310,12 +18145,15 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/properties/values`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -16333,7 +18171,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_simple[]>
@@ -16342,6 +18180,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       head: p["head"],
@@ -16352,7 +18191,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsCreate(
@@ -16371,7 +18214,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_pull_request>
@@ -16380,14 +18223,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsListReviewCommentsForRepo(
@@ -16401,10 +18243,11 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -16413,7 +18256,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsGetReviewComment(
@@ -16423,7 +18270,7 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review_comment> | Res<404, t_basic_error>
@@ -16432,8 +18279,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async pullsUpdateReviewComment(
@@ -16446,17 +18294,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -16468,13 +18319,14 @@ export class ApiClient extends AbstractFetchClient {
       commentId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, t_basic_error>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForPullRequestReviewComment(
@@ -16495,20 +18347,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForPullRequestReviewComment(
@@ -16529,7 +18386,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -16538,14 +18395,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForPullRequestComment(
@@ -16556,13 +18412,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async pullsGet(
@@ -16572,7 +18429,7 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request>
@@ -16593,8 +18450,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async pullsUpdate(
@@ -16611,7 +18469,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request>
@@ -16622,12 +18480,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -16651,7 +18512,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -16672,14 +18533,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/codespaces`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsListReviewComments(
@@ -16694,11 +18554,12 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_comment[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -16707,7 +18568,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsCreateReviewComment(
@@ -16729,7 +18594,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_pull_request_review_comment>
@@ -16740,14 +18605,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsCreateReplyForReviewComment(
@@ -16761,7 +18625,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, t_pull_request_review_comment> | Res<404, t_basic_error>
@@ -16770,14 +18634,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments/${p["commentId"]}/replies`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsListCommits(
@@ -16789,14 +18652,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_commit[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsListFiles(
@@ -16808,7 +18676,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_diff_entry[]>
@@ -16827,9 +18695,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/files`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsCheckIfMerged(
@@ -16839,13 +18712,14 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async pullsMerge(
@@ -16861,7 +18735,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_merge_result>
@@ -16887,14 +18761,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/merge`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async pullsListRequestedReviewers(
@@ -16904,13 +18777,14 @@ export class ApiClient extends AbstractFetchClient {
       pullNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review_request>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async pullsRequestReviewers(
@@ -16924,7 +18798,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<201, t_pull_request_simple> | Res<403, t_basic_error> | Res<422, void>
@@ -16933,14 +18807,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsRemoveRequestedReviewers(
@@ -16954,7 +18827,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_simple> | Res<422, t_validation_error>
@@ -16963,12 +18836,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -16982,14 +18858,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_pull_request_review[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsCreateReview(
@@ -17013,7 +18894,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -17024,14 +18905,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsGetReview(
@@ -17042,7 +18922,7 @@ export class ApiClient extends AbstractFetchClient {
       reviewId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review> | Res<404, t_basic_error>
@@ -17051,8 +18931,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async pullsUpdateReview(
@@ -17066,7 +18947,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_pull_request_review> | Res<422, t_validation_error_simple>
@@ -17075,14 +18956,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async pullsDeletePendingReview(
@@ -17093,7 +18973,7 @@ export class ApiClient extends AbstractFetchClient {
       reviewId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -17104,8 +18984,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async pullsListCommentsForReview(
@@ -17118,16 +18999,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_review_comment[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async pullsDismissReview(
@@ -17142,7 +19028,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -17153,14 +19039,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/dismissals`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async pullsSubmitReview(
@@ -17175,7 +19060,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_pull_request_review>
@@ -17187,14 +19072,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/events`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async pullsUpdateBranch(
@@ -17207,7 +19091,7 @@ export class ApiClient extends AbstractFetchClient {
       } | null
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -17224,14 +19108,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposGetReadme(
@@ -17241,18 +19124,24 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_content_file>
+      | Res<304, void>
       | Res<404, t_basic_error>
       | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetReadmeInDirectory(
@@ -17263,7 +19152,7 @@ export class ApiClient extends AbstractFetchClient {
       ref?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_content_file>
@@ -17273,9 +19162,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/readme/${p["dir"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ ref: p["ref"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListReleases(
@@ -17286,14 +19180,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_release[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateRelease(
@@ -17313,7 +19212,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_release>
@@ -17322,14 +19221,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetReleaseAsset(
@@ -17339,7 +19237,7 @@ export class ApiClient extends AbstractFetchClient {
       assetId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_release_asset> | Res<302, void> | Res<404, t_basic_error>
@@ -17348,8 +19246,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateReleaseAsset(
@@ -17364,17 +19263,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_release_asset>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -17386,13 +19288,14 @@ export class ApiClient extends AbstractFetchClient {
       assetId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/assets/${p["assetId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGenerateReleaseNotes(
@@ -17407,7 +19310,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_release_notes_content> | Res<404, t_basic_error>
@@ -17416,14 +19319,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/generate-notes`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetLatestRelease(
@@ -17432,12 +19334,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_release>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases/latest`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetReleaseByTag(
@@ -17447,15 +19350,16 @@ export class ApiClient extends AbstractFetchClient {
       tag: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/tags/${p["tag"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetRelease(
@@ -17465,13 +19369,14 @@ export class ApiClient extends AbstractFetchClient {
       releaseId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_release> | Res<401, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposUpdateRelease(
@@ -17491,19 +19396,22 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_release> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -17515,13 +19423,14 @@ export class ApiClient extends AbstractFetchClient {
       releaseId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListReleaseAssets(
@@ -17533,14 +19442,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_release_asset[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposUploadReleaseAsset(
@@ -17553,20 +19467,21 @@ export class ApiClient extends AbstractFetchClient {
       requestBody?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
-    const headers = this._headers({
-      "Content-Type": "application/octet-stream",
-    })
+    const headers = this._headers(
+      { "Content-Type": "application/octet-stream" },
+      opts.headers,
+    )
     const query = this._query({ name: p["name"], label: p["label"] })
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url + query,
-      { method: "POST", headers, body, ...(opts ?? {}) },
+      { method: "POST", body, ...opts, headers },
       timeout,
     )
   }
@@ -17581,20 +19496,25 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_reaction[]> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForRelease(
@@ -17607,7 +19527,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_reaction> | Res<201, t_reaction> | Res<422, t_validation_error>
@@ -17616,14 +19536,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsDeleteForRelease(
@@ -17634,13 +19553,14 @@ export class ApiClient extends AbstractFetchClient {
       reactionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions/${p["reactionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposGetBranchRules(
@@ -17652,14 +19572,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_repository_rule_detailed[]>>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rules/branches/${p["branch"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetRepoRulesets(
@@ -17671,7 +19596,7 @@ export class ApiClient extends AbstractFetchClient {
       includesParents?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset[]>
@@ -17680,13 +19605,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       includes_parents: p["includesParents"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateRepoRuleset(
@@ -17699,11 +19629,11 @@ export class ApiClient extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_ruleset>
@@ -17712,14 +19642,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposGetRepoRuleSuites(
@@ -17734,7 +19663,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_rule_suites>
@@ -17744,6 +19673,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       ref: p["ref"],
       time_period: p["timePeriod"],
@@ -17753,7 +19683,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetRepoRuleSuite(
@@ -17763,7 +19697,7 @@ export class ApiClient extends AbstractFetchClient {
       ruleSuiteId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_rule_suite> | Res<404, t_basic_error> | Res<500, t_basic_error>
@@ -17772,8 +19706,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/rule-suites/${p["ruleSuiteId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetRepoRuleset(
@@ -17784,7 +19719,7 @@ export class ApiClient extends AbstractFetchClient {
       includesParents?: boolean
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -17795,9 +19730,14 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ includes_parents: p["includesParents"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposUpdateRepoRuleset(
@@ -17811,11 +19751,11 @@ export class ApiClient extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag"
+        target?: "branch" | "tag" | "push"
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_ruleset>
@@ -17826,14 +19766,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteRepoRuleset(
@@ -17843,7 +19782,7 @@ export class ApiClient extends AbstractFetchClient {
       rulesetId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<500, t_basic_error>
@@ -17852,8 +19791,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async secretScanningListAlertsForRepo(
@@ -17872,7 +19812,7 @@ export class ApiClient extends AbstractFetchClient {
       validity?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert[]>
@@ -17889,6 +19829,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       secret_type: p["secretType"],
@@ -17902,7 +19843,11 @@ export class ApiClient extends AbstractFetchClient {
       validity: p["validity"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async secretScanningGetAlert(
@@ -17912,7 +19857,7 @@ export class ApiClient extends AbstractFetchClient {
       alertNumber: t_alert_number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert>
@@ -17931,8 +19876,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async secretScanningUpdateAlert(
@@ -17947,7 +19893,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_alert>
@@ -17967,12 +19913,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -17986,7 +19935,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_secret_scanning_location[]>
@@ -18004,9 +19953,53 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/alerts/${p["alertNumber"]}/locations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async secretScanningCreatePushProtectionBypass(
+    p: {
+      owner: string
+      repo: string
+      requestBody: {
+        placeholder_id: t_secret_scanning_push_protection_bypass_placeholder_id
+        reason: t_secret_scanning_push_protection_bypass_reason
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_push_protection_bypass>
+      | Res<403, void>
+      | Res<404, void>
+      | Res<422, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/push-protection-bypasses`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesListRepositoryAdvisories(
@@ -18021,7 +20014,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "triage" | "draft" | "published" | "closed"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory[]>
@@ -18031,6 +20024,7 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       sort: p["sort"],
@@ -18040,7 +20034,11 @@ export class ApiClient extends AbstractFetchClient {
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async securityAdvisoriesCreateRepositoryAdvisory(
@@ -18050,7 +20048,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_repository_advisory_create
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_advisory>
@@ -18061,14 +20059,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/security-advisories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesCreatePrivateVulnerabilityReport(
@@ -18078,7 +20075,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_private_vulnerability_report_create
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_repository_advisory>
@@ -18090,14 +20087,13 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/reports`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesGetRepositoryAdvisory(
@@ -18107,7 +20103,7 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory>
@@ -18118,8 +20114,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesUpdateRepositoryAdvisory(
@@ -18130,7 +20127,7 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_repository_advisory_update
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_advisory>
@@ -18142,12 +20139,15 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -18159,7 +20159,7 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18177,8 +20177,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/cve`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesCreateFork(
@@ -18188,7 +20189,7 @@ export class ApiClient extends AbstractFetchClient {
       ghsaId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_full_repository>
@@ -18201,8 +20202,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/security-advisories/${p["ghsaId"]}/forks`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async activityListStargazersForRepo(
@@ -18213,16 +20215,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_simple_user[] | t_stargazer[]> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetCodeFrequencyStats(
@@ -18231,7 +20238,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_code_frequency_stat[]>
@@ -18247,8 +20254,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/code_frequency`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetCommitActivityStats(
@@ -18257,7 +20265,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_commit_activity[]>
@@ -18272,8 +20280,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/commit_activity`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetContributorsStats(
@@ -18282,7 +20291,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_contributor_activity[]>
@@ -18297,8 +20306,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/contributors`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetParticipationStats(
@@ -18307,7 +20317,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_participation_stats> | Res<404, t_basic_error>
@@ -18315,8 +20325,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/participation`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetPunchCardStats(
@@ -18325,14 +20336,15 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_code_frequency_stat[]> | Res<204, void>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stats/punch_card`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateCommitStatus(
@@ -18348,18 +20360,17 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_status>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async activityListWatchersForRepo(
@@ -18370,12 +20381,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityGetRepoSubscription(
@@ -18384,7 +20400,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_subscription>
@@ -18393,8 +20409,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activitySetRepoSubscription(
@@ -18407,17 +20424,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_repository_subscription>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async activityDeleteRepoSubscription(
@@ -18426,11 +20442,12 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscription`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposListTags(
@@ -18441,12 +20458,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_tag[]>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListTagProtection(
@@ -18455,7 +20477,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_tag_protection[]>
@@ -18465,8 +20487,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateTagProtection(
@@ -18478,7 +20501,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_tag_protection>
@@ -18488,14 +20511,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags/protection`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposDeleteTagProtection(
@@ -18505,7 +20527,7 @@ export class ApiClient extends AbstractFetchClient {
       tagProtectionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, t_basic_error>
@@ -18514,8 +20536,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/tags/protection/${p["tagProtectionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposDownloadTarballArchive(
@@ -18525,12 +20548,13 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposListTeams(
@@ -18541,12 +20565,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetAllTopics(
@@ -18557,12 +20586,17 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_topic> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ page: p["page"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposReplaceAllTopics(
@@ -18574,7 +20608,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_topic>
@@ -18583,14 +20617,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/topics`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async reposGetClones(
@@ -18600,15 +20633,20 @@ export class ApiClient extends AbstractFetchClient {
       per?: "day" | "week"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_clone_traffic> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/clones`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per: p["per"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposGetTopPaths(
@@ -18617,14 +20655,15 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_content_traffic[]> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/paths`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetTopReferrers(
@@ -18633,15 +20672,16 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_referrer_traffic[]> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/traffic/popular/referrers`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposGetViews(
@@ -18651,15 +20691,20 @@ export class ApiClient extends AbstractFetchClient {
       per?: "day" | "week"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_view_traffic> | Res<403, t_basic_error>>
   > {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/traffic/views`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per: p["per"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposTransfer(
@@ -18673,17 +20718,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<202, t_minimal_repository>>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/transfer`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposCheckVulnerabilityAlerts(
@@ -18692,12 +20736,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposEnableVulnerabilityAlerts(
@@ -18706,12 +20751,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async reposDisableVulnerabilityAlerts(
@@ -18720,12 +20766,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/vulnerability-alerts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reposDownloadZipballArchive(
@@ -18735,12 +20782,13 @@ export class ApiClient extends AbstractFetchClient {
       ref: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<302, void>>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async reposCreateUsingTemplate(
@@ -18756,19 +20804,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_full_repository>>> {
     const url =
       this.basePath +
       `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposListPublic(
@@ -18776,7 +20823,7 @@ export class ApiClient extends AbstractFetchClient {
       since?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -18785,9 +20832,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchCode(
@@ -18799,7 +20851,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18824,6 +20876,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/code`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -18832,7 +20885,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchCommits(
@@ -18844,7 +20901,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18859,6 +20916,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/commits`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -18867,7 +20925,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchIssuesAndPullRequests(
@@ -18890,7 +20952,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18915,6 +20977,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/issues`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -18923,7 +20986,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchLabels(
@@ -18936,7 +21003,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18954,6 +21021,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/labels`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       repository_id: p["repositoryId"],
       q: p["q"],
@@ -18963,7 +21031,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchRepos(
@@ -18975,7 +21047,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -18999,6 +21071,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -19007,7 +21080,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchTopics(
@@ -19017,7 +21094,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19032,13 +21109,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/topics`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async searchUsers(
@@ -19050,7 +21132,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19074,6 +21156,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/search/users`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       q: p["q"],
       sort: p["sort"],
@@ -19082,7 +21165,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsGetLegacy(
@@ -19090,13 +21177,14 @@ export class ApiClient extends AbstractFetchClient {
       teamId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team_full> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/teams/${p["teamId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateLegacy(
@@ -19114,7 +21202,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full>
@@ -19125,12 +21213,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -19140,15 +21231,16 @@ export class ApiClient extends AbstractFetchClient {
       teamId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListDiscussionsLegacy(
@@ -19159,16 +21251,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCreateDiscussionLegacy(
@@ -19181,17 +21278,16 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsGetDiscussionLegacy(
@@ -19200,13 +21296,14 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateDiscussionLegacy(
@@ -19219,17 +21316,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -19240,13 +21340,14 @@ export class ApiClient extends AbstractFetchClient {
       discussionNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListDiscussionCommentsLegacy(
@@ -19258,18 +21359,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment[]>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       direction: p["direction"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCreateDiscussionCommentLegacy(
@@ -19281,19 +21387,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsGetDiscussionCommentLegacy(
@@ -19303,13 +21408,14 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsUpdateDiscussionCommentLegacy(
@@ -19322,17 +21428,20 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_discussion_comment>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -19344,13 +21453,14 @@ export class ApiClient extends AbstractFetchClient {
       commentNumber: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async reactionsListForTeamDiscussionCommentLegacy(
@@ -19371,18 +21481,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForTeamDiscussionCommentLegacy(
@@ -19403,19 +21518,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reactionsListForTeamDiscussionLegacy(
@@ -19435,18 +21549,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_reaction[]>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       content: p["content"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reactionsCreateForTeamDiscussionLegacy(
@@ -19466,19 +21585,18 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_reaction>>> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async teamsListPendingInvitationsLegacy(
@@ -19488,12 +21606,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_invitation[]>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsListMembersLegacy(
@@ -19504,18 +21627,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_simple_user[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/members`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       role: p["role"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsGetMemberLegacy(
@@ -19524,11 +21652,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddMemberLegacy(
@@ -19537,15 +21666,16 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<404, void> | Res<422, void>
     >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async teamsRemoveMemberLegacy(
@@ -19554,11 +21684,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsGetMembershipForUserLegacy(
@@ -19567,14 +21698,15 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team_membership> | Res<404, t_basic_error>>
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateMembershipForUserLegacy(
@@ -19586,7 +21718,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_membership>
@@ -19597,14 +21729,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveMembershipForUserLegacy(
@@ -19613,12 +21744,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<403, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/memberships/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListProjectsLegacy(
@@ -19628,14 +21760,19 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_team_project[]> | Res<404, t_basic_error>>
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/projects`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCheckPermissionsForProjectLegacy(
@@ -19644,12 +21781,13 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_team_project> | Res<404, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateProjectPermissionsLegacy(
@@ -19661,7 +21799,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19678,14 +21816,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveProjectLegacy(
@@ -19694,7 +21831,7 @@ export class ApiClient extends AbstractFetchClient {
       projectId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
@@ -19702,8 +21839,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/projects/${p["projectId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListReposLegacy(
@@ -19713,16 +21851,21 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/repos`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsCheckPermissionsForRepoLegacy(
@@ -19732,7 +21875,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_team_repository> | Res<204, void> | Res<404, void>
@@ -19740,8 +21883,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async teamsAddOrUpdateRepoPermissionsLegacy(
@@ -19754,7 +21898,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<204, void> | Res<403, t_basic_error> | Res<422, t_validation_error>
@@ -19762,14 +21906,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async teamsRemoveRepoLegacy(
@@ -19779,12 +21922,13 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url =
       this.basePath + `/teams/${p["teamId"]}/repos/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async teamsListChildLegacy(
@@ -19794,7 +21938,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team[]>
@@ -19804,14 +21948,19 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/teams/${p["teamId"]}/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersGetAuthenticated(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_private_user | t_public_user>
@@ -19821,8 +21970,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersUpdateAuthenticated(
@@ -19839,7 +21989,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_private_user>
@@ -19851,12 +22001,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -19867,7 +22020,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -19878,9 +22031,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/blocks`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCheckBlocked(
@@ -19888,7 +22046,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19899,8 +22057,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersBlock(
@@ -19908,7 +22067,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19920,8 +22079,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async usersUnblock(
@@ -19929,7 +22089,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -19940,8 +22100,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/blocks/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesListForAuthenticatedUser(
@@ -19951,7 +22112,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -19969,13 +22130,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       per_page: p["perPage"],
       page: p["page"],
       repository_id: p["repositoryId"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesCreateForAuthenticatedUser(
@@ -20009,7 +22175,7 @@ export class ApiClient extends AbstractFetchClient {
           }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace>
@@ -20028,14 +22194,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codespacesListSecretsForAuthenticatedUser(
@@ -20044,7 +22209,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<
@@ -20057,18 +22222,24 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/secrets`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async codespacesGetPublicKeyForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_user_public_key>>> {
     const url = this.basePath + `/user/codespaces/secrets/public-key`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesGetSecretForAuthenticatedUser(
@@ -20076,11 +22247,12 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_codespaces_secret>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesCreateOrUpdateSecretForAuthenticatedUser(
@@ -20093,7 +22265,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_empty_object>
@@ -20103,14 +22275,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesDeleteSecretForAuthenticatedUser(
@@ -20118,11 +22289,12 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/codespaces/secrets/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesListRepositoriesForSecretForAuthenticatedUser(
@@ -20130,7 +22302,7 @@ export class ApiClient extends AbstractFetchClient {
       secretName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -20148,8 +22320,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesSetRepositoriesForSecretForAuthenticatedUser(
@@ -20160,7 +22333,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20172,14 +22345,13 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/codespaces/secrets/${p["secretName"]}/repositories`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async codespacesAddRepositoryForSecretForAuthenticatedUser(
@@ -20188,7 +22360,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20201,8 +22373,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async codespacesRemoveRepositoryForSecretForAuthenticatedUser(
@@ -20211,7 +22384,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20224,8 +22397,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/codespaces/secrets/${p["secretName"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesGetForAuthenticatedUser(
@@ -20233,7 +22407,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -20245,8 +22419,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesUpdateForAuthenticatedUser(
@@ -20259,7 +22434,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -20269,12 +22444,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -20284,7 +22462,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -20301,8 +22479,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async codespacesExportForAuthenticatedUser(
@@ -20310,7 +22489,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<202, t_codespace_export_details>
@@ -20322,8 +22501,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/exports`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async codespacesGetExportDetailsForAuthenticatedUser(
@@ -20332,7 +22512,7 @@ export class ApiClient extends AbstractFetchClient {
       exportId: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_codespace_export_details> | Res<404, t_basic_error>
@@ -20341,8 +22521,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/codespaces/${p["codespaceName"]}/exports/${p["exportId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesCodespaceMachinesForAuthenticatedUser(
@@ -20350,7 +22531,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -20369,8 +22550,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/codespaces/${p["codespaceName"]}/machines`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async codespacesPublishForAuthenticatedUser(
@@ -20382,7 +22564,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_codespace_with_full_repository>
@@ -20393,14 +22575,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/publish`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codespacesStartForAuthenticatedUser(
@@ -20408,7 +22589,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -20423,8 +22604,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/start`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async codespacesStopForAuthenticatedUser(
@@ -20432,7 +22614,7 @@ export class ApiClient extends AbstractFetchClient {
       codespaceName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_codespace>
@@ -20443,17 +22625,19 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/codespaces/${p["codespaceName"]}/stop`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async packagesListDockerMigrationConflictingPackagesForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package[]>>> {
     const url = this.basePath + `/user/docker/conflicts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
@@ -20463,7 +22647,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -20475,12 +22659,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/email/visibility`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -20491,7 +22678,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -20502,9 +22689,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/emails`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersAddEmailForAuthenticatedUser(
@@ -20517,7 +22709,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_email[]>
@@ -20529,14 +22721,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/emails`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersDeleteEmailForAuthenticatedUser(
@@ -20549,7 +22740,7 @@ export class ApiClient extends AbstractFetchClient {
         | string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20561,12 +22752,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/emails`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -20577,7 +22771,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -20587,9 +22781,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/followers`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListFollowedByAuthenticatedUser(
@@ -20598,7 +22797,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_simple_user[]>
@@ -20608,9 +22807,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/following`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCheckPersonIsFollowedByAuthenticated(
@@ -20618,7 +22822,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20629,8 +22833,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersFollow(
@@ -20638,7 +22843,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20649,8 +22854,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async usersUnfollow(
@@ -20658,7 +22864,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20669,8 +22875,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async usersListGpgKeysForAuthenticatedUser(
@@ -20679,7 +22886,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gpg_key[]>
@@ -20690,9 +22897,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/gpg_keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCreateGpgKeyForAuthenticatedUser(
@@ -20703,7 +22915,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_gpg_key>
@@ -20715,14 +22927,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/gpg_keys`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersGetGpgKeyForAuthenticatedUser(
@@ -20730,7 +22941,7 @@ export class ApiClient extends AbstractFetchClient {
       gpgKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_gpg_key>
@@ -20741,8 +22952,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersDeleteGpgKeyForAuthenticatedUser(
@@ -20750,7 +22962,7 @@ export class ApiClient extends AbstractFetchClient {
       gpgKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20762,8 +22974,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/gpg_keys/${p["gpgKeyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async appsListInstallationsForAuthenticatedUser(
@@ -20772,7 +22985,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -20788,9 +23001,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/installations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsListInstallationReposForAuthenticatedUser(
@@ -20800,7 +23018,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<
@@ -20818,9 +23036,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/installations/${p["installationId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsAddRepoToInstallationForAuthenticatedUser(
@@ -20829,7 +23052,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20841,8 +23064,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async appsRemoveRepoFromInstallationForAuthenticatedUser(
@@ -20851,7 +23075,7 @@ export class ApiClient extends AbstractFetchClient {
       repositoryId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -20864,21 +23088,23 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/installations/${p["installationId"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async interactionsGetRestrictionsForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response | EmptyObject> | Res<204, void>
     >
   > {
     const url = this.basePath + `/user/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async interactionsSetRestrictionsForAuthenticatedUser(
@@ -20886,30 +23112,30 @@ export class ApiClient extends AbstractFetchClient {
       requestBody: t_interaction_limit
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_interaction_limit_response> | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/user/interaction-limits`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "PUT", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
   async interactionsRemoveRestrictionsForAuthenticatedUser(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void>>> {
     const url = this.basePath + `/user/interaction-limits`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async issuesListForAuthenticatedUser(
@@ -20930,13 +23156,14 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_issue[]> | Res<304, void> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/user/issues`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       filter: p["filter"],
       state: p["state"],
@@ -20948,7 +23175,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListPublicSshKeysForAuthenticatedUser(
@@ -20957,7 +23188,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_key[]>
@@ -20968,9 +23199,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCreatePublicSshKeyForAuthenticatedUser(
@@ -20981,7 +23217,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_key>
@@ -20993,14 +23229,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/keys`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersGetPublicSshKeyForAuthenticatedUser(
@@ -21008,7 +23243,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_key>
@@ -21019,8 +23254,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/keys/${p["keyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersDeletePublicSshKeyForAuthenticatedUser(
@@ -21028,7 +23264,7 @@ export class ApiClient extends AbstractFetchClient {
       keyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21039,8 +23275,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/keys/${p["keyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async appsListSubscriptionsForAuthenticatedUser(
@@ -21049,7 +23286,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_user_marketplace_purchase[]>
@@ -21059,9 +23296,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/marketplace_purchases`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsListSubscriptionsForAuthenticatedUserStubbed(
@@ -21070,7 +23312,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_user_marketplace_purchase[]>
@@ -21079,9 +23321,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/marketplace_purchases/stubbed`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListMembershipsForAuthenticatedUser(
@@ -21091,7 +23338,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership[]>
@@ -21102,13 +23349,18 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/memberships/orgs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsGetMembershipForAuthenticatedUser(
@@ -21116,7 +23368,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -21125,8 +23377,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async orgsUpdateMembershipForAuthenticatedUser(
@@ -21137,7 +23390,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_org_membership>
@@ -21147,12 +23400,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/memberships/orgs/${p["org"]}`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "PATCH", headers, body, ...(opts ?? {}) },
+      { method: "PATCH", body, ...opts, headers },
       timeout,
     )
   }
@@ -21163,7 +23419,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_migration[]>
@@ -21173,9 +23429,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/migrations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async migrationsStartForAuthenticatedUser(
@@ -21193,7 +23454,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_migration>
@@ -21204,14 +23465,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/migrations`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async migrationsGetStatusForAuthenticatedUser(
@@ -21220,7 +23480,7 @@ export class ApiClient extends AbstractFetchClient {
       exclude?: string[]
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_migration>
@@ -21231,9 +23491,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ exclude: p["exclude"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async migrationsGetArchiveForAuthenticatedUser(
@@ -21241,7 +23506,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<302, void>
@@ -21251,8 +23516,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async migrationsDeleteArchiveForAuthenticatedUser(
@@ -21260,7 +23526,7 @@ export class ApiClient extends AbstractFetchClient {
       migrationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21271,8 +23537,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/migrations/${p["migrationId"]}/archive`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsUnlockRepoForAuthenticatedUser(
@@ -21281,7 +23548,7 @@ export class ApiClient extends AbstractFetchClient {
       repoName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21294,8 +23561,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/migrations/${p["migrationId"]}/repos/${p["repoName"]}/lock`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async migrationsListReposForAuthenticatedUser(
@@ -21305,7 +23573,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_minimal_repository[]> | Res<404, t_basic_error>
@@ -21313,9 +23581,14 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/migrations/${p["migrationId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListForAuthenticatedUser(
@@ -21324,7 +23597,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_organization_simple[]>
@@ -21334,9 +23607,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/orgs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesListPackagesForAuthenticatedUser(
@@ -21353,9 +23631,10 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package[]> | Res<400, void>>> {
     const url = this.basePath + `/user/packages`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -21363,7 +23642,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesGetPackageForAuthenticatedUser(
@@ -21378,12 +23661,13 @@ export class ApiClient extends AbstractFetchClient {
       packageName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageForAuthenticatedUser(
@@ -21398,7 +23682,7 @@ export class ApiClient extends AbstractFetchClient {
       packageName: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21409,8 +23693,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageForAuthenticatedUser(
@@ -21426,7 +23711,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21438,11 +23723,12 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ token: p["token"] })
 
     return this._fetch(
       url + query,
-      { method: "POST", ...(opts ?? {}) },
+      { method: "POST", ...opts, headers },
       timeout,
     )
   }
@@ -21462,7 +23748,7 @@ export class ApiClient extends AbstractFetchClient {
       state?: "active" | "deleted"
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -21474,13 +23760,18 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       page: p["page"],
       per_page: p["perPage"],
       state: p["state"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesGetPackageVersionForAuthenticatedUser(
@@ -21496,13 +23787,14 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageVersionForAuthenticatedUser(
@@ -21518,7 +23810,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21530,8 +23822,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageVersionForAuthenticatedUser(
@@ -21547,7 +23840,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21559,8 +23852,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/user/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async projectsCreateForAuthenticatedUser(
@@ -21571,7 +23865,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_project>
@@ -21582,14 +23876,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/projects`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersListPublicEmailsForAuthenticatedUser(
@@ -21598,7 +23891,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_email[]>
@@ -21609,9 +23902,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/public_emails`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListForAuthenticatedUser(
@@ -21627,7 +23925,7 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository[]>
@@ -21638,6 +23936,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/repos`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       visibility: p["visibility"],
       affiliation: p["affiliation"],
@@ -21650,7 +23949,11 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposCreateForAuthenticatedUser(
@@ -21682,7 +23985,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_full_repository>
@@ -21695,14 +23998,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/repos`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async reposListInvitationsForAuthenticatedUser(
@@ -21711,7 +24013,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_repository_invitation[]>
@@ -21722,9 +24024,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/repository_invitations`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposAcceptInvitationForAuthenticatedUser(
@@ -21732,7 +24039,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21744,8 +24051,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/repository_invitations/${p["invitationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PATCH", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PATCH", ...opts, headers }, timeout)
   }
 
   async reposDeclineInvitationForAuthenticatedUser(
@@ -21753,7 +24061,7 @@ export class ApiClient extends AbstractFetchClient {
       invitationId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21765,8 +24073,9 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/user/repository_invitations/${p["invitationId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async usersListSocialAccountsForAuthenticatedUser(
@@ -21775,7 +24084,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_social_account[]>
@@ -21786,9 +24095,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/social_accounts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersAddSocialAccountForAuthenticatedUser(
@@ -21798,7 +24112,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_social_account[]>
@@ -21810,14 +24124,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/social_accounts`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersDeleteSocialAccountForAuthenticatedUser(
@@ -21827,7 +24140,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21839,12 +24152,15 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/social_accounts`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(
       url,
-      { method: "DELETE", headers, body, ...(opts ?? {}) },
+      { method: "DELETE", body, ...opts, headers },
       timeout,
     )
   }
@@ -21855,7 +24171,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_ssh_signing_key[]>
@@ -21866,9 +24182,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/ssh_signing_keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCreateSshSigningKeyForAuthenticatedUser(
@@ -21879,7 +24200,7 @@ export class ApiClient extends AbstractFetchClient {
       }
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<201, t_ssh_signing_key>
@@ -21891,14 +24212,13 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/ssh_signing_keys`
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
     const body = JSON.stringify(p.requestBody)
 
-    return this._fetch(
-      url,
-      { method: "POST", headers, body, ...(opts ?? {}) },
-      timeout,
-    )
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async usersGetSshSigningKeyForAuthenticatedUser(
@@ -21906,7 +24226,7 @@ export class ApiClient extends AbstractFetchClient {
       sshSigningKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_ssh_signing_key>
@@ -21917,8 +24237,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersDeleteSshSigningKeyForAuthenticatedUser(
@@ -21926,7 +24247,7 @@ export class ApiClient extends AbstractFetchClient {
       sshSigningKeyId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21937,8 +24258,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/ssh_signing_keys/${p["sshSigningKeyId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async activityListReposStarredByAuthenticatedUser(
@@ -21949,7 +24271,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_starred_repository[]>
@@ -21959,6 +24281,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/starred`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -21966,7 +24289,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityCheckRepoIsStarredByAuthenticatedUser(
@@ -21975,7 +24302,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -21986,8 +24313,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activityStarRepoForAuthenticatedUser(
@@ -21996,7 +24324,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22007,8 +24335,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "PUT", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
   }
 
   async activityUnstarRepoForAuthenticatedUser(
@@ -22017,7 +24346,7 @@ export class ApiClient extends AbstractFetchClient {
       repo: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22028,8 +24357,9 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/starred/${p["owner"]}/${p["repo"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async activityListWatchedReposForAuthenticatedUser(
@@ -22038,7 +24368,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_minimal_repository[]>
@@ -22048,9 +24378,14 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/subscriptions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async teamsListForAuthenticatedUser(
@@ -22059,7 +24394,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_team_full[]>
@@ -22069,9 +24404,31 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/user/teams`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async usersGetById(
+    p: {
+      accountId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/user/${p["accountId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersList(
@@ -22080,12 +24437,17 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     } = {},
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]> | Res<304, void>>> {
     const url = this.basePath + `/users`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersGetByUsername(
@@ -22093,15 +24455,59 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_private_user | t_public_user> | Res<404, t_basic_error>
     >
   > {
     const url = this.basePath + `/users/${p["username"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async usersListAttestations(
+    p: {
+      perPage?: number
+      before?: string
+      after?: string
+      username: string
+      subjectDigest: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<
+          200,
+          {
+            attestations?: {
+              bundle?: t_sigstore_bundle_0
+              repository_id?: number
+            }[]
+          }
+        >
+      | Res<201, t_empty_object>
+      | Res<204, void>
+      | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/users/${p["username"]}/attestations/${p["subjectDigest"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesListDockerMigrationConflictingPackagesForUser(
@@ -22109,15 +24515,16 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       Res<200, t_package[]> | Res<401, t_basic_error> | Res<403, t_basic_error>
     >
   > {
     const url = this.basePath + `/users/${p["username"]}/docker/conflicts`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async activityListEventsForAuthenticatedUser(
@@ -22127,12 +24534,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListOrgEventsForAuthenticatedUser(
@@ -22143,13 +24555,18 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url =
       this.basePath + `/users/${p["username"]}/events/orgs/${p["org"]}`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListPublicEventsForUser(
@@ -22159,12 +24576,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/events/public`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListFollowersForUser(
@@ -22174,12 +24596,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/followers`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListFollowingForUser(
@@ -22189,12 +24616,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_simple_user[]>>> {
     const url = this.basePath + `/users/${p["username"]}/following`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersCheckFollowingForUser(
@@ -22203,12 +24635,13 @@ export class ApiClient extends AbstractFetchClient {
       targetUser: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<204, void> | Res<404, void>>> {
     const url =
       this.basePath + `/users/${p["username"]}/following/${p["targetUser"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async gistsListForUser(
@@ -22219,18 +24652,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_base_gist[]> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/users/${p["username"]}/gists`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListGpgKeysForUser(
@@ -22240,12 +24678,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_gpg_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/gpg_keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersGetContextForUser(
@@ -22255,7 +24698,7 @@ export class ApiClient extends AbstractFetchClient {
       subjectId?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_hovercard>
@@ -22264,12 +24707,17 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/users/${p["username"]}/hovercard`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       subject_type: p["subjectType"],
       subject_id: p["subjectId"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsGetUserInstallation(
@@ -22277,11 +24725,12 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_installation>>> {
     const url = this.basePath + `/users/${p["username"]}/installation`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersListPublicKeysForUser(
@@ -22291,12 +24740,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_key_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async orgsListForUser(
@@ -22306,12 +24760,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_organization_simple[]>>> {
     const url = this.basePath + `/users/${p["username"]}/orgs`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesListPackagesForUser(
@@ -22329,7 +24788,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package[]>
@@ -22339,6 +24798,7 @@ export class ApiClient extends AbstractFetchClient {
     >
   > {
     const url = this.basePath + `/users/${p["username"]}/packages`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       package_type: p["packageType"],
       visibility: p["visibility"],
@@ -22346,7 +24806,11 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async packagesGetPackageForUser(
@@ -22362,13 +24826,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package>>> {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageForUser(
@@ -22384,7 +24849,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22396,8 +24861,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageForUser(
@@ -22414,7 +24880,7 @@ export class ApiClient extends AbstractFetchClient {
       token?: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22426,11 +24892,12 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/restore`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ token: p["token"] })
 
     return this._fetch(
       url + query,
-      { method: "POST", ...(opts ?? {}) },
+      { method: "POST", ...opts, headers },
       timeout,
     )
   }
@@ -22448,7 +24915,7 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<200, t_package_version[]>
@@ -22460,8 +24927,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesGetPackageVersionForUser(
@@ -22478,13 +24946,14 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_package_version>>> {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async packagesDeletePackageVersionForUser(
@@ -22501,7 +24970,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22513,8 +24982,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "DELETE", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
   async packagesRestorePackageVersionForUser(
@@ -22531,7 +25001,7 @@ export class ApiClient extends AbstractFetchClient {
       packageVersionId: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<
       | Res<204, void>
@@ -22543,8 +25013,9 @@ export class ApiClient extends AbstractFetchClient {
     const url =
       this.basePath +
       `/users/${p["username"]}/packages/${p["packageType"]}/${p["packageName"]}/versions/${p["packageVersionId"]}/restore`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "POST", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
   }
 
   async projectsListForUser(
@@ -22555,18 +25026,23 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_project[]> | Res<422, t_validation_error>>
   > {
     const url = this.basePath + `/users/${p["username"]}/projects`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       state: p["state"],
       per_page: p["perPage"],
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListReceivedEventsForUser(
@@ -22576,12 +25052,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListReceivedPublicEventsForUser(
@@ -22591,12 +25072,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_event[]>>> {
     const url = this.basePath + `/users/${p["username"]}/received_events/public`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async reposListForUser(
@@ -22609,9 +25095,10 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/repos`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       type: p["type"],
       sort: p["sort"],
@@ -22620,7 +25107,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async billingGetGithubActionsBillingUser(
@@ -22628,12 +25119,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_actions_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/actions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async billingGetGithubPackagesBillingUser(
@@ -22641,12 +25133,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_packages_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/packages`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async billingGetSharedStorageBillingUser(
@@ -22654,12 +25147,13 @@ export class ApiClient extends AbstractFetchClient {
       username: string
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_combined_billing_usage>>> {
     const url =
       this.basePath + `/users/${p["username"]}/settings/billing/shared-storage`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async usersListSocialAccountsForUser(
@@ -22669,12 +25163,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_social_account[]>>> {
     const url = this.basePath + `/users/${p["username"]}/social_accounts`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async usersListSshSigningKeysForUser(
@@ -22684,12 +25183,17 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_ssh_signing_key[]>>> {
     const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListReposStarredByUser(
@@ -22701,11 +25205,12 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<
     TypedFetchResponse<Res<200, t_starred_repository[] | t_repository[]>>
   > {
     const url = this.basePath + `/users/${p["username"]}/starred`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({
       sort: p["sort"],
       direction: p["direction"],
@@ -22713,7 +25218,11 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
     })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async activityListReposWatchedByUser(
@@ -22723,29 +25232,36 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
     },
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_minimal_repository[]>>> {
     const url = this.basePath + `/users/${p["username"]}/subscriptions`
+    const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
 
-    return this._fetch(url + query, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async metaGetAllVersions(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string[]> | Res<404, t_basic_error>>> {
     const url = this.basePath + `/versions`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async metaGetZen(
     timeout?: number,
-    opts?: RequestInit,
+    opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string>>> {
     const url = this.basePath + `/zen`
+    const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...(opts ?? {}) }, timeout)
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 }

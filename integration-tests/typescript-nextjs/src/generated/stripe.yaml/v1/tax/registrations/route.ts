@@ -55,7 +55,12 @@ export type PostTaxRegistrations = (
 
 const getTaxRegistrationsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
   status: z.enum(["active", "all", "expired", "scheduled"]).optional(),
@@ -148,6 +153,7 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    bh: z.object({ type: z.enum(["standard"]) }).optional(),
     ca: z
       .object({
         province_standard: z
@@ -209,6 +215,7 @@ const postTaxRegistrationsBodySchema = z.object({
         type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
       })
       .optional(),
+    eg: z.object({ type: z.enum(["simplified"]) }).optional(),
     es: z
       .object({
         standard: z
@@ -240,6 +247,7 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     gb: z.object({ type: z.enum(["standard"]) }).optional(),
+    ge: z.object({ type: z.enum(["simplified"]) }).optional(),
     gr: z
       .object({
         standard: z
@@ -293,7 +301,9 @@ const postTaxRegistrationsBodySchema = z.object({
       })
       .optional(),
     jp: z.object({ type: z.enum(["standard"]) }).optional(),
+    ke: z.object({ type: z.enum(["simplified"]) }).optional(),
     kr: z.object({ type: z.enum(["simplified"]) }).optional(),
+    kz: z.object({ type: z.enum(["simplified"]) }).optional(),
     lt: z
       .object({
         standard: z
@@ -336,6 +346,7 @@ const postTaxRegistrationsBodySchema = z.object({
       .optional(),
     mx: z.object({ type: z.enum(["simplified"]) }).optional(),
     my: z.object({ type: z.enum(["simplified"]) }).optional(),
+    ng: z.object({ type: z.enum(["simplified"]) }).optional(),
     nl: z
       .object({
         standard: z
@@ -348,6 +359,7 @@ const postTaxRegistrationsBodySchema = z.object({
       .optional(),
     no: z.object({ type: z.enum(["standard"]) }).optional(),
     nz: z.object({ type: z.enum(["standard"]) }).optional(),
+    om: z.object({ type: z.enum(["standard"]) }).optional(),
     pl: z
       .object({
         standard: z

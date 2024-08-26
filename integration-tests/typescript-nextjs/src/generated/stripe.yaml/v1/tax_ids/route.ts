@@ -55,7 +55,12 @@ export type PostTaxIds = (
 
 const getTaxIdsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   owner: z
     .object({
@@ -144,11 +149,13 @@ const postTaxIdsBodySchema = z.object({
     "ca_pst_mb",
     "ca_pst_sk",
     "ca_qst",
+    "ch_uid",
     "ch_vat",
     "cl_tin",
     "cn_tin",
     "co_nit",
     "cr_tin",
+    "de_stn",
     "do_rcn",
     "ec_ruc",
     "eg_tin",

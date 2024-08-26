@@ -35,6 +35,27 @@ export type PostCustomerSessions = (
 const postCustomerSessionsBodySchema = z.object({
   components: z.object({
     buy_button: z.object({ enabled: PermissiveBoolean }).optional(),
+    payment_element: z
+      .object({
+        enabled: PermissiveBoolean,
+        features: z
+          .object({
+            payment_method_allow_redisplay_filters: z
+              .array(z.enum(["always", "limited", "unspecified"]))
+              .optional(),
+            payment_method_redisplay: z
+              .enum(["disabled", "enabled"])
+              .optional(),
+            payment_method_redisplay_limit: z.coerce.number().optional(),
+            payment_method_remove: z.enum(["disabled", "enabled"]).optional(),
+            payment_method_save: z.enum(["disabled", "enabled"]).optional(),
+            payment_method_save_usage: z
+              .enum(["off_session", "on_session"])
+              .optional(),
+          })
+          .optional(),
+      })
+      .optional(),
     pricing_table: z.object({ enabled: PermissiveBoolean }).optional(),
   }),
   customer: z.string().max(5000),

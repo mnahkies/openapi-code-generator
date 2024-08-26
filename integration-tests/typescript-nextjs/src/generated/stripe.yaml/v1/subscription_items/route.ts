@@ -55,7 +55,12 @@ export type PostSubscriptionItems = (
 
 const getSubscriptionItemsQuerySchema = z.object({
   ending_before: z.string().optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().optional(),
   subscription: z.string().max(5000),

@@ -125,7 +125,12 @@ export const _DELETE =
 const getCouponsCouponParamSchema = z.object({ coupon: z.string().max(5000) })
 
 const getCouponsCouponQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getCouponsCouponBodySchema = z.object({}).optional()

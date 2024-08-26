@@ -39,6 +39,7 @@ const postTaxTransactionsCreateFromCalculationBodySchema = z.object({
   calculation: z.string().max(5000),
   expand: z.array(z.string().max(5000)).optional(),
   metadata: z.record(z.string()).optional(),
+  posted_at: z.coerce.number().optional(),
   reference: z.string().max(500),
 })
 

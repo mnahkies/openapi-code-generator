@@ -40,6 +40,7 @@ export type ReposGetOrgRuleSuites = (
 const reposGetOrgRuleSuitesParamSchema = z.object({ org: z.string() })
 
 const reposGetOrgRuleSuitesQuerySchema = z.object({
+  ref: z.string().optional(),
   repository_name: z.coerce.number().optional(),
   time_period: z.enum(["hour", "day", "week", "month"]).optional(),
   actor_name: z.string().optional(),

@@ -140,7 +140,7 @@ const reposCreateInOrgBodySchema = z.object({
     .optional(),
   merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
   merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-  custom_properties: z.record(z.any()).optional(),
+  custom_properties: z.record(z.unknown()).optional(),
 })
 
 export const _POST =

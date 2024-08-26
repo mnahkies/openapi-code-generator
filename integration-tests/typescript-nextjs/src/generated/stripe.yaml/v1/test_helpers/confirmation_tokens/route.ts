@@ -198,6 +198,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
         link: z.object({}).optional(),
         metadata: z.record(z.string()).optional(),
         mobilepay: z.object({}).optional(),
+        multibanco: z.object({}).optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -246,6 +247,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
           .optional(),
         swish: z.object({}).optional(),
+        twint: z.object({}).optional(),
         type: z.enum([
           "acss_debit",
           "affirm",
@@ -268,6 +270,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
           "konbini",
           "link",
           "mobilepay",
+          "multibanco",
           "oxxo",
           "p24",
           "paynow",
@@ -278,6 +281,7 @@ const postTestHelpersConfirmationTokensBodySchema = z
           "sepa_debit",
           "sofort",
           "swish",
+          "twint",
           "us_bank_account",
           "wechat_pay",
           "zip",

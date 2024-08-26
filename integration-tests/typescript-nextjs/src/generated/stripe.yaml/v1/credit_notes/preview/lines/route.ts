@@ -45,36 +45,45 @@ const getCreditNotesPreviewLinesQuerySchema = z.object({
   amount: z.coerce.number().optional(),
   credit_amount: z.coerce.number().optional(),
   effective_at: z.coerce.number().optional(),
+  email_type: z.enum(["credit_note", "none"]).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   invoice: z.string().max(5000),
   limit: z.coerce.number().optional(),
   lines: z
-    .array(
-      z.object({
-        amount: z.coerce.number().optional(),
-        description: z.string().max(5000).optional(),
-        invoice_line_item: z.string().max(5000).optional(),
-        quantity: z.coerce.number().optional(),
-        tax_amounts: z
-          .union([
-            z.array(
-              z.object({
-                amount: z.coerce.number(),
-                tax_rate: z.string().max(5000),
-                taxable_amount: z.coerce.number(),
-              }),
-            ),
-            z.enum([""]),
-          ])
-          .optional(),
-        tax_rates: z
-          .union([z.array(z.string().max(5000)), z.enum([""])])
-          .optional(),
-        type: z.enum(["custom_line_item", "invoice_line_item"]),
-        unit_amount: z.coerce.number().optional(),
-        unit_amount_decimal: z.string().optional(),
-      }),
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(
+        z.object({
+          amount: z.coerce.number().optional(),
+          description: z.string().max(5000).optional(),
+          invoice_line_item: z.string().max(5000).optional(),
+          quantity: z.coerce.number().optional(),
+          tax_amounts: z
+            .union([
+              z.array(
+                z.object({
+                  amount: z.coerce.number(),
+                  tax_rate: z.string().max(5000),
+                  taxable_amount: z.coerce.number(),
+                }),
+              ),
+              z.enum([""]),
+            ])
+            .optional(),
+          tax_rates: z
+            .union([z.array(z.string().max(5000)), z.enum([""])])
+            .optional(),
+          type: z.enum(["custom_line_item", "invoice_line_item"]),
+          unit_amount: z.coerce.number().optional(),
+          unit_amount_decimal: z.string().optional(),
+        }),
+      ),
     )
     .optional(),
   memo: z.string().max(5000).optional(),

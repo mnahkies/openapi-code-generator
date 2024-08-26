@@ -60,7 +60,12 @@ const getEntitlementsFeaturesIdParamSchema = z.object({
 })
 
 const getEntitlementsFeaturesIdQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getEntitlementsFeaturesIdBodySchema = z.object({}).optional()
@@ -121,7 +126,7 @@ const postEntitlementsFeaturesIdBodySchema = z
   .object({
     active: PermissiveBoolean.optional(),
     expand: z.array(z.string().max(5000)).optional(),
-    metadata: z.record(z.string()).optional(),
+    metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
     name: z.string().max(80).optional(),
   })
   .optional()

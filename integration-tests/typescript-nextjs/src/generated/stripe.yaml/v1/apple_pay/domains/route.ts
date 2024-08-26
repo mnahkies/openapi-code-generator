@@ -56,7 +56,12 @@ export type PostApplePayDomains = (
 const getApplePayDomainsQuerySchema = z.object({
   domain_name: z.string().max(5000).optional(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
 })

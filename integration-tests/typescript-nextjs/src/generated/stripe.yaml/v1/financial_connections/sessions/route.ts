@@ -38,7 +38,22 @@ const postFinancialConnectionsSessionsBodySchema = z.object({
     type: z.enum(["account", "customer"]),
   }),
   expand: z.array(z.string().max(5000)).optional(),
-  filters: z.object({ countries: z.array(z.string().max(5000)) }).optional(),
+  filters: z
+    .object({
+      account_subcategories: z
+        .array(
+          z.enum([
+            "checking",
+            "credit_card",
+            "line_of_credit",
+            "mortgage",
+            "savings",
+          ]),
+        )
+        .optional(),
+      countries: z.array(z.string().max(5000)).optional(),
+    })
+    .optional(),
   permissions: z.array(
     z.enum(["balances", "ownership", "payment_method", "transactions"]),
   ),

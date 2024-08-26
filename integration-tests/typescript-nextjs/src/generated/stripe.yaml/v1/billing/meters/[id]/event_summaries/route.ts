@@ -50,11 +50,16 @@ const getBillingMetersIdEventSummariesQuerySchema = z.object({
   customer: z.string().max(5000),
   end_time: z.coerce.number(),
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   start_time: z.coerce.number(),
   starting_after: z.string().max(5000).optional(),
-  value_grouping_window: z.enum(["hour"]).optional(),
+  value_grouping_window: z.enum(["day", "hour"]).optional(),
 })
 
 const getBillingMetersIdEventSummariesBodySchema = z.object({}).optional()

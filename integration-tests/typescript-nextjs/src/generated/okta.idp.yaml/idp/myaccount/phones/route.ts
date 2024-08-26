@@ -80,7 +80,7 @@ export const _GET =
   }
 
 const createPhoneBodySchema = z.object({
-  profile: z.object({ phoneNumber: z.string().optional() }).optional(),
+  profile: z.object({ phoneNumber: z.string().optional() }),
   sendCode: PermissiveBoolean.optional(),
   method: z.enum(["SMS", "CALL"]).optional(),
 })

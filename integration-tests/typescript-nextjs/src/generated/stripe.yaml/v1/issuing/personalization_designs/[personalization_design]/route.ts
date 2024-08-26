@@ -61,7 +61,14 @@ const getIssuingPersonalizationDesignsPersonalizationDesignParamSchema =
   z.object({ personalization_design: z.string().max(5000) })
 
 const getIssuingPersonalizationDesignsPersonalizationDesignQuerySchema =
-  z.object({ expand: z.array(z.string().max(5000)).optional() })
+  z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
 
 const getIssuingPersonalizationDesignsPersonalizationDesignBodySchema = z
   .object({})

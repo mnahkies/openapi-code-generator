@@ -3,8 +3,6 @@
 /* eslint-disable */
 
 import {
-  t_OrgsCreateCustomOrganizationRoleBodySchema,
-  t_OrgsCreateCustomOrganizationRoleParamSchema,
   t_OrgsListOrgRolesParamSchema,
   t_basic_error,
   t_organization_role,
@@ -38,23 +36,6 @@ export type OrgsListOrgRoles = (
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
 
-export type OrgsCreateCustomOrganizationRoleResponder = {
-  with201(): KoaRuntimeResponse<t_organization_role>
-  with404(): KoaRuntimeResponse<t_basic_error>
-  with409(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
-} & KoaRuntimeResponder
-
-export type OrgsCreateCustomOrganizationRole = (
-  params: Params<
-    t_OrgsCreateCustomOrganizationRoleParamSchema,
-    void,
-    t_OrgsCreateCustomOrganizationRoleBodySchema
-  >,
-  respond: OrgsCreateCustomOrganizationRoleResponder,
-  ctx: { request: NextRequest },
-) => Promise<KoaRuntimeResponse<unknown>>
-
 const orgsListOrgRolesParamSchema = z.object({ org: z.string() })
 
 export const _GET =
@@ -83,66 +64,6 @@ export const _GET =
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
-      },
-      with422() {
-        return new KoaRuntimeResponse<t_validation_error>(422)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
-    const { status, body } = await implementation(input, responder, { request })
-      .then((it) => it.unpack())
-      .catch((err) => {
-        throw KoaRuntimeError.HandlerError(err)
-      })
-
-    return body !== undefined
-      ? Response.json(body, { status })
-      : new Response(undefined, { status })
-  }
-
-const orgsCreateCustomOrganizationRoleParamSchema = z.object({
-  org: z.string(),
-})
-
-const orgsCreateCustomOrganizationRoleBodySchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  permissions: z.array(z.string()),
-})
-
-export const _POST =
-  (implementation: OrgsCreateCustomOrganizationRole) =>
-  async (
-    request: NextRequest,
-    { params }: { params: unknown },
-  ): Promise<Response> => {
-    const input = {
-      params: parseRequestInput(
-        orgsCreateCustomOrganizationRoleParamSchema,
-        params,
-        RequestInputType.RouteParam,
-      ),
-      // TODO: this swallows repeated parameters
-      query: undefined,
-      body: parseRequestInput(
-        orgsCreateCustomOrganizationRoleBodySchema,
-        await request.json(),
-        RequestInputType.RequestBody,
-      ),
-    }
-
-    const responder = {
-      with201() {
-        return new KoaRuntimeResponse<t_organization_role>(201)
-      },
-      with404() {
-        return new KoaRuntimeResponse<t_basic_error>(404)
-      },
-      with409() {
-        return new KoaRuntimeResponse<t_basic_error>(409)
       },
       with422() {
         return new KoaRuntimeResponse<t_validation_error>(422)

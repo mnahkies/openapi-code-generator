@@ -57,6 +57,7 @@ const postAccountSessionsBodySchema = z.object({
         features: z
           .object({
             edit_payout_schedule: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
             instant_payouts: PermissiveBoolean.optional(),
             standard_payouts: PermissiveBoolean.optional(),
           })
@@ -108,6 +109,7 @@ const postAccountSessionsBodySchema = z.object({
         features: z
           .object({
             edit_payout_schedule: PermissiveBoolean.optional(),
+            external_account_collection: PermissiveBoolean.optional(),
             instant_payouts: PermissiveBoolean.optional(),
             standard_payouts: PermissiveBoolean.optional(),
           })
@@ -115,6 +117,12 @@ const postAccountSessionsBodySchema = z.object({
       })
       .optional(),
     payouts_list: z
+      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
+    tax_registrations: z
+      .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
+      .optional(),
+    tax_settings: z
       .object({ enabled: PermissiveBoolean, features: z.object({}).optional() })
       .optional(),
   }),

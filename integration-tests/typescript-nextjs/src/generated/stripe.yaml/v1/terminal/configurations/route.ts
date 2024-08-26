@@ -60,7 +60,12 @@ export type PostTerminalConfigurations = (
 
 const getTerminalConfigurationsQuerySchema = z.object({
   ending_before: z.string().max(5000).optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   is_account_default: PermissiveBoolean.optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().max(5000).optional(),
@@ -126,6 +131,12 @@ const postTerminalConfigurationsBodySchema = z
     name: z.string().max(100).optional(),
     offline: z
       .union([z.object({ enabled: PermissiveBoolean }), z.enum([""])])
+      .optional(),
+    reboot_window: z
+      .object({ end_hour: z.coerce.number(), start_hour: z.coerce.number() })
+      .optional(),
+    stripe_s700: z
+      .object({ splashscreen: z.union([z.string(), z.enum([""])]).optional() })
       .optional(),
     tipping: z
       .union([

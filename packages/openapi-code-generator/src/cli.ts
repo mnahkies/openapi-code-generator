@@ -87,6 +87,7 @@ const program = new Command()
       .env("OPENAPI_TEMPLATE")
       .choices([
         "typescript-koa",
+        "typescript-nextjs",
         "typescript-axios",
         "typescript-fetch",
         "typescript-angular",

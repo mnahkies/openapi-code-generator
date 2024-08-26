@@ -60,7 +60,12 @@ const getShippingRatesShippingRateTokenParamSchema = z.object({
 })
 
 const getShippingRatesShippingRateTokenQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getShippingRatesShippingRateTokenBodySchema = z.object({}).optional()

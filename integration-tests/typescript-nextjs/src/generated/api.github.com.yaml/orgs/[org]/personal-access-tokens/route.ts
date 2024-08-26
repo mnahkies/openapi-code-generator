@@ -69,7 +69,12 @@ const orgsListPatGrantsQuerySchema = z.object({
   page: z.coerce.number().optional(),
   sort: z.enum(["created_at"]).optional(),
   direction: z.enum(["asc", "desc"]).optional(),
-  owner: z.array(z.string()).max(10).optional(),
+  owner: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string()).max(10),
+    )
+    .optional(),
   repository: z.string().optional(),
   permission: z.string().optional(),
   last_used_before: z.string().datetime({ offset: true }).optional(),

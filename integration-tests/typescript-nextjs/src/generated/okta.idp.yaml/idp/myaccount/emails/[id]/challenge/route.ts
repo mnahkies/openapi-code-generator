@@ -25,13 +25,13 @@ export type SendEmailChallengeResponder = {
     _links: {
       poll: {
         hints: {
-          allow: string[]
+          allow: "GET"[]
         }
         href: string
       }
       verify: {
         hints: {
-          allow: string[]
+          allow: "POST"[]
         }
         href: string
       }
@@ -41,7 +41,7 @@ export type SendEmailChallengeResponder = {
     profile: {
       email: string
     }
-    status: string
+    status: "VERIFIED" | "UNVERIFIED"
   }>
   with401(): KoaRuntimeResponse<t_Error>
   with403(): KoaRuntimeResponse<t_Error>
@@ -89,13 +89,13 @@ export const _POST =
           _links: {
             poll: {
               hints: {
-                allow: string[]
+                allow: "GET"[]
               }
               href: string
             }
             verify: {
               hints: {
-                allow: string[]
+                allow: "POST"[]
               }
               href: string
             }
@@ -105,7 +105,7 @@ export const _POST =
           profile: {
             email: string
           }
-          status: string
+          status: "VERIFIED" | "UNVERIFIED"
         }>(201)
       },
       with401() {

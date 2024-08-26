@@ -106,11 +106,13 @@ const postInvoicesCreatePreviewBodySchema = z
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "ch_uid",
                 "ch_vat",
                 "cl_tin",
                 "cn_tin",
                 "co_nit",
                 "cr_tin",
+                "de_stn",
                 "do_rcn",
                 "ec_ruc",
                 "eg_tin",
@@ -237,6 +239,7 @@ const postInvoicesCreatePreviewBodySchema = z
       })
       .optional(),
     on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
+    preview_mode: z.enum(["next", "recurring"]).optional(),
     schedule: z.string().max(5000).optional(),
     schedule_details: z
       .object({

@@ -41,7 +41,7 @@ const actionsCreateWorkflowDispatchParamSchema = z.object({
 
 const actionsCreateWorkflowDispatchBodySchema = z.object({
   ref: z.string(),
-  inputs: z.record(z.any()).optional(),
+  inputs: z.record(z.unknown()).optional(),
 })
 
 export const _POST =

@@ -60,7 +60,12 @@ const migrationsListForOrgParamSchema = z.object({ org: z.string() })
 const migrationsListForOrgQuerySchema = z.object({
   per_page: z.coerce.number().optional(),
   page: z.coerce.number().optional(),
-  exclude: z.array(z.enum(["repositories"])).optional(),
+  exclude: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.enum(["repositories"])),
+    )
+    .optional(),
 })
 
 export const _GET =

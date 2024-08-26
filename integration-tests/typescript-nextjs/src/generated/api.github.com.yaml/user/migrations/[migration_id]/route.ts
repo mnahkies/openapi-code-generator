@@ -44,7 +44,12 @@ const migrationsGetStatusForAuthenticatedUserParamSchema = z.object({
 })
 
 const migrationsGetStatusForAuthenticatedUserQuerySchema = z.object({
-  exclude: z.array(z.string()).optional(),
+  exclude: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string()),
+    )
+    .optional(),
 })
 
 export const _GET =

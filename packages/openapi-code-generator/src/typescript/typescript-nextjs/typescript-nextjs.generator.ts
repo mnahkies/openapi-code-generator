@@ -3,32 +3,31 @@ import path from "node:path"
 import _ from "lodash"
 import {
   Project,
-  SourceFile,
+  type SourceFile,
   StructureKind,
   SyntaxKind,
   VariableDeclarationKind,
 } from "ts-morph"
-import {CompilerOptions} from "../../core/file-loader"
-import {Input} from "../../core/input"
-import {
+import type {Input} from "../../core/input"
+import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
+import type {
   IRModelObject,
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
 import {
-  HttpMethod,
+  type HttpMethod,
   isDefined,
   isHttpMethod,
   isTruthy,
   titleCase,
 } from "../../core/utils"
-import {OpenapiGeneratorConfig} from "../../templates.types"
-import {CompilationUnit, ICompilable} from "../common/compilation-units"
+import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
-import {emitGenerationResult} from "../common/output-utils"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {
-  SchemaBuilder,
+  type SchemaBuilder,
   schemaBuilderFactory,
 } from "../common/schema-builders/schema-builder"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
@@ -222,7 +221,7 @@ export class ServerRouterBuilder implements ICompilable {
       operationId: operation.operationId,
       statements: [
         buildExport({
-          name: titleCase(operation.operationId) + "Responder",
+          name: `${titleCase(operation.operationId)}Responder`,
           value: intersect(
             object([
               ...responseSchemas.specific.map((it) =>
@@ -246,7 +245,7 @@ export class ServerRouterBuilder implements ICompilable {
                         ? ""
                         : " | undefined")
                     }>,
-                    respond: ${titleCase(operation.operationId) + "Responder"},
+                    respond: ${titleCase(operation.operationId)}Responder,
                     ctx: {request: NextRequest}
                   ) => Promise<KoaRuntimeResponse<unknown>>`,
           kind: "type",
@@ -365,12 +364,15 @@ export class NextJSAppRouterBuilder implements ICompilable {
       })
 
     // Replace the params based on what inputs we have
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const declarations = variableDeclaration.getDeclarations()[0]!
+    // biome-ignore lint/style/noNonNullAssertion: <explanation>
     const innerFunction = declarations
       .getInitializerIfKindOrThrow(SyntaxKind.CallExpression)
       .getArguments()[0]!
       .asKind(SyntaxKind.ArrowFunction)!
 
+    // biome-ignore lint/complexity/noForEach: <explanation>
     innerFunction?.getParameters().forEach((parameter) => {
       parameter.remove()
     })
@@ -397,9 +399,10 @@ export class NextJSAppRouterBuilder implements ICompilable {
     // Reconcile imports - attempt to find an existing one and replace it with correct one
     const imports = this.sourceFile.getImportDeclarations()
     const from = this.imports.normalizeFrom(
-      "./" + this.companionFilename,
-      "./" + this.filename,
+      `./${this.companionFilename}`,
+      `./${this.filename}`,
     )
+    // biome-ignore lint/complexity/noForEach: <explanation>
     imports
       .filter((it) => it.getModuleSpecifierValue().includes(from))
       .forEach((it) => it.remove())
@@ -410,6 +413,7 @@ export class NextJSAppRouterBuilder implements ICompilable {
     })
 
     // Remove any methods that were removed from the spec
+    // biome-ignore lint/complexity/noForEach: <explanation>
     this.sourceFile
       .getVariableDeclarations()
       .filter((it) => {
@@ -428,7 +432,7 @@ export class NextJSAppRouterBuilder implements ICompilable {
 }
 
 function findImportAlias(dest: string, compilerOptions: CompilerOptions) {
-  const relative = "./" + path.relative(process.cwd(), dest) + "/*"
+  const relative = `./${path.relative(process.cwd(), dest)}/*`
 
   const alias = Object.entries(compilerOptions.paths || {}).find(([, paths]) =>
     paths.includes(relative),
@@ -438,12 +442,13 @@ function findImportAlias(dest: string, compilerOptions: CompilerOptions) {
 }
 
 export async function generateTypescriptNextJS(
-  config: OpenapiGeneratorConfig,
+  config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
-  const input = config.input
+  const {input, emitter, allowAny} = config
+  const dest = emitter.config.destinationDirectory
+  const importAlias = findImportAlias(dest, config.compilerOptions)
 
-  const importAlias = findImportAlias(config.dest, config.compilerOptions)
-
+  // biome-ignore lint/complexity/useLiteralKeys: <explanation>
   const subDirectory = process.env["OPENAPI_INTEGRATION_TESTS"]
     ? path.basename(config.input.loader.entryPointKey)
     : ""
@@ -459,12 +464,14 @@ export async function generateTypescriptNextJS(
     [generatedDirectory, "models.ts"].join(path.sep),
     input,
     config.compilerOptions,
+    {allowAny},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
     [generatedDirectory, "schemas.ts"].join(path.sep),
     input,
     config.schemaBuilder,
+    {allowAny},
   )
 
   const project = new Project()
@@ -493,14 +500,9 @@ export async function generateTypescriptNextJS(
           routeToNextJSFilepath(group.name),
         )
 
-        const existing = fs.existsSync(
-          path.join(config.dest, nextJsAppRouterPath),
-        )
+        const existing = fs.existsSync(path.join(dest, nextJsAppRouterPath))
           ? fs
-              .readFileSync(
-                path.join(config.dest, nextJsAppRouterPath),
-                "utf-8",
-              )
+              .readFileSync(path.join(dest, nextJsAppRouterPath), "utf-8")
               .toString()
           : ""
         const sourceFile = project.createSourceFile(
@@ -515,10 +517,10 @@ export async function generateTypescriptNextJS(
           sourceFile,
         )
 
-        group.operations.forEach((it) => {
-          routerBuilder.add(it)
-          nextJSAppRouterBuilder.add(it)
-        })
+        for (const operation of group.operations) {
+          routerBuilder.add(operation)
+          nextJSAppRouterBuilder.add(operation)
+        }
 
         return [
           routerBuilder.toCompilationUnit(),
@@ -550,18 +552,12 @@ export async function generateTypescriptNextJS(
 
   input.allOperations().map((it) => fetchClientBuilder.add(it))
 
-  await emitGenerationResult(
-    config.dest,
-    [
-      ...serverRouters,
-      fetchClientBuilder.toCompilationUnit(),
-      rootTypeBuilder.toCompilationUnit(),
-      rootSchemaBuilder.toCompilationUnit(),
-    ],
-    {
-      allowUnusedImports: config.allowUnusedImports,
-    },
-  )
+  await emitter.emitGenerationResult([
+    ...serverRouters,
+    fetchClientBuilder.toCompilationUnit(),
+    rootTypeBuilder.toCompilationUnit(),
+    rootSchemaBuilder.toCompilationUnit(),
+  ])
 }
 
 function routeToNextJSFilepath(route: string): string {

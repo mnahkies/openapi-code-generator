@@ -67,7 +67,12 @@ const getAccountsQuerySchema = z.object({
     ])
     .optional(),
   ending_before: z.string().optional(),
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
   limit: z.coerce.number().optional(),
   starting_after: z.string().optional(),
 })
@@ -235,6 +240,9 @@ const postAccountsBodySchema = z
         fpx_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        gb_bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         giropay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
@@ -248,6 +256,9 @@ const postAccountsBodySchema = z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         jcb_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        jp_bank_transfer_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         klarna_payments: z
@@ -265,6 +276,12 @@ const postAccountsBodySchema = z
         mobilepay_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        multibanco_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        mx_bank_transfer_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         oxxo_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
@@ -278,6 +295,9 @@ const postAccountsBodySchema = z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         revolut_pay_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        sepa_bank_transfer_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         sepa_debit_payments: z
@@ -301,7 +321,13 @@ const postAccountsBodySchema = z
         treasury: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
+        twint_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
         us_bank_account_ach_payments: z
+          .object({ requested: PermissiveBoolean.optional() })
+          .optional(),
+        us_bank_transfer_payments: z
           .object({ requested: PermissiveBoolean.optional() })
           .optional(),
         zip_payments: z

@@ -42,7 +42,12 @@ const getEntitlementsActiveEntitlementsIdParamSchema = z.object({
 })
 
 const getEntitlementsActiveEntitlementsIdQuerySchema = z.object({
-  expand: z.array(z.string().max(5000)).optional(),
+  expand: z
+    .preprocess(
+      (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+      z.array(z.string().max(5000)),
+    )
+    .optional(),
 })
 
 const getEntitlementsActiveEntitlementsIdBodySchema = z.object({}).optional()
