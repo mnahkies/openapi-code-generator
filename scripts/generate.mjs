@@ -33,6 +33,11 @@ async function runSingle(templatePath, input) {
   const filename = path.basename(input)
   const template = path.basename(templatePath)
 
+  if (template === "typescript-nextjs" && !input.endsWith("todo-lists.yaml")) {
+    console.warn(`skipping generation of ${templatePath} using ${template}`)
+    return
+  }
+
   const output =
     template === "typescript-nextjs"
       ? `integration-tests/${template}/src`
