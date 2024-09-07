@@ -1445,7 +1445,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createEmailBodySchema = z.object({
     profile: z.object({ email: z.string().email() }),
-    sendEmail: PermissiveBoolean.optional(),
+    sendEmail: PermissiveBoolean.optional().default(true),
     state: z.string().optional(),
     role: z.enum(["PRIMARY", "SECONDARY"]).optional(),
   })
@@ -2232,7 +2232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const createPhoneBodySchema = z.object({
     profile: z.object({ phoneNumber: z.string().optional() }),
-    sendCode: PermissiveBoolean.optional(),
+    sendCode: PermissiveBoolean.optional().default(true),
     method: z.enum(["SMS", "CALL"]).optional(),
   })
 
