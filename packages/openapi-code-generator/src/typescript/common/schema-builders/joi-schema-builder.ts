@@ -2,6 +2,7 @@ import type {Input} from "../../../core/input"
 import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModelArray,
+  IRModelBase,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -256,6 +257,12 @@ export class JoiBuilder extends AbstractSchemaBuilder<
 
   protected override unknown(): string {
     return this.any()
+  }
+
+  protected override default(schema: string, model: IRModelBase): string {
+    return [schema, `default(${JSON.stringify(model.default)})`]
+      .filter(isDefined)
+      .join(".")
   }
 
   public void(): string {

@@ -7,6 +7,7 @@ import {logger} from "../../../core/logger"
 import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModelArray,
+  IRModelBase,
   IRModelNumeric,
   IRModelObject,
   IRModelString,
@@ -336,6 +337,10 @@ export abstract class AbstractSchemaBuilder<
 
     result = required ? this.required(result) : this.optional(result)
 
+    if (model.default) {
+      result = this.default(result, model)
+    }
+
     return result
   }
 
@@ -388,6 +393,8 @@ export abstract class AbstractSchemaBuilder<
   protected abstract any(): string
 
   protected abstract unknown(): string
+
+  protected abstract default(schema: string, model: IRModelBase): string
 
   public abstract void(): string
 

@@ -385,6 +385,7 @@ function normalizeSchemaObject(
   const base: IRModelBase = {
     nullable: schemaObject.nullable || false,
     readOnly: schemaObject.readOnly || false,
+    default: schemaObject.default,
     "x-internal-preprocess": schemaObject["x-internal-preprocess"],
   }
 
