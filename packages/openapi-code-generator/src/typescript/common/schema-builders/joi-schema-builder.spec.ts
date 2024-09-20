@@ -10,25 +10,14 @@ import type {
 import {testVersions} from "../../../test/input.test-utils"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
+import {staticSchemas} from "./zod-schema-builder"
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",
   (version) => {
-    const sentinel = Symbol()
-
-    const executeParseSchema = async (
-      code: string,
-      input: unknown = sentinel,
-    ) => {
+    const executeParseSchema = async (code: string) => {
       return vm.runInNewContext(
-        `(async function () {
-        ${code}
-        ${
-          input !== sentinel
-            ? `return x.validateAsync(${JSON.stringify(input)})`
-            : ""
-        }
-        })()`,
+        code,
         // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
         //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
         //       the context.
@@ -584,6 +573,32 @@ describe.each(testVersions)(
           '"value" must be larger than or equal to 0',
         )
       })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 42,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.number().default(42)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe(42)
+      })
+
+      it("supports default values of 0", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 0,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.number().default(0)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe(0)
+      })
     })
 
     describe("strings", () => {
@@ -672,6 +687,62 @@ describe.each(testVersions)(
         )
       })
 
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: "example",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().default("example")"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe("example")
+      })
+
+      it("supports empty string default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: "",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().default("")"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe("")
+      })
+
+      it("supports default values with quotes", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 'this is an "example", it\'s got lots of `quotes`',
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .string()
+            .default('this is an "example", it\\'s got lots of \`quotes\`')"
+        `)
+
+        await expect(execute(undefined)).resolves.toBe(
+          'this is an "example", it\'s got lots of `quotes`',
+        )
+      })
+
+      it("coerces incorrectly typed default values to be strings", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: false,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().default("false")"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe("false")
+      })
+
       describe("formats", () => {
         it("supports email", async () => {
           const {code, execute} = await getActualFromModel({
@@ -739,6 +810,32 @@ describe.each(testVersions)(
         )
         await expect(execute([])).rejects.toThrow('"value" must be a boolean')
         await expect(execute({})).rejects.toThrow('"value" must be a boolean')
+      })
+
+      it("supports default values of false", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: false,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.boolean().truthy(1).falsy(0).default(false)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe(false)
+      })
+
+      it("supports default values of true", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: true,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.boolean().truthy(1).falsy(0).default(true)"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe(true)
       })
     })
 
@@ -852,6 +949,32 @@ describe.each(testVersions)(
           '"[1]" contains a duplicate value',
         )
       })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: ["example"],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.array().items(joi.string().required()).default(["example"])"`,
+        )
+
+        await expect(execute(undefined)).resolves.toStrictEqual(["example"])
+      })
+
+      it("supports empty array default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: [],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.array().items(joi.string().required()).default([])"`,
+        )
+
+        await expect(execute(undefined)).resolves.toStrictEqual([])
+      })
     })
 
     describe("objects", () => {
@@ -913,6 +1036,34 @@ describe.each(testVersions)(
         await expect(execute({key: "string"})).rejects.toThrow(
           '"key" must be a number',
         )
+      })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          properties: {
+            name: {type: "string", nullable: false, readOnly: false},
+            age: {type: "number", nullable: false, readOnly: false},
+          },
+          required: ["name", "age"],
+          default: {name: "example", age: 22},
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .object()
+            .keys({ name: joi.string().required(), age: joi.number().required() })
+            .options({ stripUnknown: true })
+            .default({ name: "example", age: 22 })"
+        `)
+
+        // HACK: If we do a toStrictEqual, we get 'Received: serializes to the same string'
+        //       presumably due to the use of global that differs inside the VM to outside.
+        //       Passing through `Object` doesn't fix it, so just use toEqual ¯\_(ツ)_/¯
+        await expect(execute(undefined)).resolves.toEqual({
+          name: "example",
+          age: 22,
+        })
       })
     })
 

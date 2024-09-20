@@ -10,7 +10,7 @@ export interface IRModelBase {
   // Note: meaningless for top level objects, maybe we can exclude these somehow in that case
   nullable: boolean /* false */
   readOnly: boolean /* false */
-
+  default?: unknown | undefined
   "x-internal-preprocess"?: MaybeIRPreprocess | undefined
 }
 

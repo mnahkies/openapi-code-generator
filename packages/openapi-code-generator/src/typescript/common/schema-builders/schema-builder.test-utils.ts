@@ -80,8 +80,10 @@ export function schemaBuilderTestHarness(
       schemas,
       execute: (input: unknown) => {
         return executeParseSchema(`
+        (async function () {
         ${code}
         return ${schemaBuilder.parse("x", JSON.stringify(input))}
+        })()
         `)
       },
     }

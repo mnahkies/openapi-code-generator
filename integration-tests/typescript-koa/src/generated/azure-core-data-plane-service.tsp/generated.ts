@@ -1038,7 +1038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const widgetsListWidgetsQuerySchema = z.object({
     "api-version": z.string().min(1),
     top: z.coerce.number().optional(),
-    skip: z.coerce.number().optional(),
+    skip: z.coerce.number().optional().default(0),
     maxpagesize: z.coerce.number().optional(),
     select: z
       .preprocess(

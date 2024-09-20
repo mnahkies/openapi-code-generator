@@ -7,6 +7,7 @@ import {logger} from "../../../core/logger"
 import type {Reference} from "../../../core/openapi-types"
 import type {
   IRModelArray,
+  IRModelBase,
   IRModelNumeric,
   IRModelObject,
   IRModelString,
@@ -215,7 +216,7 @@ export abstract class AbstractSchemaBuilder<
         }
       }
 
-      result = required ? this.required(result) : this.optional(result)
+      result = required ? this.required(result, false) : this.optional(result)
 
       if (this.graph.circular.has(name) && !isAnonymous) {
         return this.lazy(result)
@@ -334,7 +335,15 @@ export abstract class AbstractSchemaBuilder<
       result = this.nullable(result)
     }
 
-    result = required ? this.required(result) : this.optional(result)
+    const hasDefaultValue = model.default !== undefined
+
+    result = required
+      ? this.required(result, hasDefaultValue)
+      : this.optional(result)
+
+    if (hasDefaultValue) {
+      result = this.default(result, model)
+    }
 
     return result
   }
@@ -368,7 +377,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract optional(schema: string): string
 
-  protected abstract required(schema: string): string
+  protected abstract required(schema: string, hasDefaultValue: boolean): string
 
   protected abstract object(
     keys: Record<string, string>,
@@ -388,6 +397,8 @@ export abstract class AbstractSchemaBuilder<
   protected abstract any(): string
 
   protected abstract unknown(): string
+
+  protected abstract default(schema: string, model: IRModelBase): string
 
   public abstract void(): string
 

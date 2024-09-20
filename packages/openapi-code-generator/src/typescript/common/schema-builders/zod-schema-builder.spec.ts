@@ -15,17 +15,9 @@ import {staticSchemas} from "./zod-schema-builder"
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
   (version) => {
-    const sentinel = Symbol()
-
-    const executeParseSchema = async (
-      code: string,
-      input: unknown = sentinel,
-    ) => {
+    const executeParseSchema = async (code: string) => {
       return vm.runInNewContext(
-        `(async function () {
-        ${code}
-        ${input !== sentinel ? `return x.parse(${JSON.stringify(input)})` : ""}
-        })()`,
+        code,
         // Note: done this way for consistency with joi tests
         {z: require("zod").z, RegExp},
       )
@@ -487,7 +479,10 @@ describe.each(testVersions)(
       })
 
       it("supports 0", async () => {
-        const {code, execute} = await getActualFromModel({...base, minimum: 0})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minimum: 0,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.coerce.number().min(0)"',
@@ -496,6 +491,32 @@ describe.each(testVersions)(
         await expect(execute(-1)).rejects.toThrow(
           "Number must be greater than or equal to 0",
         )
+      })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 42,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.coerce.number().default(42)"',
+        )
+
+        await expect(execute(undefined)).resolves.toBe(42)
+      })
+
+      it("supports default values of 0", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 0,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.coerce.number().default(0)"',
+        )
+
+        await expect(execute(undefined)).resolves.toBe(0)
       })
     })
 
@@ -577,6 +598,58 @@ describe.each(testVersions)(
         )
       })
 
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: "example",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().default("example")"',
+        )
+
+        await expect(execute(undefined)).resolves.toBe("example")
+      })
+
+      it("supports empty string default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: "",
+        })
+
+        expect(code).toMatchInlineSnapshot('"const x = z.string().default("")"')
+
+        await expect(execute(undefined)).resolves.toBe("")
+      })
+
+      it("supports default values with quotes", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: 'this is an "example", it\'s got lots of `quotes`',
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.string().default('this is an "example", it\\'s got lots of \`quotes\`')"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe(
+          'this is an "example", it\'s got lots of `quotes`',
+        )
+      })
+
+      it("coerces incorrectly typed default values to be strings", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: false,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          '"const x = z.string().default("false")"',
+        )
+
+        await expect(execute(undefined)).resolves.toBe("false")
+      })
+
       describe("formats", () => {
         it("supports email", async () => {
           const {code, execute} = await getActualFromModel({
@@ -612,6 +685,13 @@ describe.each(testVersions)(
     })
 
     describe("booleans", () => {
+      const executeBooleanTest = (code: string, input: unknown) => {
+        return executeParseSchema(`(async function () {
+        ${code}
+        return x.parse(${JSON.stringify(input)})
+        })()`)
+      }
+
       const base: IRModelBoolean = {
         nullable: false,
         readOnly: false,
@@ -627,30 +707,89 @@ describe.each(testVersions)(
           const x = PermissiveBoolean"
         `)
       })
+
+      it("supports default values of false", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          default: false,
+        })
+
+        const codeWithoutImport = code.replace(
+          'import { PermissiveBoolean } from "./unit-test.schemas"',
+          `const PermissiveBoolean = ${staticSchemas.PermissiveBoolean}`,
+        )
+
+        expect(codeWithoutImport).toMatchInlineSnapshot(`
+          "const PermissiveBoolean = z.preprocess((value) => {
+                    if(typeof value === "string" && (value === "true" || value === "false")) {
+                      return value === "true"
+                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                      return value === 1
+                    }
+                    return value
+                  }, z.boolean())
+
+          const x = PermissiveBoolean.default(false)"
+        `)
+
+        await expect(
+          executeBooleanTest(codeWithoutImport, undefined),
+        ).resolves.toBe(false)
+      })
+
+      it("supports default values of true", async () => {
+        const {code} = await getActualFromModel({
+          ...base,
+          default: true,
+        })
+
+        const codeWithoutImport = code.replace(
+          'import { PermissiveBoolean } from "./unit-test.schemas"',
+          `const PermissiveBoolean = ${staticSchemas.PermissiveBoolean}`,
+        )
+
+        expect(codeWithoutImport).toMatchInlineSnapshot(`
+          "const PermissiveBoolean = z.preprocess((value) => {
+                    if(typeof value === "string" && (value === "true" || value === "false")) {
+                      return value === "true"
+                    } else if(typeof value === "number" && (value === 1 || value === 0)) {
+                      return value === 1
+                    }
+                    return value
+                  }, z.boolean())
+
+          const x = PermissiveBoolean.default(true)"
+        `)
+
+        await expect(
+          executeBooleanTest(codeWithoutImport, undefined),
+        ).resolves.toBe(true)
+      })
+
       it("PermissiveBoolean works as expected", async () => {
         const code = `
         const x = ${staticSchemas.PermissiveBoolean}
         `
 
-        await expect(executeParseSchema(code, true)).resolves.toBe(true)
-        await expect(executeParseSchema(code, false)).resolves.toBe(false)
+        await expect(executeBooleanTest(code, true)).resolves.toBe(true)
+        await expect(executeBooleanTest(code, false)).resolves.toBe(false)
 
-        await expect(executeParseSchema(code, "false")).resolves.toBe(false)
-        await expect(executeParseSchema(code, "true")).resolves.toBe(true)
+        await expect(executeBooleanTest(code, "false")).resolves.toBe(false)
+        await expect(executeBooleanTest(code, "true")).resolves.toBe(true)
 
-        await expect(executeParseSchema(code, 0)).resolves.toBe(false)
-        await expect(executeParseSchema(code, 1)).resolves.toBe(true)
+        await expect(executeBooleanTest(code, 0)).resolves.toBe(false)
+        await expect(executeBooleanTest(code, 1)).resolves.toBe(true)
 
-        await expect(executeParseSchema(code, 12)).rejects.toThrow(
+        await expect(executeBooleanTest(code, 12)).rejects.toThrow(
           "Expected boolean, received number",
         )
-        await expect(executeParseSchema(code, "yup")).rejects.toThrow(
+        await expect(executeBooleanTest(code, "yup")).rejects.toThrow(
           "Expected boolean, received string",
         )
-        await expect(executeParseSchema(code, [])).rejects.toThrow(
+        await expect(executeBooleanTest(code, [])).rejects.toThrow(
           "Expected boolean, received array",
         )
-        await expect(executeParseSchema(code, {})).rejects.toThrow(
+        await expect(executeBooleanTest(code, {})).rejects.toThrow(
           "Expected boolean, received object",
         )
       })
@@ -703,7 +842,10 @@ describe.each(testVersions)(
       })
 
       it("supports minItems", async () => {
-        const {code, execute} = await getActualFromModel({...base, minItems: 2})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          minItems: 2,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.array(z.string()).min(2)"',
@@ -719,7 +861,10 @@ describe.each(testVersions)(
       })
 
       it("supports maxItems", async () => {
-        const {code, execute} = await getActualFromModel({...base, maxItems: 2})
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          maxItems: 2,
+        })
 
         expect(code).toMatchInlineSnapshot(
           '"const x = z.array(z.string()).max(2)"',
@@ -763,6 +908,32 @@ describe.each(testVersions)(
         await expect(execute([3, 3, 3])).rejects.toThrow(
           "Array must contain unique element(s)",
         )
+      })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: ["example"],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.array(z.string()).default(["example"])"`,
+        )
+
+        await expect(execute(undefined)).resolves.toStrictEqual(["example"])
+      })
+
+      it("supports empty array default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: [],
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.array(z.string()).default([])"`,
+        )
+
+        await expect(execute(undefined)).resolves.toStrictEqual([])
       })
     })
 
@@ -823,6 +994,29 @@ describe.each(testVersions)(
           "Expected number, received nan",
         )
       })
+
+      it("supports default values", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          properties: {
+            name: {type: "string", nullable: false, readOnly: false},
+            age: {type: "number", nullable: false, readOnly: false},
+          },
+          required: ["name", "age"],
+          default: {name: "example", age: 22},
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z
+            .object({ name: z.string(), age: z.coerce.number() })
+            .default({ name: "example", age: 22 })"
+        `)
+
+        await expect(execute(undefined)).resolves.toStrictEqual({
+          name: "example",
+          age: 22,
+        })
+      })
     })
 
     describe("unspecified schemas when allowAny: true", () => {
@@ -847,7 +1041,9 @@ describe.each(testVersions)(
 
         expect(code).toMatchInlineSnapshot('"const x = z.any()"')
 
-        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute({any: "object"})).resolves.toEqual({
+          any: "object",
+        })
         await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
         await expect(execute(null)).resolves.toBeNull()
         await expect(execute(123)).resolves.toBe(123)
@@ -868,7 +1064,9 @@ describe.each(testVersions)(
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute({key: "string"})).resolves.toEqual({
+          key: "string",
+        })
         await expect(execute(123)).rejects.toThrow(
           "Expected object, received number",
         )
@@ -941,7 +1139,9 @@ describe.each(testVersions)(
 
         expect(code).toMatchInlineSnapshot(`"const x = z.unknown()"`)
 
-        await expect(execute({any: "object"})).resolves.toEqual({any: "object"})
+        await expect(execute({any: "object"})).resolves.toEqual({
+          any: "object",
+        })
         await expect(execute(["foo", 12])).resolves.toEqual(["foo", 12])
         await expect(execute(null)).resolves.toBeNull()
         await expect(execute(123)).resolves.toBe(123)
@@ -962,7 +1162,9 @@ describe.each(testVersions)(
         await expect(execute({key: 1})).resolves.toEqual({
           key: 1,
         })
-        await expect(execute({key: "string"})).resolves.toEqual({key: "string"})
+        await expect(execute({key: "string"})).resolves.toEqual({
+          key: "string",
+        })
         await expect(execute(123)).rejects.toThrow(
           "Expected object, received number",
         )

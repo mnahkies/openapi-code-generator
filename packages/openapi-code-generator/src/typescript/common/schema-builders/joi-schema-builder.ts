@@ -1,7 +1,9 @@
 import type {Input} from "../../../core/input"
 import type {Reference} from "../../../core/openapi-types"
 import type {
+  IRModel,
   IRModelArray,
+  IRModelBase,
   IRModelNumeric,
   IRModelString,
 } from "../../../core/openapi-types-normalized"
@@ -136,7 +138,14 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return schema
   }
 
-  protected required(schema: string): string {
+  protected required(schema: string, hasDefaultValue: boolean): string {
+    // HACK: joi.number().required().default(42).validate(undefined) always
+    //       throws `Error [ValidationError]: "value" is required` so never
+    //       mark values with defaults as required.
+    if (hasDefaultValue) {
+      return schema
+    }
+
     // HACK: avoid `joi.string().allow(null).required().required()`
     if (schema.split(".").pop() === "required()") {
       return schema
@@ -256,6 +265,22 @@ export class JoiBuilder extends AbstractSchemaBuilder<
 
   protected override unknown(): string {
     return this.any()
+  }
+
+  protected override default(schema: string, model: IRModel): string {
+    // It's easy to accidentally use a boolean or number instead of a string
+    // for stuff like this, eg: https://github.com/github/rest-api-description/issues/3878
+    // lets coerce defaults to be strings when the model type is expecting that.
+    const needsWrapping =
+      model.type === "string" && typeof model.default !== "string"
+    const defaultValue = JSON.stringify(model.default)
+
+    return [
+      schema,
+      `default(${needsWrapping ? `"${defaultValue}"` : defaultValue})`,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   public void(): string {
