@@ -18,11 +18,11 @@ paths:
       tags:
         - headers
       parameters:
-        - name: route-level-header
+        - name: Route-Level-Header
           in: header
           schema:
             type: string
-        - name: number-header
+        - name: Number-Header
           in: header
           schema:
             type: number

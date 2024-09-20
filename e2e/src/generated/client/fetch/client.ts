@@ -45,8 +45,8 @@ export class ApiClient extends AbstractFetchClient {
     const url = this.basePath + `/headers/request`
     const headers = this._headers(
       {
-        "route-level-header": p["routeLevelHeader"],
-        "number-header": p["numberHeader"],
+        "Route-Level-Header": p["routeLevelHeader"],
+        "Number-Header": p["numberHeader"],
         Authorization: p["authorization"],
       },
       opts.headers,
