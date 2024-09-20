@@ -1,0 +1,366 @@
+import {Callout} from 'nextra/components'
+
+# Compatibility Tables
+This page aims to document which parts of the openapi 3.1.0 specification is supported.
+It may not be totally complete / accurate, but it should be broadly correct and give you
+an understanding of what does / doesn't work.
+
+<Callout emoji="💡">
+  If something you need isn't supported yet, please raise a [Github
+  issue](https://github.com/mnahkies/openapi-code-generator/issues/new/choose)
+  detailing your use-case, and we can work together to get support added / extended.
+
+  We will also accept pull requests where implemented functionality follows the [OpenAPI
+  specification](https://swagger.io/specification/),
+  and the output code is of a high quality in terms of developer experience and robustness. See
+  [CONTRIBUTING.md](https://github.com/mnahkies/openapi-code-generator/blob/main/CONTRIBUTING.md)
+  to get started
+</Callout>
+
+## tldr;
+Most common functionality used by JSON based APIs should work.
+
+- Great support for `paths` using `application/json` request / response bodies
+- Comprehensive support for most `schema` properties, including json validation stuff like `minLength`,
+but only for `json` content types. Notable exceptions:
+- `readonly` is currently implemented incorrectly
+- `discriminator` is ignored, but `union` / `intersection` types will be generated based on `anyOf` / `allOf` so
+this isn't often an issue in practice
+- No support for security schemes, you'll need to fudge these as header parameters, or implement out-of-band
+for the specification for now.
+- No support for `webhooks` / `callbacks` yet
+
+## Legend
+
+| Symbol  |                     Meaning                      |
+|:--------|:------------------------------------------------:|
+| ✅/🚧    |     Supported in some way. May be incomplete     |
+| 🚫      | Not supported, likely to be supported eventually |
+| __N/A__ |    Ignored, unlikely to be used for anything     |
+
+## Root OpenAPI Object
+Root object of openapi documents. A ✅ means at least some support for this field - click through to the table
+for each attribute for further details.
+
+| Attribute                        | Supported |                                                                Notes |
+|:---------------------------------|:---------:|---------------------------------------------------------------------:|
+| openapi                          |     ✅     |                                   Either 3.1.x or 3.0.x is supported |
+| info                             |  __N/A__  |                                                              Ignored |
+| jsonSchemaDialect                |    🚫     |                                                    Not yet supported |
+| [servers](#server-object)        |     ✅     |                 Server URLs cam be usd to type client SDK base paths |
+| [paths](#paths-object)           |     ✅     |                                                                      |
+| webhooks                         |    🚫     |              Not yet supported. Emulate by defining as normal paths. |
+| [components](#components-object) |     ✅     |                                                                      |
+| security                         |    🚫     | Not yet supported. Implement out of band or using header parameters. |
+| [tags](#tag-object)              |     ✅     |                  Optionally used to split output into multiple files |
+| externalDocs                     |  __N/A__  |                                                              Ignored |
+
+## Sub-objects
+
+### Reference Object
+Reference objects are supported to be used in place of the actual object definition anywhere in the documents.
+They can also cross files (and maybe urls - needs testing).
+
+<Callout emoji="💡">
+  It's recommended to use `$ref` objects as much as possible. It both promotes re-use, and also allows control
+  over the naming of the type / schema in the generated code.
+</Callout>
+
+Example:
+```yaml
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ExampleSchema"
+```
+
+| Attribute   | Supported | Notes                                                                      |
+|:------------|:---------:|:---------------------------------------------------------------------------|
+| $ref        |     ✅     | `$ref` support is robust, and works correctly across multiple input files. |
+| summary     |  __N/A__  | Ignored                                                                    |
+| description |  __N/A__  | Ignored                                                                    |
+
+### Server Object
+Currently only used by the client SDKs to generate string literal types for `basePath`
+for intellisense purposes.
+
+| Attribute   | Supported |                                                       Notes |
+|:------------|:---------:|------------------------------------------------------------:|
+| url         |     ✅     | Optionally used to type client SDK `basePath` configuration |
+| description |  __N/A__  |                                                     Ignored |
+| variables   |    🚫     |                                           Not yet supported |
+
+### Components Object
+Technically you can define any "components" you like, and `$ref`s to them will work, regardless
+of if they appear in the official specification.
+
+The table indicates what will actually typically be used for anything right now.
+
+| Attribute                             | Supported |             Notes |
+|:--------------------------------------|:---------:|------------------:|
+| [schemas](#schema-object)             |     ✅     |                   |
+| [responses](#response-object)         |     ✅     |                   |
+| [parameters](#parameter-object)       |     ✅     |                   |
+| examples                              |  __N/A__  |                   |
+| [requestBodies](#request-body-object) |     ✅     |                   |
+| [headers](#header-object)             |     ✅     |                   |
+| securitySchemes                       |    🚫     | Not yet supported |
+| links                                 |    🚫     | Not yet supported |
+| callbacks                             |    🚫     | Not yet supported |
+| [pathItems](#path-item-object)        |     ✅     |                   |
+
+### Paths Object
+Paths are well supported.
+
+| Attribute                     | Supported | Notes |
+|:------------------------------|:---------:|------:|
+| [`{path}`](#path-item-object) |     ✅     |       |
+
+### Path Item Object
+All common http methods are supported. Overriding `servers` for individual paths is not supported.
+
+| Attribute                       | Supported |             Notes |
+|:--------------------------------|:---------:|------------------:|
+| summary                         |  __N/A__  |           Ignored |
+| description                     |  __N/A__  |           Ignored |
+| [get](#operation-object)        |     ✅     |                   |
+| [put](#operation-object)        |     ✅     |                   |
+| [post](#operation-object)       |     ✅     |                   |
+| [delete](#operation-object)     |     ✅     |                   |
+| head                            |    🚫     | Not yet supported |
+| [patch](#operation-object)      |     ✅     |                   |
+| trace                           |    🚫     | Not yet supported |
+| servers                         |    🚫     | Not yet supported |
+| [parameters](#parameter-object) |     ✅     |                   |
+
+### Operation Object
+Most things are supported. It's recommended you supply an `operationId` as otherwise
+one will be generated from the path / http method, which is often overly verbose.
+
+| Attribute                           | Supported |                                                  Notes |
+|:------------------------------------|:---------:|-------------------------------------------------------:|
+| [tags](#tag-object)                 |     ✅     |    Optionally used to split output into multiple files |
+| summary                             |  __N/A__  |                                                Ignored |
+| description                         |  __N/A__  |                                                Ignored |
+| externalDocs                        |  __N/A__  |                                                Ignored |
+| operationId                         |     ✅     | Used to generate names on types / methods / interfaces |
+| [parameters](#parameter-object)     |     ✅     |                                                        |
+| [requestBody](#request-body-object) |     ✅     |                                                        |
+| [responses](#responses-object)      |     ✅     |                                                        |
+| callbacks                           |    🚫     |                                      Not yet supported |
+| deprecated                          |    🚫     |                                      Not yet supported |
+| security                            |    🚫     |                                      Not yet supported |
+| servers                             |    🚫     |                                      Not yet supported |
+
+### Parameter Object
+Whilst attributes like `style` and `explode` are not yet supported, for most common parameter use-cases
+everything should just work as you'd guess/expect.
+
+| Attribute                | Supported |                                                                        Notes |
+|:-------------------------|:---------:|-----------------------------------------------------------------------------:|
+| name                     |     ✅     |                                                                              |
+| in                       |   ✅/🚧    |                                    Everything supported apart from "cookie". |
+| description              |  __N/A__  |                                                                      Ignored |
+| required                 |     ✅     |                                                                              |
+| deprecated               |  __N/A__  |                                                                      Ignored |
+| allowEmptyValue          |    🚫     | Use schema `minLength: 1` to prevent empty string values in query parameters |
+| style                    |    🚫     |                                                            Not yet supported |
+| explode                  |    🚫     |                                                            Not yet supported |
+| allowReserved            |    🚫     |                                              Use schema `pattern` to emulate |
+| [schema](#schema-object) |     ✅     |                                                                              |
+| example                  |  __N/A__  |                                                                      Ignored |
+| examples                 |  __N/A__  |                                                                      Ignored |
+| content                  |    🚫     |                                                            Not yet supported |
+
+### Request Body Object
+Well-supported for `application/json` content types. Support for form data, and file uploads, etc
+planned to come soon.
+
+| Attribute                     | Supported |                                                 Notes |
+|:------------------------------|:---------:|------------------------------------------------------:|
+| description                   |  __N/A__  |                                               Ignored |
+| [content](#media-type-object) |   ✅/🚧    | Only media types of `application/json` work properly. |
+| required                      |     ✅     |                                                       |
+
+### Media Type Object
+
+| Attribute                | Supported | Notes             |
+|:-------------------------|:---------:|:------------------|
+| [schema](#schema-object) |     ✅     |                   |
+| example                  |  __N/A__  | Ignored           |
+| examples                 |  __N/A__  | Ignored           |
+| encoding                 |    🚫     | Not yet supported |
+
+### Responses Object
+Well supported.
+
+| Attribute                                | Supported | Notes |
+|:-----------------------------------------|:---------:|:------|
+| [default](#response-object)              |     ✅     |       |
+| [`{http-status-code}`](#response-object) |     ✅     |       |
+
+### Response Object
+Generally well-supported for `application/json` content types.
+
+| Attribute                     | Supported | Notes                                               |
+|:------------------------------|:---------:|:----------------------------------------------------|
+| description                   |  __N/A__  | Ignored                                             |
+| headers                       |    🚫     | Not yet supported                                   |
+| [content](#media-type-object) |   ✅/🚧    | Only media types of application/json work properly. |
+| links                         |    🚫     | Not yet supported                                   |
+
+### Header Object
+
+| Attribute                | Supported | Notes                                                                               |
+|:-------------------------|:---------:|:------------------------------------------------------------------------------------|
+| description              |  __N/A__  | Ignored                                                                             |
+| [schema](#schema-object) |     ✅     | Complex schemas for headers may not work. Stick to `string` / `number` if possible. |
+
+### Tag Object
+Tags are only used for code organization purposes, when passing the [`--grouping-strategy first-tag`](../reference/cli-options#--grouping-strategy-value-experimental)
+CLI option.
+
+| Attribute    | Supported | Notes                                               |
+|:-------------|:---------:|:----------------------------------------------------|
+| name         |     ✅     | Optionally used to split output into multiple files |
+| description  |  __N/A__  | Ignored                                             |
+| externalDocs |  __N/A__  | Ignored                                             |
+
+### Schema Object
+The majority of attributes that can be specified by `schema` objects are supported, and accurately match the underlying
+openapi specification / json schema validation specifications.
+
+Most notable exception is `readOnly` / `writeOnly` which are currently implemented incorrectly, planned to be addressed
+as a breaking change prior to v1.
+
+| Attribute            | Supported | Notes                                                                                                                                                    |
+|:---------------------|:---------:|:---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| title                |  __N/A__  |                                                                                                                                                          |
+| multipleOf           |     ✅     | Applies to `type: number`                                                                                                                                |
+| maximum              |     ✅     | Applies to `type: number`                                                                                                                                |
+| exclusiveMaximum     |     ✅     | Applies to `type: number`                                                                                                                                |
+| minimum              |     ✅     | Applies to `type: number`                                                                                                                                |
+| exclusiveMinimum     |     ✅     | Applies to `type: number`                                                                                                                                |
+| maxLength            |     ✅     | Applies to `type: string`                                                                                                                                |
+| minLength            |     ✅     | Applies to `type: string`                                                                                                                                |
+| pattern              |     ✅     | Support for `type: string`                                                                                                                               |
+| maxItems             |     ✅     | Applies to `type: array`                                                                                                                                 |
+| minItems             |     ✅     | Applies to `type: array`                                                                                                                                 |
+| uniqueItems          |     ✅     | Applies to  `type: array`                                                                                                                                |
+| maxProperties        |    🚫     | Not yet supported                                                                                                                                        |
+| minProperties        |    🚫     | Not yet supported                                                                                                                                        |
+| required             |     ✅     | Controls whether `undefined` is allowed for each value in `properties`                                                                                   |
+| enum                 |     ✅     | Applies to `type: number` and `type: string`                                                                                                             |
+| type                 |     ✅     |                                                                                                                                                          |
+| not                  |    🚫     | Not yet supported                                                                                                                                        |
+| allOf                |     ✅     | Produces a intersection type like `A & B`                                                                                                                |
+| oneOf                |     ✅     | Produces a union type like `A \| B`                                                                                                                      |
+| anyOf                |     ✅     | Produces a union type like `A \| B`                                                                                                                      |
+| items                |     ✅     | Applies to `type: array`                                                                                                                                 |
+| properties           |     ✅     | Applies to `type: object`                                                                                                                                |
+| additionalProperties |   ✅/🚧    | Fairly comprehensive support, produces `Record<string, T>` or `unknown`/`any` (dependent on [`--ts-allow-any`](../reference/cli-options#--ts-allow-any)) |
+| format               |   ✅/🚧    | Limited support for format `email` and `date-time`                                                                                                       |
+| default              |     ✅     |                                                                                                                                                          |
+| nullable             |     ✅     | Also supports `type: null` as an alternative                                                                                                             |
+| discriminator        |    🚫     | Ignored. Union / Intersection types are usd based on `anyOf` / `allOf` / `oneOf`.                                                                        |
+| readOnly             |    🚫     | Produces `readonly` modifiers, but this behavior [is incorrect](https://github.com/mnahkies/openapi-code-generator/issues/157)                           |
+| writeOnly            |    🚫     | Not yet supported                                                                                                                                        |
+| example              |  __N/A__  | Ignored                                                                                                                                                  |
+| externalDocs         |  __N/A__  | Ignored                                                                                                                                                  |
+| deprecated           |    🚫     | Not yet supported                                                                                                                                        |
+| xml                  |    🚫     | Not yet supported                                                                                                                                        |
+
+
+## Completely unsupported things
+The following objects are completely unsupported at this stage.
+
+### Encoding Object
+| Attribute     | Supported | Notes             |
+|:--------------|:---------:|:------------------|
+| contentType   |    🚫     | Not yet supported |
+| headers       |    🚫     | Not yet supported |
+| style         |    🚫     | Not yet supported |
+| explode       |    🚫     | Not yet supported |
+| allowReserved |    🚫     | Not yet supported |
+
+### Callback Object
+The callback object is completely unsupported.
+
+| Attribute        | Supported | Notes |
+|:-----------------|:---------:|:------|
+| `\{expression\}` |    🚫     |       |
+
+### Link Object
+The link object is completely unsupported.
+
+| Attribute    | Supported | Notes |
+|:-------------|:---------:|:------|
+| operationRef |    🚫     |       |
+| operationId  |    🚫     |       |
+| parameters   |    🚫     |       |
+| requestBody  |    🚫     |       |
+| description  |  __N/A__  |       |
+| server       |    🚫     |       |
+
+
+### Discriminator Object
+The discriminator object is completely unsupported.
+
+| Attribute    | Supported | Notes |
+|:-------------|:---------:|:------|
+| propertyName |    🚫     |       |
+| mapping      |    🚫     |       |
+
+### XML Object
+The XML object is completely unsupported.
+
+| Attribute | Supported | Notes |
+|:----------|:---------:|:------|
+| name      |    🚫     |       |
+| namespace |    🚫     |       |
+| prefix    |    🚫     |       |
+| attribute |    🚫     |       |
+| wrapped   |    🚫     |       |
+
+### Security Scheme Object
+The security scheme object is completely unsupported.
+
+| Attribute        | Supported | Notes |
+|:-----------------|:---------:|:------|
+| type             |    🚫     |       |
+| description      |    🚫     |       |
+| name             |    🚫     |       |
+| in               |    🚫     |       |
+| scheme           |    🚫     |       |
+| bearerFormat     |    🚫     |       |
+| flows            |    🚫     |       |
+| openIdConnectUrl |    🚫     |       |
+
+### OAuth Flows Object
+The oauth flows object is completely unsupported.
+
+| Attribute         | Supported | Notes |
+|:------------------|:---------:|:------|
+| implicit          |    🚫     |       |
+| password          |    🚫     |       |
+| clientCredentials |    🚫     |       |
+| authorizationCode |    🚫     |       |
+
+### OAuth Flow Object
+The oauth flow object is completely unsupported.
+
+| Attribute        | Supported | Notes |
+|:-----------------|:---------:|:------|
+| authorizationUrl |    🚫     |       |
+| tokenUrl         |    🚫     |       |
+| refreshUrl       |    🚫     |       |
+| scopes           |    🚫     |       |
+
+### Security Requirement Object - Patterned Fields
+The security requirement object is completely unsupported.
+
+| Attribute  | Supported | Notes |
+|:-----------|:---------:|:------|
+| `\{name\}` |    🚫     |       |
