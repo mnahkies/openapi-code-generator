@@ -730,6 +730,19 @@ describe.each(testVersions)(
         )
       })
 
+      it("coerces incorrectly typed default values to be strings", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          default: false,
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().default("false")"`,
+        )
+
+        await expect(execute(undefined)).resolves.toBe("false")
+      })
+
       describe("formats", () => {
         it("supports email", async () => {
           const {code, execute} = await getActualFromModel({
