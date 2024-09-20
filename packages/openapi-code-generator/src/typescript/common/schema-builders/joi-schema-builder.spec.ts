@@ -14,21 +14,9 @@ import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/joi-schema-builder",
   (version) => {
-    const sentinel = Symbol()
-
-    const executeParseSchema = async (
-      code: string,
-      input: unknown = sentinel,
-    ) => {
+    const executeParseSchema = async (code: string) => {
       return vm.runInNewContext(
-        `(async function () {
-        ${code}
-        ${
-          input !== sentinel
-            ? `return x.validateAsync(${JSON.stringify(input)})`
-            : ""
-        }
-        })()`,
+        code,
         // Note: joi relies on `pattern instanceof RegExp` which makes using regex literals
         //       problematic since the RegExp that joi sees isn't the same as the RegExp inside
         //       the context.

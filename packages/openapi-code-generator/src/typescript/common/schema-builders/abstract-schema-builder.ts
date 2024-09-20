@@ -337,7 +337,7 @@ export abstract class AbstractSchemaBuilder<
 
     result = required ? this.required(result) : this.optional(result)
 
-    if (model.default) {
+    if (model.default !== undefined) {
       result = this.default(result, model)
     }
 
