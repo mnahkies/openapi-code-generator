@@ -70,7 +70,14 @@ components:
           schema:
             type: object
             properties:
-              headers:
+              rawHeaders:
+                additionalProperties:
+                  anyOf:
+                    - type: string
+                    - type: array
+                      items:
+                        type: string
+              typedHeaders:
                 additionalProperties:
                   anyOf:
                     - type: string

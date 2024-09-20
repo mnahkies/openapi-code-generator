@@ -16,9 +16,11 @@ export const s_RandomNumber = z.object({
 })
 
 export const s_getHeadersUndeclaredJson200Response = z.object({
-  headers: z.record(z.union([z.string(), z.array(z.string())])).optional(),
+  rawHeaders: z.record(z.union([z.string(), z.array(z.string())])).optional(),
+  typedHeaders: z.record(z.union([z.string(), z.array(z.string())])).optional(),
 })
 
 export const s_getHeadersRequestJson200Response = z.object({
-  headers: z.record(z.union([z.string(), z.array(z.string())])).optional(),
+  rawHeaders: z.record(z.union([z.string(), z.array(z.string())])).optional(),
+  typedHeaders: z.record(z.union([z.string(), z.array(z.string())])).optional(),
 })

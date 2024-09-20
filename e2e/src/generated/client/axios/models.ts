@@ -12,13 +12,19 @@ export type t_RandomNumber = {
 }
 
 export type t_getHeadersRequestJson200Response = {
-  headers?: {
+  rawHeaders?: {
+    [key: string]: (string | string[]) | undefined
+  }
+  typedHeaders?: {
     [key: string]: (string | string[]) | undefined
   }
 }
 
 export type t_getHeadersUndeclaredJson200Response = {
-  headers?: {
+  rawHeaders?: {
+    [key: string]: (string | string[]) | undefined
+  }
+  typedHeaders?: {
     [key: string]: (string | string[]) | undefined
   }
 }

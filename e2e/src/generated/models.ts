@@ -13,8 +13,18 @@ export type t_RandomNumber = {
   result?: number | undefined
 }
 
+export type t_GetHeadersRequestHeaderSchema = {
+  authorization?: string | undefined
+  "route-level-header"?: string | undefined
+}
+
 export type t_getHeadersRequestJson200Response = {
-  headers?:
+  rawHeaders?:
+    | {
+        [key: string]: (string | string[]) | undefined
+      }
+    | undefined
+  typedHeaders?:
     | {
         [key: string]: (string | string[]) | undefined
       }
@@ -22,7 +32,12 @@ export type t_getHeadersRequestJson200Response = {
 }
 
 export type t_getHeadersUndeclaredJson200Response = {
-  headers?:
+  rawHeaders?:
+    | {
+        [key: string]: (string | string[]) | undefined
+      }
+    | undefined
+  typedHeaders?:
     | {
         [key: string]: (string | string[]) | undefined
       }

@@ -30,7 +30,12 @@ export type GetValidationNumbersRandomNumberResponder = {
 } & KoaRuntimeResponder
 
 export type GetValidationNumbersRandomNumber = (
-  params: Params<void, t_GetValidationNumbersRandomNumberQuerySchema, void>,
+  params: Params<
+    void,
+    t_GetValidationNumbersRandomNumberQuerySchema,
+    void,
+    void
+  >,
   respond: GetValidationNumbersRandomNumberResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
@@ -68,6 +73,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {

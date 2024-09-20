@@ -32,7 +32,8 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: undefined,
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
         }),
       })
@@ -47,7 +48,8 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: undefined,
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "some-random-header": "arbitrary-header",
         }),
@@ -64,7 +66,10 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
         }),
       })
@@ -80,7 +85,11 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+          "route-level-header": "route-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
         }),
@@ -97,7 +106,10 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer override",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer override",
         }),
       })
@@ -113,7 +125,10 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer config",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer config",
         }),
       })
@@ -131,29 +146,14 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+          "route-level-header": "route-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
           "some-random-header": "arbitrary-header",
-        }),
-      })
-    })
-
-    it("provides route level header with default headers, and arbitrary extra headers", async () => {
-      const res = await client.getHeadersRequest(
-        {routeLevelHeader: "route-header"},
-        undefined,
-        {headers: {authorization: "Bearer override"}},
-      )
-
-      expect(res.status).toBe(200)
-
-      const body = await res.json()
-
-      expect(body).toEqual({
-        headers: expect.objectContaining({
-          authorization: "Bearer override",
-          "route-level-header": "route-header",
         }),
       })
     })
