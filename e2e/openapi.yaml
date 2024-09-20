@@ -22,6 +22,10 @@ paths:
           in: header
           schema:
             type: string
+        - name: number-header
+          in: header
+          schema:
+            type: number
         - name: Authorization
           in: header
           schema:
@@ -71,19 +75,9 @@ components:
             type: object
             properties:
               rawHeaders:
-                additionalProperties:
-                  anyOf:
-                    - type: string
-                    - type: array
-                      items:
-                        type: string
+                additionalProperties: true
               typedHeaders:
-                additionalProperties:
-                  anyOf:
-                    - type: string
-                    - type: array
-                      items:
-                        type: string
+                additionalProperties: true
 
   schemas:
     RandomNumber:

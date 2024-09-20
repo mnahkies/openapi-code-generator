@@ -36,6 +36,7 @@ export class ApiClient extends AbstractFetchClient {
   async getHeadersRequest(
     p: {
       routeLevelHeader?: string
+      numberHeader?: number
       authorization?: string
     } = {},
     timeout?: number,
@@ -45,6 +46,7 @@ export class ApiClient extends AbstractFetchClient {
     const headers = this._headers(
       {
         "route-level-header": p["routeLevelHeader"],
+        "number-header": p["numberHeader"],
         Authorization: p["authorization"],
       },
       opts.headers,

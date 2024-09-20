@@ -9,12 +9,9 @@ const getHeadersUndeclared: GetHeadersUndeclared = async (
   respond,
   ctx,
 ) => {
-  return (
-    respond
-      .with200()
-      // biome-ignore lint/suspicious/noExplicitAny: passing through headers to prove none were parsed
-      .body({typedHeaders: headers as unknown as any, rawHeaders: ctx.headers})
-  )
+  return respond
+    .with200()
+    .body({typedHeaders: headers, rawHeaders: ctx.headers})
 }
 
 const getHeadersRequest: GetHeadersRequest = async (

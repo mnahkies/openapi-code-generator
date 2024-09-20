@@ -157,6 +157,24 @@ describe("e2e - typescript-fetch client", () => {
         }),
       })
     })
+
+    it("rejects headers of the wrong type", async () => {
+      const res = await client.getHeadersRequest(
+        // @ts-expect-error testing validation
+        {numberHeader: "i'm not a number"},
+      )
+
+      expect(res.status).toBe(400)
+
+      const body = await res.json()
+
+      expect(body).toEqual({
+        cause: {
+          message: "Request validation failed parsing request header",
+        },
+        message: "Request validation failed parsing request header",
+      })
+    })
   })
 
   describe("GET /validation/numbers/random-number", () => {

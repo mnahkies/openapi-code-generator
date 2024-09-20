@@ -107,6 +107,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getHeadersRequestHeaderSchema = z.object({
     "route-level-header": z.string().optional(),
+    "number-header": z.coerce.number().optional(),
     authorization: z.string().optional(),
   })
 
