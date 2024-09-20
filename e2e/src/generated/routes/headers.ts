@@ -3,6 +3,7 @@
 /* eslint-disable */
 
 import {
+  t_GetHeadersRequestHeaderSchema,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
 } from "../models"
@@ -11,7 +12,10 @@ import {
   s_getHeadersUndeclaredJson200Response,
 } from "../schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
-import { KoaRuntimeError } from "@nahkies/typescript-koa-runtime/errors"
+import {
+  KoaRuntimeError,
+  RequestInputType,
+} from "@nahkies/typescript-koa-runtime/errors"
 import {
   KoaRuntimeResponder,
   KoaRuntimeResponse,
@@ -20,15 +24,17 @@ import {
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   Params,
+  parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
+import { z } from "zod"
 
 export type GetHeadersUndeclaredResponder = {
   with200(): KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>
 } & KoaRuntimeResponder
 
 export type GetHeadersUndeclared = (
-  params: Params<void, void, void>,
+  params: Params<void, void, void, void>,
   respond: GetHeadersUndeclaredResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -41,7 +47,7 @@ export type GetHeadersRequestResponder = {
 } & KoaRuntimeResponder
 
 export type GetHeadersRequest = (
-  params: Params<void, void, void>,
+  params: Params<void, void, void, t_GetHeadersRequestHeaderSchema>,
   respond: GetHeadersRequestResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -70,6 +76,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         params: undefined,
         query: undefined,
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -98,6 +105,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const getHeadersRequestHeaderSchema = z.object({
+    "route-level-header": z.string().optional(),
+    "number-header": z.coerce.number().optional(),
+    authorization: z.string().optional(),
+  })
+
   const getHeadersRequestResponseValidator = responseValidationFactory(
     [["200", s_getHeadersRequestJson200Response]],
     undefined,
@@ -108,6 +121,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       params: undefined,
       query: undefined,
       body: undefined,
+      headers: parseRequestInput(
+        getHeadersRequestHeaderSchema,
+        Reflect.get(ctx.request, "headers"),
+        RequestInputType.RequestHeader,
+      ),
     }
 
     const responder = {

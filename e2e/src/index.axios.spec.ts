@@ -28,19 +28,20 @@ describe("e2e - typescript-axios client", () => {
       const {data} = await client.getHeadersUndeclared()
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: undefined,
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
         }),
       })
     })
-
     it("provides default headers, and arbitrary extra headers", async () => {
       const {data} = await client.getHeadersUndeclared(undefined, {
         headers: {"some-random-header": "arbitrary-header"},
       })
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: undefined,
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "some-random-header": "arbitrary-header",
         }),
@@ -53,7 +54,10 @@ describe("e2e - typescript-axios client", () => {
       const {data} = await client.getHeadersRequest()
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
         }),
       })
@@ -65,7 +69,11 @@ describe("e2e - typescript-axios client", () => {
       })
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+          "route-level-header": "route-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
         }),
@@ -78,7 +86,10 @@ describe("e2e - typescript-axios client", () => {
       })
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer override",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer override",
         }),
       })
@@ -90,11 +101,15 @@ describe("e2e - typescript-axios client", () => {
       })
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer config",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer config",
         }),
       })
     })
+
     it("provides route level header with default headers, and arbitrary extra headers", async () => {
       const {data} = await client.getHeadersRequest(
         {routeLevelHeader: "route-header"},
@@ -103,7 +118,11 @@ describe("e2e - typescript-axios client", () => {
       )
 
       expect(data).toEqual({
-        headers: expect.objectContaining({
+        typedHeaders: {
+          authorization: "Bearer default-header",
+          "route-level-header": "route-header",
+        },
+        rawHeaders: expect.objectContaining({
           authorization: "Bearer default-header",
           "route-level-header": "route-header",
           "some-random-header": "arbitrary-header",
@@ -111,17 +130,30 @@ describe("e2e - typescript-axios client", () => {
       })
     })
 
-    it("provides route level header with default headers, and arbitrary extra headers", async () => {
-      const {data} = await client.getHeadersRequest(
-        {routeLevelHeader: "route-header"},
-        undefined,
-        {headers: {authorization: "Bearer override"}},
-      )
+    it("rejects headers of the wrong type", async () => {
+      const err = await client
+        .getHeadersRequest(
+          // @ts-expect-error testing validation
+          {numberHeader: "i'm not a number"},
+        )
+        .then(
+          () => {
+            throw new Error("expected request to fail")
+          },
+          (err) => err,
+        )
 
-      expect(data).toEqual({
-        headers: expect.objectContaining({
-          authorization: "Bearer override",
-          "route-level-header": "route-header",
+      expect(err).toMatchObject({
+        message: "Request failed with status code 400",
+        name: "AxiosError",
+        status: 400,
+        response: expect.objectContaining({
+          data: {
+            cause: {
+              message: "Request validation failed parsing request header",
+            },
+            message: "Request validation failed parsing request header",
+          },
         }),
       })
     })

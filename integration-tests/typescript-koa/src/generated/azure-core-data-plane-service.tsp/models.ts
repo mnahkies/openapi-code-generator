@@ -29,6 +29,8 @@ export type t_Azure_Core_Foundations_OperationState =
 
 export type t_Azure_Core_eTag = string
 
+export type t_Azure_Core_uuid = string
+
 export type t_Manufacturer = {
   address: string
   readonly etag: t_Azure_Core_eTag
@@ -101,6 +103,16 @@ export type t_ManufacturersCreateManufacturerBodySchema = {
   name: string
 }
 
+export type t_ManufacturersCreateManufacturerHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_ManufacturersCreateManufacturerParamSchema = {
   manufacturerId: string
 }
@@ -109,12 +121,30 @@ export type t_ManufacturersCreateManufacturerQuerySchema = {
   "api-version": string
 }
 
+export type t_ManufacturersDeleteManufacturerHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_ManufacturersDeleteManufacturerParamSchema = {
   manufacturerId: string
 }
 
 export type t_ManufacturersDeleteManufacturerQuerySchema = {
   "api-version": string
+}
+
+export type t_ManufacturersGetManufacturerHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_ManufacturersGetManufacturerParamSchema = {
@@ -134,8 +164,16 @@ export type t_ManufacturersGetManufacturerOperationStatusQuerySchema = {
   "api-version": string
 }
 
+export type t_ManufacturersListManufacturersHeaderSchema = {
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_ManufacturersListManufacturersQuerySchema = {
   "api-version": string
+}
+
+export type t_ServiceStatusHeaderSchema = {
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_ServiceStatusQuerySchema = {
@@ -149,12 +187,32 @@ export type t_WidgetPartsCreateWidgetPartBodySchema = {
   partId: string
 }
 
+export type t_WidgetPartsCreateWidgetPartHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetPartsCreateWidgetPartParamSchema = {
   widgetName: string
 }
 
 export type t_WidgetPartsCreateWidgetPartQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetPartsDeleteWidgetPartHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetPartsDeleteWidgetPartParamSchema = {
@@ -164,6 +222,14 @@ export type t_WidgetPartsDeleteWidgetPartParamSchema = {
 
 export type t_WidgetPartsDeleteWidgetPartQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetPartsGetWidgetPartHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetPartsGetWidgetPartParamSchema = {
@@ -185,6 +251,10 @@ export type t_WidgetPartsGetWidgetPartOperationStatusQuerySchema = {
   "api-version": string
 }
 
+export type t_WidgetPartsListWidgetPartsHeaderSchema = {
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetPartsListWidgetPartsParamSchema = {
   widgetName: string
 }
@@ -195,6 +265,12 @@ export type t_WidgetPartsListWidgetPartsQuerySchema = {
 
 export type t_WidgetPartsReorderPartsBodySchema = {
   signedOffBy: string
+}
+
+export type t_WidgetPartsReorderPartsHeaderSchema = {
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetPartsReorderPartsParamSchema = {
@@ -210,6 +286,16 @@ export type t_WidgetsCreateOrUpdateWidgetBodySchema = {
   manufacturerId?: string
 }
 
+export type t_WidgetsCreateOrUpdateWidgetHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetsCreateOrUpdateWidgetParamSchema = {
   widgetName: string
 }
@@ -218,12 +304,30 @@ export type t_WidgetsCreateOrUpdateWidgetQuerySchema = {
   "api-version": string
 }
 
+export type t_WidgetsDeleteWidgetHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetsDeleteWidgetParamSchema = {
   widgetName: string
 }
 
 export type t_WidgetsDeleteWidgetQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetsGetAnalyticsHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetsGetAnalyticsParamSchema = {
@@ -241,6 +345,14 @@ export type t_WidgetsGetRepairStatusParamSchema = {
 
 export type t_WidgetsGetRepairStatusQuerySchema = {
   "api-version": string
+}
+
+export type t_WidgetsGetWidgetHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetsGetWidgetParamSchema = {
@@ -262,6 +374,10 @@ export type t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStat
     "api-version": string
   }
 
+export type t_WidgetsListWidgetsHeaderSchema = {
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetsListWidgetsQuerySchema = {
   "api-version": string
   maxpagesize?: number
@@ -278,6 +394,12 @@ export type t_WidgetsScheduleRepairsBodySchema = {
   updatedDateTime: string
 }
 
+export type t_WidgetsScheduleRepairsHeaderSchema = {
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
 export type t_WidgetsScheduleRepairsParamSchema = {
   widgetName: string
 }
@@ -289,6 +411,16 @@ export type t_WidgetsScheduleRepairsQuerySchema = {
 export type t_WidgetsUpdateAnalyticsBodySchema = {
   repairCount?: number
   useCount?: number
+}
+
+export type t_WidgetsUpdateAnalyticsHeaderSchema = {
+  "if-match"?: string
+  "if-modified-since"?: string
+  "if-none-match"?: string
+  "if-unmodified-since"?: string
+  "repeatability-first-sent"?: string
+  "repeatability-request-id"?: string
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
 export type t_WidgetsUpdateAnalyticsParamSchema = {

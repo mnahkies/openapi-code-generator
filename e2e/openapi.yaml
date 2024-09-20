@@ -18,10 +18,14 @@ paths:
       tags:
         - headers
       parameters:
-        - name: route-level-header
+        - name: Route-Level-Header
           in: header
           schema:
             type: string
+        - name: Number-Header
+          in: header
+          schema:
+            type: number
         - name: Authorization
           in: header
           schema:
@@ -70,13 +74,10 @@ components:
           schema:
             type: object
             properties:
-              headers:
-                additionalProperties:
-                  anyOf:
-                    - type: string
-                    - type: array
-                      items:
-                        type: string
+              rawHeaders:
+                additionalProperties: true
+              typedHeaders:
+                additionalProperties: true
 
   schemas:
     RandomNumber:

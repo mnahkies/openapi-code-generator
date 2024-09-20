@@ -1,10 +1,11 @@
 import type {z} from "zod"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
-export type Params<Params, Query, Body> = {
+export type Params<Params, Query, Body, Header> = {
   params: Params
   query: Query
   body: Body
+  headers: Header
 }
 
 export function parseRequestInput<Schema extends z.ZodTypeAny>(

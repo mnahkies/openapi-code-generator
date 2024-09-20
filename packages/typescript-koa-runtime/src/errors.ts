@@ -2,6 +2,7 @@ export enum RequestInputType {
   RouteParam = "route params",
   QueryString = "querystring",
   RequestBody = "request body",
+  RequestHeader = "request header",
 }
 
 export class KoaRuntimeError extends Error {

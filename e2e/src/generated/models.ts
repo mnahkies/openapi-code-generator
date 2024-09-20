@@ -13,20 +13,20 @@ export type t_RandomNumber = {
   result?: number | undefined
 }
 
+export type t_GetHeadersRequestHeaderSchema = {
+  authorization?: string | undefined
+  "number-header"?: number | undefined
+  "route-level-header"?: string | undefined
+}
+
 export type t_getHeadersRequestJson200Response = {
-  headers?:
-    | {
-        [key: string]: (string | string[]) | undefined
-      }
-    | undefined
+  rawHeaders?: unknown | undefined
+  typedHeaders?: unknown | undefined
 }
 
 export type t_getHeadersUndeclaredJson200Response = {
-  headers?:
-    | {
-        [key: string]: (string | string[]) | undefined
-      }
-    | undefined
+  rawHeaders?: unknown | undefined
+  typedHeaders?: unknown | undefined
 }
 
 export type t_GetValidationNumbersRandomNumberQuerySchema = {
