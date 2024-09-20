@@ -1,6 +1,6 @@
 {
   "name": "@nahkies/openapi-code-generator",
-  "version": "0.12.1",
+  "version": "0.13.0",
   "description": "Typescript client SDK and server stub generator for OpenAPI 3 specifications",
   "license": "MIT",
   "author": {

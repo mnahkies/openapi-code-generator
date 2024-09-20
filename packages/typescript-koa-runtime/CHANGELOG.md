@@ -3,6 +3,15 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.12.1...v0.13.0) (2024-09-20)
+
+- feat!: parse/validate request headers (#247) ([682d0c9](https://github.com/mnahkies/openapi-code-generator/commit/682d0c9f081400a0465ff8aa391c85a85e3e8462)), closes [#247](https://github.com/mnahkies/openapi-code-generator/issues/247)
+
+### BREAKING CHANGES
+
+- requests receiving incorrect request header parameters
+  will now fail with a validation error
+
 ## [0.12.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.12.0...v0.12.1) (2024-08-17)
 
 **Note:** Version bump only for package @nahkies/typescript-koa-runtime

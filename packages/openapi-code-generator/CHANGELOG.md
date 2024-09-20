@@ -3,6 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.13.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.12.1...v0.13.0) (2024-09-20)
+
+- feat!: parse/validate request headers (#247) ([682d0c9](https://github.com/mnahkies/openapi-code-generator/commit/682d0c9f081400a0465ff8aa391c85a85e3e8462)), closes [#247](https://github.com/mnahkies/openapi-code-generator/issues/247)
+
+### Features
+
+- include urls from servers array in basePath type ([#246](https://github.com/mnahkies/openapi-code-generator/issues/246)) ([212c434](https://github.com/mnahkies/openapi-code-generator/commit/212c434da73f95645499889cafa11e7bc19675ac))
+- suppport default values ([#241](https://github.com/mnahkies/openapi-code-generator/issues/241)) ([6127cc8](https://github.com/mnahkies/openapi-code-generator/commit/6127cc8a06c818454e8aaca4f3a3fac03c5518a2))
+
+### BREAKING CHANGES
+
+- requests receiving incorrect request header parameters
+  will now fail with a validation error
+
 ## [0.12.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.12.0...v0.12.1) (2024-08-17)
 
 ### Bug Fixes
