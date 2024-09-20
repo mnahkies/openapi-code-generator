@@ -3353,7 +3353,7 @@ __metadata:
     nextra-theme-docs: "npm:^2.13.4"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
-    typescript: "npm:^5.5.4"
+    typescript: "npm:^5.6.2"
   languageName: unknown
   linkType: soft
 
@@ -3386,7 +3386,7 @@ __metadata:
     lodash: "npm:^4.17.21"
     source-map-support: "npm:^0.5.21"
     tslib: "npm:^2.6.3"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zod: "npm:^3.23.8"
   peerDependencies:
     "@typespec/compiler": ^0.59.0
@@ -3418,7 +3418,7 @@ __metadata:
     axios: "npm:^1.7.4"
     jest: "npm:^30.0.0-alpha.6"
     qs: "npm:^6.13.0"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
   peerDependencies:
     axios: ^1.6.0
   languageName: unknown
@@ -3431,7 +3431,7 @@ __metadata:
     "@types/qs": "npm:^6.9.16"
     jest: "npm:^30.0.0-alpha.6"
     qs: "npm:^6.13.0"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zod: "npm:^3.23.8"
   peerDependencies:
     zod: ^3.20.6
@@ -3451,7 +3451,7 @@ __metadata:
     jest: "npm:^30.0.0-alpha.6"
     koa: "npm:^2.15.3"
     koa-body: "npm:^6.0.1"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zod: "npm:^3.23.8"
   peerDependencies:
     "@hapi/joi": ^17.1.1
@@ -8377,7 +8377,7 @@ __metadata:
     "@types/koa__router": "npm:^12.0.4"
     jest: "npm:^30.0.0-alpha.6"
     koa: "npm:^2.15.3"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
@@ -14753,7 +14753,7 @@ __metadata:
     markdown-toc: "npm:^1.2.0"
     prettier: "npm:^3.3.3"
     source-map-support: "npm:^0.5.21"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
   languageName: unknown
   linkType: soft
 
@@ -17852,7 +17852,7 @@ __metadata:
     karma-jasmine-html-reporter: "npm:~2.1.0"
     rxjs: "npm:~7.8.1"
     tslib: "npm:^2.6.3"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zone.js: "npm:~0.15.0"
   languageName: unknown
   linkType: soft
@@ -17865,7 +17865,7 @@ __metadata:
     "@types/node": "npm:^22.5.5"
     axios: "npm:^1.7.4"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
   languageName: unknown
   linkType: soft
 
@@ -17876,7 +17876,7 @@ __metadata:
     "@nahkies/typescript-fetch-runtime": "npm:*"
     "@types/node": "npm:^22.5.5"
     dotenv: "npm:^16.4.5"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
   languageName: unknown
   linkType: soft
 
@@ -17891,12 +17891,12 @@ __metadata:
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     koa: "npm:^2.15.3"
-    typescript: "npm:~5.5.4"
+    typescript: "npm:~5.6.2"
     zod: "npm:^3.23.8"
   languageName: unknown
   linkType: soft
 
-"typescript@npm:>=3 < 6, typescript@npm:^5.5.4":
+"typescript@npm:>=3 < 6, typescript@npm:^5.6.2, typescript@npm:~5.6.2":
   version: 5.6.2
   resolution: "typescript@npm:5.6.2"
   bin:
@@ -17906,33 +17906,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:~5.5.4":
-  version: 5.5.4
-  resolution: "typescript@npm:5.5.4"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/1689ccafef894825481fc3d856b4834ba3cc185a9c2878f3c76a9a1ef81af04194849840f3c69e7961e2312771471bb3b460ca92561e1d87599b26c37d0ffb6f
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.5.4#optional!builtin<compat/typescript>":
+"typescript@patch:typescript@npm%3A>=3 < 6#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A^5.6.2#optional!builtin<compat/typescript>, typescript@patch:typescript@npm%3A~5.6.2#optional!builtin<compat/typescript>":
   version: 5.6.2
   resolution: "typescript@patch:typescript@npm%3A5.6.2#optional!builtin<compat/typescript>::version=5.6.2&hash=8c6c40"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
   checksum: 10/8bfc7ca0d9feca4c3fcbd6c70741abfcd714197d6448e68225ae71e462447d904d3bfba49759a8fbe4956d87f054e2d346833c8349c222daa594a2626d4e1be8
-  languageName: node
-  linkType: hard
-
-"typescript@patch:typescript@npm%3A~5.5.4#optional!builtin<compat/typescript>":
-  version: 5.5.4
-  resolution: "typescript@patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"
-  bin:
-    tsc: bin/tsc
-    tsserver: bin/tsserver
-  checksum: 10/746fdd0865c5ce4f15e494c57ede03a9e12ede59cfdb40da3a281807853fe63b00ef1c912d7222143499aa82f18b8b472baa1830df8804746d09b55f6cf5b1cc
   languageName: node
   linkType: hard
 
