@@ -76,6 +76,14 @@ Default `false`
   Note: this is currently always `true` for server templates, and only applies to the client library templates.
 </Callout>
 
+#### `--enable-typed-base-paths` (client sdks only)
+As environment variable `OPENAPI_ENABLE_TYPED_BASE_PATHS`
+
+Controls whether to generate a union-type of string literals + `string` from the openapi specifications
+array of server urls. Handy for intellisense.
+
+Default: `true`
+
 #### `--extract-inline-schemas` (experimental)
 As environment variable `OPENAPI_EXTRACT_INLINE_SCHEMAS`
 

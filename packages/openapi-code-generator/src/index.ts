@@ -24,6 +24,7 @@ export type Config = {
     | "typescript-koa"
   schemaBuilder: "zod" | "joi"
   enableRuntimeResponseValidation: boolean
+  enableTypedBasePaths: boolean
   extractInlineSchemas: boolean
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
@@ -70,6 +71,7 @@ export async function generate(
     emitter,
     schemaBuilder: config.schemaBuilder,
     enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+    enableTypedBasePaths: config.enableTypedBasePaths,
     compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
     allowAny: config.tsAllowAny,

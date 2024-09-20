@@ -47,6 +47,10 @@ export class Input {
     return this.loader.entryPoint.info.title
   }
 
+  servers() {
+    return this.loader.entryPoint.servers?.filter((it) => it.url) ?? []
+  }
+
   allSchemas(): Record<string, IRModel> {
     const allDocuments = this.loader.allDocuments()
 

@@ -1,7 +1,7 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
 import type {ClientOperationBuilder} from "../common/client-operation-builder"
 import type {ImportBuilder} from "../common/import-builder"
-import {union} from "../common/type-utils"
+import {quotedStringLiteral, union} from "../common/type-utils"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
@@ -101,10 +101,15 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   }
 
   protected buildClient(clientName: string, clientMethods: string[]): string {
+    const basePathType = this.basePathType()
+
     return `
+export interface ${clientName}Config extends AbstractAxiosConfig {
+  ${basePathType ? `basePath: ${basePathType}` : ""}
+}
 
 export class ${clientName} extends AbstractAxiosClient {
-  constructor(config: AbstractAxiosConfig) {
+  constructor(config: ${clientName}Config) {
     super(config)
   }
 

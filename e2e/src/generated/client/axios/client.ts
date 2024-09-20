@@ -13,8 +13,10 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export interface ApiClientConfig extends AbstractAxiosConfig {}
+
 export class ApiClient extends AbstractAxiosClient {
-  constructor(config: AbstractAxiosConfig) {
+  constructor(config: ApiClientConfig) {
     super(config)
   }
 

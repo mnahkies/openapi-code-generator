@@ -8,7 +8,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ApiClientConfig {
-  basePath: string = ""
+  basePath: "https://petstore.swagger.io/v2" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 
