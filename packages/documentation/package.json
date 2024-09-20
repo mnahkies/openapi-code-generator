@@ -23,9 +23,14 @@
     "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
+    "@monaco-editor/react": "^4.6.0",
+    "@nahkies/openapi-code-generator": "*",
+    "monaco-editor": "^0.52.0",
+    "monaco-editor-auto-typings": "^0.4.5",
     "next": "14.2.13",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
+    "node-polyfill-webpack-plugin": "^4.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
@@ -34,6 +39,7 @@
     "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
     "gh-pages": "^6.1.1",
+    "null-loader": "^4.0.1",
     "typescript": "^5.6.2"
   }
 }
