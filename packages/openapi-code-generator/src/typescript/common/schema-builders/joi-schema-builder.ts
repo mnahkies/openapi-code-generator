@@ -137,7 +137,14 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     return schema
   }
 
-  protected required(schema: string): string {
+  protected required(schema: string, hasDefaultValue: boolean): string {
+    // HACK: joi.number().required().default(42).validate(undefined) always
+    //       throws `Error [ValidationError]: "value" is required` so never
+    //       mark values with defaults as required.
+    if (hasDefaultValue) {
+      return schema
+    }
+
     // HACK: avoid `joi.string().allow(null).required().required()`
     if (schema.split(".").pop() === "required()") {
       return schema
