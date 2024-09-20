@@ -373,6 +373,7 @@ export type OauthKeys = (
 >
 
 export type LogoutResponder = {
+  with200(): KoaRuntimeResponse<void>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -380,9 +381,12 @@ export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void>,
   respond: LogoutResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
+>
 
 export type LogoutWithPostResponder = {
+  with200(): KoaRuntimeResponse<void>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -390,7 +394,9 @@ export type LogoutWithPost = (
   params: Params<void, void, t_LogoutWithPostBodySchema>,
   respond: LogoutWithPostResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
+>
 
 export type OobAuthenticateResponder = {
   with200(): KoaRuntimeResponse<t_OobAuthenticateResponse>
@@ -683,6 +689,7 @@ export type OauthKeysCustomAs = (
 >
 
 export type LogoutCustomAsResponder = {
+  with200(): KoaRuntimeResponse<void>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -694,9 +701,12 @@ export type LogoutCustomAs = (
   >,
   respond: LogoutCustomAsResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
+>
 
 export type LogoutCustomAsWithPostResponder = {
+  with200(): KoaRuntimeResponse<void>
   with429(): KoaRuntimeResponse<t_Error>
 } & KoaRuntimeResponder
 
@@ -708,7 +718,9 @@ export type LogoutCustomAsWithPost = (
   >,
   respond: LogoutCustomAsWithPostResponder,
   ctx: RouterContext,
-) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
+>
 
 export type OobAuthenticateCustomAsResponder = {
   with200(): KoaRuntimeResponse<t_OobAuthenticateResponse>
@@ -941,7 +953,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const authorizeQuerySchema = z.object({
     acr_values: s_AcrValue.optional(),
-    client_id: z.string().optional(),
+    client_id: z.string(),
     code_challenge: z.string().optional(),
     code_challenge_method: s_CodeChallengeMethod.optional(),
     display: z.string().optional(),
@@ -952,14 +964,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     max_age: z.coerce.number().optional(),
     nonce: z.string().optional(),
     prompt: s_Prompt.optional(),
-    redirect_uri: z.string().optional(),
-    response_type: s_ResponseTypesSupported.optional(),
+    redirect_uri: z.string(),
+    response_type: s_ResponseTypesSupported,
     response_mode: s_ResponseMode.optional(),
     request_uri: z.string().optional(),
     request: z.string().optional(),
-    scope: z.string().optional(),
+    scope: z.string(),
     sessionToken: z.string().optional(),
-    state: z.string().optional(),
+    state: z.string(),
   })
 
   const authorizeResponseValidator = responseValidationFactory(
@@ -1694,7 +1706,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const logoutResponseValidator = responseValidationFactory(
-    [["429", s_Error]],
+    [
+      ["200", z.undefined()],
+      ["429", s_Error],
+    ],
     undefined,
   )
 
@@ -1710,6 +1725,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const responder = {
+      with200() {
+        return new KoaRuntimeResponse<void>(200)
+      },
       with429() {
         return new KoaRuntimeResponse<t_Error>(429)
       },
@@ -1735,7 +1753,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const logoutWithPostBodySchema = s_LogoutWithPost
 
   const logoutWithPostResponseValidator = responseValidationFactory(
-    [["429", s_Error]],
+    [
+      ["200", z.undefined()],
+      ["429", s_Error],
+    ],
     undefined,
   )
 
@@ -1751,6 +1772,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const responder = {
+      with200() {
+        return new KoaRuntimeResponse<void>(200)
+      },
       with429() {
         return new KoaRuntimeResponse<t_Error>(429)
       },
@@ -2280,7 +2304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const authorizeCustomAsQuerySchema = z.object({
     acr_values: s_AcrValue.optional(),
-    client_id: z.string().optional(),
+    client_id: z.string(),
     code_challenge: z.string().optional(),
     code_challenge_method: s_CodeChallengeMethod.optional(),
     display: z.string().optional(),
@@ -2291,14 +2315,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     max_age: z.coerce.number().optional(),
     nonce: z.string().optional(),
     prompt: s_Prompt.optional(),
-    redirect_uri: z.string().optional(),
-    response_type: s_ResponseTypesSupported.optional(),
+    redirect_uri: z.string(),
+    response_type: s_ResponseTypesSupported,
     response_mode: s_ResponseMode.optional(),
     request_uri: z.string().optional(),
     request: z.string().optional(),
-    scope: z.string().optional(),
+    scope: z.string(),
     sessionToken: z.string().optional(),
-    state: z.string().optional(),
+    state: z.string(),
   })
 
   const authorizeCustomAsResponseValidator = responseValidationFactory(
@@ -2684,7 +2708,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const logoutCustomAsResponseValidator = responseValidationFactory(
-    [["429", s_Error]],
+    [
+      ["200", z.undefined()],
+      ["429", s_Error],
+    ],
     undefined,
   )
 
@@ -2707,6 +2734,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },
@@ -2737,7 +2767,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const logoutCustomAsWithPostBodySchema = s_LogoutWithPost
 
   const logoutCustomAsWithPostResponseValidator = responseValidationFactory(
-    [["429", s_Error]],
+    [
+      ["200", z.undefined()],
+      ["429", s_Error],
+    ],
     undefined,
   )
 
@@ -2760,6 +2793,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const responder = {
+        with200() {
+          return new KoaRuntimeResponse<void>(200)
+        },
         with429() {
           return new KoaRuntimeResponse<t_Error>(429)
         },

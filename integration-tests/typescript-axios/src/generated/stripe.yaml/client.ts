@@ -79,6 +79,7 @@ import {
   t_identity_verification_report,
   t_identity_verification_session,
   t_invoice,
+  t_invoice_rendering_template,
   t_invoiceitem,
   t_issuing_authorization,
   t_issuing_card,
@@ -200,7 +201,7 @@ export class ApiClient extends AbstractAxiosClient {
         account: string
         collect?: "currently_due" | "eventually_due"
         collection_options?: {
-          fields: "currently_due" | "eventually_due"
+          fields?: "currently_due" | "eventually_due"
           future_requirements?: "include" | "omit"
         }
         expand?: string[]
@@ -3342,6 +3343,8 @@ export class ApiClient extends AbstractAxiosClient {
         expand?: string[]
         filter?: {
           customer?: string
+          subscription?: string
+          subscription_item?: string
         }
         title: string
         usage_threshold_config?: {
@@ -5602,6 +5605,7 @@ export class ApiClient extends AbstractAxiosClient {
         success_url?: string
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
         ui_mode?: "embedded" | "hosted"
       }
@@ -6899,6 +6903,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | ""
                   | "exclude_tax"
                   | "include_inclusive_tax"
+                template?: string
               }
             | ""
         }
@@ -6967,6 +6972,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -7202,6 +7208,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | ""
                   | "exclude_tax"
                   | "include_inclusive_tax"
+                template?: string
               }
             | ""
         }
@@ -9207,6 +9214,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "gb_vat"
           | "ge_vat"
           | "hk_br"
+          | "hr_oib"
           | "hu_tin"
           | "id_npwp"
           | "il_vat"
@@ -10081,6 +10089,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "finance_report_run"
         | "identity_document"
         | "identity_document_downloadable"
+        | "issuing_regulatory_reporting"
         | "pci_document"
         | "selfie"
         | "sigma_scheduled_query"
@@ -10146,6 +10155,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "customer_signature"
           | "dispute_evidence"
           | "identity_document"
+          | "issuing_regulatory_reporting"
           | "pci_document"
           | "tax_document_user_upload"
           | "terminal_reader_splashscreen"
@@ -11016,6 +11026,131 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 
+  async getInvoiceRenderingTemplates(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "archived"
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      data: t_invoice_rendering_template[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/invoice_rendering_templates`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getInvoiceRenderingTemplatesTemplate(
+    p: {
+      expand?: string[]
+      template: string
+      version?: number
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_invoice_rendering_template>> {
+    const url = `/v1/invoice_rendering_templates/${p["template"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"], version: p["version"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postInvoiceRenderingTemplatesTemplateArchive(
+    p: {
+      template: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_invoice_rendering_template>> {
+    const url = `/v1/invoice_rendering_templates/${p["template"]}/archive`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postInvoiceRenderingTemplatesTemplateUnarchive(
+    p: {
+      template: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_invoice_rendering_template>> {
+    const url = `/v1/invoice_rendering_templates/${p["template"]}/unarchive`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async getInvoiceitems(
     p: {
       created?:
@@ -11475,6 +11610,8 @@ export class ApiClient extends AbstractAxiosClient {
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
+          template?: string
+          template_version?: number | ""
         }
         shipping_cost?: {
           shipping_rate?: string
@@ -11626,6 +11763,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "gb_vat"
               | "ge_vat"
               | "hk_br"
+              | "hr_oib"
               | "hu_tin"
               | "id_npwp"
               | "il_vat"
@@ -12014,6 +12152,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -12436,6 +12575,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -13003,6 +13143,8 @@ export class ApiClient extends AbstractAxiosClient {
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
+          template?: string
+          template_version?: number | ""
         }
         shipping_cost?:
           | {
@@ -21935,6 +22077,7 @@ export class ApiClient extends AbstractAxiosClient {
         }
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
         transfer_data?: {
           amount?: number
@@ -22426,6 +22569,7 @@ export class ApiClient extends AbstractAxiosClient {
         }
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
       }
     },
@@ -30506,6 +30650,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "gb_vat"
               | "ge_vat"
               | "hk_br"
+              | "hr_oib"
               | "hu_tin"
               | "id_npwp"
               | "il_vat"
@@ -30968,6 +31113,15 @@ export class ApiClient extends AbstractAxiosClient {
               jurisdiction: string
             }
             state: string
+            state_sales_tax?: {
+              elections: {
+                jurisdiction?: string
+                type:
+                  | "local_use_tax"
+                  | "simplified_sellers_use_tax"
+                  | "single_local_use_tax"
+              }[]
+            }
             type:
               | "local_amusement_tax"
               | "local_lease_tax"
@@ -31432,6 +31586,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "gb_vat"
           | "ge_vat"
           | "hk_br"
+          | "hr_oib"
           | "hu_tin"
           | "id_npwp"
           | "il_vat"
@@ -32521,7 +32676,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       reader: string
       requestBody: {
-        customer_consent_collected: boolean
+        customer_consent_collected?: boolean
         expand?: string[]
         process_config?: {
           enable_customer_cancellation?: boolean

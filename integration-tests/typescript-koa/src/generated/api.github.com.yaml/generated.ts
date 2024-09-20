@@ -1596,6 +1596,7 @@ import {
   t_repository_collaborator_permission,
   t_repository_invitation,
   t_repository_rule_detailed,
+  t_repository_rule_violation_error,
   t_repository_ruleset,
   t_repository_subscription,
   t_review_comment,
@@ -1885,6 +1886,7 @@ import {
   s_repository_rule,
   s_repository_rule_detailed,
   s_repository_rule_enforcement,
+  s_repository_rule_violation_error,
   s_repository_ruleset,
   s_repository_ruleset_bypass_actor,
   s_repository_ruleset_conditions,
@@ -12148,7 +12150,9 @@ export type ReposCreateOrUpdateFileContentsResponder = {
   with200(): KoaRuntimeResponse<t_file_commit>
   with201(): KoaRuntimeResponse<t_file_commit>
   with404(): KoaRuntimeResponse<t_basic_error>
-  with409(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<
+    t_basic_error | t_repository_rule_violation_error
+  >
   with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
@@ -12165,7 +12169,7 @@ export type ReposCreateOrUpdateFileContents = (
   | Response<200, t_file_commit>
   | Response<201, t_file_commit>
   | Response<404, t_basic_error>
-  | Response<409, t_basic_error>
+  | Response<409, t_basic_error | t_repository_rule_violation_error>
   | Response<422, t_validation_error>
 >
 
@@ -13048,7 +13052,9 @@ export type GitCreateBlobResponder = {
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with409(): KoaRuntimeResponse<t_basic_error>
-  with422(): KoaRuntimeResponse<t_validation_error>
+  with422(): KoaRuntimeResponse<
+    t_validation_error | t_repository_rule_violation_error
+  >
 } & KoaRuntimeResponder
 
 export type GitCreateBlob = (
@@ -13061,7 +13067,7 @@ export type GitCreateBlob = (
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<409, t_basic_error>
-  | Response<422, t_validation_error>
+  | Response<422, t_validation_error | t_repository_rule_violation_error>
 >
 
 export type GitGetBlobResponder = {
@@ -21521,11 +21527,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
     published: z.string().optional(),
     updated: z.string().optional(),
     modified: z.string().optional(),
+    epss_percentage: z.string().optional(),
+    epss_percentile: z.string().optional(),
     before: z.string().optional(),
     after: z.string().optional(),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     per_page: z.coerce.number().min(1).max(100).optional().default(30),
-    sort: z.enum(["updated", "published"]).optional().default("published"),
+    sort: z
+      .enum(["updated", "published", "epss_percentage", "epss_percentile"])
+      .optional()
+      .default("published"),
   })
 
   const securityAdvisoriesListGlobalAdvisoriesResponseValidator =
@@ -29912,6 +29923,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_scanning_non_provider_patterns: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
     private_vulnerability_reporting: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -30202,6 +30217,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
     secret_scanning_validity_checks: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning_non_provider_patterns: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
     private_vulnerability_reporting: z
@@ -54923,7 +54941,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ["200", s_file_commit],
         ["201", s_file_commit],
         ["404", s_basic_error],
-        ["409", s_basic_error],
+        ["409", z.union([s_basic_error, s_repository_rule_violation_error])],
         ["422", s_validation_error],
       ],
       undefined,
@@ -54958,7 +54976,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_basic_error>(404)
         },
         with409() {
-          return new KoaRuntimeResponse<t_basic_error>(409)
+          return new KoaRuntimeResponse<
+            t_basic_error | t_repository_rule_violation_error
+          >(409)
         },
         with422() {
           return new KoaRuntimeResponse<t_validation_error>(422)
@@ -58040,7 +58060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["403", s_basic_error],
       ["404", s_basic_error],
       ["409", s_basic_error],
-      ["422", s_validation_error],
+      ["422", z.union([s_validation_error, s_repository_rule_violation_error])],
     ],
     undefined,
   )
@@ -58077,7 +58097,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           return new KoaRuntimeResponse<t_basic_error>(409)
         },
         with422() {
-          return new KoaRuntimeResponse<t_validation_error>(422)
+          return new KoaRuntimeResponse<
+            t_validation_error | t_repository_rule_violation_error
+          >(422)
         },
         withStatus(status: StatusCode) {
           return new KoaRuntimeResponse(status)
@@ -76167,8 +76189,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const usersAddEmailForAuthenticatedUserBodySchema = z
     .union([
-      z.object({ emails: z.array(z.string()) }),
-      z.array(z.string()),
+      z.object({ emails: z.array(z.string()).min(1) }),
+      z.array(z.string()).min(1),
       z.string(),
     ])
     .optional()
@@ -76243,8 +76265,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const usersDeleteEmailForAuthenticatedUserBodySchema = z.union([
-    z.object({ emails: z.array(z.string()) }),
-    z.array(z.string()),
+    z.object({ emails: z.array(z.string()).min(1) }),
+    z.array(z.string()).min(1),
     z.string(),
   ])
 

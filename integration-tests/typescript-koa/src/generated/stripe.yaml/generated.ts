@@ -345,6 +345,11 @@ import {
   t_GetIdentityVerificationSessionsSessionBodySchema,
   t_GetIdentityVerificationSessionsSessionParamSchema,
   t_GetIdentityVerificationSessionsSessionQuerySchema,
+  t_GetInvoiceRenderingTemplatesBodySchema,
+  t_GetInvoiceRenderingTemplatesQuerySchema,
+  t_GetInvoiceRenderingTemplatesTemplateBodySchema,
+  t_GetInvoiceRenderingTemplatesTemplateParamSchema,
+  t_GetInvoiceRenderingTemplatesTemplateQuerySchema,
   t_GetInvoiceitemsBodySchema,
   t_GetInvoiceitemsInvoiceitemBodySchema,
   t_GetInvoiceitemsInvoiceitemParamSchema,
@@ -867,6 +872,10 @@ import {
   t_PostIdentityVerificationSessionsSessionParamSchema,
   t_PostIdentityVerificationSessionsSessionRedactBodySchema,
   t_PostIdentityVerificationSessionsSessionRedactParamSchema,
+  t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema,
+  t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema,
+  t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema,
+  t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
   t_PostInvoiceitemsBodySchema,
   t_PostInvoiceitemsInvoiceitemBodySchema,
   t_PostInvoiceitemsInvoiceitemParamSchema,
@@ -1235,6 +1244,7 @@ import {
   t_identity_verification_report,
   t_identity_verification_session,
   t_invoice,
+  t_invoice_rendering_template,
   t_invoiceitem,
   t_issuing_authorization,
   t_issuing_card,
@@ -1391,6 +1401,7 @@ import {
   s_identity_verification_report,
   s_identity_verification_session,
   s_invoice,
+  s_invoice_rendering_template,
   s_invoiceitem,
   s_issuing_authorization,
   s_issuing_card,
@@ -6053,6 +6064,95 @@ export type PostIdentityVerificationSessionsSessionRedact = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_identity_verification_session>
+  | Response<StatusCode, t_error>
+>
+
+export type GetInvoiceRenderingTemplatesResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_invoice_rendering_template[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetInvoiceRenderingTemplates = (
+  params: Params<
+    void,
+    t_GetInvoiceRenderingTemplatesQuerySchema,
+    t_GetInvoiceRenderingTemplatesBodySchema | undefined
+  >,
+  respond: GetInvoiceRenderingTemplatesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_invoice_rendering_template[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type GetInvoiceRenderingTemplatesTemplateResponder = {
+  with200(): KoaRuntimeResponse<t_invoice_rendering_template>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetInvoiceRenderingTemplatesTemplate = (
+  params: Params<
+    t_GetInvoiceRenderingTemplatesTemplateParamSchema,
+    t_GetInvoiceRenderingTemplatesTemplateQuerySchema,
+    t_GetInvoiceRenderingTemplatesTemplateBodySchema | undefined
+  >,
+  respond: GetInvoiceRenderingTemplatesTemplateResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_invoice_rendering_template>
+  | Response<StatusCode, t_error>
+>
+
+export type PostInvoiceRenderingTemplatesTemplateArchiveResponder = {
+  with200(): KoaRuntimeResponse<t_invoice_rendering_template>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostInvoiceRenderingTemplatesTemplateArchive = (
+  params: Params<
+    t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema,
+    void,
+    t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema | undefined
+  >,
+  respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_invoice_rendering_template>
+  | Response<StatusCode, t_error>
+>
+
+export type PostInvoiceRenderingTemplatesTemplateUnarchiveResponder = {
+  with200(): KoaRuntimeResponse<t_invoice_rendering_template>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
+  params: Params<
+    t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
+    void,
+    t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema | undefined
+  >,
+  respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_invoice_rendering_template>
   | Response<StatusCode, t_error>
 >
 
@@ -13467,6 +13567,10 @@ export type Implementation = {
   postIdentityVerificationSessionsSession: PostIdentityVerificationSessionsSession
   postIdentityVerificationSessionsSessionCancel: PostIdentityVerificationSessionsSessionCancel
   postIdentityVerificationSessionsSessionRedact: PostIdentityVerificationSessionsSessionRedact
+  getInvoiceRenderingTemplates: GetInvoiceRenderingTemplates
+  getInvoiceRenderingTemplatesTemplate: GetInvoiceRenderingTemplatesTemplate
+  postInvoiceRenderingTemplatesTemplateArchive: PostInvoiceRenderingTemplatesTemplateArchive
+  postInvoiceRenderingTemplatesTemplateUnarchive: PostInvoiceRenderingTemplatesTemplateUnarchive
   getInvoiceitems: GetInvoiceitems
   postInvoiceitems: PostInvoiceitems
   deleteInvoiceitemsInvoiceitem: DeleteInvoiceitemsInvoiceitem
@@ -13870,7 +13974,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     collect: z.enum(["currently_due", "eventually_due"]).optional(),
     collection_options: z
       .object({
-        fields: z.enum(["currently_due", "eventually_due"]),
+        fields: z.enum(["currently_due", "eventually_due"]).optional(),
         future_requirements: z.enum(["include", "omit"]).optional(),
       })
       .optional(),
@@ -19189,7 +19293,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const postBillingAlertsBodySchema = z.object({
     alert_type: z.enum(["usage_threshold"]),
     expand: z.array(z.string().max(5000)).optional(),
-    filter: z.object({ customer: z.string().max(5000).optional() }).optional(),
+    filter: z
+      .object({
+        customer: z.string().max(5000).optional(),
+        subscription: z.string().max(5000).optional(),
+        subscription_item: z.string().max(5000).optional(),
+      })
+      .optional(),
     title: z.string().max(256),
     usage_threshold_config: z
       .object({
@@ -22798,7 +22908,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       success_url: z.string().max(5000).optional(),
-      tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
+      tax_id_collection: z
+        .object({
+          enabled: PermissiveBoolean,
+          required: z.enum(["if_supported", "never"]).optional(),
+        })
+        .optional(),
       ui_mode: z.enum(["embedded", "hosted"]).optional(),
     })
     .optional()
@@ -25201,6 +25316,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 amount_tax_display: z
                   .enum(["", "exclude_tax", "include_inclusive_tax"])
                   .optional(),
+                template: z.string().max(5000).optional(),
               }),
               z.enum([""]),
             ])
@@ -25275,6 +25391,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "gb_vat",
               "ge_vat",
               "hk_br",
+              "hr_oib",
               "hu_tin",
               "id_npwp",
               "il_vat",
@@ -25670,6 +25787,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 amount_tax_display: z
                   .enum(["", "exclude_tax", "include_inclusive_tax"])
                   .optional(),
+                template: z.string().max(5000).optional(),
               }),
               z.enum([""]),
             ])
@@ -29536,6 +29654,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "gb_vat",
       "ge_vat",
       "hk_br",
+      "hr_oib",
       "hu_tin",
       "id_npwp",
       "il_vat",
@@ -31191,6 +31310,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "finance_report_run",
         "identity_document",
         "identity_document_downloadable",
+        "issuing_regulatory_reporting",
         "pci_document",
         "selfie",
         "sigma_scheduled_query",
@@ -31282,6 +31402,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "customer_signature",
       "dispute_evidence",
       "identity_document",
+      "issuing_regulatory_reporting",
       "pci_document",
       "tax_document_user_upload",
       "terminal_reader_splashscreen",
@@ -33104,6 +33225,277 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const getInvoiceRenderingTemplatesQuerySchema = z.object({
+    ending_before: z.string().max(5000).optional(),
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    limit: z.coerce.number().optional(),
+    starting_after: z.string().max(5000).optional(),
+    status: z.enum(["active", "archived"]).optional(),
+  })
+
+  const getInvoiceRenderingTemplatesBodySchema = z.object({}).optional()
+
+  const getInvoiceRenderingTemplatesResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            data: z.array(s_invoice_rendering_template),
+            has_more: PermissiveBoolean,
+            object: z.enum(["list"]),
+            url: z.string().max(5000),
+          }),
+        ],
+      ],
+      s_error,
+    )
+
+  router.get(
+    "getInvoiceRenderingTemplates",
+    "/v1/invoice_rendering_templates",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          getInvoiceRenderingTemplatesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getInvoiceRenderingTemplatesBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            data: t_invoice_rendering_template[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getInvoiceRenderingTemplates(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getInvoiceRenderingTemplatesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getInvoiceRenderingTemplatesTemplateParamSchema = z.object({
+    template: z.string().max(5000),
+  })
+
+  const getInvoiceRenderingTemplatesTemplateQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    version: z.coerce.number().optional(),
+  })
+
+  const getInvoiceRenderingTemplatesTemplateBodySchema = z.object({}).optional()
+
+  const getInvoiceRenderingTemplatesTemplateResponseValidator =
+    responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
+
+  router.get(
+    "getInvoiceRenderingTemplatesTemplate",
+    "/v1/invoice_rendering_templates/:template",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getInvoiceRenderingTemplatesTemplateParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getInvoiceRenderingTemplatesTemplateQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getInvoiceRenderingTemplatesTemplateBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_invoice_rendering_template>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getInvoiceRenderingTemplatesTemplate(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getInvoiceRenderingTemplatesTemplateResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postInvoiceRenderingTemplatesTemplateArchiveParamSchema = z.object({
+    template: z.string().max(5000),
+  })
+
+  const postInvoiceRenderingTemplatesTemplateArchiveBodySchema = z
+    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .optional()
+
+  const postInvoiceRenderingTemplatesTemplateArchiveResponseValidator =
+    responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
+
+  router.post(
+    "postInvoiceRenderingTemplatesTemplateArchive",
+    "/v1/invoice_rendering_templates/:template/archive",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postInvoiceRenderingTemplatesTemplateArchiveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postInvoiceRenderingTemplatesTemplateArchiveBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_invoice_rendering_template>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postInvoiceRenderingTemplatesTemplateArchive(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postInvoiceRenderingTemplatesTemplateArchiveResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postInvoiceRenderingTemplatesTemplateUnarchiveParamSchema = z.object({
+    template: z.string().max(5000),
+  })
+
+  const postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema = z
+    .object({ expand: z.array(z.string().max(5000)).optional() })
+    .optional()
+
+  const postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator =
+    responseValidationFactory([["200", s_invoice_rendering_template]], s_error)
+
+  router.post(
+    "postInvoiceRenderingTemplatesTemplateUnarchive",
+    "/v1/invoice_rendering_templates/:template/unarchive",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postInvoiceRenderingTemplatesTemplateUnarchiveBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_invoice_rendering_template>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postInvoiceRenderingTemplatesTemplateUnarchive(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        postInvoiceRenderingTemplatesTemplateUnarchiveResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const getInvoiceitemsQuerySchema = z.object({
     created: z
       .union([
@@ -33835,6 +34227,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
           pdf: z
             .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
             .optional(),
+          template: z.string().max(5000).optional(),
+          template_version: z
+            .union([z.coerce.number(), z.enum([""])])
+            .optional(),
         })
         .optional(),
       shipping_cost: z
@@ -34054,6 +34450,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "gb_vat",
                   "ge_vat",
                   "hk_br",
+                  "hr_oib",
                   "hu_tin",
                   "id_npwp",
                   "il_vat",
@@ -34632,6 +35029,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "gb_vat",
                 "ge_vat",
                 "hk_br",
+                "hr_oib",
                 "hu_tin",
                 "id_npwp",
                 "il_vat",
@@ -35212,6 +35610,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "gb_vat",
                 "ge_vat",
                 "hk_br",
+                "hr_oib",
                 "hu_tin",
                 "id_npwp",
                 "il_vat",
@@ -36073,6 +36472,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           pdf: z
             .object({ page_size: z.enum(["a4", "auto", "letter"]).optional() })
+            .optional(),
+          template: z.string().max(5000).optional(),
+          template_version: z
+            .union([z.coerce.number(), z.enum([""])])
             .optional(),
         })
         .optional(),
@@ -48377,7 +48780,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
       })
       .optional(),
-    tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
+    tax_id_collection: z
+      .object({
+        enabled: PermissiveBoolean,
+        required: z.enum(["if_supported", "never"]).optional(),
+      })
+      .optional(),
     transfer_data: z
       .object({ amount: z.coerce.number().optional(), destination: z.string() })
       .optional(),
@@ -48983,7 +49391,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      tax_id_collection: z.object({ enabled: PermissiveBoolean }).optional(),
+      tax_id_collection: z
+        .object({
+          enabled: PermissiveBoolean,
+          required: z.enum(["if_supported", "never"]).optional(),
+        })
+        .optional(),
     })
     .optional()
 
@@ -62353,6 +62766,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "gb_vat",
                 "ge_vat",
                 "hk_br",
+                "hr_oib",
                 "hu_tin",
                 "id_npwp",
                 "il_vat",
@@ -63043,6 +63457,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ jurisdiction: z.string().max(5000) })
             .optional(),
           state: z.string().max(5000),
+          state_sales_tax: z
+            .object({
+              elections: z.array(
+                z.object({
+                  jurisdiction: z.string().max(5000).optional(),
+                  type: z.enum([
+                    "local_use_tax",
+                    "simplified_sellers_use_tax",
+                    "single_local_use_tax",
+                  ]),
+                }),
+              ),
+            })
+            .optional(),
           type: z.enum([
             "local_amusement_tax",
             "local_lease_tax",
@@ -63913,6 +64341,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "gb_vat",
       "ge_vat",
       "hk_br",
+      "hr_oib",
       "hu_tin",
       "id_npwp",
       "il_vat",
@@ -65191,7 +65620,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       postal_code: z.string().max(5000).optional(),
       state: z.string().max(5000).optional(),
     }),
-    configuration_overrides: z.string().max(1000).optional(),
+    configuration_overrides: z.string().max(500).optional(),
     display_name: z.string().max(1000),
     expand: z.array(z.string().max(5000)).optional(),
     metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
@@ -65927,7 +66356,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const postTerminalReadersReaderProcessSetupIntentBodySchema = z.object({
-    customer_consent_collected: PermissiveBoolean,
+    customer_consent_collected: PermissiveBoolean.optional(),
     expand: z.array(z.string().max(5000)).optional(),
     process_config: z
       .object({ enable_customer_cancellation: PermissiveBoolean.optional() })

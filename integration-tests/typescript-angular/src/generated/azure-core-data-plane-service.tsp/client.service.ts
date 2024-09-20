@@ -5,9 +5,9 @@
 import {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
+  t_Azure_Core_Foundations_OperationState,
   t_Azure_Core_uuid,
   t_Manufacturer,
-  t_OperationState,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
@@ -142,12 +142,12 @@ export class ApiClient {
             error?: t_Azure_Core_Foundations_Error
             id: string
             result?: t_Widget
-            status: t_OperationState
+            status: t_Azure_Core_Foundations_OperationState
           }
         | {
             error?: t_Azure_Core_Foundations_Error
             id: string
-            status: t_OperationState
+            status: t_Azure_Core_Foundations_OperationState
           }
       > & { status: 200 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
@@ -264,7 +264,7 @@ export class ApiClient {
     | (HttpResponse<{
         error?: t_Azure_Core_Foundations_Error
         id: string
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 202 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -421,7 +421,7 @@ export class ApiClient {
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_WidgetRepairRequest
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 200 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -460,7 +460,7 @@ export class ApiClient {
           scheduledDateTime: string
           updatedDateTime: string
         }
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 202 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -499,7 +499,7 @@ export class ApiClient {
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_WidgetPart
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 200 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -683,7 +683,7 @@ export class ApiClient {
     | (HttpResponse<{
         error?: t_Azure_Core_Foundations_Error
         id: string
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 202 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -721,7 +721,7 @@ export class ApiClient {
         error?: t_Azure_Core_Foundations_Error
         id: string
         result?: t_Manufacturer
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 200 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode
@@ -837,7 +837,7 @@ export class ApiClient {
     | (HttpResponse<{
         error?: t_Azure_Core_Foundations_Error
         id: string
-        status: t_OperationState
+        status: t_Azure_Core_Foundations_OperationState
       }> & { status: 202 })
     | (HttpResponse<t_Azure_Core_Foundations_ErrorResponse> & {
         status: StatusCode

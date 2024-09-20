@@ -45,8 +45,8 @@ export const s_ApplicationType = z.enum(["browser", "native", "service", "web"])
 export const s_BackchannelAuthorizeRequest = z.intersection(
   z.object({
     binding_message: z.string().optional(),
-    id_token_hint: z.string().optional(),
-    login_hint: z.string().optional(),
+    id_token_hint: z.string(),
+    login_hint: z.string(),
     request: z.string().optional(),
     request_expiry: z.coerce.number().min(1).max(300).optional(),
     scope: z.string(),
@@ -150,7 +150,7 @@ export const s_JsonWebKeyType = z.enum(["EC", "RSA"])
 export const s_JsonWebKeyUse = z.enum(["enc", "sig"])
 
 export const s_LogoutWithPost = z.object({
-  id_token_hint: z.string().optional(),
+  id_token_hint: z.string(),
   post_logout_redirect_uri: z.string().optional(),
   state: z.string().optional(),
 })
@@ -283,7 +283,7 @@ export const s_ChallengeResponse = z.object({
 })
 
 export const s_GlobalTokenRevocationRequest = z.object({
-  subject: s_sub_id.optional(),
+  sub_id: s_sub_id.optional(),
 })
 
 export const s_IntrospectionRequest = z.object({
@@ -356,7 +356,7 @@ export const s_OobAuthenticateResponse = z.object({
 })
 
 export const s_RevokeRequest = z.object({
-  token: z.string().optional(),
+  token: z.string(),
   token_type_hint: s_TokenTypeHintRevoke.optional(),
 })
 
@@ -377,14 +377,14 @@ export const s_Client = z.object({
   application_type: s_ApplicationType.optional(),
   client_id: z.string().optional(),
   client_id_issued_at: z.coerce.number().optional(),
-  client_name: z.string().optional(),
+  client_name: z.string(),
   client_secret: z.string().nullable().optional(),
   client_secret_expires_at: z.coerce.number().min(0).nullable().optional(),
   frontchannel_logout_session_required: PermissiveBoolean.optional(),
   frontchannel_logout_uri: z.string().nullable().optional(),
   grant_types: z.array(s_GrantType).optional(),
   initiate_login_uri: z.string().optional(),
-  jwks: z.array(s_JsonWebKey).optional(),
+  jwks: z.object({ keys: z.array(s_JsonWebKey).optional() }).optional(),
   jwks_uri: z.string().optional(),
   logo_uri: z.string().nullable().optional(),
   policy_uri: z.string().nullable().optional(),

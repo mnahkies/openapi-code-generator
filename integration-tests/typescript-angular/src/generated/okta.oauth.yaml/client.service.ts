@@ -139,30 +139,28 @@ export class ApiClient {
     )
   }
 
-  authorize(
-    p: {
-      acrValues?: t_AcrValue
-      clientId?: string
-      codeChallenge?: string
-      codeChallengeMethod?: t_CodeChallengeMethod
-      display?: string
-      enrollAmrValues?: t_AmrValue
-      idpScope?: string
-      idp?: string
-      loginHint?: string
-      maxAge?: number
-      nonce?: string
-      prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
-      responseMode?: t_ResponseMode
-      requestUri?: string
-      request?: string
-      scope?: string
-      sessionToken?: string
-      state?: string
-    } = {},
-  ): Observable<
+  authorize(p: {
+    acrValues?: t_AcrValue
+    clientId: string
+    codeChallenge?: string
+    codeChallengeMethod?: t_CodeChallengeMethod
+    display?: string
+    enrollAmrValues?: t_AmrValue
+    idpScope?: string
+    idp?: string
+    loginHint?: string
+    maxAge?: number
+    nonce?: string
+    prompt?: t_Prompt
+    redirectUri: string
+    responseType: t_ResponseTypesSupported
+    responseMode?: t_ResponseMode
+    requestUri?: string
+    request?: string
+    scope: string
+    sessionToken?: string
+    state: string
+  }): Observable<
     (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
   > {
     const params = this._queryParams({
@@ -490,7 +488,9 @@ export class ApiClient {
     postLogoutRedirectUri?: string
     state?: string
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       id_token_hint: p["idTokenHint"],
@@ -512,7 +512,9 @@ export class ApiClient {
   logoutWithPost(p: {
     requestBody: t_LogoutWithPost
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",
@@ -743,7 +745,7 @@ export class ApiClient {
   authorizeCustomAs(p: {
     authorizationServerId: string
     acrValues?: t_AcrValue
-    clientId?: string
+    clientId: string
     codeChallenge?: string
     codeChallengeMethod?: t_CodeChallengeMethod
     display?: string
@@ -754,14 +756,14 @@ export class ApiClient {
     maxAge?: number
     nonce?: string
     prompt?: t_Prompt
-    redirectUri?: string
-    responseType?: t_ResponseTypesSupported
+    redirectUri: string
+    responseType: t_ResponseTypesSupported
     responseMode?: t_ResponseMode
     requestUri?: string
     request?: string
-    scope?: string
+    scope: string
     sessionToken?: string
-    state?: string
+    state: string
   }): Observable<
     (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
   > {
@@ -934,7 +936,9 @@ export class ApiClient {
     postLogoutRedirectUri?: string
     state?: string
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
   > {
     const params = this._queryParams({
       id_token_hint: p["idTokenHint"],
@@ -957,7 +961,9 @@ export class ApiClient {
     authorizationServerId: string
     requestBody: t_LogoutWithPost
   }): Observable<
-    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+    | (HttpResponse<void> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 429 })
+    | HttpResponse<unknown>
   > {
     const headers = this._headers({
       "Content-Type": "application/x-www-form-urlencoded",

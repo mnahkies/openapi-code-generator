@@ -343,11 +343,13 @@ export class ApiClient extends AbstractAxiosClient {
       published?: string
       updated?: string
       modified?: string
+      epssPercentage?: string
+      epssPercentile?: string
       before?: string
       after?: string
       direction?: "asc" | "desc"
       perPage?: number
-      sort?: "updated" | "published"
+      sort?: "updated" | "published" | "epss_percentage" | "epss_percentile"
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -366,6 +368,8 @@ export class ApiClient extends AbstractAxiosClient {
       published: p["published"],
       updated: p["updated"],
       modified: p["modified"],
+      epss_percentage: p["epssPercentage"],
+      epss_percentile: p["epssPercentile"],
       before: p["before"],
       after: p["after"],
       direction: p["direction"],
@@ -3703,6 +3707,10 @@ export class ApiClient extends AbstractAxiosClient {
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
         secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
@@ -3812,6 +3820,10 @@ export class ApiClient extends AbstractAxiosClient {
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
         secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }

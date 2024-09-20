@@ -69,7 +69,7 @@ export class ApiClient extends AbstractFetchClient {
   async authorize(
     p: {
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -80,15 +80,15 @@ export class ApiClient extends AbstractFetchClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
-    } = {},
+      state: string
+    },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
@@ -404,7 +404,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
     const url = this.basePath + `/oauth2/v1/logout`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -426,7 +426,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
     const url = this.basePath + `/oauth2/v1/logout`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -629,7 +629,7 @@ export class ApiClient extends AbstractFetchClient {
     p: {
       authorizationServerId: string
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -640,14 +640,14 @@ export class ApiClient extends AbstractFetchClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
+      state: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -813,7 +813,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const headers = this._headers({}, opts.headers)
@@ -837,7 +837,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const headers = this._headers(
