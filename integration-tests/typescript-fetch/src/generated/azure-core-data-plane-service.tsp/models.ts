@@ -19,6 +19,14 @@ export type t_Azure_Core_Foundations_InnerError = {
   innererror?: t_Azure_Core_Foundations_InnerError
 }
 
+export type t_Azure_Core_Foundations_OperationState =
+  | "NotStarted"
+  | "Running"
+  | "Succeeded"
+  | "Failed"
+  | "Canceled"
+  | string
+
 export type t_Azure_Core_eTag = string
 
 export type t_Azure_Core_uuid = string
@@ -29,14 +37,6 @@ export type t_Manufacturer = {
   readonly id: string
   name: string
 }
-
-export type t_OperationState =
-  | "NotStarted"
-  | "Running"
-  | "Succeeded"
-  | "Failed"
-  | "Canceled"
-  | string
 
 export type t_PagedManufacturer = {
   nextLink?: string

@@ -150,6 +150,7 @@ export const s_api_overview = z.object({
   importer: z.array(z.string()).optional(),
   actions: z.array(z.string()).optional(),
   actions_macos: z.array(z.string()).optional(),
+  codespaces: z.array(z.string()).optional(),
   dependabot: z.array(z.string()).optional(),
   copilot: z.array(z.string()).optional(),
   domains: z
@@ -159,6 +160,12 @@ export const s_api_overview = z.object({
       copilot: z.array(z.string()).optional(),
       packages: z.array(z.string()).optional(),
       actions: z.array(z.string()).optional(),
+      artifact_attestations: z
+        .object({
+          trust_domain: z.string().optional(),
+          services: z.array(z.string()).optional(),
+        })
+        .optional(),
     })
     .optional(),
 })
@@ -351,6 +358,7 @@ export const s_branch_restriction_policy = z.object({
         })
         .optional(),
       name: z.string().optional(),
+      client_id: z.string().optional(),
       description: z.string().optional(),
       external_url: z.string().optional(),
       html_url: z.string().optional(),
@@ -471,7 +479,10 @@ export const s_code_scanning_alert_rule_summary = z.object({
     .nullable()
     .optional(),
   description: z.string().optional(),
+  full_description: z.string().optional(),
   tags: z.array(z.string()).nullable().optional(),
+  help: z.string().nullable().optional(),
+  help_uri: z.string().nullable().optional(),
 })
 
 export const s_code_scanning_alert_set_state = z.enum(["open", "dismissed"])
@@ -645,6 +656,9 @@ export const s_code_security_configuration = z.object({
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
   secret_scanning_validity_checks: z
+    .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  secret_scanning_non_provider_patterns: z
     .enum(["enabled", "disabled", "not_set"])
     .optional(),
   private_vulnerability_reporting: z
@@ -950,6 +964,25 @@ export const s_custom_property_value = z.object({
   property_name: z.string(),
   value: z.union([z.string(), z.array(z.string())]).nullable(),
 })
+
+export const s_cvss_severities = z
+  .object({
+    cvss_v3: z
+      .object({
+        vector_string: z.string().nullable(),
+        score: z.coerce.number().min(0).max(10).nullable(),
+      })
+      .nullable()
+      .optional(),
+    cvss_v4: z
+      .object({
+        vector_string: z.string().nullable(),
+        score: z.coerce.number().min(0).max(10).nullable(),
+      })
+      .nullable()
+      .optional(),
+  })
+  .nullable()
 
 export const s_dependabot_alert_package = z.object({
   ecosystem: z.string(),
@@ -2416,7 +2449,6 @@ export const s_repository_ruleset_bypass_actor = z.object({
     "RepositoryRole",
     "Team",
     "DeployKey",
-    "EnterpriseTeam",
   ]),
   bypass_mode: z.enum(["always", "pull_request"]),
 })
@@ -2518,7 +2550,7 @@ export const s_rule_suite = z.object({
   repository_name: z.string().optional(),
   pushed_at: z.string().datetime({ offset: true }).optional(),
   result: z.enum(["pass", "fail", "bypass"]).optional(),
-  evaluation_result: z.enum(["pass", "fail"]).optional(),
+  evaluation_result: z.enum(["pass", "fail", "bypass"]).nullable().optional(),
   rule_evaluations: z
     .array(
       z.object({
@@ -2534,7 +2566,7 @@ export const s_rule_suite = z.object({
           .optional(),
         result: z.enum(["pass", "fail"]).optional(),
         rule_type: z.string().optional(),
-        details: z.string().optional(),
+        details: z.string().nullable().optional(),
       }),
     )
     .optional(),
@@ -2552,7 +2584,7 @@ export const s_rule_suites = z.array(
     repository_name: z.string().optional(),
     pushed_at: z.string().datetime({ offset: true }).optional(),
     result: z.enum(["pass", "fail", "bypass"]).optional(),
-    evaluation_result: z.enum(["pass", "fail"]).optional(),
+    evaluation_result: z.enum(["pass", "fail", "bypass"]).optional(),
   }),
 )
 
@@ -3587,6 +3619,7 @@ export const s_integration = z
     id: z.coerce.number(),
     slug: z.string().optional(),
     node_id: z.string(),
+    client_id: z.string().optional(),
     owner: s_nullable_simple_user,
     name: z.string(),
     description: z.string().nullable(),
@@ -3606,7 +3639,6 @@ export const s_integration = z
     ),
     events: z.array(z.string()),
     installations_count: z.coerce.number().optional(),
-    client_id: z.string().optional(),
     client_secret: z.string().optional(),
     webhook_secret: z.string().nullable().optional(),
     pem: z.string().optional(),
@@ -3824,6 +3856,7 @@ export const s_nullable_integration = z
     id: z.coerce.number(),
     slug: z.string().optional(),
     node_id: z.string(),
+    client_id: z.string().optional(),
     owner: s_nullable_simple_user,
     name: z.string(),
     description: z.string().nullable(),
@@ -3843,7 +3876,6 @@ export const s_nullable_integration = z
     ),
     events: z.array(z.string()),
     installations_count: z.coerce.number().optional(),
-    client_id: z.string().optional(),
     client_secret: z.string().optional(),
     webhook_secret: z.string().nullable().optional(),
     pem: z.string().optional(),
@@ -4692,6 +4724,29 @@ export const s_repository_rule_required_status_checks = z.object({
         s_repository_rule_params_status_check_configuration,
       ),
       strict_required_status_checks_policy: PermissiveBoolean,
+    })
+    .optional(),
+})
+
+export const s_repository_rule_violation_error = z.object({
+  message: z.string().optional(),
+  documentation_url: z.string().optional(),
+  status: z.string().optional(),
+  metadata: z
+    .object({
+      secret_scanning: z
+        .object({
+          bypass_placeholders: z
+            .array(
+              z.object({
+                placeholder_id:
+                  s_secret_scanning_push_protection_bypass_placeholder_id.optional(),
+                token_type: z.string().optional(),
+              }),
+            )
+            .optional(),
+        })
+        .optional(),
     })
     .optional(),
 })
@@ -5778,6 +5833,7 @@ export const s_dependabot_alert_security_advisory = z.object({
     score: z.coerce.number().min(0).max(10),
     vector_string: z.string().nullable(),
   }),
+  cvss_severities: s_cvss_severities.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })),
   identifiers: z.array(
     z.object({ type: z.enum(["CVE", "GHSA"]), value: z.string() }),
@@ -6120,7 +6176,15 @@ export const s_global_advisory = z.object({
       score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
+  cvss_severities: s_cvss_severities.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
+  epss: z
+    .object({
+      percentage: z.coerce.number().optional(),
+      percentile: z.coerce.number().optional(),
+    })
+    .nullable()
+    .optional(),
   credits: z
     .array(
       z.object({ user: s_simple_user, type: s_security_advisory_credit_types }),
@@ -7114,6 +7178,7 @@ export const s_repository_advisory = z.object({
       score: z.coerce.number().min(0).max(10).nullable(),
     })
     .nullable(),
+  cvss_severities: s_cvss_severities.optional(),
   cwes: z.array(z.object({ cwe_id: z.string(), name: z.string() })).nullable(),
   cwe_ids: z.array(z.string()).nullable(),
   credits: z

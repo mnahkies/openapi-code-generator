@@ -237,6 +237,7 @@ import {
   t_repository_rule,
   t_repository_rule_detailed,
   t_repository_rule_enforcement,
+  t_repository_rule_violation_error,
   t_repository_ruleset,
   t_repository_ruleset_bypass_actor,
   t_repository_ruleset_conditions,
@@ -344,11 +345,13 @@ export class ApiClient extends AbstractFetchClient {
       published?: string
       updated?: string
       modified?: string
+      epssPercentage?: string
+      epssPercentile?: string
       before?: string
       after?: string
       direction?: "asc" | "desc"
       perPage?: number
-      sort?: "updated" | "published"
+      sort?: "updated" | "published" | "epss_percentage" | "epss_percentile"
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -373,6 +376,8 @@ export class ApiClient extends AbstractFetchClient {
       published: p["published"],
       updated: p["updated"],
       modified: p["modified"],
+      epss_percentage: p["epssPercentage"],
+      epss_percentile: p["epssPercentile"],
       before: p["before"],
       after: p["after"],
       direction: p["direction"],
@@ -3660,6 +3665,10 @@ export class ApiClient extends AbstractFetchClient {
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
         secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
@@ -3773,6 +3782,10 @@ export class ApiClient extends AbstractFetchClient {
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
         secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
       }
@@ -13966,7 +13979,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<200, t_file_commit>
       | Res<201, t_file_commit>
       | Res<404, t_basic_error>
-      | Res<409, t_basic_error>
+      | Res<409, t_basic_error | t_repository_rule_violation_error>
       | Res<422, t_validation_error>
     >
   > {
@@ -15294,7 +15307,7 @@ export class ApiClient extends AbstractFetchClient {
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
       | Res<409, t_basic_error>
-      | Res<422, t_validation_error>
+      | Res<422, t_validation_error | t_repository_rule_violation_error>
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/blobs`

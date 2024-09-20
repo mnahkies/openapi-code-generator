@@ -4,9 +4,9 @@
 
 export type EmptyObject = { [key: string]: never }
 
-export type t_ActionType = "Internal" | string
-
 export type t_Azure_Core_uuid = string
+
+export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
   readonly info?: EmptyObject
@@ -26,11 +26,11 @@ export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Operation = {
-  actionType?: t_ActionType
+  actionType?: t_Azure_ResourceManager_CommonTypes_ActionType
   readonly display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay
   readonly isDataAction?: boolean
   readonly name?: string
-  readonly origin?: t_Origin
+  readonly origin?: t_Azure_ResourceManager_CommonTypes_Origin
 }
 
 export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
@@ -39,6 +39,12 @@ export type t_Azure_ResourceManager_CommonTypes_OperationDisplay = {
   readonly provider?: string
   readonly resource?: string
 }
+
+export type t_Azure_ResourceManager_CommonTypes_Origin =
+  | "user"
+  | "system"
+  | "user,system"
+  | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
   readonly id?: string
@@ -50,10 +56,10 @@ export type t_Azure_ResourceManager_CommonTypes_Resource = {
 export type t_Azure_ResourceManager_CommonTypes_SystemData = {
   createdAt?: string
   createdBy?: string
-  createdByType?: t_createdByType
+  createdByType?: t_Azure_ResourceManager_CommonTypes_createdByType
   lastModifiedAt?: string
   lastModifiedBy?: string
-  lastModifiedByType?: t_createdByType
+  lastModifiedByType?: t_Azure_ResourceManager_CommonTypes_createdByType
 }
 
 export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
@@ -61,6 +67,13 @@ export type t_Azure_ResourceManager_CommonTypes_TrackedResource =
 
 export type t_Azure_ResourceManager_CommonTypes_TrackedResourceUpdate =
   t_Azure_ResourceManager_CommonTypes_Resource
+
+export type t_Azure_ResourceManager_CommonTypes_createdByType =
+  | "User"
+  | "Application"
+  | "ManagedIdentity"
+  | "Key"
+  | string
 
 export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource
 
@@ -85,12 +98,3 @@ export type t_OperationListResult = {
   nextLink?: string
   value: t_Azure_ResourceManager_CommonTypes_Operation[]
 }
-
-export type t_Origin = "user" | "system" | "user,system" | string
-
-export type t_createdByType =
-  | "User"
-  | "Application"
-  | "ManagedIdentity"
-  | "Key"
-  | string

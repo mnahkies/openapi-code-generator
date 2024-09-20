@@ -176,10 +176,15 @@ export type t_api_overview = {
   actions?: string[]
   actions_macos?: string[]
   api?: string[]
+  codespaces?: string[]
   copilot?: string[]
   dependabot?: string[]
   domains?: {
     actions?: string[]
+    artifact_attestations?: {
+      services?: string[]
+      trust_domain?: string
+    }
     codespaces?: string[]
     copilot?: string[]
     packages?: string[]
@@ -430,6 +435,7 @@ export type t_branch_protection = {
 
 export type t_branch_restriction_policy = {
   apps: {
+    client_id?: string
     created_at?: string
     description?: string
     events?: string[]
@@ -813,6 +819,9 @@ export type t_code_scanning_alert_rule = {
 
 export type t_code_scanning_alert_rule_summary = {
   description?: string
+  full_description?: string
+  help?: string | null
+  help_uri?: string | null
   id?: string | null
   name?: string
   security_severity_level?: "low" | "medium" | "high" | "critical" | null
@@ -1086,6 +1095,7 @@ export type t_code_security_configuration = {
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
   target_type?: "global" | "organization"
@@ -1697,6 +1707,17 @@ export type t_custom_property_value = {
   value: string | string[] | null
 }
 
+export type t_cvss_severities = {
+  cvss_v3?: {
+    readonly score: number | null
+    vector_string: string | null
+  } | null
+  cvss_v4?: {
+    readonly score: number | null
+    vector_string: string | null
+  } | null
+} | null
+
 export type t_demilestoned_issue_event = {
   actor: t_simple_user
   commit_id: string | null
@@ -1751,6 +1772,7 @@ export type t_dependabot_alert_security_advisory = {
     readonly score: number
     readonly vector_string: string | null
   }
+  cvss_severities?: t_cvss_severities
   readonly cwes: {
     readonly cwe_id: string
     readonly name: string
@@ -2515,6 +2537,7 @@ export type t_global_advisory = {
     readonly score: number | null
     vector_string: string | null
   } | null
+  cvss_severities?: t_cvss_severities
   cwes:
     | {
         cwe_id: string
@@ -2522,6 +2545,10 @@ export type t_global_advisory = {
       }[]
     | null
   description: string | null
+  epss?: {
+    percentage?: number
+    percentile?: number
+  } | null
   readonly ghsa_id: string
   readonly github_reviewed_at: string | null
   readonly html_url: string
@@ -5486,6 +5513,7 @@ export type t_repository_advisory = {
     readonly score: number | null
     vector_string: string | null
   } | null
+  cvss_severities?: t_cvss_severities
   cwe_ids: string[] | null
   readonly cwes:
     | {
@@ -5820,6 +5848,20 @@ export type t_repository_rule_update = {
   type: "update"
 }
 
+export type t_repository_rule_violation_error = {
+  documentation_url?: string
+  message?: string
+  metadata?: {
+    secret_scanning?: {
+      bypass_placeholders?: {
+        placeholder_id?: t_secret_scanning_push_protection_bypass_placeholder_id
+        token_type?: string
+      }[]
+    }
+  }
+  status?: string
+}
+
 export type t_repository_rule_workflows = {
   parameters?: {
     do_not_enforce_on_create?: boolean
@@ -5860,7 +5902,6 @@ export type t_repository_ruleset_bypass_actor = {
     | "RepositoryRole"
     | "Team"
     | "DeployKey"
-    | "EnterpriseTeam"
   bypass_mode: "always" | "pull_request"
 }
 
@@ -6042,7 +6083,7 @@ export type t_rule_suite = {
   actor_name?: string | null
   after_sha?: string
   before_sha?: string
-  evaluation_result?: "pass" | "fail"
+  evaluation_result?: "pass" | "fail" | "bypass" | null
   id?: number
   pushed_at?: string
   ref?: string
@@ -6050,7 +6091,7 @@ export type t_rule_suite = {
   repository_name?: string
   result?: "pass" | "fail" | "bypass"
   rule_evaluations?: {
-    details?: string
+    details?: string | null
     enforcement?: "active" | "evaluate" | "deleted ruleset"
     result?: "pass" | "fail"
     rule_source?: {
@@ -6067,7 +6108,7 @@ export type t_rule_suites = {
   actor_name?: string
   after_sha?: string
   before_sha?: string
-  evaluation_result?: "pass" | "fail"
+  evaluation_result?: "pass" | "fail" | "bypass"
   id?: number
   pushed_at?: string
   ref?: string

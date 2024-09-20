@@ -237,6 +237,7 @@ import {
   t_repository_rule,
   t_repository_rule_detailed,
   t_repository_rule_enforcement,
+  t_repository_rule_violation_error,
   t_repository_ruleset,
   t_repository_ruleset_bypass_actor,
   t_repository_ruleset_conditions,
@@ -412,11 +413,13 @@ export class ApiClient {
       published?: string
       updated?: string
       modified?: string
+      epssPercentage?: string
+      epssPercentile?: string
       before?: string
       after?: string
       direction?: "asc" | "desc"
       perPage?: number
-      sort?: "updated" | "published"
+      sort?: "updated" | "published" | "epss_percentage" | "epss_percentile"
     } = {},
   ): Observable<
     | (HttpResponse<t_global_advisory[]> & { status: 200 })
@@ -436,6 +439,8 @@ export class ApiClient {
       published: p["published"],
       updated: p["updated"],
       modified: p["modified"],
+      epss_percentage: p["epssPercentage"],
+      epss_percentile: p["epssPercentile"],
       before: p["before"],
       after: p["after"],
       direction: p["direction"],
@@ -3746,6 +3751,7 @@ export class ApiClient {
       name: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
     }
@@ -3856,6 +3862,7 @@ export class ApiClient {
       name?: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
     }
@@ -13796,7 +13803,9 @@ export class ApiClient {
     | (HttpResponse<t_file_commit> & { status: 200 })
     | (HttpResponse<t_file_commit> & { status: 201 })
     | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 409 })
+    | (HttpResponse<t_basic_error | t_repository_rule_violation_error> & {
+        status: 409
+      })
     | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
   > {
@@ -15104,7 +15113,9 @@ export class ApiClient {
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<t_validation_error | t_repository_rule_violation_error> & {
+        status: 422
+      })
     | HttpResponse<unknown>
   > {
     const headers = this._headers({ "Content-Type": "application/json" })

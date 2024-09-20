@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: MyAccount Management
-  version: 2024.07.0
+  version: 2024.08.3
   description: |-
     APIs for managing a user's own emails, phones, profile, and app authenticators.
     > **Note:** The MyAccount API doesn't support [delegated authentication](https://help.okta.com/okta_help.htm?id=ext_Security_Authentication).
@@ -79,6 +79,7 @@ tags:
   - name: Organization
     description: |
       <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>The MyAccount Profile API provides operations to view Org details.
+
       ### API versioning
       A valid API version in the `Accept` header is required to access the API. Current version: `1.0.0`
       ```json

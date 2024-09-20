@@ -59,14 +59,16 @@ export type t_Client = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
   frontchannel_logout_session_required?: boolean
   frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -305,7 +307,7 @@ export type t_sub_id = {
 
 export type t_AuthorizeQuerySchema = {
   acr_values?: t_AcrValue
-  client_id?: string
+  client_id: string
   code_challenge?: string
   code_challenge_method?: t_CodeChallengeMethod
   display?: string
@@ -316,14 +318,14 @@ export type t_AuthorizeQuerySchema = {
   max_age?: number
   nonce?: string
   prompt?: t_Prompt
-  redirect_uri?: string
+  redirect_uri: string
   request?: string
   request_uri?: string
   response_mode?: t_ResponseMode
-  response_type?: t_ResponseTypesSupported
-  scope?: string
+  response_type: t_ResponseTypesSupported
+  scope: string
   sessionToken?: string
-  state?: string
+  state: string
 }
 
 export type t_AuthorizeCustomAsParamSchema = {
@@ -332,7 +334,7 @@ export type t_AuthorizeCustomAsParamSchema = {
 
 export type t_AuthorizeCustomAsQuerySchema = {
   acr_values?: t_AcrValue
-  client_id?: string
+  client_id: string
   code_challenge?: string
   code_challenge_method?: t_CodeChallengeMethod
   display?: string
@@ -343,20 +345,20 @@ export type t_AuthorizeCustomAsQuerySchema = {
   max_age?: number
   nonce?: string
   prompt?: t_Prompt
-  redirect_uri?: string
+  redirect_uri: string
   request?: string
   request_uri?: string
   response_mode?: t_ResponseMode
-  response_type?: t_ResponseTypesSupported
-  scope?: string
+  response_type: t_ResponseTypesSupported
+  scope: string
   sessionToken?: string
-  state?: string
+  state: string
 }
 
 export type t_BcAuthorizeBodySchema = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -365,8 +367,8 @@ export type t_BcAuthorizeBodySchema = {
 
 export type t_BcAuthorizeCustomAsBodySchema = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -397,14 +399,16 @@ export type t_CreateClientBodySchema = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
   frontchannel_logout_session_required?: boolean
   frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -463,7 +467,7 @@ export type t_GetWellKnownOpenIdConfigurationCustomAsQuerySchema = {
 }
 
 export type t_GlobalTokenRevocationBodySchema = {
-  subject?: t_sub_id
+  sub_id?: t_sub_id
 }
 
 export type t_IntrospectBodySchema = {
@@ -503,7 +507,7 @@ export type t_LogoutCustomAsQuerySchema = {
 }
 
 export type t_LogoutCustomAsWithPostBodySchema = {
-  id_token_hint?: string
+  id_token_hint: string
   post_logout_redirect_uri?: string
   state?: string
 }
@@ -513,7 +517,7 @@ export type t_LogoutCustomAsWithPostParamSchema = {
 }
 
 export type t_LogoutWithPostBodySchema = {
-  id_token_hint?: string
+  id_token_hint: string
   post_logout_redirect_uri?: string
   state?: string
 }
@@ -592,14 +596,16 @@ export type t_ReplaceClientBodySchema = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
   frontchannel_logout_session_required?: boolean
   frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -616,12 +622,12 @@ export type t_ReplaceClientParamSchema = {
 }
 
 export type t_RevokeBodySchema = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 
 export type t_RevokeCustomAsBodySchema = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 

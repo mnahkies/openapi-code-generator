@@ -17,9 +17,12 @@ export const PermissiveBoolean = z.preprocess((value) => {
   return value
 }, z.boolean())
 
-export const s_ActionType = z.union([z.enum(["Internal"]), z.string()])
-
 export const s_Azure_Core_uuid = z.string()
+
+export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
+  z.enum(["Internal"]),
+  z.string(),
+])
 
 export const s_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = z.object(
   { type: z.string().optional(), info: z.object({}).optional() },
@@ -32,34 +35,35 @@ export const s_Azure_ResourceManager_CommonTypes_OperationDisplay = z.object({
   description: z.string().optional(),
 })
 
-export const s_MoveRequest = z.object({ from: z.string(), to: z.string() })
-
-export const s_MoveResponse = z.object({ movingStatus: z.string() })
-
-export const s_Origin = z.union([
+export const s_Azure_ResourceManager_CommonTypes_Origin = z.union([
   z.enum(["user", "system", "user,system"]),
   z.string(),
 ])
 
-export const s_createdByType = z.union([
+export const s_Azure_ResourceManager_CommonTypes_createdByType = z.union([
   z.enum(["User", "Application", "ManagedIdentity", "Key"]),
   z.string(),
 ])
+
+export const s_MoveRequest = z.object({ from: z.string(), to: z.string() })
+
+export const s_MoveResponse = z.object({ movingStatus: z.string() })
 
 export const s_Azure_ResourceManager_CommonTypes_Operation = z.object({
   name: z.string().optional(),
   isDataAction: PermissiveBoolean.optional(),
   display: s_Azure_ResourceManager_CommonTypes_OperationDisplay.optional(),
-  origin: s_Origin.optional(),
-  actionType: s_ActionType.optional(),
+  origin: s_Azure_ResourceManager_CommonTypes_Origin.optional(),
+  actionType: s_Azure_ResourceManager_CommonTypes_ActionType.optional(),
 })
 
 export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
   createdBy: z.string().optional(),
-  createdByType: s_createdByType.optional(),
+  createdByType: s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
   createdAt: z.string().datetime({ offset: true }).optional(),
   lastModifiedBy: z.string().optional(),
-  lastModifiedByType: s_createdByType.optional(),
+  lastModifiedByType:
+    s_Azure_ResourceManager_CommonTypes_createdByType.optional(),
   lastModifiedAt: z.string().datetime({ offset: true }).optional(),
 })
 

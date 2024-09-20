@@ -23,15 +23,15 @@
     "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
-    "next": "14.2.8",
+    "next": "14.2.13",
     "nextra": "^2.13.4",
     "nextra-theme-docs": "^2.13.4",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.4.0",
-    "@types/react": "^18.3.3",
+    "@types/node": "^22.5.5",
+    "@types/react": "^18.3.8",
     "@types/react-dom": "^18.3.0",
     "gh-pages": "^6.1.1",
     "typescript": "^5.5.4"

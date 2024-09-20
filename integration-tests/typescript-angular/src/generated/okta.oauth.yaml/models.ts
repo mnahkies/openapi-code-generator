@@ -31,8 +31,8 @@ export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
 export type t_BackchannelAuthorizeRequest = {
   binding_message?: string
-  id_token_hint?: string
-  login_hint?: string
+  id_token_hint: string
+  login_hint: string
   request?: string
   request_expiry?: number
   scope: string
@@ -75,14 +75,16 @@ export type t_Client = {
   application_type?: t_ApplicationType
   readonly client_id?: string
   readonly client_id_issued_at?: number
-  client_name?: string
+  client_name: string
   readonly client_secret?: string | null
   readonly client_secret_expires_at?: number | null
   frontchannel_logout_session_required?: boolean
   frontchannel_logout_uri?: string | null
   grant_types?: t_GrantType[]
   initiate_login_uri?: string
-  jwks?: t_JsonWebKey[]
+  jwks?: {
+    keys?: t_JsonWebKey[]
+  }
   jwks_uri?: string
   logo_uri?: string | null
   policy_uri?: string | null
@@ -128,7 +130,7 @@ export type t_Error = {
 }
 
 export type t_GlobalTokenRevocationRequest = {
-  subject?: t_sub_id
+  sub_id?: t_sub_id
 }
 
 export type t_GrantType =
@@ -186,7 +188,7 @@ export type t_JsonWebKeyType = "EC" | "RSA"
 export type t_JsonWebKeyUse = "enc" | "sig"
 
 export type t_LogoutWithPost = {
-  id_token_hint?: string
+  id_token_hint: string
   post_logout_redirect_uri?: string
   state?: string
 }
@@ -304,7 +306,7 @@ export type t_ResponseTypesSupported =
   | "token"
 
 export type t_RevokeRequest = {
-  token?: string
+  token: string
   token_type_hint?: t_TokenTypeHintRevoke
 }
 

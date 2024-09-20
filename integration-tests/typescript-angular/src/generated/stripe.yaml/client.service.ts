@@ -80,6 +80,7 @@ import {
   t_identity_verification_report,
   t_identity_verification_session,
   t_invoice,
+  t_invoice_rendering_template,
   t_invoiceitem,
   t_issuing_authorization,
   t_issuing_card,
@@ -275,7 +276,7 @@ export class ApiClient {
       account: string
       collect?: "currently_due" | "eventually_due"
       collection_options?: {
-        fields: "currently_due" | "eventually_due"
+        fields?: "currently_due" | "eventually_due"
         future_requirements?: "include" | "omit"
       }
       expand?: string[]
@@ -3450,6 +3451,8 @@ export class ApiClient {
       expand?: string[]
       filter?: {
         customer?: string
+        subscription?: string
+        subscription_item?: string
       }
       title: string
       usage_threshold_config?: {
@@ -5710,6 +5713,7 @@ export class ApiClient {
         success_url?: string
         tax_id_collection?: {
           enabled: boolean
+          required?: "if_supported" | "never"
         }
         ui_mode?: "embedded" | "hosted"
       }
@@ -7025,6 +7029,7 @@ export class ApiClient {
                   | ""
                   | "exclude_tax"
                   | "include_inclusive_tax"
+                template?: string
               }
             | ""
         }
@@ -7093,6 +7098,7 @@ export class ApiClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -7326,6 +7332,7 @@ export class ApiClient {
         rendering_options?:
           | {
               amount_tax_display?: "" | "exclude_tax" | "include_inclusive_tax"
+              template?: string
             }
           | ""
       }
@@ -9348,6 +9355,7 @@ export class ApiClient {
         | "gb_vat"
         | "ge_vat"
         | "hk_br"
+        | "hr_oib"
         | "hu_tin"
         | "id_npwp"
         | "il_vat"
@@ -10238,6 +10246,7 @@ export class ApiClient {
         | "finance_report_run"
         | "identity_document"
         | "identity_document_downloadable"
+        | "issuing_regulatory_reporting"
         | "pci_document"
         | "selfie"
         | "sigma_scheduled_query"
@@ -10303,6 +10312,7 @@ export class ApiClient {
         | "customer_signature"
         | "dispute_evidence"
         | "identity_document"
+        | "issuing_regulatory_reporting"
         | "pci_document"
         | "tax_document_user_upload"
         | "terminal_reader_splashscreen"
@@ -11195,6 +11205,138 @@ export class ApiClient {
     )
   }
 
+  getInvoiceRenderingTemplates(
+    p: {
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      status?: "active" | "archived"
+      requestBody?: EmptyObject
+    } = {},
+  ): Observable<
+    | (HttpResponse<{
+        data: t_invoice_rendering_template[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+      status: p["status"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/invoice_rendering_templates`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  getInvoiceRenderingTemplatesTemplate(p: {
+    expand?: string[]
+    template: string
+    version?: number
+    requestBody?: EmptyObject
+  }): Observable<
+    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const params = this._queryParams({
+      expand: p["expand"],
+      version: p["version"],
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/v1/invoice_rendering_templates/${p["template"]}`,
+      {
+        params,
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoiceRenderingTemplatesTemplateArchive(p: {
+    template: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/invoice_rendering_templates/${p["template"]}/archive`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  postInvoiceRenderingTemplatesTemplateUnarchive(p: {
+    template: string
+    requestBody?: {
+      expand?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_invoice_rendering_template> & { status: 200 })
+    | (HttpResponse<t_error> & { status: StatusCode })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/v1/invoice_rendering_templates/${p["template"]}/unarchive`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   getInvoiceitems(
     p: {
       created?:
@@ -11657,6 +11799,8 @@ export class ApiClient {
           pdf?: {
             page_size?: "a4" | "auto" | "letter"
           }
+          template?: string
+          template_version?: number | ""
         }
         shipping_cost?: {
           shipping_rate?: string
@@ -11810,6 +11954,7 @@ export class ApiClient {
               | "gb_vat"
               | "ge_vat"
               | "hk_br"
+              | "hr_oib"
               | "hu_tin"
               | "id_npwp"
               | "il_vat"
@@ -12199,6 +12344,7 @@ export class ApiClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -12624,6 +12770,7 @@ export class ApiClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -13186,6 +13333,8 @@ export class ApiClient {
         pdf?: {
           page_size?: "a4" | "auto" | "letter"
         }
+        template?: string
+        template_version?: number | ""
       }
       shipping_cost?:
         | {
@@ -22130,6 +22279,7 @@ export class ApiClient {
       }
       tax_id_collection?: {
         enabled: boolean
+        required?: "if_supported" | "never"
       }
       transfer_data?: {
         amount?: number
@@ -22622,6 +22772,7 @@ export class ApiClient {
       }
       tax_id_collection?: {
         enabled: boolean
+        required?: "if_supported" | "never"
       }
     }
   }): Observable<
@@ -30752,6 +30903,7 @@ export class ApiClient {
             | "gb_vat"
             | "ge_vat"
             | "hk_br"
+            | "hr_oib"
             | "hu_tin"
             | "id_npwp"
             | "il_vat"
@@ -31216,6 +31368,15 @@ export class ApiClient {
             jurisdiction: string
           }
           state: string
+          state_sales_tax?: {
+            elections: {
+              jurisdiction?: string
+              type:
+                | "local_use_tax"
+                | "simplified_sellers_use_tax"
+                | "single_local_use_tax"
+            }[]
+          }
           type:
             | "local_amusement_tax"
             | "local_lease_tax"
@@ -31690,6 +31851,7 @@ export class ApiClient {
         | "gb_vat"
         | "ge_vat"
         | "hk_br"
+        | "hr_oib"
         | "hu_tin"
         | "id_npwp"
         | "il_vat"
@@ -32805,7 +32967,7 @@ export class ApiClient {
   postTerminalReadersReaderProcessSetupIntent(p: {
     reader: string
     requestBody: {
-      customer_consent_collected: boolean
+      customer_consent_collected?: boolean
       expand?: string[]
       process_config?: {
         enable_customer_cancellation?: boolean

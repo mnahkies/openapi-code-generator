@@ -66,7 +66,7 @@ export class ApiClient extends AbstractAxiosClient {
   async authorize(
     p: {
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -77,15 +77,15 @@ export class ApiClient extends AbstractAxiosClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
-    } = {},
+      state: string
+    },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {
@@ -641,7 +641,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       authorizationServerId: string
       acrValues?: t_AcrValue
-      clientId?: string
+      clientId: string
       codeChallenge?: string
       codeChallengeMethod?: t_CodeChallengeMethod
       display?: string
@@ -652,14 +652,14 @@ export class ApiClient extends AbstractAxiosClient {
       maxAge?: number
       nonce?: string
       prompt?: t_Prompt
-      redirectUri?: string
-      responseType?: t_ResponseTypesSupported
+      redirectUri: string
+      responseType: t_ResponseTypesSupported
       responseMode?: t_ResponseMode
       requestUri?: string
       request?: string
-      scope?: string
+      scope: string
       sessionToken?: string
-      state?: string
+      state: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},

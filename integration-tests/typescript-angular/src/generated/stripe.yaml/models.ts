@@ -335,6 +335,7 @@ export type t_account_requirements_error = {
     | "verification_missing_owners"
     | "verification_requires_additional_memorandum_of_associations"
     | "verification_requires_additional_proof_of_registration"
+    | "verification_supportability"
   reason: string
   requirement: string
 }
@@ -746,6 +747,15 @@ export type t_billing_meter_event_summary = {
   meter: string
   object: "billing.meter_event_summary"
   start_time: number
+}
+
+export type t_billing_clocks_resource_status_details_advancing_status_details =
+  {
+    target_frozen_time: number
+  }
+
+export type t_billing_clocks_resource_status_details_status_details = {
+  advancing?: t_billing_clocks_resource_status_details_advancing_status_details
 }
 
 export type t_billing_details = {
@@ -2282,10 +2292,15 @@ export type t_dispute_evidence_details = {
 }
 
 export type t_dispute_payment_method_details = {
+  amazon_pay?: t_dispute_payment_method_details_amazon_pay
   card?: t_dispute_payment_method_details_card
   klarna?: t_dispute_payment_method_details_klarna
   paypal?: t_dispute_payment_method_details_paypal
-  type: "card" | "klarna" | "paypal"
+  type: "amazon_pay" | "card" | "klarna" | "paypal"
+}
+
+export type t_dispute_payment_method_details_amazon_pay = {
+  dispute_type?: "chargeback" | "claim" | null
 }
 
 export type t_dispute_payment_method_details_card = {
@@ -2415,6 +2430,7 @@ export type t_file = {
     | "finance_report_run"
     | "identity_document"
     | "identity_document_downloadable"
+    | "issuing_regulatory_reporting"
     | "pci_document"
     | "selfie"
     | "sigma_scheduled_query"
@@ -2922,6 +2938,7 @@ export type t_invoice = {
   attempted: boolean
   auto_advance?: boolean
   automatic_tax: t_automatic_tax
+  automatically_finalizes_at?: number | null
   billing_reason?:
     | "automatic_pending_invoice_item_invoice"
     | "manual"
@@ -3093,6 +3110,19 @@ export type t_invoice_rendering_pdf = {
   page_size?: "a4" | "auto" | "letter" | null
 }
 
+export type t_invoice_rendering_template = {
+  created: number
+  id: string
+  livemode: boolean
+  metadata?: {
+    [key: string]: string | undefined
+  } | null
+  nickname?: string | null
+  object: "invoice_rendering_template"
+  status: "active" | "archived"
+  version: number
+}
+
 export type t_invoice_setting_custom_field = {
   name: string
   value: string
@@ -3100,6 +3130,7 @@ export type t_invoice_setting_custom_field = {
 
 export type t_invoice_setting_customer_rendering_options = {
   amount_tax_display?: string | null
+  template?: string | null
 }
 
 export type t_invoice_setting_customer_setting = {
@@ -3247,6 +3278,8 @@ export type t_invoices_resource_from_invoice = {
 export type t_invoices_resource_invoice_rendering = {
   amount_tax_display?: string | null
   pdf?: t_invoice_rendering_pdf | null
+  template?: string | null
+  template_version?: number | null
 }
 
 export type t_invoices_resource_invoice_tax_id = {
@@ -3283,6 +3316,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "gb_vat"
     | "ge_vat"
     | "hk_br"
+    | "hr_oib"
     | "hu_tin"
     | "id_npwp"
     | "il_vat"
@@ -3517,6 +3551,7 @@ export type t_issuing_settlement = {
   network_settlement_identifier: string
   object: "issuing.settlement"
   settlement_service: string
+  status: "complete" | "pending"
   transaction_count: number
   transaction_volume: number
 }
@@ -4358,6 +4393,7 @@ export type t_issuing_card_shipping = {
     | "pending"
     | "returned"
     | "shipped"
+    | "submitted"
     | null
   tracking_number?: string | null
   tracking_url?: string | null
@@ -5985,13 +6021,21 @@ export type t_item = {
   amount_tax: number
   amount_total: number
   currency: string
-  description: string
+  description?: string
   discounts?: t_line_items_discount_amount[]
   id: string
   object: "item"
   price?: t_price | null
   quantity?: number | null
   taxes?: t_line_items_tax_amount[]
+}
+
+export type t_klarna_address = {
+  country?: string | null
+}
+
+export type t_klarna_payer_details = {
+  address?: t_klarna_address | null
 }
 
 export type t_legal_entity_company = {
@@ -6109,8 +6153,8 @@ export type t_line_item = {
   quantity?: number | null
   subscription?: string | t_subscription | null
   subscription_item?: string | t_subscription_item
-  tax_amounts?: t_invoice_tax_amount[]
-  tax_rates?: t_tax_rate[]
+  tax_amounts: t_invoice_tax_amount[]
+  tax_rates: t_tax_rate[]
   type: "invoiceitem" | "subscription"
   unit_amount_excluding_tax?: string | null
 }
@@ -7311,6 +7355,7 @@ export type t_payment_links_resource_subscription_data_invoice_settings = {
 
 export type t_payment_links_resource_tax_id_collection = {
   enabled: boolean
+  required: "if_supported" | "never"
 }
 
 export type t_payment_links_resource_transfer_data = {
@@ -8036,6 +8081,7 @@ export type t_payment_method_details_interac_present_receipt = {
 }
 
 export type t_payment_method_details_klarna = {
+  payer_details?: t_klarna_payer_details | null
   payment_method_category?: string | null
   preferred_locale?: string | null
 }
@@ -9043,6 +9089,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "gb_vat"
     | "ge_vat"
     | "hk_br"
+    | "hr_oib"
     | "hu_tin"
     | "id_npwp"
     | "il_vat"
@@ -9090,6 +9137,7 @@ export type t_payment_pages_checkout_session_tax_id = {
 
 export type t_payment_pages_checkout_session_tax_id_collection = {
   enabled: boolean
+  required: "if_supported" | "never"
 }
 
 export type t_payment_pages_checkout_session_total_details = {
@@ -11136,6 +11184,7 @@ export type t_tax_id = {
     | "gb_vat"
     | "ge_vat"
     | "hk_br"
+    | "hr_oib"
     | "hu_tin"
     | "id_npwp"
     | "il_vat"
@@ -11279,6 +11328,7 @@ export type t_tax_product_registrations_resource_country_options_united_states =
     local_amusement_tax?: t_tax_product_registrations_resource_country_options_us_local_amusement_tax
     local_lease_tax?: t_tax_product_registrations_resource_country_options_us_local_lease_tax
     state: string
+    state_sales_tax?: t_tax_product_registrations_resource_country_options_us_state_sales_tax
     type:
       | "local_amusement_tax"
       | "local_lease_tax"
@@ -11294,6 +11344,20 @@ export type t_tax_product_registrations_resource_country_options_us_local_amusem
 export type t_tax_product_registrations_resource_country_options_us_local_lease_tax =
   {
     jurisdiction: string
+  }
+
+export type t_tax_product_registrations_resource_country_options_us_state_sales_tax =
+  {
+    elections?: t_tax_product_registrations_resource_country_options_us_state_sales_tax_election[]
+  }
+
+export type t_tax_product_registrations_resource_country_options_us_state_sales_tax_election =
+  {
+    jurisdiction?: string
+    type:
+      | "local_use_tax"
+      | "simplified_sellers_use_tax"
+      | "single_local_use_tax"
   }
 
 export type t_tax_product_resource_customer_details = {
@@ -11338,6 +11402,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "gb_vat"
     | "ge_vat"
     | "hk_br"
+    | "hr_oib"
     | "hu_tin"
     | "id_npwp"
     | "il_vat"
@@ -11757,6 +11822,7 @@ export type t_test_helpers_test_clock = {
   name?: string | null
   object: "test_helpers.test_clock"
   status: "advancing" | "internal_failure" | "ready"
+  status_details: t_billing_clocks_resource_status_details_status_details
 }
 
 export type t_three_d_secure_details = {
@@ -12136,6 +12202,7 @@ export type t_treasury_received_debit = {
     | "account_closed"
     | "account_frozen"
     | "insufficient_funds"
+    | "international_transaction"
     | "other"
     | null
   financial_account?: string | null
