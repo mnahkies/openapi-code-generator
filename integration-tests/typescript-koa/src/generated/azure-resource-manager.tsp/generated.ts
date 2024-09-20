@@ -65,7 +65,7 @@ export type OperationsListResponder = {
 } & KoaRuntimeResponder
 
 export type OperationsList = (
-  params: Params<void, t_OperationsListQuerySchema, void>,
+  params: Params<void, t_OperationsListQuerySchema, void, void>,
   respond: OperationsListResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -82,7 +82,12 @@ export type EmployeesGetResponder = {
 } & KoaRuntimeResponder
 
 export type EmployeesGet = (
-  params: Params<t_EmployeesGetParamSchema, t_EmployeesGetQuerySchema, void>,
+  params: Params<
+    t_EmployeesGetParamSchema,
+    t_EmployeesGetQuerySchema,
+    void,
+    void
+  >,
   respond: EmployeesGetResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -103,7 +108,8 @@ export type EmployeesCreateOrUpdate = (
   params: Params<
     t_EmployeesCreateOrUpdateParamSchema,
     t_EmployeesCreateOrUpdateQuerySchema,
-    t_EmployeesCreateOrUpdateBodySchema
+    t_EmployeesCreateOrUpdateBodySchema,
+    void
   >,
   respond: EmployeesCreateOrUpdateResponder,
   ctx: RouterContext,
@@ -125,7 +131,8 @@ export type EmployeesUpdate = (
   params: Params<
     t_EmployeesUpdateParamSchema,
     t_EmployeesUpdateQuerySchema,
-    t_EmployeesUpdateBodySchema
+    t_EmployeesUpdateBodySchema,
+    void
   >,
   respond: EmployeesUpdateResponder,
   ctx: RouterContext,
@@ -147,6 +154,7 @@ export type EmployeesDelete = (
   params: Params<
     t_EmployeesDeleteParamSchema,
     t_EmployeesDeleteQuerySchema,
+    void,
     void
   >,
   respond: EmployeesDeleteResponder,
@@ -169,6 +177,7 @@ export type EmployeesListByResourceGroup = (
   params: Params<
     t_EmployeesListByResourceGroupParamSchema,
     t_EmployeesListByResourceGroupQuerySchema,
+    void,
     void
   >,
   respond: EmployeesListByResourceGroupResponder,
@@ -190,6 +199,7 @@ export type EmployeesListBySubscription = (
   params: Params<
     t_EmployeesListBySubscriptionParamSchema,
     t_EmployeesListBySubscriptionQuerySchema,
+    void,
     void
   >,
   respond: EmployeesListBySubscriptionResponder,
@@ -211,7 +221,8 @@ export type EmployeesMove = (
   params: Params<
     t_EmployeesMoveParamSchema,
     t_EmployeesMoveQuerySchema,
-    t_EmployeesMoveBodySchema
+    t_EmployeesMoveBodySchema,
+    void
   >,
   respond: EmployeesMoveResponder,
   ctx: RouterContext,
@@ -256,6 +267,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -320,6 +332,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -395,6 +408,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
+        headers: undefined,
       }
 
       const responder = {
@@ -470,6 +484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
+        headers: undefined,
       }
 
       const responder = {
@@ -539,6 +554,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -608,6 +624,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -669,6 +686,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -741,6 +759,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
+        headers: undefined,
       }
 
       const responder = {

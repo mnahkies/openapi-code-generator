@@ -8,56 +8,73 @@ import {
   t_Azure_Core_Foundations_OperationState,
   t_Manufacturer,
   t_ManufacturersCreateManufacturerBodySchema,
+  t_ManufacturersCreateManufacturerHeaderSchema,
   t_ManufacturersCreateManufacturerParamSchema,
   t_ManufacturersCreateManufacturerQuerySchema,
+  t_ManufacturersDeleteManufacturerHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
+  t_ManufacturersGetManufacturerHeaderSchema,
   t_ManufacturersGetManufacturerOperationStatusParamSchema,
   t_ManufacturersGetManufacturerOperationStatusQuerySchema,
   t_ManufacturersGetManufacturerParamSchema,
   t_ManufacturersGetManufacturerQuerySchema,
+  t_ManufacturersListManufacturersHeaderSchema,
   t_ManufacturersListManufacturersQuerySchema,
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
+  t_ServiceStatusHeaderSchema,
   t_ServiceStatusQuerySchema,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetPart,
   t_WidgetPartsCreateWidgetPartBodySchema,
+  t_WidgetPartsCreateWidgetPartHeaderSchema,
   t_WidgetPartsCreateWidgetPartParamSchema,
   t_WidgetPartsCreateWidgetPartQuerySchema,
+  t_WidgetPartsDeleteWidgetPartHeaderSchema,
   t_WidgetPartsDeleteWidgetPartParamSchema,
   t_WidgetPartsDeleteWidgetPartQuerySchema,
+  t_WidgetPartsGetWidgetPartHeaderSchema,
   t_WidgetPartsGetWidgetPartOperationStatusParamSchema,
   t_WidgetPartsGetWidgetPartOperationStatusQuerySchema,
   t_WidgetPartsGetWidgetPartParamSchema,
   t_WidgetPartsGetWidgetPartQuerySchema,
+  t_WidgetPartsListWidgetPartsHeaderSchema,
   t_WidgetPartsListWidgetPartsParamSchema,
   t_WidgetPartsListWidgetPartsQuerySchema,
   t_WidgetPartsReorderPartsBodySchema,
+  t_WidgetPartsReorderPartsHeaderSchema,
   t_WidgetPartsReorderPartsParamSchema,
   t_WidgetPartsReorderPartsQuerySchema,
   t_WidgetRepairRequest,
   t_WidgetRepairState,
   t_WidgetsCreateOrUpdateWidgetBodySchema,
+  t_WidgetsCreateOrUpdateWidgetHeaderSchema,
   t_WidgetsCreateOrUpdateWidgetParamSchema,
   t_WidgetsCreateOrUpdateWidgetQuerySchema,
+  t_WidgetsDeleteWidgetHeaderSchema,
   t_WidgetsDeleteWidgetParamSchema,
   t_WidgetsDeleteWidgetQuerySchema,
+  t_WidgetsGetAnalyticsHeaderSchema,
   t_WidgetsGetAnalyticsParamSchema,
   t_WidgetsGetAnalyticsQuerySchema,
   t_WidgetsGetRepairStatusParamSchema,
   t_WidgetsGetRepairStatusQuerySchema,
+  t_WidgetsGetWidgetHeaderSchema,
   t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
   t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
   t_WidgetsGetWidgetParamSchema,
   t_WidgetsGetWidgetQuerySchema,
+  t_WidgetsListWidgetsHeaderSchema,
   t_WidgetsListWidgetsQuerySchema,
   t_WidgetsScheduleRepairsBodySchema,
+  t_WidgetsScheduleRepairsHeaderSchema,
   t_WidgetsScheduleRepairsParamSchema,
   t_WidgetsScheduleRepairsQuerySchema,
   t_WidgetsUpdateAnalyticsBodySchema,
+  t_WidgetsUpdateAnalyticsHeaderSchema,
   t_WidgetsUpdateAnalyticsParamSchema,
   t_WidgetsUpdateAnalyticsQuerySchema,
 } from "./models"
@@ -65,6 +82,7 @@ import {
   s_Azure_Core_Foundations_Error,
   s_Azure_Core_Foundations_ErrorResponse,
   s_Azure_Core_Foundations_OperationState,
+  s_Azure_Core_uuid,
   s_Manufacturer,
   s_PagedManufacturer,
   s_PagedWidget,
@@ -108,7 +126,12 @@ export type ServiceStatusResponder = {
 } & KoaRuntimeResponder
 
 export type ServiceStatus = (
-  params: Params<void, t_ServiceStatusQuerySchema, void>,
+  params: Params<
+    void,
+    t_ServiceStatusQuerySchema,
+    void,
+    t_ServiceStatusHeaderSchema
+  >,
   respond: ServiceStatusResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -147,6 +170,7 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
     params: Params<
       t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusParamSchema,
       t_WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusQuerySchema,
+      void,
       void
     >,
     respond: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
@@ -182,7 +206,8 @@ export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
     t_WidgetsCreateOrUpdateWidgetQuerySchema,
-    t_WidgetsCreateOrUpdateWidgetBodySchema
+    t_WidgetsCreateOrUpdateWidgetBodySchema,
+    t_WidgetsCreateOrUpdateWidgetHeaderSchema
   >,
   respond: WidgetsCreateOrUpdateWidgetResponder,
   ctx: RouterContext,
@@ -204,7 +229,8 @@ export type WidgetsGetWidget = (
   params: Params<
     t_WidgetsGetWidgetParamSchema,
     t_WidgetsGetWidgetQuerySchema,
-    void
+    void,
+    t_WidgetsGetWidgetHeaderSchema
   >,
   respond: WidgetsGetWidgetResponder,
   ctx: RouterContext,
@@ -229,7 +255,8 @@ export type WidgetsDeleteWidget = (
   params: Params<
     t_WidgetsDeleteWidgetParamSchema,
     t_WidgetsDeleteWidgetQuerySchema,
-    void
+    void,
+    t_WidgetsDeleteWidgetHeaderSchema
   >,
   respond: WidgetsDeleteWidgetResponder,
   ctx: RouterContext,
@@ -254,7 +281,12 @@ export type WidgetsListWidgetsResponder = {
 } & KoaRuntimeResponder
 
 export type WidgetsListWidgets = (
-  params: Params<void, t_WidgetsListWidgetsQuerySchema, void>,
+  params: Params<
+    void,
+    t_WidgetsListWidgetsQuerySchema,
+    void,
+    t_WidgetsListWidgetsHeaderSchema
+  >,
   respond: WidgetsListWidgetsResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -274,7 +306,8 @@ export type WidgetsGetAnalytics = (
   params: Params<
     t_WidgetsGetAnalyticsParamSchema,
     t_WidgetsGetAnalyticsQuerySchema,
-    void
+    void,
+    t_WidgetsGetAnalyticsHeaderSchema
   >,
   respond: WidgetsGetAnalyticsResponder,
   ctx: RouterContext,
@@ -296,7 +329,8 @@ export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
     t_WidgetsUpdateAnalyticsQuerySchema,
-    t_WidgetsUpdateAnalyticsBodySchema
+    t_WidgetsUpdateAnalyticsBodySchema,
+    t_WidgetsUpdateAnalyticsHeaderSchema
   >,
   respond: WidgetsUpdateAnalyticsResponder,
   ctx: RouterContext,
@@ -323,6 +357,7 @@ export type WidgetsGetRepairStatus = (
   params: Params<
     t_WidgetsGetRepairStatusParamSchema,
     t_WidgetsGetRepairStatusQuerySchema,
+    void,
     void
   >,
   respond: WidgetsGetRepairStatusResponder,
@@ -363,7 +398,8 @@ export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
     t_WidgetsScheduleRepairsQuerySchema,
-    t_WidgetsScheduleRepairsBodySchema
+    t_WidgetsScheduleRepairsBodySchema,
+    t_WidgetsScheduleRepairsHeaderSchema
   >,
   respond: WidgetsScheduleRepairsResponder,
   ctx: RouterContext,
@@ -403,6 +439,7 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
   params: Params<
     t_WidgetPartsGetWidgetPartOperationStatusParamSchema,
     t_WidgetPartsGetWidgetPartOperationStatusQuerySchema,
+    void,
     void
   >,
   respond: WidgetPartsGetWidgetPartOperationStatusResponder,
@@ -432,7 +469,8 @@ export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
     t_WidgetPartsCreateWidgetPartQuerySchema,
-    t_WidgetPartsCreateWidgetPartBodySchema
+    t_WidgetPartsCreateWidgetPartBodySchema,
+    t_WidgetPartsCreateWidgetPartHeaderSchema
   >,
   respond: WidgetPartsCreateWidgetPartResponder,
   ctx: RouterContext,
@@ -453,7 +491,8 @@ export type WidgetPartsListWidgetParts = (
   params: Params<
     t_WidgetPartsListWidgetPartsParamSchema,
     t_WidgetPartsListWidgetPartsQuerySchema,
-    void
+    void,
+    t_WidgetPartsListWidgetPartsHeaderSchema
   >,
   respond: WidgetPartsListWidgetPartsResponder,
   ctx: RouterContext,
@@ -474,7 +513,8 @@ export type WidgetPartsGetWidgetPart = (
   params: Params<
     t_WidgetPartsGetWidgetPartParamSchema,
     t_WidgetPartsGetWidgetPartQuerySchema,
-    void
+    void,
+    t_WidgetPartsGetWidgetPartHeaderSchema
   >,
   respond: WidgetPartsGetWidgetPartResponder,
   ctx: RouterContext,
@@ -495,7 +535,8 @@ export type WidgetPartsDeleteWidgetPart = (
   params: Params<
     t_WidgetPartsDeleteWidgetPartParamSchema,
     t_WidgetPartsDeleteWidgetPartQuerySchema,
-    void
+    void,
+    t_WidgetPartsDeleteWidgetPartHeaderSchema
   >,
   respond: WidgetPartsDeleteWidgetPartResponder,
   ctx: RouterContext,
@@ -520,7 +561,8 @@ export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
     t_WidgetPartsReorderPartsQuerySchema,
-    t_WidgetPartsReorderPartsBodySchema
+    t_WidgetPartsReorderPartsBodySchema,
+    t_WidgetPartsReorderPartsHeaderSchema
   >,
   respond: WidgetPartsReorderPartsResponder,
   ctx: RouterContext,
@@ -553,6 +595,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
   params: Params<
     t_ManufacturersGetManufacturerOperationStatusParamSchema,
     t_ManufacturersGetManufacturerOperationStatusQuerySchema,
+    void,
     void
   >,
   respond: ManufacturersGetManufacturerOperationStatusResponder,
@@ -583,7 +626,8 @@ export type ManufacturersCreateManufacturer = (
   params: Params<
     t_ManufacturersCreateManufacturerParamSchema,
     t_ManufacturersCreateManufacturerQuerySchema,
-    t_ManufacturersCreateManufacturerBodySchema
+    t_ManufacturersCreateManufacturerBodySchema,
+    t_ManufacturersCreateManufacturerHeaderSchema
   >,
   respond: ManufacturersCreateManufacturerResponder,
   ctx: RouterContext,
@@ -605,7 +649,8 @@ export type ManufacturersGetManufacturer = (
   params: Params<
     t_ManufacturersGetManufacturerParamSchema,
     t_ManufacturersGetManufacturerQuerySchema,
-    void
+    void,
+    t_ManufacturersGetManufacturerHeaderSchema
   >,
   respond: ManufacturersGetManufacturerResponder,
   ctx: RouterContext,
@@ -630,7 +675,8 @@ export type ManufacturersDeleteManufacturer = (
   params: Params<
     t_ManufacturersDeleteManufacturerParamSchema,
     t_ManufacturersDeleteManufacturerQuerySchema,
-    void
+    void,
+    t_ManufacturersDeleteManufacturerHeaderSchema
   >,
   respond: ManufacturersDeleteManufacturerResponder,
   ctx: RouterContext,
@@ -655,7 +701,12 @@ export type ManufacturersListManufacturersResponder = {
 } & KoaRuntimeResponder
 
 export type ManufacturersListManufacturers = (
-  params: Params<void, t_ManufacturersListManufacturersQuerySchema, void>,
+  params: Params<
+    void,
+    t_ManufacturersListManufacturersQuerySchema,
+    void,
+    t_ManufacturersListManufacturersHeaderSchema
+  >,
   respond: ManufacturersListManufacturersResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -695,6 +746,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const serviceStatusHeaderSchema = z.object({
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const serviceStatusResponseValidator = responseValidationFactory(
     [["200", z.object({ statusString: z.string() })]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -709,6 +764,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: parseRequestInput(
+        serviceStatusHeaderSchema,
+        Reflect.get(ctx.request, "headers"),
+        RequestInputType.RequestHeader,
+      ),
     }
 
     const responder = {
@@ -786,6 +846,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -845,6 +906,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetsCreateOrUpdateWidgetHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsCreateOrUpdateWidgetBodySchema = s_WidgetCreateOrUpdate
 
   const widgetsCreateOrUpdateWidgetResponseValidator =
@@ -875,6 +949,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           widgetsCreateOrUpdateWidgetBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          widgetsCreateOrUpdateWidgetHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -916,6 +995,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetsGetWidgetHeaderSchema = z.object({
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsGetWidgetResponseValidator = responseValidationFactory(
     [["200", s_Widget]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -934,6 +1021,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: parseRequestInput(
+        widgetsGetWidgetHeaderSchema,
+        Reflect.get(ctx.request, "headers"),
+        RequestInputType.RequestHeader,
+      ),
     }
 
     const responder = {
@@ -970,6 +1062,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetsDeleteWidgetHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsDeleteWidgetResponseValidator = responseValidationFactory(
     [
       [
@@ -1000,6 +1105,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          widgetsDeleteWidgetHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -1048,6 +1158,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
   })
 
+  const widgetsListWidgetsHeaderSchema = z.object({
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsListWidgetsResponseValidator = responseValidationFactory(
     [["200", s_PagedWidget]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -1062,6 +1176,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: parseRequestInput(
+        widgetsListWidgetsHeaderSchema,
+        Reflect.get(ctx.request, "headers"),
+        RequestInputType.RequestHeader,
+      ),
     }
 
     const responder = {
@@ -1098,6 +1217,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetsGetAnalyticsHeaderSchema = z.object({
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsGetAnalyticsResponseValidator = responseValidationFactory(
     [["200", s_WidgetAnalytics]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -1119,6 +1246,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          widgetsGetAnalyticsHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -1156,6 +1288,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetsUpdateAnalyticsHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetsUpdateAnalyticsBodySchema = s_WidgetAnalyticsCreateOrUpdate
 
   const widgetsUpdateAnalyticsResponseValidator = responseValidationFactory(
@@ -1185,6 +1330,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           widgetsUpdateAnalyticsBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          widgetsUpdateAnalyticsHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -1260,6 +1410,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -1300,6 +1451,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetsScheduleRepairsQuerySchema = z.object({
     "api-version": z.string().min(1),
+  })
+
+  const widgetsScheduleRepairsHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
   const widgetsScheduleRepairsBodySchema = s_WidgetRepairRequest
@@ -1346,6 +1506,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           widgetsScheduleRepairsBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          widgetsScheduleRepairsHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -1431,6 +1596,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -1478,6 +1644,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetPartsCreateWidgetPartHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetPartsCreateWidgetPartBodySchema = s_WidgetPart
 
   const widgetPartsCreateWidgetPartResponseValidator =
@@ -1505,6 +1684,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           widgetPartsCreateWidgetPartBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          widgetPartsCreateWidgetPartHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -1545,6 +1729,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetPartsListWidgetPartsHeaderSchema = z.object({
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetPartsListWidgetPartsResponseValidator = responseValidationFactory(
     [["200", s_PagedWidgetPart]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -1566,6 +1754,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          widgetPartsListWidgetPartsHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -1606,6 +1799,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetPartsGetWidgetPartHeaderSchema = z.object({
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetPartsGetWidgetPartResponseValidator = responseValidationFactory(
     [["200", s_WidgetPart]],
     s_Azure_Core_Foundations_ErrorResponse,
@@ -1627,6 +1828,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          widgetPartsGetWidgetPartHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -1667,6 +1873,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetPartsDeleteWidgetPartHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetPartsDeleteWidgetPartResponseValidator =
     responseValidationFactory(
       [["204", z.undefined()]],
@@ -1689,6 +1908,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          widgetPartsDeleteWidgetPartHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -1728,6 +1952,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const widgetPartsReorderPartsHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const widgetPartsReorderPartsBodySchema = s_WidgetPartReorderRequest
 
   const widgetPartsReorderPartsResponseValidator = responseValidationFactory(
@@ -1763,6 +1996,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           widgetPartsReorderPartsBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          widgetPartsReorderPartsHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -1840,6 +2078,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: undefined,
       }
 
       const responder = {
@@ -1887,6 +2126,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const manufacturersCreateManufacturerHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const manufacturersCreateManufacturerBodySchema = s_Manufacturer
 
   const manufacturersCreateManufacturerResponseValidator =
@@ -1917,6 +2169,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           manufacturersCreateManufacturerBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
+        ),
+        headers: parseRequestInput(
+          manufacturersCreateManufacturerHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
         ),
       }
 
@@ -1960,6 +2217,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const manufacturersGetManufacturerHeaderSchema = z.object({
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const manufacturersGetManufacturerResponseValidator =
     responseValidationFactory(
       [["200", s_Manufacturer]],
@@ -1982,6 +2247,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          manufacturersGetManufacturerHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -2021,6 +2291,19 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const manufacturersDeleteManufacturerHeaderSchema = z.object({
+    "repeatability-request-id": z.string().optional(),
+    "repeatability-first-sent": z
+      .string()
+      .datetime({ offset: true })
+      .optional(),
+    "if-match": z.string().optional(),
+    "if-none-match": z.string().optional(),
+    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
+    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const manufacturersDeleteManufacturerResponseValidator =
     responseValidationFactory(
       [
@@ -2052,6 +2335,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          manufacturersDeleteManufacturerHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {
@@ -2091,6 +2379,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "api-version": z.string().min(1),
   })
 
+  const manufacturersListManufacturersHeaderSchema = z.object({
+    "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
+  })
+
   const manufacturersListManufacturersResponseValidator =
     responseValidationFactory(
       [["200", s_PagedManufacturer]],
@@ -2109,6 +2401,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
           RequestInputType.QueryString,
         ),
         body: undefined,
+        headers: parseRequestInput(
+          manufacturersListManufacturersHeaderSchema,
+          Reflect.get(ctx.request, "headers"),
+          RequestInputType.RequestHeader,
+        ),
       }
 
       const responder = {

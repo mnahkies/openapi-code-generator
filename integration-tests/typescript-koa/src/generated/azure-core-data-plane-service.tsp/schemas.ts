@@ -16,6 +16,8 @@ export const s_Azure_Core_Foundations_OperationState = z.union([
 
 export const s_Azure_Core_eTag = z.string()
 
+export const s_Azure_Core_uuid = z.string()
+
 export const s_WidgetAnalytics = z.object({
   id: z.enum(["current"]),
   useCount: z.coerce.number(),

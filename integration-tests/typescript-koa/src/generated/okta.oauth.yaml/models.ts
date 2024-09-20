@@ -588,6 +588,14 @@ export type t_ParCustomAsParamSchema = {
   authorizationServerId: string
 }
 
+export type t_ParOptionsHeaderSchema = {
+  origin?: string
+}
+
+export type t_ParOptionsCustomAsHeaderSchema = {
+  origin?: string
+}
+
 export type t_ParOptionsCustomAsParamSchema = {
   authorizationServerId: string
 }
@@ -645,6 +653,14 @@ export type t_TokenCustomAsBodySchema = {
 
 export type t_TokenCustomAsParamSchema = {
   authorizationServerId: string
+}
+
+export type t_TokenOptionsHeaderSchema = {
+  origin?: string
+}
+
+export type t_TokenOptionsCustomAsHeaderSchema = {
+  origin?: string
 }
 
 export type t_TokenOptionsCustomAsParamSchema = {

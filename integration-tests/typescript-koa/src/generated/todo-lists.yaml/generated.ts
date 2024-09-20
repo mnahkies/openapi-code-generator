@@ -47,7 +47,7 @@ export type GetTodoListsResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoLists = (
-  params: Params<void, t_GetTodoListsQuerySchema, void>,
+  params: Params<void, t_GetTodoListsQuerySchema, void, void>,
   respond: GetTodoListsResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_TodoList[]>>
@@ -59,7 +59,7 @@ export type GetTodoListByIdResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoListById = (
-  params: Params<t_GetTodoListByIdParamSchema, void, void>,
+  params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
   respond: GetTodoListByIdResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -79,7 +79,8 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdBodySchema
+    t_UpdateTodoListByIdBodySchema,
+    void
   >,
   respond: UpdateTodoListByIdResponder,
   ctx: RouterContext,
@@ -97,7 +98,7 @@ export type DeleteTodoListByIdResponder = {
 } & KoaRuntimeResponder
 
 export type DeleteTodoListById = (
-  params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
+  params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
   respond: DeleteTodoListByIdResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -121,7 +122,7 @@ export type GetTodoListItemsResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoListItems = (
-  params: Params<t_GetTodoListItemsParamSchema, void, void>,
+  params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
   respond: GetTodoListItemsResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -152,7 +153,8 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemBodySchema
+    t_CreateTodoListItemBodySchema,
+    void
   >,
   respond: CreateTodoListItemResponder,
   ctx: RouterContext,
@@ -200,6 +202,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -244,6 +247,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -300,6 +304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
+      headers: undefined,
     }
 
     const responder = {
@@ -350,6 +355,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -408,6 +414,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -473,6 +480,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
+        headers: undefined,
       }
 
       const responder = {

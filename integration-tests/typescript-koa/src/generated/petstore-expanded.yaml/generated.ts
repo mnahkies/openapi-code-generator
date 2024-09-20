@@ -37,7 +37,7 @@ export type FindPetsResponder = {
 } & KoaRuntimeResponder
 
 export type FindPets = (
-  params: Params<void, t_FindPetsQuerySchema, void>,
+  params: Params<void, t_FindPetsQuerySchema, void, void>,
   respond: FindPetsResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -52,7 +52,7 @@ export type AddPetResponder = {
 } & KoaRuntimeResponder
 
 export type AddPet = (
-  params: Params<void, void, t_AddPetBodySchema>,
+  params: Params<void, void, t_AddPetBodySchema, void>,
   respond: AddPetResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -67,7 +67,7 @@ export type FindPetByIdResponder = {
 } & KoaRuntimeResponder
 
 export type FindPetById = (
-  params: Params<t_FindPetByIdParamSchema, void, void>,
+  params: Params<t_FindPetByIdParamSchema, void, void, void>,
   respond: FindPetByIdResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -82,7 +82,7 @@ export type DeletePetResponder = {
 } & KoaRuntimeResponder
 
 export type DeletePet = (
-  params: Params<t_DeletePetParamSchema, void, void>,
+  params: Params<t_DeletePetParamSchema, void, void, void>,
   respond: DeletePetResponder,
   ctx: RouterContext,
 ) => Promise<
@@ -125,6 +125,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -169,6 +170,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         Reflect.get(ctx.request, "body"),
         RequestInputType.RequestBody,
       ),
+      headers: undefined,
     }
 
     const responder = {
@@ -213,6 +215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -257,6 +260,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ),
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
