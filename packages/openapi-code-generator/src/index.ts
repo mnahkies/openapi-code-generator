@@ -22,6 +22,7 @@ export type Config = {
     | "typescript-axios"
     | "typescript-angular"
     | "typescript-koa"
+    | "typescript-nextjs"
   schemaBuilder: "zod" | "joi"
   enableRuntimeResponseValidation: boolean
   extractInlineSchemas: boolean
