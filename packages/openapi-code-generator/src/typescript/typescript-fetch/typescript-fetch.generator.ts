@@ -36,6 +36,7 @@ export async function generateTypescriptFetch(
     rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      enableTypedBasePaths: config.enableTypedBasePaths,
     },
   )
 

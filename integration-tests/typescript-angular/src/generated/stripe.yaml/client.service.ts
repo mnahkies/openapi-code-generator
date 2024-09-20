@@ -164,7 +164,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ApiClientConfig {
-  basePath: string = ""
+  basePath: "https://api.stripe.com/" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 

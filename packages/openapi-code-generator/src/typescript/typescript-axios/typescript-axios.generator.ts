@@ -37,6 +37,7 @@ export async function generateTypescriptAxios(
     rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      enableTypedBasePaths: config.enableTypedBasePaths,
     },
   )
 

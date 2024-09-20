@@ -17,7 +17,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ApiClientConfig {
-  basePath: string = ""
+  basePath: "https://management.azure.com" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 

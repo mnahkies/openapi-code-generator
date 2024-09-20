@@ -39,7 +39,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ApiClientConfig {
-  basePath: string = ""
+  basePath: "https://{yourOktaDomain}" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 

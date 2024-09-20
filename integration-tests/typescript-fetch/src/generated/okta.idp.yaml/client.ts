@@ -27,7 +27,9 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export interface ApiClientConfig extends AbstractFetchClientConfig {
+  basePath: "https://{yourOktaDomain}" | string
+}
 
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {

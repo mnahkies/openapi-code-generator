@@ -5,6 +5,7 @@ import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import type {SchemaBuilder} from "./schema-builders/schema-builder"
 import type {TypeBuilder} from "./type-builder"
+import {quotedStringLiteral, union} from "./type-utils"
 
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []
@@ -18,9 +19,22 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     protected readonly schemaBuilder: SchemaBuilder,
     protected readonly config: {
       enableRuntimeResponseValidation: boolean
-    } = {enableRuntimeResponseValidation: false},
+      enableTypedBasePaths: boolean
+    } = {enableRuntimeResponseValidation: false, enableTypedBasePaths: true},
   ) {
     this.buildImports(imports)
+  }
+
+  basePathType() {
+    const serverUrls = this.input
+      .servers()
+      .map((it) => quotedStringLiteral(it.url))
+
+    if (this.config.enableTypedBasePaths && serverUrls.length > 0) {
+      return union(...serverUrls, "string")
+    }
+
+    return ""
   }
 
   add(operation: IROperation): void {

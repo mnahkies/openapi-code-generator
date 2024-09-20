@@ -25,7 +25,7 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ApiClientConfig {
-  basePath: string = ""
+  basePath: "{endpoint}/widget" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
 

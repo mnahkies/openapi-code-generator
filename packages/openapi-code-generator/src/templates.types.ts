@@ -7,6 +7,7 @@ export interface OpenapiGeneratorConfig {
   input: Input
   emitter: TypescriptEmitter
   enableRuntimeResponseValidation: boolean
+  enableTypedBasePaths: boolean
   groupingStrategy: OperationGroupStrategy
 }
 

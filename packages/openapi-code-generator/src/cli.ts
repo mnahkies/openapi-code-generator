@@ -123,6 +123,15 @@ const program = new Command()
   )
   .addOption(
     new Option(
+      "--enable-typed-base-paths",
+      "(client sdks only) whether to produce a union type for the client basePath from the `servers` array",
+    )
+      .env("OPENAPI_ENABLE_TYPED_BASE_PATHS")
+      .argParser(boolParser)
+      .default(true),
+  )
+  .addOption(
+    new Option(
       "--extract-inline-schemas [bool]",
       "(experimental) Generate names and extract types/schemas for inline schemas",
     )

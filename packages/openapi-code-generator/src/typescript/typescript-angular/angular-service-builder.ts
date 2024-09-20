@@ -68,9 +68,11 @@ return this.httpClient.request<any>(
   }
 
   protected buildClient(clientName: string, clientMethods: string[]): string {
+    const basePathType = this.basePathType()
+
     return `
 export class ${clientName}Config {
-  basePath: string = ''
+  basePath: ${basePathType ? basePathType : "string"} = ''
   defaultHeaders: Record<string, string> = {}
 }
 

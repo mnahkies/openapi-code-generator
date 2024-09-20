@@ -34,6 +34,7 @@ export async function generateTypescriptAngular(
     rootSchemaBuilder.withImports(imports),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      enableTypedBasePaths: config.enableTypedBasePaths,
     },
   )
 
