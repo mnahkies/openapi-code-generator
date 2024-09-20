@@ -2411,7 +2411,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const sendPhoneChallengeBodySchema = z.object({
     method: z.enum(["SMS", "CALL"]),
-    retry: PermissiveBoolean.optional(),
+    retry: PermissiveBoolean.optional().default(false),
   })
 
   const sendPhoneChallengeResponseValidator = responseValidationFactory(

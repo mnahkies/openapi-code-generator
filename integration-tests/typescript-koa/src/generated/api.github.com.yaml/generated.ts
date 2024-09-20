@@ -23847,7 +23847,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     description: z.string().optional(),
     files: z.record(z.object({ content: z.string() })),
     public: z
-      .union([PermissiveBoolean, z.enum(["true", "false"]).default("false")])
+      .union([
+        PermissiveBoolean.default(false),
+        z.enum(["true", "false"]).default("false"),
+      ])
       .optional(),
   })
 
@@ -25967,8 +25970,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const activityListNotificationsForAuthenticatedUserQuerySchema = z.object({
-    all: PermissiveBoolean.optional(),
-    participating: PermissiveBoolean.optional(),
+    all: PermissiveBoolean.optional().default(false),
+    participating: PermissiveBoolean.optional().default(false),
     since: z.string().datetime({ offset: true }).optional(),
     before: z.string().datetime({ offset: true }).optional(),
     page: z.coerce.number().optional().default(1),
@@ -26351,7 +26354,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const activitySetThreadSubscriptionBodySchema = z
-    .object({ ignored: PermissiveBoolean.optional() })
+    .object({ ignored: PermissiveBoolean.optional().default(false) })
     .optional()
 
   const activitySetThreadSubscriptionResponseValidator =
@@ -26646,8 +26649,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         PermissiveBoolean.optional().default(true),
       members_can_create_private_pages:
         PermissiveBoolean.optional().default(true),
-      members_can_fork_private_repositories: PermissiveBoolean.optional(),
-      web_commit_signoff_required: PermissiveBoolean.optional(),
+      members_can_fork_private_repositories:
+        PermissiveBoolean.optional().default(false),
+      web_commit_signoff_required: PermissiveBoolean.optional().default(false),
       blog: z.string().optional(),
       advanced_security_enabled_for_new_repositories:
         PermissiveBoolean.optional(),
@@ -29882,7 +29886,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("disabled"),
     dependency_graph_autosubmit_action_options: z
-      .object({ labeled_runners: PermissiveBoolean.optional() })
+      .object({ labeled_runners: PermissiveBoolean.optional().default(false) })
       .optional(),
     dependabot_alerts: z
       .enum(["enabled", "disabled", "not_set"])
@@ -34798,13 +34802,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const migrationsStartForOrgBodySchema = z.object({
     repositories: z.array(z.string()),
-    lock_repositories: PermissiveBoolean.optional(),
-    exclude_metadata: PermissiveBoolean.optional(),
-    exclude_git_data: PermissiveBoolean.optional(),
-    exclude_attachments: PermissiveBoolean.optional(),
-    exclude_releases: PermissiveBoolean.optional(),
-    exclude_owner_projects: PermissiveBoolean.optional(),
-    org_metadata_only: PermissiveBoolean.optional(),
+    lock_repositories: PermissiveBoolean.optional().default(false),
+    exclude_metadata: PermissiveBoolean.optional().default(false),
+    exclude_git_data: PermissiveBoolean.optional().default(false),
+    exclude_attachments: PermissiveBoolean.optional().default(false),
+    exclude_releases: PermissiveBoolean.optional().default(false),
+    exclude_owner_projects: PermissiveBoolean.optional().default(false),
+    org_metadata_only: PermissiveBoolean.optional().default(false),
     exclude: z.array(z.enum(["repositories"])).optional(),
   })
 
@@ -35787,7 +35791,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const orgsConvertMemberToOutsideCollaboratorBodySchema = z
-    .object({ async: PermissiveBoolean.optional() })
+    .object({ async: PermissiveBoolean.optional().default(false) })
     .optional()
 
   const orgsConvertMemberToOutsideCollaboratorResponseValidator =
@@ -38010,23 +38014,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
     description: z.string().optional(),
     homepage: z.string().optional(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
     visibility: z.enum(["public", "private"]).optional(),
     has_issues: PermissiveBoolean.optional().default(true),
     has_projects: PermissiveBoolean.optional().default(true),
     has_wiki: PermissiveBoolean.optional().default(true),
     has_downloads: PermissiveBoolean.optional().default(true),
-    is_template: PermissiveBoolean.optional(),
+    is_template: PermissiveBoolean.optional().default(false),
     team_id: z.coerce.number().optional(),
-    auto_init: PermissiveBoolean.optional(),
+    auto_init: PermissiveBoolean.optional().default(false),
     gitignore_template: z.string().optional(),
     license_template: z.string().optional(),
     allow_squash_merge: PermissiveBoolean.optional().default(true),
     allow_merge_commit: PermissiveBoolean.optional().default(true),
     allow_rebase_merge: PermissiveBoolean.optional().default(true),
-    allow_auto_merge: PermissiveBoolean.optional(),
-    delete_branch_on_merge: PermissiveBoolean.optional(),
-    use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+    allow_auto_merge: PermissiveBoolean.optional().default(false),
+    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+    use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
     squash_merge_commit_title: z
       .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
       .optional(),
@@ -39444,7 +39448,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsCreateDiscussionInOrgBodySchema = z.object({
     title: z.string(),
     body: z.string(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
   })
 
   const teamsCreateDiscussionInOrgResponseValidator = responseValidationFactory(
@@ -42794,7 +42798,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       name: z.string().optional(),
       description: z.string().optional(),
       homepage: z.string().optional(),
-      private: PermissiveBoolean.optional(),
+      private: PermissiveBoolean.optional().default(false),
       visibility: z.enum(["public", "private"]).optional(),
       security_and_analysis: z
         .object({
@@ -42816,15 +42820,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       has_issues: PermissiveBoolean.optional().default(true),
       has_projects: PermissiveBoolean.optional().default(true),
       has_wiki: PermissiveBoolean.optional().default(true),
-      is_template: PermissiveBoolean.optional(),
+      is_template: PermissiveBoolean.optional().default(false),
       default_branch: z.string().optional(),
       allow_squash_merge: PermissiveBoolean.optional().default(true),
       allow_merge_commit: PermissiveBoolean.optional().default(true),
       allow_rebase_merge: PermissiveBoolean.optional().default(true),
-      allow_auto_merge: PermissiveBoolean.optional(),
-      delete_branch_on_merge: PermissiveBoolean.optional(),
-      allow_update_branch: PermissiveBoolean.optional(),
-      use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+      allow_auto_merge: PermissiveBoolean.optional().default(false),
+      delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+      allow_update_branch: PermissiveBoolean.optional().default(false),
+      use_squash_pr_title_as_default:
+        PermissiveBoolean.optional().default(false),
       squash_merge_commit_title: z
         .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
         .optional(),
@@ -42833,9 +42838,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
       merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
-      archived: PermissiveBoolean.optional(),
-      allow_forking: PermissiveBoolean.optional(),
-      web_commit_signoff_required: PermissiveBoolean.optional(),
+      archived: PermissiveBoolean.optional().default(false),
+      allow_forking: PermissiveBoolean.optional().default(false),
+      web_commit_signoff_required: PermissiveBoolean.optional().default(false),
     })
     .optional()
 
@@ -43512,7 +43517,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsReRunJobForWorkflowRunBodySchema = z
-    .object({ enable_debug_logging: PermissiveBoolean.optional() })
+    .object({
+      enable_debug_logging: PermissiveBoolean.optional().default(false),
+    })
     .nullable()
     .optional()
 
@@ -45110,7 +45117,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
     created: z.string().datetime({ offset: true }).optional(),
-    exclude_pull_requests: PermissiveBoolean.optional(),
+    exclude_pull_requests: PermissiveBoolean.optional().default(false),
     check_suite_id: z.coerce.number().optional(),
     head_sha: z.string().optional(),
   })
@@ -45181,7 +45188,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsGetWorkflowRunQuerySchema = z.object({
-    exclude_pull_requests: PermissiveBoolean.optional(),
+    exclude_pull_requests: PermissiveBoolean.optional().default(false),
   })
 
   const actionsGetWorkflowRunResponseValidator = responseValidationFactory(
@@ -45467,7 +45474,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsGetWorkflowRunAttemptQuerySchema = z.object({
-    exclude_pull_requests: PermissiveBoolean.optional(),
+    exclude_pull_requests: PermissiveBoolean.optional().default(false),
   })
 
   const actionsGetWorkflowRunAttemptResponseValidator =
@@ -46103,7 +46110,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsReRunWorkflowBodySchema = z
-    .object({ enable_debug_logging: PermissiveBoolean.optional() })
+    .object({
+      enable_debug_logging: PermissiveBoolean.optional().default(false),
+    })
     .nullable()
     .optional()
 
@@ -46161,7 +46170,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const actionsReRunWorkflowFailedJobsBodySchema = z
-    .object({ enable_debug_logging: PermissiveBoolean.optional() })
+    .object({
+      enable_debug_logging: PermissiveBoolean.optional().default(false),
+    })
     .nullable()
     .optional()
 
@@ -47128,7 +47139,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
     created: z.string().datetime({ offset: true }).optional(),
-    exclude_pull_requests: PermissiveBoolean.optional(),
+    exclude_pull_requests: PermissiveBoolean.optional().default(false),
     check_suite_id: z.coerce.number().optional(),
     head_sha: z.string().optional(),
   })
@@ -48188,7 +48199,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         dismiss_stale_reviews: PermissiveBoolean.optional(),
         require_code_owner_reviews: PermissiveBoolean.optional(),
         required_approving_review_count: z.coerce.number().optional(),
-        require_last_push_approval: PermissiveBoolean.optional(),
+        require_last_push_approval: PermissiveBoolean.optional().default(false),
         bypass_pull_request_allowances: z
           .object({
             users: z.array(z.string()).optional(),
@@ -48210,8 +48221,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     allow_deletions: PermissiveBoolean.optional(),
     block_creations: PermissiveBoolean.optional(),
     required_conversation_resolution: PermissiveBoolean.optional(),
-    lock_branch: PermissiveBoolean.optional(),
-    allow_fork_syncing: PermissiveBoolean.optional(),
+    lock_branch: PermissiveBoolean.optional().default(false),
+    allow_fork_syncing: PermissiveBoolean.optional().default(false),
   })
 
   const reposUpdateBranchProtectionResponseValidator =
@@ -48561,7 +48572,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       dismiss_stale_reviews: PermissiveBoolean.optional(),
       require_code_owner_reviews: PermissiveBoolean.optional(),
       required_approving_review_count: z.coerce.number().optional(),
-      require_last_push_approval: PermissiveBoolean.optional(),
+      require_last_push_approval: PermissiveBoolean.optional().default(false),
       bypass_pull_request_allowances: z
         .object({
           users: z.array(z.string()).optional(),
@@ -55940,10 +55951,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     task: z.string().optional().default("deploy"),
     auto_merge: PermissiveBoolean.optional().default(true),
     required_contexts: z.array(z.string()).optional(),
-    payload: z.union([z.record(z.unknown()), z.string()]).optional(),
+    payload: z
+      .union([z.record(z.unknown()), z.string().default("")])
+      .optional(),
     environment: z.string().optional().default("production"),
-    description: z.string().nullable().optional(),
-    transient_environment: PermissiveBoolean.optional(),
+    description: z.string().nullable().optional().default(""),
+    transient_environment: PermissiveBoolean.optional().default(false),
     production_environment: PermissiveBoolean.optional(),
   })
 
@@ -56205,11 +56218,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "pending",
       "success",
     ]),
-    target_url: z.string().optional(),
-    log_url: z.string().optional(),
-    description: z.string().optional(),
+    target_url: z.string().optional().default(""),
+    log_url: z.string().optional().default(""),
+    description: z.string().optional().default(""),
     environment: z.string().optional(),
-    environment_url: z.string().optional(),
+    environment_url: z.string().optional().default(""),
     auto_inactive: PermissiveBoolean.optional(),
   })
 
@@ -58485,7 +58498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const gitUpdateRefBodySchema = z.object({
     sha: z.string(),
-    force: PermissiveBoolean.optional(),
+    force: PermissiveBoolean.optional().default(false),
   })
 
   const gitUpdateRefResponseValidator = responseValidationFactory(
@@ -63787,8 +63800,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const activityListRepoNotificationsForAuthenticatedUserQuerySchema = z.object(
     {
-      all: PermissiveBoolean.optional(),
-      participating: PermissiveBoolean.optional(),
+      all: PermissiveBoolean.optional().default(false),
+      participating: PermissiveBoolean.optional().default(false),
       since: z.string().datetime({ offset: true }).optional(),
       before: z.string().datetime({ offset: true }).optional(),
       per_page: z.coerce.number().optional().default(30),
@@ -67450,10 +67463,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     target_commitish: z.string().optional(),
     name: z.string().optional(),
     body: z.string().optional(),
-    draft: PermissiveBoolean.optional(),
-    prerelease: PermissiveBoolean.optional(),
+    draft: PermissiveBoolean.optional().default(false),
+    prerelease: PermissiveBoolean.optional().default(false),
     discussion_category_name: z.string().optional(),
-    generate_release_notes: PermissiveBoolean.optional(),
+    generate_release_notes: PermissiveBoolean.optional().default(false),
     make_latest: z.enum(["true", "false", "legacy"]).optional().default("true"),
   })
 
@@ -71406,8 +71419,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     owner: z.string().optional(),
     name: z.string(),
     description: z.string().optional(),
-    include_all_branches: PermissiveBoolean.optional(),
-    private: PermissiveBoolean.optional(),
+    include_all_branches: PermissiveBoolean.optional().default(false),
+    private: PermissiveBoolean.optional().default(false),
   })
 
   const reposCreateUsingTemplateResponseValidator = responseValidationFactory(
@@ -72310,7 +72323,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const teamsCreateDiscussionLegacyBodySchema = z.object({
     title: z.string(),
     body: z.string(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
   })
 
   const teamsCreateDiscussionLegacyResponseValidator =
@@ -75733,7 +75746,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const codespacesPublishForAuthenticatedUserBodySchema = z.object({
     name: z.string().optional(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
   })
 
   const codespacesPublishForAuthenticatedUserResponseValidator =
@@ -78133,7 +78146,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     exclude_attachments: PermissiveBoolean.optional(),
     exclude_releases: PermissiveBoolean.optional(),
     exclude_owner_projects: PermissiveBoolean.optional(),
-    org_metadata_only: PermissiveBoolean.optional(),
+    org_metadata_only: PermissiveBoolean.optional().default(false),
     exclude: z.array(z.enum(["repositories"])).optional(),
     repositories: z.array(z.string()),
   })
@@ -79425,20 +79438,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     name: z.string(),
     description: z.string().optional(),
     homepage: z.string().optional(),
-    private: PermissiveBoolean.optional(),
+    private: PermissiveBoolean.optional().default(false),
     has_issues: PermissiveBoolean.optional().default(true),
     has_projects: PermissiveBoolean.optional().default(true),
     has_wiki: PermissiveBoolean.optional().default(true),
-    has_discussions: PermissiveBoolean.optional(),
+    has_discussions: PermissiveBoolean.optional().default(false),
     team_id: z.coerce.number().optional(),
-    auto_init: PermissiveBoolean.optional(),
+    auto_init: PermissiveBoolean.optional().default(false),
     gitignore_template: z.string().optional(),
     license_template: z.string().optional(),
     allow_squash_merge: PermissiveBoolean.optional().default(true),
     allow_merge_commit: PermissiveBoolean.optional().default(true),
     allow_rebase_merge: PermissiveBoolean.optional().default(true),
-    allow_auto_merge: PermissiveBoolean.optional(),
-    delete_branch_on_merge: PermissiveBoolean.optional(),
+    allow_auto_merge: PermissiveBoolean.optional().default(false),
+    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
     squash_merge_commit_title: z
       .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
       .optional(),
@@ -79448,7 +79461,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     merge_commit_title: z.enum(["PR_TITLE", "MERGE_MESSAGE"]).optional(),
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
     has_downloads: PermissiveBoolean.optional().default(true),
-    is_template: PermissiveBoolean.optional(),
+    is_template: PermissiveBoolean.optional().default(false),
   })
 
   const reposCreateForAuthenticatedUserResponseValidator =

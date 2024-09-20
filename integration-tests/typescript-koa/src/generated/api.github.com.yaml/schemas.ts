@@ -3998,7 +3998,7 @@ export const s_nullable_repository = z
       })
       .optional(),
     owner: s_simple_user,
-    private: PermissiveBoolean,
+    private: PermissiveBoolean.default(false),
     html_url: z.string(),
     description: z.string().nullable(),
     fork: PermissiveBoolean,
@@ -4052,15 +4052,15 @@ export const s_nullable_repository = z
     size: z.coerce.number(),
     default_branch: z.string(),
     open_issues_count: z.coerce.number(),
-    is_template: PermissiveBoolean.optional(),
+    is_template: PermissiveBoolean.optional().default(false),
     topics: z.array(z.string()).optional(),
     has_issues: PermissiveBoolean.default(true),
     has_projects: PermissiveBoolean.default(true),
     has_wiki: PermissiveBoolean.default(true),
     has_pages: PermissiveBoolean,
     has_downloads: PermissiveBoolean.default(true),
-    has_discussions: PermissiveBoolean.optional(),
-    archived: PermissiveBoolean,
+    has_discussions: PermissiveBoolean.optional().default(false),
+    archived: PermissiveBoolean.default(false),
     disabled: PermissiveBoolean,
     visibility: z.string().optional().default("public"),
     pushed_at: z.string().datetime({ offset: true }).nullable(),
@@ -4069,10 +4069,10 @@ export const s_nullable_repository = z
     allow_rebase_merge: PermissiveBoolean.optional().default(true),
     temp_clone_token: z.string().optional(),
     allow_squash_merge: PermissiveBoolean.optional().default(true),
-    allow_auto_merge: PermissiveBoolean.optional(),
-    delete_branch_on_merge: PermissiveBoolean.optional(),
-    allow_update_branch: PermissiveBoolean.optional(),
-    use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+    allow_auto_merge: PermissiveBoolean.optional().default(false),
+    delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+    allow_update_branch: PermissiveBoolean.optional().default(false),
+    use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
     squash_merge_commit_title: z
       .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
       .optional(),
@@ -4083,7 +4083,7 @@ export const s_nullable_repository = z
     merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
     allow_merge_commit: PermissiveBoolean.optional().default(true),
     allow_forking: PermissiveBoolean.optional(),
-    web_commit_signoff_required: PermissiveBoolean.optional(),
+    web_commit_signoff_required: PermissiveBoolean.optional().default(false),
     open_issues: z.coerce.number(),
     watchers: z.coerce.number(),
     master_branch: z.string().optional(),
@@ -4194,7 +4194,7 @@ export const s_page = z.object({
     .datetime({ offset: true })
     .nullable()
     .optional(),
-  custom_404: PermissiveBoolean,
+  custom_404: PermissiveBoolean.default(false),
   html_url: z.string().optional(),
   build_type: z.enum(["legacy", "workflow"]).nullable().optional(),
   source: s_pages_source_hash.optional(),
@@ -4234,7 +4234,7 @@ export const s_private_vulnerability_report_create = z.object({
   cwe_ids: z.array(z.string()).nullable().optional(),
   severity: z.enum(["critical", "high", "medium", "low"]).nullable().optional(),
   cvss_vector_string: z.string().nullable().optional(),
-  start_private_fork: PermissiveBoolean.optional(),
+  start_private_fork: PermissiveBoolean.optional().default(false),
 })
 
 export const s_project = z.object({
@@ -4499,7 +4499,7 @@ export const s_repository = z.object({
     })
     .optional(),
   owner: s_simple_user,
-  private: PermissiveBoolean,
+  private: PermissiveBoolean.default(false),
   html_url: z.string(),
   description: z.string().nullable(),
   fork: PermissiveBoolean,
@@ -4553,15 +4553,15 @@ export const s_repository = z.object({
   size: z.coerce.number(),
   default_branch: z.string(),
   open_issues_count: z.coerce.number(),
-  is_template: PermissiveBoolean.optional(),
+  is_template: PermissiveBoolean.optional().default(false),
   topics: z.array(z.string()).optional(),
   has_issues: PermissiveBoolean.default(true),
   has_projects: PermissiveBoolean.default(true),
   has_wiki: PermissiveBoolean.default(true),
   has_pages: PermissiveBoolean,
   has_downloads: PermissiveBoolean.default(true),
-  has_discussions: PermissiveBoolean.optional(),
-  archived: PermissiveBoolean,
+  has_discussions: PermissiveBoolean.optional().default(false),
+  archived: PermissiveBoolean.default(false),
   disabled: PermissiveBoolean,
   visibility: z.string().optional().default("public"),
   pushed_at: z.string().datetime({ offset: true }).nullable(),
@@ -4570,10 +4570,10 @@ export const s_repository = z.object({
   allow_rebase_merge: PermissiveBoolean.optional().default(true),
   temp_clone_token: z.string().optional(),
   allow_squash_merge: PermissiveBoolean.optional().default(true),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
-  allow_update_branch: PermissiveBoolean.optional(),
-  use_squash_pr_title_as_default: PermissiveBoolean.optional(),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
+  allow_update_branch: PermissiveBoolean.optional().default(false),
+  use_squash_pr_title_as_default: PermissiveBoolean.optional().default(false),
   squash_merge_commit_title: z
     .enum(["PR_TITLE", "COMMIT_OR_PR_TITLE"])
     .optional(),
@@ -4584,7 +4584,7 @@ export const s_repository = z.object({
   merge_commit_message: z.enum(["PR_BODY", "PR_TITLE", "BLANK"]).optional(),
   allow_merge_commit: PermissiveBoolean.optional().default(true),
   allow_forking: PermissiveBoolean.optional(),
-  web_commit_signoff_required: PermissiveBoolean.optional(),
+  web_commit_signoff_required: PermissiveBoolean.optional().default(false),
   open_issues: z.coerce.number(),
   watchers: z.coerce.number(),
   master_branch: z.string().optional(),
@@ -4616,7 +4616,7 @@ export const s_repository_advisory_create = z.object({
     .optional(),
   severity: z.enum(["critical", "high", "medium", "low"]).nullable().optional(),
   cvss_vector_string: z.string().nullable().optional(),
-  start_private_fork: PermissiveBoolean.optional(),
+  start_private_fork: PermissiveBoolean.optional().default(false),
 })
 
 export const s_repository_advisory_credit = z.object({
@@ -5043,7 +5043,7 @@ export const s_team_repository = z.object({
     .optional(),
   role_name: z.string().optional(),
   owner: s_nullable_simple_user,
-  private: PermissiveBoolean,
+  private: PermissiveBoolean.default(false),
   html_url: z.string(),
   description: z.string().nullable(),
   fork: PermissiveBoolean,
@@ -5097,14 +5097,14 @@ export const s_team_repository = z.object({
   size: z.coerce.number(),
   default_branch: z.string(),
   open_issues_count: z.coerce.number(),
-  is_template: PermissiveBoolean.optional(),
+  is_template: PermissiveBoolean.optional().default(false),
   topics: z.array(z.string()).optional(),
   has_issues: PermissiveBoolean.default(true),
   has_projects: PermissiveBoolean.default(true),
   has_wiki: PermissiveBoolean.default(true),
   has_pages: PermissiveBoolean,
   has_downloads: PermissiveBoolean.default(true),
-  archived: PermissiveBoolean,
+  archived: PermissiveBoolean.default(false),
   disabled: PermissiveBoolean,
   visibility: z.string().optional().default("public"),
   pushed_at: z.string().datetime({ offset: true }).nullable(),
@@ -5113,11 +5113,11 @@ export const s_team_repository = z.object({
   allow_rebase_merge: PermissiveBoolean.optional().default(true),
   temp_clone_token: z.string().optional(),
   allow_squash_merge: PermissiveBoolean.optional().default(true),
-  allow_auto_merge: PermissiveBoolean.optional(),
-  delete_branch_on_merge: PermissiveBoolean.optional(),
+  allow_auto_merge: PermissiveBoolean.optional().default(false),
+  delete_branch_on_merge: PermissiveBoolean.optional().default(false),
   allow_merge_commit: PermissiveBoolean.optional().default(true),
-  allow_forking: PermissiveBoolean.optional(),
-  web_commit_signoff_required: PermissiveBoolean.optional(),
+  allow_forking: PermissiveBoolean.optional().default(false),
+  web_commit_signoff_required: PermissiveBoolean.optional().default(false),
   subscribers_count: z.coerce.number().optional(),
   network_count: z.coerce.number().optional(),
   open_issues: z.coerce.number(),
@@ -5840,15 +5840,15 @@ export const s_deployment_status = z.object({
     "in_progress",
   ]),
   creator: s_nullable_simple_user,
-  description: z.string().max(140),
-  environment: z.string().optional(),
-  target_url: z.string(),
+  description: z.string().max(140).default(""),
+  environment: z.string().optional().default(""),
+  target_url: z.string().default(""),
   created_at: z.string().datetime({ offset: true }),
   updated_at: z.string().datetime({ offset: true }),
   deployment_url: z.string(),
   repository_url: z.string(),
-  environment_url: z.string().optional(),
-  log_url: z.string().optional(),
+  environment_url: z.string().optional().default(""),
+  log_url: z.string().optional().default(""),
   performed_via_github_app: s_nullable_integration.optional(),
 })
 
@@ -6528,7 +6528,7 @@ export const s_protected_branch = z.object({
       dismiss_stale_reviews: PermissiveBoolean.optional(),
       require_code_owner_reviews: PermissiveBoolean.optional(),
       required_approving_review_count: z.coerce.number().optional(),
-      require_last_push_approval: PermissiveBoolean.optional(),
+      require_last_push_approval: PermissiveBoolean.optional().default(false),
       dismissal_restrictions: z
         .object({
           url: z.string(),
@@ -6562,9 +6562,11 @@ export const s_protected_branch = z.object({
     .object({ enabled: PermissiveBoolean.optional() })
     .optional(),
   block_creations: z.object({ enabled: PermissiveBoolean }).optional(),
-  lock_branch: z.object({ enabled: PermissiveBoolean.optional() }).optional(),
+  lock_branch: z
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
+    .optional(),
   allow_fork_syncing: z
-    .object({ enabled: PermissiveBoolean.optional() })
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
     .optional(),
 })
 
@@ -6590,7 +6592,7 @@ export const s_protected_branch_pull_request_review = z.object({
   dismiss_stale_reviews: PermissiveBoolean,
   require_code_owner_reviews: PermissiveBoolean,
   required_approving_review_count: z.coerce.number().min(0).max(6).optional(),
-  require_last_push_approval: PermissiveBoolean.optional(),
+  require_last_push_approval: PermissiveBoolean.optional().default(false),
 })
 
 export const s_pull_request = z.object({
@@ -7450,9 +7452,11 @@ export const s_branch_protection = z.object({
   required_signatures: z
     .object({ url: z.string(), enabled: PermissiveBoolean })
     .optional(),
-  lock_branch: z.object({ enabled: PermissiveBoolean.optional() }).optional(),
+  lock_branch: z
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
+    .optional(),
   allow_fork_syncing: z
-    .object({ enabled: PermissiveBoolean.optional() })
+    .object({ enabled: PermissiveBoolean.optional().default(false) })
     .optional(),
 })
 

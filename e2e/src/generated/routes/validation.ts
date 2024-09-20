@@ -44,7 +44,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const getValidationNumbersRandomNumberQuerySchema = z.object({
     max: z.coerce.number().min(1).optional().default(10),
-    min: z.coerce.number().min(0).optional(),
+    min: z.coerce.number().min(0).optional().default(0),
     forbidden: z
       .preprocess(
         (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
