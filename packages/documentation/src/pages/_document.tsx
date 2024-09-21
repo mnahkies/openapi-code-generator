@@ -7,7 +7,7 @@ export default function Document() {
         <script
           defer={true}
           data-domain="openapi-code-generator.nahkies.co.nz"
-          src="https://plausible.io/js/script.js"
+          src="https://plausible.nahkies.co.nz/js/script.js"
         />
       </Head>
 
