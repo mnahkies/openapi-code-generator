@@ -29,6 +29,9 @@ components:
           type:
             - string
             - "null"
+        $ref:
+          type: string
+          format: uri
 
     OptionalProperties:
       properties:

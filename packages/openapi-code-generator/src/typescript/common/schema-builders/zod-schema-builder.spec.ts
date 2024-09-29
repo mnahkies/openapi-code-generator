@@ -48,6 +48,7 @@ describe.each(testVersions)(
           datetime: z.string().datetime({ offset: true }),
           optional_str: z.string().optional(),
           required_nullable: z.string().nullable(),
+          $ref: z.string().optional(),
         })"
       `)
     })

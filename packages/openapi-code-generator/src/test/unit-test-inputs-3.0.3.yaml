@@ -28,6 +28,9 @@ components:
         required_nullable:
           type: string
           nullable: true
+        $ref:
+          type: string
+          format: uri
 
     OptionalProperties:
       properties:
