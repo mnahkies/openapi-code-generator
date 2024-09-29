@@ -148,7 +148,15 @@ export class OpenapiLoader {
         continue
       }
 
-      if (key === "$ref") {
+      // TODO: allowing $ref to be used anywhere, makes it tricky
+      //       for things like an object property named '$ref', such
+      //       as on the SCIM v2 Group member schema. Hack around by
+      //       sniffing if it looks like an actual $ref or not.
+      if (
+        key === "$ref" &&
+        typeof obj[key] === "string" &&
+        obj[key].indexOf("#") !== -1
+      ) {
         // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
         const $ref = (obj[key] = normalizeRef(obj[key]))
         await this.loadFile(pathFromRef($ref))

@@ -55,6 +55,7 @@ describe.each(testVersions)(
             datetime: joi.string().isoDate().required(),
             optional_str: joi.string(),
             required_nullable: joi.string().allow(null).required(),
+            $ref: joi.string(),
           })
           .options({ stripUnknown: true })
           .required()

@@ -19,6 +19,7 @@ describe.each(testVersions)(
 
       expect(types).toMatchInlineSnapshot(`
         "export type t_SimpleObject = {
+          $ref?: string
           date: string
           datetime: string
           num: number
@@ -68,6 +69,7 @@ describe.each(testVersions)(
         }
 
         export type t_SimpleObject = {
+          $ref?: string
           date: string
           datetime: string
           num: number
