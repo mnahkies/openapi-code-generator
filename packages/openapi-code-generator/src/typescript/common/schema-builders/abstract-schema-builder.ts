@@ -320,6 +320,8 @@ export abstract class AbstractSchemaBuilder<
         result = this.config.allowAny ? this.any() : this.unknown()
         break
       }
+      case "null":
+        throw new Error("unreachable - input should normalize this out")
     }
 
     if (model["x-internal-preprocess"]) {
