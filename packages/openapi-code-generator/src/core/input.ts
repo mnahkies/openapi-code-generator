@@ -426,6 +426,12 @@ function normalizeSchemaObject(
       }
 
       const properties = normalizeProperties(schemaObject.properties)
+
+      const hasNull =
+        hasATypeNull(schemaObject.allOf) ||
+        hasATypeNull(schemaObject.oneOf) ||
+        hasATypeNull(schemaObject.anyOf)
+
       const allOf = normalizeAllOf(schemaObject.allOf)
       const oneOf = normalizeOneOf(schemaObject.oneOf)
       const anyOf = normalizeAnyOf(schemaObject.anyOf)
@@ -447,7 +453,7 @@ function normalizeSchemaObject(
       return {
         ...base,
         // TODO: HACK
-        nullable: base.nullable || schemaObject.type === "null",
+        nullable: base.nullable || schemaObject.type === "null" || hasNull,
         type: "object",
         allOf,
         oneOf,
@@ -554,11 +560,15 @@ function normalizeSchemaObject(
   }
 
   function normalizeAllOf(allOf: Schema["allOf"] = []): MaybeIRModel[] {
-    return allOf.map(normalizeSchemaObject)
+    return allOf
+      ?.filter((it) => isRef(it) || it.type !== "null")
+      .map(normalizeSchemaObject)
   }
 
   function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
-    return oneOf.map(normalizeSchemaObject)
+    return oneOf
+      .filter((it) => isRef(it) || it.type !== "null")
+      .map(normalizeSchemaObject)
   }
 
   function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
@@ -568,8 +578,16 @@ function normalizeSchemaObject(
         //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
         //       it's intended to indicate that at least one of the objects properties must be set (consider it a
         //       Omit<Partial<Thing>, EmptyObject> )
-        return isRef(it) || Boolean(it.type)
+        return isRef(it) || (Boolean(it.type) && it.type !== "null")
       })
       .map(normalizeSchemaObject)
+  }
+
+  function hasATypeNull(arr?: (Schema | Reference)[]) {
+    return Boolean(
+      arr?.find((it) => {
+        return !isRef(it) && it.type === "null"
+      }),
+    )
   }
 }

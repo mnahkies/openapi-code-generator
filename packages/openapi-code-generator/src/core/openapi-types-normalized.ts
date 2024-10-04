@@ -1,4 +1,3 @@
-import {xInternalPreproccess} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -85,6 +84,10 @@ export interface IRModelArray extends IRModelBase {
   // TODO: contains / maxContains / minContains
 }
 
+export interface IRModelNull extends IRModelBase {
+  type: "null"
+}
+
 export type IRModel =
   | IRModelNumeric
   | IRModelString
@@ -92,6 +95,7 @@ export type IRModel =
   | IRModelObject
   | IRModelArray
   | IRModelAny
+  | IRModelNull
 
 export type MaybeIRModel = IRModel | IRRef
 

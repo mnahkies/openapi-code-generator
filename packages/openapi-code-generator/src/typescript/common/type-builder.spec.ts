@@ -129,6 +129,22 @@ describe.each(testVersions)(
       )
     })
 
+    it("can build a type for a nullable string using anyOf correctly", async () => {
+      const {code, types} = await getActual(
+        "components/schemas/AnyOfNullableString",
+      )
+
+      expect(code).toMatchInlineSnapshot(`
+        "import {t_AnyOfNullableString} from './unit-test.types'
+
+        const x: t_AnyOfNullableString"
+      `)
+
+      expect(types).toMatchInlineSnapshot(
+        '"export type t_AnyOfNullableString = string | null"',
+      )
+    })
+
     it("can build a type for a allOf correctly", async () => {
       const {code, types} = await getActual("components/schemas/AllOf")
 

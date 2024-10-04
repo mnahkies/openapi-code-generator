@@ -101,6 +101,10 @@ components:
       anyOf:
         - type: number
         - type: string
+    AnyOfNullableString:
+      anyOf:
+        - type: string
+        - type: "null"
 
     AllOf:
       allOf:

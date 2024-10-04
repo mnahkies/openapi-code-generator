@@ -539,6 +539,31 @@ describe.each(testVersions)(
         )
       })
 
+      it("supports nullable string using allOf", async () => {
+        const {code, execute} = await getActualFromModel({
+          type: "object",
+          anyOf: [
+            {type: "string", nullable: false, readOnly: false},
+            {type: "null", nullable: false, readOnly: false},
+          ],
+          allOf: [],
+          oneOf: [],
+          properties: {},
+          additionalProperties: undefined,
+          required: [],
+          nullable: false,
+          readOnly: false,
+        })
+
+        expect(code).toMatchInlineSnapshot('"const x = z.string().nullable()"')
+
+        await expect(execute("a string")).resolves.toBe("a string")
+        await expect(execute(null)).resolves.toBe(null)
+        await expect(execute(123)).rejects.toThrow(
+          "Expected string, received number",
+        )
+      })
+
       it("supports minLength", async () => {
         const {code, execute} = await getActualFromModel({
           ...base,
