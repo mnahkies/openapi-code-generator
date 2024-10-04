@@ -35,7 +35,7 @@
     "publish:release": "./scripts/publish.release.sh"
   },
   "devDependencies": {
-    "@biomejs/biome": "1.8.3",
+    "@biomejs/biome": "1.9.3",
     "@swc/core": "^1.7.26",
     "@swc/jest": "^0.2.36",
     "@tsconfig/node22": "^22.0.0",
@@ -67,5 +67,5 @@
   "engines": {
     "node": ">=20 <23"
   },
-  "packageManager": "yarn@4.4.1"
+  "packageManager": "yarn@4.5.0"
 }

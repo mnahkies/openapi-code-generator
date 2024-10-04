@@ -23,9 +23,9 @@
     "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
-    "next": "14.2.13",
-    "nextra": "^2.13.4",
-    "nextra-theme-docs": "^2.13.4",
+    "next": "14.2.14",
+    "nextra": "^3.0.0",
+    "nextra-theme-docs": "^3.0.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
