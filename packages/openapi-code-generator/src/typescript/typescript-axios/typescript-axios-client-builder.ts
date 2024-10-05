@@ -40,10 +40,10 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       "AxiosResponse<void>"
 
     const responseSchema = this.config.enableRuntimeResponseValidation
-      ? builder
+      ? (builder
           .responseSchemas()
           .specific.find((it) => it.statusType.startsWith("2")) ??
-        builder.responseSchemas().defaultResponse
+        builder.responseSchemas().defaultResponse)
       : null
 
     const axiosFragment = `this._request({${[
