@@ -53,7 +53,7 @@ async function loadTsConfig(
   const configExtends = await Promise.all(
     (typeof config.extends === "string"
       ? [config.extends]
-      : config.extends ?? []
+      : (config.extends ?? [])
     )
       .map((it) => require.resolve(it, {paths: [path.dirname(configPath)]}))
       .map((it) => loadTsConfig(it, fsAdaptor)),
