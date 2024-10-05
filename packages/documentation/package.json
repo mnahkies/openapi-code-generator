@@ -7,6 +7,7 @@
     "name": "Michael Nahkies",
     "email": "support@nahkies.co.nz"
   },
+  "type": "module",
   "repository": {
     "type": "git",
     "url": "https://github.com/mnahkies/openapi-code-generator.git",
@@ -24,14 +25,15 @@
   },
   "dependencies": {
     "next": "14.2.14",
-    "nextra": "^3.0.0",
-    "nextra-theme-docs": "^3.0.0",
+    "next-seo": "^6.6.0",
+    "nextra": "^3.0.3",
+    "nextra-theme-docs": "^3.0.3",
     "react": "^18.3.1",
     "react-dom": "^18.3.1"
   },
   "devDependencies": {
-    "@types/node": "^22.5.5",
-    "@types/react": "^18.3.8",
+    "@types/node": "^22.7.4",
+    "@types/react": "^18.3.11",
     "@types/react-dom": "^18.3.0",
     "gh-pages": "^6.1.1",
     "typescript": "^5.6.2"
