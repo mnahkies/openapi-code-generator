@@ -3,7 +3,7 @@ export default {
   "getting-started": "Getting Started",
   guides: "Guides",
   reference: "Reference",
-  "404": {
+  404: {
     display: "hidden",
     title: " ",
   },
