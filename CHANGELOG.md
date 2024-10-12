@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.14.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.13.0...v0.14.0) (2024-10-12)
+
+### Bug Fixes
+
+- allow $ref to be used as a schema property ([#250](https://github.com/mnahkies/openapi-code-generator/issues/250)) ([9c09191](https://github.com/mnahkies/openapi-code-generator/commit/9c091911ec7128fbefef242c0e843788fab5b60f))
+- **docs:** use absolute url for og:image ([#253](https://github.com/mnahkies/openapi-code-generator/issues/253)) ([d704219](https://github.com/mnahkies/openapi-code-generator/commit/d70421959b255a49fba840d98007c5a56ae7df5d))
+- handle `type: "null"` in `anyOf` / `oneOf` / `allOf` ([#252](https://github.com/mnahkies/openapi-code-generator/issues/252)) ([9713c96](https://github.com/mnahkies/openapi-code-generator/commit/9713c96e5f31c5d23f5f77d3adf0ecd3c8f40a34))
+
+### Features
+
+- support loading relative remote uris ([#254](https://github.com/mnahkies/openapi-code-generator/issues/254)) ([4dc855c](https://github.com/mnahkies/openapi-code-generator/commit/4dc855cd222556272488ef543f195e06f8ba2957)), closes [#43](https://github.com/mnahkies/openapi-code-generator/issues/43)
+
 # [0.13.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.12.1...v0.13.0) (2024-09-20)
 
 - feat!: parse/validate request headers (#247) ([682d0c9](https://github.com/mnahkies/openapi-code-generator/commit/682d0c9f081400a0465ff8aa391c85a85e3e8462)), closes [#247](https://github.com/mnahkies/openapi-code-generator/issues/247)
