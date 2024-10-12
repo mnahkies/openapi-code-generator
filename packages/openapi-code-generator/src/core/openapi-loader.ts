@@ -253,7 +253,11 @@ export function normalizeRef($ref: string, loadedFrom: string) {
     return $ref
   }
 
-  file = path.resolve(path.dirname(loadedFrom), file)
+  if (isRemote(loadedFrom)) {
+    file = new URL(file, loadedFrom).toString()
+  } else {
+    file = path.resolve(path.dirname(loadedFrom), file)
+  }
 
   return objPath ? `${file}#${objPath}` : file
 }
