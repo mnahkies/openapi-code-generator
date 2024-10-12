@@ -1,6 +1,8 @@
 import path from "node:path"
 import util from "node:util"
 
+import * as console from "node:console"
+import {load} from "js-yaml"
 import {VirtualDefinition, generationLib} from "./generation-lib"
 import type {GenericLoader} from "./loaders/generic.loader"
 import type {TypespecLoader} from "./loaders/typespec.loader"
@@ -158,46 +160,11 @@ export class OpenapiLoader {
         obj[key].indexOf("#") !== -1
       ) {
         // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
-        const $ref = (obj[key] = normalizeRef(obj[key]))
+        const $ref = (obj[key] = normalizeRef(obj[key], loadedFrom))
         await this.loadFile(pathFromRef($ref))
       } else if (typeof obj[key] === "object" && !!obj[key]) {
         await this.normalizeRefs(loadedFrom, obj[key])
       }
-    }
-
-    function normalizeRef($ref: string) {
-      let [file, objPath] = $ref.split("#")
-
-      if (file === "") {
-        return objPath ? `${loadedFrom}#${objPath}` : `${loadedFrom}`
-      }
-
-      if (!file) {
-        throw new Error(`invalid $ref '${$ref}`)
-      }
-
-      // TODO: support relative urls
-      if (isRemote(file)) {
-        return $ref
-      }
-
-      if (path.isAbsolute(file)) {
-        return $ref
-      }
-
-      file = path.resolve(path.dirname(loadedFrom), file)
-
-      return objPath ? `${file}#${objPath}` : file
-    }
-
-    function pathFromRef($ref: string) {
-      const path = $ref.split("#")[0]
-
-      if (!path) {
-        throw new Error(`invalid $ref '${$ref}'`)
-      }
-
-      return path
     }
   }
 
@@ -265,6 +232,44 @@ export class OpenapiLoader {
   [util.inspect.custom](): Record<string, unknown> {
     return this.toJSON()
   }
+}
+
+export function normalizeRef($ref: string, loadedFrom: string) {
+  let [file, objPath] = $ref.split("#")
+
+  if (file === undefined || objPath === undefined) {
+    throw new Error(`invalid $ref '${$ref}'`)
+  }
+
+  if (file === "") {
+    return objPath ? `${loadedFrom}#${objPath}` : `${loadedFrom}`
+  }
+
+  if (isRemote(file)) {
+    return $ref
+  }
+
+  if (path.isAbsolute(file)) {
+    return $ref
+  }
+
+  if (isRemote(loadedFrom)) {
+    file = new URL(file, loadedFrom).toString()
+  } else {
+    file = path.resolve(path.dirname(loadedFrom), file)
+  }
+
+  return objPath ? `${file}#${objPath}` : file
+}
+
+export function pathFromRef($ref: string) {
+  const path = $ref.split("#")[0]
+
+  if (!path) {
+    throw new Error(`invalid $ref '${$ref}'`)
+  }
+
+  return path
 }
 
 function prettyKey(key: string) {
