@@ -3535,8 +3535,8 @@ __metadata:
     "@types/react-dom": "npm:^18.3.1"
     gh-pages: "npm:^6.2.0"
     next: "npm:14.2.15"
-    nextra: "npm:^3.0.9"
-    nextra-theme-docs: "npm:^3.0.9"
+    nextra: "npm:^3.0.10"
+    nextra-theme-docs: "npm:^3.0.10"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"
     typescript: "npm:^5.6.3"
@@ -3557,7 +3557,7 @@ __metadata:
     "@commander-js/extra-typings": "npm:^12.1.0"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/lodash": "npm:^4.17.10"
-    "@typespec/compiler": "npm:^0.61.1"
+    "@typespec/compiler": "npm:^0.61.2"
     "@typespec/http": "npm:^0.61.0"
     "@typespec/openapi": "npm:^0.61.0"
     "@typespec/openapi3": "npm:^0.61.0"
@@ -5800,9 +5800,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/compiler@npm:^0.61.1":
-  version: 0.61.1
-  resolution: "@typespec/compiler@npm:0.61.1"
+"@typespec/compiler@npm:^0.61.2":
+  version: 0.61.2
+  resolution: "@typespec/compiler@npm:0.61.2"
   dependencies:
     "@babel/code-frame": "npm:~7.24.7"
     ajv: "npm:~8.17.1"
@@ -5821,7 +5821,7 @@ __metadata:
   bin:
     tsp: cmd/tsp.js
     tsp-server: cmd/tsp-server.js
-  checksum: 10/c7b20415f72bfdd351658e217cb3ae2d6b2c47297bae4b06935e81bb01348b4f1c8486dd56c59c6ba22a448dff2d3f9f346f6cdd34345226b775355e8f4666d9
+  checksum: 10/4f707ba084556a73902ecf8f754077c1f7440af6304dc1807b7e64b6bc9512652ec9c68b90d55442ac16428e6acad2be38b6e2b2ab2ecb338d83c911816979e8
   languageName: node
   linkType: hard
 
@@ -14588,9 +14588,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"nextra-theme-docs@npm:^3.0.9":
-  version: 3.0.9
-  resolution: "nextra-theme-docs@npm:3.0.9"
+"nextra-theme-docs@npm:^3.0.10":
+  version: 3.0.10
+  resolution: "nextra-theme-docs@npm:3.0.10"
   dependencies:
     "@headlessui/react": "npm:^2.1.2"
     clsx: "npm:^2.0.0"
@@ -14601,16 +14601,16 @@ __metadata:
     zod: "npm:^3.22.3"
   peerDependencies:
     next: ">=13"
-    nextra: 3.0.9
+    nextra: 3.0.10
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10/1389646d6d008086ccc4fbad561d7409f8e7e03d002bf452788d51ea687e7c18dc16c2b21462ce5daaa2947c9bb825309b61b121d7c3ce5b51e27b3547bda2b9
+  checksum: 10/859a25a217542f42ed5d865811ffbe4ea56fd23dd6a07b4afc4091366efe15d96c6e16a4cfad83dbd8b65776fc965391ff0741ca11e9ea8a741f1b5063341c73
   languageName: node
   linkType: hard
 
-"nextra@npm:^3.0.9":
-  version: 3.0.9
-  resolution: "nextra@npm:3.0.9"
+"nextra@npm:^3.0.10":
+  version: 3.0.10
+  resolution: "nextra@npm:3.0.10"
   dependencies:
     "@headlessui/react": "npm:^2.1.2"
     "@mdx-js/mdx": "npm:^3.0.0"
@@ -14649,7 +14649,7 @@ __metadata:
     next: ">=13"
     react: ">=18"
     react-dom: ">=18"
-  checksum: 10/23f6d5650f4d25dc95c81be7f3b7a9e6e9104fb454015fc51be1306d513d8f7634f56645beddefbf73768ba47abe5e35ba431b1f35876a65d384149053e3aa4d
+  checksum: 10/7fe6d5f2c9b6ccbddabda535b7fabd547f901a16ce961ff5c9ea819e0ae9950aac64cbb1e71600ea4465cace814f6c4324d74f2f967cfd3e680513d9d2864c2a
   languageName: node
   linkType: hard
 
