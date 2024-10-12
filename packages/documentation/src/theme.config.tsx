@@ -1,5 +1,5 @@
-import type {NextSeoProps} from "next-seo"
 import {useRouter} from "next/router"
+import {useConfig} from "nextra-theme-docs"
 
 const ThemeConfig = {
   logo: <strong>🔧 OpenAPI Code Generator</strong>,
@@ -12,8 +12,38 @@ const ThemeConfig = {
   faviconGlyph: "🔧",
 
   head: function Head() {
+    const {asPath} = useRouter()
+    const config = useConfig()
+
+    const pageTitle = config.frontMatter.title || config.title
+
+    const siteTitle = "OpenAPI Code Generator"
+    const title = pageTitle ? `${pageTitle} – ${siteTitle}` : siteTitle
+
+    const url = `https://openapi-code-generator.nahkies.co.nz${asPath}`
+    const description =
+      "A code generation tool for openapi 3 / 3.1, and typespec specifications, " +
+      "primarily aimed at generating typescript client SDKs, and server stubs, " +
+      "with an emphasis on compile & runtime safety."
+
     return (
       <>
+        <title>{title}</title>
+        <meta name="robots" content="index,follow" />
+        <meta name="description" content={description} />
+
+        <meta property="og:title" content={pageTitle} />
+        <meta property="og:site_name" content={siteTitle} />
+        <meta property="og:description" content={description} />
+        <meta property="og:url" content={url} />
+        <meta property="og:image" content="/opengraph_image.jpeg" />
+        <meta property="og:locale" content="en_US" />
+
+        <link
+          rel="canonical"
+          href="https://openapi-code-generator.nahkies.co.nz/"
+        />
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </>
     )
@@ -32,23 +62,6 @@ const ThemeConfig = {
         </a>
       </span>
     ),
-  },
-
-  useNextSeoProps(): NextSeoProps {
-    const {asPath} = useRouter()
-
-    const titleTemplate =
-      asPath !== "/" ? "%s – OpenAPI Code Generator" : "OpenAPI Code Generator"
-
-    return {
-      titleTemplate,
-      description:
-        "A code generation tool for openapi 3 / 3.1, and typespec specifications, primarily aimed at generating typescript client SDKs, and server stubs, with an emphasis on compile & runtime safety.",
-      canonical: "https://openapi-code-generator.nahkies.co.nz/",
-      openGraph: {
-        url: `https://openapi-code-generator.nahkies.co.nz${asPath}`,
-      },
-    }
   },
 }
 

@@ -25,24 +25,24 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@azure-tools/typespec-autorest": "^0.46.0",
-    "@azure-tools/typespec-azure-core": "^0.46.0",
-    "@azure-tools/typespec-azure-resource-manager": "^0.46.0",
-    "@azure-tools/typespec-client-generator-core": "^0.46.1",
+    "@azure-tools/typespec-autorest": "^0.47.0",
+    "@azure-tools/typespec-azure-core": "^0.47.0",
+    "@azure-tools/typespec-azure-resource-manager": "^0.47.0",
+    "@azure-tools/typespec-client-generator-core": "^0.47.1",
     "@types/js-yaml": "^4.0.9",
-    "@types/lodash": "^4.17.7",
-    "@typespec/compiler": "^0.60.1",
-    "@typespec/http": "^0.60.0",
-    "@typespec/openapi": "^0.60.0",
-    "@typespec/openapi3": "^0.60.0",
-    "@typespec/rest": "^0.60.0",
-    "@typespec/versioning": "^0.60.1",
-    "typescript": "~5.6.2"
+    "@types/lodash": "^4.17.10",
+    "@typespec/compiler": "^0.61.2",
+    "@typespec/http": "^0.61.0",
+    "@typespec/openapi": "^0.61.0",
+    "@typespec/openapi3": "^0.61.0",
+    "@typespec/rest": "^0.61.0",
+    "@typespec/versioning": "^0.61.0",
+    "typescript": "~5.6.3"
   },
   "dependencies": {
-    "@biomejs/biome": "1.8.3",
-    "@biomejs/js-api": "0.6.2",
-    "@biomejs/wasm-nodejs": "1.8.3",
+    "@biomejs/biome": "1.9.3",
+    "@biomejs/js-api": "0.7.1",
+    "@biomejs/wasm-nodejs": "1.9.3",
     "@commander-js/extra-typings": "^12.1.0",
     "ajv": "^8.17.1",
     "ajv-draft-04": "^1.0.0",
@@ -52,15 +52,15 @@
     "json5": "^2.2.3",
     "lodash": "^4.17.21",
     "source-map-support": "^0.5.21",
-    "tslib": "^2.6.3",
+    "tslib": "^2.7.0",
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "@typespec/compiler": "^0.59.0",
-    "@typespec/http": "^0.59.0",
-    "@typespec/openapi": "^0.59.0",
-    "@typespec/openapi3": "^0.59.0",
-    "@typespec/versioning": "^0.59.0"
+    "@typespec/compiler": "^0.60.0",
+    "@typespec/http": "^0.60.0",
+    "@typespec/openapi": "^0.60.0",
+    "@typespec/openapi3": "^0.60.0",
+    "@typespec/versioning": "^0.60.0"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {

@@ -36,9 +36,9 @@
   },
   "devDependencies": {
     "@types/qs": "^6.9.16",
-    "axios": "^1.7.4",
+    "axios": "^1.7.7",
     "jest": "^30.0.0-alpha.6",
-    "typescript": "~5.6.2"
+    "typescript": "~5.6.3"
   },
   "files": [
     "src",
