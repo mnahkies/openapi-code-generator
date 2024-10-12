@@ -5,10 +5,10 @@ export default {
   reference: "Reference",
   404: {
     display: "hidden",
-    title: " ",
+    title: "",
   },
   index: {
     display: "hidden",
-    title: " ",
+    title: "",
   },
 }
