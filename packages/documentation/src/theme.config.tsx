@@ -15,7 +15,8 @@ const ThemeConfig = {
     const {asPath} = useRouter()
     const config = useConfig()
 
-    const pageTitle = config.frontMatter.title || config.title
+    const pageTitle =
+      asPath !== "/" ? config.frontMatter.title || config.title : ""
 
     const siteTitle = "OpenAPI Code Generator"
     const title = pageTitle ? `${pageTitle} – ${siteTitle}` : siteTitle
@@ -34,11 +35,11 @@ const ThemeConfig = {
         <meta name="robots" content="index,follow" />
         <meta name="description" content={description} />
 
-        <meta property="og:title" content={pageTitle} />
+        <meta property="og:title" content={pageTitle?.trim() ?? ""} />
         <meta property="og:site_name" content={siteTitle} />
         <meta property="og:description" content={description} />
         <meta property="og:url" content={url} />
-        <meta property="og:image" content="/opengraph_image.jpeg" />
+        <meta property="og:image" content={`${baseUrl}/opengraph_image.jpeg`} />
         <meta property="og:locale" content="en_US" />
 
         <link rel="canonical" href={baseUrl} />
