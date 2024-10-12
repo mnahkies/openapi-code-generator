@@ -20,7 +20,9 @@ const ThemeConfig = {
     const siteTitle = "OpenAPI Code Generator"
     const title = pageTitle ? `${pageTitle} – ${siteTitle}` : siteTitle
 
-    const url = `https://openapi-code-generator.nahkies.co.nz${asPath}`
+    const baseUrl = "https://openapi-code-generator.nahkies.co.nz"
+
+    const url = `${baseUrl}${asPath}`
     const description =
       "A code generation tool for openapi 3 / 3.1, and typespec specifications, " +
       "primarily aimed at generating typescript client SDKs, and server stubs, " +
@@ -39,10 +41,7 @@ const ThemeConfig = {
         <meta property="og:image" content="/opengraph_image.jpeg" />
         <meta property="og:locale" content="en_US" />
 
-        <link
-          rel="canonical"
-          href="https://openapi-code-generator.nahkies.co.nz/"
-        />
+        <link rel="canonical" href={baseUrl} />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </>
