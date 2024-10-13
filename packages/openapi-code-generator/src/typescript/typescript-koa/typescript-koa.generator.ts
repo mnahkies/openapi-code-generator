@@ -102,6 +102,7 @@ export class ServerRouterBuilder implements ICompilable {
   }
 
   add(operation: IROperation): void {
+    const symbols = this.operationSymbolNames(operation.operationId)
     const types = this.types
     const schemaBuilder = this.schemaBuilder
 
@@ -138,51 +139,55 @@ export class ServerRouterBuilder implements ICompilable {
     let bodyParamsType = "void"
 
     if (paramSchema) {
-      const name = `${operation.operationId}ParamSchema`
       pathParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          upperFirst(name),
+          upperFirst(symbols.paramSchema),
           reduceParamsToOpenApiSchema(pathParams),
         ),
       )
-      this.statements.push(`const ${name} = ${paramSchema.toString()}`)
+      this.statements.push(
+        `const ${symbols.paramSchema} = ${paramSchema.toString()}`,
+      )
     }
 
     if (querySchema) {
-      const name = `${operation.operationId}QuerySchema`
       queryParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          upperFirst(name),
+          upperFirst(symbols.querySchema),
           reduceParamsToOpenApiSchema(queryParams),
         ),
       )
-      this.statements.push(`const ${name} = ${querySchema.toString()}`)
+      this.statements.push(
+        `const ${symbols.querySchema} = ${querySchema.toString()}`,
+      )
     }
 
     if (headerSchema) {
-      const name = `${operation.operationId}HeaderSchema`
       headerParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          upperFirst(name),
+          upperFirst(symbols.requestHeaderSchema),
           reduceParamsToOpenApiSchema(headerParams),
         ),
       )
-      this.statements.push(`const ${name} = ${headerSchema.toString()}`)
+      this.statements.push(
+        `const ${symbols.requestHeaderSchema} = ${headerSchema.toString()}`,
+      )
     }
 
     if (bodyParamSchema && requestBodyParameter) {
-      const name = `${operation.operationId}BodySchema`
       bodyParamsType = types.schemaObjectToType(
         this.input.loader.addVirtualType(
           operation.operationId,
-          upperFirst(name),
+          upperFirst(symbols.requestBodySchema),
           this.input.schema(requestBodyParameter.schema),
         ),
       )
-      this.statements.push(`const ${name} = ${bodyParamSchema}`)
+      this.statements.push(
+        `const ${symbols.requestBodySchema} = ${bodyParamSchema}`,
+      )
     }
 
     const responseSchemas = Object.entries(operation.responses ?? {}).reduce(
@@ -231,7 +236,7 @@ export class ServerRouterBuilder implements ICompilable {
       operationId: operation.operationId,
       statements: [
         buildExport({
-          name: `${titleCase(operation.operationId)}Responder`,
+          name: symbols.responderName,
           value: intersect(
             object([
               ...responseSchemas.specific.map((it) =>
@@ -247,7 +252,7 @@ export class ServerRouterBuilder implements ICompilable {
           kind: "type",
         }),
         buildExport({
-          name: titleCase(operation.operationId),
+          name: symbols.typeName,
           value: `(
                     params: Params<
                       ${pathParamsType},
@@ -259,7 +264,7 @@ export class ServerRouterBuilder implements ICompilable {
                           : " | undefined")
                       },
                       ${headerParamsType}>,
-                    respond: ${`${titleCase(operation.operationId)}Responder`},
+                    respond: ${symbols.responderName},
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
@@ -277,37 +282,35 @@ export class ServerRouterBuilder implements ICompilable {
 
     this.statements.push(
       [
-        `const ${
-          operation.operationId
-        }ResponseValidator = responseValidationFactory([${responseSchemas.specific.map(
+        `const ${symbols.responseBodyValidator} = responseValidationFactory([${responseSchemas.specific.map(
           (it) => `["${it.statusString}", ${it.schema}]`,
         )}
       ], ${responseSchemas.defaultResponse?.schema})`,
         "",
         `router.${operation.method.toLowerCase()}('${
-          operation.operationId
+          symbols.implPropName
         }','${route(operation.route)}',`,
         `async (ctx, next) => {
 
        const input = {
         params: ${
           paramSchema
-            ? `parseRequestInput(${operation.operationId}ParamSchema, ctx.params, RequestInputType.RouteParam)`
+            ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)`
             : "undefined"
         },
         query: ${
           querySchema
-            ? `parseRequestInput(${operation.operationId}QuerySchema, ctx.query, RequestInputType.QueryString)`
+            ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)`
             : "undefined"
         },
         body: ${
           bodyParamSchema
-            ? `parseRequestInput(${operation.operationId}BodySchema, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`
+            ? `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`
             : "undefined"
         },
         headers: ${
           headerSchema
-            ? `parseRequestInput(${operation.operationId}HeaderSchema, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)`
+            ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)`
             : "undefined"
         }
        }
@@ -325,7 +328,7 @@ export class ServerRouterBuilder implements ICompilable {
         .filter(Boolean)
         .join(",\n")}}
 
-      const response = await implementation.${operation.operationId}(input, responder, ctx)
+      const response = await implementation.${symbols.implPropName}(input, responder, ctx)
         .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
 
@@ -334,7 +337,7 @@ export class ServerRouterBuilder implements ICompilable {
         body,
       } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-        ctx.body = ${operation.operationId}ResponseValidator(status, body)
+        ctx.body = ${symbols.responseBodyValidator}(status, body)
         ctx.status = status
         return next();
       })`,
@@ -342,6 +345,19 @@ export class ServerRouterBuilder implements ICompilable {
         .filter(isDefined)
         .join("\n"),
     )
+  }
+
+  private operationSymbolNames(operationId: string) {
+    return {
+      implPropName: operationId,
+      typeName: titleCase(operationId),
+      responderName: `${titleCase(operationId)}Responder`,
+      paramSchema: `${operationId}ParamSchema`,
+      querySchema: `${operationId}QuerySchema`,
+      requestBodySchema: `${operationId}BodySchema`,
+      requestHeaderSchema: `${operationId}HeaderSchema`,
+      responseBodyValidator: `${operationId}ResponseValidator`,
+    }
   }
 
   private implementationExport(): string {
@@ -352,8 +368,8 @@ export class ServerRouterBuilder implements ICompilable {
           name: "Implementation",
           value: object(
             this.operationTypes
-              .map((it) => it.operationId)
-              .map((key) => `${key}: ${titleCase(key)}`)
+              .map((it) => this.operationSymbolNames(it.operationId))
+              .map((it) => `${it.implPropName}: ${it.typeName}`)
               .join(","),
           ),
           kind: this.implementationMethod,
@@ -365,8 +381,8 @@ export class ServerRouterBuilder implements ICompilable {
           name: "Implementation",
           value: object(
             this.operationTypes
-              .map((it) => it.operationId)
-              .map((key) => `abstract ${key}: ${titleCase(key)}`)
+              .map((it) => this.operationSymbolNames(it.operationId))
+              .map((it) => `abstract ${it.implPropName}: ${it.typeName}`)
               .join("\n"),
           ),
           kind: "abstract-class",
