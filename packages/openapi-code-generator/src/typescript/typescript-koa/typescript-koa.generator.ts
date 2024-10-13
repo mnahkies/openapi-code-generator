@@ -347,7 +347,7 @@ export class ServerRouterBuilder implements ICompilable {
   private implementationExport(): string {
     switch (this.implementationMethod) {
       case "type":
-      case "interface":
+      case "interface": {
         return buildExport({
           name: "Implementation",
           value: object(
@@ -358,10 +358,26 @@ export class ServerRouterBuilder implements ICompilable {
           ),
           kind: this.implementationMethod,
         })
-      default:
+      }
+
+      case "abstract-class": {
+        return buildExport({
+          name: "Implementation",
+          value: object(
+            this.operationTypes
+              .map((it) => it.operationId)
+              .map((key) => `abstract ${key}: ${titleCase(key)}`)
+              .join("\n"),
+          ),
+          kind: "abstract-class",
+        })
+      }
+
+      default: {
         throw new Error(
           `server implementation method '${this.implementationMethod}' is not supported`,
         )
+      }
     }
   }
 

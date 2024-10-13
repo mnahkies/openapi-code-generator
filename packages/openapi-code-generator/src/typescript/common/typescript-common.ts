@@ -134,6 +134,11 @@ export type ExportDefinition =
       name: string
       value: string
     }
+  | {
+      kind: "abstract-class"
+      name: string
+      value: string
+    }
 
 export function buildExport(args: ExportDefinition) {
   if (!args.value) {
@@ -149,6 +154,8 @@ export function buildExport(args: ExportDefinition) {
       return `export type ${args.name} = ${args.value}`
     case "interface":
       return `export interface ${args.name} ${args.value}`
+    case "abstract-class":
+      return `export abstract class ${args.name} ${args.value}`
   }
 }
 
