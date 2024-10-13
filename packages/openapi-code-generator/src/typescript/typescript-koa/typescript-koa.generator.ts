@@ -6,7 +6,10 @@ import type {
   IRParameter,
 } from "../../core/openapi-types-normalized"
 import {isDefined, titleCase, upperFirst} from "../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
+import type {
+  OpenapiTypescriptGeneratorConfig,
+  ServerImplementationMethod,
+} from "../../templates.types"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
@@ -62,6 +65,7 @@ export class ServerRouterBuilder implements ICompilable {
     private readonly imports: ImportBuilder,
     public readonly types: TypeBuilder,
     public readonly schemaBuilder: SchemaBuilder,
+    private readonly implementationMethod: ServerImplementationMethod,
   ) {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
@@ -340,21 +344,32 @@ export class ServerRouterBuilder implements ICompilable {
     )
   }
 
+  private implementationExport(): string {
+    switch (this.implementationMethod) {
+      case "type":
+        return buildExport({
+          name: "Implementation",
+          value: object(
+            this.operationTypes
+              .map((it) => it.operationId)
+              .map((key) => `${key}: ${titleCase(key)}`)
+              .join(","),
+          ),
+          kind: this.implementationMethod,
+        })
+      default:
+        throw new Error(
+          `server implementation method '${this.implementationMethod}' is not supported`,
+        )
+    }
+  }
+
   toString(): string {
     const routes = this.statements
     const code = `
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
-${buildExport({
-  name: "Implementation",
-  value: object(
-    this.operationTypes
-      .map((it) => it.operationId)
-      .map((key) => `${key}: ${titleCase(key)}`)
-      .join(","),
-  ),
-  kind: "type",
-})}
+${this.implementationExport()}
 
 export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
@@ -462,6 +477,7 @@ export async function generateTypescriptKoa(
         imports,
         rootTypeBuilder.withImports(imports),
         rootSchemaBuilder.withImports(imports),
+        config.serverImplementationMethod,
       )
 
       // biome-ignore lint/complexity/noForEach: <explanation>

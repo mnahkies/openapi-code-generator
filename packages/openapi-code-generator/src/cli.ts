@@ -18,6 +18,7 @@ import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import {generate} from "./index"
 import type {templates} from "./templates"
+import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
 
 export const boolParser = (arg: string): boolean => {
@@ -111,6 +112,20 @@ const program = new Command()
       .env("OPENAPI_TS_ALLOW_ANY")
       .argParser(boolParser)
       .default(false),
+  )
+  .addOption(
+    new Option(
+      "--ts-server-implementation-method <value>",
+      "(experimental) (server templates only) how to define the route implementation types",
+    )
+      .env("OPENAPI_TS_SERVER_IMPLEMENTATION_METHOD")
+      .choices([
+        "interface",
+        "type",
+        "abstract-class",
+      ] as const satisfies ServerImplementationMethod[])
+      .default("type" as const satisfies ServerImplementationMethod)
+      .makeOptionMandatory(),
   )
   .addOption(
     new Option(
