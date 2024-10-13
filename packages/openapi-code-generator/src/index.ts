@@ -11,6 +11,7 @@ import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import type {OpenapiValidator} from "./core/openapi-validator"
 import {templates} from "./templates"
+import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
 export type Config = {
@@ -29,6 +30,7 @@ export type Config = {
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
   tsAllowAny: boolean
+  tsServerImplementationMethod: ServerImplementationMethod
   tsCompilerOptions: CompilerOptions
   remoteSpecRequestHeaders?: GenericLoaderRequestHeaders | undefined
 }
@@ -75,5 +77,6 @@ export async function generate(
     compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
     allowAny: config.tsAllowAny,
+    serverImplementationMethod: config.tsServerImplementationMethod,
   })
 }
