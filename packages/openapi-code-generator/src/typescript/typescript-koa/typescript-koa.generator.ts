@@ -347,6 +347,7 @@ export class ServerRouterBuilder implements ICompilable {
   private implementationExport(): string {
     switch (this.implementationMethod) {
       case "type":
+      case "interface":
         return buildExport({
           name: "Implementation",
           value: object(
