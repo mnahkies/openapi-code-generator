@@ -360,12 +360,12 @@ export class ServerRouterBuilder implements ICompilable {
     }
   }
 
-  private implementationExport(): string {
+  implementationExport(name: string): string {
     switch (this.implementationMethod) {
       case "type":
       case "interface": {
         return buildExport({
-          name: "Implementation",
+          name,
           value: object(
             this.operationTypes
               .map((it) => this.operationSymbolNames(it.operationId))
@@ -378,7 +378,7 @@ export class ServerRouterBuilder implements ICompilable {
 
       case "abstract-class": {
         return buildExport({
-          name: "Implementation",
+          name,
           value: object(
             this.operationTypes
               .map((it) => this.operationSymbolNames(it.operationId))
@@ -398,13 +398,14 @@ export class ServerRouterBuilder implements ICompilable {
   }
 
   toString(): string {
+    const implementationExportName = "Implementation"
     const routes = this.statements
     const code = `
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
-${this.implementationExport()}
+${this.implementationExport(implementationExportName)}
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createRouter(implementation: ${implementationExportName}): KoaRouter {
   const router = new KoaRouter()
 
   ${routes.join("\n\n")}
