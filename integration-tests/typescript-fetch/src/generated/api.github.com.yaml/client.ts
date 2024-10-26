@@ -250,6 +250,7 @@ import {
   t_rule_suites,
   t_runner,
   t_runner_application,
+  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_secret_scanning_alert,
@@ -868,7 +869,7 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
-  async classroomListAcceptedAssigmentsForAnAssignment(
+  async classroomListAcceptedAssignmentsForAnAssignment(
     p: {
       assignmentId: number
       page?: number
@@ -1143,6 +1144,8 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
       after?: string
       validity?: string
+      isPubliclyLeaked?: boolean
+      isMultiRepo?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -1173,6 +1176,8 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this._fetch(
@@ -2768,6 +2773,310 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
   }
 
+  async actionsListSelfHostedRunnerGroupsForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      visibleToRepository?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          runner_groups: t_runner_groups_org[]
+          total_count: number
+        }
+      >
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      visible_to_repository: p["visibleToRepository"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsCreateSelfHostedRunnerGroupForOrg(
+    p: {
+      org: string
+      requestBody: {
+        allows_public_repositories?: boolean
+        name: string
+        restricted_to_workflows?: boolean
+        runners?: number[]
+        selected_repository_ids?: number[]
+        selected_workflows?: string[]
+        visibility?: "selected" | "all" | "private"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<201, t_runner_groups_org>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/runner-groups`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async actionsGetSelfHostedRunnerGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_runner_groups_org>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsUpdateSelfHostedRunnerGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      requestBody: {
+        allows_public_repositories?: boolean
+        name: string
+        restricted_to_workflows?: boolean
+        selected_workflows?: string[]
+        visibility?: "selected" | "all" | "private"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_runner_groups_org>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsDeleteSelfHostedRunnerGroupFromOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          repositories: t_minimal_repository[]
+          total_count: number
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      requestBody: {
+        selected_repository_ids: number[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
+  async actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
+  }
+
+  async actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      repositoryId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async actionsListSelfHostedRunnersInGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<
+        200,
+        {
+          runners: t_runner[]
+          total_count: number
+        }
+      >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsSetSelfHostedRunnersInGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      requestBody: {
+        runners: number[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
+  async actionsAddSelfHostedRunnerToGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      runnerId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "PUT", ...opts, headers }, timeout)
+  }
+
+  async actionsRemoveSelfHostedRunnerFromGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      runnerId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<204, void>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async actionsListSelfHostedRunnersForOrg(
     p: {
       name?: string
@@ -3667,6 +3976,13 @@ export class ApiClient extends AbstractFetchClient {
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_bypass_options?: {
+          reviewers?: {
+            reviewer_id: number
+            reviewer_type: "TEAM" | "ROLE"
+          }[]
+        }
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -3784,6 +4100,13 @@ export class ApiClient extends AbstractFetchClient {
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_bypass_options?: {
+          reviewers?: {
+            reviewer_id: number
+            reviewer_type: "TEAM" | "ROLE"
+          }[]
+        }
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -3842,7 +4165,12 @@ export class ApiClient extends AbstractFetchClient {
       org: string
       configurationId: number
       requestBody: {
-        scope: "all" | "public" | "private_or_internal" | "selected"
+        scope:
+          | "all"
+          | "all_without_configurations"
+          | "public"
+          | "private_or_internal"
+          | "selected"
         selected_repository_ids?: number[]
       }
     },
@@ -6966,6 +7294,7 @@ export class ApiClient extends AbstractFetchClient {
       org: string
       perPage?: number
       page?: number
+      targets?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6978,7 +7307,11 @@ export class ApiClient extends AbstractFetchClient {
   > {
     const url = this.basePath + `/orgs/${p["org"]}/rulesets`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+    const query = this._query({
+      per_page: p["perPage"],
+      page: p["page"],
+      targets: p["targets"],
+    })
 
     return this._fetch(
       url + query,
@@ -7160,6 +7493,8 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
       after?: string
       validity?: string
+      isPubliclyLeaked?: boolean
+      isMultiRepo?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7190,6 +7525,8 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this._fetch(
@@ -8876,6 +9213,9 @@ export class ApiClient extends AbstractFetchClient {
             status?: string
           }
           secret_scanning?: {
+            status?: string
+          }
+          secret_scanning_ai_detection?: {
             status?: string
           }
           secret_scanning_non_provider_patterns?: {
@@ -11605,11 +11945,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            apps: string[]
-          }
-        | string[]
+      requestBody: {
+        apps: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11633,11 +11971,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            apps: string[]
-          }
-        | string[]
+      requestBody: {
+        apps: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11661,11 +11997,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            apps: string[]
-          }
-        | string[]
+      requestBody: {
+        apps: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11817,11 +12151,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            users: string[]
-          }
-        | string[]
+      requestBody: {
+        users: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11845,11 +12177,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody?:
-        | {
-            users: string[]
-          }
-        | string[]
+      requestBody: {
+        users: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11873,11 +12203,9 @@ export class ApiClient extends AbstractFetchClient {
       owner: string
       repo: string
       branch: string
-      requestBody:
-        | {
-            users: string[]
-          }
-        | string[]
+      requestBody: {
+        users: string[]
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12236,7 +12564,10 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
       perPage?: number
       ref?: t_code_scanning_ref
+      pr?: number
       direction?: "asc" | "desc"
+      before?: string
+      after?: string
       sort?: "created" | "updated"
       state?: t_code_scanning_alert_state_query
       severity?: t_code_scanning_alert_severity
@@ -12268,7 +12599,10 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
+      pr: p["pr"],
       direction: p["direction"],
+      before: p["before"],
+      after: p["after"],
       sort: p["sort"],
       state: p["state"],
       severity: p["severity"],
@@ -12365,6 +12699,7 @@ export class ApiClient extends AbstractFetchClient {
       page?: number
       perPage?: number
       ref?: t_code_scanning_ref
+      pr?: number
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -12391,6 +12726,7 @@ export class ApiClient extends AbstractFetchClient {
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
+      pr: p["pr"],
     })
 
     return this._fetch(
@@ -12408,6 +12744,7 @@ export class ApiClient extends AbstractFetchClient {
       toolGuid?: t_code_scanning_analysis_tool_guid
       page?: number
       perPage?: number
+      pr?: number
       ref?: t_code_scanning_ref
       sarifId?: t_code_scanning_analysis_sarif_id
       direction?: "asc" | "desc"
@@ -12438,6 +12775,7 @@ export class ApiClient extends AbstractFetchClient {
       tool_guid: p["toolGuid"],
       page: p["page"],
       per_page: p["perPage"],
+      pr: p["pr"],
       ref: p["ref"],
       sarif_id: p["sarifId"],
       direction: p["direction"],
@@ -19609,6 +19947,7 @@ export class ApiClient extends AbstractFetchClient {
       perPage?: number
       page?: number
       includesParents?: boolean
+      targets?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19625,6 +19964,7 @@ export class ApiClient extends AbstractFetchClient {
       per_page: p["perPage"],
       page: p["page"],
       includes_parents: p["includesParents"],
+      targets: p["targets"],
     })
 
     return this._fetch(
@@ -19825,6 +20165,8 @@ export class ApiClient extends AbstractFetchClient {
       before?: string
       after?: string
       validity?: string
+      isPubliclyLeaked?: boolean
+      isMultiRepo?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -19856,6 +20198,8 @@ export class ApiClient extends AbstractFetchClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this._fetch(

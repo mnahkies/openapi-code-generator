@@ -8,8 +8,10 @@ import {
   t_ActionsAddCustomLabelsToSelfHostedRunnerForOrgParamSchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoBodySchema,
   t_ActionsAddCustomLabelsToSelfHostedRunnerForRepoParamSchema,
+  t_ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsAddSelectedRepoToOrgSecretParamSchema,
   t_ActionsAddSelectedRepoToOrgVariableParamSchema,
+  t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
   t_ActionsApproveWorkflowRunParamSchema,
   t_ActionsCancelWorkflowRunParamSchema,
   t_ActionsCreateEnvironmentVariableBodySchema,
@@ -28,6 +30,8 @@ import {
   t_ActionsCreateRemoveTokenForRepoParamSchema,
   t_ActionsCreateRepoVariableBodySchema,
   t_ActionsCreateRepoVariableParamSchema,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+  t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
   t_ActionsCreateWorkflowDispatchBodySchema,
   t_ActionsCreateWorkflowDispatchParamSchema,
   t_ActionsDeleteActionsCacheByIdParamSchema,
@@ -42,6 +46,7 @@ import {
   t_ActionsDeleteRepoVariableParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromOrgParamSchema,
   t_ActionsDeleteSelfHostedRunnerFromRepoParamSchema,
+  t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
   t_ActionsDeleteWorkflowRunLogsParamSchema,
   t_ActionsDeleteWorkflowRunParamSchema,
   t_ActionsDisableSelectedRepositoryGithubActionsOrganizationParamSchema,
@@ -85,6 +90,7 @@ import {
   t_ActionsGetReviewsForRunParamSchema,
   t_ActionsGetSelfHostedRunnerForOrgParamSchema,
   t_ActionsGetSelfHostedRunnerForRepoParamSchema,
+  t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
   t_ActionsGetWorkflowAccessToRepositoryParamSchema,
   t_ActionsGetWorkflowParamSchema,
   t_ActionsGetWorkflowRunAttemptParamSchema,
@@ -109,6 +115,8 @@ import {
   t_ActionsListOrgSecretsQuerySchema,
   t_ActionsListOrgVariablesParamSchema,
   t_ActionsListOrgVariablesQuerySchema,
+  t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+  t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
   t_ActionsListRepoOrganizationSecretsParamSchema,
   t_ActionsListRepoOrganizationSecretsQuerySchema,
   t_ActionsListRepoOrganizationVariablesParamSchema,
@@ -127,10 +135,14 @@ import {
   t_ActionsListSelectedReposForOrgVariableQuerySchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
   t_ActionsListSelectedRepositoriesEnabledGithubActionsOrganizationQuerySchema,
+  t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
+  t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForOrgParamSchema,
   t_ActionsListSelfHostedRunnersForOrgQuerySchema,
   t_ActionsListSelfHostedRunnersForRepoParamSchema,
   t_ActionsListSelfHostedRunnersForRepoQuerySchema,
+  t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
+  t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema,
   t_ActionsListWorkflowRunArtifactsParamSchema,
   t_ActionsListWorkflowRunArtifactsQuerySchema,
   t_ActionsListWorkflowRunsForRepoParamSchema,
@@ -147,8 +159,10 @@ import {
   t_ActionsRemoveAllCustomLabelsFromSelfHostedRunnerForRepoParamSchema,
   t_ActionsRemoveCustomLabelFromSelfHostedRunnerForOrgParamSchema,
   t_ActionsRemoveCustomLabelFromSelfHostedRunnerForRepoParamSchema,
+  t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgSecretParamSchema,
   t_ActionsRemoveSelectedRepoFromOrgVariableParamSchema,
+  t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
   t_ActionsReviewCustomGatesForRunBodySchema,
   t_ActionsReviewCustomGatesForRunParamSchema,
   t_ActionsReviewPendingDeploymentsForRunBodySchema,
@@ -171,12 +185,16 @@ import {
   t_ActionsSetGithubActionsPermissionsOrganizationParamSchema,
   t_ActionsSetGithubActionsPermissionsRepositoryBodySchema,
   t_ActionsSetGithubActionsPermissionsRepositoryParamSchema,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+  t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
   t_ActionsSetSelectedReposForOrgSecretBodySchema,
   t_ActionsSetSelectedReposForOrgSecretParamSchema,
   t_ActionsSetSelectedReposForOrgVariableBodySchema,
   t_ActionsSetSelectedReposForOrgVariableParamSchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationBodySchema,
   t_ActionsSetSelectedRepositoriesEnabledGithubActionsOrganizationParamSchema,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+  t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
   t_ActionsSetWorkflowAccessToRepositoryBodySchema,
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
   t_ActionsUpdateEnvironmentVariableBodySchema,
@@ -185,6 +203,8 @@ import {
   t_ActionsUpdateOrgVariableParamSchema,
   t_ActionsUpdateRepoVariableBodySchema,
   t_ActionsUpdateRepoVariableParamSchema,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+  t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
   t_ActivityCheckRepoIsStarredByAuthenticatedUserParamSchema,
   t_ActivityDeleteRepoSubscriptionParamSchema,
   t_ActivityDeleteThreadSubscriptionParamSchema,
@@ -304,8 +324,8 @@ import {
   t_ClassroomGetAClassroomParamSchema,
   t_ClassroomGetAnAssignmentParamSchema,
   t_ClassroomGetAssignmentGradesParamSchema,
-  t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
-  t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+  t_ClassroomListAcceptedAssignmentsForAnAssignmentParamSchema,
+  t_ClassroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
   t_ClassroomListAssignmentsForAClassroomParamSchema,
   t_ClassroomListAssignmentsForAClassroomQuerySchema,
   t_ClassroomListClassroomsQuerySchema,
@@ -1605,6 +1625,7 @@ import {
   t_rule_suites,
   t_runner,
   t_runner_application,
+  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_secret_scanning_alert,
@@ -1899,6 +1920,7 @@ import {
   s_rule_suites,
   s_runner,
   s_runner_application,
+  s_runner_groups_org,
   s_runner_label,
   s_scim_error,
   s_secret_scanning_alert,
@@ -2409,18 +2431,18 @@ export type ClassroomGetAnAssignment = (
   | Response<404, t_basic_error>
 >
 
-export type ClassroomListAcceptedAssigmentsForAnAssignmentResponder = {
+export type ClassroomListAcceptedAssignmentsForAnAssignmentResponder = {
   with200(): KoaRuntimeResponse<t_classroom_accepted_assignment[]>
 } & KoaRuntimeResponder
 
-export type ClassroomListAcceptedAssigmentsForAnAssignment = (
+export type ClassroomListAcceptedAssignmentsForAnAssignment = (
   params: Params<
-    t_ClassroomListAcceptedAssigmentsForAnAssignmentParamSchema,
-    t_ClassroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+    t_ClassroomListAcceptedAssignmentsForAnAssignmentParamSchema,
+    t_ClassroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
     void,
     void
   >,
-  respond: ClassroomListAcceptedAssigmentsForAnAssignmentResponder,
+  respond: ClassroomListAcceptedAssignmentsForAnAssignmentResponder,
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_classroom_accepted_assignment[]>
@@ -3973,6 +3995,237 @@ export type ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization = (
     void
   >,
   respond: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsListSelfHostedRunnerGroupsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    runner_groups: t_runner_groups_org[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListSelfHostedRunnerGroupsForOrg = (
+  params: Params<
+    t_ActionsListSelfHostedRunnerGroupsForOrgParamSchema,
+    t_ActionsListSelfHostedRunnerGroupsForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListSelfHostedRunnerGroupsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        runner_groups: t_runner_groups_org[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsCreateSelfHostedRunnerGroupForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_runner_groups_org>
+} & KoaRuntimeResponder
+
+export type ActionsCreateSelfHostedRunnerGroupForOrg = (
+  params: Params<
+    t_ActionsCreateSelfHostedRunnerGroupForOrgParamSchema,
+    void,
+    t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+    void
+  >,
+  respond: ActionsCreateSelfHostedRunnerGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<201, t_runner_groups_org>>
+
+export type ActionsGetSelfHostedRunnerGroupForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_runner_groups_org>
+} & KoaRuntimeResponder
+
+export type ActionsGetSelfHostedRunnerGroupForOrg = (
+  params: Params<
+    t_ActionsGetSelfHostedRunnerGroupForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetSelfHostedRunnerGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_runner_groups_org>>
+
+export type ActionsUpdateSelfHostedRunnerGroupForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_runner_groups_org>
+} & KoaRuntimeResponder
+
+export type ActionsUpdateSelfHostedRunnerGroupForOrg = (
+  params: Params<
+    t_ActionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
+    void,
+    t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+    void
+  >,
+  respond: ActionsUpdateSelfHostedRunnerGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_runner_groups_org>>
+
+export type ActionsDeleteSelfHostedRunnerGroupFromOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsDeleteSelfHostedRunnerGroupFromOrg = (
+  params: Params<
+    t_ActionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsDeleteSelfHostedRunnerGroupFromOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsListRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    repositories: t_minimal_repository[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListRepoAccessToSelfHostedRunnerGroupInOrg = (
+  params: Params<
+    t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+    t_ActionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListRepoAccessToSelfHostedRunnerGroupInOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        repositories: t_minimal_repository[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg = (
+  params: Params<
+    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+    void,
+    t_ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+    void
+  >,
+  respond: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsAddRepoAccessToSelfHostedRunnerGroupInOrg = (
+  params: Params<
+    t_ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg = (
+  params: Params<
+    t_ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsListSelfHostedRunnersInGroupForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    runners: t_runner[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListSelfHostedRunnersInGroupForOrg = (
+  params: Params<
+    t_ActionsListSelfHostedRunnersInGroupForOrgParamSchema,
+    t_ActionsListSelfHostedRunnersInGroupForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListSelfHostedRunnersInGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        runners: t_runner[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsSetSelfHostedRunnersInGroupForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsSetSelfHostedRunnersInGroupForOrg = (
+  params: Params<
+    t_ActionsSetSelfHostedRunnersInGroupForOrgParamSchema,
+    void,
+    t_ActionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+    void
+  >,
+  respond: ActionsSetSelfHostedRunnersInGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsAddSelfHostedRunnerToGroupForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsAddSelfHostedRunnerToGroupForOrg = (
+  params: Params<
+    t_ActionsAddSelfHostedRunnerToGroupForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsAddSelfHostedRunnerToGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type ActionsRemoveSelfHostedRunnerFromGroupForOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type ActionsRemoveSelfHostedRunnerFromGroupForOrg = (
+  params: Params<
+    t_ActionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsRemoveSelfHostedRunnerFromGroupForOrgResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
@@ -10886,7 +11139,7 @@ export type ReposAddAppAccessRestrictions = (
   params: Params<
     t_ReposAddAppAccessRestrictionsParamSchema,
     void,
-    t_ReposAddAppAccessRestrictionsBodySchema | undefined,
+    t_ReposAddAppAccessRestrictionsBodySchema,
     void
   >,
   respond: ReposAddAppAccessRestrictionsResponder,
@@ -10906,7 +11159,7 @@ export type ReposSetAppAccessRestrictions = (
   params: Params<
     t_ReposSetAppAccessRestrictionsParamSchema,
     void,
-    t_ReposSetAppAccessRestrictionsBodySchema | undefined,
+    t_ReposSetAppAccessRestrictionsBodySchema,
     void
   >,
   respond: ReposSetAppAccessRestrictionsResponder,
@@ -11046,7 +11299,7 @@ export type ReposAddUserAccessRestrictions = (
   params: Params<
     t_ReposAddUserAccessRestrictionsParamSchema,
     void,
-    t_ReposAddUserAccessRestrictionsBodySchema | undefined,
+    t_ReposAddUserAccessRestrictionsBodySchema,
     void
   >,
   respond: ReposAddUserAccessRestrictionsResponder,
@@ -11066,7 +11319,7 @@ export type ReposSetUserAccessRestrictions = (
   params: Params<
     t_ReposSetUserAccessRestrictionsParamSchema,
     void,
-    t_ReposSetUserAccessRestrictionsBodySchema | undefined,
+    t_ReposSetUserAccessRestrictionsBodySchema,
     void
   >,
   respond: ReposSetUserAccessRestrictionsResponder,
@@ -21606,7 +21859,7 @@ export type Implementation = {
   appsScopeToken: AppsScopeToken
   appsGetBySlug: AppsGetBySlug
   classroomGetAnAssignment: ClassroomGetAnAssignment
-  classroomListAcceptedAssigmentsForAnAssignment: ClassroomListAcceptedAssigmentsForAnAssignment
+  classroomListAcceptedAssignmentsForAnAssignment: ClassroomListAcceptedAssignmentsForAnAssignment
   classroomGetAssignmentGrades: ClassroomGetAssignmentGrades
   classroomListClassrooms: ClassroomListClassrooms
   classroomGetAClassroom: ClassroomGetAClassroom
@@ -21684,6 +21937,19 @@ export type Implementation = {
   actionsSetAllowedActionsOrganization: ActionsSetAllowedActionsOrganization
   actionsGetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsGetGithubActionsDefaultWorkflowPermissionsOrganization
   actionsSetGithubActionsDefaultWorkflowPermissionsOrganization: ActionsSetGithubActionsDefaultWorkflowPermissionsOrganization
+  actionsListSelfHostedRunnerGroupsForOrg: ActionsListSelfHostedRunnerGroupsForOrg
+  actionsCreateSelfHostedRunnerGroupForOrg: ActionsCreateSelfHostedRunnerGroupForOrg
+  actionsGetSelfHostedRunnerGroupForOrg: ActionsGetSelfHostedRunnerGroupForOrg
+  actionsUpdateSelfHostedRunnerGroupForOrg: ActionsUpdateSelfHostedRunnerGroupForOrg
+  actionsDeleteSelfHostedRunnerGroupFromOrg: ActionsDeleteSelfHostedRunnerGroupFromOrg
+  actionsListRepoAccessToSelfHostedRunnerGroupInOrg: ActionsListRepoAccessToSelfHostedRunnerGroupInOrg
+  actionsSetRepoAccessToSelfHostedRunnerGroupInOrg: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg
+  actionsAddRepoAccessToSelfHostedRunnerGroupInOrg: ActionsAddRepoAccessToSelfHostedRunnerGroupInOrg
+  actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg: ActionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg
+  actionsListSelfHostedRunnersInGroupForOrg: ActionsListSelfHostedRunnersInGroupForOrg
+  actionsSetSelfHostedRunnersInGroupForOrg: ActionsSetSelfHostedRunnersInGroupForOrg
+  actionsAddSelfHostedRunnerToGroupForOrg: ActionsAddSelfHostedRunnerToGroupForOrg
+  actionsRemoveSelfHostedRunnerFromGroupForOrg: ActionsRemoveSelfHostedRunnerFromGroupForOrg
   actionsListSelfHostedRunnersForOrg: ActionsListSelfHostedRunnersForOrg
   actionsListRunnerApplicationsForOrg: ActionsListRunnerApplicationsForOrg
   actionsGenerateRunnerJitconfigForOrg: ActionsGenerateRunnerJitconfigForOrg
@@ -23938,33 +24204,33 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const classroomListAcceptedAssigmentsForAnAssignmentParamSchema = z.object({
+  const classroomListAcceptedAssignmentsForAnAssignmentParamSchema = z.object({
     assignment_id: z.coerce.number(),
   })
 
-  const classroomListAcceptedAssigmentsForAnAssignmentQuerySchema = z.object({
+  const classroomListAcceptedAssignmentsForAnAssignmentQuerySchema = z.object({
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
   })
 
-  const classroomListAcceptedAssigmentsForAnAssignmentResponseValidator =
+  const classroomListAcceptedAssignmentsForAnAssignmentResponseValidator =
     responseValidationFactory(
       [["200", z.array(s_classroom_accepted_assignment)]],
       undefined,
     )
 
   router.get(
-    "classroomListAcceptedAssigmentsForAnAssignment",
+    "classroomListAcceptedAssignmentsForAnAssignment",
     "/assignments/:assignment_id/accepted_assignments",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          classroomListAcceptedAssigmentsForAnAssignmentParamSchema,
+          classroomListAcceptedAssignmentsForAnAssignmentParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          classroomListAcceptedAssigmentsForAnAssignmentQuerySchema,
+          classroomListAcceptedAssignmentsForAnAssignmentQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
@@ -23982,7 +24248,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .classroomListAcceptedAssigmentsForAnAssignment(input, responder, ctx)
+        .classroomListAcceptedAssignmentsForAnAssignment(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -23991,7 +24257,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body =
-        classroomListAcceptedAssigmentsForAnAssignmentResponseValidator(
+        classroomListAcceptedAssignmentsForAnAssignmentResponseValidator(
           status,
           body,
         )
@@ -24637,6 +24903,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     before: z.string().optional(),
     after: z.string().optional(),
     validity: z.string().optional(),
+    is_publicly_leaked: PermissiveBoolean.optional().default(false),
+    is_multi_repo: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForEnterpriseResponseValidator =
@@ -28765,6 +29033,787 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const actionsListSelfHostedRunnerGroupsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsListSelfHostedRunnerGroupsForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+    visible_to_repository: z.string().optional(),
+  })
+
+  const actionsListSelfHostedRunnerGroupsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            runner_groups: z.array(s_runner_groups_org),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListSelfHostedRunnerGroupsForOrg",
+    "/orgs/:org/actions/runner-groups",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnerGroupsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnerGroupsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            runner_groups: t_runner_groups_org[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsListSelfHostedRunnerGroupsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsListSelfHostedRunnerGroupsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsCreateSelfHostedRunnerGroupForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsCreateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+    name: z.string(),
+    visibility: z
+      .enum(["selected", "all", "private"])
+      .optional()
+      .default("all"),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    runners: z.array(z.coerce.number()).optional(),
+    allows_public_repositories: PermissiveBoolean.optional().default(false),
+    restricted_to_workflows: PermissiveBoolean.optional().default(false),
+    selected_workflows: z.array(z.string()).optional(),
+  })
+
+  const actionsCreateSelfHostedRunnerGroupForOrgResponseValidator =
+    responseValidationFactory([["201", s_runner_groups_org]], undefined)
+
+  router.post(
+    "actionsCreateSelfHostedRunnerGroupForOrg",
+    "/orgs/:org/actions/runner-groups",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateSelfHostedRunnerGroupForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_runner_groups_org>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsCreateSelfHostedRunnerGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsCreateSelfHostedRunnerGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetSelfHostedRunnerGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsGetSelfHostedRunnerGroupForOrgResponseValidator =
+    responseValidationFactory([["200", s_runner_groups_org]], undefined)
+
+  router.get(
+    "actionsGetSelfHostedRunnerGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_runner_groups_org>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetSelfHostedRunnerGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetSelfHostedRunnerGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsUpdateSelfHostedRunnerGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsUpdateSelfHostedRunnerGroupForOrgBodySchema = z.object({
+    name: z.string(),
+    visibility: z.enum(["selected", "all", "private"]).optional(),
+    allows_public_repositories: PermissiveBoolean.optional().default(false),
+    restricted_to_workflows: PermissiveBoolean.optional().default(false),
+    selected_workflows: z.array(z.string()).optional(),
+  })
+
+  const actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator =
+    responseValidationFactory([["200", s_runner_groups_org]], undefined)
+
+  router.patch(
+    "actionsUpdateSelfHostedRunnerGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateSelfHostedRunnerGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsUpdateSelfHostedRunnerGroupForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_runner_groups_org>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsUpdateSelfHostedRunnerGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsDeleteSelfHostedRunnerGroupFromOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "actionsDeleteSelfHostedRunnerGroupFromOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteSelfHostedRunnerGroupFromOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsDeleteSelfHostedRunnerGroupFromOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsDeleteSelfHostedRunnerGroupFromOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object(
+    { org: z.string(), runner_group_id: z.coerce.number() },
+  )
+
+  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema = z.object(
+    {
+      page: z.coerce.number().optional().default(1),
+      per_page: z.coerce.number().optional().default(30),
+    },
+  )
+
+  const actionsListRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            repositories: z.array(s_minimal_repository),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListRepoAccessToSelfHostedRunnerGroupInOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListRepoAccessToSelfHostedRunnerGroupInOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            repositories: t_minimal_repository[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
+          input,
+          responder,
+          ctx,
+        )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        actionsListRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema = z.object({
+    selected_repository_ids: z.array(z.coerce.number()),
+  })
+
+  const actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "actionsSetRepoAccessToSelfHostedRunnerGroupInOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/repositories",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetRepoAccessToSelfHostedRunnerGroupInOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        actionsSetRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+    repository_id: z.coerce.number(),
+  })
+
+  const actionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "actionsAddRepoAccessToSelfHostedRunnerGroupInOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/repositories/:repository_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        actionsAddRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema =
+    z.object({
+      org: z.string(),
+      runner_group_id: z.coerce.number(),
+      repository_id: z.coerce.number(),
+    })
+
+  const actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/repositories/:repository_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(
+          input,
+          responder,
+          ctx,
+        )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsListSelfHostedRunnersInGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsListSelfHostedRunnersInGroupForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const actionsListSelfHostedRunnersInGroupForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            runners: z.array(s_runner),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListSelfHostedRunnersInGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/runners",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListSelfHostedRunnersInGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListSelfHostedRunnersInGroupForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            runners: t_runner[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsListSelfHostedRunnersInGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsListSelfHostedRunnersInGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsSetSelfHostedRunnersInGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsSetSelfHostedRunnersInGroupForOrgBodySchema = z.object({
+    runners: z.array(z.coerce.number()),
+  })
+
+  const actionsSetSelfHostedRunnersInGroupForOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "actionsSetSelfHostedRunnersInGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/runners",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsSetSelfHostedRunnersInGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsSetSelfHostedRunnersInGroupForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsSetSelfHostedRunnersInGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsSetSelfHostedRunnersInGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsAddSelfHostedRunnerToGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+    runner_id: z.coerce.number(),
+  })
+
+  const actionsAddSelfHostedRunnerToGroupForOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.put(
+    "actionsAddSelfHostedRunnerToGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/runners/:runner_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsAddSelfHostedRunnerToGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsAddSelfHostedRunnerToGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsAddSelfHostedRunnerToGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+    runner_id: z.coerce.number(),
+  })
+
+  const actionsRemoveSelfHostedRunnerFromGroupForOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "actionsRemoveSelfHostedRunnerFromGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/runners/:runner_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsRemoveSelfHostedRunnerFromGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsRemoveSelfHostedRunnerFromGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsRemoveSelfHostedRunnerFromGroupForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const actionsListSelfHostedRunnersForOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -31122,6 +32171,22 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_scanning_delegated_bypass: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
+    secret_scanning_delegated_bypass_options: z
+      .object({
+        reviewers: z
+          .array(
+            z.object({
+              reviewer_id: z.coerce.number(),
+              reviewer_type: z.enum(["TEAM", "ROLE"]),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
     secret_scanning_validity_checks: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -31423,6 +32488,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
+    secret_scanning_delegated_bypass: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning_delegated_bypass_options: z
+      .object({
+        reviewers: z
+          .array(
+            z.object({
+              reviewer_id: z.coerce.number(),
+              reviewer_type: z.enum(["TEAM", "ROLE"]),
+            }),
+          )
+          .optional(),
+      })
+      .optional(),
     secret_scanning_validity_checks: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
@@ -31564,7 +32644,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
   })
 
   const codeSecurityAttachConfigurationBodySchema = z.object({
-    scope: z.enum(["all", "public", "private_or_internal", "selected"]),
+    scope: z.enum([
+      "all",
+      "all_without_configurations",
+      "public",
+      "private_or_internal",
+      "selected",
+    ]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
 
@@ -39445,6 +40531,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposGetOrgRulesetsQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
+    targets: z.string().optional(),
   })
 
   const reposGetOrgRulesetsResponseValidator = responseValidationFactory(
@@ -39916,6 +41003,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     before: z.string().optional(),
     after: z.string().optional(),
     validity: z.string().optional(),
+    is_publicly_leaked: PermissiveBoolean.optional().default(false),
+    is_multi_repo: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForOrgResponseValidator =
@@ -44227,6 +45316,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ status: z.string().optional() })
             .optional(),
           secret_scanning_push_protection: z
+            .object({ status: z.string().optional() })
+            .optional(),
+          secret_scanning_ai_detection: z
             .object({ status: z.string().optional() })
             .optional(),
           secret_scanning_non_provider_patterns: z
@@ -51020,9 +52112,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddAppAccessRestrictionsBodySchema = z
-    .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
-    .optional()
+  const reposAddAppAccessRestrictionsBodySchema = z.object({
+    apps: z.array(z.string()),
+  })
 
   const reposAddAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -51085,9 +52177,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetAppAccessRestrictionsBodySchema = z
-    .union([z.object({ apps: z.array(z.string()) }), z.array(z.string())])
-    .optional()
+  const reposSetAppAccessRestrictionsBodySchema = z.object({
+    apps: z.array(z.string()),
+  })
 
   const reposSetAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -51150,10 +52242,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveAppAccessRestrictionsBodySchema = z.union([
-    z.object({ apps: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposRemoveAppAccessRestrictionsBodySchema = z.object({
+    apps: z.array(z.string()),
+  })
 
   const reposRemoveAppAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -51535,9 +52626,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposAddUserAccessRestrictionsBodySchema = z
-    .union([z.object({ users: z.array(z.string()) }), z.array(z.string())])
-    .optional()
+  const reposAddUserAccessRestrictionsBodySchema = z.object({
+    users: z.array(z.string()),
+  })
 
   const reposAddUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -51600,9 +52691,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposSetUserAccessRestrictionsBodySchema = z
-    .union([z.object({ users: z.array(z.string()) }), z.array(z.string())])
-    .optional()
+  const reposSetUserAccessRestrictionsBodySchema = z.object({
+    users: z.array(z.string()),
+  })
 
   const reposSetUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -51665,10 +52756,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     branch: z.string(),
   })
 
-  const reposRemoveUserAccessRestrictionsBodySchema = z.union([
-    z.object({ users: z.array(z.string()) }),
-    z.array(z.string()),
-  ])
+  const reposRemoveUserAccessRestrictionsBodySchema = z.object({
+    users: z.array(z.string()),
+  })
 
   const reposRemoveUserAccessRestrictionsResponseValidator =
     responseValidationFactory(
@@ -52467,7 +53557,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
     ref: s_code_scanning_ref.optional(),
+    pr: z.coerce.number().optional(),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    before: z.string().optional(),
+    after: z.string().optional(),
     sort: z.enum(["created", "updated"]).optional().default("created"),
     state: s_code_scanning_alert_state_query.optional(),
     severity: s_code_scanning_alert_severity.optional(),
@@ -52725,6 +53818,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
     ref: s_code_scanning_ref.optional(),
+    pr: z.coerce.number().optional(),
   })
 
   const codeScanningListAlertInstancesResponseValidator =
@@ -52811,6 +53905,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     tool_guid: s_code_scanning_analysis_tool_guid.optional(),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
+    pr: z.coerce.number().optional(),
     ref: s_code_scanning_ref.optional(),
     sarif_id: s_code_scanning_analysis_sarif_id.optional(),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
@@ -70239,6 +71334,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
     includes_parents: PermissiveBoolean.optional().default(true),
+    targets: z.string().optional(),
   })
 
   const reposGetRepoRulesetsResponseValidator = responseValidationFactory(
@@ -70728,6 +71824,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     before: z.string().optional(),
     after: z.string().optional(),
     validity: z.string().optional(),
+    is_publicly_leaked: PermissiveBoolean.optional().default(false),
+    is_multi_repo: PermissiveBoolean.optional().default(false),
   })
 
   const secretScanningListAlertsForRepoResponseValidator =
