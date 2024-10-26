@@ -1,7 +1,8 @@
 #!/usr/bin/env node
 
-const fs = require("node:fs")
+const fs = require("node:fs/promises")
 const path = require("node:path")
+const yaml = require("js-yaml")
 
 const AjvDraft04 = require("ajv-draft-04")
 const Ajv2020 = require("ajv/dist/2020")
@@ -9,13 +10,24 @@ const standaloneCode = require("ajv/dist/standalone").default
 const addFormats = require("ajv-formats")
 const {Biome, Distribution} = require("@biomejs/js-api")
 
-const openapi_3_0_specification = require("../schemas/openapi-3.0-specification.json")
-const openapi_3_1_specification = require("../schemas/openapi-3.1-specification-base.json")
+const openapi30Path = path.join(
+  __dirname,
+  "../schemas/openapi-3.0-specification.yaml",
+)
+const openapi31Path = path.join(
+  __dirname,
+  "../schemas/openapi-3.1-specification-base.yaml",
+)
 
 const outputDir = path.join(
   __dirname,
   "../packages/openapi-code-generator/src/core/schemas",
 )
+
+const loadYamlFile = async (filepath) => {
+  const content = await fs.readFile(filepath, "utf-8")
+  return yaml.load(content)
+}
 
 const writeOutput = async (filepath, moduleCode) => {
   const raw = `
@@ -34,7 +46,7 @@ const writeOutput = async (filepath, moduleCode) => {
     filePath: filepath,
   })
 
-  fs.writeFileSync(filepath, formatted.content, "utf-8")
+  await fs.writeFile(filepath, formatted.content, "utf-8")
 }
 
 const loadSchema = async (uri) => {
@@ -42,7 +54,8 @@ const loadSchema = async (uri) => {
   return res.json()
 }
 
-const compileOpenapi30Standalone = () => {
+const compileOpenapi30Standalone = async () => {
+  const spec = await loadYamlFile(openapi30Path)
   const ajv4 = new AjvDraft04({
     code: {source: true},
     strict: false,
@@ -50,12 +63,14 @@ const compileOpenapi30Standalone = () => {
   })
   addFormats(ajv4)
 
-  const validate = ajv4.compile(openapi_3_0_specification)
+  const validate = ajv4.compile(spec)
   return standaloneCode(ajv4, validate)
 }
 
-const compileOpenapi31Standalone = () => {
+const compileOpenapi31Standalone = async () => {
   try {
+    const spec = await loadYamlFile(openapi31Path)
+
     const ajv2020 = new Ajv2020({
       code: {source: true},
       strict: false,
@@ -65,7 +80,7 @@ const compileOpenapi31Standalone = () => {
     addFormats(ajv2020)
     ajv2020.addFormat("media-range", true)
 
-    const validate = ajv2020.compile(openapi_3_1_specification)
+    const validate = ajv2020.compile(spec)
     return standaloneCode(ajv2020, validate)
   } catch (err) {
     // TODO: MissingRefError: can't resolve reference https://spec.openapis.org/oas/3.1/schema/2022-10-07 from id https://spec.openapis.org/oas/3.1/schema-base/2022-10-07
@@ -90,11 +105,16 @@ function validate(){
   }
 }
 
-writeOutput(
-  path.join(outputDir, "openapi-3.0-specification-validator.js"),
-  compileOpenapi30Standalone(),
+compileOpenapi30Standalone().then((output) =>
+  writeOutput(
+    path.join(outputDir, "openapi-3.0-specification-validator.js"),
+    output,
+  ),
 )
-writeOutput(
-  path.join(outputDir, "openapi-3.1-specification-validator.js"),
-  compileOpenapi31Standalone(),
+
+compileOpenapi31Standalone().then((output) =>
+  writeOutput(
+    path.join(outputDir, "openapi-3.1-specification-validator.js"),
+    output,
+  ),
 )

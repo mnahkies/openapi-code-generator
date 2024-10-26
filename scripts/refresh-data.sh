@@ -3,9 +3,9 @@
 set -e
 
 # Openapi v3.1 schema definitions
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.json -o ./schemas/openapi-3.1-specification.json
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema-base.json -o ./schemas/openapi-3.1-specification-base.json
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.json -o ./schemas/openapi-3.0-specification.json
+curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml -o ./schemas/openapi-3.1-specification.yaml
+curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema-base.yaml -o ./schemas/openapi-3.1-specification-base.yaml
+curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml -o ./schemas/openapi-3.0-specification.yaml
 
 # Example API Definitions
 curl -L https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml -o ./integration-tests-definitions/api.github.com.yaml
