@@ -14,6 +14,9 @@ import {
   t_balance_transaction,
   t_bank_account,
   t_billing_alert,
+  t_billing_credit_balance_summary,
+  t_billing_credit_balance_transaction,
+  t_billing_credit_grant,
   t_billing_meter,
   t_billing_meter_event,
   t_billing_meter_event_adjustment,
@@ -242,18 +245,21 @@ export class ApiClient extends AbstractAxiosClient {
           account_management?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
           account_onboarding?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
           balances?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               edit_payout_schedule?: boolean
               external_account_collection?: boolean
               instant_payouts?: boolean
@@ -267,6 +273,7 @@ export class ApiClient extends AbstractAxiosClient {
           notification_banner?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               external_account_collection?: boolean
             }
           }
@@ -291,6 +298,7 @@ export class ApiClient extends AbstractAxiosClient {
           payouts?: {
             enabled: boolean
             features?: {
+              disable_stripe_user_authentication?: boolean
               edit_payout_schedule?: boolean
               external_account_collection?: boolean
               instant_payouts?: boolean
@@ -446,6 +454,9 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay_payments?: {
             requested?: boolean
           }
+          alma_payments?: {
+            requested?: boolean
+          }
           amazon_pay_payments?: {
             requested?: boolean
           }
@@ -506,10 +517,16 @@ export class ApiClient extends AbstractAxiosClient {
           jp_bank_transfer_payments?: {
             requested?: boolean
           }
+          kakao_pay_payments?: {
+            requested?: boolean
+          }
           klarna_payments?: {
             requested?: boolean
           }
           konbini_payments?: {
+            requested?: boolean
+          }
+          kr_card_payments?: {
             requested?: boolean
           }
           legacy_payments?: {
@@ -527,10 +544,16 @@ export class ApiClient extends AbstractAxiosClient {
           mx_bank_transfer_payments?: {
             requested?: boolean
           }
+          naver_pay_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
           p24_payments?: {
+            requested?: boolean
+          }
+          payco_payments?: {
             requested?: boolean
           }
           paynow_payments?: {
@@ -540,6 +563,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          samsung_pay_payments?: {
             requested?: boolean
           }
           sepa_bank_transfer_payments?: {
@@ -696,6 +722,9 @@ export class ApiClient extends AbstractAxiosClient {
         email?: string
         expand?: string[]
         external_account?: string
+        groups?: {
+          payments_pricing?: string | ""
+        }
         individual?: {
           address?: {
             city?: string
@@ -965,6 +994,9 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay_payments?: {
             requested?: boolean
           }
+          alma_payments?: {
+            requested?: boolean
+          }
           amazon_pay_payments?: {
             requested?: boolean
           }
@@ -1025,10 +1057,16 @@ export class ApiClient extends AbstractAxiosClient {
           jp_bank_transfer_payments?: {
             requested?: boolean
           }
+          kakao_pay_payments?: {
+            requested?: boolean
+          }
           klarna_payments?: {
             requested?: boolean
           }
           konbini_payments?: {
+            requested?: boolean
+          }
+          kr_card_payments?: {
             requested?: boolean
           }
           legacy_payments?: {
@@ -1046,10 +1084,16 @@ export class ApiClient extends AbstractAxiosClient {
           mx_bank_transfer_payments?: {
             requested?: boolean
           }
+          naver_pay_payments?: {
+            requested?: boolean
+          }
           oxxo_payments?: {
             requested?: boolean
           }
           p24_payments?: {
+            requested?: boolean
+          }
+          payco_payments?: {
             requested?: boolean
           }
           paynow_payments?: {
@@ -1059,6 +1103,9 @@ export class ApiClient extends AbstractAxiosClient {
             requested?: boolean
           }
           revolut_pay_payments?: {
+            requested?: boolean
+          }
+          samsung_pay_payments?: {
             requested?: boolean
           }
           sepa_bank_transfer_payments?: {
@@ -1202,6 +1249,9 @@ export class ApiClient extends AbstractAxiosClient {
         email?: string
         expand?: string[]
         external_account?: string
+        groups?: {
+          payments_pricing?: string | ""
+        }
         individual?: {
           address?: {
             city?: string
@@ -3345,13 +3395,12 @@ export class ApiClient extends AbstractAxiosClient {
       requestBody: {
         alert_type: "usage_threshold"
         expand?: string[]
-        filter?: {
-          customer?: string
-          subscription?: string
-          subscription_item?: string
-        }
         title: string
-        usage_threshold_config?: {
+        usage_threshold?: {
+          filters?: {
+            customer?: string
+            type: "customer"
+          }[]
           gte: number
           meter?: string
           recurrence: "one_time"
@@ -3470,6 +3519,317 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_billing_alert>> {
     const url = `/v1/billing/alerts/${p["id"]}/deactivate`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getBillingCreditBalanceSummary(
+    p: {
+      customer: string
+      expand?: string[]
+      filter: {
+        applicability_scope?: {
+          price_type: "metered"
+        }
+        credit_grant?: string
+        type: "applicability_scope" | "credit_grant"
+      }
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_balance_summary>> {
+    const url = `/v1/billing/credit_balance_summary`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      customer: p["customer"],
+      expand: p["expand"],
+      filter: p["filter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getBillingCreditBalanceTransactions(
+    p: {
+      creditGrant?: string
+      customer: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      data: t_billing_credit_balance_transaction[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/billing/credit_balance_transactions`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      credit_grant: p["creditGrant"],
+      customer: p["customer"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getBillingCreditBalanceTransactionsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_balance_transaction>> {
+    const url = `/v1/billing/credit_balance_transactions/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getBillingCreditGrants(
+    p: {
+      customer?: string
+      endingBefore?: string
+      expand?: string[]
+      limit?: number
+      startingAfter?: string
+      requestBody?: EmptyObject
+    } = {},
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      data: t_billing_credit_grant[]
+      has_more: boolean
+      object: "list"
+      url: string
+    }>
+  > {
+    const url = `/v1/billing/credit_grants`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({
+      customer: p["customer"],
+      ending_before: p["endingBefore"],
+      expand: p["expand"],
+      limit: p["limit"],
+      starting_after: p["startingAfter"],
+    })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postBillingCreditGrants(
+    p: {
+      requestBody: {
+        amount: {
+          monetary?: {
+            currency: string
+            value: number
+          }
+          type: "monetary"
+        }
+        applicability_config: {
+          scope: {
+            price_type: "metered"
+          }
+        }
+        category: "paid" | "promotional"
+        customer: string
+        effective_at?: number
+        expand?: string[]
+        expires_at?: number
+        metadata?: {
+          [key: string]: string | undefined
+        }
+        name?: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_grant>> {
+    const url = `/v1/billing/credit_grants`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async getBillingCreditGrantsId(
+    p: {
+      expand?: string[]
+      id: string
+      requestBody?: EmptyObject
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_grant>> {
+    const url = `/v1/billing/credit_grants/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const query = this._query({ expand: p["expand"] })
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postBillingCreditGrantsId(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+        expires_at?: number | ""
+        metadata?: {
+          [key: string]: string | undefined
+        }
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_grant>> {
+    const url = `/v1/billing/credit_grants/${p["id"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postBillingCreditGrantsIdExpire(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_grant>> {
+    const url = `/v1/billing/credit_grants/${p["id"]}/expire`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postBillingCreditGrantsIdVoid(
+    p: {
+      id: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_billing_credit_grant>> {
+    const url = `/v1/billing/credit_grants/${p["id"]}/void`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -3838,7 +4198,7 @@ export class ApiClient extends AbstractAxiosClient {
   async postBillingPortalConfigurations(
     p: {
       requestBody: {
-        business_profile: {
+        business_profile?: {
           headline?: string | ""
           privacy_policy_url?: string
           terms_of_service_url?: string
@@ -3886,17 +4246,22 @@ export class ApiClient extends AbstractAxiosClient {
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
           }
           subscription_update?: {
-            default_allowed_updates:
+            default_allowed_updates?:
               | ("price" | "promotion_code" | "quantity")[]
               | ""
             enabled: boolean
-            products:
+            products?:
               | {
                   prices: string[]
                   product: string
                 }[]
               | ""
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
+            schedule_at_period_end?: {
+              conditions?: {
+                type: "decreasing_item_amount" | "shortening_interval"
+              }[]
+            }
           }
         }
         login_page?: {
@@ -4018,6 +4383,13 @@ export class ApiClient extends AbstractAxiosClient {
                 }[]
               | ""
             proration_behavior?: "always_invoice" | "create_prorations" | "none"
+            schedule_at_period_end?: {
+              conditions?:
+                | {
+                    type: "decreasing_item_amount" | "shortening_interval"
+                  }[]
+                | ""
+            }
           }
         }
         login_page?: {
@@ -4519,6 +4891,46 @@ export class ApiClient extends AbstractAxiosClient {
           duplicate_charge_documentation?: string
           duplicate_charge_explanation?: string
           duplicate_charge_id?: string
+          enhanced_evidence?:
+            | {
+                visa_compelling_evidence_3?: {
+                  disputed_transaction?: {
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    merchandise_or_services?: "merchandise" | "services"
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }
+                  prior_undisputed_transactions?: {
+                    charge: string
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }[]
+                }
+              }
+            | ""
           product_description?: string
           receipt?: string
           refund_policy?: string
@@ -5158,12 +5570,18 @@ export class ApiClient extends AbstractAxiosClient {
           ideal?: {
             setup_future_usage?: "none"
           }
+          kakao_pay?: {
+            setup_future_usage?: "none" | "off_session"
+          }
           klarna?: {
             setup_future_usage?: "none"
           }
           konbini?: {
             expires_after_days?: number
             setup_future_usage?: "none"
+          }
+          kr_card?: {
+            setup_future_usage?: "none" | "off_session"
           }
           link?: {
             setup_future_usage?: "none" | "off_session"
@@ -5174,6 +5592,9 @@ export class ApiClient extends AbstractAxiosClient {
           multibanco?: {
             setup_future_usage?: "none"
           }
+          naver_pay?: {
+            setup_future_usage?: "none" | "off_session"
+          }
           oxxo?: {
             expires_after_days?: number
             setup_future_usage?: "none"
@@ -5182,6 +5603,7 @@ export class ApiClient extends AbstractAxiosClient {
             setup_future_usage?: "none"
             tos_shown_and_accepted?: boolean
           }
+          payco?: EmptyObject
           paynow?: {
             setup_future_usage?: "none"
           }
@@ -5219,6 +5641,7 @@ export class ApiClient extends AbstractAxiosClient {
           revolut_pay?: {
             setup_future_usage?: "none" | "off_session"
           }
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
@@ -5252,6 +5675,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
@@ -5266,18 +5690,23 @@ export class ApiClient extends AbstractAxiosClient {
           | "giropay"
           | "grabpay"
           | "ideal"
+          | "kakao_pay"
           | "klarna"
           | "konbini"
+          | "kr_card"
           | "link"
           | "mobilepay"
           | "multibanco"
+          | "naver_pay"
           | "oxxo"
           | "p24"
+          | "payco"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "samsung_pay"
           | "sepa_debit"
           | "sofort"
           | "swish"
@@ -6954,6 +7383,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
             | "ca_pst_bc"
@@ -6989,6 +7419,8 @@ export class ApiClient extends AbstractAxiosClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "ma_vat"
+            | "md_vat"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -7012,9 +7444,12 @@ export class ApiClient extends AbstractAxiosClient {
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
+            | "tz_vat"
             | "ua_vat"
             | "us_ein"
             | "uy_ruc"
+            | "uz_tin"
+            | "uz_vat"
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
@@ -7243,7 +7678,7 @@ export class ApiClient extends AbstractAxiosClient {
         source?: string
         tax?: {
           ip_address?: string | ""
-          validate_location?: "deferred" | "immediately"
+          validate_location?: "auto" | "deferred" | "immediately"
         }
         tax_exempt?: "" | "exempt" | "none" | "reverse"
       }
@@ -8103,6 +8538,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "alma"
         | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
@@ -8117,18 +8553,23 @@ export class ApiClient extends AbstractAxiosClient {
         | "giropay"
         | "grabpay"
         | "ideal"
+        | "kakao_pay"
         | "klarna"
         | "konbini"
+        | "kr_card"
         | "link"
         | "mobilepay"
         | "multibanco"
+        | "naver_pay"
         | "oxxo"
         | "p24"
+        | "payco"
         | "paynow"
         | "paypal"
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "samsung_pay"
         | "sepa_debit"
         | "sofort"
         | "swish"
@@ -8687,14 +9128,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -9023,14 +9470,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -9196,6 +9649,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
           | "ca_pst_bc"
@@ -9231,6 +9685,8 @@ export class ApiClient extends AbstractAxiosClient {
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "ma_vat"
+          | "md_vat"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -9254,9 +9710,12 @@ export class ApiClient extends AbstractAxiosClient {
           | "th_vat"
           | "tr_tin"
           | "tw_vat"
+          | "tz_vat"
           | "ua_vat"
           | "us_ein"
           | "uy_ruc"
+          | "uz_tin"
+          | "uz_vat"
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
@@ -9436,6 +9895,46 @@ export class ApiClient extends AbstractAxiosClient {
           duplicate_charge_documentation?: string
           duplicate_charge_explanation?: string
           duplicate_charge_id?: string
+          enhanced_evidence?:
+            | {
+                visa_compelling_evidence_3?: {
+                  disputed_transaction?: {
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    merchandise_or_services?: "merchandise" | "services"
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }
+                  prior_undisputed_transactions?: {
+                    charge: string
+                    customer_account_id?: string | ""
+                    customer_device_fingerprint?: string | ""
+                    customer_device_id?: string | ""
+                    customer_email_address?: string | ""
+                    customer_purchase_ip?: string | ""
+                    product_description?: string | ""
+                    shipping_address?: {
+                      city?: string | ""
+                      country?: string | ""
+                      line1?: string | ""
+                      line2?: string | ""
+                      postal_code?: string | ""
+                      state?: string | ""
+                    }
+                  }[]
+                }
+              }
+            | ""
           product_description?: string
           receipt?: string
           refund_policy?: string
@@ -10653,6 +11152,9 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       requestBody: {
         expand?: string[]
+        metadata?: {
+          [key: string]: string | undefined
+        }
         payment_method: string
         replacements: (
           | "card_cvc"
@@ -11466,6 +11968,7 @@ export class ApiClient extends AbstractAxiosClient {
             type: "account" | "self"
           }
         }
+        automatically_finalizes_at?: number
         collection_method?: "charge_automatically" | "send_invoice"
         currency?: string
         custom_fields?:
@@ -11592,14 +12095,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -11745,6 +12254,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
               | "ca_pst_bc"
@@ -11780,6 +12290,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "ma_vat"
+              | "md_vat"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -11803,9 +12315,12 @@ export class ApiClient extends AbstractAxiosClient {
               | "th_vat"
               | "tr_tin"
               | "tw_vat"
+              | "tz_vat"
               | "ua_vat"
               | "us_ein"
               | "uy_ruc"
+              | "uz_tin"
+              | "uz_vat"
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
@@ -12134,6 +12649,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
             | "ca_pst_bc"
@@ -12169,6 +12685,8 @@ export class ApiClient extends AbstractAxiosClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "ma_vat"
+            | "md_vat"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -12192,9 +12710,12 @@ export class ApiClient extends AbstractAxiosClient {
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
+            | "tz_vat"
             | "ua_vat"
             | "us_ein"
             | "uy_ruc"
+            | "uz_tin"
+            | "uz_vat"
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
@@ -12557,6 +13078,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
             | "ca_pst_bc"
@@ -12592,6 +13114,8 @@ export class ApiClient extends AbstractAxiosClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "ma_vat"
+            | "md_vat"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -12615,9 +13139,12 @@ export class ApiClient extends AbstractAxiosClient {
             | "th_vat"
             | "tr_tin"
             | "tw_vat"
+            | "tz_vat"
             | "ua_vat"
             | "us_ein"
             | "uy_ruc"
+            | "uz_tin"
+            | "uz_vat"
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
@@ -13006,6 +13533,7 @@ export class ApiClient extends AbstractAxiosClient {
             type: "account" | "self"
           }
         }
+        automatically_finalizes_at?: number
         collection_method?: "charge_automatically" | "send_invoice"
         custom_fields?:
           | {
@@ -13126,14 +13654,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -13302,6 +13836,7 @@ export class ApiClient extends AbstractAxiosClient {
                     | "lease_tax"
                     | "pst"
                     | "qst"
+                    | "retail_delivery_fee"
                     | "rst"
                     | "sales_tax"
                     | "vat"
@@ -13467,6 +14002,7 @@ export class ApiClient extends AbstractAxiosClient {
                   | "lease_tax"
                   | "pst"
                   | "qst"
+                  | "retail_delivery_fee"
                   | "rst"
                   | "sales_tax"
                   | "vat"
@@ -13690,6 +14226,7 @@ export class ApiClient extends AbstractAxiosClient {
                     | "lease_tax"
                     | "pst"
                     | "qst"
+                    | "retail_delivery_fee"
                     | "rst"
                     | "sales_tax"
                     | "vat"
@@ -19235,6 +19772,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -19344,6 +19882,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -19352,12 +19891,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -19388,6 +19931,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -19396,6 +19940,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -19409,6 +19954,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -19422,18 +19968,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -19481,6 +20032,11 @@ export class ApiClient extends AbstractAxiosClient {
           alipay?:
             | {
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           amazon_pay?:
@@ -19655,6 +20211,12 @@ export class ApiClient extends AbstractAxiosClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -19717,6 +20279,12 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -19734,6 +20302,11 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -19744,6 +20317,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -19797,6 +20375,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           sepa_debit?:
@@ -20022,6 +20605,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -20131,6 +20715,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -20139,12 +20724,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -20175,6 +20764,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -20183,6 +20773,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -20196,6 +20787,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -20209,18 +20801,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -20268,6 +20865,11 @@ export class ApiClient extends AbstractAxiosClient {
           alipay?:
             | {
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           amazon_pay?:
@@ -20442,6 +21044,12 @@ export class ApiClient extends AbstractAxiosClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -20504,6 +21112,12 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -20521,6 +21135,11 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -20531,6 +21150,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -20584,6 +21208,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           sepa_debit?:
@@ -20848,6 +21477,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -20957,6 +21587,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -20965,12 +21596,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -21001,6 +21636,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -21009,6 +21645,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -21022,6 +21659,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -21035,18 +21673,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -21094,6 +21737,11 @@ export class ApiClient extends AbstractAxiosClient {
           alipay?:
             | {
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          alma?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           amazon_pay?:
@@ -21268,6 +21916,12 @@ export class ApiClient extends AbstractAxiosClient {
               }
             | ""
           interac_present?: EmptyObject | ""
+          kakao_pay?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           klarna?:
             | {
                 capture_method?: "" | "manual"
@@ -21330,6 +21984,12 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          kr_card?:
+            | {
+                capture_method?: "" | "manual"
+                setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
           link?:
             | {
                 capture_method?: "" | "manual"
@@ -21347,6 +22007,11 @@ export class ApiClient extends AbstractAxiosClient {
                 setup_future_usage?: "none"
               }
             | ""
+          naver_pay?:
+            | {
+                capture_method?: "" | "manual"
+              }
+            | ""
           oxxo?:
             | {
                 expires_after_days?: number
@@ -21357,6 +22022,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 setup_future_usage?: "none"
                 tos_shown_and_accepted?: boolean
+              }
+            | ""
+          payco?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           paynow?:
@@ -21410,6 +22080,11 @@ export class ApiClient extends AbstractAxiosClient {
             | {
                 capture_method?: "" | "manual"
                 setup_future_usage?: "" | "none" | "off_session"
+              }
+            | ""
+          samsung_pay?:
+            | {
+                capture_method?: "" | "manual"
               }
             | ""
           sepa_debit?:
@@ -21777,6 +22452,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "au_becs_debit"
           | "bacs_debit"
           | "bancontact"
@@ -22269,6 +22945,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "affirm"
               | "afterpay_clearpay"
               | "alipay"
+              | "alma"
               | "au_becs_debit"
               | "bacs_debit"
               | "bancontact"
@@ -22705,6 +23382,11 @@ export class ApiClient extends AbstractAxiosClient {
             preference?: "none" | "off" | "on"
           }
         }
+        alma?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         amazon_pay?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -22963,6 +23645,11 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         alipay?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
+        alma?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
           }
@@ -23343,6 +24030,7 @@ export class ApiClient extends AbstractAxiosClient {
         | "affirm"
         | "afterpay_clearpay"
         | "alipay"
+        | "alma"
         | "amazon_pay"
         | "au_becs_debit"
         | "bacs_debit"
@@ -23357,18 +24045,23 @@ export class ApiClient extends AbstractAxiosClient {
         | "giropay"
         | "grabpay"
         | "ideal"
+        | "kakao_pay"
         | "klarna"
         | "konbini"
+        | "kr_card"
         | "link"
         | "mobilepay"
         | "multibanco"
+        | "naver_pay"
         | "oxxo"
         | "p24"
+        | "payco"
         | "paynow"
         | "paypal"
         | "pix"
         | "promptpay"
         | "revolut_pay"
+        | "samsung_pay"
         | "sepa_debit"
         | "sofort"
         | "swish"
@@ -23425,6 +24118,7 @@ export class ApiClient extends AbstractAxiosClient {
         afterpay_clearpay?: EmptyObject
         alipay?: EmptyObject
         allow_redisplay?: "always" | "limited" | "unspecified"
+        alma?: EmptyObject
         amazon_pay?: EmptyObject
         au_becs_debit?: {
           account_number: string
@@ -23549,6 +24243,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "yoursafe"
         }
         interac_present?: EmptyObject
+        kakao_pay?: EmptyObject
         klarna?: {
           dob?: {
             day: number
@@ -23557,12 +24252,16 @@ export class ApiClient extends AbstractAxiosClient {
           }
         }
         konbini?: EmptyObject
+        kr_card?: EmptyObject
         link?: EmptyObject
         metadata?: {
           [key: string]: string | undefined
         }
         mobilepay?: EmptyObject
         multibanco?: EmptyObject
+        naver_pay?: {
+          funding?: "card" | "points"
+        }
         oxxo?: EmptyObject
         p24?: {
           bank?:
@@ -23593,6 +24292,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "velobank"
             | "volkswagen_bank"
         }
+        payco?: EmptyObject
         payment_method?: string
         paynow?: EmptyObject
         paypal?: EmptyObject
@@ -23602,6 +24302,7 @@ export class ApiClient extends AbstractAxiosClient {
           session?: string
         }
         revolut_pay?: EmptyObject
+        samsung_pay?: EmptyObject
         sepa_debit?: {
           iban: string
         }
@@ -23615,6 +24316,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "affirm"
           | "afterpay_clearpay"
           | "alipay"
+          | "alma"
           | "amazon_pay"
           | "au_becs_debit"
           | "bacs_debit"
@@ -23629,18 +24331,23 @@ export class ApiClient extends AbstractAxiosClient {
           | "giropay"
           | "grabpay"
           | "ideal"
+          | "kakao_pay"
           | "klarna"
           | "konbini"
+          | "kr_card"
           | "link"
           | "mobilepay"
           | "multibanco"
+          | "naver_pay"
           | "oxxo"
           | "p24"
+          | "payco"
           | "paynow"
           | "paypal"
           | "pix"
           | "promptpay"
           | "revolut_pay"
+          | "samsung_pay"
           | "sepa_debit"
           | "sofort"
           | "swish"
@@ -23740,6 +24447,9 @@ export class ApiClient extends AbstractAxiosClient {
               [key: string]: string | undefined
             }
           | ""
+        naver_pay?: {
+          funding?: "card" | "points"
+        }
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_type?: "checking" | "savings"
@@ -24626,6 +25336,12 @@ export class ApiClient extends AbstractAxiosClient {
                   unit_amount_decimal?: string
                 }
               | undefined
+          }
+          custom_unit_amount?: {
+            enabled: boolean
+            maximum?: number
+            minimum?: number
+            preset?: number
           }
           recurring?: {
             interval: "day" | "month" | "week" | "year"
@@ -27237,6 +27953,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -27346,6 +28063,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -27354,12 +28072,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -27390,6 +28112,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -27398,6 +28121,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -27411,6 +28135,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -27424,18 +28149,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -27630,6 +28360,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -27739,6 +28470,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -27747,12 +28479,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -27783,6 +28519,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -27791,6 +28528,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -27804,6 +28542,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -27817,18 +28556,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -28030,6 +28774,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -28139,6 +28884,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -28147,12 +28893,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -28183,6 +28933,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -28191,6 +28942,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -28204,6 +28956,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -28217,18 +28970,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -30097,14 +30855,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -30488,14 +31252,20 @@ export class ApiClient extends AbstractAxiosClient {
                 | "giropay"
                 | "grabpay"
                 | "ideal"
+                | "jp_credit_transfer"
+                | "kakao_pay"
                 | "konbini"
+                | "kr_card"
                 | "link"
                 | "multibanco"
+                | "naver_pay"
                 | "p24"
+                | "payco"
                 | "paynow"
                 | "paypal"
                 | "promptpay"
                 | "revolut_pay"
+                | "sepa_credit_transfer"
                 | "sepa_debit"
                 | "sofort"
                 | "swish"
@@ -30632,6 +31402,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
               | "ca_pst_bc"
@@ -30667,6 +31438,8 @@ export class ApiClient extends AbstractAxiosClient {
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "ma_vat"
+              | "md_vat"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -30690,9 +31463,12 @@ export class ApiClient extends AbstractAxiosClient {
               | "th_vat"
               | "tr_tin"
               | "tw_vat"
+              | "tz_vat"
               | "ua_vat"
               | "us_ein"
               | "uy_ruc"
+              | "uz_tin"
+              | "uz_vat"
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
@@ -30893,6 +31669,9 @@ export class ApiClient extends AbstractAxiosClient {
           bh?: {
             type: "standard"
           }
+          by?: {
+            type: "simplified"
+          }
           ca?: {
             province_standard?: {
               province: string
@@ -30906,6 +31685,9 @@ export class ApiClient extends AbstractAxiosClient {
             type: "simplified"
           }
           co?: {
+            type: "simplified"
+          }
+          cr?: {
             type: "simplified"
           }
           cy?: {
@@ -30931,6 +31713,9 @@ export class ApiClient extends AbstractAxiosClient {
               place_of_supply_scheme: "small_seller" | "standard"
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+          }
+          ec?: {
+            type: "simplified"
           }
           ee?: {
             standard?: {
@@ -31031,6 +31816,12 @@ export class ApiClient extends AbstractAxiosClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          ma?: {
+            type: "simplified"
+          }
+          md?: {
+            type: "simplified"
+          }
           mt?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -31079,6 +31870,12 @@ export class ApiClient extends AbstractAxiosClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          rs?: {
+            type: "standard"
+          }
+          ru?: {
+            type: "simplified"
+          }
           sa?: {
             type: "simplified"
           }
@@ -31109,6 +31906,9 @@ export class ApiClient extends AbstractAxiosClient {
           tr?: {
             type: "simplified"
           }
+          tz?: {
+            type: "simplified"
+          }
           us?: {
             local_amusement_tax?: {
               jurisdiction: string
@@ -31130,7 +31930,11 @@ export class ApiClient extends AbstractAxiosClient {
               | "local_amusement_tax"
               | "local_lease_tax"
               | "state_communications_tax"
+              | "state_retail_delivery_fee"
               | "state_sales_tax"
+          }
+          uz?: {
+            type: "simplified"
           }
           vn?: {
             type: "simplified"
@@ -31568,6 +32372,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
           | "ca_pst_bc"
@@ -31603,6 +32408,8 @@ export class ApiClient extends AbstractAxiosClient {
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "ma_vat"
+          | "md_vat"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -31626,9 +32433,12 @@ export class ApiClient extends AbstractAxiosClient {
           | "th_vat"
           | "tr_tin"
           | "tw_vat"
+          | "tz_vat"
           | "ua_vat"
           | "us_ein"
           | "uy_ruc"
+          | "uz_tin"
+          | "uz_vat"
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
@@ -31786,6 +32596,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "lease_tax"
           | "pst"
           | "qst"
+          | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
           | "vat"
@@ -31864,6 +32675,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "lease_tax"
           | "pst"
           | "qst"
+          | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
           | "vat"
@@ -32005,6 +32817,11 @@ export class ApiClient extends AbstractAxiosClient {
                 smart_tip_threshold?: number
               }
               nzd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              pln?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -32185,6 +33002,11 @@ export class ApiClient extends AbstractAxiosClient {
                 smart_tip_threshold?: number
               }
               nzd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              pln?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -32648,6 +33470,7 @@ export class ApiClient extends AbstractAxiosClient {
         expand?: string[]
         payment_intent: string
         process_config?: {
+          allow_redisplay?: "always" | "limited" | "unspecified"
           enable_customer_cancellation?: boolean
           skip_tipping?: boolean
           tipping?: {
@@ -32680,7 +33503,7 @@ export class ApiClient extends AbstractAxiosClient {
     p: {
       reader: string
       requestBody: {
-        customer_consent_collected?: boolean
+        allow_redisplay: "always" | "limited" | "unspecified"
         expand?: string[]
         process_config?: {
           enable_customer_cancellation?: boolean
@@ -32799,6 +33622,7 @@ export class ApiClient extends AbstractAxiosClient {
           afterpay_clearpay?: EmptyObject
           alipay?: EmptyObject
           allow_redisplay?: "always" | "limited" | "unspecified"
+          alma?: EmptyObject
           amazon_pay?: EmptyObject
           au_becs_debit?: {
             account_number: string
@@ -32908,6 +33732,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "yoursafe"
           }
           interac_present?: EmptyObject
+          kakao_pay?: EmptyObject
           klarna?: {
             dob?: {
               day: number
@@ -32916,12 +33741,16 @@ export class ApiClient extends AbstractAxiosClient {
             }
           }
           konbini?: EmptyObject
+          kr_card?: EmptyObject
           link?: EmptyObject
           metadata?: {
             [key: string]: string | undefined
           }
           mobilepay?: EmptyObject
           multibanco?: EmptyObject
+          naver_pay?: {
+            funding?: "card" | "points"
+          }
           oxxo?: EmptyObject
           p24?: {
             bank?:
@@ -32952,6 +33781,7 @@ export class ApiClient extends AbstractAxiosClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
           pix?: EmptyObject
@@ -32960,6 +33790,7 @@ export class ApiClient extends AbstractAxiosClient {
             session?: string
           }
           revolut_pay?: EmptyObject
+          samsung_pay?: EmptyObject
           sepa_debit?: {
             iban: string
           }
@@ -32973,6 +33804,7 @@ export class ApiClient extends AbstractAxiosClient {
             | "affirm"
             | "afterpay_clearpay"
             | "alipay"
+            | "alma"
             | "amazon_pay"
             | "au_becs_debit"
             | "bacs_debit"
@@ -32986,18 +33818,23 @@ export class ApiClient extends AbstractAxiosClient {
             | "giropay"
             | "grabpay"
             | "ideal"
+            | "kakao_pay"
             | "klarna"
             | "konbini"
+            | "kr_card"
             | "link"
             | "mobilepay"
             | "multibanco"
+            | "naver_pay"
             | "oxxo"
             | "p24"
+            | "payco"
             | "paynow"
             | "paypal"
             | "pix"
             | "promptpay"
             | "revolut_pay"
+            | "samsung_pay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -33857,6 +34694,33 @@ export class ApiClient extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_issuing_card>> {
     const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTestHelpersIssuingCardsCardShippingSubmit(
+    p: {
+      card: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issuing_card>> {
+    const url = `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/submit`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -37800,6 +38664,8 @@ export class ApiClient extends AbstractAxiosClient {
           | "2023-10-16"
           | "2024-04-10"
           | "2024-06-20"
+          | "2024-09-30.acacia"
+          | "2024-10-28.acacia"
         connect?: boolean
         description?: string | ""
         enabled_events: (
@@ -37924,6 +38790,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"
+          | "issuing_transaction.purchase_details_receipt_updated"
           | "issuing_transaction.updated"
           | "mandate.updated"
           | "payment_intent.amount_capturable_updated"
@@ -37967,6 +38834,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
           | "refund.created"
+          | "refund.failed"
           | "refund.updated"
           | "reporting.report_run.failed"
           | "reporting.report_run.succeeded"
@@ -38251,6 +39119,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "issuing_token.created"
           | "issuing_token.updated"
           | "issuing_transaction.created"
+          | "issuing_transaction.purchase_details_receipt_updated"
           | "issuing_transaction.updated"
           | "mandate.updated"
           | "payment_intent.amount_capturable_updated"
@@ -38294,6 +39163,7 @@ export class ApiClient extends AbstractAxiosClient {
           | "radar.early_fraud_warning.created"
           | "radar.early_fraud_warning.updated"
           | "refund.created"
+          | "refund.failed"
           | "refund.updated"
           | "reporting.report_run.failed"
           | "reporting.report_run.succeeded"

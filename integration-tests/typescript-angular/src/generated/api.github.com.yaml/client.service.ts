@@ -250,6 +250,7 @@ import {
   t_rule_suites,
   t_runner,
   t_runner_application,
+  t_runner_groups_org,
   t_runner_label,
   t_scim_error,
   t_secret_scanning_alert,
@@ -941,7 +942,7 @@ export class ApiClient {
     )
   }
 
-  classroomListAcceptedAssigmentsForAnAssignment(p: {
+  classroomListAcceptedAssignmentsForAnAssignment(p: {
     assignmentId: number
     page?: number
     perPage?: number
@@ -1223,6 +1224,8 @@ export class ApiClient {
     before?: string
     after?: string
     validity?: string
+    isPubliclyLeaked?: boolean
+    isMultiRepo?: boolean
   }): Observable<
     | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -1243,6 +1246,8 @@ export class ApiClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this.httpClient.request<any>(
@@ -2853,6 +2858,310 @@ export class ApiClient {
     )
   }
 
+  actionsListSelfHostedRunnerGroupsForOrg(p: {
+    org: string
+    perPage?: number
+    page?: number
+    visibleToRepository?: string
+  }): Observable<
+    | (HttpResponse<{
+        runner_groups: t_runner_groups_org[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+      visible_to_repository: p["visibleToRepository"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsCreateSelfHostedRunnerGroupForOrg(p: {
+    org: string
+    requestBody: {
+      allows_public_repositories?: boolean
+      name: string
+      restricted_to_workflows?: boolean
+      runners?: number[]
+      selected_repository_ids?: number[]
+      selected_workflows?: string[]
+      visibility?: "selected" | "all" | "private"
+    }
+  }): Observable<
+    | (HttpResponse<t_runner_groups_org> & { status: 201 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/actions/runner-groups`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetSelfHostedRunnerGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+  }): Observable<
+    | (HttpResponse<t_runner_groups_org> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsUpdateSelfHostedRunnerGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    requestBody: {
+      allows_public_repositories?: boolean
+      name: string
+      restricted_to_workflows?: boolean
+      selected_workflows?: string[]
+      visibility?: "selected" | "all" | "private"
+    }
+  }): Observable<
+    | (HttpResponse<t_runner_groups_org> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsDeleteSelfHostedRunnerGroupFromOrg(p: {
+    org: string
+    runnerGroupId: number
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsListRepoAccessToSelfHostedRunnerGroupInOrg(p: {
+    org: string
+    runnerGroupId: number
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<{
+        repositories: t_minimal_repository[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsSetRepoAccessToSelfHostedRunnerGroupInOrg(p: {
+    org: string
+    runnerGroupId: number
+    requestBody: {
+      selected_repository_ids: number[]
+    }
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsAddRepoAccessToSelfHostedRunnerGroupInOrg(p: {
+    org: string
+    runnerGroupId: number
+    repositoryId: number
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsRemoveRepoAccessToSelfHostedRunnerGroupInOrg(p: {
+    org: string
+    runnerGroupId: number
+    repositoryId: number
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/repositories/${p["repositoryId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsListSelfHostedRunnersInGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<{
+        runners: t_runner[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsSetSelfHostedRunnersInGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    requestBody: {
+      runners: number[]
+    }
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsAddSelfHostedRunnerToGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    runnerId: number
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsRemoveSelfHostedRunnerFromGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    runnerId: number
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/runners/${p["runnerId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   actionsListSelfHostedRunnersForOrg(p: {
     name?: string
     org: string
@@ -3751,6 +4060,13 @@ export class ApiClient {
       name: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_bypass_options?: {
+        reviewers?: {
+          reviewer_id: number
+          reviewer_type: "TEAM" | "ROLE"
+        }[]
+      }
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -3862,6 +4178,13 @@ export class ApiClient {
       name?: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_bypass_options?: {
+        reviewers?: {
+          reviewer_id: number
+          reviewer_type: "TEAM" | "ROLE"
+        }[]
+      }
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -3913,7 +4236,12 @@ export class ApiClient {
     org: string
     configurationId: number
     requestBody: {
-      scope: "all" | "public" | "private_or_internal" | "selected"
+      scope:
+        | "all"
+        | "all_without_configurations"
+        | "public"
+        | "private_or_internal"
+        | "selected"
       selected_repository_ids?: number[]
     }
   }): Observable<
@@ -6936,6 +7264,7 @@ export class ApiClient {
     org: string
     perPage?: number
     page?: number
+    targets?: string
   }): Observable<
     | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -6945,6 +7274,7 @@ export class ApiClient {
     const params = this._queryParams({
       per_page: p["perPage"],
       page: p["page"],
+      targets: p["targets"],
     })
 
     return this.httpClient.request<any>(
@@ -7127,6 +7457,8 @@ export class ApiClient {
     before?: string
     after?: string
     validity?: string
+    isPubliclyLeaked?: boolean
+    isMultiRepo?: boolean
   }): Observable<
     | (HttpResponse<t_organization_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -7148,6 +7480,8 @@ export class ApiClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this.httpClient.request<any>(
@@ -8845,6 +9179,9 @@ export class ApiClient {
           status?: string
         }
         secret_scanning?: {
+          status?: string
+        }
+        secret_scanning_ai_detection?: {
           status?: string
         }
         secret_scanning_non_provider_patterns?: {
@@ -11547,11 +11884,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?:
-      | {
-          apps: string[]
-        }
-      | string[]
+    requestBody: {
+      apps: string[]
+    }
   }): Observable<
     | (HttpResponse<t_integration[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -11577,11 +11912,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?:
-      | {
-          apps: string[]
-        }
-      | string[]
+    requestBody: {
+      apps: string[]
+    }
   }): Observable<
     | (HttpResponse<t_integration[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -11607,11 +11940,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody:
-      | {
-          apps: string[]
-        }
-      | string[]
+    requestBody: {
+      apps: string[]
+    }
   }): Observable<
     | (HttpResponse<t_integration[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -11767,11 +12098,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?:
-      | {
-          users: string[]
-        }
-      | string[]
+    requestBody: {
+      users: string[]
+    }
   }): Observable<
     | (HttpResponse<t_simple_user[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -11797,11 +12126,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody?:
-      | {
-          users: string[]
-        }
-      | string[]
+    requestBody: {
+      users: string[]
+    }
   }): Observable<
     | (HttpResponse<t_simple_user[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -11827,11 +12154,9 @@ export class ApiClient {
     owner: string
     repo: string
     branch: string
-    requestBody:
-      | {
-          users: string[]
-        }
-      | string[]
+    requestBody: {
+      users: string[]
+    }
   }): Observable<
     | (HttpResponse<t_simple_user[]> & { status: 200 })
     | (HttpResponse<t_validation_error> & { status: 422 })
@@ -12187,7 +12512,10 @@ export class ApiClient {
     page?: number
     perPage?: number
     ref?: t_code_scanning_ref
+    pr?: number
     direction?: "asc" | "desc"
+    before?: string
+    after?: string
     sort?: "created" | "updated"
     state?: t_code_scanning_alert_state_query
     severity?: t_code_scanning_alert_severity
@@ -12209,7 +12537,10 @@ export class ApiClient {
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
+      pr: p["pr"],
       direction: p["direction"],
+      before: p["before"],
+      after: p["after"],
       sort: p["sort"],
       state: p["state"],
       severity: p["severity"],
@@ -12297,6 +12628,7 @@ export class ApiClient {
     page?: number
     perPage?: number
     ref?: t_code_scanning_ref
+    pr?: number
   }): Observable<
     | (HttpResponse<t_code_scanning_alert_instance[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
@@ -12312,6 +12644,7 @@ export class ApiClient {
       page: p["page"],
       per_page: p["perPage"],
       ref: p["ref"],
+      pr: p["pr"],
     })
 
     return this.httpClient.request<any>(
@@ -12333,6 +12666,7 @@ export class ApiClient {
     toolGuid?: t_code_scanning_analysis_tool_guid
     page?: number
     perPage?: number
+    pr?: number
     ref?: t_code_scanning_ref
     sarifId?: t_code_scanning_analysis_sarif_id
     direction?: "asc" | "desc"
@@ -12353,6 +12687,7 @@ export class ApiClient {
       tool_guid: p["toolGuid"],
       page: p["page"],
       per_page: p["perPage"],
+      pr: p["pr"],
       ref: p["ref"],
       sarif_id: p["sarifId"],
       direction: p["direction"],
@@ -19406,6 +19741,7 @@ export class ApiClient {
     perPage?: number
     page?: number
     includesParents?: boolean
+    targets?: string
   }): Observable<
     | (HttpResponse<t_repository_ruleset[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 404 })
@@ -19416,6 +19752,7 @@ export class ApiClient {
       per_page: p["perPage"],
       page: p["page"],
       includes_parents: p["includesParents"],
+      targets: p["targets"],
     })
 
     return this.httpClient.request<any>(
@@ -19611,6 +19948,8 @@ export class ApiClient {
     before?: string
     after?: string
     validity?: string
+    isPubliclyLeaked?: boolean
+    isMultiRepo?: boolean
   }): Observable<
     | (HttpResponse<t_secret_scanning_alert[]> & { status: 200 })
     | (HttpResponse<void> & { status: 404 })
@@ -19632,6 +19971,8 @@ export class ApiClient {
       before: p["before"],
       after: p["after"],
       validity: p["validity"],
+      is_publicly_leaked: p["isPubliclyLeaked"],
+      is_multi_repo: p["isMultiRepo"],
     })
 
     return this.httpClient.request<any>(
