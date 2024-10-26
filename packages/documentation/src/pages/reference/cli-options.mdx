@@ -121,6 +121,23 @@ Default: `false` (use `unknown` rather than `any`)
 | `{type: "object",  additionalProperties: true}` | `{[key: string]: any}`     | `{[key: string]: unknown}` |
 | `{type: "array", items: {}}`                    | `any[]`                    | `unknown[]`                |
 
+#### `--ts-server-implementation-method` (experimental) (server sdks only)
+As environment variable `OPENAPI_TS_SERVER_IMPLEMENTATION_METHOD`
+
+Determines whether to represent server stubs / interfaces as `type`, `interface`, or `abstract class` entities.
+
+This is mostly a case of personal preference, but can be important for better integration with dependency injection
+frameworks, such as [diod](https://github.com/artberri/diod) which rely on `abstract class` objects to define
+interfaces for injection.
+
+| Option           | Example Output                                 |
+|------------------|------------------------------------------------|
+| `interface`      | `export interface Implementation { ... }` `    |
+| `type`           | `export type Implementation = { ... }`         |
+| `abstract-class` | `export abstract class Implementation { ... }` |
+
+Default: `type`
+
 ### Misc
 
 #### `--remote-spec-request-headers` (authenticated remote specifications)
