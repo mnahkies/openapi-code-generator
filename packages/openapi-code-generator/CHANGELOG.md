@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.14.0...v0.15.0) (2024-10-27)
+
+### Bug Fixes
+
+- validator uses new yaml sources ([a41dbd4](https://github.com/mnahkies/openapi-code-generator/commit/a41dbd493668c3455052ff86489fc9138da09ced))
+
+### Features
+
+- emit unique symbol names for Implementation / createRouter functions ([#258](https://github.com/mnahkies/openapi-code-generator/issues/258)) ([390bf7d](https://github.com/mnahkies/openapi-code-generator/commit/390bf7ddb7139f217590e6da4ee836cebca330bd)), closes [#111](https://github.com/mnahkies/openapi-code-generator/issues/111)
+- support emitting abstract classes for implementation types ([#256](https://github.com/mnahkies/openapi-code-generator/issues/256)) ([d2b8276](https://github.com/mnahkies/openapi-code-generator/commit/d2b8276b57252fc6a1f5803f20773af696247b2d))
+
 # [0.14.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.13.0...v0.14.0) (2024-10-12)
 
 ### Bug Fixes

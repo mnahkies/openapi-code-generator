@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.15.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.14.0...v0.15.0) (2024-10-27)
+
+**Note:** Version bump only for package @nahkies/typescript-fetch-runtime
+
 # [0.14.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.13.0...v0.14.0) (2024-10-12)
 
 **Note:** Version bump only for package @nahkies/typescript-fetch-runtime
