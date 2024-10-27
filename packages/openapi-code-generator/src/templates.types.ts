@@ -3,6 +3,8 @@ import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
 import type {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 import type {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
+export type ServerImplementationMethod = "interface" | "type" | "abstract-class"
+
 export interface OpenapiGeneratorConfig {
   input: Input
   emitter: TypescriptEmitter
@@ -25,4 +27,8 @@ export interface OpenapiTypescriptGeneratorConfig
    * Whether to use `any` or `unknown` for unspecified types
    */
   allowAny: boolean
+  /**
+   * How to output the implementation types for server templates
+   */
+  serverImplementationMethod: ServerImplementationMethod
 }

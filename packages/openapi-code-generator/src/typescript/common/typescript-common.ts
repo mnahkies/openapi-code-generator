@@ -118,11 +118,26 @@ export function asyncMethod({
 }
 
 export type ExportDefinition =
-  | {name: string; type?: string; value: string; kind: "const"}
   | {
+      kind: "const"
+      name: string
+      type?: string
+      value: string
+    }
+  | {
+      kind: "type"
       name: string
       value: string
-      kind: "type"
+    }
+  | {
+      kind: "interface"
+      name: string
+      value: string
+    }
+  | {
+      kind: "abstract-class"
+      name: string
+      value: string
     }
 
 export function buildExport(args: ExportDefinition) {
@@ -137,6 +152,10 @@ export function buildExport(args: ExportDefinition) {
       }`
     case "type":
       return `export type ${args.name} = ${args.value}`
+    case "interface":
+      return `export interface ${args.name} ${args.value}`
+    case "abstract-class":
+      return `export abstract class ${args.name} ${args.value}`
   }
 }
 
