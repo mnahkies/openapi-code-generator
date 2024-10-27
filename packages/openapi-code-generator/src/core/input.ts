@@ -75,7 +75,7 @@ export class Input {
   ): OperationGroup[] {
     switch (strategy) {
       case "none": {
-        return [{name: "generated", operations: this.allOperations()}]
+        return [{name: "", operations: this.allOperations()}]
       }
       case "first-tag":
         return this.operationsByFirstTag()
@@ -154,7 +154,7 @@ export class Input {
 
   private operationsByFirstTag(): OperationGroup[] {
     return this.groupOperations((operation) => {
-      const tag = operation.tags[0] ?? "generated"
+      const tag = operation.tags[0]
 
       if (!tag) {
         throw new Error(

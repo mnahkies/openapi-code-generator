@@ -40,11 +40,13 @@ export type GetValidationNumbersRandomNumber = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
 
-export type Implementation = {
+export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createValidationRouter(
+  implementation: ValidationImplementation,
+): KoaRouter {
   const router = new KoaRouter()
 
   const getValidationNumbersRandomNumberQuerySchema = z.object({
@@ -102,3 +104,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   return router
 }
+
+export { createValidationRouter as createRouter }
+export type { ValidationImplementation as Implementation }
