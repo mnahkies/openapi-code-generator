@@ -3,20 +3,20 @@ info:
   title: E2E Tests for @nahkies/openapi-code-generator
   version: "0.0.1"
 tags:
-  - name: headers
+  - name: request headers
   - name: validation
 paths:
   /headers/undeclared:
     get:
       tags:
-        - headers
+        - request headers
       responses:
         200:
           $ref: '#/components/responses/GetHeaders'
   /headers/request:
     get:
       tags:
-        - headers
+        - request headers
       parameters:
         - name: Route-Level-Header
           in: header

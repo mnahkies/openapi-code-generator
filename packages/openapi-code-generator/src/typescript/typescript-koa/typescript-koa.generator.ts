@@ -512,8 +512,11 @@ export async function generateTypescriptKoa(
 
   const routers = await Promise.all(
     input.groupedOperations(config.groupingStrategy).map(async (group) => {
-      const filename = path.join(routesDirectory, `${group.name}.ts`)
-
+      // TODO: support filename conventions, eg: snake_case, camelCase, TitleCase, pipe-case
+      const filename = path.join(
+        routesDirectory,
+        `${group.name.replaceAll(" ", "-")}.ts`,
+      )
       const imports = new ImportBuilder({filename})
 
       const routerBuilder = new ServerRouterBuilder(
