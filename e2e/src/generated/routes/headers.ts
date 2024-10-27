@@ -55,12 +55,14 @@ export type GetHeadersRequest = (
   | Response<200, t_getHeadersRequestJson200Response>
 >
 
-export type Implementation = {
+export type HeadersImplementation = {
   getHeadersUndeclared: GetHeadersUndeclared
   getHeadersRequest: GetHeadersRequest
 }
 
-export function createRouter(implementation: Implementation): KoaRouter {
+export function createHeadersRouter(
+  implementation: HeadersImplementation,
+): KoaRouter {
   const router = new KoaRouter()
 
   const getHeadersUndeclaredResponseValidator = responseValidationFactory(
@@ -153,3 +155,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   return router
 }
+
+export { createHeadersRouter as createRouter }
+export type { HeadersImplementation as Implementation }

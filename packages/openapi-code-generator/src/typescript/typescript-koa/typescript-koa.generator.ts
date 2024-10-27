@@ -398,19 +398,31 @@ export class ServerRouterBuilder implements ICompilable {
   }
 
   toString(): string {
-    const implementationExportName = "Implementation"
+    const moduleName = titleCase(this.name)
+
+    const implementationExportName = `${moduleName}Implementation`
+    const createRouterExportName = `create${moduleName}Router`
+
     const routes = this.statements
     const code = `
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
 
-export function createRouter(implementation: ${implementationExportName}): KoaRouter {
+export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
   const router = new KoaRouter()
 
   ${routes.join("\n\n")}
 
   return router
+}
+
+${
+  moduleName &&
+  `
+export {${createRouterExportName} as createRouter}
+export ${this.implementationMethod === "type" || this.implementationMethod === "interface" ? "type" : ""} {${implementationExportName} as Implementation}
+`
 }
 `
     return code
