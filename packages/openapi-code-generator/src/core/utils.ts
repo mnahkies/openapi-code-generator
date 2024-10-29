@@ -28,21 +28,125 @@ export function deepEqual(x: unknown, y: unknown): boolean {
 }
 
 export function titleCase(str: string): string {
-  const camel = camelCase(str)
-  return _.capitalize(camel[0]) + camel.slice(1)
+  return identifier(str, "title-case")
 }
 
 export function camelCase(str: string): string {
-  return _.camelCase(str)
+  return identifier(str, "camel-case")
+}
+
+export function snakeCase(str: string): string {
+  return identifier(str, "snake-case")
+}
+
+export function kebabCase(str: string): string {
+  return identifier(str, "kebab-case")
 }
 
 export function upperFirst(str: string): string {
   return _.upperFirst(str)
 }
 
+// TODO: typescript/javascript reserved words probably don't belong in core
+const reservedWords: Set<string> = new Set([
+  // JavaScript keywords
+  "break",
+  "case",
+  "catch",
+  "class",
+  "const",
+  "continue",
+  "debugger",
+  "default",
+  "delete",
+  "do",
+  "else",
+  "export",
+  "extends",
+  "finally",
+  "for",
+  "function",
+  "if",
+  "import",
+  "in",
+  "instanceof",
+  "new",
+  "return",
+  "super",
+  "switch",
+  "this",
+  "throw",
+  "try",
+  "typeof",
+  "var",
+  "void",
+  "while",
+  "with",
+  "yield",
+
+  /*
+  // TODO: identifiers like `package` currently get emitted in integration tests
+  // Future reserved words
+  "enum",
+  "implements",
+  "interface",
+  "package",
+  "private",
+  "protected",
+  "public",
+*/
+
+  // Additional reserved words in strict mode
+  "let",
+  "static",
+
+  // Global objects
+  "Infinity",
+  "NaN",
+  "undefined",
+  "null",
+  "true",
+  "false",
+
+  // Reserved literals
+  "await",
+  "async",
+])
+
+export function identifier(
+  str: string,
+  style: "camel-case" | "title-case" | "kebab-case" | "snake-case",
+) {
+  const withoutLeadingDigits = str.replace(/^[0-9]+/g, "")
+  const withoutSpecial = withoutLeadingDigits.replace(/[^a-zA-Z0-9_$]/g, " ")
+
+  const transformed = (() => {
+    switch (style) {
+      case "camel-case":
+        return _.camelCase(withoutSpecial)
+      case "title-case": {
+        const camel = _.camelCase(withoutSpecial)
+        return _.upperFirst(camel)
+      }
+      case "kebab-case":
+        return _.kebabCase(withoutSpecial)
+      case "snake-case":
+        return _.snakeCase(withoutSpecial)
+    }
+  })()
+
+  if (reservedWords.has(transformed)) {
+    throw new TypeError(
+      `'${str}' transforms to identifier '${transformed}' in ${style}, which is a reserved word`,
+    )
+  }
+
+  return transformed
+}
+
 export function mediaTypeToIdentifier(mediaType: string): string {
   const [type, subType] = mediaType.split("/").map((it) => {
-    return camelCase(it.replaceAll(/[-.+]/g, " "))
+    return _.camelCase(it.replaceAll(/[-.+]/g, " "))
   })
 
   if (subType === "json") {
@@ -57,5 +161,5 @@ export function mediaTypeToIdentifier(mediaType: string): string {
     return "Text"
   }
 
-  return [type, subType].filter(isDefined).map(titleCase).join("")
+  return titleCase([type, subType].filter(isDefined).join(" "))
 }
