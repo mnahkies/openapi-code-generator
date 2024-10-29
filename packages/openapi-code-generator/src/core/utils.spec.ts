@@ -1,5 +1,11 @@
 import {describe, expect, it} from "@jest/globals"
-import {mediaTypeToIdentifier, titleCase} from "./utils"
+import {
+  camelCase,
+  kebabCase,
+  mediaTypeToIdentifier,
+  snakeCase,
+  titleCase,
+} from "./utils"
 
 describe("core/utils", () => {
   describe("#titleCase", () => {
@@ -9,6 +15,83 @@ describe("core/utils", () => {
       ["camelCase", "CamelCase"],
     ])("%s -> %s", (input, expected) => {
       expect(titleCase(input)).toBe(expected)
+    })
+  })
+
+  describe("#identifier", () => {
+    const cases = [
+      {
+        input: "word",
+        camel: "word",
+        title: "Word",
+        snake: "word",
+        kebab: "word",
+      },
+      {
+        input: "two words",
+        camel: "twoWords",
+        title: "TwoWords",
+        snake: "two_words",
+        kebab: "two-words",
+      },
+      {
+        input: "2 special chars",
+        camel: "specialChars",
+        title: "SpecialChars",
+        snake: "special_chars",
+        kebab: "special-chars",
+      },
+      {
+        input: "trailingNumber12",
+        camel: "trailingNumber12",
+        title: "TrailingNumber12",
+        snake: "trailing_number_12",
+        kebab: "trailing-number-12",
+      },
+      {
+        input: "GitHub v3 REST API",
+        camel: "gitHubV3RestApi",
+        title: "GitHubV3RestApi",
+        snake: "git_hub_v_3_rest_api",
+        kebab: "git-hub-v-3-rest-api",
+      },
+      {
+        input: "Okta OpenID Connect & OAuth 2.0",
+        camel: "oktaOpenIdConnectOAuth20",
+        title: "OktaOpenIdConnectOAuth20",
+        snake: "okta_open_id_connect_o_auth_2_0",
+        kebab: "okta-open-id-connect-o-auth-2-0",
+      },
+    ]
+
+    it.each(cases)(
+      "transforms to camelCase $input -> $camel",
+      ({input, camel}) => {
+        expect(camelCase(input)).toBe(camel)
+      },
+    )
+
+    it.each(cases)(
+      "transforms to TileCase $input -> $title",
+      ({input, title}) => {
+        expect(titleCase(input)).toBe(title)
+      },
+    )
+    it.each(cases)(
+      "transforms to snake_case $input -> $snake",
+      ({input, snake}) => {
+        expect(snakeCase(input)).toBe(snake)
+      },
+    )
+    it.each(cases)(
+      "transforms to kebab-case $input -> $kebab",
+      ({input, kebab}) => {
+        expect(kebabCase(input)).toBe(kebab)
+      },
+    )
+
+    it("throws if the transformed result is a reserved word", () => {
+      expect(() => camelCase("async")).toThrow(TypeError)
     })
   })
 
