@@ -157,7 +157,11 @@ export function normalizeFilename(
   const ext = path.extname(str)
   const filename = path.basename(str, ext)
 
-  return path.join(directory, identifier(filename, convention), ext)
+  const result = path.join(
+    directory,
+    `${identifier(filename, convention)}${ext}`,
+  )
+  return str.startsWith("./") ? `./${result}` : result
 }
 
 export function mediaTypeToIdentifier(mediaType: string): string {

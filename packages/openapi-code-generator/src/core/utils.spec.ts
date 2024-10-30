@@ -3,6 +3,7 @@ import {
   camelCase,
   kebabCase,
   mediaTypeToIdentifier,
+  normalizeFilename,
   snakeCase,
   titleCase,
 } from "./utils"
@@ -16,6 +17,44 @@ describe("core/utils", () => {
     ])("%s -> %s", (input, expected) => {
       expect(titleCase(input)).toBe(expected)
     })
+  })
+
+  describe("#normalizeFilename", () => {
+    const cases = [
+      {
+        input: "./relative.ts",
+        camel: "./relative.ts",
+        title: "./Relative.ts",
+        snake: "./relative.ts",
+        kebab: "./relative.ts",
+      },
+    ]
+
+    it.each(cases)(
+      "transforms to camelCase $input -> $camel",
+      ({input, camel}) => {
+        expect(normalizeFilename(input, "camel-case")).toBe(camel)
+      },
+    )
+
+    it.each(cases)(
+      "transforms to TileCase $input -> $title",
+      ({input, title}) => {
+        expect(normalizeFilename(input, "title-case")).toBe(title)
+      },
+    )
+    it.each(cases)(
+      "transforms to snake_case $input -> $snake",
+      ({input, snake}) => {
+        expect(normalizeFilename(input, "snake-case")).toBe(snake)
+      },
+    )
+    it.each(cases)(
+      "transforms to kebab-case $input -> $kebab",
+      ({input, kebab}) => {
+        expect(normalizeFilename(input, "kebab-case")).toBe(kebab)
+      },
+    )
   })
 
   describe("#identifier", () => {
