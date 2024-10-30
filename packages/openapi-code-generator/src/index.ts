@@ -10,6 +10,7 @@ import type {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import type {OpenapiValidator} from "./core/openapi-validator"
+import type {IdentifierConvention} from "./core/utils"
 import {templates} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
@@ -30,6 +31,7 @@ export type Config = {
   extractInlineSchemas: boolean
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
+  filenameConvention: IdentifierConvention
   tsAllowAny: boolean
   tsServerImplementationMethod: ServerImplementationMethod
   tsCompilerOptions: CompilerOptions
@@ -81,6 +83,7 @@ export async function generate(
     enableTypedBasePaths: config.enableTypedBasePaths,
     compilerOptions: config.tsCompilerOptions,
     groupingStrategy: config.groupingStrategy,
+    filenameConvention: config.filenameConvention,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
   })

@@ -5,7 +5,13 @@ import type {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {isDefined, titleCase, upperFirst} from "../../core/utils"
+import {
+  identifier,
+  isDefined,
+  normalizeFilename,
+  titleCase,
+  upperFirst,
+} from "../../core/utils"
 import type {
   OpenapiTypescriptGeneratorConfig,
   ServerImplementationMethod,
@@ -490,14 +496,14 @@ export async function generateTypescriptKoa(
     config.groupingStrategy === "none" ? "./" : "./routes/"
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    "./models.ts",
+    normalizeFilename("./models.ts", config.filenameConvention),
     input,
     config.compilerOptions,
     {allowAny},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    "./schemas.ts",
+    normalizeFilename("./schemas.ts", config.filenameConvention),
     input,
     config.schemaBuilder,
     {allowAny},
@@ -512,10 +518,9 @@ export async function generateTypescriptKoa(
 
   const routers = await Promise.all(
     input.groupedOperations(config.groupingStrategy).map(async (group) => {
-      // TODO: support filename conventions, eg: snake_case, camelCase, TitleCase, pipe-case
-      const filename = path.join(
-        routesDirectory,
-        `${group.name.replaceAll(" ", "-")}.ts`,
+      const filename = normalizeFilename(
+        `${path.join(routesDirectory, group.name)}.ts`,
+        config.filenameConvention,
       )
       const imports = new ImportBuilder({filename})
 

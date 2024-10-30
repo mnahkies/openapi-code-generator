@@ -1,3 +1,5 @@
+// biome-ignore lint/style/useNodejsImportProtocol: webpack doesn't like node: prefix
+import path from "path"
 import _ from "lodash"
 
 export function isDefined<T>(it: T | undefined): it is T {
@@ -113,15 +115,18 @@ const reservedWords: Set<string> = new Set([
   "async",
 ])
 
-export function identifier(
-  str: string,
-  style: "camel-case" | "title-case" | "kebab-case" | "snake-case",
-) {
+export type IdentifierConvention =
+  | "camel-case"
+  | "title-case"
+  | "kebab-case"
+  | "snake-case"
+
+export function identifier(str: string, convention: IdentifierConvention) {
   const withoutLeadingDigits = str.replace(/^[0-9]+/g, "")
   const withoutSpecial = withoutLeadingDigits.replace(/[^a-zA-Z0-9_$]/g, " ")
 
   const transformed = (() => {
-    switch (style) {
+    switch (convention) {
       case "camel-case":
         return _.camelCase(withoutSpecial)
       case "title-case": {
@@ -137,11 +142,22 @@ export function identifier(
 
   if (reservedWords.has(transformed)) {
     throw new TypeError(
-      `'${str}' transforms to identifier '${transformed}' in ${style}, which is a reserved word`,
+      `'${str}' transforms to identifier '${transformed}' in ${convention}, which is a reserved word`,
     )
   }
 
   return transformed
+}
+
+export function normalizeFilename(
+  str: string,
+  convention: IdentifierConvention,
+) {
+  const directory = path.dirname(str)
+  const ext = path.extname(str)
+  const filename = path.basename(str, ext)
+
+  return path.join(directory, identifier(filename, convention), ext)
 }
 
 export function mediaTypeToIdentifier(mediaType: string): string {
