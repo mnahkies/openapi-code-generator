@@ -16,6 +16,7 @@ import {loadTsConfigCompilerOptions} from "./core/loaders/tsconfig.loader"
 import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
+import type {IdentifierConvention} from "./core/utils"
 import {generate} from "./index"
 import type {templates} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
@@ -184,6 +185,21 @@ const program = new Command()
         "first-slug",
       ] as const satisfies OperationGroupStrategy[])
       .default("none" as const)
+      .makeOptionMandatory(),
+  )
+  .addOption(
+    new Option(
+      "--filename-convention <value>",
+      "Convention to use for dynamically generated filenames",
+    )
+      .env("OPENAPI_FILENAME_CONVENTION")
+      .choices([
+        "camel-case",
+        "title-case",
+        "kebab-case",
+        "snake-case",
+      ] as const satisfies IdentifierConvention[])
+      .default("kebab-case" as const)
       .makeOptionMandatory(),
   )
   .addOption(

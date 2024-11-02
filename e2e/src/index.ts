@@ -1,7 +1,7 @@
 import Router from "@koa/router"
 import {KoaRuntimeError} from "@nahkies/typescript-koa-runtime/errors"
 import {bootstrap} from "./generated"
-import {createHeadersRouter} from "./routes/headers"
+import {createRequestHeadersRouter} from "./routes/request-headers"
 import {createValidationRouter} from "./routes/validation"
 
 function createRouter() {
@@ -25,10 +25,13 @@ function createRouter() {
     }
   })
 
-  const headersRouter = createHeadersRouter()
+  const requestHeadersRouter = createRequestHeadersRouter()
   const validationRouter = createValidationRouter()
 
-  router.use(headersRouter.allowedMethods(), headersRouter.routes())
+  router.use(
+    requestHeadersRouter.allowedMethods(),
+    requestHeadersRouter.routes(),
+  )
   router.use(validationRouter.allowedMethods(), validationRouter.routes())
 
   return router

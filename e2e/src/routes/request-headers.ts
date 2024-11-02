@@ -2,7 +2,7 @@ import {
   type GetHeadersRequest,
   type GetHeadersUndeclared,
   createRouter,
-} from "../generated/routes/headers"
+} from "../generated/routes/request-headers"
 
 const getHeadersUndeclared: GetHeadersUndeclared = async (
   {headers},
@@ -24,7 +24,7 @@ const getHeadersRequest: GetHeadersRequest = async (
     .body({typedHeaders: headers, rawHeaders: ctx.headers})
 }
 
-export function createHeadersRouter() {
+export function createRequestHeadersRouter() {
   return createRouter({
     getHeadersUndeclared,
     getHeadersRequest,

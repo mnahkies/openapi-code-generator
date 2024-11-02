@@ -5,7 +5,13 @@ import type {
   IROperation,
   IRParameter,
 } from "../../core/openapi-types-normalized"
-import {isDefined, titleCase, upperFirst} from "../../core/utils"
+import {
+  identifier,
+  isDefined,
+  normalizeFilename,
+  titleCase,
+  upperFirst,
+} from "../../core/utils"
 import type {
   OpenapiTypescriptGeneratorConfig,
   ServerImplementationMethod,
@@ -512,8 +518,10 @@ export async function generateTypescriptKoa(
 
   const routers = await Promise.all(
     input.groupedOperations(config.groupingStrategy).map(async (group) => {
-      const filename = path.join(routesDirectory, `${group.name}.ts`)
-
+      const filename = normalizeFilename(
+        `${path.join(routesDirectory, group.name)}.ts`,
+        config.filenameConvention,
+      )
       const imports = new ImportBuilder({filename})
 
       const routerBuilder = new ServerRouterBuilder(

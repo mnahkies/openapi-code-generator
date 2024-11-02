@@ -1,5 +1,6 @@
 import type {Input, OperationGroupStrategy} from "./core/input"
 import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
+import type {IdentifierConvention} from "./core/utils"
 import type {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 import type {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
@@ -11,6 +12,7 @@ export interface OpenapiGeneratorConfig {
   enableRuntimeResponseValidation: boolean
   enableTypedBasePaths: boolean
   groupingStrategy: OperationGroupStrategy
+  filenameConvention: IdentifierConvention
 }
 
 export interface OpenapiTypescriptGeneratorConfig
