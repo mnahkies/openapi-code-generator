@@ -496,14 +496,14 @@ export async function generateTypescriptKoa(
     config.groupingStrategy === "none" ? "./" : "./routes/"
 
   const rootTypeBuilder = await TypeBuilder.fromInput(
-    normalizeFilename("./models.ts", config.filenameConvention),
+    "./models.ts",
     input,
     config.compilerOptions,
     {allowAny},
   )
 
   const rootSchemaBuilder = await schemaBuilderFactory(
-    normalizeFilename("./schemas.ts", config.filenameConvention),
+    "./schemas.ts",
     input,
     config.schemaBuilder,
     {allowAny},
