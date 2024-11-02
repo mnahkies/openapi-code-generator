@@ -22,11 +22,25 @@ describe("core/utils", () => {
   describe("#normalizeFilename", () => {
     const cases = [
       {
-        input: "./relative.ts",
-        camel: "./relative.ts",
-        title: "./Relative.ts",
-        snake: "./relative.ts",
-        kebab: "./relative.ts",
+        input: "./relative-file.ts",
+        camel: "./relativeFile.ts",
+        title: "./RelativeFile.ts",
+        snake: "./relative_file.ts",
+        kebab: "./relative-file.ts",
+      },
+      {
+        input: "./directory/relative file.ts",
+        camel: "./directory/relativeFile.ts",
+        title: "./directory/RelativeFile.ts",
+        snake: "./directory/relative_file.ts",
+        kebab: "./directory/relative-file.ts",
+      },
+      {
+        input: "/directory/absolute.ts",
+        camel: "/directory/absolute.ts",
+        title: "/directory/Absolute.ts",
+        snake: "/directory/absolute.ts",
+        kebab: "/directory/absolute.ts",
       },
     ]
 
