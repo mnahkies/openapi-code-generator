@@ -38,12 +38,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface OktaOpenIdConnectOAuth20Config extends AbstractAxiosConfig {
   basePath: "https://{yourOktaDomain}" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
+  constructor(config: OktaOpenIdConnectOAuth20Config) {
     super(config)
   }
 
@@ -1032,3 +1032,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { OktaOpenIdConnectOAuth20 as ApiClient }
+export type { OktaOpenIdConnectOAuth20Config as ApiClientConfig }

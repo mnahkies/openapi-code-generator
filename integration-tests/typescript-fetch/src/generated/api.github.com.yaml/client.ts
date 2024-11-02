@@ -316,12 +316,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
   basePath: "https://api.github.com" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class GitHubV3RestApi extends AbstractFetchClient {
+  constructor(config: GitHubV3RestApiConfig) {
     super(config)
   }
 
@@ -25624,3 +25624,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 }
+
+export { GitHubV3RestApi as ApiClient }
+export type { GitHubV3RestApiConfig as ApiClientConfig }

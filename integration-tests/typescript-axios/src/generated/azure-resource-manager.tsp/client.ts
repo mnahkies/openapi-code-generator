@@ -17,12 +17,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
   basePath: "https://management.azure.com" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class ContosoProviderHubClient extends AbstractAxiosClient {
+  constructor(config: ContosoProviderHubClientConfig) {
     super(config)
   }
 
@@ -222,3 +222,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { ContosoProviderHubClient as ApiClient }
+export type { ContosoProviderHubClientConfig as ApiClientConfig }

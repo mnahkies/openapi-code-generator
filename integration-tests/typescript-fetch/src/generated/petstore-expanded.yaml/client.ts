@@ -11,12 +11,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface SwaggerPetstoreConfig extends AbstractFetchClientConfig {
   basePath: "https://petstore.swagger.io/v2" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class SwaggerPetstore extends AbstractFetchClient {
+  constructor(config: SwaggerPetstoreConfig) {
     super(config)
   }
 
@@ -82,3 +82,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 }
+
+export { SwaggerPetstore as ApiClient }
+export type { SwaggerPetstoreConfig as ApiClientConfig }

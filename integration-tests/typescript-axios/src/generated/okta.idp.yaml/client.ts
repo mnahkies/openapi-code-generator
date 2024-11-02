@@ -25,12 +25,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface MyAccountManagementConfig extends AbstractAxiosConfig {
   basePath: "https://{yourOktaDomain}" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class MyAccountManagement extends AbstractAxiosClient {
+  constructor(config: MyAccountManagementConfig) {
     super(config)
   }
 
@@ -776,3 +776,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { MyAccountManagement as ApiClient }
+export type { MyAccountManagementConfig as ApiClientConfig }

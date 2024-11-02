@@ -25,12 +25,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface ContosoWidgetManagerConfig extends AbstractAxiosConfig {
   basePath: "{endpoint}/widget" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class ContosoWidgetManager extends AbstractAxiosClient {
+  constructor(config: ContosoWidgetManagerConfig) {
     super(config)
   }
 
@@ -801,3 +801,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { ContosoWidgetManager as ApiClient }
+export type { ContosoWidgetManagerConfig as ApiClientConfig }

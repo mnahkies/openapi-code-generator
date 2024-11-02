@@ -41,12 +41,13 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface OktaOpenIdConnectOAuth20Config
+  extends AbstractFetchClientConfig {
   basePath: "https://{yourOktaDomain}" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
+  constructor(config: OktaOpenIdConnectOAuth20Config) {
     super(config)
   }
 
@@ -1002,3 +1003,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 }
+
+export { OktaOpenIdConnectOAuth20 as ApiClient }
+export type { OktaOpenIdConnectOAuth20Config as ApiClientConfig }

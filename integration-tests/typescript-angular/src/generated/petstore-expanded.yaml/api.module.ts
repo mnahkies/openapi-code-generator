@@ -2,13 +2,13 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { ApiClient } from "./client.service"
+import { SwaggerPetstore } from "./client.service"
 import { NgModule } from "@angular/core"
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
-  providers: [ApiClient],
+  providers: [SwaggerPetstore],
 })
 export class ApiModule {}
