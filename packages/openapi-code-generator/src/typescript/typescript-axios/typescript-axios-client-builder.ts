@@ -114,6 +114,10 @@ export class ${clientName} extends AbstractAxiosClient {
   }
 
   ${clientMethods.join("\n")}
-}`
+}
+
+export { ${clientName} as ApiClient }
+export type { ${clientName}Config as ApiClientConfig }
+`
   }
 }

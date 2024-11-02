@@ -45,7 +45,7 @@ export async function unitTestInput(
 
   const file = fileForVersion(version)
   const loader = await OpenapiLoader.create(
-    {entryPoint: file, fileType: "openapi3"},
+    {entryPoint: file, fileType: "openapi3", titleOverride: undefined},
     validator,
     new GenericLoader(new NodeFsAdaptor()),
     await TypespecLoader.create(),

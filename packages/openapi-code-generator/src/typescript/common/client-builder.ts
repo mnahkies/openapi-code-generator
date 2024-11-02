@@ -12,7 +12,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
 
   constructor(
     public readonly filename: string,
-    public readonly name: string,
+    public readonly exportName: string,
     protected readonly input: Input,
     protected readonly imports: ImportBuilder,
     protected readonly models: TypeBuilder,
@@ -57,7 +57,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   ): string
 
   toString(): string {
-    return this.buildClient(this.name, this.operations)
+    return this.buildClient(this.exportName, this.operations)
   }
 
   toCompilationUnit(): CompilationUnit {

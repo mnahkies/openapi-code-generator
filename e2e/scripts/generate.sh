@@ -15,11 +15,13 @@ yarn openapi-code-generator \
   --output ./src/generated/client/fetch \
   --template typescript-fetch \
   --schema-builder zod \
-  --extract-inline-schemas
+  --extract-inline-schemas \
+  --override-specification-title "E2E Test Client"
 
 yarn openapi-code-generator \
   --input ./openapi.yaml \
   --output ./src/generated/client/axios \
   --template typescript-axios \
   --schema-builder zod \
-  --extract-inline-schemas
+  --extract-inline-schemas \
+  --override-specification-title "E2E Test Client"

@@ -1,3 +1,4 @@
+import {titleCase} from "../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
@@ -28,9 +29,12 @@ export async function generateTypescriptAxios(
 
   const imports = new ImportBuilder()
 
+  const filename = "client.ts"
+  const exportName = titleCase(input.name())
+
   const client = new TypescriptAxiosClientBuilder(
-    "client.ts",
-    "ApiClient",
+    filename,
+    exportName,
     input,
     imports,
     rootTypeBuilder.withImports(imports),

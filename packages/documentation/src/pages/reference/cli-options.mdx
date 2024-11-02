@@ -48,6 +48,15 @@ What type of input file is being provided, one of:
 - `openapi3` (**default**)
 - `typespec`
 
+
+#### `--override-specification-title <value>`
+As environment variable `OPENAPI_OVERRIDE_SPECIFICATION_TITLE`
+
+Allows overriding the `info.title` field of the input OpenAPI document. This field is used to generate
+some symbol names, and so this is useful when you don't directly control the source specification, and
+wish to customize the output symbol names.
+
+
 #### `-s --schema-builder <value>`
 As environment variable `OPENAPI_SCHEMA_BUILDER`
 

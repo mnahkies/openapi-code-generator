@@ -96,6 +96,12 @@ const program = new Command()
   )
   .addOption(
     new Option(
+      "--override-specification-title <value>",
+      "Override the value of the info.title field, used to generate some symbol names",
+    ).env("OPENAPI_OVERRIDE_SPECIFICATION_TITLE"),
+  )
+  .addOption(
+    new Option(
       "-s --schema-builder <value>",
       "(typescript) runtime schema parsing library to use",
     )
