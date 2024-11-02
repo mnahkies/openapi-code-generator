@@ -190,7 +190,7 @@ const program = new Command()
   .addOption(
     new Option(
       "--filename-convention <value>",
-      "Convention to use for generated filenames",
+      "Convention to use for dynamically generated filenames",
     )
       .env("OPENAPI_FILENAME_CONVENTION")
       .choices([

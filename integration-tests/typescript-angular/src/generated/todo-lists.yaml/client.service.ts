@@ -44,7 +44,7 @@ export type StatusCode =
   | StatusCode5xx
 
 export type QueryParams = {
-  [name: string]:
+  [exportName: string]:
     | string
     | number
     | boolean
