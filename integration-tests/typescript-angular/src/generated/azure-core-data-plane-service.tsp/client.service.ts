@@ -103,7 +103,7 @@ export class ContosoWidgetManager {
     }, new HttpParams())
   }
 
-  serviceStatus(p: {
+  getServiceStatus(p: {
     apiVersion: string
     xMsClientRequestId?: t_Azure_Core_uuid
   }): Observable<
@@ -742,7 +742,7 @@ export class ContosoWidgetManager {
     )
   }
 
-  manufacturersCreateManufacturer(p: {
+  manufacturersCreateOrReplaceManufacturer(p: {
     apiVersion: string
     manufacturerId: string
     repeatabilityRequestId?: string

@@ -20,6 +20,11 @@ import {
   t_activity,
   t_alert_number,
   t_allowed_actions,
+  t_api_insights_route_stats,
+  t_api_insights_subject_stats,
+  t_api_insights_summary_stats,
+  t_api_insights_time_stats,
+  t_api_insights_user_stats,
   t_api_overview,
   t_app_permissions,
   t_artifact,
@@ -104,6 +109,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics,
+  t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_value,
@@ -504,18 +510,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/app/hook/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._request({
       url: url + query,
@@ -1085,6 +1086,35 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotCopilotMetricsForEnterprise(
+    p: {
+      enterprise: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
+    const url = `/enterprises/${p["enterprise"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async copilotUsageMetricsForEnterprise(
     p: {
       enterprise: string
@@ -1191,6 +1221,36 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotMetricsForEnterpriseTeam(
+    p: {
+      enterprise: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
+    const url = `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this._request({
@@ -4829,6 +4889,35 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async copilotCopilotMetricsForOrganization(
+    p: {
+      org: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
+    const url = `/orgs/${p["org"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async copilotUsageMetricsForOrg(
     p: {
       org: string
@@ -5373,18 +5462,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       hookId: number
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._request({
       url: url + query,
@@ -5455,6 +5539,304 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "POST",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetRouteStatsByActor(
+    p: {
+      org: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "http_method"
+        | "api_route"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_route_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetSubjectStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "subject_name"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_subject_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/subject-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetSummaryStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_summary_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/summary-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetSummaryStatsByUser(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_summary_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/summary-stats/users/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetSummaryStatsByActor(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_summary_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/summary-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetTimeStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_time_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/time-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetTimeStatsByUser(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_time_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/time-stats/users/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetTimeStatsByActor(
+    p: {
+      org: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_time_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/time-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async apiInsightsGetUserStats(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "subject_name"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_api_insights_user_stats>> {
+    const url = `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -7661,6 +8043,36 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
     return this._request({
       url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async copilotCopilotMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
+    const url = `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._request({
+      url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
@@ -12967,6 +13379,27 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async codeScanningDeleteCodeqlDatabase(
+    p: {
+      owner: string
+      repo: string
+      language: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async codeScanningCreateVariantAnalysis(
     p: {
       owner: string
@@ -16065,18 +16498,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       hookId: number
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_hook_delivery_item[]>> {
     const url = `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._request({
       url: url + query,

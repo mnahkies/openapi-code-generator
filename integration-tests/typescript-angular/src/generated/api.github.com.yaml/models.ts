@@ -172,6 +172,48 @@ export type t_alert_url = string
 
 export type t_allowed_actions = "all" | "local_only" | "selected"
 
+export type t_api_insights_route_stats = {
+  api_route?: string
+  http_method?: string
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  rate_limited_request_count?: number
+  total_request_count?: number
+}[]
+
+export type t_api_insights_subject_stats = {
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  rate_limited_request_count?: number
+  subject_id?: number
+  subject_name?: string
+  subject_type?: string
+  total_request_count?: number
+}[]
+
+export type t_api_insights_summary_stats = {
+  rate_limited_request_count?: number
+  total_request_count?: number
+}
+
+export type t_api_insights_time_stats = {
+  rate_limited_request_count?: number
+  timestamp?: string
+  total_request_count?: number
+}[]
+
+export type t_api_insights_user_stats = {
+  actor_id?: number
+  actor_name?: string
+  actor_type?: string
+  integration_id?: number | null
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  oauth_application_id?: number | null
+  rate_limited_request_count?: number
+  total_request_count?: number
+}[]
+
 export type t_api_overview = {
   actions?: string[]
   actions_macos?: string[]
@@ -1637,6 +1679,80 @@ export type t_converted_note_to_issue_issue_event = {
   url: string
 }
 
+export type t_copilot_dotcom_chat = {
+  models?: {
+    custom_model_training_date?: string | null
+    is_custom_model?: boolean
+    name?: string
+    total_chats?: number
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_dotcom_pull_requests = {
+  repositories?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      name?: string
+      total_engaged_users?: number
+      total_pr_summaries_created?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_ide_chat = {
+  editors?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      name?: string
+      total_chat_copy_events?: number
+      total_chat_insertion_events?: number
+      total_chats?: number
+      total_engaged_users?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_ide_code_completions = {
+  editors?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      languages?: {
+        name?: string
+        total_code_acceptances?: number
+        total_code_lines_accepted?: number
+        total_code_lines_suggested?: number
+        total_code_suggestions?: number
+        total_engaged_users?: number
+      }[]
+      name?: string
+      total_engaged_users?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+    [key: string]: unknown | undefined
+  }[]
+  languages?: {
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
 export type t_copilot_organization_details = {
   cli?: "enabled" | "disabled" | "unconfigured"
   ide_chat?: "enabled" | "disabled" | "unconfigured"
@@ -1695,6 +1811,17 @@ export type t_copilot_usage_metrics = {
   total_lines_accepted?: number
   total_lines_suggested?: number
   total_suggestions_count?: number
+}
+
+export type t_copilot_usage_metrics_day = {
+  copilot_dotcom_chat?: t_copilot_dotcom_chat
+  copilot_dotcom_pull_requests?: t_copilot_dotcom_pull_requests
+  copilot_ide_chat?: t_copilot_ide_chat
+  copilot_ide_code_completions?: t_copilot_ide_code_completions
+  date: string
+  total_active_users?: number
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
 }
 
 export type t_custom_deployment_rule_app = {
@@ -4090,6 +4217,7 @@ export type t_organization_programmatic_access_grant = {
   repository_selection: "none" | "all" | "subset"
   token_expired: boolean
   token_expires_at: string | null
+  token_id: number
   token_last_used_at: string | null
 }
 
@@ -4113,6 +4241,7 @@ export type t_organization_programmatic_access_grant_request = {
   repository_selection: "none" | "all" | "subset"
   token_expired: boolean
   token_expires_at: string | null
+  token_id: number
   token_last_used_at: string | null
 }
 

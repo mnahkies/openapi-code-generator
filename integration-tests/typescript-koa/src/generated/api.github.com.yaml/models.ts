@@ -167,6 +167,48 @@ export type t_alert_url = string
 
 export type t_allowed_actions = "all" | "local_only" | "selected"
 
+export type t_api_insights_route_stats = {
+  api_route?: string
+  http_method?: string
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  rate_limited_request_count?: number
+  total_request_count?: number
+}[]
+
+export type t_api_insights_subject_stats = {
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  rate_limited_request_count?: number
+  subject_id?: number
+  subject_name?: string
+  subject_type?: string
+  total_request_count?: number
+}[]
+
+export type t_api_insights_summary_stats = {
+  rate_limited_request_count?: number
+  total_request_count?: number
+}
+
+export type t_api_insights_time_stats = {
+  rate_limited_request_count?: number
+  timestamp?: string
+  total_request_count?: number
+}[]
+
+export type t_api_insights_user_stats = {
+  actor_id?: number
+  actor_name?: string
+  actor_type?: string
+  integration_id?: number | null
+  last_rate_limited_timestamp?: string | null
+  last_request_timestamp?: string
+  oauth_application_id?: number | null
+  rate_limited_request_count?: number
+  total_request_count?: number
+}[]
+
 export type t_api_overview = {
   actions?: string[]
   actions_macos?: string[]
@@ -1617,6 +1659,80 @@ export type t_converted_note_to_issue_issue_event = {
   url: string
 }
 
+export type t_copilot_dotcom_chat = {
+  models?: {
+    custom_model_training_date?: string | null
+    is_custom_model?: boolean
+    name?: string
+    total_chats?: number
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_dotcom_pull_requests = {
+  repositories?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      name?: string
+      total_engaged_users?: number
+      total_pr_summaries_created?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_ide_chat = {
+  editors?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      name?: string
+      total_chat_copy_events?: number
+      total_chat_insertion_events?: number
+      total_chats?: number
+      total_engaged_users?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
+export type t_copilot_ide_code_completions = {
+  editors?: {
+    models?: {
+      custom_model_training_date?: string | null
+      is_custom_model?: boolean
+      languages?: {
+        name?: string
+        total_code_acceptances?: number
+        total_code_lines_accepted?: number
+        total_code_lines_suggested?: number
+        total_code_suggestions?: number
+        total_engaged_users?: number
+      }[]
+      name?: string
+      total_engaged_users?: number
+    }[]
+    name?: string
+    total_engaged_users?: number
+    [key: string]: unknown | undefined
+  }[]
+  languages?: {
+    name?: string
+    total_engaged_users?: number
+  }[]
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
+} | null
+
 export type t_copilot_organization_details = {
   cli?: "enabled" | "disabled" | "unconfigured"
   ide_chat?: "enabled" | "disabled" | "unconfigured"
@@ -1675,6 +1791,17 @@ export type t_copilot_usage_metrics = {
   total_lines_accepted?: number
   total_lines_suggested?: number
   total_suggestions_count?: number
+}
+
+export type t_copilot_usage_metrics_day = {
+  copilot_dotcom_chat?: t_copilot_dotcom_chat
+  copilot_dotcom_pull_requests?: t_copilot_dotcom_pull_requests
+  copilot_ide_chat?: t_copilot_ide_chat
+  copilot_ide_code_completions?: t_copilot_ide_code_completions
+  date: string
+  total_active_users?: number
+  total_engaged_users?: number
+  [key: string]: unknown | undefined
 }
 
 export type t_custom_deployment_rule_app = {
@@ -4056,6 +4183,7 @@ export type t_organization_programmatic_access_grant = {
   repository_selection: "none" | "all" | "subset"
   token_expired: boolean
   token_expires_at: string | null
+  token_id: number
   token_last_used_at: string | null
 }
 
@@ -4079,6 +4207,7 @@ export type t_organization_programmatic_access_grant_request = {
   repository_selection: "none" | "all" | "subset"
   token_expired: boolean
   token_expires_at: string | null
+  token_id: number
   token_last_used_at: string | null
 }
 
@@ -8489,6 +8618,145 @@ export type t_ActivityUnstarRepoForAuthenticatedUserParamSchema = {
   repo: string
 }
 
+export type t_ApiInsightsGetRouteStatsByActorParamSchema = {
+  actor_id: number
+  actor_type:
+    | "installations"
+    | "classic_pats"
+    | "fine_grained_pats"
+    | "oauth_apps"
+    | "github_apps_user_to_server"
+  org: string
+}
+
+export type t_ApiInsightsGetRouteStatsByActorQuerySchema = {
+  direction?: "asc" | "desc"
+  max_timestamp: string
+  min_timestamp: string
+  page?: number
+  per_page?: number
+  sort?: (
+    | "last_rate_limited_timestamp"
+    | "last_request_timestamp"
+    | "rate_limited_request_count"
+    | "http_method"
+    | "api_route"
+    | "total_request_count"
+  )[]
+}
+
+export type t_ApiInsightsGetSubjectStatsParamSchema = {
+  org: string
+}
+
+export type t_ApiInsightsGetSubjectStatsQuerySchema = {
+  direction?: "asc" | "desc"
+  max_timestamp: string
+  min_timestamp: string
+  page?: number
+  per_page?: number
+  sort?: (
+    | "last_rate_limited_timestamp"
+    | "last_request_timestamp"
+    | "rate_limited_request_count"
+    | "subject_name"
+    | "total_request_count"
+  )[]
+}
+
+export type t_ApiInsightsGetSummaryStatsParamSchema = {
+  org: string
+}
+
+export type t_ApiInsightsGetSummaryStatsQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+}
+
+export type t_ApiInsightsGetSummaryStatsByActorParamSchema = {
+  actor_id: number
+  actor_type:
+    | "installations"
+    | "classic_pats"
+    | "fine_grained_pats"
+    | "oauth_apps"
+    | "github_apps_user_to_server"
+  org: string
+}
+
+export type t_ApiInsightsGetSummaryStatsByActorQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+}
+
+export type t_ApiInsightsGetSummaryStatsByUserParamSchema = {
+  org: string
+  user_id: string
+}
+
+export type t_ApiInsightsGetSummaryStatsByUserQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+}
+
+export type t_ApiInsightsGetTimeStatsParamSchema = {
+  org: string
+}
+
+export type t_ApiInsightsGetTimeStatsQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+  timestamp_increment: string
+}
+
+export type t_ApiInsightsGetTimeStatsByActorParamSchema = {
+  actor_id: number
+  actor_type:
+    | "installations"
+    | "classic_pats"
+    | "fine_grained_pats"
+    | "oauth_apps"
+    | "github_apps_user_to_server"
+  org: string
+}
+
+export type t_ApiInsightsGetTimeStatsByActorQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+  timestamp_increment: string
+}
+
+export type t_ApiInsightsGetTimeStatsByUserParamSchema = {
+  org: string
+  user_id: string
+}
+
+export type t_ApiInsightsGetTimeStatsByUserQuerySchema = {
+  max_timestamp: string
+  min_timestamp: string
+  timestamp_increment: string
+}
+
+export type t_ApiInsightsGetUserStatsParamSchema = {
+  org: string
+  user_id: string
+}
+
+export type t_ApiInsightsGetUserStatsQuerySchema = {
+  direction?: "asc" | "desc"
+  max_timestamp: string
+  min_timestamp: string
+  page?: number
+  per_page?: number
+  sort?: (
+    | "last_rate_limited_timestamp"
+    | "last_request_timestamp"
+    | "rate_limited_request_count"
+    | "subject_name"
+    | "total_request_count"
+  )[]
+}
+
 export type t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema = {
   installation_id: number
   repository_id: number
@@ -8645,7 +8913,6 @@ export type t_AppsListSubscriptionsForAuthenticatedUserStubbedQuerySchema = {
 export type t_AppsListWebhookDeliveriesQuerySchema = {
   cursor?: string
   per_page?: number
-  redelivery?: boolean
 }
 
 export type t_AppsRedeliverWebhookDeliveryParamSchema = {
@@ -8936,6 +9203,12 @@ export type t_CodeScanningDeleteAnalysisParamSchema = {
 
 export type t_CodeScanningDeleteAnalysisQuerySchema = {
   confirm_delete?: string | null
+}
+
+export type t_CodeScanningDeleteCodeqlDatabaseParamSchema = {
+  language: string
+  owner: string
+  repo: string
 }
 
 export type t_CodeScanningGetAlertParamSchema = {
@@ -9658,6 +9931,52 @@ export type t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema = {
 
 export type t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema = {
   org: string
+}
+
+export type t_CopilotCopilotMetricsForEnterpriseParamSchema = {
+  enterprise: string
+}
+
+export type t_CopilotCopilotMetricsForEnterpriseQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
+}
+
+export type t_CopilotCopilotMetricsForEnterpriseTeamParamSchema = {
+  enterprise: string
+  team_slug: string
+}
+
+export type t_CopilotCopilotMetricsForEnterpriseTeamQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
+}
+
+export type t_CopilotCopilotMetricsForOrganizationParamSchema = {
+  org: string
+}
+
+export type t_CopilotCopilotMetricsForOrganizationQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
+}
+
+export type t_CopilotCopilotMetricsForTeamParamSchema = {
+  org: string
+  team_slug: string
+}
+
+export type t_CopilotCopilotMetricsForTeamQuerySchema = {
+  page?: number
+  per_page?: number
+  since?: string
+  until?: string
 }
 
 export type t_CopilotGetCopilotOrganizationDetailsParamSchema = {
@@ -11333,7 +11652,6 @@ export type t_OrgsListWebhookDeliveriesParamSchema = {
 export type t_OrgsListWebhookDeliveriesQuerySchema = {
   cursor?: string
   per_page?: number
-  redelivery?: boolean
 }
 
 export type t_OrgsListWebhooksParamSchema = {
@@ -14050,7 +14368,6 @@ export type t_ReposListWebhookDeliveriesParamSchema = {
 export type t_ReposListWebhookDeliveriesQuerySchema = {
   cursor?: string
   per_page?: number
-  redelivery?: boolean
 }
 
 export type t_ReposListWebhooksParamSchema = {

@@ -129,6 +129,56 @@ export const s_alert_url = z.string()
 
 export const s_allowed_actions = z.enum(["all", "local_only", "selected"])
 
+export const s_api_insights_route_stats = z.array(
+  z.object({
+    http_method: z.string().optional(),
+    api_route: z.string().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
+export const s_api_insights_subject_stats = z.array(
+  z.object({
+    subject_type: z.string().optional(),
+    subject_name: z.string().optional(),
+    subject_id: z.coerce.number().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
+export const s_api_insights_summary_stats = z.object({
+  total_request_count: z.coerce.number().optional(),
+  rate_limited_request_count: z.coerce.number().optional(),
+})
+
+export const s_api_insights_time_stats = z.array(
+  z.object({
+    timestamp: z.string().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+  }),
+)
+
+export const s_api_insights_user_stats = z.array(
+  z.object({
+    actor_type: z.string().optional(),
+    actor_name: z.string().optional(),
+    actor_id: z.coerce.number().optional(),
+    integration_id: z.coerce.number().nullable().optional(),
+    oauth_application_id: z.coerce.number().nullable().optional(),
+    total_request_count: z.coerce.number().optional(),
+    rate_limited_request_count: z.coerce.number().optional(),
+    last_rate_limited_timestamp: z.string().nullable().optional(),
+    last_request_timestamp: z.string().optional(),
+  }),
+)
+
 export const s_api_overview = z.object({
   verifiable_password_authentication: PermissiveBoolean,
   ssh_key_fingerprints: z
@@ -915,6 +965,141 @@ export const s_contributor = z.object({
   name: z.string().optional(),
   user_view_type: z.string().optional(),
 })
+
+export const s_copilot_dotcom_chat = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      models: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            is_custom_model: PermissiveBoolean.optional(),
+            custom_model_training_date: z.string().nullable().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            total_chats: z.coerce.number().optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_dotcom_pull_requests = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      repositories: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            models: z
+              .array(
+                z.object({
+                  name: z.string().optional(),
+                  is_custom_model: PermissiveBoolean.optional(),
+                  custom_model_training_date: z.string().nullable().optional(),
+                  total_pr_summaries_created: z.coerce.number().optional(),
+                  total_engaged_users: z.coerce.number().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_ide_chat = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      editors: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+            models: z
+              .array(
+                z.object({
+                  name: z.string().optional(),
+                  is_custom_model: PermissiveBoolean.optional(),
+                  custom_model_training_date: z.string().nullable().optional(),
+                  total_engaged_users: z.coerce.number().optional(),
+                  total_chats: z.coerce.number().optional(),
+                  total_chat_insertion_events: z.coerce.number().optional(),
+                  total_chat_copy_events: z.coerce.number().optional(),
+                }),
+              )
+              .optional(),
+          }),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
+
+export const s_copilot_ide_code_completions = z
+  .intersection(
+    z.object({
+      total_engaged_users: z.coerce.number().optional(),
+      languages: z
+        .array(
+          z.object({
+            name: z.string().optional(),
+            total_engaged_users: z.coerce.number().optional(),
+          }),
+        )
+        .optional(),
+      editors: z
+        .array(
+          z.intersection(
+            z.object({
+              name: z.string().optional(),
+              total_engaged_users: z.coerce.number().optional(),
+              models: z
+                .array(
+                  z.object({
+                    name: z.string().optional(),
+                    is_custom_model: PermissiveBoolean.optional(),
+                    custom_model_training_date: z
+                      .string()
+                      .nullable()
+                      .optional(),
+                    total_engaged_users: z.coerce.number().optional(),
+                    languages: z
+                      .array(
+                        z.object({
+                          name: z.string().optional(),
+                          total_engaged_users: z.coerce.number().optional(),
+                          total_code_suggestions: z.coerce.number().optional(),
+                          total_code_acceptances: z.coerce.number().optional(),
+                          total_code_lines_suggested: z.coerce
+                            .number()
+                            .optional(),
+                          total_code_lines_accepted: z.coerce
+                            .number()
+                            .optional(),
+                        }),
+                      )
+                      .optional(),
+                  }),
+                )
+                .optional(),
+            }),
+            z.record(z.unknown()),
+          ),
+        )
+        .optional(),
+    }),
+    z.record(z.unknown()),
+  )
+  .nullable()
 
 export const s_copilot_seat_breakdown = z.object({
   total: z.coerce.number().optional(),
@@ -3537,6 +3722,19 @@ export const s_copilot_organization_details = z.intersection(
   z.record(z.unknown()),
 )
 
+export const s_copilot_usage_metrics_day = z.intersection(
+  z.object({
+    date: z.string(),
+    total_active_users: z.coerce.number().optional(),
+    total_engaged_users: z.coerce.number().optional(),
+    copilot_ide_code_completions: s_copilot_ide_code_completions.optional(),
+    copilot_ide_chat: s_copilot_ide_chat.optional(),
+    copilot_dotcom_chat: s_copilot_dotcom_chat.optional(),
+    copilot_dotcom_pull_requests: s_copilot_dotcom_pull_requests.optional(),
+  }),
+  z.record(z.unknown()),
+)
+
 export const s_dependabot_alert_security_vulnerability = z.object({
   package: s_dependabot_alert_package,
   severity: z.enum(["low", "medium", "high", "critical"]),
@@ -4239,6 +4437,7 @@ export const s_organization_programmatic_access_grant = z.object({
     other: z.record(z.string()).optional(),
   }),
   access_granted_at: z.string(),
+  token_id: z.coerce.number(),
   token_expired: PermissiveBoolean,
   token_expires_at: z.string().nullable(),
   token_last_used_at: z.string().nullable(),
@@ -4256,6 +4455,7 @@ export const s_organization_programmatic_access_grant_request = z.object({
     other: z.record(z.string()).optional(),
   }),
   created_at: z.string(),
+  token_id: z.coerce.number(),
   token_expired: PermissiveBoolean,
   token_expires_at: z.string().nullable(),
   token_last_used_at: z.string().nullable(),
