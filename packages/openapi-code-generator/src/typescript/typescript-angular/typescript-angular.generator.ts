@@ -1,3 +1,4 @@
+import {titleCase} from "../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
@@ -25,9 +26,11 @@ export async function generateTypescriptAngular(
 
   const imports = new ImportBuilder()
 
+  const exportName = titleCase(input.name())
+
   const client = new AngularServiceBuilder(
     "client.service.ts",
-    "ApiClient",
+    exportName,
     input,
     imports,
     rootTypeBuilder.withImports(imports),
@@ -42,7 +45,7 @@ export async function generateTypescriptAngular(
 
   const module = new AngularModuleBuilder("api.module.ts", "Api")
 
-  module.provides(`./${client.filename}`).add(client.name)
+  module.provides(`./${client.filename}`).add(client.exportName)
 
   await emitter.emitGenerationResult([
     module.toCompilationUnit(),

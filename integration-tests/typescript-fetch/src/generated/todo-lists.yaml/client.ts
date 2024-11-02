@@ -18,10 +18,10 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {}
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class TodoListsExampleApi extends AbstractFetchClient {
+  constructor(config: TodoListsExampleApiConfig) {
     super(config)
   }
 
@@ -159,3 +159,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }
+
+export { TodoListsExampleApi as ApiClient }
+export type { TodoListsExampleApiConfig as ApiClientConfig }

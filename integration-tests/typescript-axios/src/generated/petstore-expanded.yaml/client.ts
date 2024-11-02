@@ -9,12 +9,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface SwaggerPetstoreConfig extends AbstractAxiosConfig {
   basePath: "https://petstore.swagger.io/v2" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class SwaggerPetstore extends AbstractAxiosClient {
+  constructor(config: SwaggerPetstoreConfig) {
     super(config)
   }
 
@@ -101,3 +101,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { SwaggerPetstore as ApiClient }
+export type { SwaggerPetstoreConfig as ApiClientConfig }

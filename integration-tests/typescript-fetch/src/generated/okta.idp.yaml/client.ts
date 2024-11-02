@@ -27,12 +27,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface MyAccountManagementConfig extends AbstractFetchClientConfig {
   basePath: "https://{yourOktaDomain}" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class MyAccountManagement extends AbstractFetchClient {
+  constructor(config: MyAccountManagementConfig) {
     super(config)
   }
 
@@ -744,3 +744,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 }
+
+export { MyAccountManagement as ApiClient }
+export type { MyAccountManagementConfig as ApiClientConfig }

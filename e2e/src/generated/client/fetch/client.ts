@@ -14,10 +14,10 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export interface E2ETestClientConfig extends AbstractFetchClientConfig {}
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class E2ETestClient extends AbstractFetchClient {
+  constructor(config: E2ETestClientConfig) {
     super(config)
   }
 
@@ -79,3 +79,6 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 }
+
+export { E2ETestClient as ApiClient }
+export type { E2ETestClientConfig as ApiClientConfig }

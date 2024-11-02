@@ -170,12 +170,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface StripeApiConfig extends AbstractFetchClientConfig {
   basePath: "https://api.stripe.com/" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class StripeApi extends AbstractFetchClient {
+  constructor(config: StripeApiConfig) {
     super(config)
   }
 
@@ -38650,3 +38650,6 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }
+
+export { StripeApi as ApiClient }
+export type { StripeApiConfig as ApiClientConfig }

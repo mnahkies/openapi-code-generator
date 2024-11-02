@@ -27,6 +27,7 @@ export class OpenapiLoader {
 
   private constructor(
     private readonly entryPointKey: string,
+    private readonly config: {titleOverride: string | undefined},
     private readonly validator: OpenapiValidator,
     private readonly genericLoader: GenericLoader,
   ) {
@@ -141,6 +142,10 @@ export class OpenapiLoader {
 
     this.library.set(loadedFrom, definition)
     await this.normalizeRefs(loadedFrom, definition)
+
+    if (this.config.titleOverride) {
+      this.entryPoint.info.title = this.config.titleOverride
+    }
   }
 
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
@@ -173,7 +178,12 @@ export class OpenapiLoader {
     validator: OpenapiValidator,
     genericLoader: GenericLoader,
   ): Promise<OpenapiLoader> {
-    const loader = new OpenapiLoader("input.yaml", validator, genericLoader)
+    const loader = new OpenapiLoader(
+      "input.yaml",
+      {titleOverride: undefined},
+      validator,
+      genericLoader,
+    )
 
     await loader.loadFileContent("input.yaml", value)
 
@@ -181,7 +191,11 @@ export class OpenapiLoader {
   }
 
   static async create(
-    config: {entryPoint: string; fileType: "openapi3" | "typespec"},
+    config: {
+      entryPoint: string
+      fileType: "openapi3" | "typespec"
+      titleOverride: string | undefined
+    },
     validator: OpenapiValidator,
     genericLoader: GenericLoader,
     typespecLoader: TypespecLoader,
@@ -190,7 +204,12 @@ export class OpenapiLoader {
       ? config.entryPoint
       : path.resolve(config.entryPoint)
 
-    const loader = new OpenapiLoader(entryPoint, validator, genericLoader)
+    const loader = new OpenapiLoader(
+      entryPoint,
+      {titleOverride: config.titleOverride},
+      validator,
+      genericLoader,
+    )
 
     switch (config.fileType) {
       case "openapi3": {

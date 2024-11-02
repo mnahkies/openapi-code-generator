@@ -310,12 +310,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
   basePath: "https://api.github.com" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class GitHubV3RestApi extends AbstractAxiosClient {
+  constructor(config: GitHubV3RestApiConfig) {
     super(config)
   }
 
@@ -25243,3 +25243,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { GitHubV3RestApi as ApiClient }
+export type { GitHubV3RestApiConfig as ApiClientConfig }

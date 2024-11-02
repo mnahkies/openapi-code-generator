@@ -9,10 +9,10 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {}
+export interface TodoListsExampleApiConfig extends AbstractAxiosConfig {}
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class TodoListsExampleApi extends AbstractAxiosClient {
+  constructor(config: TodoListsExampleApiConfig) {
     super(config)
   }
 
@@ -160,3 +160,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { TodoListsExampleApi as ApiClient }
+export type { TodoListsExampleApiConfig as ApiClientConfig }

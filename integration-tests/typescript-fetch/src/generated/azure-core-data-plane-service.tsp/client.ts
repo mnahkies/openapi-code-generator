@@ -28,12 +28,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {
+export interface ContosoWidgetManagerConfig extends AbstractFetchClientConfig {
   basePath: "{endpoint}/widget" | string
 }
 
-export class ApiClient extends AbstractFetchClient {
-  constructor(config: ApiClientConfig) {
+export class ContosoWidgetManager extends AbstractFetchClient {
+  constructor(config: ContosoWidgetManagerConfig) {
     super(config)
   }
 
@@ -878,3 +878,6 @@ export class ApiClient extends AbstractFetchClient {
     )
   }
 }
+
+export { ContosoWidgetManager as ApiClient }
+export type { ContosoWidgetManagerConfig as ApiClientConfig }

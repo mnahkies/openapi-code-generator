@@ -17,6 +17,7 @@ import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 export type Config = {
   input: string
   inputType: "openapi3" | "typespec"
+  overrideSpecificationTitle?: string | undefined
   output: string
   template:
     | "typescript-fetch"
@@ -51,7 +52,11 @@ export async function generate(
     config.remoteSpecRequestHeaders,
   )
   const loader = await OpenapiLoader.create(
-    {entryPoint: config.input, fileType: config.inputType},
+    {
+      entryPoint: config.input,
+      fileType: config.inputType,
+      titleOverride: config.overrideSpecificationTitle,
+    },
     validator,
     genericLoader,
     typespecLoader,

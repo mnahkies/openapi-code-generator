@@ -167,12 +167,12 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface ApiClientConfig extends AbstractAxiosConfig {
+export interface StripeApiConfig extends AbstractAxiosConfig {
   basePath: "https://api.stripe.com/" | string
 }
 
-export class ApiClient extends AbstractAxiosClient {
-  constructor(config: ApiClientConfig) {
+export class StripeApi extends AbstractAxiosClient {
+  constructor(config: StripeApiConfig) {
     super(config)
   }
 
@@ -39268,3 +39268,6 @@ export class ApiClient extends AbstractAxiosClient {
     })
   }
 }
+
+export { StripeApi as ApiClient }
+export type { StripeApiConfig as ApiClientConfig }

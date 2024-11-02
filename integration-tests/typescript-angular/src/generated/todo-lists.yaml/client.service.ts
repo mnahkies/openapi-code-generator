@@ -12,7 +12,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class ApiClientConfig {
+export class TodoListsExampleApiConfig {
   basePath: string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -58,10 +58,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class ApiClient {
+export class TodoListsExampleApi {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: ApiClientConfig,
+    private readonly config: TodoListsExampleApiConfig,
   ) {}
 
   private _headers(
@@ -223,3 +223,6 @@ export class ApiClient {
     )
   }
 }
+
+export { TodoListsExampleApi as ApiClient }
+export { TodoListsExampleApiConfig as ApiClientConfig }
