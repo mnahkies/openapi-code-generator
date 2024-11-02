@@ -27,15 +27,19 @@ export class TypescriptEmitter {
 
     logger.time("format output")
 
-    for (const output of outputs) {
-      output.data = await this.formatter.format(output.filename, output.data)
-    }
+    await Promise.all(
+      outputs.map(async (output) => {
+        output.data = await this.formatter.format(output.filename, output.data)
+      }),
+    )
 
     logger.time("write output")
 
-    for (const output of outputs) {
-      await this.writeOutput(output.filename, output.data)
-    }
+    await Promise.all(
+      outputs.map(async (output) => {
+        await this.writeOutput(output.filename, output.data)
+      }),
+    )
   }
 
   private async writeOutput(filename: string, data: string) {
