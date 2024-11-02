@@ -34,7 +34,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     super(config)
   }
 
-  async serviceStatus(
+  async getServiceStatus(
     p: {
       apiVersion: string
       xMsClientRequestId?: t_Azure_Core_uuid
@@ -654,7 +654,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     })
   }
 
-  async manufacturersCreateManufacturer(
+  async manufacturersCreateOrReplaceManufacturer(
     p: {
       apiVersion: string
       manufacturerId: string

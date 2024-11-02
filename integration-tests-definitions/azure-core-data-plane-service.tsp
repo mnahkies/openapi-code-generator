@@ -269,7 +269,7 @@ interface Manufacturers {
   getManufacturerOperationStatus is Operations.GetResourceOperationStatus<Manufacturer>;
 
   /** Creates or replaces a Manufacturer */
-  createManufacturer is Operations.ResourceCreateOrReplace<Manufacturer>;
+  createOrReplaceManufacturer is Operations.ResourceCreateOrReplace<Manufacturer>;
 
   /** Get a Manufacturer */
   getManufacturer is Operations.ResourceRead<Manufacturer>;
@@ -285,7 +285,7 @@ interface Manufacturers {
 // A "global" RPC operation
 /** Responds with status information about the overall service. */
 @route("service-status")
-op serviceStatus is RpcOperation<
+op getServiceStatus is RpcOperation<
   {},
   {
     statusString: string;

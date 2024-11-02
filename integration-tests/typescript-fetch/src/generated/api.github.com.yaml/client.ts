@@ -20,6 +20,11 @@ import {
   t_activity,
   t_alert_number,
   t_allowed_actions,
+  t_api_insights_route_stats,
+  t_api_insights_subject_stats,
+  t_api_insights_summary_stats,
+  t_api_insights_time_stats,
+  t_api_insights_user_stats,
   t_api_overview,
   t_app_permissions,
   t_artifact,
@@ -105,6 +110,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics,
+  t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_value,
@@ -488,7 +494,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -501,11 +506,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   > {
     const url = this.basePath + `/app/hook/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._fetch(
       url + query,
@@ -1045,6 +1046,42 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async copilotCopilotMetricsForEnterprise(
+    p: {
+      enterprise: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics_day[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/enterprises/${p["enterprise"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
   async copilotUsageMetricsForEnterprise(
     p: {
       enterprise: string
@@ -1178,6 +1215,44 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async copilotCopilotMetricsForEnterpriseTeam(
+    p: {
+      enterprise: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics_day[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
     })
 
     return this._fetch(
@@ -4829,6 +4904,41 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async copilotCopilotMetricsForOrganization(
+    p: {
+      org: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics_day[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
   async copilotUsageMetricsForOrg(
     p: {
       org: string
@@ -5341,7 +5451,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       hookId: number
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5355,11 +5464,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const url =
       this.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._fetch(
       url + query,
@@ -5431,6 +5536,297 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
+  }
+
+  async apiInsightsGetRouteStatsByActor(
+    p: {
+      org: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "http_method"
+        | "api_route"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_route_stats>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetSubjectStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "subject_name"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_subject_stats>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/insights/api/subject-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetSummaryStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_summary_stats>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/insights/api/summary-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetSummaryStatsByUser(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_summary_stats>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/insights/api/summary-stats/users/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetSummaryStatsByActor(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_summary_stats>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/insights/api/summary-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetTimeStats(
+    p: {
+      org: string
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_time_stats>>> {
+    const url = this.basePath + `/orgs/${p["org"]}/insights/api/time-stats`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetTimeStatsByUser(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_time_stats>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/insights/api/time-stats/users/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetTimeStatsByActor(
+    p: {
+      org: string
+      actorType:
+        | "installations"
+        | "classic_pats"
+        | "fine_grained_pats"
+        | "oauth_apps"
+        | "github_apps_user_to_server"
+      actorId: number
+      minTimestamp: string
+      maxTimestamp: string
+      timestampIncrement: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_time_stats>>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/insights/api/time-stats/${p["actorType"]}/${p["actorId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async apiInsightsGetUserStats(
+    p: {
+      org: string
+      userId: string
+      minTimestamp: string
+      maxTimestamp: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc"
+      sort?: (
+        | "last_rate_limited_timestamp"
+        | "last_request_timestamp"
+        | "rate_limited_request_count"
+        | "subject_name"
+        | "total_request_count"
+      )[]
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_api_insights_user_stats>>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async appsGetOrgInstallation(
@@ -7656,6 +8052,43 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async copilotCopilotMetricsForTeam(
+    p: {
+      org: string
+      teamSlug: string
+      since?: string
+      until?: string
+      page?: number
+      perPage?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_copilot_usage_metrics_day[]>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_basic_error>
+      | Res<500, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async copilotUsageMetricsForTeam(
@@ -12925,6 +13358,37 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
+  async codeScanningDeleteCodeqlDatabase(
+    p: {
+      owner: string
+      repo: string
+      language: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async codeScanningCreateVariantAnalysis(
     p: {
       owner: string
@@ -16169,7 +16633,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       hookId: number
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -16184,11 +16647,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/hooks/${p["hookId"]}/deliveries`
     const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      per_page: p["perPage"],
-      cursor: p["cursor"],
-      redelivery: p["redelivery"],
-    })
+    const query = this._query({ per_page: p["perPage"], cursor: p["cursor"] })
 
     return this._fetch(
       url + query,

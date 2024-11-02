@@ -252,6 +252,24 @@ import {
   t_ActivitySetThreadSubscriptionParamSchema,
   t_ActivityStarRepoForAuthenticatedUserParamSchema,
   t_ActivityUnstarRepoForAuthenticatedUserParamSchema,
+  t_ApiInsightsGetRouteStatsByActorParamSchema,
+  t_ApiInsightsGetRouteStatsByActorQuerySchema,
+  t_ApiInsightsGetSubjectStatsParamSchema,
+  t_ApiInsightsGetSubjectStatsQuerySchema,
+  t_ApiInsightsGetSummaryStatsByActorParamSchema,
+  t_ApiInsightsGetSummaryStatsByActorQuerySchema,
+  t_ApiInsightsGetSummaryStatsByUserParamSchema,
+  t_ApiInsightsGetSummaryStatsByUserQuerySchema,
+  t_ApiInsightsGetSummaryStatsParamSchema,
+  t_ApiInsightsGetSummaryStatsQuerySchema,
+  t_ApiInsightsGetTimeStatsByActorParamSchema,
+  t_ApiInsightsGetTimeStatsByActorQuerySchema,
+  t_ApiInsightsGetTimeStatsByUserParamSchema,
+  t_ApiInsightsGetTimeStatsByUserQuerySchema,
+  t_ApiInsightsGetTimeStatsParamSchema,
+  t_ApiInsightsGetTimeStatsQuerySchema,
+  t_ApiInsightsGetUserStatsParamSchema,
+  t_ApiInsightsGetUserStatsQuerySchema,
   t_AppsAddRepoToInstallationForAuthenticatedUserParamSchema,
   t_AppsCheckTokenBodySchema,
   t_AppsCheckTokenParamSchema,
@@ -333,6 +351,7 @@ import {
   t_CodeScanningCreateVariantAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisParamSchema,
   t_CodeScanningDeleteAnalysisQuerySchema,
+  t_CodeScanningDeleteCodeqlDatabaseParamSchema,
   t_CodeScanningGetAlertParamSchema,
   t_CodeScanningGetAnalysisParamSchema,
   t_CodeScanningGetCodeqlDatabaseParamSchema,
@@ -451,6 +470,14 @@ import {
   t_CopilotCancelCopilotSeatAssignmentForTeamsParamSchema,
   t_CopilotCancelCopilotSeatAssignmentForUsersBodySchema,
   t_CopilotCancelCopilotSeatAssignmentForUsersParamSchema,
+  t_CopilotCopilotMetricsForEnterpriseParamSchema,
+  t_CopilotCopilotMetricsForEnterpriseQuerySchema,
+  t_CopilotCopilotMetricsForEnterpriseTeamParamSchema,
+  t_CopilotCopilotMetricsForEnterpriseTeamQuerySchema,
+  t_CopilotCopilotMetricsForOrganizationParamSchema,
+  t_CopilotCopilotMetricsForOrganizationQuerySchema,
+  t_CopilotCopilotMetricsForTeamParamSchema,
+  t_CopilotCopilotMetricsForTeamQuerySchema,
   t_CopilotGetCopilotOrganizationDetailsParamSchema,
   t_CopilotGetCopilotSeatDetailsForUserParamSchema,
   t_CopilotListCopilotSeatsForEnterpriseParamSchema,
@@ -1426,6 +1453,11 @@ import {
   t_actions_variable,
   t_actions_workflow_access_to_repository,
   t_activity,
+  t_api_insights_route_stats,
+  t_api_insights_subject_stats,
+  t_api_insights_summary_stats,
+  t_api_insights_time_stats,
+  t_api_insights_user_stats,
   t_api_overview,
   t_artifact,
   t_authentication_token,
@@ -1497,6 +1529,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics,
+  t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_value,
@@ -1690,6 +1723,11 @@ import {
   s_activity,
   s_alert_number,
   s_allowed_actions,
+  s_api_insights_route_stats,
+  s_api_insights_subject_stats,
+  s_api_insights_summary_stats,
+  s_api_insights_time_stats,
+  s_api_insights_user_stats,
   s_api_overview,
   s_app_permissions,
   s_artifact,
@@ -1775,6 +1813,7 @@ import {
   s_copilot_organization_details,
   s_copilot_seat_details,
   s_copilot_usage_metrics,
+  s_copilot_usage_metrics_day,
   s_custom_deployment_rule_app,
   s_custom_property,
   s_custom_property_value,
@@ -2594,6 +2633,32 @@ export type CopilotListCopilotSeatsForEnterprise = (
   | Response<500, t_basic_error>
 >
 
+export type CopilotCopilotMetricsForEnterpriseResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotMetricsForEnterprise = (
+  params: Params<
+    t_CopilotCopilotMetricsForEnterpriseParamSchema,
+    t_CopilotCopilotMetricsForEnterpriseQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotMetricsForEnterpriseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics_day[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type CopilotUsageMetricsForEnterpriseResponder = {
   with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -2677,6 +2742,32 @@ export type SecretScanningListAlertsForEnterprise = (
         message?: string
       }
     >
+>
+
+export type CopilotCopilotMetricsForEnterpriseTeamResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotMetricsForEnterpriseTeam = (
+  params: Params<
+    t_CopilotCopilotMetricsForEnterpriseTeamParamSchema,
+    t_CopilotCopilotMetricsForEnterpriseTeamQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotMetricsForEnterpriseTeamResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics_day[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
+  | Response<500, t_basic_error>
 >
 
 export type CopilotUsageMetricsForEnterpriseTeamResponder = {
@@ -5717,6 +5808,32 @@ export type CopilotCancelCopilotSeatAssignmentForUsers = (
   | Response<500, t_basic_error>
 >
 
+export type CopilotCopilotMetricsForOrganizationResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotMetricsForOrganization = (
+  params: Params<
+    t_CopilotCopilotMetricsForOrganizationParamSchema,
+    t_CopilotCopilotMetricsForOrganizationQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotMetricsForOrganizationResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics_day[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type CopilotUsageMetricsForOrgResponder = {
   with200(): KoaRuntimeResponse<t_copilot_usage_metrics[]>
   with401(): KoaRuntimeResponse<t_basic_error>
@@ -6183,6 +6300,159 @@ export type OrgsPingWebhook = (
   | KoaRuntimeResponse<unknown>
   | Response<204, void>
   | Response<404, t_basic_error>
+>
+
+export type ApiInsightsGetRouteStatsByActorResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_route_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetRouteStatsByActor = (
+  params: Params<
+    t_ApiInsightsGetRouteStatsByActorParamSchema,
+    t_ApiInsightsGetRouteStatsByActorQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetRouteStatsByActorResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_route_stats>
+>
+
+export type ApiInsightsGetSubjectStatsResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_subject_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetSubjectStats = (
+  params: Params<
+    t_ApiInsightsGetSubjectStatsParamSchema,
+    t_ApiInsightsGetSubjectStatsQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetSubjectStatsResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_subject_stats>
+>
+
+export type ApiInsightsGetSummaryStatsResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_summary_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetSummaryStats = (
+  params: Params<
+    t_ApiInsightsGetSummaryStatsParamSchema,
+    t_ApiInsightsGetSummaryStatsQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetSummaryStatsResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_summary_stats>
+>
+
+export type ApiInsightsGetSummaryStatsByUserResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_summary_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetSummaryStatsByUser = (
+  params: Params<
+    t_ApiInsightsGetSummaryStatsByUserParamSchema,
+    t_ApiInsightsGetSummaryStatsByUserQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetSummaryStatsByUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_summary_stats>
+>
+
+export type ApiInsightsGetSummaryStatsByActorResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_summary_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetSummaryStatsByActor = (
+  params: Params<
+    t_ApiInsightsGetSummaryStatsByActorParamSchema,
+    t_ApiInsightsGetSummaryStatsByActorQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetSummaryStatsByActorResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_summary_stats>
+>
+
+export type ApiInsightsGetTimeStatsResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_time_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetTimeStats = (
+  params: Params<
+    t_ApiInsightsGetTimeStatsParamSchema,
+    t_ApiInsightsGetTimeStatsQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetTimeStatsResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_time_stats>
+>
+
+export type ApiInsightsGetTimeStatsByUserResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_time_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetTimeStatsByUser = (
+  params: Params<
+    t_ApiInsightsGetTimeStatsByUserParamSchema,
+    t_ApiInsightsGetTimeStatsByUserQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetTimeStatsByUserResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_time_stats>
+>
+
+export type ApiInsightsGetTimeStatsByActorResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_time_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetTimeStatsByActor = (
+  params: Params<
+    t_ApiInsightsGetTimeStatsByActorParamSchema,
+    t_ApiInsightsGetTimeStatsByActorQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetTimeStatsByActorResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_time_stats>
+>
+
+export type ApiInsightsGetUserStatsResponder = {
+  with200(): KoaRuntimeResponse<t_api_insights_user_stats>
+} & KoaRuntimeResponder
+
+export type ApiInsightsGetUserStats = (
+  params: Params<
+    t_ApiInsightsGetUserStatsParamSchema,
+    t_ApiInsightsGetUserStatsQuerySchema,
+    void,
+    void
+  >,
+  respond: ApiInsightsGetUserStatsResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_api_insights_user_stats>
 >
 
 export type AppsGetOrgInstallationResponder = {
@@ -7914,6 +8184,32 @@ export type BillingGetSharedStorageBillingOrg = (
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
+>
+
+export type CopilotCopilotMetricsForTeamResponder = {
+  with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type CopilotCopilotMetricsForTeam = (
+  params: Params<
+    t_CopilotCopilotMetricsForTeamParamSchema,
+    t_CopilotCopilotMetricsForTeamQuerySchema,
+    void,
+    void
+  >,
+  respond: CopilotCopilotMetricsForTeamResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_copilot_usage_metrics_day[]>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_basic_error>
+  | Response<500, t_basic_error>
 >
 
 export type CopilotUsageMetricsForTeamResponder = {
@@ -11835,6 +12131,41 @@ export type CodeScanningGetCodeqlDatabase = (
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_codeql_database>
   | Response<302, void>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type CodeScanningDeleteCodeqlDatabaseResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type CodeScanningDeleteCodeqlDatabase = (
+  params: Params<
+    t_CodeScanningDeleteCodeqlDatabaseParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: CodeScanningDeleteCodeqlDatabaseResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<
@@ -21868,9 +22199,11 @@ export type Implementation = {
   codesOfConductGetConductCode: CodesOfConductGetConductCode
   emojisGet: EmojisGet
   copilotListCopilotSeatsForEnterprise: CopilotListCopilotSeatsForEnterprise
+  copilotCopilotMetricsForEnterprise: CopilotCopilotMetricsForEnterprise
   copilotUsageMetricsForEnterprise: CopilotUsageMetricsForEnterprise
   dependabotListAlertsForEnterprise: DependabotListAlertsForEnterprise
   secretScanningListAlertsForEnterprise: SecretScanningListAlertsForEnterprise
+  copilotCopilotMetricsForEnterpriseTeam: CopilotCopilotMetricsForEnterpriseTeam
   copilotUsageMetricsForEnterpriseTeam: CopilotUsageMetricsForEnterpriseTeam
   activityListPublicEvents: ActivityListPublicEvents
   activityGetFeeds: ActivityGetFeeds
@@ -22015,6 +22348,7 @@ export type Implementation = {
   copilotCancelCopilotSeatAssignmentForTeams: CopilotCancelCopilotSeatAssignmentForTeams
   copilotAddCopilotSeatsForUsers: CopilotAddCopilotSeatsForUsers
   copilotCancelCopilotSeatAssignmentForUsers: CopilotCancelCopilotSeatAssignmentForUsers
+  copilotCopilotMetricsForOrganization: CopilotCopilotMetricsForOrganization
   copilotUsageMetricsForOrg: CopilotUsageMetricsForOrg
   dependabotListAlertsForOrg: DependabotListAlertsForOrg
   dependabotListOrgSecrets: DependabotListOrgSecrets
@@ -22040,6 +22374,15 @@ export type Implementation = {
   orgsGetWebhookDelivery: OrgsGetWebhookDelivery
   orgsRedeliverWebhookDelivery: OrgsRedeliverWebhookDelivery
   orgsPingWebhook: OrgsPingWebhook
+  apiInsightsGetRouteStatsByActor: ApiInsightsGetRouteStatsByActor
+  apiInsightsGetSubjectStats: ApiInsightsGetSubjectStats
+  apiInsightsGetSummaryStats: ApiInsightsGetSummaryStats
+  apiInsightsGetSummaryStatsByUser: ApiInsightsGetSummaryStatsByUser
+  apiInsightsGetSummaryStatsByActor: ApiInsightsGetSummaryStatsByActor
+  apiInsightsGetTimeStats: ApiInsightsGetTimeStats
+  apiInsightsGetTimeStatsByUser: ApiInsightsGetTimeStatsByUser
+  apiInsightsGetTimeStatsByActor: ApiInsightsGetTimeStatsByActor
+  apiInsightsGetUserStats: ApiInsightsGetUserStats
   appsGetOrgInstallation: AppsGetOrgInstallation
   orgsListAppInstallations: OrgsListAppInstallations
   interactionsGetRestrictionsForOrg: InteractionsGetRestrictionsForOrg
@@ -22126,6 +22469,7 @@ export type Implementation = {
   billingGetGithubActionsBillingOrg: BillingGetGithubActionsBillingOrg
   billingGetGithubPackagesBillingOrg: BillingGetGithubPackagesBillingOrg
   billingGetSharedStorageBillingOrg: BillingGetSharedStorageBillingOrg
+  copilotCopilotMetricsForTeam: CopilotCopilotMetricsForTeam
   copilotUsageMetricsForTeam: CopilotUsageMetricsForTeam
   teamsList: TeamsList
   teamsCreate: TeamsCreate
@@ -22325,6 +22669,7 @@ export type Implementation = {
   codeScanningDeleteAnalysis: CodeScanningDeleteAnalysis
   codeScanningListCodeqlDatabases: CodeScanningListCodeqlDatabases
   codeScanningGetCodeqlDatabase: CodeScanningGetCodeqlDatabase
+  codeScanningDeleteCodeqlDatabase: CodeScanningDeleteCodeqlDatabase
   codeScanningCreateVariantAnalysis: CodeScanningCreateVariantAnalysis
   codeScanningGetVariantAnalysis: CodeScanningGetVariantAnalysis
   codeScanningGetVariantAnalysisRepoTask: CodeScanningGetVariantAnalysisRepoTask
@@ -23192,7 +23537,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const appsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
-    redelivery: PermissiveBoolean.optional(),
   })
 
   const appsListWebhookDeliveriesResponseValidator = responseValidationFactory(
@@ -24720,6 +25064,87 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const copilotCopilotMetricsForEnterpriseParamSchema = z.object({
+    enterprise: z.string(),
+  })
+
+  const copilotCopilotMetricsForEnterpriseQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(28),
+  })
+
+  const copilotCopilotMetricsForEnterpriseResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_copilot_usage_metrics_day)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotMetricsForEnterprise",
+    "/enterprises/:enterprise/copilot/metrics",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotMetricsForEnterpriseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotMetricsForEnterpriseQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_day[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotCopilotMetricsForEnterprise(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotCopilotMetricsForEnterpriseResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const copilotUsageMetricsForEnterpriseParamSchema = z.object({
     enterprise: z.string(),
   })
@@ -24974,6 +25399,88 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = secretScanningListAlertsForEnterpriseResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotCopilotMetricsForEnterpriseTeamParamSchema = z.object({
+    enterprise: z.string(),
+    team_slug: z.string(),
+  })
+
+  const copilotCopilotMetricsForEnterpriseTeamQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(28),
+  })
+
+  const copilotCopilotMetricsForEnterpriseTeamResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_copilot_usage_metrics_day)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotMetricsForEnterpriseTeam",
+    "/enterprises/:enterprise/team/:team_slug/copilot/metrics",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotMetricsForEnterpriseTeamParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotMetricsForEnterpriseTeamQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_day[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotCopilotMetricsForEnterpriseTeam(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotCopilotMetricsForEnterpriseTeamResponseValidator(
         status,
         body,
       )
@@ -34271,6 +34778,87 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const copilotCopilotMetricsForOrganizationParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const copilotCopilotMetricsForOrganizationQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(28),
+  })
+
+  const copilotCopilotMetricsForOrganizationResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_copilot_usage_metrics_day)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotMetricsForOrganization",
+    "/orgs/:org/copilot/metrics",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotMetricsForOrganizationParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotMetricsForOrganizationQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_day[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotCopilotMetricsForOrganization(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotCopilotMetricsForOrganizationResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const copilotUsageMetricsForOrgParamSchema = z.object({ org: z.string() })
 
   const copilotUsageMetricsForOrgQuerySchema = z.object({
@@ -35586,7 +36174,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const orgsListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
-    redelivery: PermissiveBoolean.optional(),
   })
 
   const orgsListWebhookDeliveriesResponseValidator = responseValidationFactory(
@@ -35820,6 +36407,600 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = orgsPingWebhookResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetRouteStatsByActorParamSchema = z.object({
+    org: z.string(),
+    actor_type: z.enum([
+      "installations",
+      "classic_pats",
+      "fine_grained_pats",
+      "oauth_apps",
+      "github_apps_user_to_server",
+    ]),
+    actor_id: z.coerce.number(),
+  })
+
+  const apiInsightsGetRouteStatsByActorQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    sort: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(
+          z
+            .enum([
+              "last_rate_limited_timestamp",
+              "last_request_timestamp",
+              "rate_limited_request_count",
+              "http_method",
+              "api_route",
+              "total_request_count",
+            ])
+            .default("total_request_count"),
+        ),
+      )
+      .optional(),
+  })
+
+  const apiInsightsGetRouteStatsByActorResponseValidator =
+    responseValidationFactory([["200", s_api_insights_route_stats]], undefined)
+
+  router.get(
+    "apiInsightsGetRouteStatsByActor",
+    "/orgs/:org/insights/api/route-stats/:actor_type/:actor_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetRouteStatsByActorParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetRouteStatsByActorQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_route_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetRouteStatsByActor(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetRouteStatsByActorResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetSubjectStatsParamSchema = z.object({ org: z.string() })
+
+  const apiInsightsGetSubjectStatsQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    sort: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(
+          z
+            .enum([
+              "last_rate_limited_timestamp",
+              "last_request_timestamp",
+              "rate_limited_request_count",
+              "subject_name",
+              "total_request_count",
+            ])
+            .default("total_request_count"),
+        ),
+      )
+      .optional(),
+  })
+
+  const apiInsightsGetSubjectStatsResponseValidator = responseValidationFactory(
+    [["200", s_api_insights_subject_stats]],
+    undefined,
+  )
+
+  router.get(
+    "apiInsightsGetSubjectStats",
+    "/orgs/:org/insights/api/subject-stats",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetSubjectStatsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetSubjectStatsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_subject_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetSubjectStats(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetSubjectStatsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetSummaryStatsParamSchema = z.object({ org: z.string() })
+
+  const apiInsightsGetSummaryStatsQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+  })
+
+  const apiInsightsGetSummaryStatsResponseValidator = responseValidationFactory(
+    [["200", s_api_insights_summary_stats]],
+    undefined,
+  )
+
+  router.get(
+    "apiInsightsGetSummaryStats",
+    "/orgs/:org/insights/api/summary-stats",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetSummaryStatsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetSummaryStatsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_summary_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetSummaryStats(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetSummaryStatsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetSummaryStatsByUserParamSchema = z.object({
+    org: z.string(),
+    user_id: z.string(),
+  })
+
+  const apiInsightsGetSummaryStatsByUserQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+  })
+
+  const apiInsightsGetSummaryStatsByUserResponseValidator =
+    responseValidationFactory(
+      [["200", s_api_insights_summary_stats]],
+      undefined,
+    )
+
+  router.get(
+    "apiInsightsGetSummaryStatsByUser",
+    "/orgs/:org/insights/api/summary-stats/users/:user_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetSummaryStatsByUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetSummaryStatsByUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_summary_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetSummaryStatsByUser(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetSummaryStatsByUserResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetSummaryStatsByActorParamSchema = z.object({
+    org: z.string(),
+    actor_type: z.enum([
+      "installations",
+      "classic_pats",
+      "fine_grained_pats",
+      "oauth_apps",
+      "github_apps_user_to_server",
+    ]),
+    actor_id: z.coerce.number(),
+  })
+
+  const apiInsightsGetSummaryStatsByActorQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+  })
+
+  const apiInsightsGetSummaryStatsByActorResponseValidator =
+    responseValidationFactory(
+      [["200", s_api_insights_summary_stats]],
+      undefined,
+    )
+
+  router.get(
+    "apiInsightsGetSummaryStatsByActor",
+    "/orgs/:org/insights/api/summary-stats/:actor_type/:actor_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetSummaryStatsByActorParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetSummaryStatsByActorQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_summary_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetSummaryStatsByActor(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetSummaryStatsByActorResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetTimeStatsParamSchema = z.object({ org: z.string() })
+
+  const apiInsightsGetTimeStatsQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    timestamp_increment: z.string(),
+  })
+
+  const apiInsightsGetTimeStatsResponseValidator = responseValidationFactory(
+    [["200", s_api_insights_time_stats]],
+    undefined,
+  )
+
+  router.get(
+    "apiInsightsGetTimeStats",
+    "/orgs/:org/insights/api/time-stats",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetTimeStatsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetTimeStatsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_time_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetTimeStats(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetTimeStatsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetTimeStatsByUserParamSchema = z.object({
+    org: z.string(),
+    user_id: z.string(),
+  })
+
+  const apiInsightsGetTimeStatsByUserQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    timestamp_increment: z.string(),
+  })
+
+  const apiInsightsGetTimeStatsByUserResponseValidator =
+    responseValidationFactory([["200", s_api_insights_time_stats]], undefined)
+
+  router.get(
+    "apiInsightsGetTimeStatsByUser",
+    "/orgs/:org/insights/api/time-stats/users/:user_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetTimeStatsByUserParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetTimeStatsByUserQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_time_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetTimeStatsByUser(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetTimeStatsByUserResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetTimeStatsByActorParamSchema = z.object({
+    org: z.string(),
+    actor_type: z.enum([
+      "installations",
+      "classic_pats",
+      "fine_grained_pats",
+      "oauth_apps",
+      "github_apps_user_to_server",
+    ]),
+    actor_id: z.coerce.number(),
+  })
+
+  const apiInsightsGetTimeStatsByActorQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    timestamp_increment: z.string(),
+  })
+
+  const apiInsightsGetTimeStatsByActorResponseValidator =
+    responseValidationFactory([["200", s_api_insights_time_stats]], undefined)
+
+  router.get(
+    "apiInsightsGetTimeStatsByActor",
+    "/orgs/:org/insights/api/time-stats/:actor_type/:actor_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetTimeStatsByActorParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetTimeStatsByActorQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_time_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetTimeStatsByActor(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetTimeStatsByActorResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const apiInsightsGetUserStatsParamSchema = z.object({
+    org: z.string(),
+    user_id: z.string(),
+  })
+
+  const apiInsightsGetUserStatsQuerySchema = z.object({
+    min_timestamp: z.string(),
+    max_timestamp: z.string(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(30),
+    direction: z.enum(["asc", "desc"]).optional().default("desc"),
+    sort: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(
+          z
+            .enum([
+              "last_rate_limited_timestamp",
+              "last_request_timestamp",
+              "rate_limited_request_count",
+              "subject_name",
+              "total_request_count",
+            ])
+            .default("total_request_count"),
+        ),
+      )
+      .optional(),
+  })
+
+  const apiInsightsGetUserStatsResponseValidator = responseValidationFactory(
+    [["200", s_api_insights_user_stats]],
+    undefined,
+  )
+
+  router.get(
+    "apiInsightsGetUserStats",
+    "/orgs/:org/insights/api/user-stats/:user_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          apiInsightsGetUserStatsParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          apiInsightsGetUserStatsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_api_insights_user_stats>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .apiInsightsGetUserStats(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = apiInsightsGetUserStatsResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -41439,6 +42620,85 @@ export function createRouter(implementation: Implementation): KoaRouter {
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const copilotCopilotMetricsForTeamParamSchema = z.object({
+    org: z.string(),
+    team_slug: z.string(),
+  })
+
+  const copilotCopilotMetricsForTeamQuerySchema = z.object({
+    since: z.string().optional(),
+    until: z.string().optional(),
+    page: z.coerce.number().optional().default(1),
+    per_page: z.coerce.number().optional().default(28),
+  })
+
+  const copilotCopilotMetricsForTeamResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", z.array(s_copilot_usage_metrics_day)],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        ["422", s_basic_error],
+        ["500", s_basic_error],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "copilotCopilotMetricsForTeam",
+    "/orgs/:org/team/:team_slug/copilot/metrics",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          copilotCopilotMetricsForTeamParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          copilotCopilotMetricsForTeamQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_copilot_usage_metrics_day[]>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_basic_error>(422)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .copilotCopilotMetricsForTeam(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = copilotCopilotMetricsForTeamResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -54305,6 +55565,82 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const codeScanningDeleteCodeqlDatabaseParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    language: z.string(),
+  })
+
+  const codeScanningDeleteCodeqlDatabaseResponseValidator =
+    responseValidationFactory(
+      [
+        ["204", z.undefined()],
+        ["403", s_basic_error],
+        ["404", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.delete(
+    "codeScanningDeleteCodeqlDatabase",
+    "/repos/:owner/:repo/code-scanning/codeql/databases/:language",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          codeScanningDeleteCodeqlDatabaseParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .codeScanningDeleteCodeqlDatabase(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = codeScanningDeleteCodeqlDatabaseResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const codeScanningCreateVariantAnalysisParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -62121,7 +63457,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const reposListWebhookDeliveriesQuerySchema = z.object({
     per_page: z.coerce.number().optional().default(30),
     cursor: z.string().optional(),
-    redelivery: PermissiveBoolean.optional(),
   })
 
   const reposListWebhookDeliveriesResponseValidator = responseValidationFactory(

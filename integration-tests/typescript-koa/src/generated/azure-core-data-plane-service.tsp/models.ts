@@ -96,14 +96,22 @@ export type t_WidgetRepairState =
   | "Canceled"
   | "SentToManufacturer"
 
-export type t_ManufacturersCreateManufacturerBodySchema = {
+export type t_GetServiceStatusHeaderSchema = {
+  "x-ms-client-request-id"?: t_Azure_Core_uuid
+}
+
+export type t_GetServiceStatusQuerySchema = {
+  "api-version": string
+}
+
+export type t_ManufacturersCreateOrReplaceManufacturerBodySchema = {
   address: string
   readonly etag: t_Azure_Core_eTag
   readonly id: string
   name: string
 }
 
-export type t_ManufacturersCreateManufacturerHeaderSchema = {
+export type t_ManufacturersCreateOrReplaceManufacturerHeaderSchema = {
   "if-match"?: string
   "if-modified-since"?: string
   "if-none-match"?: string
@@ -113,11 +121,11 @@ export type t_ManufacturersCreateManufacturerHeaderSchema = {
   "x-ms-client-request-id"?: t_Azure_Core_uuid
 }
 
-export type t_ManufacturersCreateManufacturerParamSchema = {
+export type t_ManufacturersCreateOrReplaceManufacturerParamSchema = {
   manufacturerId: string
 }
 
-export type t_ManufacturersCreateManufacturerQuerySchema = {
+export type t_ManufacturersCreateOrReplaceManufacturerQuerySchema = {
   "api-version": string
 }
 
@@ -169,14 +177,6 @@ export type t_ManufacturersListManufacturersHeaderSchema = {
 }
 
 export type t_ManufacturersListManufacturersQuerySchema = {
-  "api-version": string
-}
-
-export type t_ServiceStatusHeaderSchema = {
-  "x-ms-client-request-id"?: t_Azure_Core_uuid
-}
-
-export type t_ServiceStatusQuerySchema = {
   "api-version": string
 }
 

@@ -6,11 +6,13 @@ import {
   t_Azure_Core_Foundations_Error,
   t_Azure_Core_Foundations_ErrorResponse,
   t_Azure_Core_Foundations_OperationState,
+  t_GetServiceStatusHeaderSchema,
+  t_GetServiceStatusQuerySchema,
   t_Manufacturer,
-  t_ManufacturersCreateManufacturerBodySchema,
-  t_ManufacturersCreateManufacturerHeaderSchema,
-  t_ManufacturersCreateManufacturerParamSchema,
-  t_ManufacturersCreateManufacturerQuerySchema,
+  t_ManufacturersCreateOrReplaceManufacturerBodySchema,
+  t_ManufacturersCreateOrReplaceManufacturerHeaderSchema,
+  t_ManufacturersCreateOrReplaceManufacturerParamSchema,
+  t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
   t_ManufacturersDeleteManufacturerHeaderSchema,
   t_ManufacturersDeleteManufacturerParamSchema,
   t_ManufacturersDeleteManufacturerQuerySchema,
@@ -24,8 +26,6 @@ import {
   t_PagedManufacturer,
   t_PagedWidget,
   t_PagedWidgetPart,
-  t_ServiceStatusHeaderSchema,
-  t_ServiceStatusQuerySchema,
   t_Widget,
   t_WidgetAnalytics,
   t_WidgetPart,
@@ -116,7 +116,7 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-export type ServiceStatusResponder = {
+export type GetServiceStatusResponder = {
   with200(): KoaRuntimeResponse<{
     statusString: string
   }>
@@ -125,14 +125,14 @@ export type ServiceStatusResponder = {
   ): KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>
 } & KoaRuntimeResponder
 
-export type ServiceStatus = (
+export type GetServiceStatus = (
   params: Params<
     void,
-    t_ServiceStatusQuerySchema,
+    t_GetServiceStatusQuerySchema,
     void,
-    t_ServiceStatusHeaderSchema
+    t_GetServiceStatusHeaderSchema
   >,
-  respond: ServiceStatusResponder,
+  respond: GetServiceStatusResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -614,7 +614,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
   | Response<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
 >
 
-export type ManufacturersCreateManufacturerResponder = {
+export type ManufacturersCreateOrReplaceManufacturerResponder = {
   with200(): KoaRuntimeResponse<t_Manufacturer>
   with201(): KoaRuntimeResponse<t_Manufacturer>
   withDefault(
@@ -622,14 +622,14 @@ export type ManufacturersCreateManufacturerResponder = {
   ): KoaRuntimeResponse<t_Azure_Core_Foundations_ErrorResponse>
 } & KoaRuntimeResponder
 
-export type ManufacturersCreateManufacturer = (
+export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
-    t_ManufacturersCreateManufacturerParamSchema,
-    t_ManufacturersCreateManufacturerQuerySchema,
-    t_ManufacturersCreateManufacturerBodySchema,
-    t_ManufacturersCreateManufacturerHeaderSchema
+    t_ManufacturersCreateOrReplaceManufacturerParamSchema,
+    t_ManufacturersCreateOrReplaceManufacturerQuerySchema,
+    t_ManufacturersCreateOrReplaceManufacturerBodySchema,
+    t_ManufacturersCreateOrReplaceManufacturerHeaderSchema
   >,
-  respond: ManufacturersCreateManufacturerResponder,
+  respond: ManufacturersCreateOrReplaceManufacturerResponder,
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -716,7 +716,7 @@ export type ManufacturersListManufacturers = (
 >
 
 export type Implementation = {
-  serviceStatus: ServiceStatus
+  getServiceStatus: GetServiceStatus
   widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
   widgetsCreateOrUpdateWidget: WidgetsCreateOrUpdateWidget
   widgetsGetWidget: WidgetsGetWidget
@@ -733,7 +733,7 @@ export type Implementation = {
   widgetPartsDeleteWidgetPart: WidgetPartsDeleteWidgetPart
   widgetPartsReorderParts: WidgetPartsReorderParts
   manufacturersGetManufacturerOperationStatus: ManufacturersGetManufacturerOperationStatus
-  manufacturersCreateManufacturer: ManufacturersCreateManufacturer
+  manufacturersCreateOrReplaceManufacturer: ManufacturersCreateOrReplaceManufacturer
   manufacturersGetManufacturer: ManufacturersGetManufacturer
   manufacturersDeleteManufacturer: ManufacturersDeleteManufacturer
   manufacturersListManufacturers: ManufacturersListManufacturers
@@ -742,30 +742,30 @@ export type Implementation = {
 export function createRouter(implementation: Implementation): KoaRouter {
   const router = new KoaRouter()
 
-  const serviceStatusQuerySchema = z.object({
+  const getServiceStatusQuerySchema = z.object({
     "api-version": z.string().min(1),
   })
 
-  const serviceStatusHeaderSchema = z.object({
+  const getServiceStatusHeaderSchema = z.object({
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const serviceStatusResponseValidator = responseValidationFactory(
+  const getServiceStatusResponseValidator = responseValidationFactory(
     [["200", z.object({ statusString: z.string() })]],
     s_Azure_Core_Foundations_ErrorResponse,
   )
 
-  router.get("serviceStatus", "/service-status", async (ctx, next) => {
+  router.get("getServiceStatus", "/service-status", async (ctx, next) => {
     const input = {
       params: undefined,
       query: parseRequestInput(
-        serviceStatusQuerySchema,
+        getServiceStatusQuerySchema,
         ctx.query,
         RequestInputType.QueryString,
       ),
       body: undefined,
       headers: parseRequestInput(
-        serviceStatusHeaderSchema,
+        getServiceStatusHeaderSchema,
         Reflect.get(ctx.request, "headers"),
         RequestInputType.RequestHeader,
       ),
@@ -788,7 +788,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     }
 
     const response = await implementation
-      .serviceStatus(input, responder, ctx)
+      .getServiceStatus(input, responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -796,7 +796,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = serviceStatusResponseValidator(status, body)
+    ctx.body = getServiceStatusResponseValidator(status, body)
     ctx.status = status
     return next()
   })
@@ -2118,15 +2118,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
-  const manufacturersCreateManufacturerParamSchema = z.object({
+  const manufacturersCreateOrReplaceManufacturerParamSchema = z.object({
     manufacturerId: z.string(),
   })
 
-  const manufacturersCreateManufacturerQuerySchema = z.object({
+  const manufacturersCreateOrReplaceManufacturerQuerySchema = z.object({
     "api-version": z.string().min(1),
   })
 
-  const manufacturersCreateManufacturerHeaderSchema = z.object({
+  const manufacturersCreateOrReplaceManufacturerHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
     "repeatability-first-sent": z
       .string()
@@ -2139,9 +2139,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
-  const manufacturersCreateManufacturerBodySchema = s_Manufacturer
+  const manufacturersCreateOrReplaceManufacturerBodySchema = s_Manufacturer
 
-  const manufacturersCreateManufacturerResponseValidator =
+  const manufacturersCreateOrReplaceManufacturerResponseValidator =
     responseValidationFactory(
       [
         ["200", s_Manufacturer],
@@ -2151,27 +2151,27 @@ export function createRouter(implementation: Implementation): KoaRouter {
     )
 
   router.put(
-    "manufacturersCreateManufacturer",
+    "manufacturersCreateOrReplaceManufacturer",
     "/manufacturers/:manufacturerId",
     async (ctx, next) => {
       const input = {
         params: parseRequestInput(
-          manufacturersCreateManufacturerParamSchema,
+          manufacturersCreateOrReplaceManufacturerParamSchema,
           ctx.params,
           RequestInputType.RouteParam,
         ),
         query: parseRequestInput(
-          manufacturersCreateManufacturerQuerySchema,
+          manufacturersCreateOrReplaceManufacturerQuerySchema,
           ctx.query,
           RequestInputType.QueryString,
         ),
         body: parseRequestInput(
-          manufacturersCreateManufacturerBodySchema,
+          manufacturersCreateOrReplaceManufacturerBodySchema,
           Reflect.get(ctx.request, "body"),
           RequestInputType.RequestBody,
         ),
         headers: parseRequestInput(
-          manufacturersCreateManufacturerHeaderSchema,
+          manufacturersCreateOrReplaceManufacturerHeaderSchema,
           Reflect.get(ctx.request, "headers"),
           RequestInputType.RequestHeader,
         ),
@@ -2195,7 +2195,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       }
 
       const response = await implementation
-        .manufacturersCreateManufacturer(input, responder, ctx)
+        .manufacturersCreateOrReplaceManufacturer(input, responder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -2203,7 +2203,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = manufacturersCreateManufacturerResponseValidator(status, body)
+      ctx.body = manufacturersCreateOrReplaceManufacturerResponseValidator(
+        status,
+        body,
+      )
       ctx.status = status
       return next()
     },

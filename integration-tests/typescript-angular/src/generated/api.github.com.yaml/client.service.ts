@@ -20,6 +20,11 @@ import {
   t_activity,
   t_alert_number,
   t_allowed_actions,
+  t_api_insights_route_stats,
+  t_api_insights_subject_stats,
+  t_api_insights_summary_stats,
+  t_api_insights_time_stats,
+  t_api_insights_user_stats,
   t_api_overview,
   t_app_permissions,
   t_artifact,
@@ -105,6 +110,7 @@ import {
   t_copilot_organization_details,
   t_copilot_seat_details,
   t_copilot_usage_metrics,
+  t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
   t_custom_property_value,
@@ -554,7 +560,6 @@ export class GitHubV3RestApi {
     p: {
       perPage?: number
       cursor?: string
-      redelivery?: boolean
     } = {},
   ): Observable<
     | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
@@ -565,7 +570,6 @@ export class GitHubV3RestApi {
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
-      redelivery: p["redelivery"],
     })
 
     return this.httpClient.request<any>(
@@ -1132,6 +1136,38 @@ export class GitHubV3RestApi {
     )
   }
 
+  copilotCopilotMetricsForEnterprise(p: {
+    enterprise: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/enterprises/${p["enterprise"]}/copilot/metrics`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   copilotUsageMetricsForEnterprise(p: {
     enterprise: string
     since?: string
@@ -1254,6 +1290,40 @@ export class GitHubV3RestApi {
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCopilotMetricsForEnterpriseTeam(p: {
+    enterprise: string
+    teamSlug: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`,
       {
         params,
         observe: "response",
@@ -4851,6 +4921,38 @@ export class GitHubV3RestApi {
     )
   }
 
+  copilotCopilotMetricsForOrganization(p: {
+    org: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/copilot/metrics`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   copilotUsageMetricsForOrg(p: {
     org: string
     since?: string
@@ -5380,7 +5482,6 @@ export class GitHubV3RestApi {
     hookId: number
     perPage?: number
     cursor?: string
-    redelivery?: boolean
   }): Observable<
     | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
     | (HttpResponse<t_scim_error> & { status: 400 })
@@ -5390,7 +5491,6 @@ export class GitHubV3RestApi {
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
-      redelivery: p["redelivery"],
     })
 
     return this.httpClient.request<any>(
@@ -5461,6 +5561,301 @@ export class GitHubV3RestApi {
       "POST",
       this.config.basePath + `/orgs/${p["org"]}/hooks/${p["hookId"]}/pings`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetRouteStatsByActor(p: {
+    org: string
+    actorType:
+      | "installations"
+      | "classic_pats"
+      | "fine_grained_pats"
+      | "oauth_apps"
+      | "github_apps_user_to_server"
+    actorId: number
+    minTimestamp: string
+    maxTimestamp: string
+    page?: number
+    perPage?: number
+    direction?: "asc" | "desc"
+    sort?: (
+      | "last_rate_limited_timestamp"
+      | "last_request_timestamp"
+      | "rate_limited_request_count"
+      | "http_method"
+      | "api_route"
+      | "total_request_count"
+    )[]
+  }): Observable<
+    | (HttpResponse<t_api_insights_route_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/route-stats/${p["actorType"]}/${p["actorId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetSubjectStats(p: {
+    org: string
+    minTimestamp: string
+    maxTimestamp: string
+    page?: number
+    perPage?: number
+    direction?: "asc" | "desc"
+    sort?: (
+      | "last_rate_limited_timestamp"
+      | "last_request_timestamp"
+      | "rate_limited_request_count"
+      | "subject_name"
+      | "total_request_count"
+    )[]
+  }): Observable<
+    | (HttpResponse<t_api_insights_subject_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/insights/api/subject-stats`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetSummaryStats(p: {
+    org: string
+    minTimestamp: string
+    maxTimestamp: string
+  }): Observable<
+    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/insights/api/summary-stats`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetSummaryStatsByUser(p: {
+    org: string
+    userId: string
+    minTimestamp: string
+    maxTimestamp: string
+  }): Observable<
+    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/summary-stats/users/${p["userId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetSummaryStatsByActor(p: {
+    org: string
+    minTimestamp: string
+    maxTimestamp: string
+    actorType:
+      | "installations"
+      | "classic_pats"
+      | "fine_grained_pats"
+      | "oauth_apps"
+      | "github_apps_user_to_server"
+    actorId: number
+  }): Observable<
+    | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/summary-stats/${p["actorType"]}/${p["actorId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetTimeStats(p: {
+    org: string
+    minTimestamp: string
+    maxTimestamp: string
+    timestampIncrement: string
+  }): Observable<
+    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/insights/api/time-stats`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetTimeStatsByUser(p: {
+    org: string
+    userId: string
+    minTimestamp: string
+    maxTimestamp: string
+    timestampIncrement: string
+  }): Observable<
+    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/time-stats/users/${p["userId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetTimeStatsByActor(p: {
+    org: string
+    actorType:
+      | "installations"
+      | "classic_pats"
+      | "fine_grained_pats"
+      | "oauth_apps"
+      | "github_apps_user_to_server"
+    actorId: number
+    minTimestamp: string
+    maxTimestamp: string
+    timestampIncrement: string
+  }): Observable<
+    | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      timestamp_increment: p["timestampIncrement"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/time-stats/${p["actorType"]}/${p["actorId"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  apiInsightsGetUserStats(p: {
+    org: string
+    userId: string
+    minTimestamp: string
+    maxTimestamp: string
+    page?: number
+    perPage?: number
+    direction?: "asc" | "desc"
+    sort?: (
+      | "last_rate_limited_timestamp"
+      | "last_request_timestamp"
+      | "rate_limited_request_count"
+      | "subject_name"
+      | "total_request_count"
+    )[]
+  }): Observable<
+    | (HttpResponse<t_api_insights_user_stats> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      min_timestamp: p["minTimestamp"],
+      max_timestamp: p["maxTimestamp"],
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      sort: p["sort"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/insights/api/user-stats/${p["userId"]}`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -7621,6 +8016,40 @@ export class GitHubV3RestApi {
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  copilotCopilotMetricsForTeam(p: {
+    org: string
+    teamSlug: string
+    since?: string
+    until?: string
+    page?: number
+    perPage?: number
+  }): Observable<
+    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      since: p["since"],
+      until: p["until"],
+      page: p["page"],
+      per_page: p["perPage"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/metrics`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -12817,6 +13246,32 @@ export class GitHubV3RestApi {
     )
   }
 
+  codeScanningDeleteCodeqlDatabase(p: {
+    owner: string
+    repo: string
+    language: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/codeql/databases/${p["language"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codeScanningCreateVariantAnalysis(p: {
     owner: string
     repo: string
@@ -15979,7 +16434,6 @@ export class GitHubV3RestApi {
     hookId: number
     perPage?: number
     cursor?: string
-    redelivery?: boolean
   }): Observable<
     | (HttpResponse<t_hook_delivery_item[]> & { status: 200 })
     | (HttpResponse<t_scim_error> & { status: 400 })
@@ -15989,7 +16443,6 @@ export class GitHubV3RestApi {
     const params = this._queryParams({
       per_page: p["perPage"],
       cursor: p["cursor"],
-      redelivery: p["redelivery"],
     })
 
     return this.httpClient.request<any>(
