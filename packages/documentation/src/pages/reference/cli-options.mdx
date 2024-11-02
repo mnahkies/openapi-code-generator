@@ -147,6 +147,21 @@ interfaces for injection.
 
 Default: `type`
 
+#### `--filename-convention <value>`
+As environment variable `OPENAPI_FILENAME_CONVENTION`
+
+Determines which naming convention to use for dynamically generated filenames
+(eg: those generated from `tags` or route prefixes).
+
+| Value        | Example Filename |
+|--------------|------------------|
+| `kebab-case` | `my-file.ts`     |
+| `camel-case` | `myFile.ts`      |
+| `title-case` | `MyFile.ts`      |
+| `snake-case` | `my_file.ts`     |
+
+Default: `kebab-case`
+
 ### Misc
 
 #### `--remote-spec-request-headers` (authenticated remote specifications)
