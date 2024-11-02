@@ -3,6 +3,25 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.16.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.15.0...v0.16.0) (2024-11-02)
+
+### Bug Fixes
+
+- format/emit in parallel ([#265](https://github.com/mnahkies/openapi-code-generator/issues/265)) ([8f9c009](https://github.com/mnahkies/openapi-code-generator/commit/8f9c009daf0d861b3d42f1035ec7cc37053769d0))
+
+- feat!: dynamic filename conventions / no spaces in filenames (#259) ([c6a72b5](https://github.com/mnahkies/openapi-code-generator/commit/c6a72b5ebc02ad2524fa14be49a6295b965a272b)), closes [#259](https://github.com/mnahkies/openapi-code-generator/issues/259)
+
+### Features
+
+- safer identifier transformation ([#260](https://github.com/mnahkies/openapi-code-generator/issues/260)) ([2bad95c](https://github.com/mnahkies/openapi-code-generator/commit/2bad95c63f57319a187996e88ba8be81e343e5a3))
+- unique client export names ([#263](https://github.com/mnahkies/openapi-code-generator/issues/263)) ([205ee94](https://github.com/mnahkies/openapi-code-generator/commit/205ee94dc26fb8310ebfe91bb3c0eaa932ca0640)), closes [#259](https://github.com/mnahkies/openapi-code-generator/issues/259)
+
+### BREAKING CHANGES
+
+- emitted filenames may change if not already in
+  `kebab-case` format. Use `--filename-convention` if an alternative
+  convention such as `camel-case` is preferred.
+
 # [0.15.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.14.0...v0.15.0) (2024-10-27)
 
 ### Bug Fixes
