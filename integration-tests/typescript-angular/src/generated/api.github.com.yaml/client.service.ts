@@ -345,7 +345,7 @@ export type StatusCode =
   | StatusCode5xx
 
 export type QueryParams = {
-  [exportName: string]:
+  [name: string]:
     | string
     | number
     | boolean
