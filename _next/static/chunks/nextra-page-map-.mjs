@@ -49,6 +49,12 @@ export const pageMap = [{
     name: "concepts",
     route: "/guides/concepts",
     children: [{
+      name: "authenticated-input-specifications",
+      route: "/guides/concepts/authenticated-input-specifications",
+      frontMatter: {
+        "sidebarTitle": "Authenticated Input Specifications"
+      }
+    }, {
       name: "extract-inline-schemas",
       route: "/guides/concepts/extract-inline-schemas",
       frontMatter: {
@@ -87,17 +93,17 @@ export const pageMap = [{
     frontMatter: {
       "sidebarTitle": "Compatibility"
     }
+  }, {
+    name: "schema-first-design",
+    route: "/overview/schema-first-design",
+    frontMatter: {
+      "sidebarTitle": "Schema First Design"
+    }
   }]
 }, {
   name: "reference",
   route: "/reference",
   children: [{
-    name: "architecture",
-    route: "/reference/architecture",
-    frontMatter: {
-      "sidebarTitle": "Architecture"
-    }
-  }, {
     name: "cli-options",
     route: "/reference/cli-options",
     frontMatter: {
