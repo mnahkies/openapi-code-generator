@@ -315,6 +315,8 @@ import {
   t_AppsUpdateWebhookConfigForAppBodySchema,
   t_BillingGetGithubActionsBillingOrgParamSchema,
   t_BillingGetGithubActionsBillingUserParamSchema,
+  t_BillingGetGithubBillingUsageReportOrgParamSchema,
+  t_BillingGetGithubBillingUsageReportOrgQuerySchema,
   t_BillingGetGithubPackagesBillingOrgParamSchema,
   t_BillingGetGithubPackagesBillingUserParamSchema,
   t_BillingGetSharedStorageBillingOrgParamSchema,
@@ -1465,6 +1467,7 @@ import {
   t_autolink,
   t_base_gist,
   t_basic_error,
+  t_billing_usage_report,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -1736,6 +1739,7 @@ import {
   s_autolink,
   s_base_gist,
   s_basic_error,
+  s_billing_usage_report,
   s_blob,
   s_branch_protection,
   s_branch_restriction_policy,
@@ -3769,6 +3773,43 @@ export type OrgsList = (
   | KoaRuntimeResponse<unknown>
   | Response<200, t_organization_simple[]>
   | Response<304, void>
+>
+
+export type BillingGetGithubBillingUsageReportOrgResponder = {
+  with200(): KoaRuntimeResponse<t_billing_usage_report>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type BillingGetGithubBillingUsageReportOrg = (
+  params: Params<
+    t_BillingGetGithubBillingUsageReportOrgParamSchema,
+    t_BillingGetGithubBillingUsageReportOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: BillingGetGithubBillingUsageReportOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_billing_usage_report>
+  | Response<400, t_scim_error>
+  | Response<403, t_basic_error>
+  | Response<500, t_basic_error>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
 >
 
 export type OrgsGetResponder = {
@@ -20085,6 +20126,7 @@ export type UsersFollowResponder = {
   with401(): KoaRuntimeResponse<t_basic_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
 } & KoaRuntimeResponder
 
 export type UsersFollow = (
@@ -20098,6 +20140,7 @@ export type UsersFollow = (
   | Response<401, t_basic_error>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
+  | Response<422, t_validation_error>
 >
 
 export type UsersUnfollowResponder = {
@@ -22253,6 +22296,7 @@ export type Implementation = {
   activityDeleteThreadSubscription: ActivityDeleteThreadSubscription
   metaGetOctocat: MetaGetOctocat
   orgsList: OrgsList
+  billingGetGithubBillingUsageReportOrg: BillingGetGithubBillingUsageReportOrg
   orgsGet: OrgsGet
   orgsUpdate: OrgsUpdate
   orgsDelete: OrgsDelete
@@ -28507,6 +28551,98 @@ export function createRouter(implementation: Implementation): KoaRouter {
     return next()
   })
 
+  const billingGetGithubBillingUsageReportOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const billingGetGithubBillingUsageReportOrgQuerySchema = z.object({
+    year: z.coerce.number().optional(),
+    month: z.coerce.number().optional(),
+    day: z.coerce.number().optional(),
+    hour: z.coerce.number().optional(),
+  })
+
+  const billingGetGithubBillingUsageReportOrgResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_billing_usage_report],
+        ["400", s_scim_error],
+        ["403", s_basic_error],
+        ["500", s_basic_error],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "billingGetGithubBillingUsageReportOrg",
+    "/organizations/:org/settings/billing/usage",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          billingGetGithubBillingUsageReportOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          billingGetGithubBillingUsageReportOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_billing_usage_report>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .billingGetGithubBillingUsageReportOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = billingGetGithubBillingUsageReportOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
   const orgsGetParamSchema = z.object({ org: z.string() })
 
   const orgsGetResponseValidator = responseValidationFactory(
@@ -28604,6 +28740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       secret_scanning_push_protection_custom_link_enabled:
         PermissiveBoolean.optional(),
       secret_scanning_push_protection_custom_link: z.string().optional(),
+      deploy_keys_enabled_for_repositories: PermissiveBoolean.optional(),
     })
     .optional()
 
@@ -36426,7 +36563,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetRouteStatsByActorQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
@@ -36499,7 +36636,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetSubjectStatsQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
@@ -36573,7 +36710,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetSummaryStatsQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
   })
 
   const apiInsightsGetSummaryStatsResponseValidator = responseValidationFactory(
@@ -36631,7 +36768,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetSummaryStatsByUserQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
   })
 
   const apiInsightsGetSummaryStatsByUserResponseValidator =
@@ -36697,7 +36834,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetSummaryStatsByActorQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
   })
 
   const apiInsightsGetSummaryStatsByActorResponseValidator =
@@ -36756,7 +36893,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetTimeStatsQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     timestamp_increment: z.string(),
   })
 
@@ -36815,7 +36952,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetTimeStatsByUserQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     timestamp_increment: z.string(),
   })
 
@@ -36879,7 +37016,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetTimeStatsByActorQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     timestamp_increment: z.string(),
   })
 
@@ -36936,7 +37073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const apiInsightsGetUserStatsQuerySchema = z.object({
     min_timestamp: z.string(),
-    max_timestamp: z.string(),
+    max_timestamp: z.string().optional(),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
@@ -80901,6 +81038,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       ["401", s_basic_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
+      ["422", s_validation_error],
     ],
     undefined,
   )
@@ -80932,6 +81070,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       },
       with404() {
         return new KoaRuntimeResponse<t_basic_error>(404)
+      },
+      with422() {
+        return new KoaRuntimeResponse<t_validation_error>(422)
       },
       withStatus(status: StatusCode) {
         return new KoaRuntimeResponse(status)

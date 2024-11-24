@@ -199,7 +199,23 @@ export type t_account_future_requirements = {
   alternatives?: t_account_requirements_alternative[] | null
   current_deadline?: number | null
   currently_due?: string[] | null
-  disabled_reason?: string | null
+  disabled_reason?:
+    | "action_required.requested_capabilities"
+    | "listed"
+    | "other"
+    | "platform_paused"
+    | "rejected.fraud"
+    | "rejected.incomplete_verification"
+    | "rejected.listed"
+    | "rejected.other"
+    | "rejected.platform_fraud"
+    | "rejected.platform_other"
+    | "rejected.platform_terms_of_service"
+    | "rejected.terms_of_service"
+    | "requirements.past_due"
+    | "requirements.pending_verification"
+    | "under_review"
+    | null
   errors?: t_account_requirements_error[] | null
   eventually_due?: string[] | null
   past_due?: string[] | null
@@ -244,7 +260,23 @@ export type t_account_requirements = {
   alternatives?: t_account_requirements_alternative[] | null
   current_deadline?: number | null
   currently_due?: string[] | null
-  disabled_reason?: string | null
+  disabled_reason?:
+    | "action_required.requested_capabilities"
+    | "listed"
+    | "other"
+    | "platform_paused"
+    | "rejected.fraud"
+    | "rejected.incomplete_verification"
+    | "rejected.listed"
+    | "rejected.other"
+    | "rejected.platform_fraud"
+    | "rejected.platform_other"
+    | "rejected.platform_terms_of_service"
+    | "rejected.terms_of_service"
+    | "requirements.past_due"
+    | "requirements.pending_verification"
+    | "under_review"
+    | null
   errors?: t_account_requirements_error[] | null
   eventually_due?: string[] | null
   past_due?: string[] | null
@@ -1113,6 +1145,7 @@ export type t_charge_transfer_data = {
 }
 
 export type t_checkout_session = {
+  adaptive_pricing?: t_payment_pages_checkout_session_adaptive_pricing | null
   after_expiration?: t_payment_pages_checkout_session_after_expiration | null
   allow_promotion_codes?: boolean | null
   amount_subtotal?: number | null
@@ -1210,7 +1243,7 @@ export type t_checkout_session = {
   shipping_details?: t_shipping | null
   shipping_options: t_payment_pages_checkout_session_shipping_option[]
   status?: "complete" | "expired" | "open" | null
-  submit_type?: "auto" | "book" | "donate" | "pay" | null
+  submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe" | null
   subscription?: string | t_subscription | null
   success_url?: string | null
   tax_id_collection?: t_payment_pages_checkout_session_tax_id_collection
@@ -1255,6 +1288,7 @@ export type t_checkout_au_becs_debit_payment_method_options = {
 }
 
 export type t_checkout_bacs_debit_payment_method_options = {
+  mandate_options?: t_checkout_payment_method_options_mandate_options_bacs_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
@@ -1273,6 +1307,10 @@ export type t_checkout_card_installments_options = {
 
 export type t_checkout_card_payment_method_options = {
   installments?: t_checkout_card_installments_options
+  request_extended_authorization?: "if_available" | "never"
+  request_incremental_authorization?: "if_available" | "never"
+  request_multicapture?: "if_available" | "never"
+  request_overcapture?: "if_available" | "never"
   request_three_d_secure: "any" | "automatic" | "challenge"
   setup_future_usage?: "none" | "off_session" | "on_session"
   statement_descriptor_suffix_kana?: string
@@ -1377,6 +1415,12 @@ export type t_checkout_payco_payment_method_options = {
   capture_method?: "manual"
 }
 
+export type t_checkout_payment_method_options_mandate_options_bacs_debit =
+  EmptyObject
+
+export type t_checkout_payment_method_options_mandate_options_sepa_debit =
+  EmptyObject
+
 export type t_checkout_paynow_payment_method_options = {
   setup_future_usage?: "none"
 }
@@ -1401,6 +1445,7 @@ export type t_checkout_samsung_pay_payment_method_options = {
 }
 
 export type t_checkout_sepa_debit_payment_method_options = {
+  mandate_options?: t_checkout_payment_method_options_mandate_options_sepa_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
 }
 
@@ -1703,7 +1748,7 @@ export type t_connect_embedded_account_config_claim = {
 }
 
 export type t_connect_embedded_account_features_claim = {
-  disable_stripe_user_authentication?: boolean
+  disable_stripe_user_authentication: boolean
   external_account_collection: boolean
 }
 
@@ -1746,7 +1791,7 @@ export type t_connect_embedded_payouts_config_claim = {
 }
 
 export type t_connect_embedded_payouts_features = {
-  disable_stripe_user_authentication?: boolean
+  disable_stripe_user_authentication: boolean
   edit_payout_schedule: boolean
   external_account_collection: boolean
   instant_payouts: boolean
@@ -2625,6 +2670,7 @@ export type t_file = {
     | "dispute_evidence"
     | "document_provider_identity_document"
     | "finance_report_run"
+    | "financial_account_statement"
     | "identity_document"
     | "identity_document_downloadable"
     | "issuing_regulatory_reporting"
@@ -2808,7 +2854,11 @@ export type t_funding_instructions_bank_transfer = {
 }
 
 export type t_funding_instructions_bank_transfer_aba_record = {
+  account_holder_address: t_address
+  account_holder_name: string
   account_number: string
+  account_type: string
+  bank_address: t_address
   bank_name: string
   routing_number: string
 }
@@ -2853,7 +2903,11 @@ export type t_funding_instructions_bank_transfer_spei_record = {
 }
 
 export type t_funding_instructions_bank_transfer_swift_record = {
+  account_holder_address: t_address
+  account_holder_name: string
   account_number: string
+  account_type: string
+  bank_address: t_address
   bank_name: string
   swift_code: string
 }
@@ -3539,6 +3593,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
+    | "li_vat"
     | "ma_vat"
     | "md_vat"
     | "mx_rfc"
@@ -3622,6 +3677,7 @@ export type t_issuing_authorization = {
   created: number
   currency: string
   fleet?: t_issuing_authorization_fleet_data | null
+  fraud_challenges?: t_issuing_authorization_fraud_challenge[] | null
   fuel?: t_issuing_authorization_fuel_data | null
   id: string
   livemode: boolean
@@ -3640,6 +3696,7 @@ export type t_issuing_authorization = {
   transactions: t_issuing_transaction[]
   treasury?: t_issuing_authorization_treasury | null
   verification_data: t_issuing_authorization_verification_data
+  verified_by_fraud_challenge?: boolean | null
   wallet?: string | null
 }
 
@@ -3870,6 +3927,12 @@ export type t_issuing_authorization_fleet_reported_breakdown = {
 export type t_issuing_authorization_fleet_tax_data = {
   local_amount_decimal?: string | null
   national_amount_decimal?: string | null
+}
+
+export type t_issuing_authorization_fraud_challenge = {
+  channel: "sms"
+  status: "expired" | "pending" | "rejected" | "undeliverable" | "verified"
+  undeliverable_reason?: "no_phone_number" | "unsupported_phone_number" | null
 }
 
 export type t_issuing_authorization_fuel_data = {
@@ -6584,10 +6647,14 @@ export type t_package_dimensions = {
 }
 
 export type t_payment_flows_amount_details = {
-  tip?: t_payment_flows_amount_details_resource_tip
+  tip?: t_payment_flows_amount_details_client_resource_tip
 }
 
-export type t_payment_flows_amount_details_resource_tip = {
+export type t_payment_flows_amount_details_client = {
+  tip?: t_payment_flows_amount_details_client_resource_tip
+}
+
+export type t_payment_flows_amount_details_client_resource_tip = {
   amount?: number
 }
 
@@ -6675,7 +6742,9 @@ export type t_payment_flows_private_payment_methods_us_bank_account_linked_accou
 export type t_payment_intent = {
   amount: number
   amount_capturable?: number
-  amount_details?: t_payment_flows_amount_details
+  amount_details?:
+    | t_payment_flows_amount_details
+    | t_payment_flows_amount_details_client
   amount_received?: number
   application?: string | t_application | null
   application_fee_amount?: number | null
@@ -7086,6 +7155,7 @@ export type t_payment_intent_payment_method_options_card = {
     | "girocard"
     | "interac"
     | "jcb"
+    | "link"
     | "mastercard"
     | "unionpay"
     | "unknown"
@@ -7241,7 +7311,7 @@ export type t_payment_link = {
   restrictions?: t_payment_links_resource_restrictions | null
   shipping_address_collection?: t_payment_links_resource_shipping_address_collection | null
   shipping_options: t_payment_links_resource_shipping_option[]
-  submit_type: "auto" | "book" | "donate" | "pay"
+  submit_type: "auto" | "book" | "donate" | "pay" | "subscribe"
   subscription_data?: t_payment_links_resource_subscription_data | null
   tax_id_collection: t_payment_links_resource_tax_id_collection
   transfer_data?: t_payment_links_resource_transfer_data | null
@@ -9062,6 +9132,10 @@ export type t_payment_method_wechat_pay = EmptyObject
 
 export type t_payment_method_zip = EmptyObject
 
+export type t_payment_pages_checkout_session_adaptive_pricing = {
+  enabled: boolean
+}
+
 export type t_payment_pages_checkout_session_after_expiration = {
   recovery?: t_payment_pages_checkout_session_after_expiration_recovery | null
 }
@@ -9491,6 +9565,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
+    | "li_vat"
     | "ma_vat"
     | "md_vat"
     | "mx_rfc"
@@ -9582,7 +9657,13 @@ export type t_payout = {
   source_type: string
   statement_descriptor?: string | null
   status: string
+  trace_id?: t_payouts_trace_id | null
   type: "bank_account" | "card"
+}
+
+export type t_payouts_trace_id = {
+  status: string
+  value?: string | null
 }
 
 export type t_paypal_seller_protection = {
@@ -9651,6 +9732,7 @@ export type t_person_future_requirements = {
 }
 
 export type t_person_relationship = {
+  authorizer?: boolean | null
   director?: boolean | null
   executive?: boolean | null
   legal_guardian?: boolean | null
@@ -10186,32 +10268,43 @@ export type t_refund_destination_details = {
   alma?: t_destination_details_unimplemented
   amazon_pay?: t_destination_details_unimplemented
   au_bank_transfer?: t_destination_details_unimplemented
-  blik?: t_refund_destination_details_generic
-  br_bank_transfer?: t_refund_destination_details_generic
+  blik?: t_refund_destination_details_blik
+  br_bank_transfer?: t_refund_destination_details_br_bank_transfer
   card?: t_refund_destination_details_card
   cashapp?: t_destination_details_unimplemented
   customer_cash_balance?: t_destination_details_unimplemented
   eps?: t_destination_details_unimplemented
-  eu_bank_transfer?: t_refund_destination_details_generic
-  gb_bank_transfer?: t_refund_destination_details_generic
+  eu_bank_transfer?: t_refund_destination_details_eu_bank_transfer
+  gb_bank_transfer?: t_refund_destination_details_gb_bank_transfer
   giropay?: t_destination_details_unimplemented
   grabpay?: t_destination_details_unimplemented
-  jp_bank_transfer?: t_refund_destination_details_generic
+  jp_bank_transfer?: t_refund_destination_details_jp_bank_transfer
   klarna?: t_destination_details_unimplemented
-  multibanco?: t_refund_destination_details_generic
-  mx_bank_transfer?: t_refund_destination_details_generic
-  p24?: t_refund_destination_details_generic
+  multibanco?: t_refund_destination_details_multibanco
+  mx_bank_transfer?: t_refund_destination_details_mx_bank_transfer
+  p24?: t_refund_destination_details_p24
   paynow?: t_destination_details_unimplemented
   paypal?: t_destination_details_unimplemented
   pix?: t_destination_details_unimplemented
   revolut?: t_destination_details_unimplemented
   sofort?: t_destination_details_unimplemented
-  swish?: t_refund_destination_details_generic
-  th_bank_transfer?: t_refund_destination_details_generic
+  swish?: t_refund_destination_details_swish
+  th_bank_transfer?: t_refund_destination_details_th_bank_transfer
   type: string
-  us_bank_transfer?: t_refund_destination_details_generic
+  us_bank_transfer?: t_refund_destination_details_us_bank_transfer
   wechat_pay?: t_destination_details_unimplemented
   zip?: t_destination_details_unimplemented
+}
+
+export type t_refund_destination_details_blik = {
+  network_decline_code?: string | null
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_br_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
 }
 
 export type t_refund_destination_details_card = {
@@ -10221,7 +10314,48 @@ export type t_refund_destination_details_card = {
   type: "pending" | "refund" | "reversal"
 }
 
-export type t_refund_destination_details_generic = {
+export type t_refund_destination_details_eu_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_gb_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_jp_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_multibanco = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_mx_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_p24 = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_swish = {
+  network_decline_code?: string | null
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_th_bank_transfer = {
+  reference?: string | null
+  reference_status?: string | null
+}
+
+export type t_refund_destination_details_us_bank_transfer = {
   reference?: string | null
   reference_status?: string | null
 }
@@ -10605,6 +10739,7 @@ export type t_setup_intent_payment_method_options_card = {
     | "girocard"
     | "interac"
     | "jcb"
+    | "link"
     | "mastercard"
     | "unionpay"
     | "unknown"
@@ -11239,6 +11374,7 @@ export type t_subscription_payment_method_options_card = {
     | "girocard"
     | "interac"
     | "jcb"
+    | "link"
     | "mastercard"
     | "unionpay"
     | "unknown"
@@ -11614,6 +11750,7 @@ export type t_tax_id = {
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
+    | "li_vat"
     | "ma_vat"
     | "md_vat"
     | "mx_rfc"
@@ -11848,6 +11985,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
+    | "li_vat"
     | "ma_vat"
     | "md_vat"
     | "mx_rfc"
@@ -11933,6 +12071,7 @@ export type t_tax_product_resource_line_item_tax_rate_details = {
     | "retail_delivery_fee"
     | "rst"
     | "sales_tax"
+    | "service_tax"
     | "vat"
 }
 
@@ -12000,6 +12139,7 @@ export type t_tax_product_resource_tax_rate_details = {
     | "retail_delivery_fee"
     | "rst"
     | "sales_tax"
+    | "service_tax"
     | "vat"
     | null
 }
@@ -12083,6 +12223,7 @@ export type t_tax_rate = {
     | "retail_delivery_fee"
     | "rst"
     | "sales_tax"
+    | "service_tax"
     | "vat"
     | null
 }
@@ -12566,7 +12707,7 @@ export type t_treasury_inbound_transfer = {
     [key: string]: string | undefined
   }
   object: "treasury.inbound_transfer"
-  origin_payment_method: string
+  origin_payment_method?: string | null
   origin_payment_method_details?: t_inbound_transfers | null
   returned?: boolean | null
   statement_descriptor: string

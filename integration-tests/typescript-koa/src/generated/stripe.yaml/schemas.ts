@@ -650,10 +650,6 @@ export const s_checkout_au_becs_debit_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
-export const s_checkout_bacs_debit_payment_method_options = z.object({
-  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
-})
-
 export const s_checkout_bancontact_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
@@ -739,6 +735,12 @@ export const s_checkout_payco_payment_method_options = z.object({
   capture_method: z.enum(["manual"]).optional(),
 })
 
+export const s_checkout_payment_method_options_mandate_options_bacs_debit =
+  z.object({})
+
+export const s_checkout_payment_method_options_mandate_options_sepa_debit =
+  z.object({})
+
 export const s_checkout_paynow_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
@@ -760,10 +762,6 @@ export const s_checkout_revolut_pay_payment_method_options = z.object({
 
 export const s_checkout_samsung_pay_payment_method_options = z.object({
   capture_method: z.enum(["manual"]).optional(),
-})
-
-export const s_checkout_sepa_debit_payment_method_options = z.object({
-  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
 })
 
 export const s_checkout_sofort_payment_method_options = z.object({
@@ -802,7 +800,7 @@ export const s_confirmation_tokens_resource_payment_method_options_resource_card
   z.object({ cvc_token: z.string().max(5000).nullable().optional() })
 
 export const s_connect_embedded_account_features_claim = z.object({
-  disable_stripe_user_authentication: PermissiveBoolean.optional(),
+  disable_stripe_user_authentication: PermissiveBoolean,
   external_account_collection: PermissiveBoolean,
 })
 
@@ -816,7 +814,7 @@ export const s_connect_embedded_payments_features = z.object({
 })
 
 export const s_connect_embedded_payouts_features = z.object({
-  disable_stripe_user_authentication: PermissiveBoolean.optional(),
+  disable_stripe_user_authentication: PermissiveBoolean,
   edit_payout_schedule: PermissiveBoolean,
   external_account_collection: PermissiveBoolean,
   instant_payouts: PermissiveBoolean,
@@ -1163,12 +1161,6 @@ export const s_forwarded_request_header = z.object({
   value: z.string().max(5000),
 })
 
-export const s_funding_instructions_bank_transfer_aba_record = z.object({
-  account_number: z.string().max(5000),
-  bank_name: z.string().max(5000),
-  routing_number: z.string().max(5000),
-})
-
 export const s_funding_instructions_bank_transfer_iban_record = z.object({
   account_holder_name: z.string().max(5000),
   bic: z.string().max(5000),
@@ -1186,12 +1178,6 @@ export const s_funding_instructions_bank_transfer_spei_record = z.object({
   bank_code: z.string().max(5000),
   bank_name: z.string().max(5000),
   clabe: z.string().max(5000),
-})
-
-export const s_funding_instructions_bank_transfer_swift_record = z.object({
-  account_number: z.string().max(5000),
-  bank_name: z.string().max(5000),
-  swift_code: z.string().max(5000),
 })
 
 export const s_funding_instructions_bank_transfer_zengin_record = z.object({
@@ -1476,6 +1462,7 @@ export const s_invoices_resource_invoice_tax_id = z.object({
     "kr_brn",
     "kz_bin",
     "li_uid",
+    "li_vat",
     "ma_vat",
     "md_vat",
     "mx_rfc",
@@ -1561,6 +1548,21 @@ export const s_issuing_authorization_fleet_non_fuel_price_data = z.object({
 export const s_issuing_authorization_fleet_tax_data = z.object({
   local_amount_decimal: z.string().nullable().optional(),
   national_amount_decimal: z.string().nullable().optional(),
+})
+
+export const s_issuing_authorization_fraud_challenge = z.object({
+  channel: z.enum(["sms"]),
+  status: z.enum([
+    "expired",
+    "pending",
+    "rejected",
+    "undeliverable",
+    "verified",
+  ]),
+  undeliverable_reason: z
+    .enum(["no_phone_number", "unsupported_phone_number"])
+    .nullable()
+    .optional(),
 })
 
 export const s_issuing_authorization_fuel_data = z.object({
@@ -2617,7 +2619,7 @@ export const s_package_dimensions = z.object({
   width: z.coerce.number(),
 })
 
-export const s_payment_flows_amount_details_resource_tip = z.object({
+export const s_payment_flows_amount_details_client_resource_tip = z.object({
   amount: z.coerce.number().optional(),
 })
 
@@ -4016,6 +4018,10 @@ export const s_payment_method_wechat_pay = z.object({})
 
 export const s_payment_method_zip = z.object({})
 
+export const s_payment_pages_checkout_session_adaptive_pricing = z.object({
+  enabled: PermissiveBoolean,
+})
+
 export const s_payment_pages_checkout_session_after_expiration_recovery =
   z.object({
     allow_promotion_codes: PermissiveBoolean,
@@ -4376,6 +4382,7 @@ export const s_payment_pages_checkout_session_tax_id = z.object({
     "kr_brn",
     "kz_bin",
     "li_uid",
+    "li_vat",
     "ma_vat",
     "md_vat",
     "mx_rfc",
@@ -4420,6 +4427,11 @@ export const s_payment_pages_checkout_session_tax_id_collection = z.object({
   required: z.enum(["if_supported", "never"]),
 })
 
+export const s_payouts_trace_id = z.object({
+  status: z.string().max(5000),
+  value: z.string().max(5000).nullable().optional(),
+})
+
 export const s_paypal_seller_protection = z.object({
   dispute_categories: z
     .array(z.enum(["fraudulent", "product_not_received"]))
@@ -4440,6 +4452,7 @@ export const s_person_additional_tos_acceptance = z.object({
 })
 
 export const s_person_relationship = z.object({
+  authorizer: PermissiveBoolean.nullable().optional(),
   director: PermissiveBoolean.nullable().optional(),
   executive: PermissiveBoolean.nullable().optional(),
   legal_guardian: PermissiveBoolean.nullable().optional(),
@@ -4612,6 +4625,17 @@ export const s_recurring = z.object({
   usage_type: z.enum(["licensed", "metered"]),
 })
 
+export const s_refund_destination_details_blik = z.object({
+  network_decline_code: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_br_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
 export const s_refund_destination_details_card = z.object({
   reference: z.string().max(5000).optional(),
   reference_status: z.string().max(5000).optional(),
@@ -4619,7 +4643,48 @@ export const s_refund_destination_details_card = z.object({
   type: z.enum(["pending", "refund", "reversal"]),
 })
 
-export const s_refund_destination_details_generic = z.object({
+export const s_refund_destination_details_eu_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_gb_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_jp_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_multibanco = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_mx_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_p24 = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_swish = z.object({
+  network_decline_code: z.string().max(5000).nullable().optional(),
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_th_bank_transfer = z.object({
+  reference: z.string().max(5000).nullable().optional(),
+  reference_status: z.string().max(5000).nullable().optional(),
+})
+
+export const s_refund_destination_details_us_bank_transfer = z.object({
   reference: z.string().max(5000).nullable().optional(),
   reference_status: z.string().max(5000).nullable().optional(),
 })
@@ -5197,6 +5262,7 @@ export const s_tax_product_resource_customer_details_resource_tax_id = z.object(
       "kr_brn",
       "kz_bin",
       "li_uid",
+      "li_vat",
       "ma_vat",
       "md_vat",
       "mx_rfc",
@@ -5260,6 +5326,7 @@ export const s_tax_product_resource_line_item_tax_rate_details = z.object({
     "retail_delivery_fee",
     "rst",
     "sales_tax",
+    "service_tax",
     "vat",
   ]),
 })
@@ -5749,7 +5816,26 @@ export const s_account_future_requirements = z.object({
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
   currently_due: z.array(z.string().max(5000)).nullable().optional(),
-  disabled_reason: z.string().max(5000).nullable().optional(),
+  disabled_reason: z
+    .enum([
+      "action_required.requested_capabilities",
+      "listed",
+      "other",
+      "platform_paused",
+      "rejected.fraud",
+      "rejected.incomplete_verification",
+      "rejected.listed",
+      "rejected.other",
+      "rejected.platform_fraud",
+      "rejected.platform_other",
+      "rejected.platform_terms_of_service",
+      "rejected.terms_of_service",
+      "requirements.past_due",
+      "requirements.pending_verification",
+      "under_review",
+    ])
+    .nullable()
+    .optional(),
   errors: z.array(s_account_requirements_error).nullable().optional(),
   eventually_due: z.array(z.string().max(5000)).nullable().optional(),
   past_due: z.array(z.string().max(5000)).nullable().optional(),
@@ -5769,7 +5855,26 @@ export const s_account_requirements = z.object({
     .optional(),
   current_deadline: z.coerce.number().nullable().optional(),
   currently_due: z.array(z.string().max(5000)).nullable().optional(),
-  disabled_reason: z.string().max(5000).nullable().optional(),
+  disabled_reason: z
+    .enum([
+      "action_required.requested_capabilities",
+      "listed",
+      "other",
+      "platform_paused",
+      "rejected.fraud",
+      "rejected.incomplete_verification",
+      "rejected.listed",
+      "rejected.other",
+      "rejected.platform_fraud",
+      "rejected.platform_other",
+      "rejected.platform_terms_of_service",
+      "rejected.terms_of_service",
+      "requirements.past_due",
+      "requirements.pending_verification",
+      "under_review",
+    ])
+    .nullable()
+    .optional(),
   errors: z.array(s_account_requirements_error).nullable().optional(),
   eventually_due: z.array(z.string().max(5000)).nullable().optional(),
   past_due: z.array(z.string().max(5000)).nullable().optional(),
@@ -5902,8 +6007,20 @@ export const s_checkout_acss_debit_payment_method_options = z.object({
     .optional(),
 })
 
+export const s_checkout_bacs_debit_payment_method_options = z.object({
+  mandate_options:
+    s_checkout_payment_method_options_mandate_options_bacs_debit.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
+
 export const s_checkout_card_payment_method_options = z.object({
   installments: s_checkout_card_installments_options.optional(),
+  request_extended_authorization: z.enum(["if_available", "never"]).optional(),
+  request_incremental_authorization: z
+    .enum(["if_available", "never"])
+    .optional(),
+  request_multicapture: z.enum(["if_available", "never"]).optional(),
+  request_overcapture: z.enum(["if_available", "never"]).optional(),
   request_three_d_secure: z.enum(["any", "automatic", "challenge"]),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
   statement_descriptor_suffix_kana: z.string().max(5000).optional(),
@@ -5930,6 +6047,12 @@ export const s_checkout_customer_balance_bank_transfer_payment_method_options =
       .nullable()
       .optional(),
   })
+
+export const s_checkout_sepa_debit_payment_method_options = z.object({
+  mandate_options:
+    s_checkout_payment_method_options_mandate_options_sepa_debit.optional(),
+  setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+})
 
 export const s_climate_supplier = z.object({
   id: z.string().max(5000),
@@ -6191,28 +6314,24 @@ export const s_forwarded_response_details = z.object({
   status: z.coerce.number(),
 })
 
-export const s_funding_instructions_bank_transfer_financial_address = z.object({
-  aba: s_funding_instructions_bank_transfer_aba_record.optional(),
-  iban: s_funding_instructions_bank_transfer_iban_record.optional(),
-  sort_code: s_funding_instructions_bank_transfer_sort_code_record.optional(),
-  spei: s_funding_instructions_bank_transfer_spei_record.optional(),
-  supported_networks: z
-    .array(
-      z.enum([
-        "ach",
-        "bacs",
-        "domestic_wire_us",
-        "fps",
-        "sepa",
-        "spei",
-        "swift",
-        "zengin",
-      ]),
-    )
-    .optional(),
-  swift: s_funding_instructions_bank_transfer_swift_record.optional(),
-  type: z.enum(["aba", "iban", "sort_code", "spei", "swift", "zengin"]),
-  zengin: s_funding_instructions_bank_transfer_zengin_record.optional(),
+export const s_funding_instructions_bank_transfer_aba_record = z.object({
+  account_holder_address: s_address,
+  account_holder_name: z.string().max(5000),
+  account_number: z.string().max(5000),
+  account_type: z.string().max(5000),
+  bank_address: s_address,
+  bank_name: z.string().max(5000),
+  routing_number: z.string().max(5000),
+})
+
+export const s_funding_instructions_bank_transfer_swift_record = z.object({
+  account_holder_address: s_address,
+  account_holder_name: z.string().max(5000),
+  account_number: z.string().max(5000),
+  account_type: z.string().max(5000),
+  bank_address: s_address,
+  bank_name: z.string().max(5000),
+  swift_code: z.string().max(5000),
 })
 
 export const s_gelato_document_report = z.object({
@@ -7782,7 +7901,11 @@ export const s_mandate_payment_method_details = z.object({
 })
 
 export const s_payment_flows_amount_details = z.object({
-  tip: s_payment_flows_amount_details_resource_tip.optional(),
+  tip: s_payment_flows_amount_details_client_resource_tip.optional(),
+})
+
+export const s_payment_flows_amount_details_client = z.object({
+  tip: s_payment_flows_amount_details_client_resource_tip.optional(),
 })
 
 export const s_payment_flows_installment_options = z.object({
@@ -8267,30 +8390,30 @@ export const s_refund_destination_details = z.object({
   alma: s_destination_details_unimplemented.optional(),
   amazon_pay: s_destination_details_unimplemented.optional(),
   au_bank_transfer: s_destination_details_unimplemented.optional(),
-  blik: s_refund_destination_details_generic.optional(),
-  br_bank_transfer: s_refund_destination_details_generic.optional(),
+  blik: s_refund_destination_details_blik.optional(),
+  br_bank_transfer: s_refund_destination_details_br_bank_transfer.optional(),
   card: s_refund_destination_details_card.optional(),
   cashapp: s_destination_details_unimplemented.optional(),
   customer_cash_balance: s_destination_details_unimplemented.optional(),
   eps: s_destination_details_unimplemented.optional(),
-  eu_bank_transfer: s_refund_destination_details_generic.optional(),
-  gb_bank_transfer: s_refund_destination_details_generic.optional(),
+  eu_bank_transfer: s_refund_destination_details_eu_bank_transfer.optional(),
+  gb_bank_transfer: s_refund_destination_details_gb_bank_transfer.optional(),
   giropay: s_destination_details_unimplemented.optional(),
   grabpay: s_destination_details_unimplemented.optional(),
-  jp_bank_transfer: s_refund_destination_details_generic.optional(),
+  jp_bank_transfer: s_refund_destination_details_jp_bank_transfer.optional(),
   klarna: s_destination_details_unimplemented.optional(),
-  multibanco: s_refund_destination_details_generic.optional(),
-  mx_bank_transfer: s_refund_destination_details_generic.optional(),
-  p24: s_refund_destination_details_generic.optional(),
+  multibanco: s_refund_destination_details_multibanco.optional(),
+  mx_bank_transfer: s_refund_destination_details_mx_bank_transfer.optional(),
+  p24: s_refund_destination_details_p24.optional(),
   paynow: s_destination_details_unimplemented.optional(),
   paypal: s_destination_details_unimplemented.optional(),
   pix: s_destination_details_unimplemented.optional(),
   revolut: s_destination_details_unimplemented.optional(),
   sofort: s_destination_details_unimplemented.optional(),
-  swish: s_refund_destination_details_generic.optional(),
-  th_bank_transfer: s_refund_destination_details_generic.optional(),
+  swish: s_refund_destination_details_swish.optional(),
+  th_bank_transfer: s_refund_destination_details_th_bank_transfer.optional(),
   type: z.string().max(5000),
-  us_bank_transfer: s_refund_destination_details_generic.optional(),
+  us_bank_transfer: s_refund_destination_details_us_bank_transfer.optional(),
   wechat_pay: s_destination_details_unimplemented.optional(),
   zip: s_destination_details_unimplemented.optional(),
 })
@@ -8334,6 +8457,7 @@ export const s_setup_intent_payment_method_options_card = z.object({
       "girocard",
       "interac",
       "jcb",
+      "link",
       "mastercard",
       "unionpay",
       "unknown",
@@ -8429,6 +8553,7 @@ export const s_subscription_payment_method_options_card = z.object({
       "girocard",
       "interac",
       "jcb",
+      "link",
       "mastercard",
       "unionpay",
       "unknown",
@@ -8528,6 +8653,7 @@ export const s_tax_product_resource_tax_rate_details = z.object({
       "retail_delivery_fee",
       "rst",
       "sales_tax",
+      "service_tax",
       "vat",
     ])
     .nullable()
@@ -8580,6 +8706,7 @@ export const s_tax_rate = z.object({
       "retail_delivery_fee",
       "rst",
       "sales_tax",
+      "service_tax",
       "vat",
     ])
     .nullable()
@@ -8880,12 +9007,28 @@ export const s_forwarding_request = z.object({
   url: z.string().max(5000).nullable().optional(),
 })
 
-export const s_funding_instructions_bank_transfer = z.object({
-  country: z.string().max(5000),
-  financial_addresses: z.array(
-    s_funding_instructions_bank_transfer_financial_address,
-  ),
-  type: z.enum(["eu_bank_transfer", "jp_bank_transfer"]),
+export const s_funding_instructions_bank_transfer_financial_address = z.object({
+  aba: s_funding_instructions_bank_transfer_aba_record.optional(),
+  iban: s_funding_instructions_bank_transfer_iban_record.optional(),
+  sort_code: s_funding_instructions_bank_transfer_sort_code_record.optional(),
+  spei: s_funding_instructions_bank_transfer_spei_record.optional(),
+  supported_networks: z
+    .array(
+      z.enum([
+        "ach",
+        "bacs",
+        "domestic_wire_us",
+        "fps",
+        "sepa",
+        "spei",
+        "swift",
+        "zengin",
+      ]),
+    )
+    .optional(),
+  swift: s_funding_instructions_bank_transfer_swift_record.optional(),
+  type: z.enum(["aba", "iban", "sort_code", "spei", "swift", "zengin"]),
+  zengin: s_funding_instructions_bank_transfer_zengin_record.optional(),
 })
 
 export const s_identity_verification_report = z.object({
@@ -9037,24 +9180,6 @@ export const s_line_items_tax_amount = z.object({
   taxable_amount: z.coerce.number().nullable().optional(),
 })
 
-export const s_payment_intent_next_action_display_bank_transfer_instructions =
-  z.object({
-    amount_remaining: z.coerce.number().nullable().optional(),
-    currency: z.string().nullable().optional(),
-    financial_addresses: z
-      .array(s_funding_instructions_bank_transfer_financial_address)
-      .optional(),
-    hosted_instructions_url: z.string().max(5000).nullable().optional(),
-    reference: z.string().max(5000).nullable().optional(),
-    type: z.enum([
-      "eu_bank_transfer",
-      "gb_bank_transfer",
-      "jp_bank_transfer",
-      "mx_bank_transfer",
-      "us_bank_transfer",
-    ]),
-  })
-
 export const s_payment_intent_next_action_konbini = z.object({
   expires_at: z.coerce.number(),
   hosted_voucher_url: z.string().max(5000).nullable().optional(),
@@ -9079,6 +9204,7 @@ export const s_payment_intent_payment_method_options_card = z.object({
       "girocard",
       "interac",
       "jcb",
+      "link",
       "mastercard",
       "unionpay",
       "unknown",
@@ -9677,12 +9803,12 @@ export const s_dispute_enhanced_evidence = z.object({
     s_dispute_enhanced_evidence_visa_compelling_evidence3.optional(),
 })
 
-export const s_funding_instructions = z.object({
-  bank_transfer: s_funding_instructions_bank_transfer,
-  currency: z.string().max(5000),
-  funding_type: z.enum(["bank_transfer"]),
-  livemode: PermissiveBoolean,
-  object: z.enum(["funding_instructions"]),
+export const s_funding_instructions_bank_transfer = z.object({
+  country: z.string().max(5000),
+  financial_addresses: z.array(
+    s_funding_instructions_bank_transfer_financial_address,
+  ),
+  type: z.enum(["eu_bank_transfer", "jp_bank_transfer"]),
 })
 
 export const s_identity_verification_session = z.object({
@@ -9743,41 +9869,23 @@ export const s_issuing_transaction_purchase_details = z.object({
   reference: z.string().max(5000).nullable().optional(),
 })
 
-export const s_payment_intent_next_action = z.object({
-  alipay_handle_redirect:
-    s_payment_intent_next_action_alipay_handle_redirect.optional(),
-  boleto_display_details: s_payment_intent_next_action_boleto.optional(),
-  card_await_notification:
-    s_payment_intent_next_action_card_await_notification.optional(),
-  cashapp_handle_redirect_or_display_qr_code:
-    s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
-  display_bank_transfer_instructions:
-    s_payment_intent_next_action_display_bank_transfer_instructions.optional(),
-  konbini_display_details: s_payment_intent_next_action_konbini.optional(),
-  multibanco_display_details:
-    s_payment_intent_next_action_display_multibanco_details.optional(),
-  oxxo_display_details:
-    s_payment_intent_next_action_display_oxxo_details.optional(),
-  paynow_display_qr_code:
-    s_payment_intent_next_action_paynow_display_qr_code.optional(),
-  pix_display_qr_code:
-    s_payment_intent_next_action_pix_display_qr_code.optional(),
-  promptpay_display_qr_code:
-    s_payment_intent_next_action_promptpay_display_qr_code.optional(),
-  redirect_to_url: s_payment_intent_next_action_redirect_to_url.optional(),
-  swish_handle_redirect_or_display_qr_code:
-    s_payment_intent_next_action_swish_handle_redirect_or_display_qr_code.optional(),
-  type: z.string().max(5000),
-  use_stripe_sdk: z.object({}).optional(),
-  verify_with_microdeposits:
-    s_payment_intent_next_action_verify_with_microdeposits.optional(),
-  wechat_pay_display_qr_code:
-    s_payment_intent_next_action_wechat_pay_display_qr_code.optional(),
-  wechat_pay_redirect_to_android_app:
-    s_payment_intent_next_action_wechat_pay_redirect_to_android_app.optional(),
-  wechat_pay_redirect_to_ios_app:
-    s_payment_intent_next_action_wechat_pay_redirect_to_ios_app.optional(),
-})
+export const s_payment_intent_next_action_display_bank_transfer_instructions =
+  z.object({
+    amount_remaining: z.coerce.number().nullable().optional(),
+    currency: z.string().nullable().optional(),
+    financial_addresses: z
+      .array(s_funding_instructions_bank_transfer_financial_address)
+      .optional(),
+    hosted_instructions_url: z.string().max(5000).nullable().optional(),
+    reference: z.string().max(5000).nullable().optional(),
+    type: z.enum([
+      "eu_bank_transfer",
+      "gb_bank_transfer",
+      "jp_bank_transfer",
+      "mx_bank_transfer",
+      "us_bank_transfer",
+    ]),
+  })
 
 export const s_payment_intent_payment_method_options = z.object({
   acss_debit: z
@@ -10400,6 +10508,14 @@ export const s_billing_portal_configuration = z.object({
   updated: z.coerce.number(),
 })
 
+export const s_funding_instructions = z.object({
+  bank_transfer: s_funding_instructions_bank_transfer,
+  currency: z.string().max(5000),
+  funding_type: z.enum(["bank_transfer"]),
+  livemode: PermissiveBoolean,
+  object: z.enum(["funding_instructions"]),
+})
+
 export const s_invoices_payment_settings = z.object({
   default_mandate: z.string().max(5000).nullable().optional(),
   payment_method_options: s_invoices_payment_method_options
@@ -10447,6 +10563,42 @@ export const s_invoices_payment_settings = z.object({
     )
     .nullable()
     .optional(),
+})
+
+export const s_payment_intent_next_action = z.object({
+  alipay_handle_redirect:
+    s_payment_intent_next_action_alipay_handle_redirect.optional(),
+  boleto_display_details: s_payment_intent_next_action_boleto.optional(),
+  card_await_notification:
+    s_payment_intent_next_action_card_await_notification.optional(),
+  cashapp_handle_redirect_or_display_qr_code:
+    s_payment_intent_next_action_cashapp_handle_redirect_or_display_qr_code.optional(),
+  display_bank_transfer_instructions:
+    s_payment_intent_next_action_display_bank_transfer_instructions.optional(),
+  konbini_display_details: s_payment_intent_next_action_konbini.optional(),
+  multibanco_display_details:
+    s_payment_intent_next_action_display_multibanco_details.optional(),
+  oxxo_display_details:
+    s_payment_intent_next_action_display_oxxo_details.optional(),
+  paynow_display_qr_code:
+    s_payment_intent_next_action_paynow_display_qr_code.optional(),
+  pix_display_qr_code:
+    s_payment_intent_next_action_pix_display_qr_code.optional(),
+  promptpay_display_qr_code:
+    s_payment_intent_next_action_promptpay_display_qr_code.optional(),
+  redirect_to_url: s_payment_intent_next_action_redirect_to_url.optional(),
+  swish_handle_redirect_or_display_qr_code:
+    s_payment_intent_next_action_swish_handle_redirect_or_display_qr_code.optional(),
+  type: z.string().max(5000),
+  use_stripe_sdk: z.object({}).optional(),
+  verify_with_microdeposits:
+    s_payment_intent_next_action_verify_with_microdeposits.optional(),
+  wechat_pay_display_qr_code:
+    s_payment_intent_next_action_wechat_pay_display_qr_code.optional(),
+  wechat_pay_redirect_to_android_app:
+    s_payment_intent_next_action_wechat_pay_redirect_to_android_app.optional(),
+  wechat_pay_redirect_to_ios_app:
+    s_payment_intent_next_action_wechat_pay_redirect_to_ios_app.optional(),
 })
 
 export const s_source_mandate_notification = z.object({
@@ -11236,6 +11388,9 @@ export const s_checkout_session: z.ZodType<
   z.ZodTypeDef,
   unknown
 > = z.object({
+  adaptive_pricing: s_payment_pages_checkout_session_adaptive_pricing
+    .nullable()
+    .optional(),
   after_expiration: s_payment_pages_checkout_session_after_expiration
     .nullable()
     .optional(),
@@ -11381,7 +11536,10 @@ export const s_checkout_session: z.ZodType<
   shipping_details: s_shipping.nullable().optional(),
   shipping_options: z.array(s_payment_pages_checkout_session_shipping_option),
   status: z.enum(["complete", "expired", "open"]).nullable().optional(),
-  submit_type: z.enum(["auto", "book", "donate", "pay"]).nullable().optional(),
+  submit_type: z
+    .enum(["auto", "book", "donate", "pay", "subscribe"])
+    .nullable()
+    .optional(),
   subscription: z
     .union([z.string().max(5000), z.lazy(() => s_subscription)])
     .nullable()
@@ -12045,6 +12203,7 @@ export const s_tax_id: z.ZodType<t_tax_id, z.ZodTypeDef, unknown> = z.object({
     "kr_brn",
     "kz_bin",
     "li_uid",
+    "li_vat",
     "ma_vat",
     "md_vat",
     "mx_rfc",
@@ -12122,6 +12281,7 @@ export const s_file: z.ZodType<t_file, z.ZodTypeDef, unknown> = z.object({
     "dispute_evidence",
     "document_provider_identity_document",
     "finance_report_run",
+    "financial_account_statement",
     "identity_document",
     "identity_document_downloadable",
     "issuing_regulatory_reporting",
@@ -12502,6 +12662,10 @@ export const s_issuing_authorization: z.ZodType<
   created: z.coerce.number(),
   currency: z.string(),
   fleet: s_issuing_authorization_fleet_data.nullable().optional(),
+  fraud_challenges: z
+    .array(s_issuing_authorization_fraud_challenge)
+    .nullable()
+    .optional(),
   fuel: s_issuing_authorization_fuel_data.nullable().optional(),
   id: z.string().max(5000),
   livemode: PermissiveBoolean,
@@ -12523,6 +12687,7 @@ export const s_issuing_authorization: z.ZodType<
   transactions: z.array(z.lazy(() => s_issuing_transaction)),
   treasury: s_issuing_authorization_treasury.nullable().optional(),
   verification_data: s_issuing_authorization_verification_data,
+  verified_by_fraud_challenge: PermissiveBoolean.nullable().optional(),
   wallet: z.string().max(5000).nullable().optional(),
 })
 
@@ -12770,7 +12935,12 @@ export const s_payment_intent: z.ZodType<
 > = z.object({
   amount: z.coerce.number(),
   amount_capturable: z.coerce.number().optional(),
-  amount_details: s_payment_flows_amount_details.optional(),
+  amount_details: z
+    .union([
+      s_payment_flows_amount_details,
+      s_payment_flows_amount_details_client,
+    ])
+    .optional(),
   amount_received: z.coerce.number().optional(),
   application: z
     .union([z.string().max(5000), s_application])
@@ -12952,7 +13122,7 @@ export const s_payment_link: z.ZodType<t_payment_link, z.ZodTypeDef, unknown> =
         .nullable()
         .optional(),
     shipping_options: z.array(s_payment_links_resource_shipping_option),
-    submit_type: z.enum(["auto", "book", "donate", "pay"]),
+    submit_type: z.enum(["auto", "book", "donate", "pay", "subscribe"]),
     subscription_data: z.lazy(() =>
       s_payment_links_resource_subscription_data.nullable().optional(),
     ),
@@ -13012,6 +13182,7 @@ export const s_payout: z.ZodType<t_payout, z.ZodTypeDef, unknown> = z.object({
   source_type: z.string().max(5000),
   statement_descriptor: z.string().max(5000).nullable().optional(),
   status: z.string().max(5000),
+  trace_id: s_payouts_trace_id.nullable().optional(),
   type: z.enum(["bank_account", "card"]),
 })
 
@@ -13530,7 +13701,7 @@ export const s_treasury_inbound_transfer: z.ZodType<
   livemode: PermissiveBoolean,
   metadata: z.record(z.string().max(500)),
   object: z.enum(["treasury.inbound_transfer"]),
-  origin_payment_method: z.string().max(5000),
+  origin_payment_method: z.string().max(5000).nullable().optional(),
   origin_payment_method_details: z.lazy(() =>
     s_inbound_transfers.nullable().optional(),
   ),

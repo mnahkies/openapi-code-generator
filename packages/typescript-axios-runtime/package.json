@@ -29,16 +29,16 @@
     "test": "jest"
   },
   "dependencies": {
-    "qs": "^6.13.0"
+    "qs": "^6.13.1"
   },
   "peerDependencies": {
     "axios": "^1.6.0"
   },
   "devDependencies": {
-    "@types/qs": "^6.9.16",
+    "@types/qs": "^6.9.17",
     "axios": "^1.7.7",
     "jest": "^30.0.0-alpha.6",
-    "typescript": "~5.6.3"
+    "typescript": "~5.7.2"
   },
   "files": [
     "src",
