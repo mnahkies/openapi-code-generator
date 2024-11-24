@@ -1,13 +1,17 @@
 # @nahkies/openapi-code-generator
 
-![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)
+[![CI/CD](https://github.com/mnahkies/openapi-code-generator/actions/workflows/ci.yml/badge.svg)](https://github.com/mnahkies/openapi-code-generator/actions?query=branch%3Amain+event%3Apush)
 [![npm](https://img.shields.io/npm/v/@nahkies/openapi-code-generator.svg)](https://www.npmjs.com/package/@nahkies/openapi-code-generator)
 
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
-and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
+and API server scaffolding (routing, validation, serialization) from api specifications.
 
 Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
-and [TypeSpec](https://typespec.io/) are supported an input specifications.
+and [TypeSpec](https://typespec.io/) are supported as input specifications.
+
+With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz/guides/server-templates/typescript-koa), [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch), [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios), and [angular](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-angular) currently available.
+
+The [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch) and [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios) templates work great in conjunction with [react-query](https://tanstack.com/query/latest)
 
 <!-- toc -->
 
@@ -47,8 +51,6 @@ Scripts to refresh the test data live in [./scripts](./scripts)
 
 Contributing guidelines can be found in [./CONTRIBUTING.md](./CONTRIBUTING.md).
 
-An overview of the codebase architecture is [available here](https://openapi-code-generator.nahkies.co.nz/reference/architecture)
-
 ## License
 
-See [./LICENSE](./LICENSE)
+MIT Licensed, see [./LICENSE](./LICENSE)

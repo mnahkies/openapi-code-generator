@@ -15,11 +15,13 @@ Runtime request parameter validation is not currently supported.
 See [integration-tests/typescript-axios](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-axios) for more samples.
 
 ### Install dependencies
-Prerequisite [installed the cli](../../getting-started/quick-start)
-
+First install the CLI and the required runtime packages to your project:
 ```sh npm2yarn
+npm i --dev @nahkies/openapi-code-generator
 npm i axios @nahkies/typescript-axios-runtime
 ```
+
+See also [quick start](../../getting-started/quick-start) guide
 
 ### Run generation
 <Tabs items={["OpenAPI3", "Typespec"]}>
