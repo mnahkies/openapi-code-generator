@@ -1872,6 +1872,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       relationship?: {
+        authorizer?: boolean
         director?: boolean
         executive?: boolean
         legal_guardian?: boolean
@@ -2004,6 +2005,7 @@ export class StripeApi extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2181,6 +2183,7 @@ export class StripeApi extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2225,6 +2228,7 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       limit?: number
       relationship?: {
+        authorizer?: boolean
         director?: boolean
         executive?: boolean
         legal_guardian?: boolean
@@ -2357,6 +2361,7 @@ export class StripeApi extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -2534,6 +2539,7 @@ export class StripeApi extends AbstractFetchClient {
           state?: string
         }
         relationship?: {
+          authorizer?: boolean
           director?: boolean
           executive?: boolean
           legal_guardian?: boolean
@@ -5120,6 +5126,9 @@ export class StripeApi extends AbstractFetchClient {
   async postCheckoutSessions(
     p: {
       requestBody?: {
+        adaptive_pricing?: {
+          enabled?: boolean
+        }
         after_expiration?: {
           recovery?: {
             allow_promotion_codes?: boolean
@@ -5379,6 +5388,7 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
           }
           bacs_debit?: {
+            mandate_options?: EmptyObject
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           bancontact?: {
@@ -5392,6 +5402,10 @@ export class StripeApi extends AbstractFetchClient {
             installments?: {
               enabled?: boolean
             }
+            request_extended_authorization?: "if_available" | "never"
+            request_incremental_authorization?: "if_available" | "never"
+            request_multicapture?: "if_available" | "never"
+            request_overcapture?: "if_available" | "never"
             request_three_d_secure?: "any" | "automatic" | "challenge"
             setup_future_usage?: "off_session" | "on_session"
             statement_descriptor_suffix_kana?: string
@@ -5440,6 +5454,7 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
           }
           kakao_pay?: {
+            capture_method?: "manual"
             setup_future_usage?: "none" | "off_session"
           }
           klarna?: {
@@ -5450,6 +5465,7 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
           }
           kr_card?: {
+            capture_method?: "manual"
             setup_future_usage?: "none" | "off_session"
           }
           link?: {
@@ -5462,6 +5478,7 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
           }
           naver_pay?: {
+            capture_method?: "manual"
             setup_future_usage?: "none" | "off_session"
           }
           oxxo?: {
@@ -5472,7 +5489,9 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
             tos_shown_and_accepted?: boolean
           }
-          payco?: EmptyObject
+          payco?: {
+            capture_method?: "manual"
+          }
           paynow?: {
             setup_future_usage?: "none"
           }
@@ -5510,8 +5529,11 @@ export class StripeApi extends AbstractFetchClient {
           revolut_pay?: {
             setup_future_usage?: "none" | "off_session"
           }
-          samsung_pay?: EmptyObject
+          samsung_pay?: {
+            capture_method?: "manual"
+          }
           sepa_debit?: {
+            mandate_options?: EmptyObject
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           sofort?: {
@@ -5875,7 +5897,7 @@ export class StripeApi extends AbstractFetchClient {
             type?: "fixed_amount"
           }
         }[]
-        submit_type?: "auto" | "book" | "donate" | "pay"
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           application_fee_percent?: number
           billing_cycle_anchor?: number
@@ -7252,6 +7274,7 @@ export class StripeApi extends AbstractFetchClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "li_vat"
             | "ma_vat"
             | "md_vat"
             | "mx_rfc"
@@ -8891,6 +8914,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -9230,6 +9254,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -9506,6 +9531,7 @@ export class StripeApi extends AbstractFetchClient {
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "li_vat"
           | "ma_vat"
           | "md_vat"
           | "mx_rfc"
@@ -10389,6 +10415,7 @@ export class StripeApi extends AbstractFetchClient {
         | "dispute_evidence"
         | "document_provider_identity_document"
         | "finance_report_run"
+        | "financial_account_statement"
         | "identity_document"
         | "identity_document_downloadable"
         | "issuing_regulatory_reporting"
@@ -12090,6 +12117,7 @@ export class StripeApi extends AbstractFetchClient {
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "li_vat"
               | "ma_vat"
               | "md_vat"
               | "mx_rfc"
@@ -12483,6 +12511,7 @@ export class StripeApi extends AbstractFetchClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "li_vat"
             | "ma_vat"
             | "md_vat"
             | "mx_rfc"
@@ -12911,6 +12940,7 @@ export class StripeApi extends AbstractFetchClient {
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
+            | "li_vat"
             | "ma_vat"
             | "md_vat"
             | "mx_rfc"
@@ -13632,6 +13662,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "retail_delivery_fee"
                     | "rst"
                     | "sales_tax"
+                    | "service_tax"
                     | "vat"
                 }
                 taxable_amount: number
@@ -13791,6 +13822,7 @@ export class StripeApi extends AbstractFetchClient {
                   | "retail_delivery_fee"
                   | "rst"
                   | "sales_tax"
+                  | "service_tax"
                   | "vat"
               }
               taxable_amount: number
@@ -13992,6 +14024,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "retail_delivery_fee"
                     | "rst"
                     | "sales_tax"
+                    | "service_tax"
                     | "vat"
                 }
                 taxable_amount: number
@@ -19841,6 +19874,7 @@ export class StripeApi extends AbstractFetchClient {
                   | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -20671,6 +20705,7 @@ export class StripeApi extends AbstractFetchClient {
                   | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -21525,6 +21560,7 @@ export class StripeApi extends AbstractFetchClient {
                   | "girocard"
                   | "interac"
                   | "jcb"
+                  | "link"
                   | "mastercard"
                   | "unionpay"
                   | "unknown"
@@ -22439,7 +22475,7 @@ export class StripeApi extends AbstractFetchClient {
         shipping_options?: {
           shipping_rate?: string
         }[]
-        submit_type?: "auto" | "book" | "donate" | "pay"
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           description?: string
           invoice_settings?: {
@@ -22925,6 +22961,7 @@ export class StripeApi extends AbstractFetchClient {
               )[]
             }
           | ""
+        submit_type?: "auto" | "book" | "donate" | "pay" | "subscribe"
         subscription_data?: {
           invoice_settings?: {
             issuer?: {
@@ -27806,6 +27843,7 @@ export class StripeApi extends AbstractFetchClient {
               | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -28207,6 +28245,7 @@ export class StripeApi extends AbstractFetchClient {
               | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -28611,6 +28650,7 @@ export class StripeApi extends AbstractFetchClient {
               | "girocard"
               | "interac"
               | "jcb"
+              | "link"
               | "mastercard"
               | "unionpay"
               | "unknown"
@@ -30338,6 +30378,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -30733,6 +30774,7 @@ export class StripeApi extends AbstractFetchClient {
                     | "girocard"
                     | "interac"
                     | "jcb"
+                    | "link"
                     | "mastercard"
                     | "unionpay"
                     | "unknown"
@@ -30969,6 +31011,7 @@ export class StripeApi extends AbstractFetchClient {
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
+              | "li_vat"
               | "ma_vat"
               | "md_vat"
               | "mx_rfc"
@@ -31921,6 +31964,7 @@ export class StripeApi extends AbstractFetchClient {
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
+          | "li_vat"
           | "ma_vat"
           | "md_vat"
           | "mx_rfc"
@@ -32108,6 +32152,7 @@ export class StripeApi extends AbstractFetchClient {
           | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
+          | "service_tax"
           | "vat"
       }
     },
@@ -32181,6 +32226,7 @@ export class StripeApi extends AbstractFetchClient {
           | "retail_delivery_fee"
           | "rst"
           | "sales_tax"
+          | "service_tax"
           | "vat"
       }
     },
@@ -33391,7 +33437,7 @@ export class StripeApi extends AbstractFetchClient {
   async postTestHelpersIssuingAuthorizations(
     p: {
       requestBody: {
-        amount: number
+        amount?: number
         amount_details?: {
           atm_fee?: number
           cashback_amount?: number
@@ -33455,6 +33501,8 @@ export class StripeApi extends AbstractFetchClient {
           unit_cost_decimal?: string
         }
         is_amount_controllable?: boolean
+        merchant_amount?: number
+        merchant_currency?: string
         merchant_data?: {
           category?:
             | "ac_refrigeration_repair"
@@ -34000,6 +34048,33 @@ export class StripeApi extends AbstractFetchClient {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond(
+    p: {
+      authorization: string
+      requestBody: {
+        confirmed: boolean
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/fraud_challenges/respond`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -36067,6 +36142,7 @@ export class StripeApi extends AbstractFetchClient {
             state?: string
           }
           relationship?: {
+            authorizer?: boolean
             director?: boolean
             executive?: boolean
             legal_guardian?: boolean
@@ -38058,6 +38134,7 @@ export class StripeApi extends AbstractFetchClient {
           | "2024-06-20"
           | "2024-09-30.acacia"
           | "2024-10-28.acacia"
+          | "2024-11-20.acacia"
         connect?: boolean
         description?: string | ""
         enabled_events: (

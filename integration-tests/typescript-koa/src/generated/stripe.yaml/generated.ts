@@ -1100,6 +1100,8 @@ import {
   t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+  t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
   t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseBodySchema,
@@ -12256,6 +12258,28 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   | Response<StatusCode, t_error>
 >
 
+export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
+  {
+    with200(): KoaRuntimeResponse<t_issuing_authorization>
+    withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+  } & KoaRuntimeResponder
+
+export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond =
+  (
+    params: Params<
+      t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
+      void,
+      t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+      void
+    >,
+    respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
+    ctx: RouterContext,
+  ) => Promise<
+    | KoaRuntimeResponse<unknown>
+    | Response<200, t_issuing_authorization>
+    | Response<StatusCode, t_error>
+  >
+
 export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder =
   {
     with200(): KoaRuntimeResponse<t_issuing_authorization>
@@ -14613,6 +14637,7 @@ export type Implementation = {
   postTestHelpersIssuingAuthorizationsAuthorizationCapture: PostTestHelpersIssuingAuthorizationsAuthorizationCapture
   postTestHelpersIssuingAuthorizationsAuthorizationExpire: PostTestHelpersIssuingAuthorizationsAuthorizationExpire
   postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount
+  postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond
   postTestHelpersIssuingAuthorizationsAuthorizationIncrement: PostTestHelpersIssuingAuthorizationsAuthorizationIncrement
   postTestHelpersIssuingAuthorizationsAuthorizationReverse: PostTestHelpersIssuingAuthorizationsAuthorizationReverse
   postTestHelpersIssuingCardsCardShippingDeliver: PostTestHelpersIssuingCardsCardShippingDeliver
@@ -17415,6 +17440,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
+        authorizer: PermissiveBoolean.optional(),
         director: PermissiveBoolean.optional(),
         executive: PermissiveBoolean.optional(),
         legal_guardian: PermissiveBoolean.optional(),
@@ -17615,6 +17641,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
+          authorizer: PermissiveBoolean.optional(),
           director: PermissiveBoolean.optional(),
           executive: PermissiveBoolean.optional(),
           legal_guardian: PermissiveBoolean.optional(),
@@ -17944,6 +17971,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
+          authorizer: PermissiveBoolean.optional(),
           director: PermissiveBoolean.optional(),
           executive: PermissiveBoolean.optional(),
           legal_guardian: PermissiveBoolean.optional(),
@@ -18039,6 +18067,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
     relationship: z
       .object({
+        authorizer: PermissiveBoolean.optional(),
         director: PermissiveBoolean.optional(),
         executive: PermissiveBoolean.optional(),
         legal_guardian: PermissiveBoolean.optional(),
@@ -18239,6 +18268,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
+          authorizer: PermissiveBoolean.optional(),
           director: PermissiveBoolean.optional(),
           executive: PermissiveBoolean.optional(),
           legal_guardian: PermissiveBoolean.optional(),
@@ -18568,6 +18598,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       relationship: z
         .object({
+          authorizer: PermissiveBoolean.optional(),
           director: PermissiveBoolean.optional(),
           executive: PermissiveBoolean.optional(),
           legal_guardian: PermissiveBoolean.optional(),
@@ -23660,6 +23691,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postCheckoutSessionsBodySchema = z
     .object({
+      adaptive_pricing: z
+        .object({ enabled: PermissiveBoolean.optional() })
+        .optional(),
       after_expiration: z
         .object({
           recovery: z
@@ -23995,6 +24029,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           bacs_debit: z
             .object({
+              mandate_options: z.object({}).optional(),
               setup_future_usage: z
                 .enum(["none", "off_session", "on_session"])
                 .optional(),
@@ -24016,6 +24051,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
               installments: z
                 .object({ enabled: PermissiveBoolean.optional() })
                 .optional(),
+              request_extended_authorization: z
+                .enum(["if_available", "never"])
+                .optional(),
+              request_incremental_authorization: z
+                .enum(["if_available", "never"])
+                .optional(),
+              request_multicapture: z
+                .enum(["if_available", "never"])
+                .optional(),
+              request_overcapture: z.enum(["if_available", "never"]).optional(),
               request_three_d_secure: z
                 .enum(["any", "automatic", "challenge"])
                 .optional(),
@@ -24083,6 +24128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           kakao_pay: z
             .object({
+              capture_method: z.enum(["manual"]).optional(),
               setup_future_usage: z.enum(["none", "off_session"]).optional(),
             })
             .optional(),
@@ -24097,6 +24143,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           kr_card: z
             .object({
+              capture_method: z.enum(["manual"]).optional(),
               setup_future_usage: z.enum(["none", "off_session"]).optional(),
             })
             .optional(),
@@ -24113,6 +24160,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           naver_pay: z
             .object({
+              capture_method: z.enum(["manual"]).optional(),
               setup_future_usage: z.enum(["none", "off_session"]).optional(),
             })
             .optional(),
@@ -24128,7 +24176,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
               tos_shown_and_accepted: PermissiveBoolean.optional(),
             })
             .optional(),
-          payco: z.object({}).optional(),
+          payco: z
+            .object({ capture_method: z.enum(["manual"]).optional() })
+            .optional(),
           paynow: z
             .object({ setup_future_usage: z.enum(["none"]).optional() })
             .optional(),
@@ -24175,9 +24225,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
               setup_future_usage: z.enum(["none", "off_session"]).optional(),
             })
             .optional(),
-          samsung_pay: z.object({}).optional(),
+          samsung_pay: z
+            .object({ capture_method: z.enum(["manual"]).optional() })
+            .optional(),
           sepa_debit: z
             .object({
+              mandate_options: z.object({}).optional(),
               setup_future_usage: z
                 .enum(["none", "off_session", "on_session"])
                 .optional(),
@@ -24601,7 +24654,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
         )
         .optional(),
-      submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
+      submit_type: z
+        .enum(["auto", "book", "donate", "pay", "subscribe"])
+        .optional(),
       subscription_data: z
         .object({
           application_fee_percent: z.coerce.number().optional(),
@@ -27172,6 +27227,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "kr_brn",
               "kz_bin",
               "li_uid",
+              "li_vat",
               "ma_vat",
               "md_vat",
               "mx_rfc",
@@ -30411,6 +30467,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "girocard",
                         "interac",
                         "jcb",
+                        "link",
                         "mastercard",
                         "unionpay",
                         "unknown",
@@ -31003,6 +31060,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "girocard",
                         "interac",
                         "jcb",
+                        "link",
                         "mastercard",
                         "unionpay",
                         "unknown",
@@ -31504,6 +31562,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "kr_brn",
       "kz_bin",
       "li_uid",
+      "li_vat",
       "ma_vat",
       "md_vat",
       "mx_rfc",
@@ -33278,6 +33337,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "dispute_evidence",
         "document_provider_identity_document",
         "finance_report_run",
+        "financial_account_statement",
         "identity_document",
         "identity_document_downloadable",
         "issuing_regulatory_reporting",
@@ -36478,6 +36538,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "kr_brn",
                   "kz_bin",
                   "li_uid",
+                  "li_vat",
                   "ma_vat",
                   "md_vat",
                   "mx_rfc",
@@ -37065,6 +37126,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
                 "ma_vat",
                 "md_vat",
                 "mx_rfc",
@@ -37653,6 +37715,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
                 "ma_vat",
                 "md_vat",
                 "mx_rfc",
@@ -38746,6 +38809,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       "retail_delivery_fee",
                       "rst",
                       "sales_tax",
+                      "service_tax",
                       "vat",
                     ])
                     .optional(),
@@ -39036,6 +39100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "retail_delivery_fee",
                     "rst",
                     "sales_tax",
+                    "service_tax",
                     "vat",
                   ])
                   .optional(),
@@ -39432,6 +39497,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       "retail_delivery_fee",
                       "rst",
                       "sales_tax",
+                      "service_tax",
                       "vat",
                     ])
                     .optional(),
@@ -47306,6 +47372,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "girocard",
                   "interac",
                   "jcb",
+                  "link",
                   "mastercard",
                   "unionpay",
                   "unknown",
@@ -48511,6 +48578,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -49791,6 +49859,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     "girocard",
                     "interac",
                     "jcb",
+                    "link",
                     "mastercard",
                     "unionpay",
                     "unknown",
@@ -51043,7 +51112,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     shipping_options: z
       .array(z.object({ shipping_rate: z.string().max(5000).optional() }))
       .optional(),
-    submit_type: z.enum(["auto", "book", "donate", "pay"]).optional(),
+    submit_type: z
+      .enum(["auto", "book", "donate", "pay", "subscribe"])
+      .optional(),
     subscription_data: z
       .object({
         description: z.string().max(500).optional(),
@@ -51656,6 +51727,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
           z.enum([""]),
         ])
+        .optional(),
+      submit_type: z
+        .enum(["auto", "book", "donate", "pay", "subscribe"])
         .optional(),
       subscription_data: z
         .object({
@@ -59919,6 +59993,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "girocard",
                   "interac",
                   "jcb",
+                  "link",
                   "mastercard",
                   "unionpay",
                   "unknown",
@@ -60480,6 +60555,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "girocard",
                   "interac",
                   "jcb",
+                  "link",
                   "mastercard",
                   "unionpay",
                   "unknown",
@@ -61057,6 +61133,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "girocard",
                   "interac",
                   "jcb",
+                  "link",
                   "mastercard",
                   "unionpay",
                   "unknown",
@@ -64226,6 +64303,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       "girocard",
                       "interac",
                       "jcb",
+                      "link",
                       "mastercard",
                       "unionpay",
                       "unknown",
@@ -64891,6 +64969,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                         "girocard",
                         "interac",
                         "jcb",
+                        "link",
                         "mastercard",
                         "unionpay",
                         "unknown",
@@ -65297,6 +65376,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
+                "li_vat",
                 "ma_vat",
                 "md_vat",
                 "mx_rfc",
@@ -66904,6 +66984,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "kr_brn",
       "kz_bin",
       "li_uid",
+      "li_vat",
       "ma_vat",
       "md_vat",
       "mx_rfc",
@@ -67214,6 +67295,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "retail_delivery_fee",
         "rst",
         "sales_tax",
+        "service_tax",
         "vat",
       ])
       .optional(),
@@ -67360,6 +67442,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "retail_delivery_fee",
           "rst",
           "sales_tax",
+          "service_tax",
           "vat",
         ])
         .optional(),
@@ -69576,7 +69659,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postTestHelpersIssuingAuthorizationsBodySchema = z.object({
-    amount: z.coerce.number(),
+    amount: z.coerce.number().optional(),
     amount_details: z
       .object({
         atm_fee: z.coerce.number().optional(),
@@ -69657,6 +69740,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       })
       .optional(),
     is_amount_controllable: PermissiveBoolean.optional(),
+    merchant_amount: z.coerce.number().optional(),
+    merchant_currency: z.string().optional(),
     merchant_data: z
       .object({
         category: z
@@ -70418,6 +70503,72 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
       ctx.body =
         postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema =
+    z.object({ authorization: z.string().max(5000) })
+
+  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema =
+    z.object({
+      confirmed: PermissiveBoolean,
+      expand: z.array(z.string().max(5000)).optional(),
+    })
+
+  const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator =
+    responseValidationFactory([["200", s_issuing_authorization]], s_error)
+
+  router.post(
+    "postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond",
+    "/v1/test_helpers/issuing/authorizations/:authorization/fraud_challenges/respond",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issuing_authorization>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond(
+          input,
+          responder,
+          ctx,
+        )
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponseValidator(
           status,
           body,
         )
@@ -73904,6 +74055,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           relationship: z
             .object({
+              authorizer: PermissiveBoolean.optional(),
               director: PermissiveBoolean.optional(),
               executive: PermissiveBoolean.optional(),
               legal_guardian: PermissiveBoolean.optional(),
@@ -77655,6 +77807,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2024-06-20",
         "2024-09-30.acacia",
         "2024-10-28.acacia",
+        "2024-11-20.acacia",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),

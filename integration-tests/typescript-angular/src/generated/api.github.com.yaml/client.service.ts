@@ -33,6 +33,7 @@ import {
   t_autolink,
   t_base_gist,
   t_basic_error,
+  t_billing_usage_report,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -2549,6 +2550,43 @@ export class GitHubV3RestApi {
     )
   }
 
+  billingGetGithubBillingUsageReportOrg(p: {
+    org: string
+    year?: number
+    month?: number
+    day?: number
+    hour?: number
+  }): Observable<
+    | (HttpResponse<t_billing_usage_report> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      hour: p["hour"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/organizations/${p["org"]}/settings/billing/usage`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   orgsGet(p: {
     org: string
   }): Observable<
@@ -2577,6 +2615,7 @@ export class GitHubV3RestApi {
       dependabot_alerts_enabled_for_new_repositories?: boolean
       dependabot_security_updates_enabled_for_new_repositories?: boolean
       dependency_graph_enabled_for_new_repositories?: boolean
+      deploy_keys_enabled_for_repositories?: boolean
       description?: string
       email?: string
       has_organization_projects?: boolean
@@ -5577,7 +5616,7 @@ export class GitHubV3RestApi {
       | "github_apps_user_to_server"
     actorId: number
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     page?: number
     perPage?: number
     direction?: "asc" | "desc"
@@ -5617,7 +5656,7 @@ export class GitHubV3RestApi {
   apiInsightsGetSubjectStats(p: {
     org: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     page?: number
     perPage?: number
     direction?: "asc" | "desc"
@@ -5655,7 +5694,7 @@ export class GitHubV3RestApi {
   apiInsightsGetSummaryStats(p: {
     org: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
   }): Observable<
     | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
     | HttpResponse<unknown>
@@ -5680,7 +5719,7 @@ export class GitHubV3RestApi {
     org: string
     userId: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
   }): Observable<
     | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
     | HttpResponse<unknown>
@@ -5705,7 +5744,7 @@ export class GitHubV3RestApi {
   apiInsightsGetSummaryStatsByActor(p: {
     org: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     actorType:
       | "installations"
       | "classic_pats"
@@ -5737,7 +5776,7 @@ export class GitHubV3RestApi {
   apiInsightsGetTimeStats(p: {
     org: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
     | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
@@ -5764,7 +5803,7 @@ export class GitHubV3RestApi {
     org: string
     userId: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
     | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
@@ -5798,7 +5837,7 @@ export class GitHubV3RestApi {
       | "github_apps_user_to_server"
     actorId: number
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     timestampIncrement: string
   }): Observable<
     | (HttpResponse<t_api_insights_time_stats> & { status: 200 })
@@ -5826,7 +5865,7 @@ export class GitHubV3RestApi {
     org: string
     userId: string
     minTimestamp: string
-    maxTimestamp: string
+    maxTimestamp?: string
     page?: number
     perPage?: number
     direction?: "asc" | "desc"
@@ -23381,6 +23420,7 @@ export class GitHubV3RestApi {
     | (HttpResponse<t_basic_error> & { status: 401 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(

@@ -33,6 +33,7 @@ import {
   t_autolink,
   t_base_gist,
   t_basic_error,
+  t_billing_usage_report,
   t_blob,
   t_branch_protection,
   t_branch_restriction_policy,
@@ -2482,6 +2483,49 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async billingGetGithubBillingUsageReportOrg(
+    p: {
+      org: string
+      year?: number
+      month?: number
+      day?: number
+      hour?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_billing_usage_report>
+      | Res<400, t_scim_error>
+      | Res<403, t_basic_error>
+      | Res<500, t_basic_error>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath + `/organizations/${p["org"]}/settings/billing/usage`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      year: p["year"],
+      month: p["month"],
+      day: p["day"],
+      hour: p["hour"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
   async orgsGet(
     p: {
       org: string
@@ -2509,6 +2553,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         dependabot_alerts_enabled_for_new_repositories?: boolean
         dependabot_security_updates_enabled_for_new_repositories?: boolean
         dependency_graph_enabled_for_new_repositories?: boolean
+        deploy_keys_enabled_for_repositories?: boolean
         description?: string
         email?: string
         has_organization_projects?: boolean
@@ -5549,7 +5594,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "github_apps_user_to_server"
       actorId: number
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       page?: number
       perPage?: number
       direction?: "asc" | "desc"
@@ -5589,7 +5634,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       page?: number
       perPage?: number
       direction?: "asc" | "desc"
@@ -5626,7 +5671,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5650,7 +5695,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       userId: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5675,7 +5720,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       actorType:
         | "installations"
         | "classic_pats"
@@ -5707,7 +5752,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       timestampIncrement: string
     },
     timeout?: number,
@@ -5733,7 +5778,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       userId: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       timestampIncrement: string
     },
     timeout?: number,
@@ -5767,7 +5812,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "github_apps_user_to_server"
       actorId: number
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       timestampIncrement: string
     },
     timeout?: number,
@@ -5795,7 +5840,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       userId: string
       minTimestamp: string
-      maxTimestamp: string
+      maxTimestamp?: string
       page?: number
       perPage?: number
       direction?: "asc" | "desc"
@@ -23669,6 +23714,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       | Res<401, t_basic_error>
       | Res<403, t_basic_error>
       | Res<404, t_basic_error>
+      | Res<422, t_validation_error>
     >
   > {
     const url = this.basePath + `/user/following/${p["username"]}`

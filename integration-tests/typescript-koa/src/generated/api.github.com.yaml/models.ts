@@ -393,6 +393,7 @@ export type t_base_gist = {
   files: {
     [key: string]:
       | {
+          encoding?: string
           filename?: string
           language?: string
           raw_url?: string
@@ -422,6 +423,22 @@ export type t_basic_error = {
   message?: string
   status?: string
   url?: string
+}
+
+export type t_billing_usage_report = {
+  usageItems?: {
+    date: string
+    discountAmount: number
+    grossAmount: number
+    netAmount: number
+    organizationName: string
+    pricePerUnit: number
+    product: string
+    quantity: number
+    repositoryName?: string
+    sku: string
+    unitType: string
+  }[]
 }
 
 export type t_blob = {
@@ -1817,6 +1834,7 @@ export type t_custom_property = {
   description?: string | null
   property_name: string
   required?: boolean
+  source_type?: "organization" | "enterprise"
   url?: string
   value_type: "string" | "single_select" | "multi_select" | "true_false"
   values_editable_by?: "org_actors" | "org_and_repo_actors" | null
@@ -1992,12 +2010,12 @@ export type t_dependency_graph_diff = {
 export type t_dependency_graph_spdx_sbom = {
   sbom: {
     SPDXID: string
+    comment?: string
     creationInfo: {
       created: string
       creators: string[]
     }
     dataLicense: string
-    documentDescribes: string[]
     documentNamespace: string
     name: string
     packages: {
@@ -2016,6 +2034,11 @@ export type t_dependency_graph_spdx_sbom = {
       supplier?: string
       versionInfo?: string
     }[]
+    relationships?: {
+      relatedSpdxElement?: string
+      relationshipType?: string
+      spdxElementId?: string
+    }[]
     spdxVersion: string
   }
 }
@@ -2023,6 +2046,7 @@ export type t_dependency_graph_spdx_sbom = {
 export type t_deploy_key = {
   added_by?: string | null
   created_at: string
+  enabled?: boolean
   id: number
   key: string
   last_used?: string | null
@@ -2167,7 +2191,7 @@ export type t_enterprise = {
 
 export type t_enterprise_team = {
   created_at: string
-  group_id?: number | null
+  group_id?: string | null
   html_url: string
   id: number
   members_url: string
@@ -2489,6 +2513,7 @@ export type t_gist_simple = {
     [key: string]:
       | ({
           content?: string
+          encoding?: string
           filename?: string
           language?: string
           raw_url?: string
@@ -4096,6 +4121,7 @@ export type t_organization_full = {
   dependabot_alerts_enabled_for_new_repositories?: boolean
   dependabot_security_updates_enabled_for_new_repositories?: boolean
   dependency_graph_enabled_for_new_repositories?: boolean
+  deploy_keys_enabled_for_repositories?: boolean
   description: string | null
   disk_usage?: number | null
   email?: string
@@ -4185,6 +4211,7 @@ export type t_organization_programmatic_access_grant = {
   token_expires_at: string | null
   token_id: number
   token_last_used_at: string | null
+  token_name: string
 }
 
 export type t_organization_programmatic_access_grant_request = {
@@ -4209,15 +4236,18 @@ export type t_organization_programmatic_access_grant_request = {
   token_expires_at: string | null
   token_id: number
   token_last_used_at: string | null
+  token_name: string
 }
 
 export type t_organization_role = {
+  base_role?: "read" | "triage" | "write" | "maintain" | "admin" | null
   created_at: string
   description?: string | null
   id: number
   name: string
   organization: t_nullable_simple_user
   permissions: string[]
+  source?: "Organization" | "Enterprise" | "Predefined" | null
   updated_at: string
 }
 
@@ -4228,6 +4258,9 @@ export type t_organization_secret_scanning_alert = {
   multi_repo?: boolean | null
   number?: t_alert_number
   publicly_leaked?: boolean | null
+  push_protection_bypass_request_comment?: string | null
+  push_protection_bypass_request_html_url?: string | null
+  push_protection_bypass_request_reviewer?: t_nullable_simple_user
   push_protection_bypassed?: boolean | null
   push_protection_bypassed_at?: string | null
   push_protection_bypassed_by?: t_nullable_simple_user
@@ -5974,6 +6007,9 @@ export type t_secret_scanning_alert = {
   multi_repo?: boolean | null
   number?: t_alert_number
   publicly_leaked?: boolean | null
+  push_protection_bypass_request_comment?: string | null
+  push_protection_bypass_request_html_url?: string | null
+  push_protection_bypass_request_reviewer?: t_nullable_simple_user
   push_protection_bypassed?: boolean | null
   push_protection_bypassed_at?: string | null
   push_protection_bypassed_by?: t_nullable_simple_user
@@ -6724,6 +6760,7 @@ export type t_team_repository = {
 }
 
 export type t_team_role_assignment = {
+  assignment?: "direct" | "indirect" | "mixed"
   description: string | null
   html_url: string
   id: number
@@ -7029,6 +7066,7 @@ export type t_user_marketplace_purchase = {
 }
 
 export type t_user_role_assignment = {
+  assignment?: "direct" | "indirect" | "mixed"
   avatar_url: string
   email?: string | null
   events_url: string
@@ -7038,6 +7076,7 @@ export type t_user_role_assignment = {
   gravatar_id: string | null
   html_url: string
   id: number
+  inherited_from?: t_team_simple[]
   login: string
   name?: string | null
   node_id: string
@@ -8631,7 +8670,7 @@ export type t_ApiInsightsGetRouteStatsByActorParamSchema = {
 
 export type t_ApiInsightsGetRouteStatsByActorQuerySchema = {
   direction?: "asc" | "desc"
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   page?: number
   per_page?: number
@@ -8651,7 +8690,7 @@ export type t_ApiInsightsGetSubjectStatsParamSchema = {
 
 export type t_ApiInsightsGetSubjectStatsQuerySchema = {
   direction?: "asc" | "desc"
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   page?: number
   per_page?: number
@@ -8669,7 +8708,7 @@ export type t_ApiInsightsGetSummaryStatsParamSchema = {
 }
 
 export type t_ApiInsightsGetSummaryStatsQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
 }
 
@@ -8685,7 +8724,7 @@ export type t_ApiInsightsGetSummaryStatsByActorParamSchema = {
 }
 
 export type t_ApiInsightsGetSummaryStatsByActorQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
 }
 
@@ -8695,7 +8734,7 @@ export type t_ApiInsightsGetSummaryStatsByUserParamSchema = {
 }
 
 export type t_ApiInsightsGetSummaryStatsByUserQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
 }
 
@@ -8704,7 +8743,7 @@ export type t_ApiInsightsGetTimeStatsParamSchema = {
 }
 
 export type t_ApiInsightsGetTimeStatsQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   timestamp_increment: string
 }
@@ -8721,7 +8760,7 @@ export type t_ApiInsightsGetTimeStatsByActorParamSchema = {
 }
 
 export type t_ApiInsightsGetTimeStatsByActorQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   timestamp_increment: string
 }
@@ -8732,7 +8771,7 @@ export type t_ApiInsightsGetTimeStatsByUserParamSchema = {
 }
 
 export type t_ApiInsightsGetTimeStatsByUserQuerySchema = {
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   timestamp_increment: string
 }
@@ -8744,7 +8783,7 @@ export type t_ApiInsightsGetUserStatsParamSchema = {
 
 export type t_ApiInsightsGetUserStatsQuerySchema = {
   direction?: "asc" | "desc"
-  max_timestamp: string
+  max_timestamp?: string
   min_timestamp: string
   page?: number
   per_page?: number
@@ -8966,6 +9005,17 @@ export type t_BillingGetGithubActionsBillingOrgParamSchema = {
 
 export type t_BillingGetGithubActionsBillingUserParamSchema = {
   username: string
+}
+
+export type t_BillingGetGithubBillingUsageReportOrgParamSchema = {
+  org: string
+}
+
+export type t_BillingGetGithubBillingUsageReportOrgQuerySchema = {
+  day?: number
+  hour?: number
+  month?: number
+  year?: number
 }
 
 export type t_BillingGetGithubPackagesBillingOrgParamSchema = {
@@ -11774,6 +11824,7 @@ export type t_OrgsUpdateBodySchema = {
   dependabot_alerts_enabled_for_new_repositories?: boolean
   dependabot_security_updates_enabled_for_new_repositories?: boolean
   dependency_graph_enabled_for_new_repositories?: boolean
+  deploy_keys_enabled_for_repositories?: boolean
   description?: string
   email?: string
   has_organization_projects?: boolean
