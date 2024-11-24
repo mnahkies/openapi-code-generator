@@ -50,9 +50,9 @@ const ThemeConfig = {
   },
 
   footer: {
-    text: (
+    content: (
       <span>
-        MIT {new Date().getFullYear()} ©{" "}
+        {new Date().getFullYear()} ©{" "}
         <a
           href="https://nahkies.co.nz"
           target="_blank"

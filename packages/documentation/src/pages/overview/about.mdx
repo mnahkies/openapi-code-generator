@@ -1,21 +1,34 @@
-# About
+import {Callout} from "nextra/components"
+
+# Welcome
 
 `@nahkies/openapi-code-generator` is a CLI tool that aims to generate high quality typescript client SDK's,
 and API server scaffolding (routing, validation, serialization) from OpenAPI 3 specifications.
 
+Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/), and [TypeSpec](https://typespec.io/) are supported an input specifications.
 
-Currently, [OpenAPI 3.0](https://swagger.io/specification/v3), [OpenAPI 3.1](https://swagger.io/specification/),
-and [TypeSpec](https://typespec.io/) are supported an input specifications.
+This gives you amazing auto-complete, and compile-time safety. Typescripts expressive type system it used to
+make the generated clients feel idomatic, and as close to handwritten as possible.
 
-The following templates are supported.
+![Github API Example](/example.png)
+
+<Callout type="info">
+  Already know that code generation will save you time? Jump straight in with the [quick start guide](../getting-started/quick-start)
+</Callout>
 
 ### Server Scaffolding Templates
+Server templates handle the routing setup, request and response validation/serialization so that you
+can focus on the business logic.
+
 - [typescript-koa](../guides/server-templates/typescript-koa)
 
 ### Client SDK Templates
+Client templates give you a strongly typed interface to your remote server calls, ensuring that you
+never misspell a field name or route again.
 - [typescript-fetch](../guides/client-templates/typescript-fetch)
 - [typescript-axios](../guides/client-templates/typescript-axios)
 - [typescript-angular](../guides/client-templates/typescript-angular)
+
 
 ## Project Goal / Principals
 
@@ -39,59 +52,11 @@ The initial focus on `typescript`, with an intention to later support other lang
 is the most likely candidate for a second language.
 
 
-## Why schema first
-
-Broadly speaking there are two approaches people take to maintaining API specifications:
-- Schema first, where you write the schema by hand
-- Code first, where you generate the schema from your code
-
-This project being a code generator from API specification files is on the schema first side of the debate, but why?
-
-Ultimately this is fairly subjective, but there are four primary motivators that lead us to believe schema first
-is the better approach.
-
-#### Longevity
-[APIs are forever](https://www.allthingsdistributed.com/2016/03/10-lessons-from-10-years-of-aws.html),
-changing them in backwards incompatible ways is hard/expensive, or sometimes not possible.
-
-With that in mind, we believe it's important to be thoughtful about your API design, and
-that writing an explicit specification/contract is a great forcing function to accomplish this.
-
-Additionally, programming languages / frameworks come and go - they are an implementation detail,
-and subject to change as business requirements evolve.
-OpenAPI (originally Swagger) has been around for over a decade now, and we're confident it'll be around for a long time.
-
-#### Common Language
-Many large projects / systems will involve multiple programming languages. For example, you might have a Java backend,
-Kotlin Android app, Swift iOS app, and Typescript web frontend.
-
-For writing your API contracts using OpenAPI up front, you create a common ground for developers of all languages to discuss
-and hash out the details.
-
-#### Constraints
-Turing complete programming languages are very flexible. If you try hard enough, you can probably implement it.
-Specifications like OpenAPI on the other hand are more rigid and constraining.
-
-We believe it's better to lean into this and design your systems in ways that can be represented fully by a
-specification, rather than attempt to generate a specification from the implementation and potentially lose
-information/nuance in the process.
-
-#### Separation
-A good specification not only defines the API contract, but also includes a lot of supplementary information such as examples,
-and documentation.
-
-Generating a good specification from your code, therefore requires including all this extra metadata in the code, which
-can make the code more difficult to work with.
-
-We prefer to separate these concerns out into the specification, and keep the implementation code leaner and simpler.
-
 ## Compatibility / Completeness
-This project should be considered beta quality, and is still pre-v1.
+This project should be considered beta quality, though it's getting close to a v1 release.
 
 It does not yet handle all aspects of the OpenAPI / JSON schema specification, but *most* common
-features are implemented.
-
-In particular at the moment __only JSON__ content types are supported properly.
+features are implemented. In particular at the moment __only JSON__ content types are supported properly.
 
 You can get a sense of what works by looking at the [compatibility](./compatibility) tables, or the [Github issues](https://github.com/mnahkies/openapi-code-generator/issues) (non-exhaustive).
 However often the best way is to just try it out with your API specification and see what happens!
@@ -103,9 +68,7 @@ The [integration tests](https://github.com/mnahkies/openapi-code-generator/tree/
 There are many similar projects out there, so why should you use this one?
 
 - Strong emphasis on "human like" code output
-- Tackles the program space from both ends - client *and* server, for a single source of truth
-- Comprehensive runtime parsing/validation in addition to static compile time safety
+- Tackles the program space from both ends - client *and* server, for a **single source of truth**
+- Comprehensive **runtime parsing/validation** in addition to static compile time safety
 
 So if you want a low risk, write-once, get strong build & runtime guarantees experience then we're worth giving a try.
-
-If you're looking to achieve the minimal runtime bundle size in your web frontends, then this project probably isn't for you (try [OpenAPI TypeScript](https://openapi-ts.pages.dev/) instead).
