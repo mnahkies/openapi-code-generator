@@ -1,21 +1,12 @@
 import type {Input} from "../../core/input"
-import type {
-  IROperation,
-  IRServer,
-  IRServerVariable,
-} from "../../core/openapi-types-normalized"
+import type {IROperation} from "../../core/openapi-types-normalized"
 import {ClientOperationBuilder} from "./client-operation-builder"
+import {ClientServersBuilder} from "./client-servers-builder"
 import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import type {SchemaBuilder} from "./schema-builders/schema-builder"
 import type {TypeBuilder} from "./type-builder"
 import {quotedStringLiteral, union} from "./type-utils"
-
-class ServersBuilder implements ICompilable {
-  toCompilationUnit(): CompilationUnit {
-    throw new Error("Method not implemented.")
-  }
-}
 
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []
@@ -33,68 +24,6 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     } = {enableRuntimeResponseValidation: false, enableTypedBasePaths: true},
   ) {
     this.buildImports(imports)
-  }
-
-  serversClass() {
-    const servers = this.input.servers()
-
-    const toParams = (variables: {
-      [k: string]: IRServerVariable
-    }) => {
-      return Object.entries(variables)
-        .map(([name, variable]) => {
-          const type = union(...variable.enum)
-          return `${name}${type ? `:${type}` : ""} = "${variable.default}"`
-        })
-        .join(",")
-    }
-
-    const toReplacer = (server: IRServer) => {
-      const vars = Object.entries(server.variables)
-      return `"${server.url}"
-      ${vars.length ? vars.map(([name]) => `.replace("{${name}}", ${name})`).join("\n") : ""}`
-    }
-
-    const toSpecific = () => {
-      const urls = servers.map((it) => quotedStringLiteral(it.url))
-      return `static specific(url: ${union(urls)}){
-        switch(url) {
-          ${servers
-            .map(
-              (server) => `
-          case ${quotedStringLiteral(server.url)}:
-            return {
-              with(${toParams(server.variables)}) {
-                return ${toReplacer(server)} as ${this.exportName}Server
-              }
-            }`,
-            )
-            .join("\n")}
-        }
-      }`
-    }
-
-    const defaultServer = servers[0]
-
-    return `
-    export type Server<T> = string & {__server__: T}
-
-    export type ${this.exportName}Server = Server<"${this.exportName}Server">
-
-    export class ${this.exportName}Servers {
-      ${
-        defaultServer
-          ? `static default(${toParams(defaultServer.variables)}){
-        return ${toReplacer(defaultServer)} as ${this.exportName}Server
-        }`
-          : ""
-      }
-      ${servers.length ? toSpecific() : ""}
-      static custom(url: string){
-        return url as ${this.exportName}Server
-       }
-    }
-    `
   }
 
   basePathType() {
@@ -129,7 +58,18 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   ): string
 
   toString(): string {
-    return this.buildClient(this.exportName, this.operations)
+    const servers = new ClientServersBuilder(
+      this.filename,
+      this.exportName,
+      this.input.servers(),
+      this.imports,
+    )
+    const client = this.buildClient(this.exportName, this.operations)
+
+    return `
+    ${servers}
+    ${client}
+    `
   }
 
   toCompilationUnit(): CompilationUnit {

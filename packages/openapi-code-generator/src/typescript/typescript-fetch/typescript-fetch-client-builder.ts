@@ -109,8 +109,6 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
     const basePathType = this.basePathType()
 
     return `
-    ${this.serversClass()}
-
 export interface ${clientName}Config extends AbstractFetchClientConfig {
   ${basePathType ? `basePath: ${basePathType}` : ""}
 }
