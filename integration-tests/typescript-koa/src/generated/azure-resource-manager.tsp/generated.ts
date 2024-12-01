@@ -6,6 +6,8 @@ import {
   t_Azure_ResourceManager_CommonTypes_ErrorResponse,
   t_Employee,
   t_EmployeeListResult,
+  t_EmployeesCheckExistenceParamSchema,
+  t_EmployeesCheckExistenceQuerySchema,
   t_EmployeesCreateOrUpdateBodySchema,
   t_EmployeesCreateOrUpdateParamSchema,
   t_EmployeesCreateOrUpdateQuerySchema,
@@ -166,6 +168,30 @@ export type EmployeesDelete = (
   | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
 >
 
+export type EmployeesCheckExistenceResponder = {
+  with204(): KoaRuntimeResponse<void>
+  with404(): KoaRuntimeResponse<void>
+  withDefault(
+    status: StatusCode,
+  ): KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+} & KoaRuntimeResponder
+
+export type EmployeesCheckExistence = (
+  params: Params<
+    t_EmployeesCheckExistenceParamSchema,
+    t_EmployeesCheckExistenceQuerySchema,
+    void,
+    void
+  >,
+  respond: EmployeesCheckExistenceResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<204, void>
+  | Response<404, void>
+  | Response<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+>
+
 export type EmployeesListByResourceGroupResponder = {
   with200(): KoaRuntimeResponse<t_EmployeeListResult>
   withDefault(
@@ -238,6 +264,7 @@ export type Implementation = {
   employeesCreateOrUpdate: EmployeesCreateOrUpdate
   employeesUpdate: EmployeesUpdate
   employeesDelete: EmployeesDelete
+  employeesCheckExistence: EmployeesCheckExistence
   employeesListByResourceGroup: EmployeesListByResourceGroup
   employeesListBySubscription: EmployeesListBySubscription
   employeesMove: EmployeesMove
@@ -584,6 +611,79 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = employeesDeleteResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const employeesCheckExistenceParamSchema = z.object({
+    subscriptionId: s_Azure_Core_uuid,
+    resourceGroupName: z
+      .string()
+      .min(1)
+      .max(90)
+      .regex(new RegExp("^[-\\w\\._\\(\\)]+$")),
+    employeeName: z.string().regex(new RegExp("^[a-zA-Z0-9-]{3,24}$")),
+  })
+
+  const employeesCheckExistenceQuerySchema = z.object({
+    "api-version": z.string().min(1),
+  })
+
+  const employeesCheckExistenceResponseValidator = responseValidationFactory(
+    [
+      ["204", z.undefined()],
+      ["404", z.undefined()],
+    ],
+    s_Azure_ResourceManager_CommonTypes_ErrorResponse,
+  )
+
+  router.head(
+    "employeesCheckExistence",
+    "/subscriptions/:subscriptionId/resourceGroups/:resourceGroupName/providers/Microsoft.ContosoProviderHub/employees/:employeeName",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          employeesCheckExistenceParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          employeesCheckExistenceQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse>(
+            status,
+          )
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .employeesCheckExistence(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = employeesCheckExistenceResponseValidator(status, body)
       ctx.status = status
       return next()
     },

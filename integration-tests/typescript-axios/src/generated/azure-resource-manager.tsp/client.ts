@@ -150,6 +150,29 @@ export class ContosoProviderHubClient extends AbstractAxiosClient {
     })
   }
 
+  async employeesCheckExistence(
+    p: {
+      apiVersion: string
+      subscriptionId: t_Azure_Core_uuid
+      resourceGroupName: string
+      employeeName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ "api-version": p["apiVersion"] })
+
+    return this._request({
+      url: url + query,
+      method: "HEAD",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async employeesListByResourceGroup(
     p: {
       apiVersion: string
