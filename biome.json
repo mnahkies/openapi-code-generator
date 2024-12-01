@@ -14,7 +14,7 @@
       "integration-tests-definitions/**/*",
       "e2e/src/generated/**/*",
       "schemas/*.json",
-      "packages/*/package.json",
+      "**/package.json",
       "package.json"
     ]
   },
@@ -45,7 +45,7 @@
       "integration-tests-definitions/**/*",
       "e2e/src/generated/**/*",
       "schemas/*.json",
-      "packages/*/package.json",
+      "**/package.json",
       "package.json"
     ]
   }
