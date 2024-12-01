@@ -2,13 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { SwaggerPetstore } from "./client.service"
+import { SwaggerPetstoreService } from "./client.service"
 import { NgModule } from "@angular/core"
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
-  providers: [SwaggerPetstore],
+  providers: [SwaggerPetstoreService],
 })
-export class ApiModule {}
+export class SwaggerPetstoreModule {}
+
+export { SwaggerPetstoreModule as ApiModule }

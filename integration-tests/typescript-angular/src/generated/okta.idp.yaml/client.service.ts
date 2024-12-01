@@ -24,7 +24,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class MyAccountManagementConfig {
+export class MyAccountManagementServiceConfig {
   basePath: "https://{yourOktaDomain}" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -70,10 +70,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class MyAccountManagement {
+export class MyAccountManagementService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: MyAccountManagementConfig,
+    private readonly config: MyAccountManagementServiceConfig,
   ) {}
 
   private _headers(
@@ -853,5 +853,5 @@ export class MyAccountManagement {
   }
 }
 
-export { MyAccountManagement as ApiClient }
-export { MyAccountManagementConfig as ApiClientConfig }
+export { MyAccountManagementService as ApiClient }
+export { MyAccountManagementServiceConfig as ApiClientConfig }

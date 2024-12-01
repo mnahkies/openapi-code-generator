@@ -16,7 +16,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class ContosoProviderHubClientConfig {
+export class ContosoProviderHubClientServiceConfig {
   basePath: "https://management.azure.com" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -62,10 +62,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class ContosoProviderHubClient {
+export class ContosoProviderHubClientService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: ContosoProviderHubClientConfig,
+    private readonly config: ContosoProviderHubClientServiceConfig,
   ) {}
 
   private _headers(
@@ -315,5 +315,5 @@ export class ContosoProviderHubClient {
   }
 }
 
-export { ContosoProviderHubClient as ApiClient }
-export { ContosoProviderHubClientConfig as ApiClientConfig }
+export { ContosoProviderHubClientService as ApiClient }
+export { ContosoProviderHubClientServiceConfig as ApiClientConfig }

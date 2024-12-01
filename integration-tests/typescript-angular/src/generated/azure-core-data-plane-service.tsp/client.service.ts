@@ -24,7 +24,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class ContosoWidgetManagerConfig {
+export class ContosoWidgetManagerServiceConfig {
   basePath: "{endpoint}/widget" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -70,10 +70,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class ContosoWidgetManager {
+export class ContosoWidgetManagerService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: ContosoWidgetManagerConfig,
+    private readonly config: ContosoWidgetManagerServiceConfig,
   ) {}
 
   private _headers(
@@ -895,5 +895,5 @@ export class ContosoWidgetManager {
   }
 }
 
-export { ContosoWidgetManager as ApiClient }
-export { ContosoWidgetManagerConfig as ApiClientConfig }
+export { ContosoWidgetManagerService as ApiClient }
+export { ContosoWidgetManagerServiceConfig as ApiClientConfig }

@@ -2,13 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { StripeApi } from "./client.service"
+import { StripeApiService } from "./client.service"
 import { NgModule } from "@angular/core"
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
-  providers: [StripeApi],
+  providers: [StripeApiService],
 })
-export class ApiModule {}
+export class StripeApiModule {}
+
+export { StripeApiModule as ApiModule }
