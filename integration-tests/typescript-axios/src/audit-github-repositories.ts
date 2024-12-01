@@ -2,13 +2,13 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
+import axios, {type AxiosResponse, isAxiosError} from "axios"
 import {ApiClient} from "./generated/api.github.com.yaml/client"
-import {t_repository} from "./generated/api.github.com.yaml/models"
-import axios, {AxiosResponse, isAxiosError} from "axios"
+import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const client = new ApiClient({
   axios: axios.create({
-    headers: {Authorization: `Bearer ${process.env["GITHUB_TOKEN"]}`},
+    headers: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
   }),
   basePath: "https://api.github.com",
   defaultTimeout: 5_000,
@@ -26,7 +26,7 @@ async function main() {
   )
 
   for (const repo of sourceAndAdminRepos) {
-    console.info("auditing: " + repo.full_name)
+    console.info(`auditing: ${repo.full_name}`)
     await auditRepository(repo).catch((err) => {
       if (isAxiosError(err)) {
         console.warn("failed to audit", err.response?.data)

@@ -3,13 +3,13 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import {ApiClient} from "./generated/api.github.com.yaml/client"
-import {t_repository} from "./generated/api.github.com.yaml/models"
+import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const {writeHeapSnapshot} = require("node:v8")
 
 const client = new ApiClient({
   basePath: "https://api.github.com",
-  defaultHeaders: {Authorization: `Bearer ${process.env["GITHUB_TOKEN"]}`},
+  defaultHeaders: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
   defaultTimeout: 5_000,
 })
 
@@ -25,7 +25,7 @@ async function main() {
   )
 
   for (const repo of sourceAndAdminRepos) {
-    console.info("updating: " + repo.full_name)
+    console.info(`updating: ${repo.full_name}`)
     await updateRepoConfig(repo.owner.login, repo.name)
   }
 
@@ -54,7 +54,7 @@ async function getAllRepos(page = 1): Promise<t_repository[]> {
 
   if (res.status !== 200) {
     console.info(res)
-    throw new Error("failed to fetch repositories, page: " + page)
+    throw new Error(`failed to fetch repositories, page: ${page}`)
   }
 
   const body = await res.json()

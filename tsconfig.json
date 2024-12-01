@@ -5,9 +5,11 @@
     "sourceMap": true,
     "importHelpers": true,
     "resolveJsonModule": true,
-    // prefer eslint rule
+    // prefer linter rule
     "noUnusedLocals": false,
     "noUnusedParameters": false,
+    // incompatible with https://biomejs.dev/linter/rules/use-literal-keys/
+    "noPropertyAccessFromIndexSignature": false,
     "moduleResolution": "Node16",
     "paths": {
       "@nahkies/*": ["./packages/*/src"]

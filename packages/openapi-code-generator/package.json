@@ -28,7 +28,7 @@
     "@azure-tools/typespec-autorest": "^0.48.0",
     "@azure-tools/typespec-azure-core": "^0.48.0",
     "@azure-tools/typespec-azure-resource-manager": "^0.48.0",
-    "@azure-tools/typespec-client-generator-core": "^0.48.2",
+    "@azure-tools/typespec-client-generator-core": "^0.48.3",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.13",
     "@typespec/compiler": "^0.62.0",
@@ -56,11 +56,11 @@
     "zod": "^3.23.8"
   },
   "peerDependencies": {
-    "@typespec/compiler": "^0.61.0",
-    "@typespec/http": "^0.61.0",
-    "@typespec/openapi": "^0.61.0",
-    "@typespec/openapi3": "^0.61.0",
-    "@typespec/versioning": "^0.61.0"
+    "@typespec/compiler": "^0.62.0",
+    "@typespec/http": "^0.62.0",
+    "@typespec/openapi": "^0.62.0",
+    "@typespec/openapi3": "^0.62.0",
+    "@typespec/versioning": "^0.62.0"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {
