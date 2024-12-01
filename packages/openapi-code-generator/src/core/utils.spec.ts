@@ -1,6 +1,7 @@
 import {describe, expect, it} from "@jest/globals"
 import {
   camelCase,
+  coalesce,
   kebabCase,
   mediaTypeToIdentifier,
   normalizeFilename,
@@ -9,6 +10,23 @@ import {
 } from "./utils"
 
 describe("core/utils", () => {
+  describe("#coalesce", () => {
+    it("returns the first defined parameter", () => {
+      expect(coalesce(null, undefined, 1, 2)).toBe(1)
+    })
+    it("returns 0 when it is the first defined parameter", () => {
+      expect(coalesce(null, undefined, 0, 2)).toBe(0)
+    })
+    it("returns '' when it is the first defined parameter", () => {
+      expect(coalesce(null, undefined, "", "foo")).toBe("")
+    })
+    it("throws if no parameters are defined", () => {
+      expect(() => coalesce(null, undefined)).toThrow(
+        "all arguments are null or undefined",
+      )
+    })
+  })
+
   describe("#titleCase", () => {
     it.each([
       ["single", "Single"],

@@ -9,6 +9,7 @@ import type {
   RequestBody,
   Responses,
   Schema,
+  Server,
   xInternalPreproccess,
 } from "./openapi-types"
 import type {
@@ -24,11 +25,13 @@ import type {
   IRPreprocess,
   IRRef,
   IRResponse,
+  IRServer,
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 import {
   camelCase,
+  coalesce,
   deepEqual,
   isHttpMethod,
   mediaTypeToIdentifier,
@@ -48,7 +51,7 @@ export class Input {
   }
 
   servers() {
-    return this.loader.entryPoint.servers?.filter((it) => it.url) ?? []
+    return this.normalizeServers(coalesce(this.loader.entryPoint.servers, []))
   }
 
   allSchemas(): Record<string, IRModel> {
@@ -129,6 +132,14 @@ export class Input {
           ...additionalAttributes,
           route,
           method,
+          servers: this.normalizeServers(
+            coalesce(
+              definition.servers,
+              paths.servers,
+              this.loader.entryPoint.servers,
+              [],
+            ),
+          ),
           parameters: params.concat(
             this.normalizeParameters(definition.parameters),
           ),
@@ -214,6 +225,16 @@ export class Input {
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
+  }
+
+  private normalizeServers(servers: Server[]): IRServer[] {
+    return servers
+      .filter((it) => it.url)
+      .map((it) => ({
+        url: it.url,
+        description: it.description,
+        variables: it.variables ?? {},
+      }))
   }
 
   private normalizeRequestBodyObject(

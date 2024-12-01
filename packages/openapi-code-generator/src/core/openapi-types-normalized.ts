@@ -1,3 +1,4 @@
+import {ServerVariable} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -99,6 +100,20 @@ export type IRModel =
 
 export type MaybeIRModel = IRModel | IRRef
 
+export interface IRServer {
+  url: string
+  description: string | undefined
+  variables: {
+    [k: string]: IRServerVariable
+  }
+}
+
+export interface IRServerVariable {
+  enum?: string[]
+  default: string
+  description?: string
+}
+
 export interface IRParameter {
   name: string
   in: "path" | "query" | "header" | "cookie" | "body"
@@ -125,6 +140,7 @@ export interface IROperation {
   summary: string | undefined
   description: string | undefined
   deprecated: boolean
+  servers: IRServer[]
 }
 
 export interface IRRequestBody {
