@@ -28,6 +28,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class ContosoWidgetManagerServers {
+  "{endpoint}/widget"(endpoint: string = "") {
+    return "{endpoint}/widget".replace("{endpoint}", endpoint)
+  }
+}
+
 export interface ContosoWidgetManagerConfig extends AbstractFetchClientConfig {
   basePath: "{endpoint}/widget" | string
 }

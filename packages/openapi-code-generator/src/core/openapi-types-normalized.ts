@@ -109,9 +109,9 @@ export interface IRServer {
 }
 
 export interface IRServerVariable {
-  enum?: string[]
+  enum: string[]
   default: string
-  description?: string
+  description: string | undefined
 }
 
 export interface IRParameter {

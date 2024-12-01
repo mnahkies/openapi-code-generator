@@ -27,6 +27,15 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class MyAccountManagementServers {
+  "https://{yourOktaDomain}"(yourOktaDomain: string = "subdomain.okta.com") {
+    return "https://{yourOktaDomain}".replace(
+      "{yourOktaDomain}",
+      yourOktaDomain,
+    )
+  }
+}
+
 export interface MyAccountManagementConfig extends AbstractFetchClientConfig {
   basePath: "https://{yourOktaDomain}" | string
 }

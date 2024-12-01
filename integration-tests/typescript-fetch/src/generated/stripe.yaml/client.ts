@@ -170,6 +170,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class StripeApiServers {
+  "https://api.stripe.com/"() {
+    return "https://api.stripe.com/"
+  }
+}
+
 export interface StripeApiConfig extends AbstractFetchClientConfig {
   basePath: "https://api.stripe.com/" | string
 }

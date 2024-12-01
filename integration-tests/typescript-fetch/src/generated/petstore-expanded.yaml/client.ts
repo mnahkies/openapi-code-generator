@@ -11,6 +11,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class SwaggerPetstoreServers {
+  "https://petstore.swagger.io/v2"() {
+    return "https://petstore.swagger.io/v2"
+  }
+}
+
 export interface SwaggerPetstoreConfig extends AbstractFetchClientConfig {
   basePath: "https://petstore.swagger.io/v2" | string
 }

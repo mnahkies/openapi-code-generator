@@ -323,6 +323,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class GitHubV3RestApiServers {
+  "https://api.github.com"() {
+    return "https://api.github.com"
+  }
+}
+
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
   basePath: "https://api.github.com" | string
 }

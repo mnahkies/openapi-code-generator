@@ -18,6 +18,8 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class TodoListsExampleApiServers {}
+
 export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {}
 
 export class TodoListsExampleApi extends AbstractFetchClient {

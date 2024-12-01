@@ -20,6 +20,12 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class ContosoProviderHubClientServers {
+  "https://management.azure.com"() {
+    return "https://management.azure.com"
+  }
+}
+
 export interface ContosoProviderHubClientConfig
   extends AbstractFetchClientConfig {
   basePath: "https://management.azure.com" | string

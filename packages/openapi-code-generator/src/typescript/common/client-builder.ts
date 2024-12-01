@@ -25,6 +25,32 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     this.buildImports(imports)
   }
 
+  serversClass() {
+    const servers = this.input.servers()
+
+    return `
+    export class ${this.exportName}Servers {
+       ${servers
+         .map((server) => {
+           const vars = Object.entries(server.variables)
+
+           const params = vars
+             .map(
+               ([name, variable]) =>
+                 `${name}: ${union(...variable.enum, "string")} = "${variable.default}"`,
+             )
+             .join(",")
+
+           return `"${server.url}"(${params}){
+      return "${server.url}"
+      ${vars.length ? vars.map(([name]) => `.replace("{${name}}", ${name})`).join("\n") : ""}
+      }`
+         })
+         .join("\n")}
+    }
+    `
+  }
+
   basePathType() {
     const serverUrls = this.input
       .servers()

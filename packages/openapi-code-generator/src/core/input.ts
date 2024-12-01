@@ -26,6 +26,7 @@ import type {
   IRRef,
   IRResponse,
   IRServer,
+  IRServerVariable,
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
@@ -46,11 +47,12 @@ export class Input {
     readonly config: {extractInlineSchemas: boolean},
   ) {}
 
-  name() {
+  name(): string {
     return this.loader.entryPoint.info.title
   }
 
-  servers() {
+  servers(): IRServer[] {
+    // todo: default of `{url: "/"}` where `/` is resolved relative to base path when generating from http specification
     return this.normalizeServers(coalesce(this.loader.entryPoint.servers, []))
   }
 
@@ -233,7 +235,16 @@ export class Input {
       .map((it) => ({
         url: it.url,
         description: it.description,
-        variables: it.variables ?? {},
+        variables: Object.fromEntries(
+          Object.entries(it.variables ?? {}).map(([key, value]) => [
+            key,
+            {
+              enum: value.enum ?? [],
+              default: value.default,
+              description: value.description,
+            } satisfies IRServerVariable,
+          ]),
+        ),
       }))
   }
 

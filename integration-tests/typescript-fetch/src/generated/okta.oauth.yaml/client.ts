@@ -41,6 +41,15 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class OktaOpenIdConnectOAuth20Servers {
+  "https://{yourOktaDomain}"(yourOktaDomain: string = "subdomain.okta.com") {
+    return "https://{yourOktaDomain}".replace(
+      "{yourOktaDomain}",
+      yourOktaDomain,
+    )
+  }
+}
+
 export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
   basePath: "https://{yourOktaDomain}" | string
