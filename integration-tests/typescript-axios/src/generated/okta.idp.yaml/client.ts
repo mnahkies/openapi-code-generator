@@ -22,10 +22,9 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type MyAccountManagementServer = Server<"MyAccountManagementServer">
 
@@ -61,7 +60,7 @@ export class MyAccountManagementServers {
 }
 
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: MyAccountManagementServer
 }
 
 export class MyAccountManagement extends AbstractAxiosClient {

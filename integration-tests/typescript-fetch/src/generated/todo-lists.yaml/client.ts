@@ -18,16 +18,6 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export type Server<T> = string & { __server__: T }
-
-export type TodoListsExampleApiServer = Server<"TodoListsExampleApiServer">
-
-export class TodoListsExampleApiServers {
-  static custom(url: string): TodoListsExampleApiServer {
-    return url as TodoListsExampleApiServer
-  }
-}
-
 export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {}
 
 export class TodoListsExampleApi extends AbstractFetchClient {

@@ -24,11 +24,10 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type ContosoWidgetManagerServer = Server<"ContosoWidgetManagerServer">
 
@@ -60,7 +59,7 @@ export class ContosoWidgetManagerServers {
 }
 
 export interface ContosoWidgetManagerConfig extends AbstractFetchClientConfig {
-  basePath: "{endpoint}/widget" | string
+  basePath: ContosoWidgetManagerServer
 }
 
 export class ContosoWidgetManager extends AbstractFetchClient {

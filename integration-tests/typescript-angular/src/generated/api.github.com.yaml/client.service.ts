@@ -320,8 +320,6 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type Server<T> = string & { __server__: T }
-
 export type GitHubV3RestApiServiceServer =
   Server<"GitHubV3RestApiServiceServer">
 
@@ -347,7 +345,8 @@ export class GitHubV3RestApiServiceServers {
 }
 
 export class GitHubV3RestApiServiceConfig {
-  basePath: "https://api.github.com" | string = ""
+  basePath: GitHubV3RestApiServiceServer =
+    GitHubV3RestApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -388,6 +387,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

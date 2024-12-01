@@ -16,11 +16,10 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type ContosoProviderHubClientServer =
   Server<"ContosoProviderHubClientServer">
@@ -48,7 +47,7 @@ export class ContosoProviderHubClientServers {
 
 export interface ContosoProviderHubClientConfig
   extends AbstractFetchClientConfig {
-  basePath: "https://management.azure.com" | string
+  basePath: ContosoProviderHubClientServer
 }
 
 export class ContosoProviderHubClient extends AbstractFetchClient {

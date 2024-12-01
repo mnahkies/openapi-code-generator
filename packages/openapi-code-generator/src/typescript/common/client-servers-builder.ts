@@ -45,7 +45,7 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   private toSpecific() {
-    if (!this.servers.length) {
+    if (!this.hasServers) {
       return ""
     }
 
@@ -68,6 +68,10 @@ export class ClientServersBuilder implements ICompilable {
       }`
   }
 
+  get hasServers() {
+    return this.servers.length > 0
+  }
+
   get classExportName(): string {
     return `${this.name}Servers`
   }
@@ -76,9 +80,11 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   toString() {
-    return `
-    export type Server<T> = string & {__server__: T}
+    if (!this.hasServers) {
+      return ""
+    }
 
+    return `
     export type ${this.typeExportName} = Server<"${this.typeExportName}">
 
     export class ${this.classExportName} {

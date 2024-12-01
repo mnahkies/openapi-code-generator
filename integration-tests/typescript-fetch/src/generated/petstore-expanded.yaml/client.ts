@@ -7,11 +7,10 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type SwaggerPetstoreServer = Server<"SwaggerPetstoreServer">
 
@@ -37,7 +36,7 @@ export class SwaggerPetstoreServers {
 }
 
 export interface SwaggerPetstoreConfig extends AbstractFetchClientConfig {
-  basePath: "https://petstore.swagger.io/v2" | string
+  basePath: SwaggerPetstoreServer
 }
 
 export class SwaggerPetstore extends AbstractFetchClient {

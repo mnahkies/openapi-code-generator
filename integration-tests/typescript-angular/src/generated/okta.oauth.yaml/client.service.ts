@@ -38,8 +38,6 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type Server<T> = string & { __server__: T }
-
 export type OktaOpenIdConnectOAuth20ServiceServer =
   Server<"OktaOpenIdConnectOAuth20ServiceServer">
 
@@ -75,7 +73,8 @@ export class OktaOpenIdConnectOAuth20ServiceServers {
 }
 
 export class OktaOpenIdConnectOAuth20ServiceConfig {
-  basePath: "https://{yourOktaDomain}" | string = ""
+  basePath: OktaOpenIdConnectOAuth20ServiceServer =
+    OktaOpenIdConnectOAuth20ServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -116,6 +115,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

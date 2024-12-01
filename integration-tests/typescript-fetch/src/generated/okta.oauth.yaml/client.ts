@@ -38,10 +38,9 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type OktaOpenIdConnectOAuth20Server =
   Server<"OktaOpenIdConnectOAuth20Server">
@@ -79,7 +78,7 @@ export class OktaOpenIdConnectOAuth20Servers {
 
 export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: OktaOpenIdConnectOAuth20Server
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {

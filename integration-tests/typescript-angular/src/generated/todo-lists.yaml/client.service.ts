@@ -12,17 +12,6 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type Server<T> = string & { __server__: T }
-
-export type TodoListsExampleApiServiceServer =
-  Server<"TodoListsExampleApiServiceServer">
-
-export class TodoListsExampleApiServiceServers {
-  static custom(url: string): TodoListsExampleApiServiceServer {
-    return url as TodoListsExampleApiServiceServer
-  }
-}
-
 export class TodoListsExampleApiServiceConfig {
   basePath: string = ""
   defaultHeaders: Record<string, string> = {}
@@ -65,6 +54,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

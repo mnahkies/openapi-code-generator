@@ -11,6 +11,8 @@ import {quotedStringLiteral, union} from "./type-utils"
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []
 
+  protected readonly clientServersBuilder: ClientServersBuilder
+
   constructor(
     public readonly filename: string,
     public readonly exportName: string,
@@ -24,15 +26,21 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     } = {enableRuntimeResponseValidation: false, enableTypedBasePaths: true},
   ) {
     this.buildImports(imports)
+
+    this.clientServersBuilder = new ClientServersBuilder(
+      this.filename,
+      this.exportName,
+      this.input.servers(),
+      this.imports,
+    )
   }
 
   basePathType() {
-    const serverUrls = this.input
-      .servers()
-      .map((it) => quotedStringLiteral(it.url))
-
-    if (this.config.enableTypedBasePaths && serverUrls.length > 0) {
-      return union(...serverUrls, "string")
+    if (
+      this.config.enableTypedBasePaths &&
+      this.clientServersBuilder.hasServers
+    ) {
+      return this.clientServersBuilder.typeExportName
     }
 
     return ""
@@ -58,16 +66,10 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   ): string
 
   toString(): string {
-    const servers = new ClientServersBuilder(
-      this.filename,
-      this.exportName,
-      this.input.servers(),
-      this.imports,
-    )
     const client = this.buildClient(this.exportName, this.operations)
 
     return `
-    ${servers}
+    ${this.clientServersBuilder}
     ${client}
     `
   }

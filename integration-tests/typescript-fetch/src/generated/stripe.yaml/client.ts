@@ -166,11 +166,10 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type StripeApiServer = Server<"StripeApiServer">
 
@@ -196,7 +195,7 @@ export class StripeApiServers {
 }
 
 export interface StripeApiConfig extends AbstractFetchClientConfig {
-  basePath: "https://api.stripe.com/" | string
+  basePath: StripeApiServer
 }
 
 export class StripeApi extends AbstractFetchClient {

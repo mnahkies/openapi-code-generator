@@ -13,6 +13,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .add(
         "AbstractFetchClientConfig",
         "AbstractFetchClient",
+        "Server",
         "Res",
         "TypedFetchResponse",
         "StatusCode2xx",

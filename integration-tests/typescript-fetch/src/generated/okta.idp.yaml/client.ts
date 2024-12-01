@@ -24,10 +24,9 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type MyAccountManagementServer = Server<"MyAccountManagementServer">
 
@@ -63,7 +62,7 @@ export class MyAccountManagementServers {
 }
 
 export interface MyAccountManagementConfig extends AbstractFetchClientConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: MyAccountManagementServer
 }
 
 export class MyAccountManagement extends AbstractFetchClient {

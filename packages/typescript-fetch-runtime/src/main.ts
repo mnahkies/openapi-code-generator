@@ -35,6 +35,8 @@ export type TypedFetchResponse<R extends Res<StatusCode, unknown>> = Promise<
   Omit<Response, "json" | "status"> & R
 >
 
+export type Server<T> = string & {__server__: T}
+
 export interface AbstractFetchClientConfig {
   basePath: string
   defaultHeaders: Record<string, string>

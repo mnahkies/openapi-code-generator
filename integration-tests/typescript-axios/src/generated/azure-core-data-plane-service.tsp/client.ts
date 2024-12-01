@@ -22,10 +22,9 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type ContosoWidgetManagerServer = Server<"ContosoWidgetManagerServer">
 
@@ -57,7 +56,7 @@ export class ContosoWidgetManagerServers {
 }
 
 export interface ContosoWidgetManagerConfig extends AbstractAxiosConfig {
-  basePath: "{endpoint}/widget" | string
+  basePath: ContosoWidgetManagerServer
 }
 
 export class ContosoWidgetManager extends AbstractAxiosClient {

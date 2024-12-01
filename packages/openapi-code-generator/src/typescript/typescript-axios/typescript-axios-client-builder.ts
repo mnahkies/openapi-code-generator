@@ -8,7 +8,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-axios-runtime/main")
-      .add("AbstractAxiosConfig", "AbstractAxiosClient")
+      .add("AbstractAxiosConfig", "AbstractAxiosClient", "Server")
 
     imports.from("axios").all("axios")
 

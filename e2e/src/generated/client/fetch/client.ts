@@ -14,8 +14,6 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export class E2ETestClientServers {}
-
 export interface E2ETestClientConfig extends AbstractFetchClientConfig {}
 
 export class E2ETestClient extends AbstractFetchClient {

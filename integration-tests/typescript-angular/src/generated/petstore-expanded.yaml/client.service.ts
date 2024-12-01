@@ -7,8 +7,6 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type Server<T> = string & { __server__: T }
-
 export type SwaggerPetstoreServiceServer =
   Server<"SwaggerPetstoreServiceServer">
 
@@ -34,7 +32,8 @@ export class SwaggerPetstoreServiceServers {
 }
 
 export class SwaggerPetstoreServiceConfig {
-  basePath: "https://petstore.swagger.io/v2" | string = ""
+  basePath: SwaggerPetstoreServiceServer =
+    SwaggerPetstoreServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -75,6 +74,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

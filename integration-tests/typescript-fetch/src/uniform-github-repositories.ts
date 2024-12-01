@@ -2,13 +2,16 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-import {ApiClient} from "./generated/api.github.com.yaml/client"
+import {
+  ApiClient,
+  GitHubV3RestApiServers,
+} from "./generated/api.github.com.yaml/client"
 import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const {writeHeapSnapshot} = require("node:v8")
 
 const client = new ApiClient({
-  basePath: "https://api.github.com",
+  basePath: GitHubV3RestApiServers.default(),
   defaultHeaders: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
   defaultTimeout: 5_000,
 })

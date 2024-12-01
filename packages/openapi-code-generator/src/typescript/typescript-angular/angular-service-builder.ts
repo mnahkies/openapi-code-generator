@@ -72,7 +72,7 @@ return this.httpClient.request<any>(
 
     return `
 export class ${clientName}Config {
-  basePath: ${basePathType ? basePathType : "string"} = ''
+  basePath: ${basePathType ? basePathType : "string"} = ${this.clientServersBuilder.hasServers ? `${this.clientServersBuilder.classExportName}.default()` : "''"}
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -113,6 +113,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & {__server__: T}
 
 @Injectable({
   providedIn: 'root'

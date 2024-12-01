@@ -24,8 +24,6 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type Server<T> = string & { __server__: T }
-
 export type MyAccountManagementServiceServer =
   Server<"MyAccountManagementServiceServer">
 
@@ -61,7 +59,8 @@ export class MyAccountManagementServiceServers {
 }
 
 export class MyAccountManagementServiceConfig {
-  basePath: "https://{yourOktaDomain}" | string = ""
+  basePath: MyAccountManagementServiceServer =
+    MyAccountManagementServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -102,6 +101,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

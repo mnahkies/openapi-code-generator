@@ -6,10 +6,9 @@ import { t_NewPet, t_Pet } from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type SwaggerPetstoreServer = Server<"SwaggerPetstoreServer">
 
@@ -35,7 +34,7 @@ export class SwaggerPetstoreServers {
 }
 
 export interface SwaggerPetstoreConfig extends AbstractAxiosConfig {
-  basePath: "https://petstore.swagger.io/v2" | string
+  basePath: SwaggerPetstoreServer
 }
 
 export class SwaggerPetstore extends AbstractAxiosClient {

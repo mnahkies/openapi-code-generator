@@ -314,10 +314,9 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type GitHubV3RestApiServer = Server<"GitHubV3RestApiServer">
 
@@ -343,7 +342,7 @@ export class GitHubV3RestApiServers {
 }
 
 export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
-  basePath: "https://api.github.com" | string
+  basePath: GitHubV3RestApiServer
 }
 
 export class GitHubV3RestApi extends AbstractAxiosClient {

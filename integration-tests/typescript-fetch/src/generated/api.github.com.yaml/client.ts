@@ -320,10 +320,9 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
-
-export type Server<T> = string & { __server__: T }
 
 export type GitHubV3RestApiServer = Server<"GitHubV3RestApiServer">
 
@@ -349,7 +348,7 @@ export class GitHubV3RestApiServers {
 }
 
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
-  basePath: "https://api.github.com" | string
+  basePath: GitHubV3RestApiServer
 }
 
 export class GitHubV3RestApi extends AbstractFetchClient {

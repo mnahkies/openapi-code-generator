@@ -14,10 +14,9 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type ContosoProviderHubClientServer =
   Server<"ContosoProviderHubClientServer">
@@ -44,7 +43,7 @@ export class ContosoProviderHubClientServers {
 }
 
 export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
-  basePath: "https://management.azure.com" | string
+  basePath: ContosoProviderHubClientServer
 }
 
 export class ContosoProviderHubClient extends AbstractAxiosClient {

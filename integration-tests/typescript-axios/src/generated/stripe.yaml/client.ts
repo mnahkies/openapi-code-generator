@@ -164,10 +164,9 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
-
-export type Server<T> = string & { __server__: T }
 
 export type StripeApiServer = Server<"StripeApiServer">
 
@@ -193,7 +192,7 @@ export class StripeApiServers {
 }
 
 export interface StripeApiConfig extends AbstractAxiosConfig {
-  basePath: "https://api.stripe.com/" | string
+  basePath: StripeApiServer
 }
 
 export class StripeApi extends AbstractAxiosClient {

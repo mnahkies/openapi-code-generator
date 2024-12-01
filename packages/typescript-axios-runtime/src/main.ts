@@ -55,6 +55,8 @@ export type HeaderParams =
   | [string, string | number | undefined | null][]
   | Headers
 
+export type Server<T> = string & {__server__: T}
+
 export interface AbstractAxiosConfig {
   axios?: AxiosInstance
   basePath: string
