@@ -167,6 +167,31 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type StripeApiServer = Server<"StripeApiServer">
+
+export class StripeApiServers {
+  static default(): StripeApiServer {
+    return "https://api.stripe.com/" as StripeApiServer
+  }
+
+  static specific(url: "https://api.stripe.com/") {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          with(): StripeApiServer {
+            return "https://api.stripe.com/" as StripeApiServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): StripeApiServer {
+    return url as StripeApiServer
+  }
+}
+
 export interface StripeApiConfig extends AbstractAxiosConfig {
   basePath: "https://api.stripe.com/" | string
 }

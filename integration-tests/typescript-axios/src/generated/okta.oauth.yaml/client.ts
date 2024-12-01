@@ -38,6 +38,42 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type OktaOpenIdConnectOAuth20Server =
+  Server<"OktaOpenIdConnectOAuth20Server">
+
+export class OktaOpenIdConnectOAuth20Servers {
+  static default(
+    yourOktaDomain = "subdomain.okta.com",
+  ): OktaOpenIdConnectOAuth20Server {
+    return "https://{yourOktaDomain}".replace(
+      "{yourOktaDomain}",
+      yourOktaDomain,
+    ) as OktaOpenIdConnectOAuth20Server
+  }
+
+  static specific(url: "https://{yourOktaDomain}") {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          with(
+            yourOktaDomain = "subdomain.okta.com",
+          ): OktaOpenIdConnectOAuth20Server {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as OktaOpenIdConnectOAuth20Server
+          },
+        }
+    }
+  }
+
+  static custom(url: string): OktaOpenIdConnectOAuth20Server {
+    return url as OktaOpenIdConnectOAuth20Server
+  }
+}
+
 export interface OktaOpenIdConnectOAuth20Config extends AbstractAxiosConfig {
   basePath: "https://{yourOktaDomain}" | string
 }

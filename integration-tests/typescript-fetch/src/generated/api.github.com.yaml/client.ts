@@ -323,9 +323,28 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export type Server<T> = string & { __server__: T }
+
+export type GitHubV3RestApiServer = Server<"GitHubV3RestApiServer">
+
 export class GitHubV3RestApiServers {
-  "https://api.github.com"() {
-    return "https://api.github.com"
+  static default(): GitHubV3RestApiServer {
+    return "https://api.github.com" as GitHubV3RestApiServer
+  }
+
+  static specific(url: "https://api.github.com") {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          with(): GitHubV3RestApiServer {
+            return "https://api.github.com" as GitHubV3RestApiServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): GitHubV3RestApiServer {
+    return url as GitHubV3RestApiServer
   }
 }
 

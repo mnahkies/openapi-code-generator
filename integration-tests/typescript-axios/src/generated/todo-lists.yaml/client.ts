@@ -9,6 +9,16 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type TodoListsExampleApiServer = Server<"TodoListsExampleApiServer">
+
+export class TodoListsExampleApiServers {
+  static custom(url: string): TodoListsExampleApiServer {
+    return url as TodoListsExampleApiServer
+  }
+}
+
 export interface TodoListsExampleApiConfig extends AbstractAxiosConfig {}
 
 export class TodoListsExampleApi extends AbstractAxiosClient {

@@ -25,6 +25,37 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoWidgetManagerServer = Server<"ContosoWidgetManagerServer">
+
+export class ContosoWidgetManagerServers {
+  static default(endpoint = ""): ContosoWidgetManagerServer {
+    return "{endpoint}/widget".replace(
+      "{endpoint}",
+      endpoint,
+    ) as ContosoWidgetManagerServer
+  }
+
+  static specific(url: "{endpoint}/widget") {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          with(endpoint = ""): ContosoWidgetManagerServer {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as ContosoWidgetManagerServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoWidgetManagerServer {
+    return url as ContosoWidgetManagerServer
+  }
+}
+
 export interface ContosoWidgetManagerConfig extends AbstractAxiosConfig {
   basePath: "{endpoint}/widget" | string
 }

@@ -38,6 +38,42 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export type Server<T> = string & { __server__: T }
+
+export type OktaOpenIdConnectOAuth20ServiceServer =
+  Server<"OktaOpenIdConnectOAuth20ServiceServer">
+
+export class OktaOpenIdConnectOAuth20ServiceServers {
+  static default(
+    yourOktaDomain = "subdomain.okta.com",
+  ): OktaOpenIdConnectOAuth20ServiceServer {
+    return "https://{yourOktaDomain}".replace(
+      "{yourOktaDomain}",
+      yourOktaDomain,
+    ) as OktaOpenIdConnectOAuth20ServiceServer
+  }
+
+  static specific(url: "https://{yourOktaDomain}") {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          with(
+            yourOktaDomain = "subdomain.okta.com",
+          ): OktaOpenIdConnectOAuth20ServiceServer {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as OktaOpenIdConnectOAuth20ServiceServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): OktaOpenIdConnectOAuth20ServiceServer {
+    return url as OktaOpenIdConnectOAuth20ServiceServer
+  }
+}
+
 export class OktaOpenIdConnectOAuth20ServiceConfig {
   basePath: "https://{yourOktaDomain}" | string = ""
   defaultHeaders: Record<string, string> = {}

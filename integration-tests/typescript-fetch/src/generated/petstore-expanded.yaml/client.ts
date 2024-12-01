@@ -11,9 +11,28 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export type Server<T> = string & { __server__: T }
+
+export type SwaggerPetstoreServer = Server<"SwaggerPetstoreServer">
+
 export class SwaggerPetstoreServers {
-  "https://petstore.swagger.io/v2"() {
-    return "https://petstore.swagger.io/v2"
+  static default(): SwaggerPetstoreServer {
+    return "https://petstore.swagger.io/v2" as SwaggerPetstoreServer
+  }
+
+  static specific(url: "https://petstore.swagger.io/v2") {
+    switch (url) {
+      case "https://petstore.swagger.io/v2":
+        return {
+          with(): SwaggerPetstoreServer {
+            return "https://petstore.swagger.io/v2" as SwaggerPetstoreServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): SwaggerPetstoreServer {
+    return url as SwaggerPetstoreServer
   }
 }
 

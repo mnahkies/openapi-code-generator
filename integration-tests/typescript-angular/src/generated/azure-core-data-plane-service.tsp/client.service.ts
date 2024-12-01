@@ -24,6 +24,38 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoWidgetManagerServiceServer =
+  Server<"ContosoWidgetManagerServiceServer">
+
+export class ContosoWidgetManagerServiceServers {
+  static default(endpoint = ""): ContosoWidgetManagerServiceServer {
+    return "{endpoint}/widget".replace(
+      "{endpoint}",
+      endpoint,
+    ) as ContosoWidgetManagerServiceServer
+  }
+
+  static specific(url: "{endpoint}/widget") {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          with(endpoint = ""): ContosoWidgetManagerServiceServer {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as ContosoWidgetManagerServiceServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoWidgetManagerServiceServer {
+    return url as ContosoWidgetManagerServiceServer
+  }
+}
+
 export class ContosoWidgetManagerServiceConfig {
   basePath: "{endpoint}/widget" | string = ""
   defaultHeaders: Record<string, string> = {}

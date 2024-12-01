@@ -317,6 +317,31 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type GitHubV3RestApiServer = Server<"GitHubV3RestApiServer">
+
+export class GitHubV3RestApiServers {
+  static default(): GitHubV3RestApiServer {
+    return "https://api.github.com" as GitHubV3RestApiServer
+  }
+
+  static specific(url: "https://api.github.com") {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          with(): GitHubV3RestApiServer {
+            return "https://api.github.com" as GitHubV3RestApiServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): GitHubV3RestApiServer {
+    return url as GitHubV3RestApiServer
+  }
+}
+
 export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
   basePath: "https://api.github.com" | string
 }

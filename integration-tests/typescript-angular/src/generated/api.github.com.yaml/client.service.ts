@@ -320,6 +320,32 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export type Server<T> = string & { __server__: T }
+
+export type GitHubV3RestApiServiceServer =
+  Server<"GitHubV3RestApiServiceServer">
+
+export class GitHubV3RestApiServiceServers {
+  static default(): GitHubV3RestApiServiceServer {
+    return "https://api.github.com" as GitHubV3RestApiServiceServer
+  }
+
+  static specific(url: "https://api.github.com") {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          with(): GitHubV3RestApiServiceServer {
+            return "https://api.github.com" as GitHubV3RestApiServiceServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): GitHubV3RestApiServiceServer {
+    return url as GitHubV3RestApiServiceServer
+  }
+}
+
 export class GitHubV3RestApiServiceConfig {
   basePath: "https://api.github.com" | string = ""
   defaultHeaders: Record<string, string> = {}

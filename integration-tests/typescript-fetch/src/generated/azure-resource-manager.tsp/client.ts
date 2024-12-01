@@ -20,9 +20,29 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoProviderHubClientServer =
+  Server<"ContosoProviderHubClientServer">
+
 export class ContosoProviderHubClientServers {
-  "https://management.azure.com"() {
-    return "https://management.azure.com"
+  static default(): ContosoProviderHubClientServer {
+    return "https://management.azure.com" as ContosoProviderHubClientServer
+  }
+
+  static specific(url: "https://management.azure.com") {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          with(): ContosoProviderHubClientServer {
+            return "https://management.azure.com" as ContosoProviderHubClientServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoProviderHubClientServer {
+    return url as ContosoProviderHubClientServer
   }
 }
 

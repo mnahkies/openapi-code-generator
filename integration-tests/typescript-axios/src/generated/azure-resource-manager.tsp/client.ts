@@ -17,6 +17,32 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoProviderHubClientServer =
+  Server<"ContosoProviderHubClientServer">
+
+export class ContosoProviderHubClientServers {
+  static default(): ContosoProviderHubClientServer {
+    return "https://management.azure.com" as ContosoProviderHubClientServer
+  }
+
+  static specific(url: "https://management.azure.com") {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          with(): ContosoProviderHubClientServer {
+            return "https://management.azure.com" as ContosoProviderHubClientServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoProviderHubClientServer {
+    return url as ContosoProviderHubClientServer
+  }
+}
+
 export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
   basePath: "https://management.azure.com" | string
 }

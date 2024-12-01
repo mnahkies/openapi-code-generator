@@ -28,9 +28,34 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoWidgetManagerServer = Server<"ContosoWidgetManagerServer">
+
 export class ContosoWidgetManagerServers {
-  "{endpoint}/widget"(endpoint: string = "") {
-    return "{endpoint}/widget".replace("{endpoint}", endpoint)
+  static default(endpoint = ""): ContosoWidgetManagerServer {
+    return "{endpoint}/widget".replace(
+      "{endpoint}",
+      endpoint,
+    ) as ContosoWidgetManagerServer
+  }
+
+  static specific(url: "{endpoint}/widget") {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          with(endpoint = ""): ContosoWidgetManagerServer {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as ContosoWidgetManagerServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoWidgetManagerServer {
+    return url as ContosoWidgetManagerServer
   }
 }
 

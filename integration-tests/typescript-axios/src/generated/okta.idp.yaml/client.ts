@@ -25,6 +25,41 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export type Server<T> = string & { __server__: T }
+
+export type MyAccountManagementServer = Server<"MyAccountManagementServer">
+
+export class MyAccountManagementServers {
+  static default(
+    yourOktaDomain = "subdomain.okta.com",
+  ): MyAccountManagementServer {
+    return "https://{yourOktaDomain}".replace(
+      "{yourOktaDomain}",
+      yourOktaDomain,
+    ) as MyAccountManagementServer
+  }
+
+  static specific(url: "https://{yourOktaDomain}") {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          with(
+            yourOktaDomain = "subdomain.okta.com",
+          ): MyAccountManagementServer {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as MyAccountManagementServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): MyAccountManagementServer {
+    return url as MyAccountManagementServer
+  }
+}
+
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
   basePath: "https://{yourOktaDomain}" | string
 }

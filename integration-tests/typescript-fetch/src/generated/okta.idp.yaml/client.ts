@@ -27,12 +27,38 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export type Server<T> = string & { __server__: T }
+
+export type MyAccountManagementServer = Server<"MyAccountManagementServer">
+
 export class MyAccountManagementServers {
-  "https://{yourOktaDomain}"(yourOktaDomain: string = "subdomain.okta.com") {
+  static default(
+    yourOktaDomain = "subdomain.okta.com",
+  ): MyAccountManagementServer {
     return "https://{yourOktaDomain}".replace(
       "{yourOktaDomain}",
       yourOktaDomain,
-    )
+    ) as MyAccountManagementServer
+  }
+
+  static specific(url: "https://{yourOktaDomain}") {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          with(
+            yourOktaDomain = "subdomain.okta.com",
+          ): MyAccountManagementServer {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as MyAccountManagementServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): MyAccountManagementServer {
+    return url as MyAccountManagementServer
   }
 }
 

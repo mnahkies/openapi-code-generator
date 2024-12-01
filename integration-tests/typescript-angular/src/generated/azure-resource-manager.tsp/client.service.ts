@@ -16,6 +16,32 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export type Server<T> = string & { __server__: T }
+
+export type ContosoProviderHubClientServiceServer =
+  Server<"ContosoProviderHubClientServiceServer">
+
+export class ContosoProviderHubClientServiceServers {
+  static default(): ContosoProviderHubClientServiceServer {
+    return "https://management.azure.com" as ContosoProviderHubClientServiceServer
+  }
+
+  static specific(url: "https://management.azure.com") {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          with(): ContosoProviderHubClientServiceServer {
+            return "https://management.azure.com" as ContosoProviderHubClientServiceServer
+          },
+        }
+    }
+  }
+
+  static custom(url: string): ContosoProviderHubClientServiceServer {
+    return url as ContosoProviderHubClientServiceServer
+  }
+}
+
 export class ContosoProviderHubClientServiceConfig {
   basePath: "https://management.azure.com" | string = ""
   defaultHeaders: Record<string, string> = {}
