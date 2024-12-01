@@ -2,13 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { GitHubV3RestApi } from "./client.service"
+import { GitHubV3RestApiService } from "./client.service"
 import { NgModule } from "@angular/core"
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
-  providers: [GitHubV3RestApi],
+  providers: [GitHubV3RestApiService],
 })
-export class ApiModule {}
+export class GitHubV3RestApiModule {}
+
+export { GitHubV3RestApiModule as ApiModule }

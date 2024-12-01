@@ -2,13 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
-import { TodoListsExampleApi } from "./client.service"
+import { TodoListsExampleApiService } from "./client.service"
 import { NgModule } from "@angular/core"
 
 @NgModule({
   imports: [],
   declarations: [],
   exports: [],
-  providers: [TodoListsExampleApi],
+  providers: [TodoListsExampleApiService],
 })
-export class ApiModule {}
+export class TodoListsExampleApiModule {}
+
+export { TodoListsExampleApiModule as ApiModule }

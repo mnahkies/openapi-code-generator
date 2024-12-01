@@ -38,7 +38,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class OktaOpenIdConnectOAuth20Config {
+export class OktaOpenIdConnectOAuth20ServiceConfig {
   basePath: "https://{yourOktaDomain}" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -84,10 +84,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class OktaOpenIdConnectOAuth20 {
+export class OktaOpenIdConnectOAuth20Service {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: OktaOpenIdConnectOAuth20Config,
+    private readonly config: OktaOpenIdConnectOAuth20ServiceConfig,
   ) {}
 
   private _headers(
@@ -1152,5 +1152,5 @@ export class OktaOpenIdConnectOAuth20 {
   }
 }
 
-export { OktaOpenIdConnectOAuth20 as ApiClient }
-export { OktaOpenIdConnectOAuth20Config as ApiClientConfig }
+export { OktaOpenIdConnectOAuth20Service as ApiClient }
+export { OktaOpenIdConnectOAuth20ServiceConfig as ApiClientConfig }

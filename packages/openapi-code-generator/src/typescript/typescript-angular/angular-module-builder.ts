@@ -11,7 +11,7 @@ export class AngularModuleBuilder implements ICompilable {
 
   constructor(
     readonly filename: string,
-    private readonly name: string,
+    public readonly exportName: string,
   ) {
     this.tsImports = new ImportBuilder()
 
@@ -66,7 +66,9 @@ export class AngularModuleBuilder implements ICompilable {
         ${this.sorted(this.ngProviders).join(",\n")}
       ],
     })
-    export class ${this.name}Module {}
+    export class ${this.exportName} {}
+
+    export { ${this.exportName} as ApiModule }
     `
   }
 

@@ -27,10 +27,12 @@ export async function generateTypescriptAngular(
   const imports = new ImportBuilder()
 
   const exportName = titleCase(input.name())
+  const serviceExportName = `${exportName}Service`
+  const moduleExportName = `${exportName}Module`
 
   const client = new AngularServiceBuilder(
     "client.service.ts",
-    exportName,
+    serviceExportName,
     input,
     imports,
     rootTypeBuilder.withImports(imports),
@@ -43,7 +45,7 @@ export async function generateTypescriptAngular(
 
   input.allOperations().map((it) => client.add(it))
 
-  const module = new AngularModuleBuilder("api.module.ts", "Api")
+  const module = new AngularModuleBuilder("api.module.ts", moduleExportName)
 
   module.provides(`./${client.filename}`).add(client.exportName)
 

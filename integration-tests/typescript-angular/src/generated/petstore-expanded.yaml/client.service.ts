@@ -7,7 +7,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class SwaggerPetstoreConfig {
+export class SwaggerPetstoreServiceConfig {
   basePath: "https://petstore.swagger.io/v2" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -53,10 +53,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class SwaggerPetstore {
+export class SwaggerPetstoreService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: SwaggerPetstoreConfig,
+    private readonly config: SwaggerPetstoreServiceConfig,
   ) {}
 
   private _headers(
@@ -162,5 +162,5 @@ export class SwaggerPetstore {
   }
 }
 
-export { SwaggerPetstore as ApiClient }
-export { SwaggerPetstoreConfig as ApiClientConfig }
+export { SwaggerPetstoreService as ApiClient }
+export { SwaggerPetstoreServiceConfig as ApiClientConfig }

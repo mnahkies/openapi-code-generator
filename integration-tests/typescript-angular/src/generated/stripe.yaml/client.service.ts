@@ -166,7 +166,7 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class StripeApiConfig {
+export class StripeApiServiceConfig {
   basePath: "https://api.stripe.com/" | string = ""
   defaultHeaders: Record<string, string> = {}
 }
@@ -212,10 +212,10 @@ export type QueryParams = {
 @Injectable({
   providedIn: "root",
 })
-export class StripeApi {
+export class StripeApiService {
   constructor(
     private readonly httpClient: HttpClient,
-    private readonly config: StripeApiConfig,
+    private readonly config: StripeApiServiceConfig,
   ) {}
 
   private _headers(
@@ -39694,5 +39694,5 @@ export class StripeApi {
   }
 }
 
-export { StripeApi as ApiClient }
-export { StripeApiConfig as ApiClientConfig }
+export { StripeApiService as ApiClient }
+export { StripeApiServiceConfig as ApiClientConfig }
