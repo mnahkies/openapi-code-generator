@@ -189,6 +189,27 @@ export class StripeApiServers {
   static custom(url: string): StripeApiServer {
     return url as StripeApiServer
   }
+
+  static postFiles(url: "https://files.stripe.com/") {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          with(): Server<"postFiles"> {
+            return "https://files.stripe.com/" as Server<"postFiles">
+          },
+        }
+    }
+  }
+  static getQuotesQuotePdf(url: "https://files.stripe.com/") {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          with(): Server<"getQuotesQuotePdf"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
+          },
+        }
+    }
+  }
 }
 
 export interface StripeApiConfig extends AbstractAxiosConfig {

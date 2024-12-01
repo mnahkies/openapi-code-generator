@@ -1,4 +1,5 @@
 import type {
+  IROperation,
   IRServer,
   IRServerVariable,
 } from "../../core/openapi-types-normalized"
@@ -7,12 +8,20 @@ import type {ImportBuilder} from "./import-builder"
 import {quotedStringLiteral, union} from "./type-utils"
 
 export class ClientServersBuilder implements ICompilable {
+  readonly operations: IROperation[] = []
+
   constructor(
     readonly filename: string,
     readonly name: string,
     readonly servers: IRServer[],
     readonly imports: ImportBuilder,
   ) {}
+
+  addOperation(operation: IROperation) {
+    if (operation.servers.length) {
+      this.operations.push(operation)
+    }
+  }
 
   private toParams(variables: {
     [k: string]: IRServerVariable
@@ -44,21 +53,21 @@ export class ClientServersBuilder implements ICompilable {
     `
   }
 
-  private toSpecific() {
+  private toSpecific(name: string, servers: IRServer[], typeName: string) {
     if (!this.hasServers) {
       return ""
     }
 
-    const urls = this.servers.map((it) => quotedStringLiteral(it.url))
-    return `static specific(url: ${union(urls)}){
+    const urls = servers.map((it) => quotedStringLiteral(it.url))
+    return `static ${name}(url: ${union(urls)}){
         switch(url) {
-          ${this.servers
+          ${servers
             .map(
               (server) => `
           case ${quotedStringLiteral(server.url)}:
             return {
-              with(${this.toParams(server.variables)}): ${this.typeExportName} {
-                return (${this.toReplacer(server)} as ${this.typeExportName})
+              with(${this.toParams(server.variables)}): ${typeName} {
+                return (${this.toReplacer(server)} as ${typeName})
               }
             }
             `,
@@ -72,6 +81,10 @@ export class ClientServersBuilder implements ICompilable {
     return this.servers.length > 0
   }
 
+  get hasOperationServers() {
+    return this.operations.length > 0
+  }
+
   get classExportName(): string {
     return `${this.name}Servers`
   }
@@ -80,7 +93,7 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   toString() {
-    if (!this.hasServers) {
+    if (!this.hasServers && !this.hasOperationServers) {
       return ""
     }
 
@@ -89,11 +102,13 @@ export class ClientServersBuilder implements ICompilable {
 
     export class ${this.classExportName} {
       ${this.toDefault()}
-      ${this.toSpecific()}
+      ${this.toSpecific("specific", this.servers, this.typeExportName)}
 
       static custom(url: string): ${this.typeExportName} {
         return (url as ${this.typeExportName})
        }
+
+       ${this.operations.map((it) => this.toSpecific(it.operationId, it.servers, `Server<"${it.operationId}">`)).join("\n")}
     }
     `
   }

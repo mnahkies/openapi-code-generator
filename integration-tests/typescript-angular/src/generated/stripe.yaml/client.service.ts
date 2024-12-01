@@ -187,6 +187,27 @@ export class StripeApiServiceServers {
   static custom(url: string): StripeApiServiceServer {
     return url as StripeApiServiceServer
   }
+
+  static postFiles(url: "https://files.stripe.com/") {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          with(): Server<"postFiles"> {
+            return "https://files.stripe.com/" as Server<"postFiles">
+          },
+        }
+    }
+  }
+  static getQuotesQuotePdf(url: "https://files.stripe.com/") {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          with(): Server<"getQuotesQuotePdf"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
+          },
+        }
+    }
+  }
 }
 
 export class StripeApiServiceConfig {

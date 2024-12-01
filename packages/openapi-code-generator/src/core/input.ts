@@ -135,12 +135,7 @@ export class Input {
           route,
           method,
           servers: this.normalizeServers(
-            coalesce(
-              definition.servers,
-              paths.servers,
-              this.loader.entryPoint.servers,
-              [],
-            ),
+            coalesce(definition.servers, paths.servers, []),
           ),
           parameters: params.concat(
             this.normalizeParameters(definition.parameters),

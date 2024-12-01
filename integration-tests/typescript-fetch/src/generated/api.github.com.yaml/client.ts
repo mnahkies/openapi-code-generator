@@ -345,6 +345,17 @@ export class GitHubV3RestApiServers {
   static custom(url: string): GitHubV3RestApiServer {
     return url as GitHubV3RestApiServer
   }
+
+  static reposUploadReleaseAsset(url: "https://uploads.github.com") {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          with(): Server<"reposUploadReleaseAsset"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
+          },
+        }
+    }
+  }
 }
 
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {

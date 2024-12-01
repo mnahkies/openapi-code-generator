@@ -54,6 +54,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     )
     const result = this.buildOperation(builder)
     this.operations.push(result)
+    this.clientServersBuilder.addOperation(operation)
   }
 
   protected abstract buildImports(imports: ImportBuilder): void
