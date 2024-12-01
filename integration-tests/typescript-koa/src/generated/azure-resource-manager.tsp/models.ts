@@ -91,6 +91,16 @@ export type t_OperationListResult = {
   value: t_Azure_ResourceManager_CommonTypes_Operation[]
 }
 
+export type t_EmployeesCheckExistenceParamSchema = {
+  employeeName: string
+  resourceGroupName: string
+  subscriptionId: t_Azure_Core_uuid
+}
+
+export type t_EmployeesCheckExistenceQuerySchema = {
+  "api-version": string
+}
+
 export type t_EmployeesCreateOrUpdateBodySchema =
   t_Azure_ResourceManager_CommonTypes_TrackedResource
 

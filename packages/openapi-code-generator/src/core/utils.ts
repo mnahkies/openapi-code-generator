@@ -10,7 +10,15 @@ export function hasSingleElement<T>(it: T[]): it is [T] {
   return it.length === 1
 }
 
-export type HttpMethod = "GET" | "POST" | "PUT" | "PATCH" | "DELETE" | "OPTIONS"
+export type HttpMethod =
+  | "GET"
+  | "POST"
+  | "PUT"
+  | "PATCH"
+  | "DELETE"
+  | "OPTIONS"
+  | "HEAD"
+// | "TRACE"
 
 export const httpMethods = new Set<HttpMethod>([
   "GET",
@@ -19,6 +27,9 @@ export const httpMethods = new Set<HttpMethod>([
   "PATCH",
   "DELETE",
   "OPTIONS",
+  "HEAD",
+  // note: trace doesn't seem to be supported by koa router
+  // "TRACE",
 ])
 
 export function isHttpMethod(method: string): method is HttpMethod {

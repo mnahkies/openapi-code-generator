@@ -178,6 +178,35 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     )
   }
 
+  async employeesCheckExistence(
+    p: {
+      apiVersion: string
+      subscriptionId: t_Azure_Core_uuid
+      resourceGroupName: string
+      employeeName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<204, void>
+      | Res<404, void>
+      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ "api-version": p["apiVersion"] })
+
+    return this._fetch(
+      url + query,
+      { method: "HEAD", ...opts, headers },
+      timeout,
+    )
+  }
+
   async employeesListByResourceGroup(
     p: {
       apiVersion: string

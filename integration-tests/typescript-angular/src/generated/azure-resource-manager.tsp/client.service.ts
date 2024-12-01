@@ -234,6 +234,33 @@ export class ContosoProviderHubClientService {
     )
   }
 
+  employeesCheckExistence(p: {
+    apiVersion: string
+    subscriptionId: t_Azure_Core_uuid
+    resourceGroupName: string
+    employeeName: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<t_Azure_ResourceManager_CommonTypes_ErrorResponse> & {
+        status: StatusCode
+      })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({ "api-version": p["apiVersion"] })
+
+    return this.httpClient.request<any>(
+      "HEAD",
+      this.config.basePath +
+        `/subscriptions/${p["subscriptionId"]}/resourceGroups/${p["resourceGroupName"]}/providers/Microsoft.ContosoProviderHub/employees/${p["employeeName"]}`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   employeesListByResourceGroup(p: {
     apiVersion: string
     subscriptionId: t_Azure_Core_uuid
