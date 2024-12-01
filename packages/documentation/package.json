@@ -36,9 +36,5 @@
     "@types/react-dom": "npm:types-react-dom@19.0.0",
     "gh-pages": "^6.2.0",
     "typescript": "^5.7.2"
-  },
-  "resolutions": {
-    "@types/react": "npm:types-react@19.0.0-rc.1",
-    "@types/react-dom": "npm:types-react-dom@19.0.0"
   }
 }

@@ -2,13 +2,13 @@ import dotenv from "dotenv"
 
 dotenv.config()
 
-import {ApiClient} from "./generated/api.github.com.yaml/client"
-import {t_repository} from "./generated/api.github.com.yaml/models"
 import axios from "axios"
+import {ApiClient} from "./generated/api.github.com.yaml/client"
+import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const client = new ApiClient({
   axios: axios.create({
-    headers: {Authorization: `Bearer ${process.env["GITHUB_TOKEN"]}`},
+    headers: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
   }),
   basePath: "https://api.github.com",
   defaultTimeout: 5_000,
@@ -26,7 +26,7 @@ async function main() {
   )
 
   for (const repo of sourceAndAdminRepos) {
-    console.info("updating: " + repo.full_name)
+    console.info(`updating: ${repo.full_name}`)
     await updateRepoConfig(repo.owner.login, repo.name)
   }
 }
