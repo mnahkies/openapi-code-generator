@@ -324,42 +324,32 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export type GitHubV3RestApiServer = Server<"GitHubV3RestApiServer">
-
 export class GitHubV3RestApiServers {
-  static default(): GitHubV3RestApiServer {
-    return "https://api.github.com" as GitHubV3RestApiServer
+  static default(): Server<"GitHubV3RestApi"> {
+    return "https://api.github.com" as Server<"GitHubV3RestApi">
   }
 
   static specific(url: "https://api.github.com") {
     switch (url) {
       case "https://api.github.com":
-        return {
-          with(): GitHubV3RestApiServer {
-            return "https://api.github.com" as GitHubV3RestApiServer
-          },
-        }
+        return "https://api.github.com" as Server<"GitHubV3RestApi">
     }
   }
 
-  static custom(url: string): GitHubV3RestApiServer {
-    return url as GitHubV3RestApiServer
+  static custom(url: string): Server<"GitHubV3RestApiCustom"> {
+    return url as Server<"GitHubV3RestApiCustom">
   }
 
   static reposUploadReleaseAsset(url: "https://uploads.github.com") {
     switch (url) {
       case "https://uploads.github.com":
-        return {
-          with(): Server<"reposUploadReleaseAsset"> {
-            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
-          },
-        }
+        return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
     }
   }
 }
 
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
-  basePath: GitHubV3RestApiServer
+  basePath: Server<"GitHubV3RestApi"> | Server<"GitHubV3RestApiCustom">
 }
 
 export class GitHubV3RestApi extends AbstractFetchClient {
@@ -20358,6 +20348,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       label?: string
       requestBody?: string
     },
+    baseUrl?:
+      | Server<"reposUploadReleaseAsset">
+      | Server<"GitHubV3RestApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {

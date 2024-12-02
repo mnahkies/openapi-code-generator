@@ -24,38 +24,37 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type ContosoWidgetManagerServiceServer =
-  Server<"ContosoWidgetManagerServiceServer">
-
 export class ContosoWidgetManagerServiceServers {
-  static default(endpoint = ""): ContosoWidgetManagerServiceServer {
+  static default(endpoint = ""): Server<"ContosoWidgetManagerService"> {
     return "{endpoint}/widget".replace(
       "{endpoint}",
       endpoint,
-    ) as ContosoWidgetManagerServiceServer
+    ) as Server<"ContosoWidgetManagerService">
   }
 
   static specific(url: "{endpoint}/widget") {
     switch (url) {
       case "{endpoint}/widget":
         return {
-          with(endpoint = ""): ContosoWidgetManagerServiceServer {
+          with(endpoint = ""): Server<"ContosoWidgetManagerService"> {
             return "{endpoint}/widget".replace(
               "{endpoint}",
               endpoint,
-            ) as ContosoWidgetManagerServiceServer
+            ) as Server<"ContosoWidgetManagerService">
           },
         }
     }
   }
 
-  static custom(url: string): ContosoWidgetManagerServiceServer {
-    return url as ContosoWidgetManagerServiceServer
+  static custom(url: string): Server<"ContosoWidgetManagerServiceCustom"> {
+    return url as Server<"ContosoWidgetManagerServiceCustom">
   }
 }
 
 export class ContosoWidgetManagerServiceConfig {
-  basePath: ContosoWidgetManagerServiceServer =
+  basePath:
+    | Server<"ContosoWidgetManagerService">
+    | Server<"ContosoWidgetManagerServiceCustom"> =
     ContosoWidgetManagerServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

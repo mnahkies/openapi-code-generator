@@ -37,7 +37,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method} = builder
+    const {operationId, route, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -93,6 +93,16 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       name: operationId,
       parameters: [
         operationParameter,
+        hasServers
+          ? {
+              name: "baseUrl",
+              type: union(
+                this.clientServersBuilder.typeForOperationId(operationId),
+                this.clientServersBuilder.typeForCustom(),
+              ),
+              required: false,
+            }
+          : undefined,
         {name: "timeout", type: "number", required: false},
         {
           name: "opts",

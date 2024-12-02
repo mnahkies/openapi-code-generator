@@ -10,31 +10,25 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export type SwaggerPetstoreServer = Server<"SwaggerPetstoreServer">
-
 export class SwaggerPetstoreServers {
-  static default(): SwaggerPetstoreServer {
-    return "https://petstore.swagger.io/v2" as SwaggerPetstoreServer
+  static default(): Server<"SwaggerPetstore"> {
+    return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
   }
 
   static specific(url: "https://petstore.swagger.io/v2") {
     switch (url) {
       case "https://petstore.swagger.io/v2":
-        return {
-          with(): SwaggerPetstoreServer {
-            return "https://petstore.swagger.io/v2" as SwaggerPetstoreServer
-          },
-        }
+        return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
     }
   }
 
-  static custom(url: string): SwaggerPetstoreServer {
-    return url as SwaggerPetstoreServer
+  static custom(url: string): Server<"SwaggerPetstoreCustom"> {
+    return url as Server<"SwaggerPetstoreCustom">
   }
 }
 
 export interface SwaggerPetstoreConfig extends AbstractAxiosConfig {
-  basePath: SwaggerPetstoreServer
+  basePath: Server<"SwaggerPetstore"> | Server<"SwaggerPetstoreCustom">
 }
 
 export class SwaggerPetstore extends AbstractAxiosClient {

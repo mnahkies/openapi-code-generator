@@ -40,7 +40,10 @@ export abstract class TypescriptClientBuilder implements ICompilable {
       this.config.enableTypedBasePaths &&
       this.clientServersBuilder.hasServers
     ) {
-      return this.clientServersBuilder.typeExportName
+      return union(
+        this.clientServersBuilder.typeForDefault(),
+        this.clientServersBuilder.typeForCustom(),
+      )
     }
 
     return ""

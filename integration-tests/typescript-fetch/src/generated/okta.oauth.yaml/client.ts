@@ -42,17 +42,14 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export type OktaOpenIdConnectOAuth20Server =
-  Server<"OktaOpenIdConnectOAuth20Server">
-
 export class OktaOpenIdConnectOAuth20Servers {
   static default(
     yourOktaDomain = "subdomain.okta.com",
-  ): OktaOpenIdConnectOAuth20Server {
+  ): Server<"OktaOpenIdConnectOAuth20"> {
     return "https://{yourOktaDomain}".replace(
       "{yourOktaDomain}",
       yourOktaDomain,
-    ) as OktaOpenIdConnectOAuth20Server
+    ) as Server<"OktaOpenIdConnectOAuth20">
   }
 
   static specific(url: "https://{yourOktaDomain}") {
@@ -61,24 +58,26 @@ export class OktaOpenIdConnectOAuth20Servers {
         return {
           with(
             yourOktaDomain = "subdomain.okta.com",
-          ): OktaOpenIdConnectOAuth20Server {
+          ): Server<"OktaOpenIdConnectOAuth20"> {
             return "https://{yourOktaDomain}".replace(
               "{yourOktaDomain}",
               yourOktaDomain,
-            ) as OktaOpenIdConnectOAuth20Server
+            ) as Server<"OktaOpenIdConnectOAuth20">
           },
         }
     }
   }
 
-  static custom(url: string): OktaOpenIdConnectOAuth20Server {
-    return url as OktaOpenIdConnectOAuth20Server
+  static custom(url: string): Server<"OktaOpenIdConnectOAuth20Custom"> {
+    return url as Server<"OktaOpenIdConnectOAuth20Custom">
   }
 }
 
 export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
-  basePath: OktaOpenIdConnectOAuth20Server
+  basePath:
+    | Server<"OktaOpenIdConnectOAuth20">
+    | Server<"OktaOpenIdConnectOAuth20Custom">
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {

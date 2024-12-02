@@ -320,43 +320,34 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type GitHubV3RestApiServiceServer =
-  Server<"GitHubV3RestApiServiceServer">
-
 export class GitHubV3RestApiServiceServers {
-  static default(): GitHubV3RestApiServiceServer {
-    return "https://api.github.com" as GitHubV3RestApiServiceServer
+  static default(): Server<"GitHubV3RestApiService"> {
+    return "https://api.github.com" as Server<"GitHubV3RestApiService">
   }
 
   static specific(url: "https://api.github.com") {
     switch (url) {
       case "https://api.github.com":
-        return {
-          with(): GitHubV3RestApiServiceServer {
-            return "https://api.github.com" as GitHubV3RestApiServiceServer
-          },
-        }
+        return "https://api.github.com" as Server<"GitHubV3RestApiService">
     }
   }
 
-  static custom(url: string): GitHubV3RestApiServiceServer {
-    return url as GitHubV3RestApiServiceServer
+  static custom(url: string): Server<"GitHubV3RestApiServiceCustom"> {
+    return url as Server<"GitHubV3RestApiServiceCustom">
   }
 
   static reposUploadReleaseAsset(url: "https://uploads.github.com") {
     switch (url) {
       case "https://uploads.github.com":
-        return {
-          with(): Server<"reposUploadReleaseAsset"> {
-            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
-          },
-        }
+        return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
     }
   }
 }
 
 export class GitHubV3RestApiServiceConfig {
-  basePath: GitHubV3RestApiServiceServer =
+  basePath:
+    | Server<"GitHubV3RestApiService">
+    | Server<"GitHubV3RestApiServiceCustom"> =
     GitHubV3RestApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

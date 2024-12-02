@@ -48,6 +48,10 @@ export class ClientOperationBuilder {
     return this.operation.method
   }
 
+  get hasServers(): boolean {
+    return this.operation.servers.length > 0
+  }
+
   methodParameter(): MethodParameterDefinition | undefined {
     const {parameters} = this.operation
     const {requestBodyParameter} = this.requestBodyAsParameter()

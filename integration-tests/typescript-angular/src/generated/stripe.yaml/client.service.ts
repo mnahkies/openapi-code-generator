@@ -166,52 +166,39 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type StripeApiServiceServer = Server<"StripeApiServiceServer">
-
 export class StripeApiServiceServers {
-  static default(): StripeApiServiceServer {
-    return "https://api.stripe.com/" as StripeApiServiceServer
+  static default(): Server<"StripeApiService"> {
+    return "https://api.stripe.com/" as Server<"StripeApiService">
   }
 
   static specific(url: "https://api.stripe.com/") {
     switch (url) {
       case "https://api.stripe.com/":
-        return {
-          with(): StripeApiServiceServer {
-            return "https://api.stripe.com/" as StripeApiServiceServer
-          },
-        }
+        return "https://api.stripe.com/" as Server<"StripeApiService">
     }
   }
 
-  static custom(url: string): StripeApiServiceServer {
-    return url as StripeApiServiceServer
+  static custom(url: string): Server<"StripeApiServiceCustom"> {
+    return url as Server<"StripeApiServiceCustom">
   }
 
   static postFiles(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"postFiles"> {
-            return "https://files.stripe.com/" as Server<"postFiles">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"postFiles">
     }
   }
   static getQuotesQuotePdf(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"getQuotesQuotePdf"> {
-            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
     }
   }
 }
 
 export class StripeApiServiceConfig {
-  basePath: StripeApiServiceServer = StripeApiServiceServers.default()
+  basePath: Server<"StripeApiService"> | Server<"StripeApiServiceCustom"> =
+    StripeApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 

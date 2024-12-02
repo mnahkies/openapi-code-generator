@@ -171,52 +171,38 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export type StripeApiServer = Server<"StripeApiServer">
-
 export class StripeApiServers {
-  static default(): StripeApiServer {
-    return "https://api.stripe.com/" as StripeApiServer
+  static default(): Server<"StripeApi"> {
+    return "https://api.stripe.com/" as Server<"StripeApi">
   }
 
   static specific(url: "https://api.stripe.com/") {
     switch (url) {
       case "https://api.stripe.com/":
-        return {
-          with(): StripeApiServer {
-            return "https://api.stripe.com/" as StripeApiServer
-          },
-        }
+        return "https://api.stripe.com/" as Server<"StripeApi">
     }
   }
 
-  static custom(url: string): StripeApiServer {
-    return url as StripeApiServer
+  static custom(url: string): Server<"StripeApiCustom"> {
+    return url as Server<"StripeApiCustom">
   }
 
   static postFiles(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"postFiles"> {
-            return "https://files.stripe.com/" as Server<"postFiles">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"postFiles">
     }
   }
   static getQuotesQuotePdf(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"getQuotesQuotePdf"> {
-            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
     }
   }
 }
 
 export interface StripeApiConfig extends AbstractFetchClientConfig {
-  basePath: StripeApiServer
+  basePath: Server<"StripeApi"> | Server<"StripeApiCustom">
 }
 
 export class StripeApi extends AbstractFetchClient {
@@ -10538,6 +10524,7 @@ export class StripeApi extends AbstractFetchClient {
           | "terminal_reader_splashscreen"
       }
     },
+    baseUrl?: Server<"postFiles"> | Server<"StripeApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
@@ -25967,6 +25954,7 @@ export class StripeApi extends AbstractFetchClient {
       quote: string
       requestBody?: EmptyObject
     },
+    baseUrl?: Server<"getQuotesQuotePdf"> | Server<"StripeApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {

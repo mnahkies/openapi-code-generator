@@ -24,17 +24,14 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type MyAccountManagementServiceServer =
-  Server<"MyAccountManagementServiceServer">
-
 export class MyAccountManagementServiceServers {
   static default(
     yourOktaDomain = "subdomain.okta.com",
-  ): MyAccountManagementServiceServer {
+  ): Server<"MyAccountManagementService"> {
     return "https://{yourOktaDomain}".replace(
       "{yourOktaDomain}",
       yourOktaDomain,
-    ) as MyAccountManagementServiceServer
+    ) as Server<"MyAccountManagementService">
   }
 
   static specific(url: "https://{yourOktaDomain}") {
@@ -43,23 +40,25 @@ export class MyAccountManagementServiceServers {
         return {
           with(
             yourOktaDomain = "subdomain.okta.com",
-          ): MyAccountManagementServiceServer {
+          ): Server<"MyAccountManagementService"> {
             return "https://{yourOktaDomain}".replace(
               "{yourOktaDomain}",
               yourOktaDomain,
-            ) as MyAccountManagementServiceServer
+            ) as Server<"MyAccountManagementService">
           },
         }
     }
   }
 
-  static custom(url: string): MyAccountManagementServiceServer {
-    return url as MyAccountManagementServiceServer
+  static custom(url: string): Server<"MyAccountManagementServiceCustom"> {
+    return url as Server<"MyAccountManagementServiceCustom">
   }
 }
 
 export class MyAccountManagementServiceConfig {
-  basePath: MyAccountManagementServiceServer =
+  basePath:
+    | Server<"MyAccountManagementService">
+    | Server<"MyAccountManagementServiceCustom"> =
     MyAccountManagementServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

@@ -26,16 +26,14 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export type MyAccountManagementServer = Server<"MyAccountManagementServer">
-
 export class MyAccountManagementServers {
   static default(
     yourOktaDomain = "subdomain.okta.com",
-  ): MyAccountManagementServer {
+  ): Server<"MyAccountManagement"> {
     return "https://{yourOktaDomain}".replace(
       "{yourOktaDomain}",
       yourOktaDomain,
-    ) as MyAccountManagementServer
+    ) as Server<"MyAccountManagement">
   }
 
   static specific(url: "https://{yourOktaDomain}") {
@@ -44,23 +42,23 @@ export class MyAccountManagementServers {
         return {
           with(
             yourOktaDomain = "subdomain.okta.com",
-          ): MyAccountManagementServer {
+          ): Server<"MyAccountManagement"> {
             return "https://{yourOktaDomain}".replace(
               "{yourOktaDomain}",
               yourOktaDomain,
-            ) as MyAccountManagementServer
+            ) as Server<"MyAccountManagement">
           },
         }
     }
   }
 
-  static custom(url: string): MyAccountManagementServer {
-    return url as MyAccountManagementServer
+  static custom(url: string): Server<"MyAccountManagementCustom"> {
+    return url as Server<"MyAccountManagementCustom">
   }
 }
 
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
-  basePath: MyAccountManagementServer
+  basePath: Server<"MyAccountManagement"> | Server<"MyAccountManagementCustom">
 }
 
 export class MyAccountManagement extends AbstractAxiosClient {

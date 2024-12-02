@@ -7,32 +7,27 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export type SwaggerPetstoreServiceServer =
-  Server<"SwaggerPetstoreServiceServer">
-
 export class SwaggerPetstoreServiceServers {
-  static default(): SwaggerPetstoreServiceServer {
-    return "https://petstore.swagger.io/v2" as SwaggerPetstoreServiceServer
+  static default(): Server<"SwaggerPetstoreService"> {
+    return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
   }
 
   static specific(url: "https://petstore.swagger.io/v2") {
     switch (url) {
       case "https://petstore.swagger.io/v2":
-        return {
-          with(): SwaggerPetstoreServiceServer {
-            return "https://petstore.swagger.io/v2" as SwaggerPetstoreServiceServer
-          },
-        }
+        return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
     }
   }
 
-  static custom(url: string): SwaggerPetstoreServiceServer {
-    return url as SwaggerPetstoreServiceServer
+  static custom(url: string): Server<"SwaggerPetstoreServiceCustom"> {
+    return url as Server<"SwaggerPetstoreServiceCustom">
   }
 }
 
 export class SwaggerPetstoreServiceConfig {
-  basePath: SwaggerPetstoreServiceServer =
+  basePath:
+    | Server<"SwaggerPetstoreService">
+    | Server<"SwaggerPetstoreServiceCustom"> =
     SwaggerPetstoreServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

@@ -47,8 +47,8 @@ export class ClientServersBuilder implements ICompilable {
     }
 
     return `
-    static default(${this.toParams(defaultServer.variables)}): ${this.typeExportName} {
-      return (${this.toReplacer(defaultServer)} as ${this.typeExportName})
+    static default(${this.toParams(defaultServer.variables)}): ${this.typeForDefault()} {
+      return (${this.toReplacer(defaultServer)} as ${this.typeForDefault()})
     }
     `
   }
@@ -65,10 +65,14 @@ export class ClientServersBuilder implements ICompilable {
             .map(
               (server) => `
           case ${quotedStringLiteral(server.url)}:
-            return {
-              with(${this.toParams(server.variables)}): ${typeName} {
+            return ${
+              Object.keys(server.variables).length > 0
+                ? `{
+            with(${this.toParams(server.variables)}): ${typeName} {
                 return (${this.toReplacer(server)} as ${typeName})
               }
+            }`
+                : `(${quotedStringLiteral(server.url)} as ${typeName})`
             }
             `,
             )
@@ -88,8 +92,17 @@ export class ClientServersBuilder implements ICompilable {
   get classExportName(): string {
     return `${this.name}Servers`
   }
-  get typeExportName(): string {
-    return `${this.name}Server`
+
+  typeForDefault() {
+    return `Server<"${this.name}">`
+  }
+
+  typeForCustom() {
+    return `Server<"${this.name}Custom">`
+  }
+
+  typeForOperationId(operationId: string) {
+    return `Server<"${operationId}">`
   }
 
   toString() {
@@ -98,17 +111,15 @@ export class ClientServersBuilder implements ICompilable {
     }
 
     return `
-    export type ${this.typeExportName} = Server<"${this.typeExportName}">
-
     export class ${this.classExportName} {
       ${this.toDefault()}
-      ${this.toSpecific("specific", this.servers, this.typeExportName)}
+      ${this.toSpecific("specific", this.servers, this.typeForDefault())}
 
-      static custom(url: string): ${this.typeExportName} {
-        return (url as ${this.typeExportName})
+      static custom(url: string): ${this.typeForCustom()} {
+        return (url as ${this.typeForCustom()})
        }
 
-       ${this.operations.map((it) => this.toSpecific(it.operationId, it.servers, `Server<"${it.operationId}">`)).join("\n")}
+       ${this.operations.map((it) => this.toSpecific(it.operationId, it.servers, this.typeForOperationId(it.operationId))).join("\n")}
     }
     `
   }

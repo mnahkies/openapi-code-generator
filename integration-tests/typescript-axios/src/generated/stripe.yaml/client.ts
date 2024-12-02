@@ -168,52 +168,38 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export type StripeApiServer = Server<"StripeApiServer">
-
 export class StripeApiServers {
-  static default(): StripeApiServer {
-    return "https://api.stripe.com/" as StripeApiServer
+  static default(): Server<"StripeApi"> {
+    return "https://api.stripe.com/" as Server<"StripeApi">
   }
 
   static specific(url: "https://api.stripe.com/") {
     switch (url) {
       case "https://api.stripe.com/":
-        return {
-          with(): StripeApiServer {
-            return "https://api.stripe.com/" as StripeApiServer
-          },
-        }
+        return "https://api.stripe.com/" as Server<"StripeApi">
     }
   }
 
-  static custom(url: string): StripeApiServer {
-    return url as StripeApiServer
+  static custom(url: string): Server<"StripeApiCustom"> {
+    return url as Server<"StripeApiCustom">
   }
 
   static postFiles(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"postFiles"> {
-            return "https://files.stripe.com/" as Server<"postFiles">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"postFiles">
     }
   }
   static getQuotesQuotePdf(url: "https://files.stripe.com/") {
     switch (url) {
       case "https://files.stripe.com/":
-        return {
-          with(): Server<"getQuotesQuotePdf"> {
-            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-          },
-        }
+        return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
     }
   }
 }
 
 export interface StripeApiConfig extends AbstractAxiosConfig {
-  basePath: StripeApiServer
+  basePath: Server<"StripeApi"> | Server<"StripeApiCustom">
 }
 
 export class StripeApi extends AbstractAxiosClient {
