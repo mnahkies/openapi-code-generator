@@ -10524,11 +10524,11 @@ export class StripeApi extends AbstractFetchClient {
           | "terminal_reader_splashscreen"
       }
     },
-    baseUrl?: Server<"postFiles"> | Server<"StripeApiCustom">,
+    basePath?: Server<"postFiles"> | Server<"StripeApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/files`
+    const url = basePath + `/v1/files`
     const headers = this._headers(
       { "Content-Type": "multipart/form-data" },
       opts.headers,
@@ -25954,11 +25954,11 @@ export class StripeApi extends AbstractFetchClient {
       quote: string
       requestBody?: EmptyObject
     },
-    baseUrl?: Server<"getQuotesQuotePdf"> | Server<"StripeApiCustom">,
+    basePath?: Server<"getQuotesQuotePdf"> | Server<"StripeApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
+    const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,

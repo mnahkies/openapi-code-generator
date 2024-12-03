@@ -20348,14 +20348,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       label?: string
       requestBody?: string
     },
-    baseUrl?:
+    basePath?:
       | Server<"reposUploadReleaseAsset">
       | Server<"GitHubV3RestApiCustom">,
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
     const url =
-      this.basePath +
+      basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers(
       { "Content-Type": "application/octet-stream" },

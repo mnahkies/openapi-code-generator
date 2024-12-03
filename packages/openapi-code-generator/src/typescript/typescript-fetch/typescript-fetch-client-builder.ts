@@ -67,7 +67,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .join("\n")}}, timeout)`
 
     const body = `
-    const url = this.basePath + \`${routeToTemplateString(route)}\`
+    const url = ${hasServers ? "basePath" : "this.basePath"} + \`${routeToTemplateString(route)}\`
     ${[
       headers
         ? `const headers = this._headers(${headers}, opts.headers)`
@@ -95,7 +95,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         operationParameter,
         hasServers
           ? {
-              name: "baseUrl",
+              name: "basePath",
               type: union(
                 this.clientServersBuilder.typeForOperationId(operationId),
                 this.clientServersBuilder.typeForCustom(),
