@@ -16,7 +16,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method} = builder
+    const {operationId, route, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -52,6 +52,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       requestBodyParameter ? "data: body" : "",
       // ensure compatibility with `exactOptionalPropertyTypes` compiler option
       // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
+      hasServers ? "...(basePath? {baseURL: basePath} : {})" : undefined,
       "...(timeout ? {timeout} : {})",
       "...opts",
       "headers",
@@ -87,6 +88,16 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       name: operationId,
       parameters: [
         operationParameter,
+        hasServers
+          ? {
+              name: "basePath",
+              type: union(
+                this.clientServersBuilder.typeForOperationId(operationId),
+                this.clientServersBuilder.typeForCustom(),
+              ),
+              required: false,
+            }
+          : undefined,
         {name: "timeout", type: "number", required: false},
         {
           name: "opts",

@@ -20168,6 +20168,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       label?: string
       requestBody?: string
     },
+    basePath?:
+      | Server<"reposUploadReleaseAsset">
+      | Server<"GitHubV3RestApiCustom">,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_release_asset>> {
@@ -20183,6 +20186,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url + query,
       method: "POST",
       data: body,
+      ...(basePath ? { baseURL: basePath } : {}),
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
