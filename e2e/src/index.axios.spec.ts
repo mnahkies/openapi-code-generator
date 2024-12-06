@@ -12,7 +12,9 @@ describe("e2e - typescript-axios client", () => {
   beforeAll(async () => {
     const args = await main()
     client = new ApiClient({
-      basePath: E2ETestClientServers.server().build(
+      basePath: E2ETestClientServers.server("{protocol}://{host}:{port}").build(
+        undefined,
+        undefined,
         args.address.port.toString(),
       ),
       defaultHeaders: {

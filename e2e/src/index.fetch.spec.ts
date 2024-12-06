@@ -11,7 +11,9 @@ describe("e2e - typescript-fetch client", () => {
   beforeAll(async () => {
     const args = await main()
     client = new ApiClient({
-      basePath: E2ETestClientServers.server("http://localhost:{port}").build(
+      basePath: E2ETestClientServers.server("{protocol}://{host}:{port}").build(
+        undefined,
+        undefined,
         args.address.port.toString(),
       ),
       defaultHeaders: {

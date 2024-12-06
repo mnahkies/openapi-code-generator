@@ -19,17 +19,27 @@ export class E2ETestClientServers {
     return E2ETestClientServers.server().build()
   }
 
-  static server(url: "http://localhost:{port}" = "http://localhost:{port}"): {
-    build: (port?: string) => Server<"E2ETestClient">
+  static server(
+    url: "{protocol}://{host}:{port}" = "{protocol}://{host}:{port}",
+  ): {
+    build: (
+      host?: string,
+      protocol?: "http" | "https",
+      port?: string,
+    ) => Server<"E2ETestClient">
   } {
     switch (url) {
-      case "http://localhost:{port}":
+      case "{protocol}://{host}:{port}":
         return {
-          build(port = "8080"): Server<"E2ETestClient"> {
-            return "http://localhost:{port}".replace(
-              "{port}",
-              port,
-            ) as Server<"E2ETestClient">
+          build(
+            host = "localhost",
+            protocol: "http" | "https" = "http",
+            port = "8080",
+          ): Server<"E2ETestClient"> {
+            return "{protocol}://{host}:{port}"
+              .replace("{host}", host)
+              .replace("{protocol}", protocol)
+              .replace("{port}", port) as Server<"E2ETestClient">
           },
         }
 
