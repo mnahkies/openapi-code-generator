@@ -7,8 +7,31 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class SwaggerPetstoreServiceServers {
+  static default(): Server<"SwaggerPetstoreService"> {
+    return SwaggerPetstoreServiceServers.server().build()
+  }
+
+  static server(
+    url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
+  ): { build: () => Server<"SwaggerPetstoreService"> } {
+    switch (url) {
+      case "https://petstore.swagger.io/v2":
+        return {
+          build(): Server<"SwaggerPetstoreService"> {
+            return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class SwaggerPetstoreServiceConfig {
-  basePath: "https://petstore.swagger.io/v2" | string = ""
+  basePath: Server<"SwaggerPetstoreService"> | string =
+    SwaggerPetstoreServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -49,6 +72,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

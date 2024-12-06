@@ -78,6 +78,7 @@ describe("typescript/typescript-koa", () => {
       serverRouterBuilder.add({
         method: "GET",
         parameters: [],
+        servers: [],
         operationId: "testOperation",
         deprecated: false,
         summary: undefined,
@@ -90,6 +91,7 @@ describe("typescript/typescript-koa", () => {
       serverRouterBuilder.add({
         method: "GET",
         parameters: [],
+        servers: [],
         operationId: "anotherTestOperation",
         deprecated: false,
         summary: undefined,

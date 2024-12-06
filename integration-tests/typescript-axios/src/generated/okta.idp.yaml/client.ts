@@ -22,11 +22,39 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class MyAccountManagementServers {
+  static default(): Server<"MyAccountManagement"> {
+    return MyAccountManagementServers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"MyAccountManagement">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(
+            yourOktaDomain = "subdomain.okta.com",
+          ): Server<"MyAccountManagement"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"MyAccountManagement">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: Server<"MyAccountManagement"> | string
 }
 
 export class MyAccountManagement extends AbstractAxiosClient {

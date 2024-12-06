@@ -6,11 +6,34 @@ import { t_NewPet, t_Pet } from "./models"
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class SwaggerPetstoreServers {
+  static default(): Server<"SwaggerPetstore"> {
+    return SwaggerPetstoreServers.server().build()
+  }
+
+  static server(
+    url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
+  ): { build: () => Server<"SwaggerPetstore"> } {
+    switch (url) {
+      case "https://petstore.swagger.io/v2":
+        return {
+          build(): Server<"SwaggerPetstore"> {
+            return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface SwaggerPetstoreConfig extends AbstractAxiosConfig {
-  basePath: "https://petstore.swagger.io/v2" | string
+  basePath: Server<"SwaggerPetstore"> | string
 }
 
 export class SwaggerPetstore extends AbstractAxiosClient {

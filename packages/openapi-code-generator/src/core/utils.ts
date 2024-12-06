@@ -10,6 +10,16 @@ export function hasSingleElement<T>(it: T[]): it is [T] {
   return it.length === 1
 }
 
+export function coalesce<T>(...args: (T | undefined | null)[]): T {
+  const result = args.find((it) => it !== undefined && it !== null)
+
+  if (result === undefined) {
+    throw new Error("all arguments are null or undefined")
+  }
+
+  return result
+}
+
 export type HttpMethod =
   | "GET"
   | "POST"

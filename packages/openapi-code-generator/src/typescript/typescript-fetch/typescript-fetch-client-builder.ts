@@ -13,6 +13,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .add(
         "AbstractFetchClientConfig",
         "AbstractFetchClient",
+        "Server",
         "Res",
         "TypedFetchResponse",
         "StatusCode2xx",
@@ -36,7 +37,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method} = builder
+    const {operationId, route, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -66,7 +67,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       .join("\n")}}, timeout)`
 
     const body = `
-    const url = this.basePath + \`${routeToTemplateString(route)}\`
+    const url = ${hasServers ? "basePath" : "this.basePath"} + \`${routeToTemplateString(route)}\`
     ${[
       headers
         ? `const headers = this._headers(${headers}, opts.headers)`
@@ -92,6 +93,17 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
       name: operationId,
       parameters: [
         operationParameter,
+        hasServers
+          ? {
+              name: "basePath",
+              type: union(
+                this.clientServersBuilder.typeForOperationId(operationId),
+                "string",
+              ),
+              default:
+                this.clientServersBuilder.defaultForOperationId(operationId),
+            }
+          : undefined,
         {name: "timeout", type: "number", required: false},
         {
           name: "opts",

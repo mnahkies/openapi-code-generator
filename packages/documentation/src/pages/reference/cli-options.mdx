@@ -88,8 +88,14 @@ Default `false`
 #### `--enable-typed-base-paths` (client sdks only)
 As environment variable `OPENAPI_ENABLE_TYPED_BASE_PATHS`
 
-Controls whether to generate a union-type of string literals + `string` from the openapi specifications
-array of server urls. Handy for intellisense.
+Controls whether to generate a URL builder from the openapi specifications
+array of server urls and placeholder variables.
+
+When disabled a plain `string` type is used for these parameters.
+
+See [servers object guide](../guides/concepts/servers-object-handling) for detailed explanation
+of how this is handled.
+
 
 Default: `true`
 

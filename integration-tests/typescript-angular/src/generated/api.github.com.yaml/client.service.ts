@@ -322,8 +322,51 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class GitHubV3RestApiServiceServersOperations {
+  static reposUploadReleaseAsset(
+    url: "https://uploads.github.com" = "https://uploads.github.com",
+  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService"> } {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          build(): Server<"reposUploadReleaseAsset_GitHubV3RestApiService"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class GitHubV3RestApiServiceServers {
+  static default(): Server<"GitHubV3RestApiService"> {
+    return GitHubV3RestApiServiceServers.server().build()
+  }
+
+  static server(url: "https://api.github.com" = "https://api.github.com"): {
+    build: () => Server<"GitHubV3RestApiService">
+  } {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          build(): Server<"GitHubV3RestApiService"> {
+            return "https://api.github.com" as Server<"GitHubV3RestApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = GitHubV3RestApiServiceServersOperations
+}
+
 export class GitHubV3RestApiServiceConfig {
-  basePath: "https://api.github.com" | string = ""
+  basePath: Server<"GitHubV3RestApiService"> | string =
+    GitHubV3RestApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -364,6 +407,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",
@@ -20227,14 +20272,21 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposUploadReleaseAsset(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    name: string
-    label?: string
-    requestBody?: string
-  }): Observable<
+  reposUploadReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      name: string
+      label?: string
+      requestBody?: string
+    },
+    basePath:
+      | Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
+      | string = GitHubV3RestApiServiceServers.operations
+      .reposUploadReleaseAsset()
+      .build(),
+  ): Observable<
     | (HttpResponse<t_release_asset> & { status: 201 })
     | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
@@ -20247,7 +20299,7 @@ export class GitHubV3RestApiService {
 
     return this.httpClient.request<any>(
       "POST",
-      this.config.basePath +
+      basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`,
       {
         params,

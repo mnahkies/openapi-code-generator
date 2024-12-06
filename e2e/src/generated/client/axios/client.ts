@@ -10,10 +10,48 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export interface E2ETestClientConfig extends AbstractAxiosConfig {}
+export class E2ETestClientServers {
+  static default(): Server<"E2ETestClient"> {
+    return E2ETestClientServers.server().build()
+  }
+
+  static server(
+    url: "{protocol}://{host}:{port}" = "{protocol}://{host}:{port}",
+  ): {
+    build: (
+      host?: string,
+      protocol?: "http" | "https",
+      port?: string,
+    ) => Server<"E2ETestClient">
+  } {
+    switch (url) {
+      case "{protocol}://{host}:{port}":
+        return {
+          build(
+            host = "localhost",
+            protocol: "http" | "https" = "http",
+            port = "8080",
+          ): Server<"E2ETestClient"> {
+            return "{protocol}://{host}:{port}"
+              .replace("{host}", host)
+              .replace("{protocol}", protocol)
+              .replace("{port}", port) as Server<"E2ETestClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export interface E2ETestClientConfig extends AbstractAxiosConfig {
+  basePath: Server<"E2ETestClient"> | string
+}
 
 export class E2ETestClient extends AbstractAxiosClient {
   constructor(config: E2ETestClientConfig) {

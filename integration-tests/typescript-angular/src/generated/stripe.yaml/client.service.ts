@@ -166,8 +166,67 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class StripeApiServiceServersOperations {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_StripeApiService"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApiService"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_StripeApiService"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApiService"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServiceServers {
+  static default(): Server<"StripeApiService"> {
+    return StripeApiServiceServers.server().build()
+  }
+
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
+    build: () => Server<"StripeApiService">
+  } {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApiService"> {
+            return "https://api.stripe.com/" as Server<"StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServiceServersOperations
+}
+
 export class StripeApiServiceConfig {
-  basePath: "https://api.stripe.com/" | string = ""
+  basePath: Server<"StripeApiService"> | string =
+    StripeApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -208,6 +267,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",
@@ -10821,33 +10882,38 @@ export class StripeApiService {
     )
   }
 
-  postFiles(p: {
-    requestBody: {
-      expand?: string[]
-      file: string
-      file_link_data?: {
-        create: boolean
-        expires_at?: number
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
+  postFiles(
+    p: {
+      requestBody: {
+        expand?: string[]
+        file: string
+        file_link_data?: {
+          create: boolean
+          expires_at?: number
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+        }
+        purpose:
+          | "account_requirement"
+          | "additional_verification"
+          | "business_icon"
+          | "business_logo"
+          | "customer_signature"
+          | "dispute_evidence"
+          | "identity_document"
+          | "issuing_regulatory_reporting"
+          | "pci_document"
+          | "tax_document_user_upload"
+          | "terminal_reader_splashscreen"
       }
-      purpose:
-        | "account_requirement"
-        | "additional_verification"
-        | "business_icon"
-        | "business_logo"
-        | "customer_signature"
-        | "dispute_evidence"
-        | "identity_document"
-        | "issuing_regulatory_reporting"
-        | "pci_document"
-        | "tax_document_user_upload"
-        | "terminal_reader_splashscreen"
-    }
-  }): Observable<
+    },
+    basePath:
+      | Server<"postFiles_StripeApiService">
+      | string = StripeApiServiceServers.operations.postFiles().build(),
+  ): Observable<
     | (HttpResponse<t_file> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>
@@ -10855,16 +10921,12 @@ export class StripeApiService {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = p["requestBody"]
 
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/v1/files`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
+    return this.httpClient.request<any>("POST", basePath + `/v1/files`, {
+      headers,
+      body,
+      observe: "response",
+      reportProgress: false,
+    })
   }
 
   getFilesFile(p: {
@@ -26552,11 +26614,16 @@ export class StripeApiService {
     )
   }
 
-  getQuotesQuotePdf(p: {
-    expand?: string[]
-    quote: string
-    requestBody?: EmptyObject
-  }): Observable<
+  getQuotesQuotePdf(
+    p: {
+      expand?: string[]
+      quote: string
+      requestBody?: EmptyObject
+    },
+    basePath:
+      | Server<"getQuotesQuotePdf_StripeApiService">
+      | string = StripeApiServiceServers.operations.getQuotesQuotePdf().build(),
+  ): Observable<
     | (HttpResponse<string> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>
@@ -26569,7 +26636,7 @@ export class StripeApiService {
 
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath + `/v1/quotes/${p["quote"]}/pdf`,
+      basePath + `/v1/quotes/${p["quote"]}/pdf`,
       {
         params,
         headers,

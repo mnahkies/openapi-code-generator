@@ -22,11 +22,37 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class ContosoWidgetManagerServers {
+  static default(): Server<"ContosoWidgetManager"> {
+    return ContosoWidgetManagerServers.server().build()
+  }
+
+  static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
+    build: (endpoint?: string) => Server<"ContosoWidgetManager">
+  } {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          build(endpoint = ""): Server<"ContosoWidgetManager"> {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as Server<"ContosoWidgetManager">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface ContosoWidgetManagerConfig extends AbstractAxiosConfig {
-  basePath: "{endpoint}/widget" | string
+  basePath: Server<"ContosoWidgetManager"> | string
 }
 
 export class ContosoWidgetManager extends AbstractAxiosClient {

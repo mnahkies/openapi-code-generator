@@ -24,8 +24,36 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class MyAccountManagementServiceServers {
+  static default(): Server<"MyAccountManagementService"> {
+    return MyAccountManagementServiceServers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"MyAccountManagementService">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(
+            yourOktaDomain = "subdomain.okta.com",
+          ): Server<"MyAccountManagementService"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"MyAccountManagementService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class MyAccountManagementServiceConfig {
-  basePath: "https://{yourOktaDomain}" | string = ""
+  basePath: Server<"MyAccountManagementService"> | string =
+    MyAccountManagementServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -66,6 +94,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

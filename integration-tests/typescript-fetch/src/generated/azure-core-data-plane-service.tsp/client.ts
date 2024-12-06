@@ -24,12 +24,38 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class ContosoWidgetManagerServers {
+  static default(): Server<"ContosoWidgetManager"> {
+    return ContosoWidgetManagerServers.server().build()
+  }
+
+  static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
+    build: (endpoint?: string) => Server<"ContosoWidgetManager">
+  } {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          build(endpoint = ""): Server<"ContosoWidgetManager"> {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as Server<"ContosoWidgetManager">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface ContosoWidgetManagerConfig extends AbstractFetchClientConfig {
-  basePath: "{endpoint}/widget" | string
+  basePath: Server<"ContosoWidgetManager"> | string
 }
 
 export class ContosoWidgetManager extends AbstractFetchClient {

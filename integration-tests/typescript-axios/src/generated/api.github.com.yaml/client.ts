@@ -316,11 +316,54 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class GitHubV3RestApiServersOperations {
+  static reposUploadReleaseAsset(
+    url: "https://uploads.github.com" = "https://uploads.github.com",
+  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi"> } {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          build(): Server<"reposUploadReleaseAsset_GitHubV3RestApi"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class GitHubV3RestApiServers {
+  static default(): Server<"GitHubV3RestApi"> {
+    return GitHubV3RestApiServers.server().build()
+  }
+
+  static server(url: "https://api.github.com" = "https://api.github.com"): {
+    build: () => Server<"GitHubV3RestApi">
+  } {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          build(): Server<"GitHubV3RestApi"> {
+            return "https://api.github.com" as Server<"GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = GitHubV3RestApiServersOperations
+}
+
 export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
-  basePath: "https://api.github.com" | string
+  basePath: Server<"GitHubV3RestApi"> | string
 }
 
 export class GitHubV3RestApi extends AbstractAxiosClient {
@@ -20267,6 +20310,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       label?: string
       requestBody?: string
     },
+    basePath:
+      | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+      | string = GitHubV3RestApiServers.operations
+      .reposUploadReleaseAsset()
+      .build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_release_asset>> {
@@ -20282,6 +20330,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url + query,
       method: "POST",
       data: body,
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

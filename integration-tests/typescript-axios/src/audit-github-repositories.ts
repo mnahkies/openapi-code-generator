@@ -3,14 +3,17 @@ import dotenv from "dotenv"
 dotenv.config()
 
 import axios, {type AxiosResponse, isAxiosError} from "axios"
-import {ApiClient} from "./generated/api.github.com.yaml/client"
+import {
+  ApiClient,
+  GitHubV3RestApiServers,
+} from "./generated/api.github.com.yaml/client"
 import type {t_repository} from "./generated/api.github.com.yaml/models"
 
 const client = new ApiClient({
   axios: axios.create({
     headers: {Authorization: `Bearer ${process.env.GITHUB_TOKEN}`},
   }),
-  basePath: "https://api.github.com",
+  basePath: GitHubV3RestApiServers.default(),
   defaultTimeout: 5_000,
   defaultHeaders: {},
 })

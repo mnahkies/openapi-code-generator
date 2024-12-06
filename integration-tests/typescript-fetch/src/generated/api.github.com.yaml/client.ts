@@ -322,11 +322,54 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class GitHubV3RestApiServersOperations {
+  static reposUploadReleaseAsset(
+    url: "https://uploads.github.com" = "https://uploads.github.com",
+  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi"> } {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          build(): Server<"reposUploadReleaseAsset_GitHubV3RestApi"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class GitHubV3RestApiServers {
+  static default(): Server<"GitHubV3RestApi"> {
+    return GitHubV3RestApiServers.server().build()
+  }
+
+  static server(url: "https://api.github.com" = "https://api.github.com"): {
+    build: () => Server<"GitHubV3RestApi">
+  } {
+    switch (url) {
+      case "https://api.github.com":
+        return {
+          build(): Server<"GitHubV3RestApi"> {
+            return "https://api.github.com" as Server<"GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = GitHubV3RestApiServersOperations
+}
+
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
-  basePath: "https://api.github.com" | string
+  basePath: Server<"GitHubV3RestApi"> | string
 }
 
 export class GitHubV3RestApi extends AbstractFetchClient {
@@ -20471,11 +20514,16 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       label?: string
       requestBody?: string
     },
+    basePath:
+      | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+      | string = GitHubV3RestApiServers.operations
+      .reposUploadReleaseAsset()
+      .build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
     const url =
-      this.basePath +
+      basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
     const headers = this._headers(
       { "Content-Type": "application/octet-stream" },

@@ -24,8 +24,34 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class ContosoWidgetManagerServiceServers {
+  static default(): Server<"ContosoWidgetManagerService"> {
+    return ContosoWidgetManagerServiceServers.server().build()
+  }
+
+  static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
+    build: (endpoint?: string) => Server<"ContosoWidgetManagerService">
+  } {
+    switch (url) {
+      case "{endpoint}/widget":
+        return {
+          build(endpoint = ""): Server<"ContosoWidgetManagerService"> {
+            return "{endpoint}/widget".replace(
+              "{endpoint}",
+              endpoint,
+            ) as Server<"ContosoWidgetManagerService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class ContosoWidgetManagerServiceConfig {
-  basePath: "{endpoint}/widget" | string = ""
+  basePath: Server<"ContosoWidgetManagerService"> | string =
+    ContosoWidgetManagerServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -66,6 +92,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

@@ -5,6 +5,16 @@ info:
 tags:
   - name: request headers
   - name: validation
+servers:
+  - url: '{protocol}://{host}:{port}'
+    variables:
+      host:
+        default: localhost
+      protocol:
+        enum: [http, https]
+        default: http
+      port:
+        default: '8080'
 paths:
   /headers/undeclared:
     get:

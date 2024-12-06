@@ -8,7 +8,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-axios-runtime/main")
-      .add("AbstractAxiosConfig", "AbstractAxiosClient")
+      .add("AbstractAxiosConfig", "AbstractAxiosClient", "Server")
 
     imports.from("axios").all("axios")
 
@@ -16,7 +16,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method} = builder
+    const {operationId, route, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -50,6 +50,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       `url: url ${queryString ? "+ query" : ""}`,
       `method: "${method}"`,
       requestBodyParameter ? "data: body" : "",
+      hasServers ? "baseURL: basePath" : undefined,
       // ensure compatibility with `exactOptionalPropertyTypes` compiler option
       // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
       "...(timeout ? {timeout} : {})",
@@ -87,6 +88,17 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       name: operationId,
       parameters: [
         operationParameter,
+        hasServers
+          ? {
+              name: "basePath",
+              type: union(
+                this.clientServersBuilder.typeForOperationId(operationId),
+                "string",
+              ),
+              default:
+                this.clientServersBuilder.defaultForOperationId(operationId),
+            }
+          : undefined,
         {name: "timeout", type: "number", required: false},
         {
           name: "opts",

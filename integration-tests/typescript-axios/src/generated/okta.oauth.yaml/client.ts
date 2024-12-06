@@ -35,11 +35,39 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class OktaOpenIdConnectOAuth20Servers {
+  static default(): Server<"OktaOpenIdConnectOAuth20"> {
+    return OktaOpenIdConnectOAuth20Servers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"OktaOpenIdConnectOAuth20">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(
+            yourOktaDomain = "subdomain.okta.com",
+          ): Server<"OktaOpenIdConnectOAuth20"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"OktaOpenIdConnectOAuth20">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface OktaOpenIdConnectOAuth20Config extends AbstractAxiosConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: Server<"OktaOpenIdConnectOAuth20"> | string
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {

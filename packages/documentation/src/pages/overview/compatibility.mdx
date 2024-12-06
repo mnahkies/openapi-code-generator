@@ -47,7 +47,7 @@ for each attribute for further details.
 | openapi                          |     ✅     |                                   Either 3.1.x or 3.0.x is supported |
 | info                             |  __N/A__  |                                                              Ignored |
 | jsonSchemaDialect                |    🚫     |                                                    Not yet supported |
-| [servers](#server-object)        |     ✅     |                 Server URLs cam be usd to type client SDK base paths |
+| [servers](#server-object)        |     ✅     |                                         Used by client SDK templates |
 | [paths](#paths-object)           |     ✅     |                                                                      |
 | webhooks                         |    🚫     |              Not yet supported. Emulate by defining as normal paths. |
 | [components](#components-object) |     ✅     |                                                                      |
@@ -83,14 +83,16 @@ Example:
 | description |  __N/A__  | Ignored                                                                    |
 
 ### Server Object
-Currently only used by the client SDKs to generate string literal types for `basePath`
-for intellisense purposes.
+Used by the client SDKs to generate builders for `basePath`'s and override parameters.
+
+See [servers object guide](../guides/concepts/servers-object-handling) for detailed explanation
+of how this is handled.
 
 | Attribute   | Supported |                                                       Notes |
 |:------------|:---------:|------------------------------------------------------------:|
 | url         |     ✅     | Optionally used to type client SDK `basePath` configuration |
 | description |  __N/A__  |                                                     Ignored |
-| variables   |    🚫     |                                           Not yet supported |
+| variables   |     ✅     |                                                             |
 
 ### Components Object
 Technically you can define any "components" you like, and `$ref`s to them will work, regardless
@@ -119,21 +121,21 @@ Paths are well supported.
 | [`{path}`](#path-item-object) |     ✅     |       |
 
 ### Path Item Object
-All common http methods are supported. Overriding `servers` for individual paths is not supported.
+All common http methods are supported.
 
-| Attribute                       | Supported |             Notes |
-|:--------------------------------|:---------:|------------------:|
-| summary                         |  __N/A__  |           Ignored |
-| description                     |  __N/A__  |           Ignored |
-| [get](#operation-object)        |     ✅     |                   |
-| [put](#operation-object)        |     ✅     |                   |
-| [post](#operation-object)       |     ✅     |                   |
-| [delete](#operation-object)     |     ✅     |                   |
-| [head](#operation-object)       |     ✅     |                   |
-| [patch](#operation-object)      |     ✅     |                   |
-| trace                           |    🚫     | Not yet supported |
-| servers                         |    🚫     | Not yet supported |
-| [parameters](#parameter-object) |     ✅     |                   |
+| Attribute                       | Supported |                        Notes |
+|:--------------------------------|:---------:|-----------------------------:|
+| summary                         |  __N/A__  |                      Ignored |
+| description                     |  __N/A__  |                      Ignored |
+| [get](#operation-object)        |     ✅     |                              |
+| [put](#operation-object)        |     ✅     |                              |
+| [post](#operation-object)       |     ✅     |                              |
+| [delete](#operation-object)     |     ✅     |                              |
+| [head](#operation-object)       |     ✅     |                              |
+| [patch](#operation-object)      |     ✅     |                              |
+| trace                           |    🚫     |            Not yet supported |
+| [servers](#server-object)       |     ✅     | Used by client SDK templates |
+| [parameters](#parameter-object) |     ✅     |                              |
 
 ### Operation Object
 Most things are supported. It's recommended you supply an `operationId` as otherwise
@@ -152,7 +154,7 @@ one will be generated from the path / http method, which is often overly verbose
 | callbacks                           |    🚫     |                                      Not yet supported |
 | deprecated                          |    🚫     |                                      Not yet supported |
 | security                            |    🚫     |                                      Not yet supported |
-| servers                             |    🚫     |                                      Not yet supported |
+| [servers](#server-object)           |     ✅     |                           Used by client SDK templates |
 
 ### Parameter Object
 Whilst attributes like `style` and `explode` are not yet supported, for most common parameter use-cases

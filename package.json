@@ -27,6 +27,8 @@
     "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "integration:generate": "node ./scripts/generate.mjs",
     "integration:validate": "lerna run validate --stream",
+    "e2e:generate": "yarn workspace e2e clean && yarn workspace e2e generate",
+    "e2e:validate": "yarn workspace e2e build && yarn workspace e2e test",
     "ci-build": "yarn build",
     "ci-test": "NODE_OPTIONS=--experimental-vm-modules jest --coverage",
     "ci-lint": "biome ci .",

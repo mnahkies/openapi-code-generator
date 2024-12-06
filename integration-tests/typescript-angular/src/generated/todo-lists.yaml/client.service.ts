@@ -7,13 +7,147 @@ import {
   t_Error,
   t_Statuses,
   t_TodoList,
+  t_UnknownObject,
 } from "./models"
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class TodoListsExampleApiServiceServersOperations {
+  static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"listAttachments_TodoListsExampleApiService">
+  }
+  static listAttachments(url?: "https://attachments.example.com"): {
+    build: () => Server<"listAttachments_TodoListsExampleApiService">
+  }
+  static listAttachments(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"listAttachments_TodoListsExampleApiService"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"listAttachments_TodoListsExampleApiService">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"listAttachments_TodoListsExampleApiService"> {
+            return "https://attachments.example.com" as Server<"listAttachments_TodoListsExampleApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static uploadAttachment(
+    url?: "{schema}://{tenant}.attachments.example.com",
+  ): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"uploadAttachment_TodoListsExampleApiService">
+  }
+  static uploadAttachment(url?: "https://attachments.example.com"): {
+    build: () => Server<"uploadAttachment_TodoListsExampleApiService">
+  }
+  static uploadAttachment(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"uploadAttachment_TodoListsExampleApiService"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"uploadAttachment_TodoListsExampleApiService">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"uploadAttachment_TodoListsExampleApiService"> {
+            return "https://attachments.example.com" as Server<"uploadAttachment_TodoListsExampleApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class TodoListsExampleApiServiceServers {
+  static default(): Server<"TodoListsExampleApiService"> {
+    return TodoListsExampleApiServiceServers.server().build()
+  }
+
+  static server(url?: "{schema}://{tenant}.todo-lists.example.com"): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"TodoListsExampleApiService">
+  }
+  static server(url?: "https://todo-lists.example.com"): {
+    build: () => Server<"TodoListsExampleApiService">
+  }
+  static server(
+    url: string = "{schema}://{tenant}.todo-lists.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.todo-lists.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"TodoListsExampleApiService"> {
+            return "{schema}://{tenant}.todo-lists.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"TodoListsExampleApiService">
+          },
+        }
+
+      case "https://todo-lists.example.com":
+        return {
+          build(): Server<"TodoListsExampleApiService"> {
+            return "https://todo-lists.example.com" as Server<"TodoListsExampleApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = TodoListsExampleApiServiceServersOperations
+}
+
 export class TodoListsExampleApiServiceConfig {
-  basePath: string = ""
+  basePath: Server<"TodoListsExampleApiService"> | string =
+    TodoListsExampleApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -54,6 +188,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",
@@ -221,6 +357,46 @@ export class TodoListsExampleApiService {
         reportProgress: false,
       },
     )
+  }
+
+  listAttachments(
+    basePath:
+      | Server<"listAttachments_TodoListsExampleApiService">
+      | string = TodoListsExampleApiServiceServers.operations
+      .listAttachments()
+      .build(),
+  ): Observable<
+    (HttpResponse<t_UnknownObject[]> & { status: 200 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>("GET", basePath + `/attachments`, {
+      observe: "response",
+      reportProgress: false,
+    })
+  }
+
+  uploadAttachment(
+    p: {
+      requestBody: {
+        file?: unknown
+      }
+    },
+    basePath:
+      | Server<"uploadAttachment_TodoListsExampleApiService">
+      | string = TodoListsExampleApiServiceServers.operations
+      .uploadAttachment()
+      .build(),
+  ): Observable<
+    (HttpResponse<void> & { status: 202 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "multipart/form-data" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>("POST", basePath + `/attachments`, {
+      headers,
+      body,
+      observe: "response",
+      reportProgress: false,
+    })
   }
 }
 

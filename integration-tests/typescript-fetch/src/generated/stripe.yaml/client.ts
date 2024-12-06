@@ -166,12 +166,71 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class StripeApiServersOperations {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_StripeApi"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_StripeApi"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServers {
+  static default(): Server<"StripeApi"> {
+    return StripeApiServers.server().build()
+  }
+
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
+    build: () => Server<"StripeApi">
+  } {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApi"> {
+            return "https://api.stripe.com/" as Server<"StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServersOperations
+}
+
 export interface StripeApiConfig extends AbstractFetchClientConfig {
-  basePath: "https://api.stripe.com/" | string
+  basePath: Server<"StripeApi"> | string
 }
 
 export class StripeApi extends AbstractFetchClient {
@@ -10493,10 +10552,13 @@ export class StripeApi extends AbstractFetchClient {
           | "terminal_reader_splashscreen"
       }
     },
+    basePath:
+      | Server<"postFiles_StripeApi">
+      | string = StripeApiServers.operations.postFiles().build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/files`
+    const url = basePath + `/v1/files`
     const headers = this._headers(
       { "Content-Type": "multipart/form-data" },
       opts.headers,
@@ -25922,10 +25984,13 @@ export class StripeApi extends AbstractFetchClient {
       quote: string
       requestBody?: EmptyObject
     },
+    basePath:
+      | Server<"getQuotesQuotePdf_StripeApi">
+      | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
-    const url = this.basePath + `/v1/quotes/${p["quote"]}/pdf`
+    const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,

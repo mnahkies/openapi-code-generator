@@ -38,8 +38,38 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class OktaOpenIdConnectOAuth20ServiceServers {
+  static default(): Server<"OktaOpenIdConnectOAuth20Service"> {
+    return OktaOpenIdConnectOAuth20ServiceServers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (
+      yourOktaDomain?: string,
+    ) => Server<"OktaOpenIdConnectOAuth20Service">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(
+            yourOktaDomain = "subdomain.okta.com",
+          ): Server<"OktaOpenIdConnectOAuth20Service"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"OktaOpenIdConnectOAuth20Service">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class OktaOpenIdConnectOAuth20ServiceConfig {
-  basePath: "https://{yourOktaDomain}" | string = ""
+  basePath: Server<"OktaOpenIdConnectOAuth20Service"> | string =
+    OktaOpenIdConnectOAuth20ServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -80,6 +110,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

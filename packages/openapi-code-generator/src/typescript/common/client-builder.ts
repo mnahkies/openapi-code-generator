@@ -1,6 +1,7 @@
 import type {Input} from "../../core/input"
 import type {IROperation} from "../../core/openapi-types-normalized"
 import {ClientOperationBuilder} from "./client-operation-builder"
+import {ClientServersBuilder} from "./client-servers-builder"
 import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import type {SchemaBuilder} from "./schema-builders/schema-builder"
@@ -9,6 +10,8 @@ import {quotedStringLiteral, union} from "./type-utils"
 
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []
+
+  protected readonly clientServersBuilder: ClientServersBuilder
 
   constructor(
     public readonly filename: string,
@@ -23,18 +26,18 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     } = {enableRuntimeResponseValidation: false, enableTypedBasePaths: true},
   ) {
     this.buildImports(imports)
+
+    this.clientServersBuilder = new ClientServersBuilder(
+      this.filename,
+      this.exportName,
+      this.input.servers(),
+      this.imports,
+      {enableTypedBasePaths: config.enableTypedBasePaths},
+    )
   }
 
   basePathType() {
-    const serverUrls = this.input
-      .servers()
-      .map((it) => quotedStringLiteral(it.url))
-
-    if (this.config.enableTypedBasePaths && serverUrls.length > 0) {
-      return union(...serverUrls, "string")
-    }
-
-    return ""
+    return union(this.clientServersBuilder.typeForDefault(), "string")
   }
 
   add(operation: IROperation): void {
@@ -43,6 +46,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
       this.models,
       this.schemaBuilder,
     )
+    this.clientServersBuilder.addOperation(operation)
     const result = this.buildOperation(builder)
     this.operations.push(result)
   }
@@ -57,7 +61,12 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   ): string
 
   toString(): string {
-    return this.buildClient(this.exportName, this.operations)
+    const client = this.buildClient(this.exportName, this.operations)
+
+    return `
+    ${this.clientServersBuilder}
+    ${client}
+    `
   }
 
   toCompilationUnit(): CompilationUnit {

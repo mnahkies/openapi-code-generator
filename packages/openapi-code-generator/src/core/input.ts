@@ -9,6 +9,7 @@ import type {
   RequestBody,
   Responses,
   Schema,
+  Server,
   xInternalPreproccess,
 } from "./openapi-types"
 import type {
@@ -24,11 +25,14 @@ import type {
   IRPreprocess,
   IRRef,
   IRResponse,
+  IRServer,
+  IRServerVariable,
   MaybeIRModel,
 } from "./openapi-types-normalized"
 import {isRef} from "./openapi-utils"
 import {
   camelCase,
+  coalesce,
   deepEqual,
   isHttpMethod,
   mediaTypeToIdentifier,
@@ -43,12 +47,13 @@ export class Input {
     readonly config: {extractInlineSchemas: boolean},
   ) {}
 
-  name() {
+  name(): string {
     return this.loader.entryPoint.info.title
   }
 
-  servers() {
-    return this.loader.entryPoint.servers?.filter((it) => it.url) ?? []
+  servers(): IRServer[] {
+    // todo: default of `{url: "/"}` where `/` is resolved relative to base path when generating from http specification
+    return this.normalizeServers(coalesce(this.loader.entryPoint.servers, []))
   }
 
   allSchemas(): Record<string, IRModel> {
@@ -129,6 +134,9 @@ export class Input {
           ...additionalAttributes,
           route,
           method,
+          servers: this.normalizeServers(
+            coalesce(definition.servers, paths.servers, []),
+          ),
           parameters: params.concat(
             this.normalizeParameters(definition.parameters),
           ),
@@ -214,6 +222,25 @@ export class Input {
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
     return this.loader.preprocess(maybePreprocess)
+  }
+
+  private normalizeServers(servers: Server[]): IRServer[] {
+    return servers
+      .filter((it) => it.url)
+      .map((it) => ({
+        url: it.url,
+        description: it.description,
+        variables: Object.fromEntries(
+          Object.entries(it.variables ?? {}).map(([key, value]) => [
+            key,
+            {
+              enum: value.enum ?? [],
+              default: value.default,
+              description: value.description,
+            } satisfies IRServerVariable,
+          ]),
+        ),
+      }))
   }
 
   private normalizeRequestBodyObject(

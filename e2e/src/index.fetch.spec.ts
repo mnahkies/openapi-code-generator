@@ -1,6 +1,6 @@
 import type {Server} from "node:http"
 import {beforeAll, describe, expect, it} from "@jest/globals"
-import {ApiClient} from "./generated/client/fetch/client"
+import {ApiClient, E2ETestClientServers} from "./generated/client/fetch/client"
 import {main} from "./index"
 import {numberBetween} from "./test-utils"
 
@@ -11,7 +11,11 @@ describe("e2e - typescript-fetch client", () => {
   beforeAll(async () => {
     const args = await main()
     client = new ApiClient({
-      basePath: `http://localhost:${args.address.port}`,
+      basePath: E2ETestClientServers.server("{protocol}://{host}:{port}").build(
+        undefined,
+        undefined,
+        args.address.port.toString(),
+      ),
       defaultHeaders: {
         Authorization: "Bearer default-header",
       },

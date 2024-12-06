@@ -164,11 +164,70 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class StripeApiServersOperations {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_StripeApi"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_StripeApi"> } {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServers {
+  static default(): Server<"StripeApi"> {
+    return StripeApiServers.server().build()
+  }
+
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
+    build: () => Server<"StripeApi">
+  } {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApi"> {
+            return "https://api.stripe.com/" as Server<"StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServersOperations
+}
+
 export interface StripeApiConfig extends AbstractAxiosConfig {
-  basePath: "https://api.stripe.com/" | string
+  basePath: Server<"StripeApi"> | string
 }
 
 export class StripeApi extends AbstractAxiosClient {
@@ -10691,6 +10750,9 @@ export class StripeApi extends AbstractAxiosClient {
           | "terminal_reader_splashscreen"
       }
     },
+    basePath:
+      | Server<"postFiles_StripeApi">
+      | string = StripeApiServers.operations.postFiles().build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_file>> {
@@ -10705,6 +10767,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -26329,6 +26392,9 @@ export class StripeApi extends AbstractAxiosClient {
       quote: string
       requestBody?: EmptyObject
     },
+    basePath:
+      | Server<"getQuotesQuotePdf_StripeApi">
+      | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {
@@ -26344,6 +26410,7 @@ export class StripeApi extends AbstractAxiosClient {
       url: url + query,
       method: "GET",
       data: body,
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

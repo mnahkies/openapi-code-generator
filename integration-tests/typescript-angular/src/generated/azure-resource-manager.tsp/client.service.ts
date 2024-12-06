@@ -16,8 +16,31 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class ContosoProviderHubClientServiceServers {
+  static default(): Server<"ContosoProviderHubClientService"> {
+    return ContosoProviderHubClientServiceServers.server().build()
+  }
+
+  static server(
+    url: "https://management.azure.com" = "https://management.azure.com",
+  ): { build: () => Server<"ContosoProviderHubClientService"> } {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          build(): Server<"ContosoProviderHubClientService"> {
+            return "https://management.azure.com" as Server<"ContosoProviderHubClientService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class ContosoProviderHubClientServiceConfig {
-  basePath: "https://management.azure.com" | string = ""
+  basePath: Server<"ContosoProviderHubClientService"> | string =
+    ContosoProviderHubClientServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
 
@@ -58,6 +81,8 @@ export type QueryParams = {
     | QueryParams
     | QueryParams[]
 }
+
+export type Server<T> = string & { __server__: T }
 
 @Injectable({
   providedIn: "root",

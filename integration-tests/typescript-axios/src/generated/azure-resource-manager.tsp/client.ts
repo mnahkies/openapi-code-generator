@@ -14,11 +14,34 @@ import {
 import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
+  Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class ContosoProviderHubClientServers {
+  static default(): Server<"ContosoProviderHubClient"> {
+    return ContosoProviderHubClientServers.server().build()
+  }
+
+  static server(
+    url: "https://management.azure.com" = "https://management.azure.com",
+  ): { build: () => Server<"ContosoProviderHubClient"> } {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          build(): Server<"ContosoProviderHubClient"> {
+            return "https://management.azure.com" as Server<"ContosoProviderHubClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
-  basePath: "https://management.azure.com" | string
+  basePath: Server<"ContosoProviderHubClient"> | string
 }
 
 export class ContosoProviderHubClient extends AbstractAxiosClient {

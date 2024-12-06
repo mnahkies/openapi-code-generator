@@ -16,13 +16,36 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class ContosoProviderHubClientServers {
+  static default(): Server<"ContosoProviderHubClient"> {
+    return ContosoProviderHubClientServers.server().build()
+  }
+
+  static server(
+    url: "https://management.azure.com" = "https://management.azure.com",
+  ): { build: () => Server<"ContosoProviderHubClient"> } {
+    switch (url) {
+      case "https://management.azure.com":
+        return {
+          build(): Server<"ContosoProviderHubClient"> {
+            return "https://management.azure.com" as Server<"ContosoProviderHubClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface ContosoProviderHubClientConfig
   extends AbstractFetchClientConfig {
-  basePath: "https://management.azure.com" | string
+  basePath: Server<"ContosoProviderHubClient"> | string
 }
 
 export class ContosoProviderHubClient extends AbstractFetchClient {

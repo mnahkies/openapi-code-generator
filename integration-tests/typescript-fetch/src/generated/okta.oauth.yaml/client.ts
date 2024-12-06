@@ -38,12 +38,40 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
+export class OktaOpenIdConnectOAuth20Servers {
+  static default(): Server<"OktaOpenIdConnectOAuth20"> {
+    return OktaOpenIdConnectOAuth20Servers.server().build()
+  }
+
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"OktaOpenIdConnectOAuth20">
+  } {
+    switch (url) {
+      case "https://{yourOktaDomain}":
+        return {
+          build(
+            yourOktaDomain = "subdomain.okta.com",
+          ): Server<"OktaOpenIdConnectOAuth20"> {
+            return "https://{yourOktaDomain}".replace(
+              "{yourOktaDomain}",
+              yourOktaDomain,
+            ) as Server<"OktaOpenIdConnectOAuth20">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
-  basePath: "https://{yourOktaDomain}" | string
+  basePath: Server<"OktaOpenIdConnectOAuth20"> | string
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
