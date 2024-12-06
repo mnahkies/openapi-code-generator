@@ -298,7 +298,11 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   }
 
   async listAttachments(
-    basePath?: Server<"listAttachments_TodoListsExampleApi"> | string,
+    basePath:
+      | Server<"listAttachments_TodoListsExampleApi">
+      | string = TodoListsExampleApiServers.operations
+      .listAttachments()
+      .build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_UnknownObject[]>> {
@@ -321,7 +325,11 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
         file?: unknown
       }
     },
-    basePath?: Server<"uploadAttachment_TodoListsExampleApi"> | string,
+    basePath:
+      | Server<"uploadAttachment_TodoListsExampleApi">
+      | string = TodoListsExampleApiServers.operations
+      .uploadAttachment()
+      .build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<void>> {

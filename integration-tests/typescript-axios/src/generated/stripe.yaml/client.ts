@@ -10750,7 +10750,9 @@ export class StripeApi extends AbstractAxiosClient {
           | "terminal_reader_splashscreen"
       }
     },
-    basePath?: Server<"postFiles_StripeApi"> | string,
+    basePath:
+      | Server<"postFiles_StripeApi">
+      | string = StripeApiServers.operations.postFiles().build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_file>> {
@@ -26390,7 +26392,9 @@ export class StripeApi extends AbstractAxiosClient {
       quote: string
       requestBody?: EmptyObject
     },
-    basePath?: Server<"getQuotesQuotePdf_StripeApi"> | string,
+    basePath:
+      | Server<"getQuotesQuotePdf_StripeApi">
+      | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {

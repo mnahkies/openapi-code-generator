@@ -20135,14 +20135,21 @@ export class GitHubV3RestApiService {
     )
   }
 
-  reposUploadReleaseAsset(p: {
-    owner: string
-    repo: string
-    releaseId: number
-    name: string
-    label?: string
-    requestBody?: string
-  }): Observable<
+  reposUploadReleaseAsset(
+    p: {
+      owner: string
+      repo: string
+      releaseId: number
+      name: string
+      label?: string
+      requestBody?: string
+    },
+    basePath:
+      | Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
+      | string = GitHubV3RestApiServiceServers.operations
+      .reposUploadReleaseAsset()
+      .build(),
+  ): Observable<
     | (HttpResponse<t_release_asset> & { status: 201 })
     | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>

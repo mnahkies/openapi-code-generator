@@ -10882,33 +10882,38 @@ export class StripeApiService {
     )
   }
 
-  postFiles(p: {
-    requestBody: {
-      expand?: string[]
-      file: string
-      file_link_data?: {
-        create: boolean
-        expires_at?: number
-        metadata?:
-          | {
-              [key: string]: string | undefined
-            }
-          | ""
+  postFiles(
+    p: {
+      requestBody: {
+        expand?: string[]
+        file: string
+        file_link_data?: {
+          create: boolean
+          expires_at?: number
+          metadata?:
+            | {
+                [key: string]: string | undefined
+              }
+            | ""
+        }
+        purpose:
+          | "account_requirement"
+          | "additional_verification"
+          | "business_icon"
+          | "business_logo"
+          | "customer_signature"
+          | "dispute_evidence"
+          | "identity_document"
+          | "issuing_regulatory_reporting"
+          | "pci_document"
+          | "tax_document_user_upload"
+          | "terminal_reader_splashscreen"
       }
-      purpose:
-        | "account_requirement"
-        | "additional_verification"
-        | "business_icon"
-        | "business_logo"
-        | "customer_signature"
-        | "dispute_evidence"
-        | "identity_document"
-        | "issuing_regulatory_reporting"
-        | "pci_document"
-        | "tax_document_user_upload"
-        | "terminal_reader_splashscreen"
-    }
-  }): Observable<
+    },
+    basePath:
+      | Server<"postFiles_StripeApiService">
+      | string = StripeApiServiceServers.operations.postFiles().build(),
+  ): Observable<
     | (HttpResponse<t_file> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>
@@ -26613,11 +26618,16 @@ export class StripeApiService {
     )
   }
 
-  getQuotesQuotePdf(p: {
-    expand?: string[]
-    quote: string
-    requestBody?: EmptyObject
-  }): Observable<
+  getQuotesQuotePdf(
+    p: {
+      expand?: string[]
+      quote: string
+      requestBody?: EmptyObject
+    },
+    basePath:
+      | Server<"getQuotesQuotePdf_StripeApiService">
+      | string = StripeApiServiceServers.operations.getQuotesQuotePdf().build(),
+  ): Observable<
     | (HttpResponse<string> & { status: 200 })
     | (HttpResponse<t_error> & { status: StatusCode })
     | HttpResponse<unknown>

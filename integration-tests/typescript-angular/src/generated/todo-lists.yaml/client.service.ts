@@ -359,7 +359,13 @@ export class TodoListsExampleApiService {
     )
   }
 
-  listAttachments(): Observable<
+  listAttachments(
+    basePath:
+      | Server<"listAttachments_TodoListsExampleApiService">
+      | string = TodoListsExampleApiServiceServers.operations
+      .listAttachments()
+      .build(),
+  ): Observable<
     (HttpResponse<t_UnknownObject[]> & { status: 200 }) | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -372,11 +378,18 @@ export class TodoListsExampleApiService {
     )
   }
 
-  uploadAttachment(p: {
-    requestBody: {
-      file?: unknown
-    }
-  }): Observable<
+  uploadAttachment(
+    p: {
+      requestBody: {
+        file?: unknown
+      }
+    },
+    basePath:
+      | Server<"uploadAttachment_TodoListsExampleApiService">
+      | string = TodoListsExampleApiServiceServers.operations
+      .uploadAttachment()
+      .build(),
+  ): Observable<
     (HttpResponse<void> & { status: 202 }) | HttpResponse<unknown>
   > {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })

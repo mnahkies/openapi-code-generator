@@ -95,7 +95,8 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
                 this.clientServersBuilder.typeForOperationId(operationId),
                 "string",
               ),
-              required: false,
+              default:
+                this.clientServersBuilder.defaultForOperationId(operationId),
             }
           : undefined,
         {name: "timeout", type: "number", required: false},

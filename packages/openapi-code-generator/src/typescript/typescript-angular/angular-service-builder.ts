@@ -1,6 +1,7 @@
 import {TypescriptClientBuilder} from "../common/client-builder"
 import type {ClientOperationBuilder} from "../common/client-operation-builder"
 import type {ImportBuilder} from "../common/import-builder"
+import {union} from "../common/type-utils"
 import {buildMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class AngularServiceBuilder extends TypescriptClientBuilder {
@@ -15,7 +16,7 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
   }
 
   protected buildOperation(builder: ClientOperationBuilder): string {
-    const {operationId, route, method} = builder
+    const {operationId, route, method, hasServers} = builder
     const {requestBodyParameter} = builder.requestBodyAsParameter()
 
     const operationParameter = builder.methodParameter()
@@ -61,7 +62,20 @@ return this.httpClient.request<any>(
 
     return buildMethod({
       name: operationId,
-      parameters: [operationParameter],
+      parameters: [
+        operationParameter,
+        hasServers
+          ? {
+              name: "basePath",
+              type: union(
+                this.clientServersBuilder.typeForOperationId(operationId),
+                "string",
+              ),
+              default:
+                this.clientServersBuilder.defaultForOperationId(operationId),
+            }
+          : undefined,
+      ],
       returnType: `Observable<${returnType}>`,
       body,
     })
