@@ -589,6 +589,8 @@ import {
   t_IssuesAddAssigneesParamSchema,
   t_IssuesAddLabelsBodySchema,
   t_IssuesAddLabelsParamSchema,
+  t_IssuesAddSubIssueBodySchema,
+  t_IssuesAddSubIssueParamSchema,
   t_IssuesCheckUserCanBeAssignedParamSchema,
   t_IssuesCheckUserCanBeAssignedToIssueParamSchema,
   t_IssuesCreateBodySchema,
@@ -633,12 +635,18 @@ import {
   t_IssuesListMilestonesParamSchema,
   t_IssuesListMilestonesQuerySchema,
   t_IssuesListQuerySchema,
+  t_IssuesListSubIssuesParamSchema,
+  t_IssuesListSubIssuesQuerySchema,
   t_IssuesLockBodySchema,
   t_IssuesLockParamSchema,
   t_IssuesRemoveAllLabelsParamSchema,
   t_IssuesRemoveAssigneesBodySchema,
   t_IssuesRemoveAssigneesParamSchema,
   t_IssuesRemoveLabelParamSchema,
+  t_IssuesRemoveSubIssueBodySchema,
+  t_IssuesRemoveSubIssueParamSchema,
+  t_IssuesReprioritizeSubIssueBodySchema,
+  t_IssuesReprioritizeSubIssueParamSchema,
   t_IssuesSetLabelsBodySchema,
   t_IssuesSetLabelsParamSchema,
   t_IssuesUnlockParamSchema,
@@ -1276,6 +1284,7 @@ import {
   t_SecretScanningCreatePushProtectionBypassBodySchema,
   t_SecretScanningCreatePushProtectionBypassParamSchema,
   t_SecretScanningGetAlertParamSchema,
+  t_SecretScanningGetScanHistoryParamSchema,
   t_SecretScanningListAlertsForEnterpriseParamSchema,
   t_SecretScanningListAlertsForEnterpriseQuerySchema,
   t_SecretScanningListAlertsForOrgParamSchema,
@@ -1667,6 +1676,7 @@ import {
   t_secret_scanning_alert,
   t_secret_scanning_location,
   t_secret_scanning_push_protection_bypass,
+  t_secret_scanning_scan_history,
   t_selected_actions,
   t_short_blob,
   t_short_branch,
@@ -1774,6 +1784,7 @@ import {
   s_code_scanning_analysis_tool_name,
   s_code_scanning_codeql_database,
   s_code_scanning_default_setup,
+  s_code_scanning_default_setup_options,
   s_code_scanning_default_setup_update,
   s_code_scanning_default_setup_update_response,
   s_code_scanning_organization_alert_items,
@@ -1974,6 +1985,7 @@ import {
   s_secret_scanning_push_protection_bypass,
   s_secret_scanning_push_protection_bypass_placeholder_id,
   s_secret_scanning_push_protection_bypass_reason,
+  s_secret_scanning_scan_history,
   s_security_advisory_ecosystems,
   s_selected_actions,
   s_short_blob,
@@ -15675,6 +15687,113 @@ export type ReactionsDeleteForIssue = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
+export type IssuesRemoveSubIssueResponder = {
+  with200(): KoaRuntimeResponse<t_issue>
+  with400(): KoaRuntimeResponse<t_scim_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesRemoveSubIssue = (
+  params: Params<
+    t_IssuesRemoveSubIssueParamSchema,
+    void,
+    t_IssuesRemoveSubIssueBodySchema,
+    void
+  >,
+  respond: IssuesRemoveSubIssueResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_issue>
+  | Response<400, t_scim_error>
+  | Response<404, t_basic_error>
+>
+
+export type IssuesListSubIssuesResponder = {
+  with200(): KoaRuntimeResponse<t_issue[]>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type IssuesListSubIssues = (
+  params: Params<
+    t_IssuesListSubIssuesParamSchema,
+    t_IssuesListSubIssuesQuerySchema,
+    void,
+    void
+  >,
+  respond: IssuesListSubIssuesResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_issue[]>
+  | Response<404, t_basic_error>
+  | Response<410, t_basic_error>
+>
+
+export type IssuesAddSubIssueResponder = {
+  with201(): KoaRuntimeResponse<t_issue>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with410(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error>
+} & KoaRuntimeResponder
+
+export type IssuesAddSubIssue = (
+  params: Params<
+    t_IssuesAddSubIssueParamSchema,
+    void,
+    t_IssuesAddSubIssueBodySchema,
+    void
+  >,
+  respond: IssuesAddSubIssueResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<201, t_issue>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<410, t_basic_error>
+  | Response<422, t_validation_error>
+>
+
+export type IssuesReprioritizeSubIssueResponder = {
+  with200(): KoaRuntimeResponse<t_issue>
+  with403(): KoaRuntimeResponse<t_basic_error>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with422(): KoaRuntimeResponse<t_validation_error_simple>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type IssuesReprioritizeSubIssue = (
+  params: Params<
+    t_IssuesReprioritizeSubIssueParamSchema,
+    void,
+    t_IssuesReprioritizeSubIssueBodySchema,
+    void
+  >,
+  respond: IssuesReprioritizeSubIssueResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_issue>
+  | Response<403, t_basic_error>
+  | Response<404, t_basic_error>
+  | Response<422, t_validation_error_simple>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
 export type IssuesListEventsForTimelineResponder = {
   with200(): KoaRuntimeResponse<t_timeline_issue_events[]>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -17710,6 +17829,34 @@ export type SecretScanningCreatePushProtectionBypass = (
   | Response<403, void>
   | Response<404, void>
   | Response<422, void>
+  | Response<
+      503,
+      {
+        code?: string
+        documentation_url?: string
+        message?: string
+      }
+    >
+>
+
+export type SecretScanningGetScanHistoryResponder = {
+  with200(): KoaRuntimeResponse<t_secret_scanning_scan_history>
+  with404(): KoaRuntimeResponse<void>
+  with503(): KoaRuntimeResponse<{
+    code?: string
+    documentation_url?: string
+    message?: string
+  }>
+} & KoaRuntimeResponder
+
+export type SecretScanningGetScanHistory = (
+  params: Params<t_SecretScanningGetScanHistoryParamSchema, void, void, void>,
+  respond: SecretScanningGetScanHistoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_secret_scanning_scan_history>
+  | Response<404, void>
   | Response<
       503,
       {
@@ -22877,6 +23024,10 @@ export type Implementation = {
   reactionsListForIssue: ReactionsListForIssue
   reactionsCreateForIssue: ReactionsCreateForIssue
   reactionsDeleteForIssue: ReactionsDeleteForIssue
+  issuesRemoveSubIssue: IssuesRemoveSubIssue
+  issuesListSubIssues: IssuesListSubIssues
+  issuesAddSubIssue: IssuesAddSubIssue
+  issuesReprioritizeSubIssue: IssuesReprioritizeSubIssue
   issuesListEventsForTimeline: IssuesListEventsForTimeline
   reposListDeployKeys: ReposListDeployKeys
   reposCreateDeployKey: ReposCreateDeployKey
@@ -22980,6 +23131,7 @@ export type Implementation = {
   secretScanningUpdateAlert: SecretScanningUpdateAlert
   secretScanningListLocationsForAlert: SecretScanningListLocationsForAlert
   secretScanningCreatePushProtectionBypass: SecretScanningCreatePushProtectionBypass
+  secretScanningGetScanHistory: SecretScanningGetScanHistory
   securityAdvisoriesListRepositoryAdvisories: SecurityAdvisoriesListRepositoryAdvisories
   securityAdvisoriesCreateRepositoryAdvisory: SecurityAdvisoriesCreateRepositoryAdvisory
   securityAdvisoriesCreatePrivateVulnerabilityReport: SecurityAdvisoriesCreatePrivateVulnerabilityReport
@@ -32807,6 +32959,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    code_scanning_default_setup_options:
+      s_code_scanning_default_setup_options.optional(),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -33128,6 +33282,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
     code_scanning_default_setup: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
+    code_scanning_default_setup_options:
+      s_code_scanning_default_setup_options.optional(),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -36584,6 +36740,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       )
       .optional(),
+    api_route_substring: z.string().optional(),
   })
 
   const apiInsightsGetRouteStatsByActorResponseValidator =
@@ -36656,6 +36813,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       )
       .optional(),
+    subject_name_substring: z.string().optional(),
   })
 
   const apiInsightsGetSubjectStatsResponseValidator = responseValidationFactory(
@@ -37093,6 +37251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         ),
       )
       .optional(),
+    actor_name_substring: z.string().optional(),
   })
 
   const apiInsightsGetUserStatsResponseValidator = responseValidationFactory(
@@ -41983,7 +42142,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const reposGetOrgRuleSuitesQuerySchema = z.object({
     ref: z.string().optional(),
-    repository_name: z.coerce.number().optional(),
+    repository_name: z.string().optional(),
     time_period: z
       .enum(["hour", "day", "week", "month"])
       .optional()
@@ -66884,6 +67043,309 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const issuesRemoveSubIssueParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesRemoveSubIssueBodySchema = z.object({
+    sub_issue_id: z.coerce.number(),
+  })
+
+  const issuesRemoveSubIssueResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue],
+      ["400", s_scim_error],
+      ["404", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.delete(
+    "issuesRemoveSubIssue",
+    "/repos/:owner/:repo/issues/:issue_number/sub_issue",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          issuesRemoveSubIssueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          issuesRemoveSubIssueBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .issuesRemoveSubIssue(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = issuesRemoveSubIssueResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const issuesListSubIssuesParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesListSubIssuesQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const issuesListSubIssuesResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_issue)],
+      ["404", s_basic_error],
+      ["410", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "issuesListSubIssues",
+    "/repos/:owner/:repo/issues/:issue_number/sub_issues",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          issuesListSubIssuesParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          issuesListSubIssuesQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue[]>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .issuesListSubIssues(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = issuesListSubIssuesResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const issuesAddSubIssueParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesAddSubIssueBodySchema = z.object({
+    sub_issue_id: z.coerce.number(),
+    replace_parent: PermissiveBoolean.optional(),
+  })
+
+  const issuesAddSubIssueResponseValidator = responseValidationFactory(
+    [
+      ["201", s_issue],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["410", s_basic_error],
+      ["422", s_validation_error],
+    ],
+    undefined,
+  )
+
+  router.post(
+    "issuesAddSubIssue",
+    "/repos/:owner/:repo/issues/:issue_number/sub_issues",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          issuesAddSubIssueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          issuesAddSubIssueBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_issue>(201)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with410() {
+          return new KoaRuntimeResponse<t_basic_error>(410)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error>(422)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .issuesAddSubIssue(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = issuesAddSubIssueResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const issuesReprioritizeSubIssueParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    issue_number: z.coerce.number(),
+  })
+
+  const issuesReprioritizeSubIssueBodySchema = z.object({
+    sub_issue_id: z.coerce.number(),
+    after_id: z.coerce.number().optional(),
+    before_id: z.coerce.number().optional(),
+  })
+
+  const issuesReprioritizeSubIssueResponseValidator = responseValidationFactory(
+    [
+      ["200", s_issue],
+      ["403", s_basic_error],
+      ["404", s_basic_error],
+      ["422", s_validation_error_simple],
+      [
+        "503",
+        z.object({
+          code: z.string().optional(),
+          message: z.string().optional(),
+          documentation_url: z.string().optional(),
+        }),
+      ],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "issuesReprioritizeSubIssue",
+    "/repos/:owner/:repo/issues/:issue_number/sub_issues/priority",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          issuesReprioritizeSubIssueParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          issuesReprioritizeSubIssueBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_issue>(200)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_basic_error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with422() {
+          return new KoaRuntimeResponse<t_validation_error_simple>(422)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .issuesReprioritizeSubIssue(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = issuesReprioritizeSubIssueResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const issuesListEventsForTimelineParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -73706,6 +74168,77 @@ export function createRouter(implementation: Implementation): KoaRouter {
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const secretScanningGetScanHistoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+  })
+
+  const secretScanningGetScanHistoryResponseValidator =
+    responseValidationFactory(
+      [
+        ["200", s_secret_scanning_scan_history],
+        ["404", z.undefined()],
+        [
+          "503",
+          z.object({
+            code: z.string().optional(),
+            message: z.string().optional(),
+            documentation_url: z.string().optional(),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "secretScanningGetScanHistory",
+    "/repos/:owner/:repo/secret-scanning/scan-history",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          secretScanningGetScanHistoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_secret_scanning_scan_history>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<void>(404)
+        },
+        with503() {
+          return new KoaRuntimeResponse<{
+            code?: string
+            documentation_url?: string
+            message?: string
+          }>(503)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .secretScanningGetScanHistory(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = secretScanningGetScanHistoryResponseValidator(status, body)
       ctx.status = status
       return next()
     },

@@ -992,6 +992,11 @@ export type t_code_scanning_default_setup = {
   updated_at?: string | null
 }
 
+export type t_code_scanning_default_setup_options = {
+  runner_label?: string | null
+  runner_type?: "standard" | "labeled" | "not_set"
+} | null
+
 export type t_code_scanning_default_setup_update = {
   languages?: (
     | "c-cpp"
@@ -1004,6 +1009,8 @@ export type t_code_scanning_default_setup_update = {
     | "swift"
   )[]
   query_suite?: "default" | "extended"
+  runner_label?: string | null
+  runner_type?: "standard" | "labeled"
   state?: "configured" | "not-configured"
 }
 
@@ -1141,6 +1148,10 @@ export type t_code_search_result_item = {
 export type t_code_security_configuration = {
   advanced_security?: "enabled" | "disabled"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+  code_scanning_default_setup_options?: {
+    runner_label?: string | null
+    runner_type?: "standard" | "labeled" | "not_set" | null
+  } | null
   created_at?: string
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
@@ -2363,6 +2374,7 @@ export type t_file_commit = {
       reason?: string
       signature?: string | null
       verified?: boolean
+      verified_at?: string | null
     }
   }
   content: {
@@ -2638,6 +2650,7 @@ export type t_git_commit = {
     reason: string
     signature: string | null
     verified: boolean
+    verified_at?: string | null
   }
 }
 
@@ -3035,6 +3048,7 @@ export type t_issue = {
   repository_url: string
   state: string
   state_reason?: "completed" | "reopened" | "not_planned" | null
+  sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
   updated_at: string
@@ -3175,6 +3189,11 @@ export type t_issue_search_result_item = {
   score: number
   state: string
   state_reason?: string | null
+  sub_issues_summary?: {
+    completed: number
+    percent_completed: number
+    total: number
+  }
   text_matches?: t_search_result_text_matches
   timeline_url?: string
   title: string
@@ -3740,6 +3759,7 @@ export type t_nullable_issue = {
   repository_url: string
   state: string
   state_reason?: "completed" | "reopened" | "not_planned" | null
+  sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
   updated_at: string
@@ -6255,6 +6275,23 @@ export type t_secret_scanning_push_protection_bypass_reason =
   | "used_in_tests"
   | "will_fix_later"
 
+export type t_secret_scanning_scan = {
+  completed_at?: string | null
+  started_at?: string | null
+  status?: string
+  type?: string
+}
+
+export type t_secret_scanning_scan_history = {
+  backfill_scans?: t_secret_scanning_scan[]
+  custom_pattern_backfill_scans?: (t_secret_scanning_scan & {
+    pattern_name?: string
+    pattern_scope?: string
+  })[]
+  incremental_scans?: t_secret_scanning_scan[]
+  pattern_update_scans?: t_secret_scanning_scan[]
+}
+
 export type t_security_advisory_credit_types =
   | "analyst"
   | "finder"
@@ -6598,6 +6635,12 @@ export type t_status_check_policy = {
   contexts_url: string
   strict: boolean
   url: string
+}
+
+export type t_sub_issues_summary = {
+  completed: number
+  percent_completed: number
+  total: number
 }
 
 export type t_tag = {
@@ -7023,6 +7066,7 @@ export type t_timeline_committed_event = {
     reason: string
     signature: string | null
     verified: boolean
+    verified_at?: string | null
   }
 }
 
@@ -7281,6 +7325,7 @@ export type t_verification = {
   reason: string
   signature: string | null
   verified: boolean
+  verified_at?: string | null
 }
 
 export type t_view_traffic = {

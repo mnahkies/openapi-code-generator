@@ -68,6 +68,7 @@ import {
   t_code_scanning_analysis_tool_name,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
+  t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
@@ -268,6 +269,7 @@ import {
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_push_protection_bypass_placeholder_id,
   t_secret_scanning_push_protection_bypass_reason,
+  t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -4202,6 +4204,7 @@ export class GitHubV3RestApiService {
     requestBody: {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      code_scanning_default_setup_options?: t_code_scanning_default_setup_options
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4320,6 +4323,7 @@ export class GitHubV3RestApiService {
     requestBody: {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      code_scanning_default_setup_options?: t_code_scanning_default_setup_options
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -5673,6 +5677,7 @@ export class GitHubV3RestApiService {
       | "api_route"
       | "total_request_count"
     )[]
+    apiRouteSubstring?: string
   }): Observable<
     | (HttpResponse<t_api_insights_route_stats> & { status: 200 })
     | HttpResponse<unknown>
@@ -5684,6 +5689,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      api_route_substring: p["apiRouteSubstring"],
     })
 
     return this.httpClient.request<any>(
@@ -5712,6 +5718,7 @@ export class GitHubV3RestApiService {
       | "subject_name"
       | "total_request_count"
     )[]
+    subjectNameSubstring?: string
   }): Observable<
     | (HttpResponse<t_api_insights_subject_stats> & { status: 200 })
     | HttpResponse<unknown>
@@ -5723,6 +5730,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      subject_name_substring: p["subjectNameSubstring"],
     })
 
     return this.httpClient.request<any>(
@@ -5921,6 +5929,7 @@ export class GitHubV3RestApiService {
       | "subject_name"
       | "total_request_count"
     )[]
+    actorNameSubstring?: string
   }): Observable<
     | (HttpResponse<t_api_insights_user_stats> & { status: 200 })
     | HttpResponse<unknown>
@@ -5932,6 +5941,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      actor_name_substring: p["actorNameSubstring"],
     })
 
     return this.httpClient.request<any>(
@@ -7801,7 +7811,7 @@ export class GitHubV3RestApiService {
   reposGetOrgRuleSuites(p: {
     org: string
     ref?: string
-    repositoryName?: number
+    repositoryName?: string
     timePeriod?: "hour" | "day" | "week" | "month"
     actorName?: string
     ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
@@ -17858,6 +17868,133 @@ export class GitHubV3RestApiService {
     )
   }
 
+  issuesRemoveSubIssue(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    requestBody: {
+      sub_issue_id: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issue> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issue`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  issuesListSubIssues(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<t_issue[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 410 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  issuesAddSubIssue(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    requestBody: {
+      replace_parent?: boolean
+      sub_issue_id: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issue> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 410 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  issuesReprioritizeSubIssue(p: {
+    owner: string
+    repo: string
+    issueNumber: number
+    requestBody: {
+      after_id?: number
+      before_id?: number
+      sub_issue_id: number
+    }
+  }): Observable<
+    | (HttpResponse<t_issue> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues/priority`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   issuesListEventsForTimeline(p: {
     owner: string
     repo: string
@@ -20656,6 +20793,30 @@ export class GitHubV3RestApiService {
       {
         headers,
         body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  secretScanningGetScanHistory(p: {
+    owner: string
+    repo: string
+  }): Observable<
+    | (HttpResponse<t_secret_scanning_scan_history> & { status: 200 })
+    | (HttpResponse<void> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/scan-history`,
+      {
         observe: "response",
         reportProgress: false,
       },

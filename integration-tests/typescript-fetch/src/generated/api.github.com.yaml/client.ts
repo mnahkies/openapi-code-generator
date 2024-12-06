@@ -68,6 +68,7 @@ import {
   t_code_scanning_analysis_tool_name,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
+  t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
@@ -268,6 +269,7 @@ import {
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_push_protection_bypass_placeholder_id,
   t_secret_scanning_push_protection_bypass_reason,
+  t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -4127,6 +4129,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4251,6 +4254,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -5649,6 +5653,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "api_route"
         | "total_request_count"
       )[]
+      apiRouteSubstring?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5664,6 +5669,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      api_route_substring: p["apiRouteSubstring"],
     })
 
     return this._fetch(
@@ -5688,6 +5694,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "subject_name"
         | "total_request_count"
       )[]
+      subjectNameSubstring?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5701,6 +5708,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      subject_name_substring: p["subjectNameSubstring"],
     })
 
     return this._fetch(
@@ -5894,6 +5902,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "subject_name"
         | "total_request_count"
       )[]
+      actorNameSubstring?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -5908,6 +5917,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      actor_name_substring: p["actorNameSubstring"],
     })
 
     return this._fetch(
@@ -7839,7 +7849,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       ref?: string
-      repositoryName?: number
+      repositoryName?: string
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
       ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
@@ -18084,6 +18094,144 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
+  async issuesRemoveSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issue> | Res<400, t_scim_error> | Res<404, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issue`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "DELETE", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async issuesListSubIssues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      Res<200, t_issue[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async issuesAddSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        replace_parent?: boolean
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<201, t_issue>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<410, t_basic_error>
+      | Res<422, t_validation_error>
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async issuesReprioritizeSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        after_id?: number
+        before_id?: number
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_issue>
+      | Res<403, t_basic_error>
+      | Res<404, t_basic_error>
+      | Res<422, t_validation_error_simple>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues/priority`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
   async issuesListEventsForTimeline(
     p: {
       owner: string
@@ -20911,6 +21059,35 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const body = JSON.stringify(p.requestBody)
 
     return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async secretScanningGetScanHistory(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    TypedFetchResponse<
+      | Res<200, t_secret_scanning_scan_history>
+      | Res<404, void>
+      | Res<
+          503,
+          {
+            code?: string
+            documentation_url?: string
+            message?: string
+          }
+        >
+    >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/scan-history`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
   async securityAdvisoriesListRepositoryAdvisories(
