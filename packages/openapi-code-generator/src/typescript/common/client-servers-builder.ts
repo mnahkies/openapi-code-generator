@@ -8,7 +8,7 @@ import type {ImportBuilder} from "./import-builder"
 import {quotedStringLiteral, union} from "./type-utils"
 
 export class ClientServersBuilder implements ICompilable {
-  readonly operations: IROperation[] = []
+  readonly operations: Pick<IROperation, "operationId" | "servers">[] = []
 
   constructor(
     readonly filename: string,
@@ -17,7 +17,7 @@ export class ClientServersBuilder implements ICompilable {
     readonly imports: ImportBuilder,
   ) {}
 
-  addOperation(operation: IROperation) {
+  addOperation(operation: Pick<IROperation, "operationId" | "servers">) {
     if (operation.servers.length) {
       this.operations.push(operation)
     }
@@ -28,7 +28,7 @@ export class ClientServersBuilder implements ICompilable {
   }) {
     return Object.entries(variables)
       .map(([name, variable]) => {
-        const type = union(...variable.enum)
+        const type = union(...variable.enum.map(quotedStringLiteral))
         return `${name}${type ? `:${type}` : ""} = "${variable.default}"`
       })
       .join(",")
