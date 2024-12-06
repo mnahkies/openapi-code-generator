@@ -5,6 +5,11 @@ info:
 tags:
   - name: request headers
   - name: validation
+servers:
+  - url: http://localhost:{port}
+    variables:
+      port:
+        default: '8080'
 paths:
   /headers/undeclared:
     get:

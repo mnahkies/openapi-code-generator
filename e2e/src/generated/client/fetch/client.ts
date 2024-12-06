@@ -11,10 +11,38 @@ import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface E2ETestClientConfig extends AbstractFetchClientConfig {}
+export class E2ETestClientServers {
+  static default(): Server<"E2ETestClient"> {
+    return E2ETestClientServers.server().build()
+  }
+
+  static server(url: "http://localhost:{port}" = "http://localhost:{port}"): {
+    build: (port?: string) => Server<"E2ETestClient">
+  } {
+    switch (url) {
+      case "http://localhost:{port}":
+        return {
+          build(port = "8080"): Server<"E2ETestClient"> {
+            return "http://localhost:{port}".replace(
+              "{port}",
+              port,
+            ) as Server<"E2ETestClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export interface E2ETestClientConfig extends AbstractFetchClientConfig {
+  basePath: Server<"E2ETestClient"> | string
+}
 
 export class E2ETestClient extends AbstractFetchClient {
   constructor(config: E2ETestClientConfig) {

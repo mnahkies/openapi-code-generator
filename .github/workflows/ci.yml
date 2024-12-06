@@ -51,10 +51,8 @@ jobs:
       - run: yarn integration:generate
       - run: yarn integration:validate
 
-      - run: yarn workspace e2e clean
-      - run: yarn workspace e2e generate
-      - run: yarn workspace e2e build
-      - run: yarn workspace e2e test
+      - run: yarn e2e:generate
+      - run: yarn e2e:validate
 
       - name: Check for uncommitted changes
         run: ./scripts/assert-clean-working-directory.sh
