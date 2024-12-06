@@ -86,23 +86,22 @@ describe("typescript/common/client-servers-builder", () => {
       ])
     })
 
-    it("produces a default, specific, and custom", () => {
+    it("produces a specific, and custom", () => {
       expect(result.output).toMatchInlineSnapshot(`
         "export class UnitTestServers {
-          static default(
-            schema: "https" | "http" = "https",
-            tenant = "example",
-          ): Server<"UnitTest"> {
-            return "{schema}://unit-tests-default.{tenant}.example.com"
-              .replace("{schema}", schema)
-              .replace("{tenant}", tenant) as Server<"UnitTest">
+          static default(): Server<"UnitTest"> {
+            return UnitTestServers.server().build()
           }
 
-          static specific(
-            url:
-              | "{schema}://unit-tests-default.{tenant}.example.com"
-              | "https://unit-tests-other.example.com",
-          ) {
+          static server(url?: "{schema}://unit-tests-default.{tenant}.example.com"): {
+            build: (schema?: "https" | "http", tenant?: string) => Server<"UnitTest">
+          }
+          static server(url?: "https://unit-tests-other.example.com"): {
+            build: () => Server<"UnitTest">
+          }
+          static server(
+            url: string = "{schema}://unit-tests-default.{tenant}.example.com",
+          ): unknown {
             switch (url) {
               case "{schema}://unit-tests-default.{tenant}.example.com":
                 return {
@@ -117,12 +116,19 @@ describe("typescript/common/client-servers-builder", () => {
                 }
 
               case "https://unit-tests-other.example.com":
-                return "https://unit-tests-other.example.com" as Server<"UnitTest">
+                return {
+                  build(): Server<"UnitTest"> {
+                    return "https://unit-tests-other.example.com" as Server<"UnitTest">
+                  },
+                }
+
+              default:
+                throw new Error(\`no matching server for url '\${url}'\`)
             }
           }
 
-          static custom(url: string): Server<"UnitTestCustom"> {
-            return url as Server<"UnitTestCustom">
+          static custom(url: string): Server<"custom_UnitTest"> {
+            return url as Server<"custom_UnitTest">
           }
         }
         "
@@ -191,53 +197,96 @@ describe("typescript/common/client-servers-builder", () => {
       )
     })
 
-    it("produces a default, specific, custom, and operations", () => {
+    it("produces a specific, custom, and operations", () => {
       expect(result.output).toMatchInlineSnapshot(`
-        "export class UnitTestServers {
-          static default(): Server<"UnitTest"> {
-            return "https://unit-tests-default.example.com" as Server<"UnitTest">
+        "export class UnitTestServersOperations {
+          static testOperation(
+            url?: "{schema}}://test-operation.{tenant}.example.com",
+          ): {
+            build: (
+              schema?: "https" | "http",
+              tenant?: string,
+            ) => Server<"testOperation_UnitTest">
           }
-
-          static specific(
-            url:
-              | "https://unit-tests-default.example.com"
-              | "https://unit-tests-other.example.com",
-          ) {
+          static testOperation(
+            url: string = "{schema}}://test-operation.{tenant}.example.com",
+          ): unknown {
             switch (url) {
-              case "https://unit-tests-default.example.com":
-                return "https://unit-tests-default.example.com" as Server<"UnitTest">
+              case "{schema}}://test-operation.{tenant}.example.com":
+                return {
+                  build(
+                    schema: "https" | "http" = "https",
+                    tenant = "example",
+                  ): Server<"testOperation_UnitTest"> {
+                    return "{schema}}://test-operation.{tenant}.example.com"
+                      .replace("{schema}", schema)
+                      .replace("{tenant}", tenant) as Server<"testOperation_UnitTest">
+                  },
+                }
 
-              case "https://unit-tests-other.example.com":
-                return "https://unit-tests-other.example.com" as Server<"UnitTest">
+              default:
+                throw new Error(\`no matching server for url '\${url}'\`)
             }
           }
 
-          static custom(url: string): Server<"UnitTestCustom"> {
-            return url as Server<"UnitTestCustom">
+          static anotherTestOperation(
+            url?: "https://another-test-operation.example.com",
+          ): { build: () => Server<"anotherTestOperation_UnitTest"> }
+          static anotherTestOperation(
+            url: string = "https://another-test-operation.example.com",
+          ): unknown {
+            switch (url) {
+              case "https://another-test-operation.example.com":
+                return {
+                  build(): Server<"anotherTestOperation_UnitTest"> {
+                    return "https://another-test-operation.example.com" as Server<"anotherTestOperation_UnitTest">
+                  },
+                }
+
+              default:
+                throw new Error(\`no matching server for url '\${url}'\`)
+            }
+          }
+        }
+
+        export class UnitTestServers {
+          static default(): Server<"UnitTest"> {
+            return UnitTestServers.server().build()
           }
 
-          static readonly operations = {
-            testOperation(url: "{schema}}://test-operation.{tenant}.example.com") {
-              switch (url) {
-                case "{schema}}://test-operation.{tenant}.example.com":
-                  return {
-                    build(
-                      schema: "https" | "http" = "https",
-                      tenant = "example",
-                    ): Server<"testOperation"> {
-                      return "{schema}}://test-operation.{tenant}.example.com"
-                        .replace("{schema}", schema)
-                        .replace("{tenant}", tenant) as Server<"testOperation">
-                    },
-                  }
-              }
-            },
-            anotherTestOperation(url: "https://another-test-operation.example.com") {
-              switch (url) {
-                case "https://another-test-operation.example.com":
-                  return "https://another-test-operation.example.com" as Server<"anotherTestOperation">
-              }
-            },
+          static server(url?: "https://unit-tests-default.example.com"): {
+            build: () => Server<"UnitTest">
+          }
+          static server(url?: "https://unit-tests-other.example.com"): {
+            build: () => Server<"UnitTest">
+          }
+          static server(
+            url: string = "https://unit-tests-default.example.com",
+          ): unknown {
+            switch (url) {
+              case "https://unit-tests-default.example.com":
+                return {
+                  build(): Server<"UnitTest"> {
+                    return "https://unit-tests-default.example.com" as Server<"UnitTest">
+                  },
+                }
+
+              case "https://unit-tests-other.example.com":
+                return {
+                  build(): Server<"UnitTest"> {
+                    return "https://unit-tests-other.example.com" as Server<"UnitTest">
+                  },
+                }
+
+              default:
+                throw new Error(\`no matching server for url '\${url}'\`)
+            }
+          }
+
+          static readonly operations = UnitTestServersOperations
+
+          static custom(url: string): Server<"custom_UnitTest"> {
+            return url as Server<"custom_UnitTest">
           }
         }
         "
@@ -255,20 +304,20 @@ describe("typescript/common/client-servers-builder", () => {
     it("typeForOperationId returns the correct type when there are variables", () => {
       expect(
         result.builder.typeForOperationId("testOperation"),
-      ).toMatchInlineSnapshot(`"Server<"testOperation">"`)
+      ).toMatchInlineSnapshot(`"Server<"testOperation_UnitTest">"`)
     })
 
     it("typeForOperationId returns the correct type when there are no variables", () => {
       expect(
         result.builder.typeForOperationId("anotherTestOperation"),
-      ).toMatchInlineSnapshot(`"Server<"anotherTestOperation">"`)
+      ).toMatchInlineSnapshot(`"Server<"anotherTestOperation_UnitTest">"`)
     })
 
     it("defaultForOperationId returns the correct value when there are variables", () => {
       expect(
         result.builder.defaultForOperationId("testOperation"),
       ).toMatchInlineSnapshot(
-        `"UnitTestServers.operations.testOperation("{schema}}://test-operation.{tenant}.example.com").build()"`,
+        `"UnitTestServers.operations.testOperation().build()"`,
       )
     })
 
@@ -276,7 +325,7 @@ describe("typescript/common/client-servers-builder", () => {
       expect(
         result.builder.defaultForOperationId("anotherTestOperation"),
       ).toMatchInlineSnapshot(
-        `"UnitTestServers.operations.anotherTestOperation("https://another-test-operation.example.com")"`,
+        `"UnitTestServers.operations.anotherTestOperation().build()"`,
       )
     })
   })

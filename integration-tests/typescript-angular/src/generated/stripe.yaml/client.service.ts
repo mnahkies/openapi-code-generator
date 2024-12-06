@@ -166,40 +166,73 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
-export class StripeApiServiceServers {
-  static default(): Server<"StripeApiService"> {
-    return "https://api.stripe.com/" as Server<"StripeApiService">
+export class StripeApiServiceServersOperations {
+  static postFiles(url?: "https://files.stripe.com/"): {
+    build: () => Server<"postFiles_StripeApiService">
   }
-
-  static specific(url: "https://api.stripe.com/") {
+  static postFiles(url: string = "https://files.stripe.com/"): unknown {
     switch (url) {
-      case "https://api.stripe.com/":
-        return "https://api.stripe.com/" as Server<"StripeApiService">
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApiService"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"StripeApiServiceCustom"> {
-    return url as Server<"StripeApiServiceCustom">
+  static getQuotesQuotePdf(url?: "https://files.stripe.com/"): {
+    build: () => Server<"getQuotesQuotePdf_StripeApiService">
+  }
+  static getQuotesQuotePdf(url: string = "https://files.stripe.com/"): unknown {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApiService"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServiceServers {
+  static default(): Server<"StripeApiService"> {
+    return StripeApiServiceServers.server().build()
   }
 
-  static readonly operations = {
-    postFiles(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"postFiles">
-      }
-    },
-    getQuotesQuotePdf(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-      }
-    },
+  static server(url?: "https://api.stripe.com/"): {
+    build: () => Server<"StripeApiService">
+  }
+  static server(url: string = "https://api.stripe.com/"): unknown {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApiService"> {
+            return "https://api.stripe.com/" as Server<"StripeApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServiceServersOperations
+
+  static custom(url: string): Server<"custom_StripeApiService"> {
+    return url as Server<"custom_StripeApiService">
   }
 }
 
 export class StripeApiServiceConfig {
-  basePath: Server<"StripeApiService"> | Server<"StripeApiServiceCustom"> =
+  basePath: Server<"StripeApiService"> | Server<"custom_StripeApiService"> =
     StripeApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

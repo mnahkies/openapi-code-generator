@@ -27,16 +27,14 @@ import {
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
 export class MyAccountManagementServers {
-  static default(
-    yourOktaDomain = "subdomain.okta.com",
-  ): Server<"MyAccountManagement"> {
-    return "https://{yourOktaDomain}".replace(
-      "{yourOktaDomain}",
-      yourOktaDomain,
-    ) as Server<"MyAccountManagement">
+  static default(): Server<"MyAccountManagement"> {
+    return MyAccountManagementServers.server().build()
   }
 
-  static specific(url: "https://{yourOktaDomain}") {
+  static server(url?: "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"MyAccountManagement">
+  }
+  static server(url: string = "https://{yourOktaDomain}"): unknown {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {
@@ -49,16 +47,19 @@ export class MyAccountManagementServers {
             ) as Server<"MyAccountManagement">
           },
         }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"MyAccountManagementCustom"> {
-    return url as Server<"MyAccountManagementCustom">
+  static custom(url: string): Server<"custom_MyAccountManagement"> {
+    return url as Server<"custom_MyAccountManagement">
   }
 }
 
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
-  basePath: Server<"MyAccountManagement"> | Server<"MyAccountManagementCustom">
+  basePath: Server<"MyAccountManagement"> | Server<"custom_MyAccountManagement">
 }
 
 export class MyAccountManagement extends AbstractAxiosClient {

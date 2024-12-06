@@ -25,14 +25,14 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class ContosoWidgetManagerServiceServers {
-  static default(endpoint = ""): Server<"ContosoWidgetManagerService"> {
-    return "{endpoint}/widget".replace(
-      "{endpoint}",
-      endpoint,
-    ) as Server<"ContosoWidgetManagerService">
+  static default(): Server<"ContosoWidgetManagerService"> {
+    return ContosoWidgetManagerServiceServers.server().build()
   }
 
-  static specific(url: "{endpoint}/widget") {
+  static server(url?: "{endpoint}/widget"): {
+    build: (endpoint?: string) => Server<"ContosoWidgetManagerService">
+  }
+  static server(url: string = "{endpoint}/widget"): unknown {
     switch (url) {
       case "{endpoint}/widget":
         return {
@@ -43,18 +43,21 @@ export class ContosoWidgetManagerServiceServers {
             ) as Server<"ContosoWidgetManagerService">
           },
         }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"ContosoWidgetManagerServiceCustom"> {
-    return url as Server<"ContosoWidgetManagerServiceCustom">
+  static custom(url: string): Server<"custom_ContosoWidgetManagerService"> {
+    return url as Server<"custom_ContosoWidgetManagerService">
   }
 }
 
 export class ContosoWidgetManagerServiceConfig {
   basePath:
     | Server<"ContosoWidgetManagerService">
-    | Server<"ContosoWidgetManagerServiceCustom"> =
+    | Server<"custom_ContosoWidgetManagerService"> =
     ContosoWidgetManagerServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

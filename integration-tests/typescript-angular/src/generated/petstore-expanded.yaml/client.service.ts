@@ -9,25 +9,35 @@ import { Observable } from "rxjs"
 
 export class SwaggerPetstoreServiceServers {
   static default(): Server<"SwaggerPetstoreService"> {
-    return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
+    return SwaggerPetstoreServiceServers.server().build()
   }
 
-  static specific(url: "https://petstore.swagger.io/v2") {
+  static server(url?: "https://petstore.swagger.io/v2"): {
+    build: () => Server<"SwaggerPetstoreService">
+  }
+  static server(url: string = "https://petstore.swagger.io/v2"): unknown {
     switch (url) {
       case "https://petstore.swagger.io/v2":
-        return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
+        return {
+          build(): Server<"SwaggerPetstoreService"> {
+            return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstoreService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"SwaggerPetstoreServiceCustom"> {
-    return url as Server<"SwaggerPetstoreServiceCustom">
+  static custom(url: string): Server<"custom_SwaggerPetstoreService"> {
+    return url as Server<"custom_SwaggerPetstoreService">
   }
 }
 
 export class SwaggerPetstoreServiceConfig {
   basePath:
     | Server<"SwaggerPetstoreService">
-    | Server<"SwaggerPetstoreServiceCustom"> =
+    | Server<"custom_SwaggerPetstoreService"> =
     SwaggerPetstoreServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

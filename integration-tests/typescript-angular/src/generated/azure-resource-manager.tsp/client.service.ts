@@ -18,25 +18,35 @@ import { Observable } from "rxjs"
 
 export class ContosoProviderHubClientServiceServers {
   static default(): Server<"ContosoProviderHubClientService"> {
-    return "https://management.azure.com" as Server<"ContosoProviderHubClientService">
+    return ContosoProviderHubClientServiceServers.server().build()
   }
 
-  static specific(url: "https://management.azure.com") {
+  static server(url?: "https://management.azure.com"): {
+    build: () => Server<"ContosoProviderHubClientService">
+  }
+  static server(url: string = "https://management.azure.com"): unknown {
     switch (url) {
       case "https://management.azure.com":
-        return "https://management.azure.com" as Server<"ContosoProviderHubClientService">
+        return {
+          build(): Server<"ContosoProviderHubClientService"> {
+            return "https://management.azure.com" as Server<"ContosoProviderHubClientService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"ContosoProviderHubClientServiceCustom"> {
-    return url as Server<"ContosoProviderHubClientServiceCustom">
+  static custom(url: string): Server<"custom_ContosoProviderHubClientService"> {
+    return url as Server<"custom_ContosoProviderHubClientService">
   }
 }
 
 export class ContosoProviderHubClientServiceConfig {
   basePath:
     | Server<"ContosoProviderHubClientService">
-    | Server<"ContosoProviderHubClientServiceCustom"> =
+    | Server<"custom_ContosoProviderHubClientService"> =
     ContosoProviderHubClientServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

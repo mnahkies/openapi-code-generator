@@ -168,40 +168,73 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
-export class StripeApiServers {
-  static default(): Server<"StripeApi"> {
-    return "https://api.stripe.com/" as Server<"StripeApi">
+export class StripeApiServersOperations {
+  static postFiles(url?: "https://files.stripe.com/"): {
+    build: () => Server<"postFiles_StripeApi">
   }
-
-  static specific(url: "https://api.stripe.com/") {
+  static postFiles(url: string = "https://files.stripe.com/"): unknown {
     switch (url) {
-      case "https://api.stripe.com/":
-        return "https://api.stripe.com/" as Server<"StripeApi">
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"StripeApiCustom"> {
-    return url as Server<"StripeApiCustom">
+  static getQuotesQuotePdf(url?: "https://files.stripe.com/"): {
+    build: () => Server<"getQuotesQuotePdf_StripeApi">
+  }
+  static getQuotesQuotePdf(url: string = "https://files.stripe.com/"): unknown {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServers {
+  static default(): Server<"StripeApi"> {
+    return StripeApiServers.server().build()
   }
 
-  static readonly operations = {
-    postFiles(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"postFiles">
-      }
-    },
-    getQuotesQuotePdf(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-      }
-    },
+  static server(url?: "https://api.stripe.com/"): {
+    build: () => Server<"StripeApi">
+  }
+  static server(url: string = "https://api.stripe.com/"): unknown {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApi"> {
+            return "https://api.stripe.com/" as Server<"StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServersOperations
+
+  static custom(url: string): Server<"custom_StripeApi"> {
+    return url as Server<"custom_StripeApi">
   }
 }
 
 export interface StripeApiConfig extends AbstractAxiosConfig {
-  basePath: Server<"StripeApi"> | Server<"StripeApiCustom">
+  basePath: Server<"StripeApi"> | Server<"custom_StripeApi">
 }
 
 export class StripeApi extends AbstractAxiosClient {
@@ -10724,7 +10757,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "terminal_reader_splashscreen"
       }
     },
-    basePath?: Server<"postFiles"> | Server<"StripeApiCustom">,
+    basePath?: Server<"postFiles_StripeApi"> | Server<"custom_StripeApi">,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_file>> {
@@ -26364,7 +26397,9 @@ export class StripeApi extends AbstractAxiosClient {
       quote: string
       requestBody?: EmptyObject
     },
-    basePath?: Server<"getQuotesQuotePdf"> | Server<"StripeApiCustom">,
+    basePath?:
+      | Server<"getQuotesQuotePdf_StripeApi">
+      | Server<"custom_StripeApi">,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {

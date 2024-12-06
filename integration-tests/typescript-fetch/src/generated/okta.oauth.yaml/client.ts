@@ -43,16 +43,14 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class OktaOpenIdConnectOAuth20Servers {
-  static default(
-    yourOktaDomain = "subdomain.okta.com",
-  ): Server<"OktaOpenIdConnectOAuth20"> {
-    return "https://{yourOktaDomain}".replace(
-      "{yourOktaDomain}",
-      yourOktaDomain,
-    ) as Server<"OktaOpenIdConnectOAuth20">
+  static default(): Server<"OktaOpenIdConnectOAuth20"> {
+    return OktaOpenIdConnectOAuth20Servers.server().build()
   }
 
-  static specific(url: "https://{yourOktaDomain}") {
+  static server(url?: "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"OktaOpenIdConnectOAuth20">
+  }
+  static server(url: string = "https://{yourOktaDomain}"): unknown {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {
@@ -65,11 +63,14 @@ export class OktaOpenIdConnectOAuth20Servers {
             ) as Server<"OktaOpenIdConnectOAuth20">
           },
         }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"OktaOpenIdConnectOAuth20Custom"> {
-    return url as Server<"OktaOpenIdConnectOAuth20Custom">
+  static custom(url: string): Server<"custom_OktaOpenIdConnectOAuth20"> {
+    return url as Server<"custom_OktaOpenIdConnectOAuth20">
   }
 }
 
@@ -77,7 +78,7 @@ export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
   basePath:
     | Server<"OktaOpenIdConnectOAuth20">
-    | Server<"OktaOpenIdConnectOAuth20Custom">
+    | Server<"custom_OktaOpenIdConnectOAuth20">
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {

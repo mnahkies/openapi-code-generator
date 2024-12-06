@@ -21,3 +21,7 @@ export type t_TodoList = {
   totalItemCount: number
   updated: string
 }
+
+export type t_UnknownObject = {
+  [key: string]: unknown | undefined
+}

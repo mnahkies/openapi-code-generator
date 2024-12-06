@@ -20,25 +20,35 @@ import { AxiosRequestConfig, AxiosResponse } from "axios"
 
 export class ContosoProviderHubClientServers {
   static default(): Server<"ContosoProviderHubClient"> {
-    return "https://management.azure.com" as Server<"ContosoProviderHubClient">
+    return ContosoProviderHubClientServers.server().build()
   }
 
-  static specific(url: "https://management.azure.com") {
+  static server(url?: "https://management.azure.com"): {
+    build: () => Server<"ContosoProviderHubClient">
+  }
+  static server(url: string = "https://management.azure.com"): unknown {
     switch (url) {
       case "https://management.azure.com":
-        return "https://management.azure.com" as Server<"ContosoProviderHubClient">
+        return {
+          build(): Server<"ContosoProviderHubClient"> {
+            return "https://management.azure.com" as Server<"ContosoProviderHubClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"ContosoProviderHubClientCustom"> {
-    return url as Server<"ContosoProviderHubClientCustom">
+  static custom(url: string): Server<"custom_ContosoProviderHubClient"> {
+    return url as Server<"custom_ContosoProviderHubClient">
   }
 }
 
 export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
   basePath:
     | Server<"ContosoProviderHubClient">
-    | Server<"ContosoProviderHubClientCustom">
+    | Server<"custom_ContosoProviderHubClient">
 }
 
 export class ContosoProviderHubClient extends AbstractAxiosClient {

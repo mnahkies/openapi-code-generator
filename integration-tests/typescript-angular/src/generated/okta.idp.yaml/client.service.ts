@@ -25,16 +25,14 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class MyAccountManagementServiceServers {
-  static default(
-    yourOktaDomain = "subdomain.okta.com",
-  ): Server<"MyAccountManagementService"> {
-    return "https://{yourOktaDomain}".replace(
-      "{yourOktaDomain}",
-      yourOktaDomain,
-    ) as Server<"MyAccountManagementService">
+  static default(): Server<"MyAccountManagementService"> {
+    return MyAccountManagementServiceServers.server().build()
   }
 
-  static specific(url: "https://{yourOktaDomain}") {
+  static server(url?: "https://{yourOktaDomain}"): {
+    build: (yourOktaDomain?: string) => Server<"MyAccountManagementService">
+  }
+  static server(url: string = "https://{yourOktaDomain}"): unknown {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {
@@ -47,18 +45,21 @@ export class MyAccountManagementServiceServers {
             ) as Server<"MyAccountManagementService">
           },
         }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"MyAccountManagementServiceCustom"> {
-    return url as Server<"MyAccountManagementServiceCustom">
+  static custom(url: string): Server<"custom_MyAccountManagementService"> {
+    return url as Server<"custom_MyAccountManagementService">
   }
 }
 
 export class MyAccountManagementServiceConfig {
   basePath:
     | Server<"MyAccountManagementService">
-    | Server<"MyAccountManagementServiceCustom"> =
+    | Server<"custom_MyAccountManagementService"> =
     MyAccountManagementServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

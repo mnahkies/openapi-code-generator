@@ -320,36 +320,60 @@ import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
+export class GitHubV3RestApiServiceServersOperations {
+  static reposUploadReleaseAsset(url?: "https://uploads.github.com"): {
+    build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
+  }
+  static reposUploadReleaseAsset(
+    url: string = "https://uploads.github.com",
+  ): unknown {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          build(): Server<"reposUploadReleaseAsset_GitHubV3RestApiService"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class GitHubV3RestApiServiceServers {
   static default(): Server<"GitHubV3RestApiService"> {
-    return "https://api.github.com" as Server<"GitHubV3RestApiService">
+    return GitHubV3RestApiServiceServers.server().build()
   }
 
-  static specific(url: "https://api.github.com") {
+  static server(url?: "https://api.github.com"): {
+    build: () => Server<"GitHubV3RestApiService">
+  }
+  static server(url: string = "https://api.github.com"): unknown {
     switch (url) {
       case "https://api.github.com":
-        return "https://api.github.com" as Server<"GitHubV3RestApiService">
+        return {
+          build(): Server<"GitHubV3RestApiService"> {
+            return "https://api.github.com" as Server<"GitHubV3RestApiService">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"GitHubV3RestApiServiceCustom"> {
-    return url as Server<"GitHubV3RestApiServiceCustom">
-  }
+  static readonly operations = GitHubV3RestApiServiceServersOperations
 
-  static readonly operations = {
-    reposUploadReleaseAsset(url: "https://uploads.github.com") {
-      switch (url) {
-        case "https://uploads.github.com":
-          return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
-      }
-    },
+  static custom(url: string): Server<"custom_GitHubV3RestApiService"> {
+    return url as Server<"custom_GitHubV3RestApiService">
   }
 }
 
 export class GitHubV3RestApiServiceConfig {
   basePath:
     | Server<"GitHubV3RestApiService">
-    | Server<"GitHubV3RestApiServiceCustom"> =
+    | Server<"custom_GitHubV3RestApiService"> =
     GitHubV3RestApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

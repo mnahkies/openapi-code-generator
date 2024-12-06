@@ -318,34 +318,58 @@ import {
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
 
+export class GitHubV3RestApiServersOperations {
+  static reposUploadReleaseAsset(url?: "https://uploads.github.com"): {
+    build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+  }
+  static reposUploadReleaseAsset(
+    url: string = "https://uploads.github.com",
+  ): unknown {
+    switch (url) {
+      case "https://uploads.github.com":
+        return {
+          build(): Server<"reposUploadReleaseAsset_GitHubV3RestApi"> {
+            return "https://uploads.github.com" as Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
 export class GitHubV3RestApiServers {
   static default(): Server<"GitHubV3RestApi"> {
-    return "https://api.github.com" as Server<"GitHubV3RestApi">
+    return GitHubV3RestApiServers.server().build()
   }
 
-  static specific(url: "https://api.github.com") {
+  static server(url?: "https://api.github.com"): {
+    build: () => Server<"GitHubV3RestApi">
+  }
+  static server(url: string = "https://api.github.com"): unknown {
     switch (url) {
       case "https://api.github.com":
-        return "https://api.github.com" as Server<"GitHubV3RestApi">
+        return {
+          build(): Server<"GitHubV3RestApi"> {
+            return "https://api.github.com" as Server<"GitHubV3RestApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"GitHubV3RestApiCustom"> {
-    return url as Server<"GitHubV3RestApiCustom">
-  }
+  static readonly operations = GitHubV3RestApiServersOperations
 
-  static readonly operations = {
-    reposUploadReleaseAsset(url: "https://uploads.github.com") {
-      switch (url) {
-        case "https://uploads.github.com":
-          return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
-      }
-    },
+  static custom(url: string): Server<"custom_GitHubV3RestApi"> {
+    return url as Server<"custom_GitHubV3RestApi">
   }
 }
 
 export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
-  basePath: Server<"GitHubV3RestApi"> | Server<"GitHubV3RestApiCustom">
+  basePath: Server<"GitHubV3RestApi"> | Server<"custom_GitHubV3RestApi">
 }
 
 export class GitHubV3RestApi extends AbstractAxiosClient {
@@ -20171,8 +20195,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody?: string
     },
     basePath?:
-      | Server<"reposUploadReleaseAsset">
-      | Server<"GitHubV3RestApiCustom">,
+      | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
+      | Server<"custom_GitHubV3RestApi">,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_release_asset>> {

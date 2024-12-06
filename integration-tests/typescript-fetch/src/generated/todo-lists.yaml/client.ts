@@ -7,18 +7,155 @@ import {
   t_Error,
   t_Statuses,
   t_TodoList,
+  t_UnknownObject,
 } from "./models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   StatusCode4xx,
   StatusCode5xx,
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {}
+export class TodoListsExampleApiServersOperations {
+  static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"listAttachments_TodoListsExampleApi">
+  }
+  static listAttachments(url?: "https://attachments.example.com"): {
+    build: () => Server<"listAttachments_TodoListsExampleApi">
+  }
+  static listAttachments(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"listAttachments_TodoListsExampleApi"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"listAttachments_TodoListsExampleApi">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"listAttachments_TodoListsExampleApi"> {
+            return "https://attachments.example.com" as Server<"listAttachments_TodoListsExampleApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static uploadAttachment(
+    url?: "{schema}://{tenant}.attachments.example.com",
+  ): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"uploadAttachment_TodoListsExampleApi">
+  }
+  static uploadAttachment(url?: "https://attachments.example.com"): {
+    build: () => Server<"uploadAttachment_TodoListsExampleApi">
+  }
+  static uploadAttachment(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"uploadAttachment_TodoListsExampleApi"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"uploadAttachment_TodoListsExampleApi">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"uploadAttachment_TodoListsExampleApi"> {
+            return "https://attachments.example.com" as Server<"uploadAttachment_TodoListsExampleApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class TodoListsExampleApiServers {
+  static default(): Server<"TodoListsExampleApi"> {
+    return TodoListsExampleApiServers.server().build()
+  }
+
+  static server(url?: "{schema}://{tenant}.todo-lists.example.com"): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"TodoListsExampleApi">
+  }
+  static server(url?: "https://todo-lists.example.com"): {
+    build: () => Server<"TodoListsExampleApi">
+  }
+  static server(
+    url: string = "{schema}://{tenant}.todo-lists.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.todo-lists.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"TodoListsExampleApi"> {
+            return "{schema}://{tenant}.todo-lists.example.com"
+              .replace("{schema}", schema)
+              .replace("{tenant}", tenant) as Server<"TodoListsExampleApi">
+          },
+        }
+
+      case "https://todo-lists.example.com":
+        return {
+          build(): Server<"TodoListsExampleApi"> {
+            return "https://todo-lists.example.com" as Server<"TodoListsExampleApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = TodoListsExampleApiServersOperations
+
+  static custom(url: string): Server<"custom_TodoListsExampleApi"> {
+    return url as Server<"custom_TodoListsExampleApi">
+  }
+}
+
+export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {
+  basePath: Server<"TodoListsExampleApi"> | Server<"custom_TodoListsExampleApi">
+}
 
 export class TodoListsExampleApi extends AbstractFetchClient {
   constructor(config: TodoListsExampleApiConfig) {
@@ -152,6 +289,45 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
       { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async listAttachments(
+    basePath:
+      | Server<"listAttachments_TodoListsExampleApi">
+      | Server<"custom_TodoListsExampleApi"> = TodoListsExampleApiServers.operations
+      .listAttachments()
+      .build(),
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<200, t_UnknownObject[]>>> {
+    const url = basePath + `/attachments`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async uploadAttachment(
+    p: {
+      requestBody: {
+        file?: unknown
+      }
+    },
+    basePath:
+      | Server<"uploadAttachment_TodoListsExampleApi">
+      | Server<"custom_TodoListsExampleApi"> = TodoListsExampleApiServers.operations
+      .uploadAttachment()
+      .build(),
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<TypedFetchResponse<Res<202, void>>> {
+    const url = basePath + `/attachments`
+    const headers = this._headers(
+      { "Content-Type": "multipart/form-data" },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)

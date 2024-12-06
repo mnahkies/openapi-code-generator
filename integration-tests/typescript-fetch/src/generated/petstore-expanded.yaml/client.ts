@@ -14,23 +14,33 @@ import {
 
 export class SwaggerPetstoreServers {
   static default(): Server<"SwaggerPetstore"> {
-    return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
+    return SwaggerPetstoreServers.server().build()
   }
 
-  static specific(url: "https://petstore.swagger.io/v2") {
+  static server(url?: "https://petstore.swagger.io/v2"): {
+    build: () => Server<"SwaggerPetstore">
+  }
+  static server(url: string = "https://petstore.swagger.io/v2"): unknown {
     switch (url) {
       case "https://petstore.swagger.io/v2":
-        return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
+        return {
+          build(): Server<"SwaggerPetstore"> {
+            return "https://petstore.swagger.io/v2" as Server<"SwaggerPetstore">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"SwaggerPetstoreCustom"> {
-    return url as Server<"SwaggerPetstoreCustom">
+  static custom(url: string): Server<"custom_SwaggerPetstore"> {
+    return url as Server<"custom_SwaggerPetstore">
   }
 }
 
 export interface SwaggerPetstoreConfig extends AbstractFetchClientConfig {
-  basePath: Server<"SwaggerPetstore"> | Server<"SwaggerPetstoreCustom">
+  basePath: Server<"SwaggerPetstore"> | Server<"custom_SwaggerPetstore">
 }
 
 export class SwaggerPetstore extends AbstractFetchClient {

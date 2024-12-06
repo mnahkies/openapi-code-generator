@@ -30,14 +30,14 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoWidgetManagerServers {
-  static default(endpoint = ""): Server<"ContosoWidgetManager"> {
-    return "{endpoint}/widget".replace(
-      "{endpoint}",
-      endpoint,
-    ) as Server<"ContosoWidgetManager">
+  static default(): Server<"ContosoWidgetManager"> {
+    return ContosoWidgetManagerServers.server().build()
   }
 
-  static specific(url: "{endpoint}/widget") {
+  static server(url?: "{endpoint}/widget"): {
+    build: (endpoint?: string) => Server<"ContosoWidgetManager">
+  }
+  static server(url: string = "{endpoint}/widget"): unknown {
     switch (url) {
       case "{endpoint}/widget":
         return {
@@ -48,18 +48,21 @@ export class ContosoWidgetManagerServers {
             ) as Server<"ContosoWidgetManager">
           },
         }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"ContosoWidgetManagerCustom"> {
-    return url as Server<"ContosoWidgetManagerCustom">
+  static custom(url: string): Server<"custom_ContosoWidgetManager"> {
+    return url as Server<"custom_ContosoWidgetManager">
   }
 }
 
 export interface ContosoWidgetManagerConfig extends AbstractFetchClientConfig {
   basePath:
     | Server<"ContosoWidgetManager">
-    | Server<"ContosoWidgetManagerCustom">
+    | Server<"custom_ContosoWidgetManager">
 }
 
 export class ContosoWidgetManager extends AbstractFetchClient {

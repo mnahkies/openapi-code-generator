@@ -11,14 +11,17 @@ import {
   t_GetTodoListItemsParamSchema,
   t_GetTodoListsQuerySchema,
   t_TodoList,
+  t_UnknownObject,
   t_UpdateTodoListByIdBodySchema,
   t_UpdateTodoListByIdParamSchema,
+  t_UploadAttachmentBodySchema,
 } from "./models"
 import {
   s_CreateUpdateTodoList,
   s_Error,
   s_Statuses,
   s_TodoList,
+  s_UnknownObject,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
 import {
@@ -160,6 +163,26 @@ export type CreateTodoListItem = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
+export type ListAttachmentsResponder = {
+  with200(): KoaRuntimeResponse<t_UnknownObject[]>
+} & KoaRuntimeResponder
+
+export type ListAttachments = (
+  params: Params<void, void, void, void>,
+  respond: ListAttachmentsResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_UnknownObject[]>>
+
+export type UploadAttachmentResponder = {
+  with202(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type UploadAttachment = (
+  params: Params<void, void, t_UploadAttachmentBodySchema, void>,
+  respond: UploadAttachmentResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<202, void>>
+
 export type Implementation = {
   getTodoLists: GetTodoLists
   getTodoListById: GetTodoListById
@@ -167,6 +190,8 @@ export type Implementation = {
   deleteTodoListById: DeleteTodoListById
   getTodoListItems: GetTodoListItems
   createTodoListItem: CreateTodoListItem
+  listAttachments: ListAttachments
+  uploadAttachment: UploadAttachment
 }
 
 export function createRouter(implementation: Implementation): KoaRouter {
@@ -506,6 +531,84 @@ export function createRouter(implementation: Implementation): KoaRouter {
       return next()
     },
   )
+
+  const listAttachmentsResponseValidator = responseValidationFactory(
+    [["200", z.array(s_UnknownObject)]],
+    undefined,
+  )
+
+  router.get("listAttachments", "/attachments", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with200() {
+        return new KoaRuntimeResponse<t_UnknownObject[]>(200)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .listAttachments(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = listAttachmentsResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
+
+  const uploadAttachmentBodySchema = z.object({ file: z.unknown().optional() })
+
+  const uploadAttachmentResponseValidator = responseValidationFactory(
+    [["202", z.undefined()]],
+    undefined,
+  )
+
+  router.post("uploadAttachment", "/attachments", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: parseRequestInput(
+        uploadAttachmentBodySchema,
+        Reflect.get(ctx.request, "body"),
+        RequestInputType.RequestBody,
+      ),
+      headers: undefined,
+    }
+
+    const responder = {
+      with202() {
+        return new KoaRuntimeResponse<void>(202)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .uploadAttachment(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = uploadAttachmentResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
 
   return router
 }

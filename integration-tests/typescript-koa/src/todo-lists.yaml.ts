@@ -20,6 +20,8 @@ async function main() {
       deleteTodoListById: notImplemented,
       getTodoListItems: notImplemented,
       createTodoListItem: notImplemented,
+      listAttachments: notImplemented,
+      uploadAttachment: notImplemented,
     }),
     middleware: [genericErrorMiddleware],
     port: {port: 3000, host: "127.0.0.1"},

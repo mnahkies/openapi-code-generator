@@ -171,40 +171,73 @@ import {
   TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export class StripeApiServers {
-  static default(): Server<"StripeApi"> {
-    return "https://api.stripe.com/" as Server<"StripeApi">
+export class StripeApiServersOperations {
+  static postFiles(url?: "https://files.stripe.com/"): {
+    build: () => Server<"postFiles_StripeApi">
   }
-
-  static specific(url: "https://api.stripe.com/") {
+  static postFiles(url: string = "https://files.stripe.com/"): unknown {
     switch (url) {
-      case "https://api.stripe.com/":
-        return "https://api.stripe.com/" as Server<"StripeApi">
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"postFiles_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"postFiles_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
     }
   }
 
-  static custom(url: string): Server<"StripeApiCustom"> {
-    return url as Server<"StripeApiCustom">
+  static getQuotesQuotePdf(url?: "https://files.stripe.com/"): {
+    build: () => Server<"getQuotesQuotePdf_StripeApi">
+  }
+  static getQuotesQuotePdf(url: string = "https://files.stripe.com/"): unknown {
+    switch (url) {
+      case "https://files.stripe.com/":
+        return {
+          build(): Server<"getQuotesQuotePdf_StripeApi"> {
+            return "https://files.stripe.com/" as Server<"getQuotesQuotePdf_StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class StripeApiServers {
+  static default(): Server<"StripeApi"> {
+    return StripeApiServers.server().build()
   }
 
-  static readonly operations = {
-    postFiles(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"postFiles">
-      }
-    },
-    getQuotesQuotePdf(url: "https://files.stripe.com/") {
-      switch (url) {
-        case "https://files.stripe.com/":
-          return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-      }
-    },
+  static server(url?: "https://api.stripe.com/"): {
+    build: () => Server<"StripeApi">
+  }
+  static server(url: string = "https://api.stripe.com/"): unknown {
+    switch (url) {
+      case "https://api.stripe.com/":
+        return {
+          build(): Server<"StripeApi"> {
+            return "https://api.stripe.com/" as Server<"StripeApi">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = StripeApiServersOperations
+
+  static custom(url: string): Server<"custom_StripeApi"> {
+    return url as Server<"custom_StripeApi">
   }
 }
 
 export interface StripeApiConfig extends AbstractFetchClientConfig {
-  basePath: Server<"StripeApi"> | Server<"StripeApiCustom">
+  basePath: Server<"StripeApi"> | Server<"custom_StripeApi">
 }
 
 export class StripeApi extends AbstractFetchClient {
@@ -10527,10 +10560,10 @@ export class StripeApi extends AbstractFetchClient {
       }
     },
     basePath:
-      | Server<"postFiles">
-      | Server<"StripeApiCustom"> = StripeApiServers.operations.postFiles(
-      "https://files.stripe.com/",
-    ),
+      | Server<"postFiles_StripeApi">
+      | Server<"custom_StripeApi"> = StripeApiServers.operations
+      .postFiles()
+      .build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
@@ -25961,10 +25994,10 @@ export class StripeApi extends AbstractFetchClient {
       requestBody?: EmptyObject
     },
     basePath:
-      | Server<"getQuotesQuotePdf">
-      | Server<"StripeApiCustom"> = StripeApiServers.operations.getQuotesQuotePdf(
-      "https://files.stripe.com/",
-    ),
+      | Server<"getQuotesQuotePdf_StripeApi">
+      | Server<"custom_StripeApi"> = StripeApiServers.operations
+      .getQuotesQuotePdf()
+      .build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {

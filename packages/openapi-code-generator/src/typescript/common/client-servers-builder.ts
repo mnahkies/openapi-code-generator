@@ -23,13 +23,18 @@ export class ClientServersBuilder implements ICompilable {
     }
   }
 
-  private toParams(variables: {
-    [k: string]: IRServerVariable
-  }) {
+  private toParams(
+    variables: {
+      [k: string]: IRServerVariable
+    },
+    includeDefault = true,
+  ): string {
     return Object.entries(variables)
       .map(([name, variable]) => {
-        const type = union(...variable.enum.map(quotedStringLiteral))
-        return `${name}${type ? `:${type}` : ""} = "${variable.default}"`
+        const type = !includeDefault
+          ? `${union(...variable.enum.map(quotedStringLiteral)) || "string"}`
+          : union(...variable.enum.map(quotedStringLiteral))
+        return `${name}${type ? `${!includeDefault ? "?" : ""}:${type}` : ""} ${includeDefault ? `= ${quotedStringLiteral(variable.default)}` : ""}`
       })
       .join(",")
   }
@@ -47,8 +52,8 @@ export class ClientServersBuilder implements ICompilable {
     }
 
     return `
-    static default(${this.toParams(defaultServer.variables)}): ${this.typeForDefault()} {
-      return (${this.toReplacer(defaultServer)} as ${this.typeForDefault()})
+    static default(): ${this.typeForDefault()} {
+      return ${this.classExportName}.server().build()
     }
     `
   }
@@ -59,29 +64,35 @@ export class ClientServersBuilder implements ICompilable {
     typeName: string,
     isStatic = true,
   ) {
-    if (!this.hasServers) {
+    if (!servers[0]) {
       return ""
     }
 
-    const urls = servers.map((it) => quotedStringLiteral(it.url))
-    return `${isStatic ? "static " : ""}${name}(url: ${union(urls)}){
+    const defaultUrl = quotedStringLiteral(servers[0].url)
+
+    const overloads = servers
+      .map((it) => {
+        return `${isStatic ? "static " : ""}${name}(url?: ${quotedStringLiteral(it.url)}): {build: (${this.toParams(it.variables, false)}) => ${typeName}};`
+      })
+      .join("\n")
+
+    return `
+    ${overloads}
+    ${isStatic ? "static " : ""}${name}(url: string = ${defaultUrl}): unknown {
         switch(url) {
           ${servers
             .map(
               (server) => `
           case ${quotedStringLiteral(server.url)}:
-            return ${
-              Object.keys(server.variables).length > 0
-                ? `{
-            build(${this.toParams(server.variables)}): ${typeName} {
+            return {
+              build(${this.toParams(server.variables)}): ${typeName} {
                 return (${this.toReplacer(server)} as ${typeName})
               }
-            }`
-                : `(${quotedStringLiteral(server.url)} as ${typeName})`
             }
             `,
             )
             .join("\n")}
+            default: throw new Error(\`no matching server for url '\${url}'\`)
         }
       }`
   }
@@ -103,7 +114,7 @@ export class ClientServersBuilder implements ICompilable {
   }
 
   typeForCustom() {
-    return `Server<"${this.name}Custom">`
+    return `Server<"custom_${this.name}">`
   }
 
   defaultForOperationId(operationId: string) {
@@ -115,19 +126,17 @@ export class ClientServersBuilder implements ICompilable {
       throw new Error(`no operation with id '${operationId}'`)
     }
 
-    const defaultServer = operation.servers[0]
+    const hasServers = operation.servers.length > 0
 
-    if (!defaultServer) {
-      throw new Error(`no default server for operation '${operationId}'`)
+    if (!hasServers) {
+      throw new Error(`no server overrides for operation '${operationId}'`)
     }
 
-    const hasVariables = Object.keys(defaultServer.variables).length > 0
-
-    return `${this.classExportName}.operations.${operationId}(${quotedStringLiteral(defaultServer.url)})${hasVariables ? ".build()" : ""}`
+    return `${this.classExportName}.operations.${operationId}().build()`
   }
 
   typeForOperationId(operationId: string) {
-    return `Server<"${operationId}">`
+    return `Server<"${operationId}_${this.name}">`
   }
 
   toString() {
@@ -141,26 +150,33 @@ export class ClientServersBuilder implements ICompilable {
           it.operationId,
           it.servers,
           this.typeForOperationId(it.operationId),
-          false,
+          true,
         ),
       )
-      .join(",\n")
+      .join("\n")
 
     return `
+    ${
+      operations.length
+        ? `
+      export class ${this.classExportName}Operations {
+      ${operations}
+      }`
+        : ""
+    }
+
     export class ${this.classExportName} {
       ${this.toDefault()}
-      ${this.toSpecific("specific", this.servers, this.typeForDefault())}
-
-      static custom(url: string): ${this.typeForCustom()} {
-        return (url as ${this.typeForCustom()})
-       }
+      ${this.toSpecific("server", this.servers, this.typeForDefault())}
 
        ${
          operations.length
-           ? `static readonly operations = {
-        ${operations}
-        }`
+           ? `static readonly operations = ${this.classExportName}Operations`
            : ""
+       }
+
+      static custom(url: string): ${this.typeForCustom()} {
+        return (url as ${this.typeForCustom()})
        }
     }
     `
