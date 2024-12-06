@@ -145,7 +145,7 @@ const program = new Command()
   )
   .addOption(
     new Option(
-      "--enable-typed-base-paths",
+      "--enable-typed-base-paths [bool]",
       "(client sdks only) whether to produce a union type for the client basePath from the `servers` array",
     )
       .env("OPENAPI_ENABLE_TYPED_BASE_PATHS")

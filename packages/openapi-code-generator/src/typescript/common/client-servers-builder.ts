@@ -15,6 +15,7 @@ export class ClientServersBuilder implements ICompilable {
     readonly name: string,
     readonly servers: IRServer[],
     readonly imports: ImportBuilder,
+    readonly config = {enableTypedBasePaths: true},
   ) {
     for (const server of servers) {
       this.validateServer(server)
@@ -156,8 +157,18 @@ export class ClientServersBuilder implements ICompilable {
     return `${this.name}Servers`
   }
 
+  default() {
+    if (this.config.enableTypedBasePaths) {
+      return `${this.classExportName}.default()`
+    }
+    return "''"
+  }
+
   typeForDefault() {
-    return `Server<"${this.name}">`
+    if (this.config.enableTypedBasePaths) {
+      return `Server<"${this.name}">`
+    }
+    return "string"
   }
 
   defaultForOperationId(operationId: string) {
@@ -175,15 +186,24 @@ export class ClientServersBuilder implements ICompilable {
       throw new Error(`no server overrides for operation '${operationId}'`)
     }
 
-    return `${this.classExportName}.operations.${operationId}().build()`
+    if (this.config.enableTypedBasePaths) {
+      return `${this.classExportName}.operations.${operationId}().build()`
+    }
+    return ""
   }
 
   typeForOperationId(operationId: string) {
-    return `Server<"${operationId}_${this.name}">`
+    if (this.config.enableTypedBasePaths) {
+      return `Server<"${operationId}_${this.name}">`
+    }
+    return "string"
   }
 
   toString() {
-    if (!this.hasServers && !this.hasOperationServers) {
+    if (
+      (!this.hasServers && !this.hasOperationServers) ||
+      !this.config.enableTypedBasePaths
+    ) {
       return ""
     }
 

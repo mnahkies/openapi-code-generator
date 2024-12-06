@@ -86,7 +86,7 @@ return this.httpClient.request<any>(
 
     return `
 export class ${clientName}Config {
-  basePath: ${basePathType ? basePathType : "string"} = ${this.clientServersBuilder.hasServers ? `${this.clientServersBuilder.classExportName}.default()` : "''"}
+  basePath: ${basePathType ? basePathType : "string"} = ${this.clientServersBuilder.default()}
   defaultHeaders: Record<string, string> = {}
 }
 

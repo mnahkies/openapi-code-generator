@@ -109,4 +109,8 @@ This behavior is optional, and be turned off by passing:
 ```
 --enable-typed-base-paths=false
 ```
+
+When disabled `basePath: string` parameters will still be added to operations that have a `servers` override, but
+no code based on the `url` or `variables` will be generated.
+
 See also [CLI reference](/reference/cli-options#--enable-typed-base-paths-client-sdks-only)

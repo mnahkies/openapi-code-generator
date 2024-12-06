@@ -32,18 +32,12 @@ export abstract class TypescriptClientBuilder implements ICompilable {
       this.exportName,
       this.input.servers(),
       this.imports,
+      {enableTypedBasePaths: config.enableTypedBasePaths},
     )
   }
 
   basePathType() {
-    if (
-      this.config.enableTypedBasePaths &&
-      this.clientServersBuilder.hasServers
-    ) {
-      return union(this.clientServersBuilder.typeForDefault(), "string")
-    }
-
-    return ""
+    return union(this.clientServersBuilder.typeForDefault(), "string")
   }
 
   add(operation: IROperation): void {
