@@ -57,6 +57,12 @@ export class ClientServersBuilder implements ICompilable {
           `server '${server.url}' has variable '${variable}' but no placeholder with that name`,
         )
       }
+
+      if (server.variables[variable]?.default === undefined) {
+        throw new Error(
+          `server '${server.url}' has variable '${variable}' with no default value`,
+        )
+      }
     }
   }
 
