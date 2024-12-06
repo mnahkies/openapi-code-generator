@@ -60,7 +60,7 @@ export type Server<T> = string & {__server__: T}
 export interface AbstractAxiosConfig {
   axios?: AxiosInstance
   basePath: string
-  defaultHeaders: Record<string, string>
+  defaultHeaders?: Record<string, string>
   defaultTimeout?: number
 }
 
@@ -73,7 +73,7 @@ export abstract class AbstractAxiosClient {
   protected constructor(config: AbstractAxiosConfig) {
     this.axios = config.axios ?? axios
     this.basePath = config.basePath
-    this.defaultHeaders = config.defaultHeaders
+    this.defaultHeaders = config.defaultHeaders ?? {}
     this.defaultTimeout = config.defaultTimeout
   }
 

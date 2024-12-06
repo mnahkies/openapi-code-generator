@@ -15,7 +15,6 @@ const client = new ApiClient({
   }),
   basePath: GitHubV3RestApiServers.default(),
   defaultTimeout: 5_000,
-  defaultHeaders: {},
 })
 
 async function main() {
