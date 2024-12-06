@@ -50,9 +50,9 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
       `url: url ${queryString ? "+ query" : ""}`,
       `method: "${method}"`,
       requestBodyParameter ? "data: body" : "",
+      hasServers ? "baseURL: basePath" : undefined,
       // ensure compatibility with `exactOptionalPropertyTypes` compiler option
       // https://www.typescriptlang.org/tsconfig#exactOptionalPropertyTypes
-      hasServers ? "...(basePath? {baseURL: basePath} : {})" : undefined,
       "...(timeout ? {timeout} : {})",
       "...opts",
       "headers",

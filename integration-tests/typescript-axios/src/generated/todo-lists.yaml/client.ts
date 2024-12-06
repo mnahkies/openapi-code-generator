@@ -312,7 +312,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
-      ...(basePath ? { baseURL: basePath } : {}),
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -344,7 +344,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
-      ...(basePath ? { baseURL: basePath } : {}),
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

@@ -368,14 +368,10 @@ export class TodoListsExampleApiService {
   ): Observable<
     (HttpResponse<t_UnknownObject[]> & { status: 200 }) | HttpResponse<unknown>
   > {
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/attachments`,
-      {
-        observe: "response",
-        reportProgress: false,
-      },
-    )
+    return this.httpClient.request<any>("GET", basePath + `/attachments`, {
+      observe: "response",
+      reportProgress: false,
+    })
   }
 
   uploadAttachment(
@@ -395,16 +391,12 @@ export class TodoListsExampleApiService {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = p["requestBody"]
 
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/attachments`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
+    return this.httpClient.request<any>("POST", basePath + `/attachments`, {
+      headers,
+      body,
+      observe: "response",
+      reportProgress: false,
+    })
   }
 }
 

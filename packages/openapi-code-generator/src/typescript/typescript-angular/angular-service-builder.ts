@@ -47,7 +47,7 @@ export class AngularServiceBuilder extends TypescriptClientBuilder {
 
 return this.httpClient.request<any>(
   "${method}",
-  this.config.basePath + \`${url}\`, {
+  ${hasServers ? "basePath" : "this.config.basePath"} + \`${url}\`, {
     ${[
       queryString ? "params," : "",
       headers ? "headers," : "",

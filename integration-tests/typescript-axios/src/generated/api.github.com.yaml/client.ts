@@ -20206,7 +20206,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url + query,
       method: "POST",
       data: body,
-      ...(basePath ? { baseURL: basePath } : {}),
+      baseURL: basePath,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

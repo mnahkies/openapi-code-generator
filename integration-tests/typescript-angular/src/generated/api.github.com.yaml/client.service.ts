@@ -20162,7 +20162,7 @@ export class GitHubV3RestApiService {
 
     return this.httpClient.request<any>(
       "POST",
-      this.config.basePath +
+      basePath +
         `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`,
       {
         params,

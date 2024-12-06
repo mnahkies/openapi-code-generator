@@ -10921,16 +10921,12 @@ export class StripeApiService {
     const headers = this._headers({ "Content-Type": "multipart/form-data" })
     const body = p["requestBody"]
 
-    return this.httpClient.request<any>(
-      "POST",
-      this.config.basePath + `/v1/files`,
-      {
-        headers,
-        body,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
+    return this.httpClient.request<any>("POST", basePath + `/v1/files`, {
+      headers,
+      body,
+      observe: "response",
+      reportProgress: false,
+    })
   }
 
   getFilesFile(p: {
@@ -26640,7 +26636,7 @@ export class StripeApiService {
 
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath + `/v1/quotes/${p["quote"]}/pdf`,
+      basePath + `/v1/quotes/${p["quote"]}/pdf`,
       {
         params,
         headers,
