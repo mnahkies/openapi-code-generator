@@ -184,17 +184,19 @@ export class StripeApiServers {
     return url as Server<"StripeApiCustom">
   }
 
-  static postFiles(url: "https://files.stripe.com/") {
-    switch (url) {
-      case "https://files.stripe.com/":
-        return "https://files.stripe.com/" as Server<"postFiles">
-    }
-  }
-  static getQuotesQuotePdf(url: "https://files.stripe.com/") {
-    switch (url) {
-      case "https://files.stripe.com/":
-        return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
-    }
+  static readonly operations = {
+    postFiles(url: "https://files.stripe.com/") {
+      switch (url) {
+        case "https://files.stripe.com/":
+          return "https://files.stripe.com/" as Server<"postFiles">
+      }
+    },
+    getQuotesQuotePdf(url: "https://files.stripe.com/") {
+      switch (url) {
+        case "https://files.stripe.com/":
+          return "https://files.stripe.com/" as Server<"getQuotesQuotePdf">
+      }
+    },
   }
 }
 

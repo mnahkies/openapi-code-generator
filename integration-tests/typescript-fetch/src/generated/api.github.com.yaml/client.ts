@@ -340,11 +340,13 @@ export class GitHubV3RestApiServers {
     return url as Server<"GitHubV3RestApiCustom">
   }
 
-  static reposUploadReleaseAsset(url: "https://uploads.github.com") {
-    switch (url) {
-      case "https://uploads.github.com":
-        return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
-    }
+  static readonly operations = {
+    reposUploadReleaseAsset(url: "https://uploads.github.com") {
+      switch (url) {
+        case "https://uploads.github.com":
+          return "https://uploads.github.com" as Server<"reposUploadReleaseAsset">
+      }
+    },
   }
 }
 

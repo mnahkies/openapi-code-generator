@@ -214,28 +214,28 @@ describe("typescript/common/client-servers-builder", () => {
             return url as Server<"UnitTestCustom">
           }
 
-          static testOperation(url: "{schema}}://test-operation.{tenant}.example.com") {
-            switch (url) {
-              case "{schema}}://test-operation.{tenant}.example.com":
-                return {
-                  with(
-                    schema: "https" | "http" = "https",
-                    tenant = "example",
-                  ): Server<"testOperation"> {
-                    return "{schema}}://test-operation.{tenant}.example.com"
-                      .replace("{schema}", schema)
-                      .replace("{tenant}", tenant) as Server<"testOperation">
-                  },
-                }
-            }
-          }
-          static anotherTestOperation(
-            url: "https://another-test-operation.example.com",
-          ) {
-            switch (url) {
-              case "https://another-test-operation.example.com":
-                return "https://another-test-operation.example.com" as Server<"anotherTestOperation">
-            }
+          static readonly operations = {
+            testOperation(url: "{schema}}://test-operation.{tenant}.example.com") {
+              switch (url) {
+                case "{schema}}://test-operation.{tenant}.example.com":
+                  return {
+                    with(
+                      schema: "https" | "http" = "https",
+                      tenant = "example",
+                    ): Server<"testOperation"> {
+                      return "{schema}}://test-operation.{tenant}.example.com"
+                        .replace("{schema}", schema)
+                        .replace("{tenant}", tenant) as Server<"testOperation">
+                    },
+                  }
+              }
+            },
+            anotherTestOperation(url: "https://another-test-operation.example.com") {
+              switch (url) {
+                case "https://another-test-operation.example.com":
+                  return "https://another-test-operation.example.com" as Server<"anotherTestOperation">
+              }
+            },
           }
         }
         "

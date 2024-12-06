@@ -53,13 +53,18 @@ export class ClientServersBuilder implements ICompilable {
     `
   }
 
-  private toSpecific(name: string, servers: IRServer[], typeName: string) {
+  private toSpecific(
+    name: string,
+    servers: IRServer[],
+    typeName: string,
+    isStatic = true,
+  ) {
     if (!this.hasServers) {
       return ""
     }
 
     const urls = servers.map((it) => quotedStringLiteral(it.url))
-    return `static ${name}(url: ${union(urls)}){
+    return `${isStatic ? "static " : ""}${name}(url: ${union(urls)}){
         switch(url) {
           ${servers
             .map(
@@ -110,6 +115,17 @@ export class ClientServersBuilder implements ICompilable {
       return ""
     }
 
+    const operations = this.operations
+      .map((it) =>
+        this.toSpecific(
+          it.operationId,
+          it.servers,
+          this.typeForOperationId(it.operationId),
+          false,
+        ),
+      )
+      .join(",\n")
+
     return `
     export class ${this.classExportName} {
       ${this.toDefault()}
@@ -119,7 +135,13 @@ export class ClientServersBuilder implements ICompilable {
         return (url as ${this.typeForCustom()})
        }
 
-       ${this.operations.map((it) => this.toSpecific(it.operationId, it.servers, this.typeForOperationId(it.operationId))).join("\n")}
+       ${
+         operations.length
+           ? `static readonly operations = {
+        ${operations}
+        }`
+           : ""
+       }
     }
     `
   }
