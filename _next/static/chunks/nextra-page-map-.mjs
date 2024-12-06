@@ -17,6 +17,12 @@ export const pageMap = [{
     frontMatter: {
       "sidebarTitle": "Quick Start"
     }
+  }, {
+    name: "tips-for-writing-specifications",
+    route: "/getting-started/tips-for-writing-specifications",
+    frontMatter: {
+      "sidebarTitle": "Tips for Writing Specifications"
+    }
   }]
 }, {
   name: "guides",
