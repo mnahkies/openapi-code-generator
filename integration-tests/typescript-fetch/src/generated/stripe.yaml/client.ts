@@ -10526,7 +10526,11 @@ export class StripeApi extends AbstractFetchClient {
           | "terminal_reader_splashscreen"
       }
     },
-    basePath?: Server<"postFiles"> | Server<"StripeApiCustom">,
+    basePath:
+      | Server<"postFiles">
+      | Server<"StripeApiCustom"> = StripeApiServers.operations.postFiles(
+      "https://files.stripe.com/",
+    ),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
@@ -25956,7 +25960,11 @@ export class StripeApi extends AbstractFetchClient {
       quote: string
       requestBody?: EmptyObject
     },
-    basePath?: Server<"getQuotesQuotePdf"> | Server<"StripeApiCustom">,
+    basePath:
+      | Server<"getQuotesQuotePdf">
+      | Server<"StripeApiCustom"> = StripeApiServers.operations.getQuotesQuotePdf(
+      "https://files.stripe.com/",
+    ),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {

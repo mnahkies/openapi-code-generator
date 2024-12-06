@@ -42,7 +42,7 @@ export class MyAccountManagementServers {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {
-          with(
+          build(
             yourOktaDomain = "subdomain.okta.com",
           ): Server<"MyAccountManagement"> {
             return "https://{yourOktaDomain}".replace(

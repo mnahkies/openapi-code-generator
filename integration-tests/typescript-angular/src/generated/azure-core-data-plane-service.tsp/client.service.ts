@@ -36,7 +36,7 @@ export class ContosoWidgetManagerServiceServers {
     switch (url) {
       case "{endpoint}/widget":
         return {
-          with(endpoint = ""): Server<"ContosoWidgetManagerService"> {
+          build(endpoint = ""): Server<"ContosoWidgetManagerService"> {
             return "{endpoint}/widget".replace(
               "{endpoint}",
               endpoint,

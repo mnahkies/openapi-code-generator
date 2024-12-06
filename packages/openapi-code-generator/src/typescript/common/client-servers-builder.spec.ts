@@ -8,6 +8,7 @@ type TestResult = {
   output: string
   hasServers: boolean
   hasOperationServers: boolean
+  builder: ClientServersBuilder
 }
 
 async function runTest(
@@ -31,6 +32,7 @@ async function runTest(
     output: await formatter.format("unit-test.ts", builder.toString()),
     hasServers: builder.hasServers,
     hasOperationServers: builder.hasOperationServers,
+    builder,
   }
 }
 
@@ -104,7 +106,7 @@ describe("typescript/common/client-servers-builder", () => {
             switch (url) {
               case "{schema}://unit-tests-default.{tenant}.example.com":
                 return {
-                  with(
+                  build(
                     schema: "https" | "http" = "https",
                     tenant = "example",
                   ): Server<"UnitTest"> {
@@ -219,7 +221,7 @@ describe("typescript/common/client-servers-builder", () => {
               switch (url) {
                 case "{schema}}://test-operation.{tenant}.example.com":
                   return {
-                    with(
+                    build(
                       schema: "https" | "http" = "https",
                       tenant = "example",
                     ): Server<"testOperation"> {
@@ -248,6 +250,34 @@ describe("typescript/common/client-servers-builder", () => {
 
     it("hasOperationServers is true", () => {
       expect(result.hasOperationServers).toBe(true)
+    })
+
+    it("typeForOperationId returns the correct type when there are variables", () => {
+      expect(
+        result.builder.typeForOperationId("testOperation"),
+      ).toMatchInlineSnapshot(`"Server<"testOperation">"`)
+    })
+
+    it("typeForOperationId returns the correct type when there are no variables", () => {
+      expect(
+        result.builder.typeForOperationId("anotherTestOperation"),
+      ).toMatchInlineSnapshot(`"Server<"anotherTestOperation">"`)
+    })
+
+    it("defaultForOperationId returns the correct value when there are variables", () => {
+      expect(
+        result.builder.defaultForOperationId("testOperation"),
+      ).toMatchInlineSnapshot(
+        `"UnitTestServers.operations.testOperation("{schema}}://test-operation.{tenant}.example.com").build()"`,
+      )
+    })
+
+    it("defaultForOperationId returns the correct value when there are no variables", () => {
+      expect(
+        result.builder.defaultForOperationId("anotherTestOperation"),
+      ).toMatchInlineSnapshot(
+        `"UnitTestServers.operations.anotherTestOperation("https://another-test-operation.example.com")"`,
+      )
     })
   })
 })

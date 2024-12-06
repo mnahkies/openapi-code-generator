@@ -56,7 +56,7 @@ export class OktaOpenIdConnectOAuth20Servers {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {
-          with(
+          build(
             yourOktaDomain = "subdomain.okta.com",
           ): Server<"OktaOpenIdConnectOAuth20"> {
             return "https://{yourOktaDomain}".replace(

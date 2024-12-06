@@ -100,7 +100,8 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
                 this.clientServersBuilder.typeForOperationId(operationId),
                 this.clientServersBuilder.typeForCustom(),
               ),
-              required: false,
+              default:
+                this.clientServersBuilder.defaultForOperationId(operationId),
             }
           : undefined,
         {name: "timeout", type: "number", required: false},

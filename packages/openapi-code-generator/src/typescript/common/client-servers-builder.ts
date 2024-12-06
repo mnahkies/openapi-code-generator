@@ -73,7 +73,7 @@ export class ClientServersBuilder implements ICompilable {
             return ${
               Object.keys(server.variables).length > 0
                 ? `{
-            with(${this.toParams(server.variables)}): ${typeName} {
+            build(${this.toParams(server.variables)}): ${typeName} {
                 return (${this.toReplacer(server)} as ${typeName})
               }
             }`
@@ -104,6 +104,26 @@ export class ClientServersBuilder implements ICompilable {
 
   typeForCustom() {
     return `Server<"${this.name}Custom">`
+  }
+
+  defaultForOperationId(operationId: string) {
+    const operation = this.operations.find(
+      (it) => it.operationId === operationId,
+    )
+
+    if (!operation) {
+      throw new Error(`no operation with id '${operationId}'`)
+    }
+
+    const defaultServer = operation.servers[0]
+
+    if (!defaultServer) {
+      throw new Error(`no default server for operation '${operationId}'`)
+    }
+
+    const hasVariables = Object.keys(defaultServer.variables).length > 0
+
+    return `${this.classExportName}.operations.${operationId}(${quotedStringLiteral(defaultServer.url)})${hasVariables ? ".build()" : ""}`
   }
 
   typeForOperationId(operationId: string) {

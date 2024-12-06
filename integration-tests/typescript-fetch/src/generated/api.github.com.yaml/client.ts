@@ -20350,9 +20350,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       label?: string
       requestBody?: string
     },
-    basePath?:
+    basePath:
       | Server<"reposUploadReleaseAsset">
-      | Server<"GitHubV3RestApiCustom">,
+      | Server<"GitHubV3RestApiCustom"> = GitHubV3RestApiServers.operations.reposUploadReleaseAsset(
+      "https://uploads.github.com",
+    ),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<201, t_release_asset> | Res<422, void>>> {
