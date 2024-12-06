@@ -39,7 +39,7 @@ export type Server<T> = string & {__server__: T}
 
 export interface AbstractFetchClientConfig {
   basePath: string
-  defaultHeaders: Record<string, string>
+  defaultHeaders?: Record<string, string>
   defaultTimeout?: number
 }
 
@@ -75,7 +75,7 @@ export abstract class AbstractFetchClient {
 
   protected constructor(config: AbstractFetchClientConfig) {
     this.basePath = config.basePath
-    this.defaultHeaders = config.defaultHeaders
+    this.defaultHeaders = config.defaultHeaders ?? {}
     this.defaultTimeout = config.defaultTimeout
   }
 
