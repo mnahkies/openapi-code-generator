@@ -12,7 +12,6 @@ const client = new ApiClient({
   }),
   basePath: "https://api.github.com",
   defaultTimeout: 5_000,
-  defaultHeaders: {},
 })
 
 async function main() {
