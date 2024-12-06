@@ -83,6 +83,12 @@ export const pageMap = [{
         "sidebarTitle": "TypeScript Koa"
       }
     }]
+  }, {
+    name: "use-with-react-query",
+    route: "/guides/use-with-react-query",
+    frontMatter: {
+      "sidebarTitle": "Use with React Query"
+    }
   }]
 }, {
   name: "index",
