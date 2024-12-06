@@ -49,16 +49,10 @@ export class MyAccountManagementServiceServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_MyAccountManagementService"> {
-    return url as Server<"custom_MyAccountManagementService">
-  }
 }
 
 export class MyAccountManagementServiceConfig {
-  basePath:
-    | Server<"MyAccountManagementService">
-    | Server<"custom_MyAccountManagementService"> =
+  basePath: Server<"MyAccountManagementService"> | string =
     MyAccountManagementServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

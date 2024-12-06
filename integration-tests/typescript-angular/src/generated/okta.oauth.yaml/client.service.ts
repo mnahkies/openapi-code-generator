@@ -65,16 +65,10 @@ export class OktaOpenIdConnectOAuth20ServiceServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_OktaOpenIdConnectOAuth20Service"> {
-    return url as Server<"custom_OktaOpenIdConnectOAuth20Service">
-  }
 }
 
 export class OktaOpenIdConnectOAuth20ServiceConfig {
-  basePath:
-    | Server<"OktaOpenIdConnectOAuth20Service">
-    | Server<"custom_OktaOpenIdConnectOAuth20Service"> =
+  basePath: Server<"OktaOpenIdConnectOAuth20Service"> | string =
     OktaOpenIdConnectOAuth20ServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

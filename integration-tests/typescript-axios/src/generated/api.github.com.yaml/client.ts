@@ -358,14 +358,10 @@ export class GitHubV3RestApiServers {
   }
 
   static readonly operations = GitHubV3RestApiServersOperations
-
-  static custom(url: string): Server<"custom_GitHubV3RestApi"> {
-    return url as Server<"custom_GitHubV3RestApi">
-  }
 }
 
 export interface GitHubV3RestApiConfig extends AbstractAxiosConfig {
-  basePath: Server<"GitHubV3RestApi"> | Server<"custom_GitHubV3RestApi">
+  basePath: Server<"GitHubV3RestApi"> | string
 }
 
 export class GitHubV3RestApi extends AbstractAxiosClient {
@@ -20190,9 +20186,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       label?: string
       requestBody?: string
     },
-    basePath?:
-      | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
-      | Server<"custom_GitHubV3RestApi">,
+    basePath?: Server<"reposUploadReleaseAsset_GitHubV3RestApi"> | string,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_release_asset>> {

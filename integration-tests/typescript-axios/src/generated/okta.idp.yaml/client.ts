@@ -51,14 +51,10 @@ export class MyAccountManagementServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_MyAccountManagement"> {
-    return url as Server<"custom_MyAccountManagement">
-  }
 }
 
 export interface MyAccountManagementConfig extends AbstractAxiosConfig {
-  basePath: Server<"MyAccountManagement"> | Server<"custom_MyAccountManagement">
+  basePath: Server<"MyAccountManagement"> | string
 }
 
 export class MyAccountManagement extends AbstractAxiosClient {

@@ -222,14 +222,10 @@ export class StripeApiServiceServers {
   }
 
   static readonly operations = StripeApiServiceServersOperations
-
-  static custom(url: string): Server<"custom_StripeApiService"> {
-    return url as Server<"custom_StripeApiService">
-  }
 }
 
 export class StripeApiServiceConfig {
-  basePath: Server<"StripeApiService"> | Server<"custom_StripeApiService"> =
+  basePath: Server<"StripeApiService"> | string =
     StripeApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

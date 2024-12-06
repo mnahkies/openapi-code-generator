@@ -93,7 +93,7 @@ export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
               name: "basePath",
               type: union(
                 this.clientServersBuilder.typeForOperationId(operationId),
-                this.clientServersBuilder.typeForCustom(),
+                "string",
               ),
               required: false,
             }

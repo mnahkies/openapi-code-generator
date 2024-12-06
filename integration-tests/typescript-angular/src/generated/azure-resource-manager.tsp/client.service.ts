@@ -36,16 +36,10 @@ export class ContosoProviderHubClientServiceServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_ContosoProviderHubClientService"> {
-    return url as Server<"custom_ContosoProviderHubClientService">
-  }
 }
 
 export class ContosoProviderHubClientServiceConfig {
-  basePath:
-    | Server<"ContosoProviderHubClientService">
-    | Server<"custom_ContosoProviderHubClientService"> =
+  basePath: Server<"ContosoProviderHubClientService"> | string =
     ContosoProviderHubClientServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

@@ -147,14 +147,10 @@ export class TodoListsExampleApiServers {
   }
 
   static readonly operations = TodoListsExampleApiServersOperations
-
-  static custom(url: string): Server<"custom_TodoListsExampleApi"> {
-    return url as Server<"custom_TodoListsExampleApi">
-  }
 }
 
 export interface TodoListsExampleApiConfig extends AbstractFetchClientConfig {
-  basePath: Server<"TodoListsExampleApi"> | Server<"custom_TodoListsExampleApi">
+  basePath: Server<"TodoListsExampleApi"> | string
 }
 
 export class TodoListsExampleApi extends AbstractFetchClient {
@@ -299,7 +295,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
   async listAttachments(
     basePath:
       | Server<"listAttachments_TodoListsExampleApi">
-      | Server<"custom_TodoListsExampleApi"> = TodoListsExampleApiServers.operations
+      | string = TodoListsExampleApiServers.operations
       .listAttachments()
       .build(),
     timeout?: number,
@@ -319,7 +315,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     },
     basePath:
       | Server<"uploadAttachment_TodoListsExampleApi">
-      | Server<"custom_TodoListsExampleApi"> = TodoListsExampleApiServers.operations
+      | string = TodoListsExampleApiServers.operations
       .uploadAttachment()
       .build(),
     timeout?: number,

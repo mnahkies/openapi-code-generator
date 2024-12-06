@@ -143,16 +143,10 @@ export class TodoListsExampleApiServiceServers {
   }
 
   static readonly operations = TodoListsExampleApiServiceServersOperations
-
-  static custom(url: string): Server<"custom_TodoListsExampleApiService"> {
-    return url as Server<"custom_TodoListsExampleApiService">
-  }
 }
 
 export class TodoListsExampleApiServiceConfig {
-  basePath:
-    | Server<"TodoListsExampleApiService">
-    | Server<"custom_TodoListsExampleApiService"> =
+  basePath: Server<"TodoListsExampleApiService"> | string =
     TodoListsExampleApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

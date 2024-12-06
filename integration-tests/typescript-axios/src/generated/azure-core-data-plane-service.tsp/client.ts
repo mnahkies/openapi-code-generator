@@ -49,16 +49,10 @@ export class ContosoWidgetManagerServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_ContosoWidgetManager"> {
-    return url as Server<"custom_ContosoWidgetManager">
-  }
 }
 
 export interface ContosoWidgetManagerConfig extends AbstractAxiosConfig {
-  basePath:
-    | Server<"ContosoWidgetManager">
-    | Server<"custom_ContosoWidgetManager">
+  basePath: Server<"ContosoWidgetManager"> | string
 }
 
 export class ContosoWidgetManager extends AbstractAxiosClient {

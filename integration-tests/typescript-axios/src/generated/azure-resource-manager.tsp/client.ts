@@ -38,16 +38,10 @@ export class ContosoProviderHubClientServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_ContosoProviderHubClient"> {
-    return url as Server<"custom_ContosoProviderHubClient">
-  }
 }
 
 export interface ContosoProviderHubClientConfig extends AbstractAxiosConfig {
-  basePath:
-    | Server<"ContosoProviderHubClient">
-    | Server<"custom_ContosoProviderHubClient">
+  basePath: Server<"ContosoProviderHubClient"> | string
 }
 
 export class ContosoProviderHubClient extends AbstractAxiosClient {

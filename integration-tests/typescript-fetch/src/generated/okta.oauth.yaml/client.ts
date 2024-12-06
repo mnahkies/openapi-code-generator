@@ -67,17 +67,11 @@ export class OktaOpenIdConnectOAuth20Servers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_OktaOpenIdConnectOAuth20"> {
-    return url as Server<"custom_OktaOpenIdConnectOAuth20">
-  }
 }
 
 export interface OktaOpenIdConnectOAuth20Config
   extends AbstractFetchClientConfig {
-  basePath:
-    | Server<"OktaOpenIdConnectOAuth20">
-    | Server<"custom_OktaOpenIdConnectOAuth20">
+  basePath: Server<"OktaOpenIdConnectOAuth20"> | string
 }
 
 export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {

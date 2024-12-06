@@ -27,16 +27,10 @@ export class SwaggerPetstoreServiceServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_SwaggerPetstoreService"> {
-    return url as Server<"custom_SwaggerPetstoreService">
-  }
 }
 
 export class SwaggerPetstoreServiceConfig {
-  basePath:
-    | Server<"SwaggerPetstoreService">
-    | Server<"custom_SwaggerPetstoreService"> =
+  basePath: Server<"SwaggerPetstoreService"> | string =
     SwaggerPetstoreServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

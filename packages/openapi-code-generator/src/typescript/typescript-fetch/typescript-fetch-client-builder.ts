@@ -98,7 +98,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
               name: "basePath",
               type: union(
                 this.clientServersBuilder.typeForOperationId(operationId),
-                this.clientServersBuilder.typeForCustom(),
+                "string",
               ),
               default:
                 this.clientServersBuilder.defaultForOperationId(operationId),

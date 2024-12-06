@@ -47,16 +47,10 @@ export class ContosoWidgetManagerServiceServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_ContosoWidgetManagerService"> {
-    return url as Server<"custom_ContosoWidgetManagerService">
-  }
 }
 
 export class ContosoWidgetManagerServiceConfig {
-  basePath:
-    | Server<"ContosoWidgetManagerService">
-    | Server<"custom_ContosoWidgetManagerService"> =
+  basePath: Server<"ContosoWidgetManagerService"> | string =
     ContosoWidgetManagerServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }

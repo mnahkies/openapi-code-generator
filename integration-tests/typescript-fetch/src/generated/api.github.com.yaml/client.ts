@@ -364,14 +364,10 @@ export class GitHubV3RestApiServers {
   }
 
   static readonly operations = GitHubV3RestApiServersOperations
-
-  static custom(url: string): Server<"custom_GitHubV3RestApi"> {
-    return url as Server<"custom_GitHubV3RestApi">
-  }
 }
 
 export interface GitHubV3RestApiConfig extends AbstractFetchClientConfig {
-  basePath: Server<"GitHubV3RestApi"> | Server<"custom_GitHubV3RestApi">
+  basePath: Server<"GitHubV3RestApi"> | string
 }
 
 export class GitHubV3RestApi extends AbstractFetchClient {
@@ -20372,7 +20368,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     basePath:
       | Server<"reposUploadReleaseAsset_GitHubV3RestApi">
-      | Server<"custom_GitHubV3RestApi"> = GitHubV3RestApiServers.operations
+      | string = GitHubV3RestApiServers.operations
       .reposUploadReleaseAsset()
       .build(),
     timeout?: number,

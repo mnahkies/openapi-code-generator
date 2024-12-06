@@ -32,14 +32,10 @@ export class SwaggerPetstoreServers {
         throw new Error(`no matching server for url '${url}'`)
     }
   }
-
-  static custom(url: string): Server<"custom_SwaggerPetstore"> {
-    return url as Server<"custom_SwaggerPetstore">
-  }
 }
 
 export interface SwaggerPetstoreConfig extends AbstractFetchClientConfig {
-  basePath: Server<"SwaggerPetstore"> | Server<"custom_SwaggerPetstore">
+  basePath: Server<"SwaggerPetstore"> | string
 }
 
 export class SwaggerPetstore extends AbstractFetchClient {

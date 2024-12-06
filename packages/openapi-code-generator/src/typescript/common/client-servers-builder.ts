@@ -15,11 +15,48 @@ export class ClientServersBuilder implements ICompilable {
     readonly name: string,
     readonly servers: IRServer[],
     readonly imports: ImportBuilder,
-  ) {}
+  ) {
+    for (const server of servers) {
+      this.validateServer(server)
+    }
+  }
 
   addOperation(operation: Pick<IROperation, "operationId" | "servers">) {
     if (operation.servers.length) {
+      for (const server of operation.servers) {
+        this.validateServer(server)
+      }
       this.operations.push(operation)
+    }
+  }
+
+  private validateServer(server: IRServer) {
+    const regex = /\{([^{}]+)}/g
+    const placeholders: string[] = []
+    let match: RegExpExecArray | null
+    // biome-ignore lint/suspicious/noAssignInExpressions: <explanation>
+    while ((match = regex.exec(server.url)) !== null) {
+      if (match[1]) {
+        placeholders.push(match[1])
+      }
+    }
+
+    const variables = Object.keys(server.variables)
+
+    for (const placeholder of placeholders) {
+      if (!variables.includes(placeholder)) {
+        throw new Error(
+          `server '${server.url}' has placeholder '${placeholder}' but no variable with that name`,
+        )
+      }
+    }
+
+    for (const variable of variables) {
+      if (!placeholders.includes(variable)) {
+        throw new Error(
+          `server '${server.url}' has variable '${variable}' but no placeholder with that name`,
+        )
+      }
     }
   }
 
@@ -117,10 +154,6 @@ export class ClientServersBuilder implements ICompilable {
     return `Server<"${this.name}">`
   }
 
-  typeForCustom() {
-    return `Server<"custom_${this.name}">`
-  }
-
   defaultForOperationId(operationId: string) {
     const operation = this.operations.find(
       (it) => it.operationId === operationId,
@@ -176,10 +209,6 @@ export class ClientServersBuilder implements ICompilable {
          operations.length
            ? `static readonly operations = ${this.classExportName}Operations`
            : ""
-       }
-
-      static custom(url: string): ${this.typeForCustom()} {
-        return (url as ${this.typeForCustom()})
        }
     }
     `

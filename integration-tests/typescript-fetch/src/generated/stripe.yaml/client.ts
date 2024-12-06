@@ -227,14 +227,10 @@ export class StripeApiServers {
   }
 
   static readonly operations = StripeApiServersOperations
-
-  static custom(url: string): Server<"custom_StripeApi"> {
-    return url as Server<"custom_StripeApi">
-  }
 }
 
 export interface StripeApiConfig extends AbstractFetchClientConfig {
-  basePath: Server<"StripeApi"> | Server<"custom_StripeApi">
+  basePath: Server<"StripeApi"> | string
 }
 
 export class StripeApi extends AbstractFetchClient {
@@ -10558,9 +10554,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     basePath:
       | Server<"postFiles_StripeApi">
-      | Server<"custom_StripeApi"> = StripeApiServers.operations
-      .postFiles()
-      .build(),
+      | string = StripeApiServers.operations.postFiles().build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
@@ -25992,9 +25986,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     basePath:
       | Server<"getQuotesQuotePdf_StripeApi">
-      | Server<"custom_StripeApi"> = StripeApiServers.operations
-      .getQuotesQuotePdf()
-      .build(),
+      | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {

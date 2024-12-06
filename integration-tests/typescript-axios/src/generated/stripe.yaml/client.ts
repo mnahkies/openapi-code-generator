@@ -224,14 +224,10 @@ export class StripeApiServers {
   }
 
   static readonly operations = StripeApiServersOperations
-
-  static custom(url: string): Server<"custom_StripeApi"> {
-    return url as Server<"custom_StripeApi">
-  }
 }
 
 export interface StripeApiConfig extends AbstractAxiosConfig {
-  basePath: Server<"StripeApi"> | Server<"custom_StripeApi">
+  basePath: Server<"StripeApi"> | string
 }
 
 export class StripeApi extends AbstractAxiosClient {
@@ -10754,7 +10750,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "terminal_reader_splashscreen"
       }
     },
-    basePath?: Server<"postFiles_StripeApi"> | Server<"custom_StripeApi">,
+    basePath?: Server<"postFiles_StripeApi"> | string,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_file>> {
@@ -26394,9 +26390,7 @@ export class StripeApi extends AbstractAxiosClient {
       quote: string
       requestBody?: EmptyObject
     },
-    basePath?:
-      | Server<"getQuotesQuotePdf_StripeApi">
-      | Server<"custom_StripeApi">,
+    basePath?: Server<"getQuotesQuotePdf_StripeApi"> | string,
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<string>> {

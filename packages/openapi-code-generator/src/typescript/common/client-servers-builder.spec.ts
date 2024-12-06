@@ -86,7 +86,7 @@ describe("typescript/common/client-servers-builder", () => {
       ])
     })
 
-    it("produces a specific, and custom", () => {
+    it("produces a server", () => {
       expect(result.output).toMatchInlineSnapshot(`
         "export class UnitTestServers {
           static default(): Server<"UnitTest"> {
@@ -125,10 +125,6 @@ describe("typescript/common/client-servers-builder", () => {
               default:
                 throw new Error(\`no matching server for url '\${url}'\`)
             }
-          }
-
-          static custom(url: string): Server<"custom_UnitTest"> {
-            return url as Server<"custom_UnitTest">
           }
         }
         "
@@ -197,7 +193,7 @@ describe("typescript/common/client-servers-builder", () => {
       )
     })
 
-    it("produces a specific, custom, and operations", () => {
+    it("produces a server, and operations", () => {
       expect(result.output).toMatchInlineSnapshot(`
         "export class UnitTestServersOperations {
           static testOperation(
@@ -278,10 +274,6 @@ describe("typescript/common/client-servers-builder", () => {
           }
 
           static readonly operations = UnitTestServersOperations
-
-          static custom(url: string): Server<"custom_UnitTest"> {
-            return url as Server<"custom_UnitTest">
-          }
         }
         "
       `)

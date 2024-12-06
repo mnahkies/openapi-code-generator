@@ -360,16 +360,10 @@ export class GitHubV3RestApiServiceServers {
   }
 
   static readonly operations = GitHubV3RestApiServiceServersOperations
-
-  static custom(url: string): Server<"custom_GitHubV3RestApiService"> {
-    return url as Server<"custom_GitHubV3RestApiService">
-  }
 }
 
 export class GitHubV3RestApiServiceConfig {
-  basePath:
-    | Server<"GitHubV3RestApiService">
-    | Server<"custom_GitHubV3RestApiService"> =
+  basePath: Server<"GitHubV3RestApiService"> | string =
     GitHubV3RestApiServiceServers.default()
   defaultHeaders: Record<string, string> = {}
 }
