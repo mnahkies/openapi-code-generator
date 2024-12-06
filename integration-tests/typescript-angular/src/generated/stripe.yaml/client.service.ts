@@ -167,10 +167,9 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class StripeApiServiceServersOperations {
-  static postFiles(url?: "https://files.stripe.com/"): {
-    build: () => Server<"postFiles_StripeApiService">
-  }
-  static postFiles(url: string = "https://files.stripe.com/"): unknown {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_StripeApiService"> } {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -184,10 +183,9 @@ export class StripeApiServiceServersOperations {
     }
   }
 
-  static getQuotesQuotePdf(url?: "https://files.stripe.com/"): {
-    build: () => Server<"getQuotesQuotePdf_StripeApiService">
-  }
-  static getQuotesQuotePdf(url: string = "https://files.stripe.com/"): unknown {
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_StripeApiService"> } {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -207,10 +205,9 @@ export class StripeApiServiceServers {
     return StripeApiServiceServers.server().build()
   }
 
-  static server(url?: "https://api.stripe.com/"): {
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
     build: () => Server<"StripeApiService">
-  }
-  static server(url: string = "https://api.stripe.com/"): unknown {
+  } {
     switch (url) {
       case "https://api.stripe.com/":
         return {

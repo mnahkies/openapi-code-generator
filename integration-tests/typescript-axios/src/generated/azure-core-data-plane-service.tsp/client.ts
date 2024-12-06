@@ -31,10 +31,9 @@ export class ContosoWidgetManagerServers {
     return ContosoWidgetManagerServers.server().build()
   }
 
-  static server(url?: "{endpoint}/widget"): {
+  static server(url: "{endpoint}/widget" = "{endpoint}/widget"): {
     build: (endpoint?: string) => Server<"ContosoWidgetManager">
-  }
-  static server(url: string = "{endpoint}/widget"): unknown {
+  } {
     switch (url) {
       case "{endpoint}/widget":
         return {

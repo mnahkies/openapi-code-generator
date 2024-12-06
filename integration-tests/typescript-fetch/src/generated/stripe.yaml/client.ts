@@ -172,10 +172,9 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class StripeApiServersOperations {
-  static postFiles(url?: "https://files.stripe.com/"): {
-    build: () => Server<"postFiles_StripeApi">
-  }
-  static postFiles(url: string = "https://files.stripe.com/"): unknown {
+  static postFiles(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"postFiles_StripeApi"> } {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -189,10 +188,9 @@ export class StripeApiServersOperations {
     }
   }
 
-  static getQuotesQuotePdf(url?: "https://files.stripe.com/"): {
-    build: () => Server<"getQuotesQuotePdf_StripeApi">
-  }
-  static getQuotesQuotePdf(url: string = "https://files.stripe.com/"): unknown {
+  static getQuotesQuotePdf(
+    url: "https://files.stripe.com/" = "https://files.stripe.com/",
+  ): { build: () => Server<"getQuotesQuotePdf_StripeApi"> } {
     switch (url) {
       case "https://files.stripe.com/":
         return {
@@ -212,10 +210,9 @@ export class StripeApiServers {
     return StripeApiServers.server().build()
   }
 
-  static server(url?: "https://api.stripe.com/"): {
+  static server(url: "https://api.stripe.com/" = "https://api.stripe.com/"): {
     build: () => Server<"StripeApi">
-  }
-  static server(url: string = "https://api.stripe.com/"): unknown {
+  } {
     switch (url) {
       case "https://api.stripe.com/":
         return {

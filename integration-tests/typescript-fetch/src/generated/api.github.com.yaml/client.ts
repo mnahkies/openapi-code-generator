@@ -325,12 +325,9 @@ import {
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class GitHubV3RestApiServersOperations {
-  static reposUploadReleaseAsset(url?: "https://uploads.github.com"): {
-    build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi">
-  }
   static reposUploadReleaseAsset(
-    url: string = "https://uploads.github.com",
-  ): unknown {
+    url: "https://uploads.github.com" = "https://uploads.github.com",
+  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApi"> } {
     switch (url) {
       case "https://uploads.github.com":
         return {
@@ -350,10 +347,9 @@ export class GitHubV3RestApiServers {
     return GitHubV3RestApiServers.server().build()
   }
 
-  static server(url?: "https://api.github.com"): {
+  static server(url: "https://api.github.com" = "https://api.github.com"): {
     build: () => Server<"GitHubV3RestApi">
-  }
-  static server(url: string = "https://api.github.com"): unknown {
+  } {
     switch (url) {
       case "https://api.github.com":
         return {

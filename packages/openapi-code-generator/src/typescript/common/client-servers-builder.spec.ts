@@ -201,16 +201,13 @@ describe("typescript/common/client-servers-builder", () => {
       expect(result.output).toMatchInlineSnapshot(`
         "export class UnitTestServersOperations {
           static testOperation(
-            url?: "{schema}}://test-operation.{tenant}.example.com",
+            url: "{schema}}://test-operation.{tenant}.example.com" = "{schema}}://test-operation.{tenant}.example.com",
           ): {
             build: (
               schema?: "https" | "http",
               tenant?: string,
             ) => Server<"testOperation_UnitTest">
-          }
-          static testOperation(
-            url: string = "{schema}}://test-operation.{tenant}.example.com",
-          ): unknown {
+          } {
             switch (url) {
               case "{schema}}://test-operation.{tenant}.example.com":
                 return {
@@ -230,11 +227,8 @@ describe("typescript/common/client-servers-builder", () => {
           }
 
           static anotherTestOperation(
-            url?: "https://another-test-operation.example.com",
-          ): { build: () => Server<"anotherTestOperation_UnitTest"> }
-          static anotherTestOperation(
-            url: string = "https://another-test-operation.example.com",
-          ): unknown {
+            url: "https://another-test-operation.example.com" = "https://another-test-operation.example.com",
+          ): { build: () => Server<"anotherTestOperation_UnitTest"> } {
             switch (url) {
               case "https://another-test-operation.example.com":
                 return {

@@ -12,10 +12,9 @@ export class SwaggerPetstoreServiceServers {
     return SwaggerPetstoreServiceServers.server().build()
   }
 
-  static server(url?: "https://petstore.swagger.io/v2"): {
-    build: () => Server<"SwaggerPetstoreService">
-  }
-  static server(url: string = "https://petstore.swagger.io/v2"): unknown {
+  static server(
+    url: "https://petstore.swagger.io/v2" = "https://petstore.swagger.io/v2",
+  ): { build: () => Server<"SwaggerPetstoreService"> } {
     switch (url) {
       case "https://petstore.swagger.io/v2":
         return {

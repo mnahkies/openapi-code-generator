@@ -26,10 +26,9 @@ export class ContosoProviderHubClientServers {
     return ContosoProviderHubClientServers.server().build()
   }
 
-  static server(url?: "https://management.azure.com"): {
-    build: () => Server<"ContosoProviderHubClient">
-  }
-  static server(url: string = "https://management.azure.com"): unknown {
+  static server(
+    url: "https://management.azure.com" = "https://management.azure.com",
+  ): { build: () => Server<"ContosoProviderHubClient"> } {
     switch (url) {
       case "https://management.azure.com":
         return {

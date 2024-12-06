@@ -43,12 +43,11 @@ export class OktaOpenIdConnectOAuth20ServiceServers {
     return OktaOpenIdConnectOAuth20ServiceServers.server().build()
   }
 
-  static server(url?: "https://{yourOktaDomain}"): {
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
     build: (
       yourOktaDomain?: string,
     ) => Server<"OktaOpenIdConnectOAuth20Service">
-  }
-  static server(url: string = "https://{yourOktaDomain}"): unknown {
+  } {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {

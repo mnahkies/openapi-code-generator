@@ -44,10 +44,9 @@ export class OktaOpenIdConnectOAuth20Servers {
     return OktaOpenIdConnectOAuth20Servers.server().build()
   }
 
-  static server(url?: "https://{yourOktaDomain}"): {
+  static server(url: "https://{yourOktaDomain}" = "https://{yourOktaDomain}"): {
     build: (yourOktaDomain?: string) => Server<"OktaOpenIdConnectOAuth20">
-  }
-  static server(url: string = "https://{yourOktaDomain}"): unknown {
+  } {
     switch (url) {
       case "https://{yourOktaDomain}":
         return {

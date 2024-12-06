@@ -58,43 +58,47 @@ export class ClientServersBuilder implements ICompilable {
     `
   }
 
-  private toSpecific(
-    name: string,
-    servers: IRServer[],
-    typeName: string,
-    isStatic = true,
-  ) {
+  private toSpecific(name: string, servers: IRServer[], typeName: string) {
     if (!servers[0]) {
       return ""
     }
 
     const defaultUrl = quotedStringLiteral(servers[0].url)
 
-    const overloads = servers
-      .map((it) => {
-        return `${isStatic ? "static " : ""}${name}(url?: ${quotedStringLiteral(it.url)}): {build: (${this.toParams(it.variables, false)}) => ${typeName}};`
-      })
-      .join("\n")
+    const overloads = servers.map((it) => {
+      return `static ${name}(url?: ${quotedStringLiteral(it.url)}): {build: (${this.toParams(it.variables, false)}) => ${typeName}};`
+    })
 
-    return `
-    ${overloads}
-    ${isStatic ? "static " : ""}${name}(url: string = ${defaultUrl}): unknown {
+    const switchSnippet = `
         switch(url) {
           ${servers
             .map(
-              (server) => `
-          case ${quotedStringLiteral(server.url)}:
+              (it) => `
+          case ${quotedStringLiteral(it.url)}:
             return {
-              build(${this.toParams(server.variables)}): ${typeName} {
-                return (${this.toReplacer(server)} as ${typeName})
+              build(${this.toParams(it.variables)}): ${typeName} {
+                return (${this.toReplacer(it)} as ${typeName})
               }
             }
-            `,
+        `,
             )
             .join("\n")}
             default: throw new Error(\`no matching server for url '\${url}'\`)
         }
-      }`
+    `
+
+    if (overloads.length > 1) {
+      return `
+    ${overloads.join("\n")}
+    static ${name}(url: string = ${defaultUrl}): unknown {
+        ${switchSnippet}
+    }`
+    }
+
+    return `
+    static ${name}(url: ${defaultUrl} = ${defaultUrl}): {build: (${this.toParams(servers[0].variables, false)}) => ${typeName}} {
+        ${switchSnippet}
+    }`
   }
 
   get hasServers() {
@@ -150,7 +154,6 @@ export class ClientServersBuilder implements ICompilable {
           it.operationId,
           it.servers,
           this.typeForOperationId(it.operationId),
-          true,
         ),
       )
       .join("\n")

@@ -321,12 +321,9 @@ import { Injectable } from "@angular/core"
 import { Observable } from "rxjs"
 
 export class GitHubV3RestApiServiceServersOperations {
-  static reposUploadReleaseAsset(url?: "https://uploads.github.com"): {
-    build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService">
-  }
   static reposUploadReleaseAsset(
-    url: string = "https://uploads.github.com",
-  ): unknown {
+    url: "https://uploads.github.com" = "https://uploads.github.com",
+  ): { build: () => Server<"reposUploadReleaseAsset_GitHubV3RestApiService"> } {
     switch (url) {
       case "https://uploads.github.com":
         return {
@@ -346,10 +343,9 @@ export class GitHubV3RestApiServiceServers {
     return GitHubV3RestApiServiceServers.server().build()
   }
 
-  static server(url?: "https://api.github.com"): {
+  static server(url: "https://api.github.com" = "https://api.github.com"): {
     build: () => Server<"GitHubV3RestApiService">
-  }
-  static server(url: string = "https://api.github.com"): unknown {
+  } {
     switch (url) {
       case "https://api.github.com":
         return {
