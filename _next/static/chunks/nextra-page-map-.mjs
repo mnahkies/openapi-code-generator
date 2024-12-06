@@ -60,6 +60,12 @@ export const pageMap = [{
       frontMatter: {
         "sidebarTitle": "Extract Inline Schemas"
       }
+    }, {
+      name: "servers-object-handling",
+      route: "/guides/concepts/servers-object-handling",
+      frontMatter: {
+        "sidebarTitle": "Servers Object Handling"
+      }
     }]
   }, {
     name: "server-templates",
