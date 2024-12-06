@@ -67,6 +67,7 @@ import {
   t_code_scanning_analysis_tool_name,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
+  t_code_scanning_default_setup_options,
   t_code_scanning_default_setup_update,
   t_code_scanning_default_setup_update_response,
   t_code_scanning_organization_alert_items,
@@ -265,6 +266,7 @@ import {
   t_secret_scanning_push_protection_bypass,
   t_secret_scanning_push_protection_bypass_placeholder_id,
   t_secret_scanning_push_protection_bypass_reason,
+  t_secret_scanning_scan_history,
   t_security_advisory_ecosystems,
   t_selected_actions,
   t_short_blob,
@@ -4128,6 +4130,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4248,6 +4251,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -5599,6 +5603,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "api_route"
         | "total_request_count"
       )[]
+      apiRouteSubstring?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5612,6 +5617,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      api_route_substring: p["apiRouteSubstring"],
     })
 
     return this._request({
@@ -5638,6 +5644,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "subject_name"
         | "total_request_count"
       )[]
+      subjectNameSubstring?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5651,6 +5658,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      subject_name_substring: p["subjectNameSubstring"],
     })
 
     return this._request({
@@ -5850,6 +5858,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "subject_name"
         | "total_request_count"
       )[]
+      actorNameSubstring?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -5863,6 +5872,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       direction: p["direction"],
       sort: p["sort"],
+      actor_name_substring: p["actorNameSubstring"],
     })
 
     return this._request({
@@ -7763,7 +7773,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       ref?: string
-      repositoryName?: number
+      repositoryName?: string
       timePeriod?: "hour" | "day" | "week" | "month"
       actorName?: string
       ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
@@ -17846,6 +17856,120 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async issuesRemoveSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issue`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesListSubIssues(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesAddSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        replace_parent?: boolean
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async issuesReprioritizeSubIssue(
+    p: {
+      owner: string
+      repo: string
+      issueNumber: number
+      requestBody: {
+        after_id?: number
+        before_id?: number
+        sub_issue_id: number
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/sub_issues/priority`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async issuesListEventsForTimeline(
     p: {
       owner: string
@@ -20609,6 +20733,26 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       url: url,
       method: "POST",
       data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async secretScanningGetScanHistory(
+    p: {
+      owner: string
+      repo: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_secret_scanning_scan_history>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/secret-scanning/scan-history`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,

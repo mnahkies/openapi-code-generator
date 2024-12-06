@@ -636,8 +636,17 @@ export const s_code_scanning_default_setup = z.object({
   schedule: z.enum(["weekly"]).nullable().optional(),
 })
 
+export const s_code_scanning_default_setup_options = z
+  .object({
+    runner_type: z.enum(["standard", "labeled", "not_set"]).optional(),
+    runner_label: z.string().nullable().optional(),
+  })
+  .nullable()
+
 export const s_code_scanning_default_setup_update = z.object({
   state: z.enum(["configured", "not-configured"]).optional(),
+  runner_type: z.enum(["standard", "labeled"]).optional(),
+  runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
   languages: z
     .array(
@@ -720,6 +729,16 @@ export const s_code_security_configuration = z.object({
     .optional(),
   code_scanning_default_setup: z
     .enum(["enabled", "disabled", "not_set"])
+    .optional(),
+  code_scanning_default_setup_options: z
+    .object({
+      runner_type: z
+        .enum(["standard", "labeled", "not_set"])
+        .nullable()
+        .optional(),
+      runner_label: z.string().nullable().optional(),
+    })
+    .nullable()
     .optional(),
   secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
   secret_scanning_push_protection: z
@@ -1447,6 +1466,7 @@ export const s_file_commit = z.object({
         reason: z.string().optional(),
         signature: z.string().nullable().optional(),
         payload: z.string().nullable().optional(),
+        verified_at: z.string().nullable().optional(),
       })
       .optional(),
   }),
@@ -1476,6 +1496,7 @@ export const s_git_commit = z.object({
     reason: z.string(),
     signature: z.string().nullable(),
     payload: z.string().nullable(),
+    verified_at: z.string().nullable().optional(),
   }),
   html_url: z.string(),
 })
@@ -2983,6 +3004,13 @@ export const s_secret_scanning_push_protection_bypass_reason = z.enum([
   "will_fix_later",
 ])
 
+export const s_secret_scanning_scan = z.object({
+  type: z.string().optional(),
+  status: z.string().optional(),
+  completed_at: z.string().datetime({ offset: true }).nullable().optional(),
+  started_at: z.string().datetime({ offset: true }).nullable().optional(),
+})
+
 export const s_security_advisory_credit_types = z.enum([
   "analyst",
   "finder",
@@ -3199,6 +3227,12 @@ export const s_status_check_policy = z.object({
   contexts_url: z.string(),
 })
 
+export const s_sub_issues_summary = z.object({
+  total: z.coerce.number(),
+  completed: z.coerce.number(),
+  percent_completed: z.coerce.number(),
+})
+
 export const s_tag = z.object({
   name: z.string(),
   commit: z.object({ sha: z.string(), url: z.string() }),
@@ -3333,6 +3367,7 @@ export const s_timeline_committed_event = z.object({
     reason: z.string(),
     signature: z.string().nullable(),
     payload: z.string().nullable(),
+    verified_at: z.string().nullable().optional(),
   }),
   html_url: z.string(),
 })
@@ -3379,6 +3414,7 @@ export const s_verification = z.object({
   reason: z.string(),
   payload: z.string().nullable(),
   signature: z.string().nullable(),
+  verified_at: z.string().nullable().optional(),
 })
 
 export const s_wait_timer = z.coerce.number()
@@ -5163,6 +5199,22 @@ export const s_secret_scanning_push_protection_bypass = z.object({
   token_type: z.string().optional(),
 })
 
+export const s_secret_scanning_scan_history = z.object({
+  incremental_scans: z.array(s_secret_scanning_scan).optional(),
+  pattern_update_scans: z.array(s_secret_scanning_scan).optional(),
+  backfill_scans: z.array(s_secret_scanning_scan).optional(),
+  custom_pattern_backfill_scans: z
+    .array(
+      s_secret_scanning_scan.merge(
+        z.object({
+          pattern_name: z.string().optional(),
+          pattern_scope: z.string().optional(),
+        }),
+      ),
+    )
+    .optional(),
+})
+
 export const s_simple_classroom_assignment = z.object({
   id: z.coerce.number(),
   public_repo: PermissiveBoolean,
@@ -6590,6 +6642,7 @@ export const s_issue = z.object({
   performed_via_github_app: s_nullable_integration.optional(),
   author_association: s_author_association,
   reactions: s_reaction_rollup.optional(),
+  sub_issues_summary: s_sub_issues_summary.optional(),
 })
 
 export const s_issue_comment = z.object({
@@ -6635,6 +6688,13 @@ export const s_issue_search_result_item = z.object({
       description: z.string().nullable().optional(),
     }),
   ),
+  sub_issues_summary: z
+    .object({
+      total: z.coerce.number(),
+      completed: z.coerce.number(),
+      percent_completed: z.coerce.number(),
+    })
+    .optional(),
   state: z.string(),
   state_reason: z.string().nullable().optional(),
   assignee: s_nullable_simple_user,
@@ -6814,6 +6874,7 @@ export const s_nullable_issue = z
     performed_via_github_app: s_nullable_integration.optional(),
     author_association: s_author_association,
     reactions: s_reaction_rollup.optional(),
+    sub_issues_summary: s_sub_issues_summary.optional(),
   })
   .nullable()
 
