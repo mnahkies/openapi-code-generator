@@ -130,6 +130,10 @@ export class Input {
           route,
         )
 
+        if (definition.callbacks) {
+          throw new Error("callbacks are not supported")
+        }
+
         result.push({
           ...additionalAttributes,
           route,

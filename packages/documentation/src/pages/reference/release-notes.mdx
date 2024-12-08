@@ -1,0 +1,462 @@
+import { Callout, Steps } from 'nextra/components'
+
+# Release notes
+
+<Callout emoji="💡">
+  This page is statically generated from the [Github releases](https://github.com/mnahkies/openapi-code-generator/releases),
+  and may sometimes be slightly out of date.
+</Callout>
+
+<Steps>
+### 2 Nov 2024 (v0.16.0)
+Client class exports will now be given unique names generated from the input specifications `info.title` field. This can additionally be overridden through a new cli arg `--override-specification-title`. 
+
+The previous generic exports are kept for backwards compatibility.
+
+**POTENTIALLY BREAKING:** Filenames generated from tags or route prefixes will now follow `kebab-case` naming convention by default. This can be customized to other conventions like `camel-case`, etc using `--filename-convention`
+
+**Features**
+* feat: unique client export names by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/263
+* feat!: dynamic filename conventions / no spaces in filenames by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/259
+* feat: safer identifier transformation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/260
+
+**Misc**
+* fix: format/emit in parallel by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/265
+* chore: upgrade to next@15 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/261
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/262
+* chore: refresh data + regenerate by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/264
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.15.0...v0.16.0
+    
+### 27 Oct 2024 (v0.15.0)
+It's now possible to change the construct used for the "implementation" symbol between being a `type`, `interface` or `abstract class` using the new option `--ts-server-implementation-method`. This is particularly useful if using a dependency injection library that requires `abstract class` as part of its wiring approach.
+
+Additionally, when splitting the generated files by `first-tag` / `first-slug` (using `--grouping-strategy`), the tag/slug will now be added to the exported symbol names, eg: `createRouter` -> `createMyTagRouter` and `Implementation` -> `MyTagImplementation`. This can reduce the need to alias imports manually. 
+
+The generic `Implementation` / `createRouter` exports have be retained to keep this backwards compatible.
+
+**Features**
+* feat: support emitting abstract classes for implementation types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/256
+* feat: emit unique symbol names for Implementation / createRouter functions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/258
+
+**Misc**
+* fix(docs): improve meta tags by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/255
+* chore: dependencies / refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/257
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.14.0...v0.15.0
+    
+### 12 Oct 2024 (v0.14.0)
+Fixes a few small bugs, and adds support for relative `$ref`s when using a URI as the input.
+
+**Features**
+* feat: support loading relative remote uris by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/254
+
+**Bug fixes**
+* fix: allow `$ref` to be used as a schema property by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/250
+* fix: handle `type: "null"` in `anyOf` / `oneOf` / `allOf` by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/252
+
+**Misc**
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/251
+* fix(docs): use absolute url for og:image by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/253
+* chore(docs): switch to self-hosted plausible ce by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/249
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.13.0...v0.14.0
+    
+### 20 Sept 2024 (v0.13.0)
+This release adds support for schemas specifying default values, and begins validating / parsing incoming request headers. Note: this may be a breaking change if your server currently accepts requests with invalid request headers.
+
+**Features**
+* feat: support default values by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/241
+* feat!: parse/validate request headers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/247
+* feat: include urls from servers array in basePath type by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/246
+
+**Docs**
+* docs: add compatibility tables by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/248
+
+**Misc**
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/239
+* chore(deps): Bump micromatch from 4.0.7 to 4.0.8 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/240
+* chore: update dependencies and refresh data files by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/244
+* chore: upgrade typescript by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/245
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.12.1...v0.13.0
+    
+### 17 Aug 2024 (v0.12.1)
+This release fixes a small typing mistake preventing queries parameters of type `number[]` from building properly, and fixes bugs in the handling of header parameters / defaults and the "escape hatch" parameters allowing arbitrary fetch / axios request options to be passed.
+
+It's also the first release with automated end-to-end tests in place, though the coverage is still low - this will be improved during the course of development going forward.
+
+**Bug fixes**
+* fix: allow number array query param by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/236
+* fix(fetch/axios): correctly merge headers from opts by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/231
+
+**Testing**
+* feat: add e2e test suite by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/235
+
+**Misc**
+* chore(deps): update dependency axios to v1.7.4 [security] by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/232
+* chore: dependencies / refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/233
+* chore: tweak npm metadata by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/234
+* chore: use node 22 by default by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/237
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.12.0...v0.12.1
+    
+### 5 Aug 2024 (v0.12.0)
+Another small release, adding a new CLI parameter `OPENAPI_REMOTE_SPEC_REQUEST_HEADERS` / `--remote-spec-request-headers` that allows request headers to be sent when fetching specifications from remote URI's. 
+
+This makes it possible to generate from a remote URI that is behind some form of header based authentication, eg: `Authorization: Bearer <bla>` (which includes cookie based authentication since cookies are just a `Cookie` header, and basic auth as this is just `Authorization: Basic <credentials>`). 
+
+The headers are scoped to specific domains/urls such that you can mix and match sources without leaking tokens to the wrong servers.
+
+**Features**
+* feat: support remote specs with authentication by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/230
+
+**Misc**
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/228
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.11.2...v0.12.0
+    
+### 29 Jul 2024 (v0.11.2)
+This is a bug fix release, solving an issue with the order schemas were output when generating from specifications that are split over multiple files, causing variable used before declaration issues.
+
+**Bug fixes**
+* fix: include schemas from all documents in dependency graph by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/227
+
+**Documentation**
+* fix: improve seo, use plausible by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/226
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.11.1...v0.11.2
+    
+### 27 Jul 2024 (v0.11.1)
+This is a bug fix release, containing a solution for https://github.com/mnahkies/openapi-code-generator/issues/217. 
+
+Previously query parameters of an array type did not work when a single element was provided, now this will be parsed and handed to the route handler as an array of one element.
+
+**Bug fixes**
+* fix: support array of 1 for query parameter arrays (round 2) by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/225
+
+**Misc**
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/210
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/221
+* chore: refresh data / use new okta specs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/222
+* chore: update dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/223
+* fix: peer dependency by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/224
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.11.0...v0.11.1
+    
+### 8 Jun 2024 (v0.11.0)
+This release contains 1 bug fix for default header handling in `typescript-axios` and several internal refactoring changes required to facilitate the work-in-progress [documentation playground](https://github.com/mnahkies/openapi-code-generator/pull/216)
+
+Also dropped `eslint` for `biome` because I can't be bothered figuring out the `eslint@^9` upgrade / configuration migration.
+
+**Bug fixes**
+* fix(axios): always apply default headers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/218
+
+**Internal refactoring**
+* fix: make logger compatible with web by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/211
+* fix: decouple validator from readline by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/212
+* feat: add a prettier based formatter by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/213
+* fix: move tsconfig loading by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/214
+* fix: decouple typespec loader from readline by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/215
+
+**Misc**
+* chore: ditch eslint by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/219
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.10.0...v0.11.0
+    
+### 25 May 2024 (v0.10.0)
+This release is primarily bug fixes, and internal refactoring to facilitate improvements to documentation. Most effort has gone into the new documentation site live at https://openapi-code-generator.nahkies.co.nz/
+
+It also splits the `cli` from the library entrypoint such that you can now `import {generate} from '@nahkies/openapi-code-generator'` for programmatic usage if you wish, and improves handling of boolean cli flags.
+
+**BREAKING CHANGES**
+There are several potentially breaking changes here:
+- Dropped the "safe edit region" functionality, I doubt anyone was using this and it wasn't particularly robust
+- Improved handling of `additionalProperties` / `{}` schemas to better align with the specification
+- Joi validation became stricter for strings with format `email` / `date-time`
+
+This may make some schemas / types change type to `unknown`, and start serializing/deserializing values that were previously stripped (see #200). If you want more permissive types (`any`) in these situations rather than `unknown` you can use the `--ts-allow-any` cli flag.
+
+**Bug fixes**
+* fix!: an {} schema should be an unknown/any type by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/204
+* fix!: drop safe edit regions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/198
+* fix!: joi supports email / date-time string formats by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/206
+* fix: improve handling of cli boolean params by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/205
+* fix: only allow publish of releases from latest main by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/161
+
+**Internal refactoring**
+* refactor: create TypescriptFormatter class by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/199
+* refactor: isolate filesystem interaction by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/201
+* refactor: split cli to allow programmatic use by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/202
+
+**Docs**
+* feat: new documentation website by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/162
+* feat: publish docs from ci, add ga to docs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/163
+* fix: provide a user by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/164
+* fix: try git config by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/165
+* fix: set url by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/166
+* fix: move script to _app by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/167
+* fix: replace default nextra meta descriptions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/168
+* docs: show typespec shell snippets, mention runtime response validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/169
+* docs: move architecture into nextra site by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/186
+* docs: update readme by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/187
+* fix(docs): correct header level by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/209
+
+**Misc**
+* chore: upgrade dependencies / angular v18 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/207
+* chore: refresh data and regenerate by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/208
+* chore: bump lerna by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/203
+* fix: make renovate less noisy by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/197
+* chore: Configure Renovate by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/170
+* chore(deps): update dependency @azure-tools/typespec-client-generator-core to v0.41.8 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/171
+* chore(deps): update dependency @types/node to v20.12.8 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/172
+* fix(deps): update angular monorepo by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/175
+* chore(deps): update dependency typescript to ~5.4.0 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/180
+* chore(deps): update dependency node to v20.12.2 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/179
+* chore(deps): update yarn to v4.2.1 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/182
+* chore(deps): update dependency zod to v3.23.6 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/174
+* chore(deps): update typescript-eslint monorepo to v7.8.0 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/181
+* fix(deps): update dependency ajv to v8.13.0 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/183
+* chore(deps): update dependency eslint-plugin-jest to v28.5.0 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/178
+* fix(deps): update dependency @biomejs/biome to v1.7.2 by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/176
+
+* @renovate made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/170
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.9.0...v0.10.0
+    
+### 27 Apr 2024 (v0.9.0)
+There are two new features in this release:
+- [Typespec](https://typespec.io/) can now be used as an input file by passing `--input-type=typespec` as an additional arg
+- You can now use a url for your input file (openapi specs only, typespec must be local files)
+
+**Features**
+* feat: support typespec as an input format by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/158
+* feat: support loading input from uri by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/150
+
+**Bug fixes**
+* fix: allow options by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/151
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.8.0...v0.9.0
+    
+### 7 Apr 2024 (v0.8.0)
+There are three main features in this release:
+- Improve json schema validation support for `string`, `number`, `array` (min / max / etc)
+- Make `boolean` schema validation stricter
+- Start using a pre-compiled ajv validator for better performance
+
+**BREAKING CHANGES**
+Previously any truthy value would be accepted for a boolean, eg: `any-string` would parse to `true`. Now its parsed like:
+- `true | "true" | 1`  -> `true`
+- `false | "false" | 0` -> `false`
+- anything else -> error
+
+**Features**
+* feat: support minimum / maximum for numbers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/140
+* feat: use pre-compiled ajv validators at runtime by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/141
+* feat: joi number min/max validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/143
+* feat: support exclusive min/max and multipleOf by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/144
+* feat: support string validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/145
+* fix!: stricter booleans by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/146
+* feat: support basic array validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/147
+
+**Misc**
+* chore(deps): Bump follow-redirects from 1.15.5 to 1.15.6 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/136
+* chore(deps): Bump webpack-dev-middleware from 5.3.3 to 5.3.4 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/137
+* chore(deps): Bump express from 4.18.3 to 4.19.2 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/138
+* chore: deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/139
+* chore: refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/142
+* chore: bump deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/149
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.7.0...v0.8.0
+    
+### 3 Mar 2024 (v0.7.0)
+**Features**
+* feat: experimental support for splitting code by tags / route segments by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/134
+* feat: eliminate unused imports by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/132
+* feat: use strict typescript settings by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/131
+* feat: adopt biome for code formatting by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/129
+
+**Misc**
+* chore: update dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/133
+* chore(deps): Bump ip from 2.0.0 to 2.0.1 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/130
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.6.0...v0.7.0
+    
+### 19 Feb 2024 (v0.6.0)
+**Features**
+* feat: improve additional properties support by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/126
+* feat: support response validation for joi by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/127
+
+**Misc**
+* chore: adopt prettier everywhere by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/128
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.5.0...v0.6.0
+    
+### 10 Feb 2024 (v0.5.0)
+**Features**
+* feat: experimental support for extracting inline schemas by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/123
+* feat: client generators support experimental runtime response validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/112
+
+**Misc**
+* docs: tiny improvement by @asfaltboy in https://github.com/mnahkies/openapi-code-generator/pull/122
+* chore: update deps / use RouterContext by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/124
+
+**Upgrading notes**
+You may need to replace the `Context` type from `koa` with `RouterContext` from `@koa/router` in some cases due to changes in the upstream type definitions.
+
+* @asfaltboy made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/122
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.4.0...v0.5.0
+    
+### 5 Jan 2024 (v0.4.0)
+* feat(typescript-koa): introduce optional "respond" pattern by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/96
+
+**Bugs**
+* fix: incorrect .d.ts path for zod by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/119
+* fix(koa): don't camel-case route placeholders by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/120
+
+**Misc**
+* chore(deps-dev): Bump @koa/cors from 4.0.0 to 5.0.0 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/116
+* chore: bump deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/121
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.3.0...v0.4.0
+    
+### 2 Dec 2023 (v0.3.0)
+* feat: add `typescript-axios` template by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/83
+* feat!: throw discriminable errors indicating point of failure by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/95
+
+**Breaking Changes**
+Errors thrown during request handling in `typescript-koa` will now be wrapped in `KoaRuntimeError` objects with the original exception included as the `cause`, in order to provide additional context about where the error was thrown.
+
+**Misc**
+* fix: decouple schema builders from `typescript-koa` by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/113
+* feat: include schema builder in client generators by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/114
+* chore: upgrade angular / dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/115
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.2.0...v0.3.0
+    
+### 12 Nov 2023 (v0.2.0)
+**Features**
+* feat: basic support for openapi 3.1 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/109
+
+**Bug Fixes**
+* fix: skip broken openapi 3.1 validation for now by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/104
+* fix: allow numeric header values by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/105
+* fix: handle null in enums by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/106
+* fix: handle `"` in string enum values by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/107
+* fix: use numerical enums when creating zod schema by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/108
+* fix: optional oneOf / allOf / anyOf / $ref's by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/110
+
+**Misc**
+* chore: refresh lockfile by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/100
+* chore: use branch as preid / dist-tag on alpha versions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/101
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.1.1...v0.2.0
+    
+### 11 Nov 2023 (v0.1.1)
+
+**Breaking changes**
+* feat!: more flexible koa server creation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/88
+
+**Fixes**
+* fix: don't coerce strings by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/87
+
+
+**Misc**
+* chore(deps): bump @babel/traverse from 7.22.19 to 7.23.2 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/85
+* chore(deps): Bump zod from 3.22.2 to 3.22.3 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/86
+* chore: yarn 4, @swc/jest by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/89
+* style: comma-dangle always-multiline by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/91
+* chore: move generated files into a generated sub-directory by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/92
+* fix: delete files missed in #92 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/93
+* fix: unused imports by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/97
+* fix: avoid warning for non-nullable paths by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/90
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.1.0...v0.1.1
+    
+### 1 Oct 2023 (v0.1.0)
+Initial Release.
+
+* chore: refresh dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/1
+* fix(typescript-fetch): omit optional query params by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/2
+* chore: switch source of GitHub defs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/3
+* feat: add script consuming github fetch client by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/4
+* feat: support zod for parsing inputs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/7
+* chore(deps): bump ua-parser-js from 0.7.32 to 0.7.33 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/5
+* chore(deps): bump http-cache-semantics from 4.1.0 to 4.1.1 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/6
+* feat: support string enums in zod parsing by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/8
+* feat: new approach to server stubs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/9
+* chore: update dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/10
+* chore: update dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/15
+* chore: upgrade to yarn berry by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/16
+* chore: add lint-staged / husky, improve lint cmd by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/17
+* docs: add table of contents / format by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/18
+* chore: switch from mocha/chai to jest by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/19
+* feat: move static code to normal files by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/20
+* feat: move more static code into koa runtime by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/21
+* fix: respect optional $ref properties by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/22
+* feat: initial support for oneOf by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/23
+* fix: request bodies can be optional by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/24
+* feat: rework input schema parsing by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/25
+* refactor: several tidy ups by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/26
+* feat: zod schema builder supports allOf by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/27
+* fix: use merge instead of intersection by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/28
+* feat: response body validation and types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/29
+* fix: eslint disable in generated files by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/30
+* fix: use request body by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/32
+* fix: improve support for nullable types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/33
+* fix: improve validation to switch between 3.1.0 / 3.0.0 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/34
+* feat: improve client generation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/35
+* feat: clients default params to {} when none are required by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/36
+* feat: order schemas correctly by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/37
+* chore: update github definition by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/31
+* refactor: move schema builders to common, rename model builder by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/38
+* feat: config flag to switch schema parser by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/39
+* fix: improve null support by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/40
+* refactor: simplify by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/41
+* refactor: consistently use yaml instead of yml by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/47
+* chore: refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/48
+* fix: replace . in identifiers by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/50
+* chore: review todos and create tickets for most by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/54
+* feat: initial support for anyOf by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/55
+* fix: switch to qs and add tests for query string by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/56
+* feat: better support for additional properties by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/57
+* feat: support circular references by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/58
+* tests: add stripe api definitions by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/49
+* chore(deps): bump engine.io from 6.4.1 to 6.4.2 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/61
+* chore: upgrade to angular v16 by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/62
+* fix: surface status code -> body relationship in angular template by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/63
+* chore: update data and regenerate by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/64
+* feat: fetch client supports abort signals by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/65
+* chore(deps): bump socket.io-parser from 4.2.2 to 4.2.3 by @dependabot in https://github.com/mnahkies/openapi-code-generator/pull/66
+* chore: update dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/69
+* chore: upgrade prettier by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/70
+* chore: refresh yarn lock by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/71
+* fix: dependency graph handles oneOf allOf nesting by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/73
+* chore: refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/72
+* chore: add okta api specs as tests by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/74
+* fix: master -> main by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/77
+* feat: use commander for cli args for better ux by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/76
+* chore: refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/79
+* fix: plumb through middleware by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/80
+* feat: overhaul docs / publish to npm by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/75
+* fix: remove broken functionality by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/78
+* fix: try using wildcard version to work around lerna publish bug by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/84
+
+* @mnahkies made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/1
+* @dependabot made their first contribution in https://github.com/mnahkies/openapi-code-generator/pull/5
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/commits/v0.1.0
+    
+</Steps>
