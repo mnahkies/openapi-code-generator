@@ -14,8 +14,8 @@ export async function generateTypescriptAxios(
     "./models.ts",
     input,
     {
-      ...config.compilerOptions,
       exactOptionalPropertyTypes: false,
+      ...config.compilerOptions,
     },
     {allowAny},
   )
