@@ -1,5 +1,6 @@
 import meta from "../../../src/pages/_meta.tsx";
 import guides_meta from "../../../src/pages/guides/_meta.tsx";
+import overview_meta from "../../../src/pages/overview/_meta.tsx";
 export const pageMap = [{
   data: meta
 }, {
@@ -100,6 +101,8 @@ export const pageMap = [{
   name: "overview",
   route: "/overview",
   children: [{
+    data: overview_meta
+  }, {
     name: "about",
     route: "/overview/about",
     frontMatter: {
@@ -110,6 +113,12 @@ export const pageMap = [{
     route: "/overview/compatibility",
     frontMatter: {
       "sidebarTitle": "Compatibility"
+    }
+  }, {
+    name: "roadmap",
+    route: "/overview/roadmap",
+    frontMatter: {
+      "sidebarTitle": "Roadmap"
     }
   }, {
     name: "schema-first-design",
@@ -126,6 +135,12 @@ export const pageMap = [{
     route: "/reference/cli-options",
     frontMatter: {
       "sidebarTitle": "CLI Options"
+    }
+  }, {
+    name: "release-notes",
+    route: "/reference/release-notes",
+    frontMatter: {
+      "sidebarTitle": "Release Notes"
     }
   }]
 }];
