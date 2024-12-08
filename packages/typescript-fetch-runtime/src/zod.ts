@@ -1,5 +1,8 @@
-import type {z} from "zod"
+import {z} from "zod"
 import {responseValidationFactoryFactory} from "./common"
+
+export const unknownEnumValue = z.unknown().brand("unknown enum value")
+export type UnknownEnumValue = z.infer<typeof unknownEnumValue>
 
 export function responseValidationFactory(
   possibleResponses: [string, z.ZodTypeAny][],
