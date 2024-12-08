@@ -1,0 +1,68 @@
+# Safely evolving enumerations
+
+OpenAPI allows you to define enumerated types, such as:
+```yaml
+type: string
+enum:
+  - Apple
+  - Banana
+  - Orange
+```
+
+At first glance, you might think this should be turned into a typescript type and runtime schema like:
+```typescript
+export type t_Fruit = "Apple" | "Banana" | "Orange"
+export const s_Fruit = z.enum(["Apple", "Banana", "Orange"])
+```
+
+Looks ok right? However, what happens when we want to evolve this `enum`, perhaps we want to start stocking `Pear`.
+
+In most cases, it's essentially impossible to roll out such a change to both clients, and servers instantaneously. Therefore,
+we need to think about version skew / compatibility.
+
+Ideally:
+- Our servers will only ever accept/return currently valid enum values, they are source of truth
+- Our clients will gracefully handle unrecognized enum values, likely by ignoring them or the entity that contains them
+
+We can achieve this by altering the types / schema in our clients slightly:
+```typescript
+export const s_unknown_enum_value = z.unknown().brand("unknown enum value")
+export type UnknownEnumValue = z.infer<typeof s_unknown_enum_value>
+
+export type t_Fruit = "Apple" | "Banana" | "Orange" | UnknownEnumValue
+export const s_Fruit = z.union([z.enum(["Apple", "Banana", "Orange"]), s_unknown_enum_value])
+```
+
+Now, we have a schema that will pass through unknown values as a branded unknown type. This prevents invalid/random values being referenced in the code, whilst also allowing us to make exhaustiveness checks.
+
+![Example exhaustiveness error message](/enum-exhaustiveness-check.png)
+
+```typescript
+function processFruit(result: t_Fruit): void {
+  switch (result) {
+    case "Apple":
+      console.log("bite into apple")
+      break
+    case "Banana":
+      console.log("slip over banana")
+      break
+    case "Orange":
+      console.log("juice orange")
+      break
+    default: {
+      // This checks that we have exhaustively handled the known values
+      const _ = result satisfies UnknownEnumValue
+      console.warn(`unsupported ${result}, skipping`)
+    }
+  }
+}
+```
+
+Whilst technically `t_Fruit` can be any string value at runtime, you still won't be able to assign random values
+to it, as the branded type will not allow you
+![Example rejecting unknown enum value](/enum-reject-unknown.png)
+
+This is interesting as it means that our server can start returning new enumerated values, before the clients have been
+updated to explicitly handle them. When dealing with native mobile applications, this can be especially important as
+there is often a long tail of older client versions in use, largely out of your control.
+

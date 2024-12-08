@@ -206,7 +206,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
       return [
-        this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
+        this.union([
+          ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
+          `z.unknown().brand('unsupported enum value')`,
+        ]),
       ]
         .filter(isDefined)
         .join(".")
@@ -235,7 +238,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
   protected string(model: IRModelString) {
     if (model.enum) {
-      return this.stringEnum(model)
+      return this.union([
+        this.stringEnum(model),
+        `z.unknown().brand('unsupported enum value')`,
+      ])
     }
 
     return [
