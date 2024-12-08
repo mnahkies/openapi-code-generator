@@ -526,10 +526,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsUpdateWebhookConfigForApp(
     p: {
       requestBody: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
+        content_type?: t_webhook_config_content_type | undefined
+        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+        secret?: t_webhook_config_secret | undefined
+        url?: t_webhook_config_url | undefined
       }
     },
     timeout?: number,
@@ -706,9 +706,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       installationId: number
       requestBody?: {
-        permissions?: t_app_permissions
-        repositories?: string[]
-        repository_ids?: number[]
+        permissions?: t_app_permissions | undefined
+        repositories?: string[] | undefined
+        repository_ids?: number[] | undefined
       }
     },
     timeout?: number,
@@ -882,11 +882,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       clientId: string
       requestBody: {
         access_token: string
-        permissions?: t_app_permissions
-        repositories?: string[]
-        repository_ids?: number[]
-        target?: string
-        target_id?: number
+        permissions?: t_app_permissions | undefined
+        repositories?: string[] | undefined
+        repository_ids?: number[] | undefined
+        target?: string | undefined
+        target_id?: number | undefined
       }
     },
     timeout?: number,
@@ -1115,8 +1115,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      seats?: t_copilot_seat_details[]
-      total_seats?: number
+      seats?: t_copilot_seat_details[] | undefined
+      total_seats?: number | undefined
     }>
   > {
     const url = `/enterprises/${p["enterprise"]}/copilot/billing/seats`
@@ -1404,7 +1404,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async gistsCreate(
     p: {
       requestBody: {
-        description?: string
+        description?: string | undefined
         files: {
           [key: string]:
             | {
@@ -1412,7 +1412,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               }
             | undefined
         }
-        public?: boolean | "true" | "false"
+        public?: (boolean | "true" | "false") | undefined
       }
     },
     timeout?: number,
@@ -1510,15 +1510,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       gistId: string
       requestBody: {
-        description?: string
-        files?: {
-          [key: string]:
-            | ({
-                content?: string
-                filename?: string | null
-              } | null)
-            | undefined
-        }
+        description?: string | undefined
+        files?:
+          | {
+              [key: string]:
+                | ({
+                    content?: string | undefined
+                    filename?: (string | null) | undefined
+                  } | null)
+                | undefined
+            }
+          | undefined
       } | null
     },
     timeout?: number,
@@ -1862,7 +1864,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<{
       repositories: t_repository[]
-      repository_selection?: string
+      repository_selection?: string | undefined
       total_count: number
     }>
   > {
@@ -1993,8 +1995,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async markdownRender(
     p: {
       requestBody: {
-        context?: string
-        mode?: "markdown" | "gfm"
+        context?: string | undefined
+        mode?: ("markdown" | "gfm") | undefined
         text: string
       }
     },
@@ -2254,15 +2256,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async activityMarkNotificationsAsRead(
     p: {
       requestBody?: {
-        last_read_at?: string
-        read?: boolean
+        last_read_at?: string | undefined
+        read?: boolean | undefined
       }
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<{
-        message?: string
+        message?: string | undefined
       }>
     | AxiosResponse<void>
   > {
@@ -2363,7 +2365,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       threadId: number
       requestBody?: {
-        ignored?: boolean
+        ignored?: boolean | undefined
       }
     },
     timeout?: number,
@@ -2498,36 +2500,46 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody?: {
-        advanced_security_enabled_for_new_repositories?: boolean
-        billing_email?: string
-        blog?: string
-        company?: string
-        default_repository_permission?: "read" | "write" | "admin" | "none"
-        dependabot_alerts_enabled_for_new_repositories?: boolean
-        dependabot_security_updates_enabled_for_new_repositories?: boolean
-        dependency_graph_enabled_for_new_repositories?: boolean
-        deploy_keys_enabled_for_repositories?: boolean
-        description?: string
-        email?: string
-        has_organization_projects?: boolean
-        has_repository_projects?: boolean
-        location?: string
-        members_allowed_repository_creation_type?: "all" | "private" | "none"
-        members_can_create_internal_repositories?: boolean
-        members_can_create_pages?: boolean
-        members_can_create_private_pages?: boolean
-        members_can_create_private_repositories?: boolean
-        members_can_create_public_pages?: boolean
-        members_can_create_public_repositories?: boolean
-        members_can_create_repositories?: boolean
-        members_can_fork_private_repositories?: boolean
-        name?: string
-        secret_scanning_enabled_for_new_repositories?: boolean
-        secret_scanning_push_protection_custom_link?: string
-        secret_scanning_push_protection_custom_link_enabled?: boolean
-        secret_scanning_push_protection_enabled_for_new_repositories?: boolean
-        twitter_username?: string
-        web_commit_signoff_required?: boolean
+        advanced_security_enabled_for_new_repositories?: boolean | undefined
+        billing_email?: string | undefined
+        blog?: string | undefined
+        company?: string | undefined
+        default_repository_permission?:
+          | ("read" | "write" | "admin" | "none")
+          | undefined
+        dependabot_alerts_enabled_for_new_repositories?: boolean | undefined
+        dependabot_security_updates_enabled_for_new_repositories?:
+          | boolean
+          | undefined
+        dependency_graph_enabled_for_new_repositories?: boolean | undefined
+        deploy_keys_enabled_for_repositories?: boolean | undefined
+        description?: string | undefined
+        email?: string | undefined
+        has_organization_projects?: boolean | undefined
+        has_repository_projects?: boolean | undefined
+        location?: string | undefined
+        members_allowed_repository_creation_type?:
+          | ("all" | "private" | "none")
+          | undefined
+        members_can_create_internal_repositories?: boolean | undefined
+        members_can_create_pages?: boolean | undefined
+        members_can_create_private_pages?: boolean | undefined
+        members_can_create_private_repositories?: boolean | undefined
+        members_can_create_public_pages?: boolean | undefined
+        members_can_create_public_repositories?: boolean | undefined
+        members_can_create_repositories?: boolean | undefined
+        members_can_fork_private_repositories?: boolean | undefined
+        name?: string | undefined
+        secret_scanning_enabled_for_new_repositories?: boolean | undefined
+        secret_scanning_push_protection_custom_link?: string | undefined
+        secret_scanning_push_protection_custom_link_enabled?:
+          | boolean
+          | undefined
+        secret_scanning_push_protection_enabled_for_new_repositories?:
+          | boolean
+          | undefined
+        twitter_username?: string | undefined
+        web_commit_signoff_required?: boolean | undefined
       }
     },
     timeout?: number,
@@ -2686,7 +2698,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        allowed_actions?: t_allowed_actions
+        allowed_actions?: t_allowed_actions | undefined
         enabled_repositories: t_enabled_repositories
       }
     },
@@ -2928,13 +2940,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        allows_public_repositories?: boolean
+        allows_public_repositories?: boolean | undefined
         name: string
-        restricted_to_workflows?: boolean
-        runners?: number[]
-        selected_repository_ids?: number[]
-        selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private"
+        restricted_to_workflows?: boolean | undefined
+        runners?: number[] | undefined
+        selected_repository_ids?: number[] | undefined
+        selected_workflows?: string[] | undefined
+        visibility?: ("selected" | "all" | "private") | undefined
       }
     },
     timeout?: number,
@@ -2982,11 +2994,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       runnerGroupId: number
       requestBody: {
-        allows_public_repositories?: boolean
+        allows_public_repositories?: boolean | undefined
         name: string
-        restricted_to_workflows?: boolean
-        selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private"
+        restricted_to_workflows?: boolean | undefined
+        selected_workflows?: string[] | undefined
+        visibility?: ("selected" | "all" | "private") | undefined
       }
     },
     timeout?: number,
@@ -3283,7 +3295,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         labels: string[]
         name: string
         runner_group_id: number
-        work_folder?: string
+        work_folder?: string | undefined
       }
     },
     timeout?: number,
@@ -3602,9 +3614,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        selected_repository_ids?: number[]
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
+        selected_repository_ids?: number[] | undefined
         visibility: "all" | "private" | "selected"
       }
     },
@@ -3778,7 +3790,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       requestBody: {
         name: string
-        selected_repository_ids?: number[]
+        selected_repository_ids?: number[] | undefined
         value: string
         visibility: "all" | "private" | "selected"
       }
@@ -3828,10 +3840,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       name: string
       requestBody: {
-        name?: string
-        selected_repository_ids?: number[]
-        value?: string
-        visibility?: "all" | "private" | "selected"
+        name?: string | undefined
+        selected_repository_ids?: number[] | undefined
+        value?: string | undefined
+        visibility?: ("all" | "private" | "selected") | undefined
       }
     },
     timeout?: number,
@@ -3984,18 +3996,26 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      attestations?: {
-        bundle?: {
-          dsseEnvelope?: {
-            [key: string]: unknown | undefined
-          }
-          mediaType?: string
-          verificationMaterial?: {
-            [key: string]: unknown | undefined
-          }
-        }
-        repository_id?: number
-      }[]
+      attestations?:
+        | {
+            bundle?:
+              | {
+                  dsseEnvelope?:
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | undefined
+                  mediaType?: string | undefined
+                  verificationMaterial?:
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | undefined
+                }
+              | undefined
+            repository_id?: number | undefined
+          }[]
+        | undefined
     }>
   > {
     const url = `/orgs/${p["org"]}/attestations/${p["subjectDigest"]}`
@@ -4171,34 +4191,55 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
+        advanced_security?: ("enabled" | "disabled") | undefined
+        code_scanning_default_setup?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        code_scanning_default_setup_options?:
+          | t_code_scanning_default_setup_options
+          | undefined
+        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_security_updates?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph_autosubmit_action?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph_autosubmit_action_options?:
+          | {
+              labeled_runners?: boolean | undefined
+            }
+          | undefined
         description: string
-        enforcement?: "enforced" | "unenforced"
+        enforcement?: ("enforced" | "unenforced") | undefined
         name: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
-        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
-        secret_scanning_delegated_bypass_options?: {
-          reviewers?: {
-            reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE"
-          }[]
-        }
+        private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_bypass?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_delegated_bypass_options?:
+          | {
+              reviewers?:
+                | {
+                    reviewer_id: number
+                    reviewer_type: "TEAM" | "ROLE"
+                  }[]
+                | undefined
+            }
+          | undefined
         secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_push_protection?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_validity_checks?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
       }
     },
     timeout?: number,
@@ -4244,7 +4285,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        selected_repository_ids?: number[]
+        selected_repository_ids?: number[] | undefined
       }
     },
     timeout?: number,
@@ -4292,34 +4333,55 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       configurationId: number
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
-        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action_options?: {
-          labeled_runners?: boolean
-        }
-        description?: string
-        enforcement?: "enforced" | "unenforced"
-        name?: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
-        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
-        secret_scanning_delegated_bypass_options?: {
-          reviewers?: {
-            reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE"
-          }[]
-        }
+        advanced_security?: ("enabled" | "disabled") | undefined
+        code_scanning_default_setup?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        code_scanning_default_setup_options?:
+          | t_code_scanning_default_setup_options
+          | undefined
+        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_security_updates?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph_autosubmit_action?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph_autosubmit_action_options?:
+          | {
+              labeled_runners?: boolean | undefined
+            }
+          | undefined
+        description?: string | undefined
+        enforcement?: ("enforced" | "unenforced") | undefined
+        name?: string | undefined
+        private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_bypass?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_delegated_bypass_options?:
+          | {
+              reviewers?:
+                | {
+                    reviewer_id: number
+                    reviewer_type: "TEAM" | "ROLE"
+                  }[]
+                | undefined
+            }
+          | undefined
         secret_scanning_non_provider_patterns?:
-          | "enabled"
-          | "disabled"
-          | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_push_protection?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_validity_checks?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
       }
     },
     timeout?: number,
@@ -4375,7 +4437,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "public"
           | "private_or_internal"
           | "selected"
-        selected_repository_ids?: number[]
+        selected_repository_ids?: number[] | undefined
       }
     },
     timeout?: number,
@@ -4408,18 +4470,18 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       configurationId: number
       requestBody: {
         default_for_new_repos?:
-          | "all"
-          | "none"
-          | "private_and_internal"
-          | "public"
+          | ("all" | "none" | "private_and_internal" | "public")
+          | undefined
       }
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      configuration?: t_code_security_configuration
-      default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+      configuration?: t_code_security_configuration | undefined
+      default_for_new_repos?:
+        | ("all" | "none" | "private_and_internal" | "public")
+        | undefined
     }>
   > {
     const url = `/orgs/${p["org"]}/code-security/configurations/${p["configurationId"]}/defaults`
@@ -4500,7 +4562,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        selected_usernames?: string[]
+        selected_usernames?: string[] | undefined
         visibility:
           | "disabled"
           | "selected_members"
@@ -4653,9 +4715,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        selected_repository_ids?: number[]
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
+        selected_repository_ids?: number[] | undefined
         visibility: "all" | "private" | "selected"
       }
     },
@@ -4826,8 +4888,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      seats?: t_copilot_seat_details[]
-      total_seats?: number
+      seats?: t_copilot_seat_details[] | undefined
+      total_seats?: number | undefined
     }>
   > {
     const url = `/orgs/${p["org"]}/copilot/billing/seats`
@@ -5141,9 +5203,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
-        selected_repository_ids?: string[]
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
+        selected_repository_ids?: string[] | undefined
         visibility: "all" | "private" | "selected"
       }
     },
@@ -5374,16 +5436,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        active?: boolean
+        active?: boolean | undefined
         config: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          password?: string
-          secret?: t_webhook_config_secret
+          content_type?: t_webhook_config_content_type | undefined
+          insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+          password?: string | undefined
+          secret?: t_webhook_config_secret | undefined
           url: t_webhook_config_url
-          username?: string
+          username?: string | undefined
         }
-        events?: string[]
+        events?: string[] | undefined
         name: string
       }
     },
@@ -5432,15 +5494,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       hookId: number
       requestBody?: {
-        active?: boolean
-        config?: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          secret?: t_webhook_config_secret
-          url: t_webhook_config_url
-        }
-        events?: string[]
-        name?: string
+        active?: boolean | undefined
+        config?:
+          | {
+              content_type?: t_webhook_config_content_type | undefined
+              insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+              secret?: t_webhook_config_secret | undefined
+              url: t_webhook_config_url
+            }
+          | undefined
+        events?: string[] | undefined
+        name?: string | undefined
       }
     },
     timeout?: number,
@@ -5508,10 +5572,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       hookId: number
       requestBody?: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
+        content_type?: t_webhook_config_content_type | undefined
+        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+        secret?: t_webhook_config_secret | undefined
+        url?: t_webhook_config_url | undefined
       }
     },
     timeout?: number,
@@ -6074,10 +6138,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody?: {
-        email?: string
-        invitee_id?: number
-        role?: "admin" | "direct_member" | "billing_manager" | "reinstate"
-        team_ids?: number[]
+        email?: string | undefined
+        invitee_id?: number | undefined
+        role?:
+          | ("admin" | "direct_member" | "billing_manager" | "reinstate")
+          | undefined
+        team_ids?: number[] | undefined
       }
     },
     timeout?: number,
@@ -6374,7 +6440,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       username: string
       requestBody?: {
-        role?: "admin" | "member"
+        role?: ("admin" | "member") | undefined
       }
     },
     timeout?: number,
@@ -6448,14 +6514,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        exclude?: "repositories"[]
-        exclude_attachments?: boolean
-        exclude_git_data?: boolean
-        exclude_metadata?: boolean
-        exclude_owner_projects?: boolean
-        exclude_releases?: boolean
-        lock_repositories?: boolean
-        org_metadata_only?: boolean
+        exclude?: "repositories"[] | undefined
+        exclude_attachments?: boolean | undefined
+        exclude_git_data?: boolean | undefined
+        exclude_metadata?: boolean | undefined
+        exclude_owner_projects?: boolean | undefined
+        exclude_releases?: boolean | undefined
+        lock_repositories?: boolean | undefined
+        org_metadata_only?: boolean | undefined
         repositories: string[]
       }
     },
@@ -6593,8 +6659,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      roles?: t_organization_role[]
-      total_count?: number
+      roles?: t_organization_role[] | undefined
+      total_count?: number | undefined
     }>
   > {
     const url = `/orgs/${p["org"]}/organization-roles`
@@ -6831,7 +6897,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       username: string
       requestBody?: {
-        async?: boolean
+        async?: boolean | undefined
       }
     },
     timeout?: number,
@@ -7157,8 +7223,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       requestBody: {
         action: "approve" | "deny"
-        pat_request_ids?: number[]
-        reason?: string | null
+        pat_request_ids?: number[] | undefined
+        reason?: (string | null) | undefined
       }
     },
     timeout?: number,
@@ -7191,7 +7257,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       patRequestId: number
       requestBody: {
         action: "approve" | "deny"
-        reason?: string | null
+        reason?: (string | null) | undefined
       }
     },
     timeout?: number,
@@ -7390,7 +7456,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        body?: string
+        body?: string | undefined
         name: string
       }
     },
@@ -7485,10 +7551,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       customPropertyName: string
       requestBody: {
-        allowed_values?: string[] | null
-        default_value?: string | string[] | null
-        description?: string | null
-        required?: boolean
+        allowed_values?: (string[] | null) | undefined
+        default_value?: (string | string[] | null) | undefined
+        description?: (string | null) | undefined
+        required?: boolean | undefined
         value_type: "string" | "single_select" | "multi_select" | "true_false"
       }
     },
@@ -7704,33 +7770,39 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        allow_auto_merge?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        auto_init?: boolean
-        custom_properties?: {
-          [key: string]: unknown | undefined
-        }
-        delete_branch_on_merge?: boolean
-        description?: string
-        gitignore_template?: string
-        has_downloads?: boolean
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        license_template?: string
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        allow_auto_merge?: boolean | undefined
+        allow_merge_commit?: boolean | undefined
+        allow_rebase_merge?: boolean | undefined
+        allow_squash_merge?: boolean | undefined
+        auto_init?: boolean | undefined
+        custom_properties?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
+        delete_branch_on_merge?: boolean | undefined
+        description?: string | undefined
+        gitignore_template?: string | undefined
+        has_downloads?: boolean | undefined
+        has_issues?: boolean | undefined
+        has_projects?: boolean | undefined
+        has_wiki?: boolean | undefined
+        homepage?: string | undefined
+        is_template?: boolean | undefined
+        license_template?: string | undefined
+        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
+        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
         name: string
-        private?: boolean
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-        team_id?: number
-        use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private"
+        private?: boolean | undefined
+        squash_merge_commit_message?:
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | undefined
+        squash_merge_commit_title?:
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | undefined
+        team_id?: number | undefined
+        use_squash_pr_title_as_default?: boolean | undefined
+        visibility?: ("public" | "private") | undefined
       }
     },
     timeout?: number,
@@ -7784,12 +7856,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_org_ruleset_conditions
+        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
+        conditions?: t_org_ruleset_conditions | undefined
         enforcement: t_repository_rule_enforcement
         name: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        rules?: t_repository_rule[] | undefined
+        target?: ("branch" | "tag" | "push") | undefined
       }
     },
     timeout?: number,
@@ -7892,12 +7964,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       rulesetId: number
       requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_org_ruleset_conditions
-        enforcement?: t_repository_rule_enforcement
-        name?: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
+        conditions?: t_org_ruleset_conditions | undefined
+        enforcement?: t_repository_rule_enforcement | undefined
+        name?: string | undefined
+        rules?: t_repository_rule[] | undefined
+        target?: ("branch" | "tag" | "push") | undefined
       }
     },
     timeout?: number,
@@ -8220,16 +8292,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        description?: string
-        maintainers?: string[]
+        description?: string | undefined
+        maintainers?: string[] | undefined
         name: string
         notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-        parent_team_id?: number
-        permission?: "pull" | "push"
-        privacy?: "secret" | "closed"
-        repo_names?: string[]
+          | ("notifications_enabled" | "notifications_disabled")
+          | undefined
+        parent_team_id?: number | undefined
+        permission?: ("pull" | "push") | undefined
+        privacy?: ("secret" | "closed") | undefined
+        repo_names?: string[] | undefined
       }
     },
     timeout?: number,
@@ -8277,14 +8349,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       requestBody?: {
-        description?: string
-        name?: string
+        description?: string | undefined
+        name?: string | undefined
         notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-        parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin"
-        privacy?: "secret" | "closed"
+          | ("notifications_enabled" | "notifications_disabled")
+          | undefined
+        parent_team_id?: (number | null) | undefined
+        permission?: ("pull" | "push" | "admin") | undefined
+        privacy?: ("secret" | "closed") | undefined
       }
     },
     timeout?: number,
@@ -8363,7 +8435,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       requestBody: {
         body: string
-        private?: boolean
+        private?: boolean | undefined
         title: string
       }
     },
@@ -8414,8 +8486,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       discussionNumber: number
       requestBody?: {
-        body?: string
-        title?: string
+        body?: string | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -8864,7 +8936,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       username: string
       requestBody?: {
-        role?: "member" | "maintainer"
+        role?: ("member" | "maintainer") | undefined
       }
     },
     timeout?: number,
@@ -8958,7 +9030,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       projectId: number
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: ("read" | "write" | "admin") | undefined
       } | null
     },
     timeout?: number,
@@ -9054,7 +9126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        permission?: string
+        permission?: string | undefined
       }
     },
     timeout?: number,
@@ -9135,7 +9207,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "secret_scanning_push_protection"
       enablement: "enable_all" | "disable_all"
       requestBody?: {
-        query_suite?: "default" | "extended"
+        query_suite?: ("default" | "extended") | undefined
       }
     },
     timeout?: number,
@@ -9181,8 +9253,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       cardId: number
       requestBody?: {
-        archived?: boolean
-        note?: string | null
+        archived?: boolean | undefined
+        note?: (string | null) | undefined
       }
     },
     timeout?: number,
@@ -9228,7 +9300,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       cardId: number
       requestBody: {
-        column_id?: number
+        column_id?: number | undefined
         position: string
       }
     },
@@ -9426,11 +9498,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       projectId: number
       requestBody?: {
-        body?: string | null
-        name?: string
-        organization_permission?: "read" | "write" | "admin" | "none"
-        private?: boolean
-        state?: string
+        body?: (string | null) | undefined
+        name?: string | undefined
+        organization_permission?:
+          | ("read" | "write" | "admin" | "none")
+          | undefined
+        private?: boolean | undefined
+        state?: string | undefined
       }
     },
     timeout?: number,
@@ -9504,7 +9578,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       projectId: number
       username: string
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: ("read" | "write" | "admin") | undefined
       } | null
     },
     timeout?: number,
@@ -9657,47 +9731,63 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        allow_auto_merge?: boolean
-        allow_forking?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        allow_update_branch?: boolean
-        archived?: boolean
-        default_branch?: string
-        delete_branch_on_merge?: boolean
-        description?: string
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
-        name?: string
-        private?: boolean
-        security_and_analysis?: {
-          advanced_security?: {
-            status?: string
-          }
-          secret_scanning?: {
-            status?: string
-          }
-          secret_scanning_ai_detection?: {
-            status?: string
-          }
-          secret_scanning_non_provider_patterns?: {
-            status?: string
-          }
-          secret_scanning_push_protection?: {
-            status?: string
-          }
-        } | null
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-        use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private"
-        web_commit_signoff_required?: boolean
+        allow_auto_merge?: boolean | undefined
+        allow_forking?: boolean | undefined
+        allow_merge_commit?: boolean | undefined
+        allow_rebase_merge?: boolean | undefined
+        allow_squash_merge?: boolean | undefined
+        allow_update_branch?: boolean | undefined
+        archived?: boolean | undefined
+        default_branch?: string | undefined
+        delete_branch_on_merge?: boolean | undefined
+        description?: string | undefined
+        has_issues?: boolean | undefined
+        has_projects?: boolean | undefined
+        has_wiki?: boolean | undefined
+        homepage?: string | undefined
+        is_template?: boolean | undefined
+        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
+        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+        name?: string | undefined
+        private?: boolean | undefined
+        security_and_analysis?:
+          | ({
+              advanced_security?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+              secret_scanning?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+              secret_scanning_ai_detection?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+              secret_scanning_non_provider_patterns?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+              secret_scanning_push_protection?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+            } | null)
+          | undefined
+        squash_merge_commit_message?:
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | undefined
+        squash_merge_commit_title?:
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | undefined
+        use_squash_pr_title_as_default?: boolean | undefined
+        visibility?: ("public" | "private") | undefined
+        web_commit_signoff_required?: boolean | undefined
       }
     },
     timeout?: number,
@@ -9983,7 +10073,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       jobId: number
       requestBody?: {
-        enable_debug_logging?: boolean
+        enable_debug_logging?: boolean | undefined
       } | null
     },
     timeout?: number,
@@ -10031,7 +10121,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        include_claim_keys?: string[]
+        include_claim_keys?: string[] | undefined
         use_default: boolean
       }
     },
@@ -10136,7 +10226,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        allowed_actions?: t_allowed_actions
+        allowed_actions?: t_allowed_actions | undefined
         enabled: t_actions_enabled
       }
     },
@@ -10359,7 +10449,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         labels: string[]
         name: string
         runner_group_id: number
-        work_folder?: string
+        work_folder?: string | undefined
       }
     },
     timeout?: number,
@@ -11082,7 +11172,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       runId: number
       requestBody?: {
-        enable_debug_logging?: boolean
+        enable_debug_logging?: boolean | undefined
       } | null
     },
     timeout?: number,
@@ -11111,7 +11201,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       runId: number
       requestBody?: {
-        enable_debug_logging?: boolean
+        enable_debug_logging?: boolean | undefined
       } | null
     },
     timeout?: number,
@@ -11230,8 +11320,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
       }
     },
     timeout?: number,
@@ -11359,8 +11449,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       name: string
       requestBody: {
-        name?: string
-        value?: string
+        name?: string | undefined
+        value?: string | undefined
       }
     },
     timeout?: number,
@@ -11480,9 +11570,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       workflowId: number | string
       requestBody: {
-        inputs?: {
-          [key: string]: unknown | undefined
-        }
+        inputs?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         ref: string
       }
     },
@@ -11704,13 +11796,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         bundle: {
-          dsseEnvelope?: {
-            [key: string]: unknown | undefined
-          }
-          mediaType?: string
-          verificationMaterial?: {
-            [key: string]: unknown | undefined
-          }
+          dsseEnvelope?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
+          mediaType?: string | undefined
+          verificationMaterial?:
+            | {
+                [key: string]: unknown | undefined
+              }
+            | undefined
         }
       }
     },
@@ -11718,7 +11814,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      id?: number
+      id?: number | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/attestations`
@@ -11751,18 +11847,26 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      attestations?: {
-        bundle?: {
-          dsseEnvelope?: {
-            [key: string]: unknown | undefined
-          }
-          mediaType?: string
-          verificationMaterial?: {
-            [key: string]: unknown | undefined
-          }
-        }
-        repository_id?: number
-      }[]
+      attestations?:
+        | {
+            bundle?:
+              | {
+                  dsseEnvelope?:
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | undefined
+                  mediaType?: string | undefined
+                  verificationMaterial?:
+                    | {
+                        [key: string]: unknown | undefined
+                      }
+                    | undefined
+                }
+              | undefined
+            repository_id?: number | undefined
+          }[]
+        | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/attestations/${p["subjectDigest"]}`
@@ -11807,7 +11911,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        is_alphanumeric?: boolean
+        is_alphanumeric?: boolean | undefined
         key_prefix: string
         url_template: string
       }
@@ -12010,40 +12114,46 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       branch: string
       requestBody: {
-        allow_deletions?: boolean
-        allow_force_pushes?: boolean | null
-        allow_fork_syncing?: boolean
-        block_creations?: boolean
+        allow_deletions?: boolean | undefined
+        allow_force_pushes?: (boolean | null) | undefined
+        allow_fork_syncing?: boolean | undefined
+        block_creations?: boolean | undefined
         enforce_admins: boolean | null
-        lock_branch?: boolean
-        required_conversation_resolution?: boolean
-        required_linear_history?: boolean
+        lock_branch?: boolean | undefined
+        required_conversation_resolution?: boolean | undefined
+        required_linear_history?: boolean | undefined
         required_pull_request_reviews: {
-          bypass_pull_request_allowances?: {
-            apps?: string[]
-            teams?: string[]
-            users?: string[]
-          }
-          dismiss_stale_reviews?: boolean
-          dismissal_restrictions?: {
-            apps?: string[]
-            teams?: string[]
-            users?: string[]
-          }
-          require_code_owner_reviews?: boolean
-          require_last_push_approval?: boolean
-          required_approving_review_count?: number
+          bypass_pull_request_allowances?:
+            | {
+                apps?: string[] | undefined
+                teams?: string[] | undefined
+                users?: string[] | undefined
+              }
+            | undefined
+          dismiss_stale_reviews?: boolean | undefined
+          dismissal_restrictions?:
+            | {
+                apps?: string[] | undefined
+                teams?: string[] | undefined
+                users?: string[] | undefined
+              }
+            | undefined
+          require_code_owner_reviews?: boolean | undefined
+          require_last_push_approval?: boolean | undefined
+          required_approving_review_count?: number | undefined
         } | null
         required_status_checks: {
-          checks?: {
-            app_id?: number
-            context: string
-          }[]
+          checks?:
+            | {
+                app_id?: number | undefined
+                context: string
+              }[]
+            | undefined
           contexts: string[]
           strict: boolean
         } | null
         restrictions: {
-          apps?: string[]
+          apps?: string[] | undefined
           teams: string[]
           users: string[]
         } | null
@@ -12180,20 +12290,24 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       branch: string
       requestBody?: {
-        bypass_pull_request_allowances?: {
-          apps?: string[]
-          teams?: string[]
-          users?: string[]
-        }
-        dismiss_stale_reviews?: boolean
-        dismissal_restrictions?: {
-          apps?: string[]
-          teams?: string[]
-          users?: string[]
-        }
-        require_code_owner_reviews?: boolean
-        require_last_push_approval?: boolean
-        required_approving_review_count?: number
+        bypass_pull_request_allowances?:
+          | {
+              apps?: string[] | undefined
+              teams?: string[] | undefined
+              users?: string[] | undefined
+            }
+          | undefined
+        dismiss_stale_reviews?: boolean | undefined
+        dismissal_restrictions?:
+          | {
+              apps?: string[] | undefined
+              teams?: string[] | undefined
+              users?: string[] | undefined
+            }
+          | undefined
+        require_code_owner_reviews?: boolean | undefined
+        require_last_push_approval?: boolean | undefined
+        required_approving_review_count?: number | undefined
       }
     },
     timeout?: number,
@@ -12327,12 +12441,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       branch: string
       requestBody?: {
-        checks?: {
-          app_id?: number
-          context: string
-        }[]
-        contexts?: string[]
-        strict?: boolean
+        checks?:
+          | {
+              app_id?: number | undefined
+              context: string
+            }[]
+          | undefined
+        contexts?: string[] | undefined
+        strict?: boolean | undefined
       }
     },
     timeout?: number,
@@ -12901,7 +13017,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             [key: string]: unknown | undefined
           }
         | {
-            status?: EmptyObject
+            status?: EmptyObject | undefined
             [key: string]: unknown | undefined
           }
     },
@@ -12952,53 +13068,67 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       checkRunId: number
       requestBody: {
-        actions?: {
-          description: string
-          identifier: string
-          label: string
-        }[]
-        completed_at?: string
+        actions?:
+          | {
+              description: string
+              identifier: string
+              label: string
+            }[]
+          | undefined
+        completed_at?: string | undefined
         conclusion?:
-          | "action_required"
-          | "cancelled"
-          | "failure"
-          | "neutral"
-          | "success"
-          | "skipped"
-          | "stale"
-          | "timed_out"
-        details_url?: string
-        external_id?: string
-        name?: string
-        output?: {
-          annotations?: {
-            annotation_level: "notice" | "warning" | "failure"
-            end_column?: number
-            end_line: number
-            message: string
-            path: string
-            raw_details?: string
-            start_column?: number
-            start_line: number
-            title?: string
-          }[]
-          images?: {
-            alt: string
-            caption?: string
-            image_url: string
-          }[]
-          summary: string
-          text?: string
-          title?: string
-        }
-        started_at?: string
+          | (
+              | "action_required"
+              | "cancelled"
+              | "failure"
+              | "neutral"
+              | "success"
+              | "skipped"
+              | "stale"
+              | "timed_out"
+            )
+          | undefined
+        details_url?: string | undefined
+        external_id?: string | undefined
+        name?: string | undefined
+        output?:
+          | {
+              annotations?:
+                | {
+                    annotation_level: "notice" | "warning" | "failure"
+                    end_column?: number | undefined
+                    end_line: number
+                    message: string
+                    path: string
+                    raw_details?: string | undefined
+                    start_column?: number | undefined
+                    start_line: number
+                    title?: string | undefined
+                  }[]
+                | undefined
+              images?:
+                | {
+                    alt: string
+                    caption?: string | undefined
+                    image_url: string
+                  }[]
+                | undefined
+              summary: string
+              text?: string | undefined
+              title?: string | undefined
+            }
+          | undefined
+        started_at?: string | undefined
         status?:
-          | "queued"
-          | "in_progress"
-          | "completed"
-          | "waiting"
-          | "requested"
-          | "pending"
+          | (
+              | "queued"
+              | "in_progress"
+              | "completed"
+              | "waiting"
+              | "requested"
+              | "pending"
+            )
+          | undefined
       }
     },
     timeout?: number,
@@ -13099,10 +13229,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        auto_trigger_checks?: {
-          app_id: number
-          setting: boolean
-        }[]
+        auto_trigger_checks?:
+          | {
+              app_id: number
+              setting: boolean
+            }[]
+          | undefined
       }
     },
     timeout?: number,
@@ -13278,8 +13410,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       alertNumber: t_alert_number
       requestBody: {
-        dismissed_comment?: t_code_scanning_alert_dismissed_comment
-        dismissed_reason?: t_code_scanning_alert_dismissed_reason
+        dismissed_comment?: t_code_scanning_alert_dismissed_comment | undefined
+        dismissed_reason?: t_code_scanning_alert_dismissed_reason | undefined
         state: t_code_scanning_alert_set_state
       }
     },
@@ -13608,13 +13740,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        checkout_uri?: string
+        checkout_uri?: string | undefined
         commit_sha: t_code_scanning_analysis_commit_sha
         ref: t_code_scanning_ref_full
         sarif: t_code_scanning_analysis_sarif_file
-        started_at?: string
-        tool_name?: string
-        validate?: boolean
+        started_at?: string | undefined
+        tool_name?: string | undefined
+        validate?: boolean | undefined
       }
     },
     timeout?: number,
@@ -13736,17 +13868,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        client_ip?: string
-        devcontainer_path?: string
-        display_name?: string
-        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-        idle_timeout_minutes?: number
-        location?: string
-        machine?: string
-        multi_repo_permissions_opt_out?: boolean
-        ref?: string
-        retention_period_minutes?: number
-        working_directory?: string
+        client_ip?: string | undefined
+        devcontainer_path?: string | undefined
+        display_name?: string | undefined
+        geo?: ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest") | undefined
+        idle_timeout_minutes?: number | undefined
+        location?: string | undefined
+        machine?: string | undefined
+        multi_repo_permissions_opt_out?: boolean | undefined
+        ref?: string | undefined
+        retention_period_minutes?: number | undefined
+        working_directory?: string | undefined
       } | null
     },
     timeout?: number,
@@ -13781,8 +13913,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<{
       devcontainers: {
-        display_name?: string
-        name?: string
+        display_name?: string | undefined
+        name?: string | undefined
         path: string
       }[]
       total_count: number
@@ -13845,11 +13977,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      billable_owner?: t_simple_user
-      defaults?: {
-        devcontainer_path: string | null
-        location: string
-      }
+      billable_owner?: t_simple_user | undefined
+      defaults?:
+        | {
+            devcontainer_path: string | null
+            location: string
+          }
+        | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/codespaces/new`
@@ -13966,8 +14100,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
       }
     },
     timeout?: number,
@@ -14068,7 +14202,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       username: string
       requestBody?: {
-        permission?: string
+        permission?: string | undefined
       }
     },
     timeout?: number,
@@ -14413,9 +14547,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       commitSha: string
       requestBody: {
         body: string
-        line?: number
-        path?: string
-        position?: number
+        line?: number | undefined
+        path?: string | undefined
+        position?: number | undefined
       }
     },
     timeout?: number,
@@ -14690,20 +14824,24 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       path: string
       requestBody: {
-        author?: {
-          date?: string
-          email: string
-          name: string
-        }
-        branch?: string
-        committer?: {
-          date?: string
-          email: string
-          name: string
-        }
+        author?:
+          | {
+              date?: string | undefined
+              email: string
+              name: string
+            }
+          | undefined
+        branch?: string | undefined
+        committer?:
+          | {
+              date?: string | undefined
+              email: string
+              name: string
+            }
+          | undefined
         content: string
         message: string
-        sha?: string
+        sha?: string | undefined
       }
     },
     timeout?: number,
@@ -14732,15 +14870,19 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       path: string
       requestBody: {
-        author?: {
-          email?: string
-          name?: string
-        }
-        branch?: string
-        committer?: {
-          email?: string
-          name?: string
-        }
+        author?:
+          | {
+              email?: string | undefined
+              name?: string | undefined
+            }
+          | undefined
+        branch?: string | undefined
+        committer?:
+          | {
+              email?: string | undefined
+              name?: string | undefined
+            }
+          | undefined
         message: string
         sha: string
       }
@@ -14870,13 +15012,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       alertNumber: t_alert_number
       requestBody: {
-        dismissed_comment?: string
+        dismissed_comment?: string | undefined
         dismissed_reason?:
-          | "fix_started"
-          | "inaccurate"
-          | "no_bandwidth"
-          | "not_used"
-          | "tolerable_risk"
+          | (
+              | "fix_started"
+              | "inaccurate"
+              | "no_bandwidth"
+              | "not_used"
+              | "tolerable_risk"
+            )
+          | undefined
         state: "dismissed" | "open"
       }
     },
@@ -14975,8 +15120,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
       }
     },
     timeout?: number,
@@ -15135,19 +15280,22 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        auto_merge?: boolean
-        description?: string | null
-        environment?: string
+        auto_merge?: boolean | undefined
+        description?: (string | null) | undefined
+        environment?: string | undefined
         payload?:
-          | {
-              [key: string]: unknown | undefined
-            }
-          | string
-        production_environment?: boolean
+          | (
+              | {
+                  [key: string]: unknown | undefined
+                }
+              | string
+            )
+          | undefined
+        production_environment?: boolean | undefined
         ref: string
-        required_contexts?: string[]
-        task?: string
-        transient_environment?: boolean
+        required_contexts?: string[] | undefined
+        task?: string | undefined
+        transient_environment?: boolean | undefined
       }
     },
     timeout?: number,
@@ -15155,7 +15303,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     | AxiosResponse<t_deployment>
     | AxiosResponse<{
-        message?: string
+        message?: string | undefined
       }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/deployments`
@@ -15247,11 +15395,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       deploymentId: number
       requestBody: {
-        auto_inactive?: boolean
-        description?: string
-        environment?: string
-        environment_url?: string
-        log_url?: string
+        auto_inactive?: boolean | undefined
+        description?: string | undefined
+        environment?: string | undefined
+        environment_url?: string | undefined
+        log_url?: string | undefined
         state:
           | "error"
           | "failure"
@@ -15260,7 +15408,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "queued"
           | "pending"
           | "success"
-        target_url?: string
+        target_url?: string | undefined
       }
     },
     timeout?: number,
@@ -15310,9 +15458,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        client_payload?: {
-          [key: string]: unknown | undefined
-        }
+        client_payload?:
+          | {
+              [key: string]: unknown | undefined
+            }
+          | undefined
         event_type: string
       }
     },
@@ -15347,8 +15497,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      environments?: t_environment[]
-      total_count?: number
+      environments?: t_environment[] | undefined
+      total_count?: number | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments`
@@ -15391,15 +15541,20 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       environmentName: string
       requestBody?: {
-        deployment_branch_policy?: t_deployment_branch_policy_settings
-        prevent_self_review?: t_prevent_self_review
+        deployment_branch_policy?:
+          | t_deployment_branch_policy_settings
+          | undefined
+        prevent_self_review?: t_prevent_self_review | undefined
         reviewers?:
-          | {
-              id?: number
-              type?: t_deployment_reviewer_type
-            }[]
-          | null
-        wait_timer?: t_wait_timer
+          | (
+              | {
+                  id?: number | undefined
+                  type?: t_deployment_reviewer_type | undefined
+                }[]
+              | null
+            )
+          | undefined
+        wait_timer?: t_wait_timer | undefined
       } | null
     },
     timeout?: number,
@@ -15581,8 +15736,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      custom_deployment_protection_rules?: t_deployment_protection_rule[]
-      total_count?: number
+      custom_deployment_protection_rules?:
+        | t_deployment_protection_rule[]
+        | undefined
+      total_count?: number | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules`
@@ -15603,7 +15760,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       owner: string
       requestBody: {
-        integration_id?: number
+        integration_id?: number | undefined
       }
     },
     timeout?: number,
@@ -15638,8 +15795,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      available_custom_deployment_protection_rule_integrations?: t_custom_deployment_rule_app[]
-      total_count?: number
+      available_custom_deployment_protection_rule_integrations?:
+        | t_custom_deployment_rule_app[]
+        | undefined
+      total_count?: number | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/environments/${p["environmentName"]}/deployment_protection_rules/apps`
@@ -15912,8 +16071,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       name: string
       environmentName: string
       requestBody: {
-        name?: string
-        value?: string
+        name?: string | undefined
+        value?: string | undefined
       }
     },
     timeout?: number,
@@ -16014,9 +16173,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        default_branch_only?: boolean
-        name?: string
-        organization?: string
+        default_branch_only?: boolean | undefined
+        name?: string | undefined
+        organization?: string | undefined
       } | null
     },
     timeout?: number,
@@ -16045,7 +16204,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         content: string
-        encoding?: string
+        encoding?: string | undefined
       }
     },
     timeout?: number,
@@ -16094,19 +16253,23 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        author?: {
-          date?: string
-          email: string
-          name: string
-        }
-        committer?: {
-          date?: string
-          email?: string
-          name?: string
-        }
+        author?:
+          | {
+              date?: string | undefined
+              email: string
+              name: string
+            }
+          | undefined
+        committer?:
+          | {
+              date?: string | undefined
+              email?: string | undefined
+              name?: string | undefined
+            }
+          | undefined
         message: string
-        parents?: string[]
-        signature?: string
+        parents?: string[] | undefined
+        signature?: string | undefined
         tree: string
       }
     },
@@ -16228,7 +16391,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       ref: string
       requestBody: {
-        force?: boolean
+        force?: boolean | undefined
         sha: string
       }
     },
@@ -16281,11 +16444,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         message: string
         object: string
         tag: string
-        tagger?: {
-          date?: string
-          email: string
-          name: string
-        }
+        tagger?:
+          | {
+              date?: string | undefined
+              email: string
+              name: string
+            }
+          | undefined
         type: "commit" | "tree" | "blob"
       }
     },
@@ -16335,13 +16500,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        base_tree?: string
+        base_tree?: string | undefined
         tree: {
-          content?: string
-          mode?: "100644" | "100755" | "040000" | "160000" | "120000"
-          path?: string
-          sha?: string | null
-          type?: "blob" | "tree" | "commit"
+          content?: string | undefined
+          mode?:
+            | ("100644" | "100755" | "040000" | "160000" | "120000")
+            | undefined
+          path?: string | undefined
+          sha?: (string | null) | undefined
+          type?: ("blob" | "tree" | "commit") | undefined
         }[]
       }
     },
@@ -16416,15 +16583,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        active?: boolean
-        config?: {
-          content_type?: t_webhook_config_content_type
-          insecure_ssl?: t_webhook_config_insecure_ssl
-          secret?: t_webhook_config_secret
-          url?: t_webhook_config_url
-        }
-        events?: string[]
-        name?: string
+        active?: boolean | undefined
+        config?:
+          | {
+              content_type?: t_webhook_config_content_type | undefined
+              insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+              secret?: t_webhook_config_secret | undefined
+              url?: t_webhook_config_url | undefined
+            }
+          | undefined
+        events?: string[] | undefined
+        name?: string | undefined
       } | null
     },
     timeout?: number,
@@ -16474,11 +16643,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       hookId: number
       requestBody: {
-        active?: boolean
-        add_events?: string[]
-        config?: t_webhook_config
-        events?: string[]
-        remove_events?: string[]
+        active?: boolean | undefined
+        add_events?: string[] | undefined
+        config?: t_webhook_config | undefined
+        events?: string[] | undefined
+        remove_events?: string[] | undefined
       }
     },
     timeout?: number,
@@ -16549,10 +16718,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       hookId: number
       requestBody?: {
-        content_type?: t_webhook_config_content_type
-        insecure_ssl?: t_webhook_config_insecure_ssl
-        secret?: t_webhook_config_secret
-        url?: t_webhook_config_url
+        content_type?: t_webhook_config_content_type | undefined
+        insecure_ssl?: t_webhook_config_insecure_ssl | undefined
+        secret?: t_webhook_config_secret | undefined
+        url?: t_webhook_config_url | undefined
       }
     },
     timeout?: number,
@@ -16714,11 +16883,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        tfvc_project?: string
-        vcs?: "subversion" | "git" | "mercurial" | "tfvc"
-        vcs_password?: string
+        tfvc_project?: string | undefined
+        vcs?: ("subversion" | "git" | "mercurial" | "tfvc") | undefined
+        vcs_password?: string | undefined
         vcs_url: string
-        vcs_username?: string
+        vcs_username?: string | undefined
       }
     },
     timeout?: number,
@@ -16746,10 +16915,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        tfvc_project?: string
-        vcs?: "subversion" | "tfvc" | "git" | "mercurial"
-        vcs_password?: string
-        vcs_username?: string
+        tfvc_project?: string | undefined
+        vcs?: ("subversion" | "tfvc" | "git" | "mercurial") | undefined
+        vcs_password?: string | undefined
+        vcs_username?: string | undefined
       } | null
     },
     timeout?: number,
@@ -16820,8 +16989,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       authorId: number
       requestBody?: {
-        email?: string
-        name?: string
+        email?: string | undefined
+        name?: string | undefined
       }
     },
     timeout?: number,
@@ -17007,7 +17176,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       invitationId: number
       requestBody?: {
-        permissions?: "read" | "write" | "maintain" | "triage" | "admin"
+        permissions?:
+          | ("read" | "write" | "maintain" | "triage" | "admin")
+          | undefined
       }
     },
     timeout?: number,
@@ -17100,19 +17271,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        assignee?: string | null
-        assignees?: string[]
-        body?: string
-        labels?: (
-          | string
-          | {
-              color?: string | null
-              description?: string | null
-              id?: number
-              name?: string
-            }
-        )[]
-        milestone?: string | number | null
+        assignee?: (string | null) | undefined
+        assignees?: string[] | undefined
+        body?: string | undefined
+        labels?:
+          | (
+              | string
+              | {
+                  color?: (string | null) | undefined
+                  description?: (string | null) | undefined
+                  id?: number | undefined
+                  name?: string | undefined
+                }
+            )[]
+          | undefined
+        milestone?: (string | number | null) | undefined
         title: string | number
       }
     },
@@ -17406,22 +17579,26 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody?: {
-        assignee?: string | null
-        assignees?: string[]
-        body?: string | null
-        labels?: (
-          | string
-          | {
-              color?: string | null
-              description?: string | null
-              id?: number
-              name?: string
-            }
-        )[]
-        milestone?: string | number | null
-        state?: "open" | "closed"
-        state_reason?: "completed" | "not_planned" | "reopened" | null
-        title?: string | number | null
+        assignee?: (string | null) | undefined
+        assignees?: string[] | undefined
+        body?: (string | null) | undefined
+        labels?:
+          | (
+              | string
+              | {
+                  color?: (string | null) | undefined
+                  description?: (string | null) | undefined
+                  id?: number | undefined
+                  name?: string | undefined
+                }
+            )[]
+          | undefined
+        milestone?: (string | number | null) | undefined
+        state?: ("open" | "closed") | undefined
+        state_reason?:
+          | ("completed" | "not_planned" | "reopened" | null)
+          | undefined
+        title?: (string | number | null) | undefined
       }
     },
     timeout?: number,
@@ -17450,7 +17627,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody?: {
-        assignees?: string[]
+        assignees?: string[] | undefined
       }
     },
     timeout?: number,
@@ -17479,7 +17656,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody: {
-        assignees?: string[]
+        assignees?: string[] | undefined
       }
     },
     timeout?: number,
@@ -17637,13 +17814,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       issueNumber: number
       requestBody?:
         | {
-            labels?: string[]
+            labels?: string[] | undefined
           }
         | string[]
         | {
-            labels?: {
-              name: string
-            }[]
+            labels?:
+              | {
+                  name: string
+                }[]
+              | undefined
           }
         | {
             name: string
@@ -17677,13 +17856,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       issueNumber: number
       requestBody?:
         | {
-            labels?: string[]
+            labels?: string[] | undefined
           }
         | string[]
         | {
-            labels?: {
-              name: string
-            }[]
+            labels?:
+              | {
+                  name: string
+                }[]
+              | undefined
           }
         | {
             name: string
@@ -17759,7 +17940,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody?: {
-        lock_reason?: "off-topic" | "too heated" | "resolved" | "spam"
+        lock_reason?:
+          | ("off-topic" | "too heated" | "resolved" | "spam")
+          | undefined
       } | null
     },
     timeout?: number,
@@ -17958,7 +18141,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody: {
-        replace_parent?: boolean
+        replace_parent?: boolean | undefined
         sub_issue_id: number
       }
     },
@@ -17988,8 +18171,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       issueNumber: number
       requestBody: {
-        after_id?: number
-        before_id?: number
+        after_id?: number | undefined
+        before_id?: number | undefined
         sub_issue_id: number
       }
     },
@@ -18066,8 +18249,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         key: string
-        read_only?: boolean
-        title?: string
+        read_only?: boolean | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -18160,8 +18343,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        color?: string
-        description?: string
+        color?: string | undefined
+        description?: string | undefined
         name: string
       }
     },
@@ -18212,9 +18395,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       name: string
       requestBody?: {
-        color?: string
-        description?: string
-        new_name?: string
+        color?: string | undefined
+        description?: string | undefined
+        new_name?: string | undefined
       }
     },
     timeout?: number,
@@ -18334,7 +18517,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         base: string
-        commit_message?: string
+        commit_message?: string | undefined
         head: string
       }
     },
@@ -18395,9 +18578,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        description?: string
-        due_on?: string
-        state?: "open" | "closed"
+        description?: string | undefined
+        due_on?: string | undefined
+        state?: ("open" | "closed") | undefined
         title: string
       }
     },
@@ -18448,10 +18631,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       milestoneNumber: number
       requestBody?: {
-        description?: string
-        due_on?: string
-        state?: "open" | "closed"
-        title?: string
+        description?: string | undefined
+        due_on?: string | undefined
+        state?: ("open" | "closed") | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -18558,15 +18741,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        last_read_at?: string
+        last_read_at?: string | undefined
       }
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<{
-        message?: string
-        url?: string
+        message?: string | undefined
+        url?: string | undefined
       }>
     | AxiosResponse<void>
   > {
@@ -18612,11 +18795,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: "legacy" | "workflow"
-        source?: {
-          branch: string
-          path?: "/" | "/docs"
-        }
+        build_type?: ("legacy" | "workflow") | undefined
+        source?:
+          | {
+              branch: string
+              path?: ("/" | "/docs") | undefined
+            }
+          | undefined
       } | null
     },
     timeout?: number,
@@ -18644,17 +18829,20 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: "legacy" | "workflow"
-        cname?: string | null
-        https_enforced?: boolean
+        build_type?: ("legacy" | "workflow") | undefined
+        cname?: (string | null) | undefined
+        https_enforced?: boolean | undefined
         source?:
-          | "gh-pages"
-          | "master"
-          | "master /docs"
-          | {
-              branch: string
-              path: "/" | "/docs"
-            }
+          | (
+              | "gh-pages"
+              | "master"
+              | "master /docs"
+              | {
+                  branch: string
+                  path: "/" | "/docs"
+                }
+            )
+          | undefined
       }
     },
     timeout?: number,
@@ -18786,9 +18974,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        artifact_id?: number
-        artifact_url?: string
-        environment?: string
+        artifact_id?: number | undefined
+        artifact_url?: string | undefined
+        environment?: string | undefined
         oidc_token: string
         pages_build_version: string
       }
@@ -18974,7 +19162,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        body?: string
+        body?: string | undefined
         name: string
       }
     },
@@ -19088,13 +19276,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         base: string
-        body?: string
-        draft?: boolean
+        body?: string | undefined
+        draft?: boolean | undefined
         head: string
-        head_repo?: string
-        issue?: number
-        maintainer_can_modify?: boolean
-        title?: string
+        head_repo?: string | undefined
+        issue?: number | undefined
+        maintainer_can_modify?: boolean | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -19343,11 +19531,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody?: {
-        base?: string
-        body?: string
-        maintainer_can_modify?: boolean
-        state?: "open" | "closed"
-        title?: string
+        base?: string | undefined
+        body?: string | undefined
+        maintainer_can_modify?: boolean | undefined
+        state?: ("open" | "closed") | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -19376,16 +19564,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody: {
-        client_ip?: string
-        devcontainer_path?: string
-        display_name?: string
-        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-        idle_timeout_minutes?: number
-        location?: string
-        machine?: string
-        multi_repo_permissions_opt_out?: boolean
-        retention_period_minutes?: number
-        working_directory?: string
+        client_ip?: string | undefined
+        devcontainer_path?: string | undefined
+        display_name?: string | undefined
+        geo?: ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest") | undefined
+        idle_timeout_minutes?: number | undefined
+        location?: string | undefined
+        machine?: string | undefined
+        multi_repo_permissions_opt_out?: boolean | undefined
+        retention_period_minutes?: number | undefined
+        working_directory?: string | undefined
       } | null
     },
     timeout?: number,
@@ -19449,14 +19637,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         body: string
         commit_id: string
-        in_reply_to?: number
-        line?: number
+        in_reply_to?: number | undefined
+        line?: number | undefined
         path: string
-        position?: number
-        side?: "LEFT" | "RIGHT"
-        start_line?: number
-        start_side?: "LEFT" | "RIGHT" | "side"
-        subject_type?: "line" | "file"
+        position?: number | undefined
+        side?: ("LEFT" | "RIGHT") | undefined
+        start_line?: number | undefined
+        start_side?: ("LEFT" | "RIGHT" | "side") | undefined
+        subject_type?: ("line" | "file") | undefined
       }
     },
     timeout?: number,
@@ -19584,10 +19772,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody?: {
-        commit_message?: string
-        commit_title?: string
-        merge_method?: "merge" | "squash" | "rebase"
-        sha?: string
+        commit_message?: string | undefined
+        commit_title?: string | undefined
+        merge_method?: ("merge" | "squash" | "rebase") | undefined
+        sha?: string | undefined
       } | null
     },
     timeout?: number,
@@ -19637,8 +19825,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody?: {
-        reviewers?: string[]
-        team_reviewers?: string[]
+        reviewers?: string[] | undefined
+        team_reviewers?: string[] | undefined
       }
     },
     timeout?: number,
@@ -19668,7 +19856,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       pullNumber: number
       requestBody: {
         reviewers: string[]
-        team_reviewers?: string[]
+        team_reviewers?: string[] | undefined
       }
     },
     timeout?: number,
@@ -19721,18 +19909,20 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody?: {
-        body?: string
-        comments?: {
-          body: string
-          line?: number
-          path: string
-          position?: number
-          side?: string
-          start_line?: number
-          start_side?: string
-        }[]
-        commit_id?: string
-        event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+        body?: string | undefined
+        comments?:
+          | {
+              body: string
+              line?: number | undefined
+              path: string
+              position?: number | undefined
+              side?: string | undefined
+              start_line?: number | undefined
+              start_side?: string | undefined
+            }[]
+          | undefined
+        commit_id?: string | undefined
+        event?: ("APPROVE" | "REQUEST_CHANGES" | "COMMENT") | undefined
       }
     },
     timeout?: number,
@@ -19861,7 +20051,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       pullNumber: number
       reviewId: number
       requestBody: {
-        event?: "DISMISS"
+        event?: "DISMISS" | undefined
         message: string
       }
     },
@@ -19892,7 +20082,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       pullNumber: number
       reviewId: number
       requestBody: {
-        body?: string
+        body?: string | undefined
         event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
       }
     },
@@ -19922,15 +20112,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       pullNumber: number
       requestBody?: {
-        expected_head_sha?: string
+        expected_head_sha?: string | undefined
       } | null
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      message?: string
-      url?: string
+      message?: string | undefined
+      url?: string | undefined
     }>
   > {
     const url = `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/update-branch`
@@ -20023,15 +20213,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        body?: string
-        discussion_category_name?: string
-        draft?: boolean
-        generate_release_notes?: boolean
-        make_latest?: "true" | "false" | "legacy"
-        name?: string
-        prerelease?: boolean
+        body?: string | undefined
+        discussion_category_name?: string | undefined
+        draft?: boolean | undefined
+        generate_release_notes?: boolean | undefined
+        make_latest?: ("true" | "false" | "legacy") | undefined
+        name?: string | undefined
+        prerelease?: boolean | undefined
         tag_name: string
-        target_commitish?: string
+        target_commitish?: string | undefined
       }
     },
     timeout?: number,
@@ -20081,9 +20271,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       assetId: number
       requestBody?: {
-        label?: string
-        name?: string
-        state?: string
+        label?: string | undefined
+        name?: string | undefined
+        state?: string | undefined
       }
     },
     timeout?: number,
@@ -20132,10 +20322,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        configuration_file_path?: string
-        previous_tag_name?: string
+        configuration_file_path?: string | undefined
+        previous_tag_name?: string | undefined
         tag_name: string
-        target_commitish?: string
+        target_commitish?: string | undefined
       }
     },
     timeout?: number,
@@ -20226,14 +20416,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       releaseId: number
       requestBody?: {
-        body?: string
-        discussion_category_name?: string
-        draft?: boolean
-        make_latest?: "true" | "false" | "legacy"
-        name?: string
-        prerelease?: boolean
-        tag_name?: string
-        target_commitish?: string
+        body?: string | undefined
+        discussion_category_name?: string | undefined
+        draft?: boolean | undefined
+        make_latest?: ("true" | "false" | "legacy") | undefined
+        name?: string | undefined
+        prerelease?: boolean | undefined
+        tag_name?: string | undefined
+        target_commitish?: string | undefined
       }
     },
     timeout?: number,
@@ -20476,12 +20666,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_repository_ruleset_conditions
+        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
+        conditions?: t_repository_ruleset_conditions | undefined
         enforcement: t_repository_rule_enforcement
         name: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        rules?: t_repository_rule[] | undefined
+        target?: ("branch" | "tag" | "push") | undefined
       }
     },
     timeout?: number,
@@ -20588,12 +20778,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       rulesetId: number
       requestBody?: {
-        bypass_actors?: t_repository_ruleset_bypass_actor[]
-        conditions?: t_repository_ruleset_conditions
-        enforcement?: t_repository_rule_enforcement
-        name?: string
-        rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        bypass_actors?: t_repository_ruleset_bypass_actor[] | undefined
+        conditions?: t_repository_ruleset_conditions | undefined
+        enforcement?: t_repository_rule_enforcement | undefined
+        name?: string | undefined
+        rules?: t_repository_rule[] | undefined
+        target?: ("branch" | "tag" | "push") | undefined
       }
     },
     timeout?: number,
@@ -20710,8 +20900,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       alertNumber: t_alert_number
       requestBody: {
-        resolution?: t_secret_scanning_alert_resolution
-        resolution_comment?: t_secret_scanning_alert_resolution_comment
+        resolution?: t_secret_scanning_alert_resolution | undefined
+        resolution_comment?:
+          | t_secret_scanning_alert_resolution_comment
+          | undefined
         state: t_secret_scanning_alert_state
       }
     },
@@ -21135,10 +21327,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       sha: string
       requestBody: {
-        context?: string
-        description?: string | null
+        context?: string | undefined
+        description?: (string | null) | undefined
         state: "error" | "failure" | "pending" | "success"
-        target_url?: string | null
+        target_url?: (string | null) | undefined
       }
     },
     timeout?: number,
@@ -21209,8 +21401,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        ignored?: boolean
-        subscribed?: boolean
+        ignored?: boolean | undefined
+        subscribed?: boolean | undefined
       }
     },
     timeout?: number,
@@ -21529,9 +21721,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        new_name?: string
+        new_name?: string | undefined
         new_owner: string
-        team_ids?: number[]
+        team_ids?: number[] | undefined
       }
     },
     timeout?: number,
@@ -21640,11 +21832,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       templateOwner: string
       templateRepo: string
       requestBody: {
-        description?: string
-        include_all_branches?: boolean
+        description?: string | undefined
+        include_all_branches?: boolean | undefined
         name: string
-        owner?: string
-        private?: boolean
+        owner?: string | undefined
+        private?: boolean | undefined
       }
     },
     timeout?: number,
@@ -21971,14 +22163,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       requestBody: {
-        description?: string
+        description?: string | undefined
         name: string
         notification_setting?:
-          | "notifications_enabled"
-          | "notifications_disabled"
-        parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin"
-        privacy?: "secret" | "closed"
+          | ("notifications_enabled" | "notifications_disabled")
+          | undefined
+        parent_team_id?: (number | null) | undefined
+        permission?: ("pull" | "push" | "admin") | undefined
+        privacy?: ("secret" | "closed") | undefined
       }
     },
     timeout?: number,
@@ -22052,7 +22244,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       requestBody: {
         body: string
-        private?: boolean
+        private?: boolean | undefined
         title: string
       }
     },
@@ -22101,8 +22293,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       discussionNumber: number
       requestBody?: {
-        body?: string
-        title?: string
+        body?: string | undefined
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -22552,7 +22744,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       username: string
       requestBody?: {
-        role?: "member" | "maintainer"
+        role?: ("member" | "maintainer") | undefined
       }
     },
     timeout?: number,
@@ -22642,7 +22834,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       projectId: number
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: ("read" | "write" | "admin") | undefined
       }
     },
     timeout?: number,
@@ -22734,7 +22926,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        permission?: "pull" | "push" | "admin"
+        permission?: ("pull" | "push" | "admin") | undefined
       }
     },
     timeout?: number,
@@ -22819,14 +23011,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async usersUpdateAuthenticated(
     p: {
       requestBody?: {
-        bio?: string
-        blog?: string
-        company?: string
-        email?: string
-        hireable?: boolean
-        location?: string
-        name?: string
-        twitter_username?: string | null
+        bio?: string | undefined
+        blog?: string | undefined
+        company?: string | undefined
+        email?: string | undefined
+        hireable?: boolean | undefined
+        location?: string | undefined
+        name?: string | undefined
+        twitter_username?: (string | null) | undefined
       }
     } = {},
     timeout?: number,
@@ -22962,30 +23154,34 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       requestBody:
         | {
-            client_ip?: string
-            devcontainer_path?: string
-            display_name?: string
-            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-            idle_timeout_minutes?: number
-            location?: string
-            machine?: string
-            multi_repo_permissions_opt_out?: boolean
-            ref?: string
+            client_ip?: string | undefined
+            devcontainer_path?: string | undefined
+            display_name?: string | undefined
+            geo?:
+              | ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest")
+              | undefined
+            idle_timeout_minutes?: number | undefined
+            location?: string | undefined
+            machine?: string | undefined
+            multi_repo_permissions_opt_out?: boolean | undefined
+            ref?: string | undefined
             repository_id: number
-            retention_period_minutes?: number
-            working_directory?: string
+            retention_period_minutes?: number | undefined
+            working_directory?: string | undefined
           }
         | {
-            devcontainer_path?: string
-            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
-            idle_timeout_minutes?: number
-            location?: string
-            machine?: string
+            devcontainer_path?: string | undefined
+            geo?:
+              | ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest")
+              | undefined
+            idle_timeout_minutes?: number | undefined
+            location?: string | undefined
+            machine?: string | undefined
             pull_request: {
               pull_request_number: number
               repository_id: number
             }
-            working_directory?: string
+            working_directory?: string | undefined
           }
     },
     timeout?: number,
@@ -23073,9 +23269,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       secretName: string
       requestBody: {
-        encrypted_value?: string
+        encrypted_value?: string | undefined
         key_id: string
-        selected_repository_ids?: (number | string)[]
+        selected_repository_ids?: (number | string)[] | undefined
       }
     },
     timeout?: number,
@@ -23231,9 +23427,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       codespaceName: string
       requestBody?: {
-        display_name?: string
-        machine?: string
-        recent_folders?: string[]
+        display_name?: string | undefined
+        machine?: string | undefined
+        recent_folders?: string[] | undefined
       }
     },
     timeout?: number,
@@ -23346,8 +23542,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       codespaceName: string
       requestBody: {
-        name?: string
-        private?: boolean
+        name?: string | undefined
+        private?: boolean | undefined
       }
     },
     timeout?: number,
@@ -23653,7 +23849,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       requestBody: {
         armored_public_key: string
-        name?: string
+        name?: string | undefined
       }
     },
     timeout?: number,
@@ -23751,7 +23947,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<{
       repositories: t_repository[]
-      repository_selection?: string
+      repository_selection?: string | undefined
       total_count: number
     }>
   > {
@@ -23934,7 +24130,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       requestBody: {
         key: string
-        title?: string
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -24133,14 +24329,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async migrationsStartForAuthenticatedUser(
     p: {
       requestBody: {
-        exclude?: "repositories"[]
-        exclude_attachments?: boolean
-        exclude_git_data?: boolean
-        exclude_metadata?: boolean
-        exclude_owner_projects?: boolean
-        exclude_releases?: boolean
-        lock_repositories?: boolean
-        org_metadata_only?: boolean
+        exclude?: "repositories"[] | undefined
+        exclude_attachments?: boolean | undefined
+        exclude_git_data?: boolean | undefined
+        exclude_metadata?: boolean | undefined
+        exclude_owner_projects?: boolean | undefined
+        exclude_releases?: boolean | undefined
+        lock_repositories?: boolean | undefined
+        org_metadata_only?: boolean | undefined
         repositories: string[]
       }
     },
@@ -24518,7 +24714,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsCreateForAuthenticatedUser(
     p: {
       requestBody: {
-        body?: string | null
+        body?: (string | null) | undefined
         name: string
       }
     },
@@ -24604,29 +24800,33 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposCreateForAuthenticatedUser(
     p: {
       requestBody: {
-        allow_auto_merge?: boolean
-        allow_merge_commit?: boolean
-        allow_rebase_merge?: boolean
-        allow_squash_merge?: boolean
-        auto_init?: boolean
-        delete_branch_on_merge?: boolean
-        description?: string
-        gitignore_template?: string
-        has_discussions?: boolean
-        has_downloads?: boolean
-        has_issues?: boolean
-        has_projects?: boolean
-        has_wiki?: boolean
-        homepage?: string
-        is_template?: boolean
-        license_template?: string
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        allow_auto_merge?: boolean | undefined
+        allow_merge_commit?: boolean | undefined
+        allow_rebase_merge?: boolean | undefined
+        allow_squash_merge?: boolean | undefined
+        auto_init?: boolean | undefined
+        delete_branch_on_merge?: boolean | undefined
+        description?: string | undefined
+        gitignore_template?: string | undefined
+        has_discussions?: boolean | undefined
+        has_downloads?: boolean | undefined
+        has_issues?: boolean | undefined
+        has_projects?: boolean | undefined
+        has_wiki?: boolean | undefined
+        homepage?: string | undefined
+        is_template?: boolean | undefined
+        license_template?: string | undefined
+        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
+        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
         name: string
-        private?: boolean
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
-        team_id?: number
+        private?: boolean | undefined
+        squash_merge_commit_message?:
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | undefined
+        squash_merge_commit_title?:
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | undefined
+        team_id?: number | undefined
       }
     },
     timeout?: number,
@@ -24806,7 +25006,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       requestBody: {
         key: string
-        title?: string
+        title?: string | undefined
       }
     },
     timeout?: number,
@@ -25068,10 +25268,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     | AxiosResponse<{
-        attestations?: {
-          bundle?: t_sigstore_bundle_0
-          repository_id?: number
-        }[]
+        attestations?:
+          | {
+              bundle?: t_sigstore_bundle_0 | undefined
+              repository_id?: number | undefined
+            }[]
+          | undefined
       }>
     | AxiosResponse<t_empty_object>
     | AxiosResponse<void>

@@ -13,10 +13,7 @@ export async function generateTypescriptAxios(
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
-    {
-      ...config.compilerOptions,
-      exactOptionalPropertyTypes: false,
-    },
+    config.compilerOptions,
     {allowAny},
   )
 

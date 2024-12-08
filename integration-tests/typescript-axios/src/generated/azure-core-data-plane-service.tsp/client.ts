@@ -99,13 +99,13 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
   ): Promise<
     AxiosResponse<
       | {
-          error?: t_Azure_Core_Foundations_Error
+          error?: t_Azure_Core_Foundations_Error | undefined
           id: string
-          result?: t_Widget
+          result?: t_Widget | undefined
           status: t_Azure_Core_Foundations_OperationState
         }
       | {
-          error?: t_Azure_Core_Foundations_Error
+          error?: t_Azure_Core_Foundations_Error | undefined
           id: string
           status: t_Azure_Core_Foundations_OperationState
         }
@@ -218,7 +218,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
       status: t_Azure_Core_Foundations_OperationState
     }>
@@ -369,9 +369,9 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
-      result?: t_WidgetRepairRequest
+      result?: t_WidgetRepairRequest | undefined
       status: t_Azure_Core_Foundations_OperationState
     }>
   > {
@@ -401,15 +401,17 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
-      result?: {
-        completedDateTime: string
-        createdDateTime: string
-        requestState: t_WidgetRepairState
-        scheduledDateTime: string
-        updatedDateTime: string
-      }
+      result?:
+        | {
+            completedDateTime: string
+            createdDateTime: string
+            requestState: t_WidgetRepairState
+            scheduledDateTime: string
+            updatedDateTime: string
+          }
+        | undefined
       status: t_Azure_Core_Foundations_OperationState
     }>
   > {
@@ -447,9 +449,9 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
-      result?: t_WidgetPart
+      result?: t_WidgetPart | undefined
       status: t_Azure_Core_Foundations_OperationState
     }>
   > {
@@ -623,7 +625,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
       status: t_Azure_Core_Foundations_OperationState
     }>
@@ -661,9 +663,9 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
-      result?: t_Manufacturer
+      result?: t_Manufacturer | undefined
       status: t_Azure_Core_Foundations_OperationState
     }>
   > {
@@ -774,7 +776,7 @@ export class ContosoWidgetManager extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      error?: t_Azure_Core_Foundations_Error
+      error?: t_Azure_Core_Foundations_Error | undefined
       id: string
       status: t_Azure_Core_Foundations_OperationState
     }>

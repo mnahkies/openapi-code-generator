@@ -9,7 +9,7 @@ export type t_Error = {
 
 export type t_NewPet = {
   name: string
-  tag?: string
+  tag?: string | undefined
 }
 
 export type t_Pet = t_NewPet & {

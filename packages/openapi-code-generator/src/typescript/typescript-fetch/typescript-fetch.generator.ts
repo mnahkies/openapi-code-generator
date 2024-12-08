@@ -13,10 +13,7 @@ export async function generateTypescriptFetch(
   const rootTypeBuilder = await TypeBuilder.fromInput(
     "./models.ts",
     input,
-    {
-      ...config.compilerOptions,
-      exactOptionalPropertyTypes: false,
-    },
+    config.compilerOptions,
     {allowAny},
   )
   const rootSchemaBuilder = await schemaBuilderFactory(
