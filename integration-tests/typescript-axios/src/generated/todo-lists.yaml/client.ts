@@ -250,7 +250,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      completedAt?: string
+      completedAt?: string | undefined
       content: string
       createdAt: string
       id: string
@@ -272,7 +272,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
     p: {
       listId: string
       requestBody: {
-        completedAt?: string
+        completedAt?: string | undefined
         content: string
         id: string
       }
@@ -322,7 +322,7 @@ export class TodoListsExampleApi extends AbstractAxiosClient {
   async uploadAttachment(
     p: {
       requestBody: {
-        file?: unknown
+        file?: unknown | undefined
       }
     },
     basePath:

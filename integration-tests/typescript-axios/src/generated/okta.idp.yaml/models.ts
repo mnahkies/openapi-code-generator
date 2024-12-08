@@ -5,44 +5,64 @@
 export type EmptyObject = { [key: string]: never }
 
 export type t_AppAuthenticatorEnrollment = {
-  readonly authenticatorId?: string
-  readonly createdDate?: string
-  readonly device?: {
-    clientInstanceId?: string
-    createdDate?: string
-    id?: string
-    lastUpdated?: string
-    status?: "ACTIVE"
-  }
-  readonly id?: string
-  readonly lastUpdated?: string
-  readonly links?: {
-    self?: {
-      hints?: {
-        allow?: ("PATCH" | "DELETE")[]
+  readonly authenticatorId?: string | undefined
+  readonly createdDate?: string | undefined
+  readonly device?:
+    | {
+        clientInstanceId?: string | undefined
+        createdDate?: string | undefined
+        id?: string | undefined
+        lastUpdated?: string | undefined
+        status?: "ACTIVE" | undefined
       }
-      href?: string
-    }
-  }
-  methods?: {
-    push?: {
-      createdDate?: string
-      id?: string
-      lastUpdated?: string
-      links?: {
-        pending?: {
-          hints?: {
-            allow?: "GET"[]
-          }
-          href?: string
-        }
+    | undefined
+  readonly id?: string | undefined
+  readonly lastUpdated?: string | undefined
+  readonly links?:
+    | {
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?: ("PATCH" | "DELETE")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
       }
-    }
-  }
-  readonly user?: {
-    id?: string
-    username?: string
-  }
+    | undefined
+  methods?:
+    | {
+        push?:
+          | {
+              createdDate?: string | undefined
+              id?: string | undefined
+              lastUpdated?: string | undefined
+              links?:
+                | {
+                    pending?:
+                      | {
+                          hints?:
+                            | {
+                                allow?: "GET"[] | undefined
+                              }
+                            | undefined
+                          href?: string | undefined
+                        }
+                      | undefined
+                  }
+                | undefined
+            }
+          | undefined
+      }
+    | undefined
+  readonly user?:
+    | {
+        id?: string | undefined
+        username?: string | undefined
+      }
+    | undefined
 }
 
 export type t_AppAuthenticatorEnrollmentRequest = {
@@ -52,24 +72,26 @@ export type t_AppAuthenticatorEnrollmentRequest = {
     clientInstanceDeviceSdkVersion: string
     clientInstanceKey: t_KeyObject
     clientInstanceVersion: string
-    deviceAttestation?: {
-      [key: string]: unknown | undefined
-    }
+    deviceAttestation?:
+      | {
+          [key: string]: unknown | undefined
+        }
+      | undefined
     displayName: string
-    manufacturer?: string
-    model?: string
+    manufacturer?: string | undefined
+    model?: string | undefined
     osVersion: string
     platform: "ANDROID" | "IOS"
-    secureHardwarePresent?: boolean
-    udid?: string
+    secureHardwarePresent?: boolean | undefined
+    udid?: string | undefined
   }
   methods: {
     push: {
-      apsEnvironment?: "PRODUCTION" | "DEVELOPMENT"
+      apsEnvironment?: ("PRODUCTION" | "DEVELOPMENT") | undefined
       keys: {
-        capabilities?: t_AppAuthenticatorMethodCapabilities
+        capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
         proofOfPossession: t_KeyObject
-        userVerification?: t_KeyObject
+        userVerification?: t_KeyObject | undefined
       }
       pushToken: string
     }
@@ -77,35 +99,41 @@ export type t_AppAuthenticatorEnrollmentRequest = {
 }
 
 export type t_AppAuthenticatorMethodCapabilities = {
-  transactionTypes?: ("LOGIN" | "CIBA")[]
+  transactionTypes?: ("LOGIN" | "CIBA")[] | undefined
 }
 
 export type t_Authenticator = {
-  readonly _embedded?: {
-    enrollments?: t_AuthenticatorEnrollment[]
-  }
-  readonly _links?: {
-    enrollments?: t_HrefObject
-    self?: t_HrefObject
-  }
-  readonly enrollable?: boolean
-  readonly id?: string
-  key?: t_AuthenticatorKey
-  readonly name?: string
+  readonly _embedded?:
+    | {
+        enrollments?: t_AuthenticatorEnrollment[] | undefined
+      }
+    | undefined
+  readonly _links?:
+    | {
+        enrollments?: t_HrefObject | undefined
+        self?: t_HrefObject | undefined
+      }
+    | undefined
+  readonly enrollable?: boolean | undefined
+  readonly id?: string | undefined
+  key?: t_AuthenticatorKey | undefined
+  readonly name?: string | undefined
 }
 
 export type t_AuthenticatorEnrollment = {
-  readonly _links?: {
-    authenticator?: t_HrefObject
-    self?: t_HrefObject
-  }
-  readonly canReset?: boolean
-  readonly canUnenroll?: boolean
-  readonly created?: string
-  readonly id?: string
-  readonly lastChallenged?: string
-  name?: string
-  readonly profile?: EmptyObject
+  readonly _links?:
+    | {
+        authenticator?: t_HrefObject | undefined
+        self?: t_HrefObject | undefined
+      }
+    | undefined
+  readonly canReset?: boolean | undefined
+  readonly canUnenroll?: boolean | undefined
+  readonly created?: string | undefined
+  readonly id?: string | undefined
+  readonly lastChallenged?: string | undefined
+  name?: string | undefined
+  readonly profile?: EmptyObject | undefined
 }
 
 export type t_AuthenticatorKey =
@@ -126,32 +154,50 @@ export type t_AuthenticatorKey =
   | "yubikey_token"
 
 export type t_Email = {
-  _links?: {
-    challenge?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
+  _links?:
+    | {
+        challenge?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+        poll?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?: ("GET" | "DELETE" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+        verify?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
       }
-      href?: string
-    }
-    poll?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
-      }
-      href?: string
-    }
-    self?: {
-      hints?: {
-        allow?: ("GET" | "DELETE" | "PUT")[]
-      }
-      href?: string
-    }
-    verify?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
-      }
-      href?: string
-    }
-  }
+    | undefined
   readonly id: string
   profile: {
     email: string
@@ -161,22 +207,26 @@ export type t_Email = {
 }
 
 export type t_Error = {
-  errorCauses?: {
-    readonly errorSummary?: string
-  }[]
-  readonly errorCode?: string
-  readonly errorId?: string
-  readonly errorLink?: string
-  readonly errorSummary?: string
+  errorCauses?:
+    | {
+        readonly errorSummary?: string | undefined
+      }[]
+    | undefined
+  readonly errorCode?: string | undefined
+  readonly errorId?: string | undefined
+  readonly errorLink?: string | undefined
+  readonly errorSummary?: string | undefined
 }
 
 export type t_HrefObject = {
-  hints?: {
-    allow?: t_HttpMethod[]
-  }
+  hints?:
+    | {
+        allow?: t_HttpMethod[] | undefined
+      }
+    | undefined
   href: string
-  name?: string
-  type?: string
+  name?: string | undefined
+  type?: string | undefined
 }
 
 export type t_HttpMethod = "DELETE" | "GET" | "POST" | "PUT"
@@ -201,62 +251,88 @@ export type t_KeyRSA = {
 }
 
 export type t_OktaApplication = {
-  readonly displayName?: string
-  readonly id?: string
-  readonly name?: string
+  readonly displayName?: string | undefined
+  readonly id?: string | undefined
+  readonly name?: string | undefined
 }
 
 export type t_Organization = {
-  _links?: {
-    self?: {
-      hints?: {
-        allow?: "GET"[]
+  _links?:
+    | {
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?: "GET"[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
       }
-      href?: string
-    }
-  }
-  readonly helpLink?: string
-  readonly name?: string
-  readonly supportEmail?: string
-  readonly url?: string
+    | undefined
+  readonly helpLink?: string | undefined
+  readonly name?: string | undefined
+  readonly supportEmail?: string | undefined
+  readonly url?: string | undefined
 }
 
 export type t_PasswordResponse = {
-  _links?: {
-    self?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "PUT")[]
+  _links?:
+    | {
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
       }
-      href?: string
-    }
-  }
-  created?: string
-  readonly id?: string
-  lastUpdated?: string
-  status?: string
+    | undefined
+  created?: string | undefined
+  readonly id?: string | undefined
+  lastUpdated?: string | undefined
+  status?: string | undefined
 }
 
 export type t_Phone = {
-  _links?: {
-    challenge?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
+  _links?:
+    | {
+        challenge?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+        self?:
+          | {
+              hints?:
+                | {
+                    allow?: ("GET" | "DELETE" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
+        verify?:
+          | {
+              hints?:
+                | {
+                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                  }
+                | undefined
+              href?: string | undefined
+            }
+          | undefined
       }
-      href?: string
-    }
-    self?: {
-      hints?: {
-        allow?: ("GET" | "DELETE" | "PUT")[]
-      }
-      href?: string
-    }
-    verify?: {
-      hints?: {
-        allow?: ("DELETE" | "GET" | "POST" | "PUT")[]
-      }
-      href?: string
-    }
-  }
+    | undefined
   readonly id: string
   profile: {
     phoneNumber: string
@@ -265,49 +341,67 @@ export type t_Phone = {
 }
 
 export type t_Profile = {
-  _links?: {
-    describedBy?: {
-      readonly href?: string
-    }
-    self?: {
-      readonly href?: string
-    }
-  }
-  readonly createdAt?: string
-  readonly modifiedAt?: string
-  profile?: EmptyObject
+  _links?:
+    | {
+        describedBy?:
+          | {
+              readonly href?: string | undefined
+            }
+          | undefined
+        self?:
+          | {
+              readonly href?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  readonly createdAt?: string | undefined
+  readonly modifiedAt?: string | undefined
+  profile?: EmptyObject | undefined
 }
 
 export type t_PushNotificationChallenge = {
-  challenge?: string
-  payloadVersion?: "IDXv1"
+  challenge?: string | undefined
+  payloadVersion?: "IDXv1" | undefined
 }
 
 export type t_PushNotificationVerification = {
-  challengeResponse?: string
-  method?: "push"
+  challengeResponse?: string | undefined
+  method?: "push" | undefined
 }
 
 export type t_Schema = {
-  _links?: {
-    self?: {
-      readonly href?: string
-    }
-    user?: {
-      readonly href?: string
-    }
-  }
-  readonly properties?: EmptyObject
+  _links?:
+    | {
+        self?:
+          | {
+              readonly href?: string | undefined
+            }
+          | undefined
+        user?:
+          | {
+              readonly href?: string | undefined
+            }
+          | undefined
+      }
+    | undefined
+  readonly properties?: EmptyObject | undefined
 }
 
 export type t_UpdateAppAuthenticatorEnrollmentRequest = {
-  methods?: {
-    push?: {
-      capabilities?: t_AppAuthenticatorMethodCapabilities
-      keys?: {
-        userVerification?: t_KeyObject
+  methods?:
+    | {
+        push?:
+          | {
+              capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
+              keys?:
+                | {
+                    userVerification?: t_KeyObject | undefined
+                  }
+                | undefined
+              pushToken?: string | undefined
+            }
+          | undefined
       }
-      pushToken?: string
-    }
-  }
+    | undefined
 }

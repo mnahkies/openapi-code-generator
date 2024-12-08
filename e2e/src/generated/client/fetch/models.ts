@@ -3,20 +3,22 @@
 /* eslint-disable */
 
 export type t_RandomNumber = {
-  params?: {
-    forbidden?: number[]
-    max?: number
-    min?: number
-  }
-  result?: number
+  params?:
+    | {
+        forbidden?: number[] | undefined
+        max?: number | undefined
+        min?: number | undefined
+      }
+    | undefined
+  result?: number | undefined
 }
 
 export type t_getHeadersRequestJson200Response = {
-  rawHeaders?: unknown
-  typedHeaders?: unknown
+  rawHeaders?: unknown | undefined
+  typedHeaders?: unknown | undefined
 }
 
 export type t_getHeadersUndeclaredJson200Response = {
-  rawHeaders?: unknown
-  typedHeaders?: unknown
+  rawHeaders?: unknown | undefined
+  typedHeaders?: unknown | undefined
 }

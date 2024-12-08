@@ -4,6 +4,7 @@
     "outDir": "./dist",
     "rootDir": "./src",
     "types": [],
+    /* exercise the code path where exactOptionalPropertyTypes is disabled */
     "exactOptionalPropertyTypes": false,
     "noUnusedLocals": true
   }

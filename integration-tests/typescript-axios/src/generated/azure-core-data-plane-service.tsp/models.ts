@@ -4,10 +4,10 @@
 
 export type t_Azure_Core_Foundations_Error = {
   code: string
-  details?: t_Azure_Core_Foundations_Error[]
-  innererror?: t_Azure_Core_Foundations_InnerError
+  details?: t_Azure_Core_Foundations_Error[] | undefined
+  innererror?: t_Azure_Core_Foundations_InnerError | undefined
   message: string
-  target?: string
+  target?: string | undefined
 }
 
 export type t_Azure_Core_Foundations_ErrorResponse = {
@@ -15,8 +15,8 @@ export type t_Azure_Core_Foundations_ErrorResponse = {
 }
 
 export type t_Azure_Core_Foundations_InnerError = {
-  code?: string
-  innererror?: t_Azure_Core_Foundations_InnerError
+  code?: string | undefined
+  innererror?: t_Azure_Core_Foundations_InnerError | undefined
 }
 
 export type t_Azure_Core_Foundations_OperationState =
@@ -39,17 +39,17 @@ export type t_Manufacturer = {
 }
 
 export type t_PagedManufacturer = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_Manufacturer[]
 }
 
 export type t_PagedWidget = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_Widget[]
 }
 
 export type t_PagedWidgetPart = {
-  nextLink?: string
+  nextLink?: string | undefined
   value: t_WidgetPart[]
 }
 
@@ -67,8 +67,8 @@ export type t_WidgetAnalytics = {
 }
 
 export type t_WidgetAnalyticsCreateOrUpdate = {
-  repairCount?: number
-  useCount?: number
+  repairCount?: number | undefined
+  useCount?: number | undefined
 }
 
 export type t_WidgetColor =
@@ -80,8 +80,8 @@ export type t_WidgetColor =
   | "Blue"
 
 export type t_WidgetCreateOrUpdate = {
-  color?: t_WidgetColor
-  manufacturerId?: string
+  color?: t_WidgetColor | undefined
+  manufacturerId?: string | undefined
 }
 
 export type t_WidgetPart = {

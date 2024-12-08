@@ -276,9 +276,9 @@ export class MyAccountManagement extends AbstractAxiosClient {
         profile: {
           email: string
         }
-        role?: "PRIMARY" | "SECONDARY"
-        sendEmail?: boolean
-        state?: string
+        role?: ("PRIMARY" | "SECONDARY") | undefined
+        sendEmail?: boolean | undefined
+        state?: string | undefined
       }
     },
     timeout?: number,
@@ -599,11 +599,11 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async createPhone(
     p: {
       requestBody: {
-        method?: "SMS" | "CALL"
+        method?: ("SMS" | "CALL") | undefined
         profile: {
-          phoneNumber?: string
+          phoneNumber?: string | undefined
         }
-        sendCode?: boolean
+        sendCode?: boolean | undefined
       }
     },
     timeout?: number,
@@ -669,21 +669,25 @@ export class MyAccountManagement extends AbstractAxiosClient {
       id: string
       requestBody: {
         method: "SMS" | "CALL"
-        retry?: boolean
+        retry?: boolean | undefined
       }
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      _links?: {
-        verify?: {
-          hints: {
-            allow: "GET"[]
+      _links?:
+        | {
+            verify?:
+              | {
+                  hints: {
+                    allow: "GET"[]
+                  }
+                  href: string
+                }
+              | undefined
           }
-          href: string
-        }
-      }
+        | undefined
     }>
   > {
     const url = `/idp/myaccount/phones/${p["id"]}/challenge`
@@ -749,7 +753,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async replaceProfile(
     p: {
       requestBody: {
-        profile?: EmptyObject
+        profile?: EmptyObject | undefined
       }
     },
     timeout?: number,

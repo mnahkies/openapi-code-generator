@@ -3,6 +3,8 @@
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src",
+    /* exercise the code path where exactOptionalPropertyTypes is enabled */
+    "exactOptionalPropertyTypes": true,
     "noUnusedLocals": true
   }
 }

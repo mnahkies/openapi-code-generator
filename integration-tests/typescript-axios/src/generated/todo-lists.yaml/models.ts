@@ -3,8 +3,8 @@
 /* eslint-disable */
 
 export type t_Error = {
-  code?: number
-  message?: string
+  code?: number | undefined
+  message?: string | undefined
 }
 
 export type t_CreateUpdateTodoList = {
