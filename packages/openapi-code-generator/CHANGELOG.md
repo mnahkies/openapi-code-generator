@@ -3,6 +3,23 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.17.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.16.0...v0.17.0) (2024-12-11)
+
+### Bug Fixes
+
+- support exactOptionalPropertyTypes on client SDKs ([#278](https://github.com/mnahkies/openapi-code-generator/issues/278)) ([5483b12](https://github.com/mnahkies/openapi-code-generator/commit/5483b12b65e977be13b5ce8728c94865c2d9e35d)), closes [#131](https://github.com/mnahkies/openapi-code-generator/issues/131)
+
+- fix!: angular modules have unique export names (#270) ([2d4d43b](https://github.com/mnahkies/openapi-code-generator/commit/2d4d43b1c0a1a75946e5fbb3a3495d20d0386c16)), closes [#270](https://github.com/mnahkies/openapi-code-generator/issues/270)
+
+### Features
+
+- support http verb 'head' ([#271](https://github.com/mnahkies/openapi-code-generator/issues/271)) ([4841fed](https://github.com/mnahkies/openapi-code-generator/commit/4841fed79128da41c415da0496646d27abebbcee))
+- support servers at path / operation level + variables ([#272](https://github.com/mnahkies/openapi-code-generator/issues/272)) ([969ca68](https://github.com/mnahkies/openapi-code-generator/commit/969ca68e9e069a80b42d6a050cfd7a8cdbbfeb91))
+
+### BREAKING CHANGES
+
+- angular service exports suffixed with `Service`
+
 # [0.16.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.15.0...v0.16.0) (2024-11-02)
 
 ### Bug Fixes
