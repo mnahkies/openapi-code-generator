@@ -8,6 +8,39 @@ import { Callout, Steps } from 'nextra/components'
 </Callout>
 
 <Steps>
+### 11 Dec 2024 (v0.17.0)
+The main change is that `server` overrides at the path / operation level will now be respected and create an additional positional parameter for these methods when generating clients (closes #266).
+
+There was also a fix for client generation with `--enable-runtime-response-validation`, when the typescript project has `exactOptionalPropertyTypes: true` in its `tsconfig.json`
+
+Additionally `defaultHeaders` is now optional in client configuration, and the HTTP `head` verb is now supported. The [documentation](https://openapi-code-generator.nahkies.co.nz/) got a few new pages including a roadmap, and some general tips on usage.
+
+**BREAKING CHANGES**
+- New positional parameter on methods where server overrides are included in the specification
+- Unique export names for Angular services now suffixed with `Service`
+
+**Features**
+* feat: support servers at path / operation level + variables by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/272
+* feat: defaultHeaders is optional by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/274
+* feat: support http verb 'head' by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/271
+
+**Bug Fixes**
+* fix: support exactOptionalPropertyTypes on client SDKs by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/278
+* fix!: angular modules have unique export names by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/270
+
+**Docs**
+* docs: add tips page by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/275
+* docs: use with react-query by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/276
+* docs: add roadmap / release notes by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/277
+* docs: iterate on the documentation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/268
+
+**Misc**
+* chore: dependencies by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/273
+* chore(deps): update all dependencies by @renovate in https://github.com/mnahkies/openapi-code-generator/pull/269
+* chore: dependencies / refresh data by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/267
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.16.0...v0.17.0
+    
 ### 2 Nov 2024 (v0.16.0)
 Client class exports will now be given unique names generated from the input specifications `info.title` field. This can additionally be overridden through a new cli arg `--override-specification-title`. 
 
