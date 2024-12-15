@@ -2,40 +2,10 @@ import axios, {
   AxiosHeaders,
   type AxiosInstance,
   type AxiosRequestConfig,
+  type AxiosResponse,
   type RawAxiosRequestHeaders,
 } from "axios"
 import qs from "qs"
-
-// from https://stackoverflow.com/questions/39494689/is-it-possible-to-restrict-number-to-a-certain-range
-type Enumerate<
-  N extends number,
-  Acc extends number[] = [],
-> = Acc["length"] extends N
-  ? Acc[number]
-  : Enumerate<N, [...Acc, Acc["length"]]>
-
-type IntRange<F extends number, T extends number> = F extends T
-  ? F
-  : Exclude<Enumerate<T>, Enumerate<F>> extends never
-    ? never
-    : Exclude<Enumerate<T>, Enumerate<F>> | T
-
-export type StatusCode1xx = IntRange<100, 199>
-export type StatusCode2xx = IntRange<200, 299>
-export type StatusCode3xx = IntRange<300, 399>
-export type StatusCode4xx = IntRange<400, 499>
-export type StatusCode5xx = IntRange<500, 599>
-export type StatusCode =
-  | StatusCode1xx
-  | StatusCode2xx
-  | StatusCode3xx
-  | StatusCode4xx
-  | StatusCode5xx
-
-export type Res<Status extends StatusCode, Type> = {
-  status: Status
-  json: () => Promise<Type>
-}
 
 export type QueryParams = {
   [name: string]:
@@ -77,7 +47,9 @@ export abstract class AbstractAxiosClient {
     this.defaultTimeout = config.defaultTimeout
   }
 
-  protected _request(opts: AxiosRequestConfig) {
+  protected _request<R extends AxiosResponse>(
+    opts: AxiosRequestConfig,
+  ): Promise<R> {
     const headers = opts.headers ?? this._headers()
 
     return this.axios.request({
