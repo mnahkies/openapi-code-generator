@@ -7,6 +7,7 @@ import type {
   Parameter,
   Reference,
   RequestBody,
+  Response,
   Responses,
   Schema,
   Server,
@@ -25,6 +26,7 @@ import type {
   IRPreprocess,
   IRRef,
   IRResponse,
+  IRResponseHeader,
   IRServer,
   IRServerVariable,
   MaybeIRModel,
@@ -34,6 +36,7 @@ import {
   camelCase,
   coalesce,
   deepEqual,
+  isDefined,
   isHttpMethod,
   mediaTypeToIdentifier,
 } from "./utils"
@@ -284,12 +287,13 @@ export class Input {
     return Object.fromEntries(
       Object.entries(responses).map(([statusCode, response]) => {
         response = response ? this.loader.response(response) : {}
+        const headers = this.normalizeResponseHeaders(response.headers)
 
         return [
           statusCode,
           {
-            headers: {},
             description: response.description,
+            headers,
             content: this.normalizeMediaTypes(
               response.content ?? {},
               operationId,
@@ -299,6 +303,33 @@ export class Input {
         ]
       }),
     )
+  }
+
+  private normalizeResponseHeaders(
+    headers: Response["headers"],
+  ): IRResponseHeader[] {
+    if (!headers) {
+      return []
+    }
+
+    return Object.entries(headers)
+      .map(([name, it]) => {
+        const header = this.loader.responseHeader(it)
+
+        if (!header.schema) {
+          // TODO: headers declared using `content` instead of `schema` not yet supported
+          return undefined
+        }
+
+        return {
+          name,
+          description: header.description,
+          schema: normalizeSchemaObject(header.schema),
+          required: header.required ?? false,
+          deprecated: header.deprecated ?? false,
+        }
+      })
+      .filter(isDefined)
   }
 
   private normalizeParameters(

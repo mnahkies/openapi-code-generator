@@ -8,6 +8,7 @@ import type {GenericLoader} from "./loaders/generic.loader"
 import type {TypespecLoader} from "./loaders/typespec.loader"
 import {isRemote} from "./loaders/utils"
 import type {
+  Header,
   OpenapiDocument,
   Operation,
   Parameter,
@@ -69,6 +70,10 @@ export class OpenapiLoader {
   }
 
   response(maybeRef: Reference | Response): Response {
+    return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
+  }
+
+  responseHeader(maybeRef: Reference | Header): Header {
     return isRef(maybeRef) ? this.$ref(maybeRef) : maybeRef
   }
 

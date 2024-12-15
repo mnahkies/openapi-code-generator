@@ -26,9 +26,16 @@ export type StatusCode =
   | StatusCode4xx
   | StatusCode5xx
 
-export interface Res<Status extends StatusCode, JsonBody> extends Response {
+export interface Res<
+  Status extends StatusCode,
+  JsonBody,
+  HeaderNames extends string = string,
+> extends Response {
   status: Status
   json: () => Promise<JsonBody>
+  headers: {
+    get(name: HeaderNames | string): string
+  } & Headers
 }
 
 export type Server<T> = string & {__server__: T}

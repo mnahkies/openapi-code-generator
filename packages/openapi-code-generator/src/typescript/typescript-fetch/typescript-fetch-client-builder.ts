@@ -3,7 +3,7 @@ import type {ClientOperationBuilder} from "../common/client-operation-builder"
 import type {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
-import {quotedStringLiteral, union} from "../common/type-utils"
+import {generic, quotedStringLiteral, union} from "../common/type-utils"
 import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
 
 export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
@@ -46,8 +46,13 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
 
     const returnType = builder
       .returnType()
-      .map(({statusType, responseType}) => {
-        return `Res<${statusType},${responseType}>`
+      .map(({statusType, responseType, responseHeaderNames}) => {
+        return generic(
+          "Res",
+          statusType,
+          responseType,
+          union(responseHeaderNames.map(quotedStringLiteral)),
+        )
       })
       .join(" | ")
 

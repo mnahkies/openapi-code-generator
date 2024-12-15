@@ -2,6 +2,7 @@ import {generationLib} from "../../core/generation-lib"
 import type {
   IROperation,
   IRParameter,
+  IRResponseHeader,
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
 import {camelCase, isDefined} from "../../core/utils"
@@ -154,6 +155,7 @@ export class ClientOperationBuilder {
   returnType(): {
     statusType: string
     responseType: string
+    responseHeaderNames: string[]
     isDefault: boolean
   }[] {
     const models = this.models
@@ -164,6 +166,7 @@ export class ClientOperationBuilder {
         responseType: it.definition
           ? models.schemaObjectToType(it.definition)
           : "void",
+        responseHeaderNames: it.headers.map((it) => it.name),
         isDefault: it.status === "default",
       }
     })
@@ -176,6 +179,7 @@ export class ClientOperationBuilder {
   private responsesToArray(): {
     status: string
     definition: null | MaybeIRModel
+    headers: IRResponseHeader[]
   }[] {
     const {responses} = this.operation
 
@@ -184,18 +188,24 @@ export class ClientOperationBuilder {
         {
           status: "number",
           definition: {$ref: generationLib.UnknownObject$Ref},
+          headers: [],
         },
       ]
     }
 
     return Object.entries(responses).map(([status, response]) => {
-      const responseContent = Object.values(response?.content || {}).pop()
+      // TODO: support multiple possible content-types
+      const responseContent = Object.values(response.content || {}).pop()
 
       if (!responseContent) {
-        return {status, definition: null}
+        return {status, definition: null, headers: response.headers}
       }
 
-      return {status, definition: responseContent.schema}
+      return {
+        status,
+        definition: responseContent.schema,
+        headers: response.headers,
+      }
     })
   }
 }

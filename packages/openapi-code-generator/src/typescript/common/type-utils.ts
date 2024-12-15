@@ -1,3 +1,5 @@
+import {isDefined} from "../../core/utils"
+
 function wrap<T, U>(fn: (arg: T[]) => U): (...arg: T[] | T[][]) => U {
   return (...args: T[] | T[][]) => {
     if ((args as unknown[]).every((it) => Array.isArray(it))) {
@@ -46,6 +48,21 @@ export const intersect = wrap((types: MaybeString[]): string => {
 
   return `(${distinctTypes.join(" & ")})`
 })
+
+export const generic = (
+  name: string,
+  ...genericArgs: MaybeString[]
+): string => {
+  const definedArgs = genericArgs.filter((it): it is string =>
+    Boolean(it && it.length > 0),
+  )
+
+  if (!definedArgs.length) {
+    return name
+  }
+
+  return `${name}<${definedArgs.join(", ")}>`
+}
 
 export type ObjectPropertyDefinition = {
   name: string

@@ -1,4 +1,4 @@
-import {ServerVariable} from "./openapi-types"
+import {Reference, Schema, ServerVariable} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -152,12 +152,19 @@ export interface IRRequestBody {
 }
 
 export interface IRResponse {
-  // todo: https://github.com/mnahkies/openapi-code-generator/issues/45
-  headers: unknown
+  headers: IRResponseHeader[]
   description: string | undefined
   content?: {
     [contentType: string]: IRMediaType
   }
+}
+
+export interface IRResponseHeader {
+  name: string
+  schema: MaybeIRModel
+  description: string | undefined
+  required: boolean
+  deprecated: boolean
 }
 
 export interface IRMediaType {

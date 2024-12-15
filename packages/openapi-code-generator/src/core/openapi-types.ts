@@ -174,13 +174,22 @@ export interface Components {
   }
 }
 
-export interface Header {
-  schema: Schema | Reference
+export type Header = {
   description?: string
   required?: boolean
   deprecated?: boolean
-  allowEmptyValue?: boolean
-}
+} & (
+  | {
+      style?: "simple"
+      explode?: boolean // default: false
+      schema: Schema | Reference
+      content: undefined
+    }
+  | {
+      content: {[contentType: string]: MediaType}
+      schema: undefined
+    }
+)
 
 export interface Parameter {
   name: string
