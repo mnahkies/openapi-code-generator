@@ -390,7 +390,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
+  ): Promise<Res<200, t_OAuthKeys, "Cache-Control"> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
@@ -472,7 +472,17 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<429, t_Error>> {
+  ): Promise<
+    | Res<
+        204,
+        void,
+        | "Access-Control-Allow-Origin"
+        | "Access-Control-Allow-Methods"
+        | "Access-Control-Max-Age"
+        | "Vary"
+      >
+    | Res<429, t_Error>
+  > {
     const url = this.basePath + `/oauth2/v1/par`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -530,7 +540,17 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<429, t_Error>> {
+  ): Promise<
+    | Res<
+        204,
+        void,
+        | "Access-Control-Allow-Origin"
+        | "Access-Control-Allow-Methods"
+        | "Access-Control-Max-Age"
+        | "Vary"
+      >
+    | Res<429, t_Error>
+  > {
     const url = this.basePath + `/oauth2/v1/token`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -563,7 +583,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
+    | Res<200, t_UserInfo>
+    | Res<401, void, "WWW-Authenticate">
+    | Res<403, void, "WWW-Authenticate">
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/userinfo`
     const headers = this._headers({}, opts.headers)
@@ -779,7 +802,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
+  ): Promise<Res<200, t_OAuthKeys, "Cache-Control"> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/keys`
     const headers = this._headers({}, opts.headers)
 
@@ -864,7 +887,17 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<429, t_Error>> {
+  ): Promise<
+    | Res<
+        204,
+        void,
+        | "Access-Control-Allow-Origin"
+        | "Access-Control-Allow-Methods"
+        | "Access-Control-Max-Age"
+        | "Vary"
+      >
+    | Res<429, t_Error>
+  > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -926,7 +959,17 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<429, t_Error>> {
+  ): Promise<
+    | Res<
+        204,
+        void,
+        | "Access-Control-Allow-Origin"
+        | "Access-Control-Allow-Methods"
+        | "Access-Control-Max-Age"
+        | "Vary"
+      >
+    | Res<429, t_Error>
+  > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -963,7 +1006,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
+    | Res<200, t_UserInfo>
+    | Res<401, void, "WWW-Authenticate">
+    | Res<403, void, "WWW-Authenticate">
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/userinfo`

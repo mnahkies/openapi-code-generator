@@ -74,9 +74,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
         200,
         {
           statusString: string
-        }
+        },
+        "x-ms-client-request-id"
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/service-status`
     const headers = this._headers(
@@ -115,7 +116,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
             status: t_Azure_Core_Foundations_OperationState
           }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath +
@@ -146,9 +147,23 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Widget>
-    | Res<201, t_Widget>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        200,
+        t_Widget,
+        | "Repeatability-Result"
+        | "ETag"
+        | "x-ms-client-request-id"
+        | "Operation-Location"
+      >
+    | Res<
+        201,
+        t_Widget,
+        | "Repeatability-Result"
+        | "ETag"
+        | "x-ms-client-request-id"
+        | "Operation-Location"
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -187,7 +202,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_Widget> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_Widget, "ETag" | "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -230,9 +246,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           error?: t_Azure_Core_Foundations_Error
           id: string
           status: t_Azure_Core_Foundations_OperationState
-        }
+        },
+        "Operation-Location" | "Repeatability-Result" | "x-ms-client-request-id"
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -268,8 +285,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_PagedWidget>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_PagedWidget, "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets`
     const headers = this._headers(
@@ -304,8 +321,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_WidgetAnalytics>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_WidgetAnalytics, "ETag" | "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -343,9 +360,17 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_WidgetAnalytics>
-    | Res<201, t_WidgetAnalytics>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        200,
+        t_WidgetAnalytics,
+        "Repeatability-Result" | "ETag" | "x-ms-client-request-id"
+      >
+    | Res<
+        201,
+        t_WidgetAnalytics,
+        "Repeatability-Result" | "ETag" | "x-ms-client-request-id"
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -389,7 +414,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
@@ -428,9 +453,13 @@ export class ContosoWidgetManager extends AbstractFetchClient {
             updatedDateTime: string
           }
           status: t_Azure_Core_Foundations_OperationState
-        }
+        },
+        | "x-ms-request-id"
+        | "Operation-Location"
+        | "Repeatability-Result"
+        | "x-ms-client-request-id"
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}:scheduleRepairs`
     const headers = this._headers(
@@ -471,7 +500,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath +
@@ -502,7 +531,12 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        201,
+        void,
+        "Location" | "Repeatability-Result" | "ETag" | "x-ms-client-request-id"
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -537,8 +571,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_PagedWidgetPart>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_PagedWidgetPart, "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -568,8 +602,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_WidgetPart>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_WidgetPart, "ETag" | "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -608,7 +642,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<204, void, "Repeatability-Result" | "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -651,9 +686,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           error?: t_Azure_Core_Foundations_Error
           id: string
           status: t_Azure_Core_Foundations_OperationState
-        }
+        },
+        "Operation-Location" | "Repeatability-Result" | "x-ms-client-request-id"
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts:reorderParts`
     const headers = this._headers(
@@ -693,7 +729,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           status: t_Azure_Core_Foundations_OperationState
         }
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url =
       this.basePath +
@@ -724,9 +760,17 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Manufacturer>
-    | Res<201, t_Manufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<
+        200,
+        t_Manufacturer,
+        "Repeatability-Result" | "ETag" | "x-ms-client-request-id"
+      >
+    | Res<
+        201,
+        t_Manufacturer,
+        "Repeatability-Result" | "ETag" | "x-ms-client-request-id"
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -765,8 +809,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Manufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_Manufacturer, "ETag" | "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -809,9 +853,10 @@ export class ContosoWidgetManager extends AbstractFetchClient {
           error?: t_Azure_Core_Foundations_Error
           id: string
           status: t_Azure_Core_Foundations_OperationState
-        }
+        },
+        "Operation-Location" | "Repeatability-Result" | "x-ms-client-request-id"
       >
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -843,8 +888,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_PagedManufacturer>
-    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
+    | Res<200, t_PagedManufacturer, "x-ms-client-request-id">
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse, "x-ms-error-code">
   > {
     const url = this.basePath + `/manufacturers`
     const headers = this._headers(

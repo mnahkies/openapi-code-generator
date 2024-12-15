@@ -624,7 +624,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_installation[]>> {
+  ): Promise<Res<200, t_installation[], "Link">> {
     const url = this.basePath + `/app/installations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -1024,7 +1024,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           seats?: t_copilot_seat_details[]
           total_seats?: number
-        }
+        },
+        "Link"
       >
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -1178,7 +1179,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_secret_scanning_alert[]>
+    | Res<200, t_organization_secret_scanning_alert[], "Link">
     | Res<404, t_basic_error>
     | Res<
         503,
@@ -1335,7 +1336,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_base_gist[]> | Res<304, void> | Res<403, t_basic_error>
+    Res<200, t_base_gist[], "Link"> | Res<304, void> | Res<403, t_basic_error>
   > {
     const url = this.basePath + `/gists`
     const headers = this._headers({}, opts.headers)
@@ -1369,7 +1370,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_gist_simple>
+    | Res<201, t_gist_simple, "Location">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1394,7 +1395,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_base_gist[]>
+    | Res<200, t_base_gist[], "Link">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
@@ -1423,7 +1424,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_base_gist[]>
+    | Res<200, t_base_gist[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -1535,7 +1536,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_gist_comment[]>
+    | Res<200, t_gist_comment[], "Link">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1561,7 +1562,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_gist_comment>
+    | Res<201, t_gist_comment, "Location">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1662,7 +1663,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_gist_commit[]>
+    | Res<200, t_gist_commit[], "Link">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1687,7 +1688,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_gist_simple[]>
+    | Res<200, t_gist_simple[], "Link">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1710,7 +1711,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_base_gist>
+    | Res<201, t_base_gist, "Location">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -1832,7 +1833,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           repositories: t_repository[]
           repository_selection?: string
           total_count: number
-        }
+        },
+        "Link"
       >
     | Res<304, void>
     | Res<401, t_basic_error>
@@ -1883,7 +1885,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_issue[]>
+    | Res<200, t_issue[], "Link">
     | Res<304, void>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -1964,7 +1966,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, string> | Res<304, void>> {
+  ): Promise<
+    | Res<
+        200,
+        string,
+        "Content-Type" | "Content-Length" | "X-CommonMarker-Version"
+      >
+    | Res<304, void>
+  > {
     const url = this.basePath + `/markdown`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -1981,7 +1990,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, string> | Res<304, void>> {
+  ): Promise<Res<200, string, "X-CommonMarker-Version"> | Res<304, void>> {
     const url = this.basePath + `/markdown/raw`
     const headers = this._headers(
       { "Content-Type": "text/plain" },
@@ -2018,7 +2027,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_marketplace_listing_plan[]>
+    | Res<200, t_marketplace_listing_plan[], "Link">
     | Res<401, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -2044,7 +2053,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_marketplace_purchase[]>
+    | Res<200, t_marketplace_purchase[], "Link">
     | Res<401, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -2089,7 +2098,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_marketplace_listing_plan[]> | Res<401, t_basic_error>> {
+  ): Promise<
+    Res<200, t_marketplace_listing_plan[], "Link"> | Res<401, t_basic_error>
+  > {
     const url = this.basePath + `/marketplace_listing/stubbed/plans`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -2111,7 +2122,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_marketplace_purchase[]> | Res<401, t_basic_error>> {
+  ): Promise<
+    Res<200, t_marketplace_purchase[], "Link"> | Res<401, t_basic_error>
+  > {
     const url =
       this.basePath +
       `/marketplace_listing/stubbed/plans/${p["planId"]}/accounts`
@@ -2179,7 +2192,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_thread[]>
+    | Res<200, t_thread[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -2367,7 +2380,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_simple[]> | Res<304, void>> {
+  ): Promise<Res<200, t_organization_simple[], "Link"> | Res<304, void>> {
     const url = this.basePath + `/organizations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
@@ -2518,7 +2531,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_actions_cache_usage_org_enterprise>> {
+  ): Promise<Res<200, t_actions_cache_usage_org_enterprise, "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/actions/cache/usage`
     const headers = this._headers({}, opts.headers)
 
@@ -2539,7 +2552,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         repository_cache_usages: t_actions_cache_usage_by_repository[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -2994,7 +3008,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         runners: t_runner[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -3082,7 +3097,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         runners: t_runner[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/runners`
@@ -3361,7 +3377,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_organization_actions_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/secrets`
@@ -3545,7 +3562,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         variables: t_organization_actions_variable[]
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/actions/variables`
@@ -3854,7 +3872,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_code_scanning_organization_alert_items[]>
+    | Res<200, t_code_scanning_organization_alert_items[], "Link">
     | Res<404, t_basic_error>
     | Res<
         503,
@@ -4362,7 +4380,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_codespaces_org_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/codespaces/secrets`
@@ -4397,7 +4416,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_codespaces_org_secret>> {
+  ): Promise<Res<200, t_codespaces_org_secret, "Link">> {
     const url =
       this.basePath + `/orgs/${p["org"]}/codespaces/secrets/${p["secretName"]}`
     const headers = this._headers({}, opts.headers)
@@ -4583,7 +4602,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           seats?: t_copilot_seat_details[]
           total_seats?: number
-        }
+        },
+        "Link"
       >
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -4871,7 +4891,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_organization_dependabot_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/dependabot/secrets`
@@ -5085,7 +5106,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_invitation[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_organization_invitation[], "Link"> | Res<404, t_basic_error>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/failed_invitations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -5105,7 +5128,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_org_hook[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_org_hook[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/hooks`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -5137,7 +5160,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_org_hook>
+    | Res<201, t_org_hook, "Location">
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -5669,7 +5692,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         installations: t_installation[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/orgs/${p["org"]}/installations`
@@ -5744,7 +5768,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_invitation[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_organization_invitation[], "Link"> | Res<404, t_basic_error>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/invitations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -5814,7 +5840,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_team[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/invitations/${p["invitationId"]}/teams`
     const headers = this._headers({}, opts.headers)
@@ -5847,7 +5873,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_issue[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_issue[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/issues`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -5878,7 +5904,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]> | Res<422, t_validation_error>> {
+  ): Promise<Res<200, t_simple_user[], "Link"> | Res<422, t_validation_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/members`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -5902,7 +5928,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<204, void> | Res<302, void> | Res<404, void>> {
+  ): Promise<Res<204, void> | Res<302, void, "Location"> | Res<404, void>> {
     const url = this.basePath + `/orgs/${p["org"]}/members/${p["username"]}`
     const headers = this._headers({}, opts.headers)
 
@@ -6101,7 +6127,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_migration[]>> {
+  ): Promise<Res<200, t_migration[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/migrations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -6226,7 +6252,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_minimal_repository[], "Link"> | Res<404, t_basic_error>
+  > {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/migrations/${p["migrationId"]}/repositories`
@@ -6392,7 +6420,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_team_role_assignment[]> | Res<404, void> | Res<422, void>
+    Res<200, t_team_role_assignment[], "Link"> | Res<404, void> | Res<422, void>
   > {
     const url =
       this.basePath +
@@ -6417,7 +6445,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_user_role_assignment[]> | Res<404, void> | Res<422, void>
+    Res<200, t_user_role_assignment[], "Link"> | Res<404, void> | Res<422, void>
   > {
     const url =
       this.basePath +
@@ -6441,7 +6469,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/outside_collaborators`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -6769,7 +6797,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_programmatic_access_grant_request[]>
+    | Res<200, t_organization_programmatic_access_grant_request[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -6871,7 +6899,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_minimal_repository[]>
+    | Res<200, t_minimal_repository[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<500, t_basic_error>
@@ -6905,7 +6933,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_programmatic_access_grant[]>
+    | Res<200, t_organization_programmatic_access_grant[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -7002,7 +7030,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_minimal_repository[]>
+    | Res<200, t_minimal_repository[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<500, t_basic_error>
@@ -7029,7 +7057,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_project[]> | Res<422, t_validation_error_simple>> {
+  ): Promise<
+    Res<200, t_project[], "Link"> | Res<422, t_validation_error_simple>
+  > {
     const url = this.basePath + `/orgs/${p["org"]}/projects`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -7197,7 +7227,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_org_repo_custom_property_values[]>
+    | Res<200, t_org_repo_custom_property_values[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -7254,7 +7284,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/public_members`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -7322,7 +7352,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]>> {
+  ): Promise<Res<200, t_minimal_repository[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/repos`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -7376,7 +7406,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_full_repository>
+    | Res<201, t_full_repository, "Location">
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -7584,7 +7614,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_secret_scanning_alert[]>
+    | Res<200, t_organization_secret_scanning_alert[], "Link">
     | Res<404, t_basic_error>
     | Res<
         503,
@@ -7817,7 +7847,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team[]> | Res<403, t_basic_error>> {
+  ): Promise<Res<200, t_team[], "Link"> | Res<403, t_basic_error>> {
     const url = this.basePath + `/orgs/${p["org"]}/teams`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -7939,7 +7969,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion[]>> {
+  ): Promise<Res<200, t_team_discussion[], "Link">> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions`
     const headers = this._headers({}, opts.headers)
@@ -8055,7 +8085,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment[]>> {
+  ): Promise<Res<200, t_team_discussion_comment[], "Link">> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments`
@@ -8182,7 +8212,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
+  ): Promise<Res<200, t_reaction[], "Link">> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
@@ -8271,7 +8301,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
+  ): Promise<Res<200, t_reaction[], "Link">> {
     const url =
       this.basePath +
       `/orgs/${p["org"]}/teams/${p["teamSlug"]}/discussions/${p["discussionNumber"]}/reactions`
@@ -8348,7 +8378,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_invitation[]>> {
+  ): Promise<Res<200, t_organization_invitation[], "Link">> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/invitations`
     const headers = this._headers({}, opts.headers)
@@ -8371,7 +8401,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/members`
     const headers = this._headers({}, opts.headers)
@@ -8455,7 +8485,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project[]>> {
+  ): Promise<Res<200, t_team_project[], "Link">> {
     const url =
       this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/projects`
     const headers = this._headers({}, opts.headers)
@@ -8544,7 +8574,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]>> {
+  ): Promise<Res<200, t_minimal_repository[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/repos`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -8626,7 +8656,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team[]>> {
+  ): Promise<Res<200, t_team[], "Link">> {
     const url = this.basePath + `/orgs/${p["org"]}/teams/${p["teamSlug"]}/teams`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -8873,7 +8903,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_project_card[]>
+    | Res<200, t_project_card[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -9060,7 +9090,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_simple_user[]>
+    | Res<200, t_simple_user[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -9167,7 +9197,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_project_column[]>
+    | Res<200, t_project_column[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -9213,7 +9243,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_rate_limit_overview> | Res<304, void> | Res<404, t_basic_error>
+    | Res<
+        200,
+        t_rate_limit_overview,
+        "X-RateLimit-Limit" | "X-RateLimit-Remaining" | "X-RateLimit-Reset"
+      >
+    | Res<304, void>
+    | Res<404, t_basic_error>
   > {
     const url = this.basePath + `/rate_limit`
     const headers = this._headers({}, opts.headers)
@@ -9352,7 +9388,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         artifacts: t_artifact[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -9414,7 +9451,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void> | Res<410, t_basic_error>> {
+  ): Promise<Res<302, void, "Location"> | Res<410, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/artifacts/${p["artifactId"]}/${p["archiveFormat"]}`
@@ -9451,7 +9488,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_actions_cache_list>> {
+  ): Promise<Res<200, t_actions_cache_list, "Link">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/caches`
     const headers = this._headers({}, opts.headers)
@@ -9535,7 +9572,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void>> {
+  ): Promise<Res<302, void, "Location">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/jobs/${p["jobId"]}/logs`
@@ -9632,7 +9669,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_actions_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -9663,7 +9701,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         variables: t_actions_variable[]
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -9844,7 +9883,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         runners: t_runner[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10166,7 +10206,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         workflow_runs: t_workflow_run[]
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/actions/runs`
@@ -10286,7 +10327,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         artifacts: t_artifact[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10349,7 +10391,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           jobs: t_job[]
           total_count: number
-        }
+        },
+        "Link"
       >
     | Res<404, t_basic_error>
   > {
@@ -10375,7 +10418,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void>> {
+  ): Promise<Res<302, void, "Location">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/attempts/${p["attemptNumber"]}/logs`
@@ -10459,7 +10502,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         jobs: t_job[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10487,7 +10531,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void>> {
+  ): Promise<Res<302, void, "Location">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/actions/runs/${p["runId"]}/logs`
@@ -10638,7 +10682,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_actions_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10743,7 +10788,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         variables: t_actions_variable[]
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10859,7 +10905,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         workflows: t_workflow[]
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -10990,7 +11037,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         workflow_runs: t_workflow_run[]
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -11055,7 +11103,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_activity[]> | Res<422, t_validation_error_simple>> {
+  ): Promise<
+    Res<200, t_activity[], "Link"> | Res<422, t_validation_error_simple>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/activity`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -11085,7 +11135,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_simple_user[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/assignees`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -11225,7 +11275,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<201, t_autolink> | Res<422, t_validation_error>> {
+  ): Promise<Res<201, t_autolink, "Location"> | Res<422, t_validation_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/autolinks`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -11328,7 +11378,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_short_branch[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_short_branch[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/branches`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -12303,7 +12353,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_check_annotation[]>> {
+  ): Promise<Res<200, t_check_annotation[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/check-runs/${p["checkRunId"]}/annotations`
@@ -12426,7 +12476,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         check_runs: t_check_run[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -13368,7 +13419,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_repo_codespaces_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -13469,7 +13521,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_collaborator[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_collaborator[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/collaborators`
     const headers = this._headers({}, opts.headers)
@@ -13580,7 +13632,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_commit_comment[]>> {
+  ): Promise<Res<200, t_commit_comment[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/comments`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -13673,7 +13725,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_reaction[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/comments/${p["commentId"]}/reactions`
@@ -13759,7 +13811,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_commit[]>
+    | Res<200, t_commit[], "Link">
     | Res<400, t_scim_error>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
@@ -13816,7 +13868,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_commit_comment[]>> {
+  ): Promise<Res<200, t_commit_comment[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/comments`
@@ -13845,7 +13897,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_commit_comment>
+    | Res<201, t_commit_comment, "Location">
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -13871,7 +13923,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_pull_request_simple[]> | Res<409, t_basic_error>> {
+  ): Promise<
+    Res<200, t_pull_request_simple[], "Link"> | Res<409, t_basic_error>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["commitSha"]}/pulls`
@@ -13942,7 +13996,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         check_runs: t_check_run[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -13983,7 +14038,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         check_suites: t_check_suite[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -14038,7 +14094,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_status[]> | Res<301, t_basic_error>> {
+  ): Promise<Res<200, t_status[], "Link"> | Res<301, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/commits/${p["ref"]}/statuses`
@@ -14240,7 +14296,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_contributor[]>
+    | Res<200, t_contributor[], "Link">
     | Res<204, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -14395,7 +14451,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_dependabot_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -14495,7 +14552,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_dependency_graph_diff>
+    | Res<200, t_dependency_graph_diff, "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -14520,7 +14577,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_dependency_graph_spdx_sbom>
+    | Res<200, t_dependency_graph_spdx_sbom, "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
   > {
@@ -14575,7 +14632,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_deployment[]>> {
+  ): Promise<Res<200, t_deployment[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/deployments`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -14685,7 +14742,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_deployment_status[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_deployment_status[], "Link"> | Res<404, t_basic_error>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
@@ -14723,7 +14782,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<201, t_deployment_status> | Res<422, t_validation_error>> {
+  ): Promise<
+    Res<201, t_deployment_status, "Location"> | Res<422, t_validation_error>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/deployments/${p["deploymentId"]}/statuses`
@@ -15123,7 +15184,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_actions_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -15234,7 +15296,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         total_count: number
         variables: t_actions_variable[]
-      }
+      },
+      "Link"
     >
   > {
     const url =
@@ -15372,7 +15435,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]> | Res<400, t_scim_error>> {
+  ): Promise<
+    Res<200, t_minimal_repository[], "Link"> | Res<400, t_scim_error>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/forks`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -15429,7 +15494,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_short_blob>
+    | Res<201, t_short_blob, "Location">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
@@ -15492,7 +15557,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_git_commit>
+    | Res<201, t_git_commit, "Location">
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
     | Res<422, t_validation_error>
@@ -15534,7 +15599,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_git_ref[]> | Res<409, t_basic_error>> {
+  ): Promise<Res<200, t_git_ref[], "Link"> | Res<409, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/git/matching-refs/${p["ref"]}`
@@ -15573,7 +15638,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, t_git_ref> | Res<409, t_basic_error> | Res<422, t_validation_error>
+    | Res<201, t_git_ref, "Location">
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs`
     const headers = this._headers(
@@ -15652,7 +15719,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, t_git_tag> | Res<409, t_basic_error> | Res<422, t_validation_error>
+    | Res<201, t_git_tag, "Location">
+    | Res<409, t_basic_error>
+    | Res<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/tags`
     const headers = this._headers(
@@ -15701,7 +15770,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_git_tree>
+    | Res<201, t_git_tree, "Location">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<409, t_basic_error>
@@ -15754,7 +15823,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_hook[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_hook[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/hooks`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -15785,7 +15854,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_hook>
+    | Res<201, t_hook, "Location">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -16055,7 +16124,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_import>
+    | Res<201, t_import, "Location">
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
     | Res<503, t_basic_error>
@@ -16288,7 +16357,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_repository_invitation[]>> {
+  ): Promise<Res<200, t_repository_invitation[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/invitations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -16364,7 +16433,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_issue[]>
+    | Res<200, t_issue[], "Link">
     | Res<301, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -16416,7 +16485,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_issue>
+    | Res<201, t_issue, "Location">
     | Res<400, t_scim_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -16454,7 +16523,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_issue_comment[]>
+    | Res<200, t_issue_comment[], "Link">
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -16557,7 +16626,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_reaction[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/comments/${p["commentId"]}/reactions`
@@ -16636,7 +16705,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_issue_event[]> | Res<422, t_validation_error>> {
+  ): Promise<Res<200, t_issue_event[], "Link"> | Res<422, t_validation_error>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/issues/events`
     const headers = this._headers({}, opts.headers)
@@ -16834,7 +16903,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_issue_comment[]>
+    | Res<200, t_issue_comment[], "Link">
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
   > {
@@ -16867,7 +16936,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_issue_comment>
+    | Res<201, t_issue_comment, "Location">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
@@ -16895,7 +16964,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_issue_event_for_issue[]> | Res<410, t_basic_error>> {
+  ): Promise<
+    Res<200, t_issue_event_for_issue[], "Link"> | Res<410, t_basic_error>
+  > {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/issues/${p["issueNumber"]}/events`
@@ -16920,7 +16991,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_label[]>
+    | Res<200, t_label[], "Link">
     | Res<301, t_basic_error>
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
@@ -17134,7 +17205,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_reaction[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
+    | Res<200, t_reaction[], "Link">
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -17217,7 +17290,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_issue> | Res<400, t_scim_error> | Res<404, t_basic_error>
+    | Res<200, t_issue, "Location">
+    | Res<400, t_scim_error>
+    | Res<404, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -17246,7 +17321,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_issue[]> | Res<404, t_basic_error> | Res<410, t_basic_error>
+    | Res<200, t_issue[], "Link">
+    | Res<404, t_basic_error>
+    | Res<410, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -17274,7 +17351,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_issue>
+    | Res<201, t_issue, "Location">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
@@ -17346,7 +17423,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_timeline_issue_events[]>
+    | Res<200, t_timeline_issue_events[], "Link">
     | Res<404, t_basic_error>
     | Res<410, t_basic_error>
   > {
@@ -17372,7 +17449,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_deploy_key[]>> {
+  ): Promise<Res<200, t_deploy_key[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -17396,7 +17473,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<201, t_deploy_key> | Res<422, t_validation_error>> {
+  ): Promise<
+    Res<201, t_deploy_key, "Location"> | Res<422, t_validation_error>
+  > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/keys`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -17448,7 +17527,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_label[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_label[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -17473,7 +17552,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, t_label> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    | Res<201, t_label, "Location">
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/labels`
     const headers = this._headers(
@@ -17644,7 +17725,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_milestone[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_milestone[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/milestones`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -17676,7 +17757,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_milestone>
+    | Res<201, t_milestone, "Location">
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -17765,7 +17846,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_label[]>> {
+  ): Promise<Res<200, t_label[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/milestones/${p["milestoneNumber"]}/labels`
@@ -17792,7 +17873,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_thread[]>> {
+  ): Promise<Res<200, t_thread[], "Link">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/notifications`
     const headers = this._headers({}, opts.headers)
@@ -17948,7 +18029,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_page_build[]>> {
+  ): Promise<Res<200, t_page_build[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pages/builds`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -18158,7 +18239,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_project[]>
+    | Res<200, t_project[], "Link">
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -18274,7 +18355,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_pull_request_simple[]>
+    | Res<200, t_pull_request_simple[], "Link">
     | Res<304, void>
     | Res<422, t_validation_error>
   > {
@@ -18315,7 +18396,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_pull_request>
+    | Res<201, t_pull_request, "Location">
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -18341,7 +18422,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_pull_request_review_comment[]>> {
+  ): Promise<Res<200, t_pull_request_review_comment[], "Link">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/pulls/comments`
     const headers = this._headers({}, opts.headers)
@@ -18443,7 +18524,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_reaction[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/comments/${p["commentId"]}/reactions`
@@ -18640,7 +18721,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_pull_request_review_comment[]>> {
+  ): Promise<Res<200, t_pull_request_review_comment[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/comments`
@@ -18681,7 +18762,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_pull_request_review_comment>
+    | Res<201, t_pull_request_review_comment, "Location">
     | Res<403, t_basic_error>
     | Res<422, t_validation_error>
   > {
@@ -18710,7 +18791,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, t_pull_request_review_comment> | Res<404, t_basic_error>
+    | Res<201, t_pull_request_review_comment, "Location">
+    | Res<404, t_basic_error>
   > {
     const url =
       this.basePath +
@@ -18734,7 +18816,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_commit[]>> {
+  ): Promise<Res<200, t_commit[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/commits`
@@ -18759,7 +18841,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_diff_entry[]>
+    | Res<200, t_diff_entry[], "Link">
     | Res<422, t_validation_error>
     | Res<500, t_basic_error>
     | Res<
@@ -18855,7 +18937,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_pull_request_review_request>> {
+  ): Promise<Res<200, t_pull_request_review_request, "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/requested_reviewers`
@@ -18930,7 +19012,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_pull_request_review[]>> {
+  ): Promise<Res<200, t_pull_request_review[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews`
@@ -19061,7 +19143,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_review_comment[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_review_comment[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/pulls/${p["pullNumber"]}/reviews/${p["reviewId"]}/comments`
@@ -19230,7 +19312,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_release[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_release[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -19261,7 +19343,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<201, t_release> | Res<404, t_basic_error> | Res<422, t_validation_error>
+    | Res<201, t_release, "Location">
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/releases`
     const headers = this._headers(
@@ -19476,7 +19560,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_release_asset[]>> {
+  ): Promise<Res<200, t_release_asset[], "Link">> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/assets`
@@ -19535,7 +19619,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_reaction[], "Link"> | Res<404, t_basic_error>> {
     const url =
       this.basePath +
       `/repos/${p["owner"]}/${p["repo"]}/releases/${p["releaseId"]}/reactions`
@@ -19955,7 +20039,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_secret_scanning_location[]>
+    | Res<200, t_secret_scanning_location[], "Link">
     | Res<404, void>
     | Res<
         503,
@@ -20244,7 +20328,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    Res<200, t_simple_user[] | t_stargazer[]> | Res<422, t_validation_error>
+    | Res<200, t_simple_user[] | t_stargazer[], "Link">
+    | Res<422, t_validation_error>
   > {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/stargazers`
     const headers = this._headers({}, opts.headers)
@@ -20374,7 +20459,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<201, t_status>> {
+  ): Promise<Res<201, t_status, "Location">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/statuses/${p["sha"]}`
     const headers = this._headers(
@@ -20395,7 +20480,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/subscribers`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -20470,7 +20555,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_tag[]>> {
+  ): Promise<Res<200, t_tag[], "Link">> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tags`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -20554,7 +20639,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void>> {
+  ): Promise<Res<302, void, "Location">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/tarball/${p["ref"]}`
     const headers = this._headers({}, opts.headers)
@@ -20571,7 +20656,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_team[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/repos/${p["owner"]}/${p["repo"]}/teams`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -20778,7 +20863,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<302, void>> {
+  ): Promise<Res<302, void, "Location">> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/zipball/${p["ref"]}`
     const headers = this._headers({}, opts.headers)
@@ -20800,7 +20885,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<201, t_full_repository>> {
+  ): Promise<Res<201, t_full_repository, "Location">> {
     const url =
       this.basePath +
       `/repos/${p["templateOwner"]}/${p["templateRepo"]}/generate`
@@ -20820,7 +20905,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_minimal_repository[]>
+    | Res<200, t_minimal_repository[], "Link">
     | Res<304, void>
     | Res<422, t_validation_error>
   > {
@@ -21225,7 +21310,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion[]>> {
+  ): Promise<Res<200, t_team_discussion[], "Link">> {
     const url = this.basePath + `/teams/${p["teamId"]}/discussions`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -21333,7 +21418,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_discussion_comment[]>> {
+  ): Promise<Res<200, t_team_discussion_comment[], "Link">> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments`
@@ -21455,7 +21540,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
+  ): Promise<Res<200, t_reaction[], "Link">> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/comments/${p["commentNumber"]}/reactions`
@@ -21523,7 +21608,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_reaction[]>> {
+  ): Promise<Res<200, t_reaction[], "Link">> {
     const url =
       this.basePath +
       `/teams/${p["teamId"]}/discussions/${p["discussionNumber"]}/reactions`
@@ -21580,7 +21665,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_invitation[]>> {
+  ): Promise<Res<200, t_organization_invitation[], "Link">> {
     const url = this.basePath + `/teams/${p["teamId"]}/invitations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21601,7 +21686,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_simple_user[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/teams/${p["teamId"]}/members`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -21726,7 +21811,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_team_project[]> | Res<404, t_basic_error>> {
+  ): Promise<Res<200, t_team_project[], "Link"> | Res<404, t_basic_error>> {
     const url = this.basePath + `/teams/${p["teamId"]}/projects`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21811,7 +21896,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_minimal_repository[], "Link"> | Res<404, t_basic_error>
+  > {
     const url = this.basePath + `/teams/${p["teamId"]}/repos`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -21889,7 +21976,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_team[]>
+    | Res<200, t_team[], "Link">
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<422, t_validation_error>
@@ -22147,7 +22234,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       {
         secrets: t_codespaces_secret[]
         total_count: number
-      }
+      },
+      "Link"
     >
   > {
     const url = this.basePath + `/user/codespaces/secrets`
@@ -22577,7 +22665,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_email[]>
+    | Res<200, t_email[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -22664,7 +22752,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_simple_user[]>
+    | Res<200, t_simple_user[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -22688,7 +22776,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_simple_user[]>
+    | Res<200, t_simple_user[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -22770,7 +22858,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_gpg_key[]>
+    | Res<200, t_gpg_key[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -22866,7 +22954,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           installations: t_installation[]
           total_count: number
-        }
+        },
+        "Link"
       >
     | Res<304, void>
     | Res<401, t_basic_error>
@@ -22898,7 +22987,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           repositories: t_repository[]
           repository_selection?: string
           total_count: number
-        }
+        },
+        "Link"
       >
     | Res<304, void>
     | Res<403, t_basic_error>
@@ -23019,7 +23109,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_issue[]> | Res<304, void> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_issue[], "Link"> | Res<304, void> | Res<404, t_basic_error>
+  > {
     const url = this.basePath + `/user/issues`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -23048,7 +23140,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_key[]>
+    | Res<200, t_key[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23138,7 +23230,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_user_marketplace_purchase[]>
+    | Res<200, t_user_marketplace_purchase[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<404, t_basic_error>
@@ -23162,7 +23254,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_user_marketplace_purchase[]>
+    | Res<200, t_user_marketplace_purchase[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
   > {
@@ -23186,7 +23278,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_org_membership[]>
+    | Res<200, t_org_membership[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23261,7 +23353,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_migration[]>
+    | Res<200, t_migration[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23402,7 +23494,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]> | Res<404, t_basic_error>> {
+  ): Promise<
+    Res<200, t_minimal_repository[], "Link"> | Res<404, t_basic_error>
+  > {
     const url =
       this.basePath + `/user/migrations/${p["migrationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
@@ -23423,7 +23517,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_organization_simple[]>
+    | Res<200, t_organization_simple[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23703,7 +23797,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_email[]>
+    | Res<200, t_email[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23793,7 +23887,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<201, t_full_repository>
+    | Res<201, t_full_repository, "Location">
     | Res<304, void>
     | Res<400, t_scim_error>
     | Res<401, t_basic_error>
@@ -23819,7 +23913,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_repository_invitation[]>
+    | Res<200, t_repository_invitation[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23884,7 +23978,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_social_account[]>
+    | Res<200, t_social_account[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -23965,7 +24059,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_ssh_signing_key[]>
+    | Res<200, t_ssh_signing_key[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -24057,7 +24151,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_starred_repository[]>
+    | Res<200, t_starred_repository[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -24146,7 +24240,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_minimal_repository[]>
+    | Res<200, t_minimal_repository[], "Link">
     | Res<304, void>
     | Res<401, t_basic_error>
     | Res<403, t_basic_error>
@@ -24170,7 +24264,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_team_full[]>
+    | Res<200, t_team_full[], "Link">
     | Res<304, void>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
@@ -24208,7 +24302,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]> | Res<304, void>> {
+  ): Promise<Res<200, t_simple_user[], "Link"> | Res<304, void>> {
     const url = this.basePath + `/users`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ since: p["since"], per_page: p["perPage"] })
@@ -24361,7 +24455,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/followers`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24381,7 +24475,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_simple_user[]>> {
+  ): Promise<Res<200, t_simple_user[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/following`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24417,7 +24511,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_base_gist[]> | Res<422, t_validation_error>> {
+  ): Promise<Res<200, t_base_gist[], "Link"> | Res<422, t_validation_error>> {
     const url = this.basePath + `/users/${p["username"]}/gists`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -24441,7 +24535,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_gpg_key[]>> {
+  ): Promise<Res<200, t_gpg_key[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/gpg_keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24501,7 +24595,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_key_simple[]>> {
+  ): Promise<Res<200, t_key_simple[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24521,7 +24615,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_organization_simple[]>> {
+  ): Promise<Res<200, t_organization_simple[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/orgs`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24775,7 +24869,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_project[]> | Res<422, t_validation_error>> {
+  ): Promise<Res<200, t_project[], "Link"> | Res<422, t_validation_error>> {
     const url = this.basePath + `/users/${p["username"]}/projects`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -24842,7 +24936,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]>> {
+  ): Promise<Res<200, t_minimal_repository[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/repos`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -24910,7 +25004,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_social_account[]>> {
+  ): Promise<Res<200, t_social_account[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/social_accounts`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24930,7 +25024,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_ssh_signing_key[]>> {
+  ): Promise<Res<200, t_ssh_signing_key[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/ssh_signing_keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
@@ -24952,7 +25046,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_starred_repository[] | t_repository[]>> {
+  ): Promise<Res<200, t_starred_repository[] | t_repository[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/starred`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -24977,7 +25071,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<Res<200, t_minimal_repository[]>> {
+  ): Promise<Res<200, t_minimal_repository[], "Link">> {
     const url = this.basePath + `/users/${p["username"]}/subscriptions`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ per_page: p["perPage"], page: p["page"] })
