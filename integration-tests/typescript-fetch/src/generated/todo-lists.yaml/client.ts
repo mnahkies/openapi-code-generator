@@ -222,9 +222,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-  > {
+  ): Promise<Res<204 | StatusCode, void> | Res<StatusCode4xx, t_Error>> {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
 

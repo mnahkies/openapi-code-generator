@@ -146,8 +146,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Widget>
-    | Res<201, t_Widget>
+    | Res<200 | 201, t_Widget>
     | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
@@ -343,8 +342,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_WidgetAnalytics>
-    | Res<201, t_WidgetAnalytics>
+    | Res<200 | 201, t_WidgetAnalytics>
     | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
@@ -724,8 +722,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Manufacturer>
-    | Res<201, t_Manufacturer>
+    | Res<200 | 201, t_Manufacturer>
     | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`

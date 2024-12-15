@@ -111,8 +111,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_Employee>
-    | Res<201, t_Employee>
+    | Res<200 | 201, t_Employee>
     | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
@@ -173,8 +172,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<202, void>
-    | Res<204, void>
+    | Res<202 | 204, void>
     | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
@@ -200,8 +198,7 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<204, void>
-    | Res<404, void>
+    | Res<204 | 404, void>
     | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
