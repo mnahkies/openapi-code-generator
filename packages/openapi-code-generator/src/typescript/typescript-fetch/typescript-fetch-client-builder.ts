@@ -45,7 +45,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
     const headers = builder.headers()
 
     const returnType = builder
-      .returnType()
+      .returnType({mergeIdenticalResponseTypes: true})
       .map(({statusType, responseType}) => {
         return `Res<${statusType},${responseType}>`
       })

@@ -7,6 +7,7 @@ import type {
 import {camelCase, isDefined} from "../../core/utils"
 import type {SchemaBuilder} from "./schema-builders/schema-builder"
 import type {TypeBuilder} from "./type-builder"
+import {union} from "./type-utils"
 import {
   type MethodParameterDefinition,
   combineParams,
@@ -151,14 +152,16 @@ export class ClientOperationBuilder {
     )
   }
 
-  returnType(): {
+  returnType({
+    mergeIdenticalResponseTypes = false,
+  }: {mergeIdenticalResponseTypes?: boolean} = {}): {
     statusType: string
     responseType: string
     isDefault: boolean
   }[] {
     const models = this.models
 
-    return this.responsesToArray().map((it) => {
+    const responses = this.responsesToArray().map((it) => {
       return {
         statusType: statusStringToType(it.status),
         responseType: it.definition
@@ -167,6 +170,33 @@ export class ClientOperationBuilder {
         isDefault: it.status === "default",
       }
     })
+
+    if (mergeIdenticalResponseTypes) {
+      const reduced = responses.reduce(
+        (acc, it) => {
+          const responseType = it.responseType
+          acc[responseType] = acc[responseType] ?? {
+            statusTypes: [],
+            isDefault: false,
+          }
+          acc[responseType].statusTypes.push(it.statusType)
+          acc[responseType].isDefault = Boolean(
+            acc[responseType].isDefault || it.isDefault,
+          )
+
+          return acc
+        },
+        {} as Record<string, {statusTypes: string[]; isDefault: boolean}>,
+      )
+
+      return Object.entries(reduced).map(([responseType, it]) => ({
+        statusType: union(it.statusTypes),
+        responseType,
+        isDefault: it.isDefault,
+      }))
+    }
+
+    return responses
   }
 
   paramName(name: string): string {
