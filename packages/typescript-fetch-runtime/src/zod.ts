@@ -1,5 +1,5 @@
 import type {z} from "zod"
-import type {Res, StatusCode, TypedFetchResponse} from "./main"
+import type {Res, StatusCode} from "./main"
 
 export function responseValidationFactory(
   possibleResponses: [string, z.ZodTypeAny][],
@@ -10,9 +10,9 @@ export function responseValidationFactory(
 
   // TODO: avoid any
   return async (
-    whenRes: TypedFetchResponse<Res<StatusCode, unknown>>,
+    whenRes: Promise<Res<StatusCode, unknown>>,
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  ): Promise<TypedFetchResponse<any>> => {
+  ): Promise<any> => {
     const res = await whenRes
 
     return {
