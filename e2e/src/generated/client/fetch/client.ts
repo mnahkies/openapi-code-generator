@@ -12,7 +12,6 @@ import {
   AbstractFetchClientConfig,
   Res,
   Server,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class E2ETestClientServers {
@@ -62,9 +61,7 @@ export class E2ETestClient extends AbstractFetchClient {
   async getHeadersUndeclared(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_getHeadersUndeclaredJson200Response>>
-  > {
+  ): Promise<Res<200, t_getHeadersUndeclaredJson200Response>> {
     const url = this.basePath + `/headers/undeclared`
     const headers = this._headers({}, opts.headers)
 
@@ -79,7 +76,7 @@ export class E2ETestClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_getHeadersRequestJson200Response>>> {
+  ): Promise<Res<200, t_getHeadersRequestJson200Response>> {
     const url = this.basePath + `/headers/request`
     const headers = this._headers(
       {
@@ -101,7 +98,7 @@ export class E2ETestClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_RandomNumber>>> {
+  ): Promise<Res<200, t_RandomNumber>> {
     const url = this.basePath + `/validation/numbers/random-number`
     const headers = this._headers({}, opts.headers)
     const query = this._query({

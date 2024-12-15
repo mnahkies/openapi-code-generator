@@ -17,7 +17,6 @@ import {
   StatusCode,
   StatusCode4xx,
   StatusCode5xx,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class TodoListsExampleApiServersOperations {
@@ -166,7 +165,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
+  ): Promise<Res<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -189,9 +188,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
@@ -207,9 +204,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
@@ -228,9 +223,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
@@ -245,24 +238,22 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            completedAt?: string
-            content: string
-            createdAt: string
-            id: string
-          }
-        >
-      | Res<
-          StatusCode5xx,
-          {
-            code: string
-            message: string
-          }
-        >
-    >
+    | Res<
+        200,
+        {
+          completedAt?: string
+          content: string
+          createdAt: string
+          id: string
+        }
+      >
+    | Res<
+        StatusCode5xx,
+        {
+          code: string
+          message: string
+        }
+      >
   > {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers({}, opts.headers)
@@ -281,7 +272,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
+  ): Promise<Res<204, void>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -300,7 +291,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
       .build(),
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_UnknownObject[]>>> {
+  ): Promise<Res<200, t_UnknownObject[]>> {
     const url = basePath + `/attachments`
     const headers = this._headers({}, opts.headers)
 
@@ -320,7 +311,7 @@ export class TodoListsExampleApi extends AbstractFetchClient {
       .build(),
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<202, void>>> {
+  ): Promise<Res<202, void>> {
     const url = basePath + `/attachments`
     const headers = this._headers(
       { "Content-Type": "multipart/form-data" },

@@ -168,7 +168,6 @@ import {
   Res,
   Server,
   StatusCode,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class StripeApiServersOperations {
@@ -245,9 +244,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -280,9 +277,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account_links`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -379,9 +374,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/account_sessions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -411,18 +404,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts`
     const headers = this._headers(
@@ -931,9 +922,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -951,9 +940,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -976,9 +963,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1453,9 +1438,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1497,9 +1480,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/bank_accounts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1518,11 +1499,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
@@ -1547,9 +1524,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
@@ -1599,9 +1574,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
@@ -1622,18 +1595,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_capability[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_capability[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/capabilities`
     const headers = this._headers(
@@ -1659,9 +1630,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_capability> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
@@ -1690,9 +1659,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_capability> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_capability> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/capabilities/${p["capability"]}`
@@ -1718,18 +1685,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: (t_bank_account | t_card)[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: (t_bank_account | t_card)[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers(
@@ -1783,9 +1748,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/external_accounts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1804,11 +1767,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_external_account> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
@@ -1834,9 +1793,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
@@ -1887,9 +1844,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_external_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_external_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/accounts/${p["account"]}/external_accounts/${p["id"]}`
@@ -1911,9 +1866,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_login_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_login_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/login_links`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -1944,18 +1897,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_person[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_person[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
     const headers = this._headers(
@@ -2088,9 +2039,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/people`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2109,9 +2058,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
@@ -2136,9 +2083,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
@@ -2266,9 +2211,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/people/${p["person"]}`
     const headers = this._headers(
@@ -2300,18 +2243,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_person[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_person[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers(
@@ -2444,9 +2385,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/persons`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2465,9 +2404,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
@@ -2492,9 +2429,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
@@ -2622,9 +2557,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_person> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_person> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/accounts/${p["account"]}/persons/${p["person"]}`
     const headers = this._headers(
@@ -2646,9 +2579,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_account> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/accounts/${p["account"]}/reject`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2671,18 +2602,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_apple_pay_domain[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_apple_pay_domain[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apple_pay/domains`
     const headers = this._headers(
@@ -2714,9 +2643,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2734,11 +2661,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2761,9 +2684,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_apple_pay_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apple_pay/domains/${p["domain"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2799,18 +2720,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_application_fee[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_application_fee[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees`
     const headers = this._headers(
@@ -2843,9 +2762,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers(
@@ -2877,9 +2794,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/application_fees/${p["fee"]}/refunds/${p["id"]}`
     const headers = this._headers(
@@ -2899,9 +2814,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_application_fee> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2928,9 +2841,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_application_fee> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_application_fee> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refund`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -2953,18 +2864,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_fee_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_fee_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers(
@@ -2999,9 +2908,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_fee_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_fee_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/application_fees/${p["id"]}/refunds`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3027,18 +2934,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_apps_secret[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_apps_secret[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/apps/secrets`
     const headers = this._headers(
@@ -3076,9 +2981,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3102,9 +3005,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/delete`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3127,9 +3028,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_apps_secret> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_apps_secret> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/apps/secrets/find`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3156,9 +3055,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_balance> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3197,18 +3094,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance/history`
     const headers = this._headers(
@@ -3243,11 +3138,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance/history/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3286,18 +3177,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/balance_transactions`
     const headers = this._headers(
@@ -3332,11 +3221,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_balance_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_balance_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/balance_transactions/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3365,18 +3250,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_alert[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_alert[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/alerts`
     const headers = this._headers(
@@ -3419,9 +3302,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3440,9 +3321,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3467,9 +3346,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/activate`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3489,9 +3366,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/archive`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3511,9 +3386,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_alert> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_alert> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/alerts/${p["id"]}/deactivate`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3540,9 +3413,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_balance_summary> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_credit_balance_summary> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_balance_summary`
     const headers = this._headers(
@@ -3576,18 +3447,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_credit_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_credit_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_balance_transactions`
     const headers = this._headers(
@@ -3620,9 +3489,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_credit_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/billing/credit_balance_transactions/${p["id"]}`
@@ -3652,18 +3519,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_credit_grant[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_credit_grant[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/credit_grants`
     const headers = this._headers(
@@ -3714,11 +3579,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3737,11 +3598,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3770,11 +3627,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3794,11 +3647,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}/expire`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3818,11 +3667,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_credit_grant> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/credit_grants/${p["id"]}/void`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3847,9 +3692,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_meter_event_adjustment> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_meter_event_adjustment> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meter_event_adjustments`
     const headers = this._headers(
@@ -3875,11 +3718,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_meter_event> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_meter_event> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meter_events`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3902,18 +3741,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_meter[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_meter[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters`
     const headers = this._headers(
@@ -3957,9 +3794,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -3978,9 +3813,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4006,9 +3839,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4028,9 +3859,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/deactivate`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4057,18 +3886,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_meter_event_summary[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_meter_event_summary[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/event_summaries`
     const headers = this._headers(
@@ -4103,9 +3930,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_billing_meter> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_billing_meter> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing/meters/${p["id"]}/reactivate`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4129,18 +3954,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_billing_portal_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_billing_portal_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
     const headers = this._headers(
@@ -4244,9 +4067,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/billing_portal/configurations`
     const headers = this._headers(
@@ -4267,9 +4088,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
@@ -4373,9 +4192,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_billing_portal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/billing_portal/configurations/${p["configuration"]}`
@@ -4488,11 +4305,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_billing_portal_session> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_billing_portal_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/billing_portal/sessions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4525,18 +4338,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_charge[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_charge[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges`
     const headers = this._headers(
@@ -4634,9 +4445,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4658,20 +4467,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_charge[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_charge[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/search`
     const headers = this._headers(
@@ -4701,9 +4508,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4754,9 +4559,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4786,9 +4589,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/capture`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4807,9 +4608,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4909,9 +4708,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4931,9 +4728,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/dispute/close`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4964,9 +4759,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_charge> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_charge> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refund`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -4989,18 +4782,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers(
@@ -5045,9 +4836,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/charges/${p["charge"]}/refunds`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -5067,9 +4856,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers(
@@ -5101,9 +4888,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/charges/${p["charge"]}/refunds/${p["refund"]}`
     const headers = this._headers(
@@ -5142,18 +4927,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_checkout_session[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_checkout_session[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/checkout/sessions`
     const headers = this._headers(
@@ -5995,9 +5778,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6016,9 +5797,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6048,9 +5827,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6070,9 +5847,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_checkout_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_checkout_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/checkout/sessions/${p["session"]}/expire`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6095,18 +5870,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/checkout/sessions/${p["session"]}/line_items`
@@ -6140,18 +5913,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_order[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_order[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/orders`
     const headers = this._headers(
@@ -6191,9 +5962,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6212,9 +5981,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6247,9 +6014,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6269,9 +6034,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_order> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_order> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/orders/${p["order"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6293,18 +6056,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_product[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_product[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/products`
     const headers = this._headers(
@@ -6334,9 +6095,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_product> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/products/${p["product"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6363,18 +6122,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_climate_supplier[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_climate_supplier[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/climate/suppliers`
     const headers = this._headers(
@@ -6404,9 +6161,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_climate_supplier> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_climate_supplier> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/climate/suppliers/${p["supplier"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6430,11 +6185,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_confirmation_token> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_confirmation_token> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/confirmation_tokens/${p["confirmationToken"]}`
     const headers = this._headers(
@@ -6462,18 +6213,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_country_spec[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_country_spec[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/country_specs`
     const headers = this._headers(
@@ -6503,9 +6252,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_country_spec> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_country_spec> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/country_specs/${p["country"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6540,18 +6287,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_coupon[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_coupon[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/coupons`
     const headers = this._headers(
@@ -6606,9 +6351,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6626,9 +6369,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6651,9 +6392,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6691,9 +6430,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_coupon> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_coupon> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/coupons/${p["coupon"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6725,18 +6462,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes`
     const headers = this._headers(
@@ -6806,9 +6541,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6863,9 +6596,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/preview`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -6944,18 +6675,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/preview/lines`
     const headers = this._headers(
@@ -7002,18 +6731,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_credit_note_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_credit_note_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/credit_notes/${p["creditNote"]}/lines`
     const headers = this._headers(
@@ -7043,9 +6770,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7074,9 +6799,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7096,9 +6819,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_credit_note> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_credit_note> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/credit_notes/${p["id"]}/void`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7141,9 +6862,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer_session> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_customer_session> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customer_sessions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7175,18 +6894,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers`
     const headers = this._headers(
@@ -7375,9 +7092,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7399,20 +7114,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/search`
     const headers = this._headers(
@@ -7441,9 +7154,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_customer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7467,9 +7178,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer | t_deleted_customer> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers(
@@ -7598,9 +7307,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_customer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_customer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7623,18 +7330,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
@@ -7675,9 +7380,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/balance_transactions`
@@ -7700,9 +7403,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -7738,9 +7439,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -7766,18 +7465,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_bank_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_bank_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers(
@@ -7843,9 +7540,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/bank_accounts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -7867,10 +7562,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
@@ -7896,9 +7589,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
     const headers = this._headers(
@@ -7955,9 +7646,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}`
@@ -7981,9 +7670,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/bank_accounts/${p["id"]}/verify`
@@ -8008,18 +7695,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_card[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_card[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers(
@@ -8085,9 +7770,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cards`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8109,10 +7792,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -8138,7 +7819,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_card> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
     const headers = this._headers(
@@ -8195,9 +7876,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cards/${p["id"]}`
@@ -8218,9 +7897,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8248,9 +7925,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_cash_balance> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_cash_balance> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/cash_balance`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8273,18 +7948,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_customer_cash_balance_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_customer_cash_balance_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/cash_balance_transactions`
@@ -8317,9 +7990,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -8345,9 +8016,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8370,9 +8039,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_discount> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/discount`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8411,11 +8078,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_funding_instructions> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_funding_instructions> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/funding_instructions`
     const headers = this._headers(
@@ -8484,18 +8147,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/payment_methods`
     const headers = this._headers(
@@ -8528,9 +8189,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/payment_methods/${p["paymentMethod"]}`
@@ -8561,18 +8220,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: (t_bank_account | t_card | t_source)[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: (t_bank_account | t_card | t_source)[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers(
@@ -8639,9 +8296,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/sources`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -8663,10 +8318,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_payment_source | t_deleted_payment_source>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_payment_source | t_deleted_payment_source>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
@@ -8692,9 +8345,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_source> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
     const headers = this._headers(
@@ -8751,9 +8402,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
-    >
+    Res<200, t_card | t_bank_account | t_source> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}`
@@ -8777,9 +8426,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_bank_account> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_bank_account> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/sources/${p["id"]}/verify`
     const headers = this._headers(
@@ -8803,18 +8450,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers(
@@ -9080,9 +8725,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/subscriptions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -9105,9 +8748,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -9133,9 +8774,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -9422,9 +9061,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}`
@@ -9445,9 +9082,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
@@ -9473,9 +9108,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_discount> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/customers/${p["customer"]}/subscriptions/${p["subscriptionExposedId"]}/discount`
@@ -9505,18 +9138,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_id[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_id[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers(
@@ -9630,9 +9261,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/customers/${p["customer"]}/tax_ids`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -9651,9 +9280,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers(
@@ -9678,9 +9305,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/customers/${p["customer"]}/tax_ids/${p["id"]}`
     const headers = this._headers(
@@ -9718,18 +9343,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_dispute[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_dispute[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/disputes`
     const headers = this._headers(
@@ -9762,9 +9385,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -9864,9 +9485,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -9886,9 +9505,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/disputes/${p["dispute"]}/close`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -9911,18 +9528,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_entitlements_active_entitlement[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_entitlements_active_entitlement[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/active_entitlements`
     const headers = this._headers(
@@ -9954,9 +9569,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_active_entitlement> | Res<StatusCode, t_error>
-    >
+    Res<200, t_entitlements_active_entitlement> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/entitlements/active_entitlements/${p["id"]}`
@@ -9987,18 +9600,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_entitlements_feature[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_entitlements_feature[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/entitlements/features`
     const headers = this._headers(
@@ -10035,11 +9646,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10058,11 +9665,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10094,11 +9697,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_entitlements_feature> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_entitlements_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/entitlements/features/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10121,9 +9720,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/ephemeral_keys`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10143,9 +9740,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_ephemeral_key> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/ephemeral_keys/${p["key"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10182,18 +9777,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_event[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_event[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/events`
     const headers = this._headers(
@@ -10227,7 +9820,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_event> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_event> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/events/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10254,18 +9847,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_exchange_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_exchange_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/exchange_rates`
     const headers = this._headers(
@@ -10295,9 +9886,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_exchange_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_exchange_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/exchange_rates/${p["rateId"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10334,18 +9923,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_file_link[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_file_link[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/file_links`
     const headers = this._headers(
@@ -10385,9 +9972,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10406,9 +9991,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10439,9 +10022,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_file_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_file_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/file_links/${p["link"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10489,18 +10070,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_file[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_file[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/files`
     const headers = this._headers(
@@ -10557,7 +10136,7 @@ export class StripeApi extends AbstractFetchClient {
       | string = StripeApiServers.operations.postFiles().build(),
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_file> | Res<StatusCode, t_error>> {
     const url = basePath + `/v1/files`
     const headers = this._headers(
       { "Content-Type": "multipart/form-data" },
@@ -10576,7 +10155,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_file> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_file> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/files/${p["file"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -10608,18 +10187,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/accounts`
     const headers = this._headers(
@@ -10652,9 +10229,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/financial_connections/accounts/${p["account"]}`
@@ -10682,9 +10257,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -10711,18 +10284,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account_owner[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account_owner[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -10758,9 +10329,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -10785,9 +10354,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -10812,9 +10379,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -10860,9 +10425,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/sessions`
     const headers = this._headers(
@@ -10883,9 +10446,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/financial_connections/sessions/${p["session"]}`
@@ -10926,18 +10487,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/financial_connections/transactions`
     const headers = this._headers(
@@ -10971,9 +10530,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -11009,18 +10566,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_forwarding_request[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_forwarding_request[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/forwarding/requests`
     const headers = this._headers(
@@ -11069,11 +10624,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_forwarding_request> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_forwarding_request> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/forwarding/requests`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11092,11 +10643,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_forwarding_request> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_forwarding_request> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/forwarding/requests/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11134,18 +10681,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_identity_verification_report[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_identity_verification_report[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_reports`
     const headers = this._headers(
@@ -11180,9 +10725,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_report> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_reports/${p["report"]}`
@@ -11222,18 +10765,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_identity_verification_session[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_identity_verification_session[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
     const headers = this._headers(
@@ -11290,9 +10831,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/identity/verification_sessions`
     const headers = this._headers(
@@ -11313,9 +10852,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
@@ -11361,9 +10898,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/identity/verification_sessions/${p["session"]}`
@@ -11386,9 +10921,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -11412,9 +10945,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_identity_verification_session> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -11440,18 +10971,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoice_rendering_template[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoice_rendering_template[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoice_rendering_templates`
     const headers = this._headers(
@@ -11484,9 +11013,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
-    >
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/invoice_rendering_templates/${p["template"]}`
@@ -11514,9 +11041,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
-    >
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/invoice_rendering_templates/${p["template"]}/archive`
@@ -11539,9 +11064,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
-    >
+    Res<200, t_invoice_rendering_template> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -11577,18 +11100,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoiceitem[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoiceitem[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoiceitems`
     const headers = this._headers(
@@ -11659,9 +11180,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11679,11 +11198,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11706,9 +11221,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11766,9 +11279,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoiceitem> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoiceitem> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoiceitems/${p["invoiceitem"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -11810,18 +11321,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoice[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoice[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices`
     const headers = this._headers(
@@ -12076,9 +11585,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -12425,9 +11932,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/create_preview`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -12449,20 +11954,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_invoice[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_invoice[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/search`
     const headers = this._headers(
@@ -12868,9 +12371,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/upcoming`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13301,18 +12802,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/upcoming/lines`
     const headers = this._headers(
@@ -13366,9 +12865,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13391,9 +12888,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13638,9 +13133,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13736,9 +13229,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/add_lines`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13759,9 +13250,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/finalize`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13784,18 +13273,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/lines`
     const headers = this._headers(
@@ -13895,9 +13382,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_line_item> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_line_item> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/lines/${p["lineItemId"]}`
     const headers = this._headers(
@@ -13918,9 +13403,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/invoices/${p["invoice"]}/mark_uncollectible`
     const headers = this._headers(
@@ -13947,9 +13430,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/pay`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -13978,9 +13459,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/remove_lines`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -14000,9 +13479,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/send`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -14098,9 +13575,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/update_lines`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -14120,9 +13595,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_invoice> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_invoice> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/invoices/${p["invoice"]}/void`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -14155,18 +13628,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_authorization[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_authorization[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/authorizations`
     const headers = this._headers(
@@ -14200,11 +13671,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers(
@@ -14235,11 +13702,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}`
     const headers = this._headers(
@@ -14266,11 +13729,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/approve`
     const headers = this._headers(
@@ -14296,11 +13755,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/authorizations/${p["authorization"]}/decline`
     const headers = this._headers(
@@ -14335,18 +13790,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_cardholder[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_cardholder[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cardholders`
     const headers = this._headers(
@@ -15331,11 +14784,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -15354,11 +14803,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -16331,11 +15776,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_cardholder> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cardholders/${p["cardholder"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -16372,18 +15813,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_card[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_card[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/cards`
     const headers = this._headers(
@@ -17365,9 +16804,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -17386,9 +16823,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18353,9 +17788,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/cards/${p["card"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18387,18 +17820,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_dispute[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_dispute[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/disputes`
     const headers = this._headers(
@@ -18522,9 +17953,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18543,9 +17972,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18659,9 +18086,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18686,9 +18111,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_dispute> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/disputes/${p["dispute"]}/submit`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18716,18 +18139,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_personalization_design[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_personalization_design[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
     const headers = this._headers(
@@ -18778,9 +18199,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/personalization_designs`
     const headers = this._headers(
@@ -18801,9 +18220,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -18851,9 +18268,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -18880,18 +18295,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_physical_bundle[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_physical_bundle[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/physical_bundles`
     const headers = this._headers(
@@ -18923,11 +18336,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_physical_bundle> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/issuing/physical_bundles/${p["physicalBundle"]}`
     const headers = this._headers(
@@ -18952,11 +18361,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -18984,11 +18389,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/settlements/${p["settlement"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19020,18 +18421,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_token[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_token[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/tokens`
     const headers = this._headers(
@@ -19064,9 +18463,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19092,9 +18489,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_token> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/tokens/${p["token"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19127,18 +18522,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_issuing_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_issuing_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/issuing/transactions`
     const headers = this._headers(
@@ -19172,11 +18565,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19206,11 +18595,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/issuing/transactions/${p["transaction"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19253,9 +18638,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/link_account_sessions`
     const headers = this._headers(
@@ -19276,9 +18659,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_session> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/link_account_sessions/${p["session"]}`
     const headers = this._headers(
@@ -19311,18 +18692,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts`
     const headers = this._headers(
@@ -19355,9 +18734,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}`
     const headers = this._headers(
@@ -19384,9 +18761,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/disconnect`
     const headers = this._headers(
@@ -19411,18 +18786,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_financial_connections_account_owner[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_financial_connections_account_owner[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/owners`
     const headers = this._headers(
@@ -19456,9 +18829,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_financial_connections_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/linked_accounts/${p["account"]}/refresh`
     const headers = this._headers(
@@ -19478,9 +18849,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_mandate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_mandate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/mandates/${p["mandate"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -19516,18 +18885,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_intent[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_intent[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents`
     const headers = this._headers(
@@ -20314,9 +19681,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -20338,20 +19703,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_intent[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_intent[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_intents/search`
     const headers = this._headers(
@@ -20382,9 +19745,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -21141,9 +20502,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -21165,9 +20524,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/apply_customer_balance`
@@ -21194,9 +20551,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -21229,9 +20584,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/capture`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -21995,9 +21348,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_intents/${p["intent"]}/confirm`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -22027,9 +21378,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_intents/${p["intent"]}/increment_authorization`
@@ -22054,9 +21403,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers(
@@ -22080,18 +21427,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_link[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_link[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_links`
     const headers = this._headers(
@@ -22568,9 +21913,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -22589,9 +21932,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -23052,9 +22393,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_link> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_link> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_links/${p["paymentLink"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -23077,18 +22416,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_links/${p["paymentLink"]}/line_items`
@@ -23123,18 +22460,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
     const headers = this._headers(
@@ -23378,9 +22713,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_configurations`
     const headers = this._headers(
@@ -23401,9 +22734,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
@@ -23643,9 +22974,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_payment_method_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/payment_method_configurations/${p["configuration"]}`
@@ -23671,18 +23000,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method_domain[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method_domain[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_method_domains`
     const headers = this._headers(
@@ -23716,11 +23043,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_method_domains`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -23739,11 +23062,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers(
@@ -23770,11 +23089,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_method_domains/${p["paymentMethodDomain"]}`
     const headers = this._headers(
@@ -23795,11 +23110,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_payment_method_domain> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_payment_method_domain> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/payment_method_domains/${p["paymentMethodDomain"]}/validate`
@@ -23868,18 +23179,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payment_method[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payment_method[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payment_methods`
     const headers = this._headers(
@@ -24165,9 +23474,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24186,9 +23493,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24249,9 +23554,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payment_methods/${p["paymentMethod"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24272,9 +23575,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/attach`
     const headers = this._headers(
@@ -24295,9 +23596,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payment_method> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payment_method> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/payment_methods/${p["paymentMethod"]}/detach`
     const headers = this._headers(
@@ -24338,18 +23637,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_payout[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_payout[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/payouts`
     const headers = this._headers(
@@ -24393,9 +23690,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24414,9 +23709,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24446,9 +23739,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24468,9 +23759,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24493,9 +23782,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_payout> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_payout> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/payouts/${p["payout"]}/reverse`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24527,18 +23814,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_plan[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_plan[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/plans`
     const headers = this._headers(
@@ -24614,7 +23899,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24632,9 +23917,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_plan> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24657,7 +23940,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24691,7 +23974,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_plan> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_plan> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/plans/${p["plan"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24731,18 +24014,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_price[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_price[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices`
     const headers = this._headers(
@@ -24850,7 +24131,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24872,20 +24153,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_price[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_price[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/prices/search`
     const headers = this._headers(
@@ -24915,7 +24194,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -24974,7 +24253,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_price> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_price> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/prices/${p["price"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25008,18 +24287,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products`
     const headers = this._headers(
@@ -25114,9 +24391,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25138,20 +24413,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/search`
     const headers = this._headers(
@@ -25180,9 +24453,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_product> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25205,9 +24476,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25260,9 +24529,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_product> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25285,18 +24552,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_product_feature[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_product_feature[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
     const headers = this._headers(
@@ -25328,9 +24593,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_product_feature> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/products/${p["product"]}/features`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25349,11 +24612,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers(
@@ -25378,9 +24637,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_product_feature> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_product_feature> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/products/${p["product"]}/features/${p["id"]}`
     const headers = this._headers(
@@ -25420,18 +24677,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_promotion_code[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_promotion_code[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/promotion_codes`
     const headers = this._headers(
@@ -25487,9 +24742,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25508,9 +24761,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25550,9 +24801,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_promotion_code> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_promotion_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/promotion_codes/${p["promotionCode"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25577,18 +24826,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_quote[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_quote[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes`
     const headers = this._headers(
@@ -25698,7 +24945,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25717,7 +24964,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25815,7 +25062,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25835,7 +25082,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/accept`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25855,7 +25102,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25878,18 +25125,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/quotes/${p["quote"]}/computed_upfront_line_items`
@@ -25922,7 +25167,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_quote> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_quote> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/finalize`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -25945,18 +25190,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/quotes/${p["quote"]}/line_items`
     const headers = this._headers(
@@ -25989,7 +25232,7 @@ export class StripeApi extends AbstractFetchClient {
       | string = StripeApiServers.operations.getQuotesQuotePdf().build(),
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, string> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, string> | Res<StatusCode, t_error>> {
     const url = basePath + `/v1/quotes/${p["quote"]}/pdf`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26026,18 +25269,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_early_fraud_warning[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_early_fraud_warning[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/early_fraud_warnings`
     const headers = this._headers(
@@ -26070,11 +25311,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_radar_early_fraud_warning> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/radar/early_fraud_warnings/${p["earlyFraudWarning"]}`
     const headers = this._headers(
@@ -26112,18 +25349,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_value_list_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_value_list_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items`
     const headers = this._headers(
@@ -26158,11 +25393,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_list_items`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26181,9 +25412,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_radar_value_list_item> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers(
@@ -26207,11 +25436,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_radar_value_list_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_list_items/${p["item"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26248,18 +25473,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_radar_value_list[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_radar_value_list[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/radar/value_lists`
     const headers = this._headers(
@@ -26308,9 +25531,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26328,11 +25549,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26355,9 +25572,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26387,9 +25602,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_radar_value_list> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_radar_value_list> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/radar/value_lists/${p["valueList"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26421,18 +25634,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_refund[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_refund[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/refunds`
     const headers = this._headers(
@@ -26480,9 +25691,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26501,9 +25710,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26533,9 +25740,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26555,9 +25760,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/refunds/${p["refund"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26587,18 +25790,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_reporting_report_run[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_reporting_report_run[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_runs`
     const headers = this._headers(
@@ -27275,11 +26476,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_reporting_report_run> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_runs`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27298,11 +26495,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_run> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_reporting_report_run> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_runs/${p["reportRun"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27326,18 +26519,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_reporting_report_type[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_reporting_report_type[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reporting/report_types`
     const headers = this._headers(
@@ -27362,11 +26553,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_reporting_report_type> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_reporting_report_type> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reporting/report_types/${p["reportType"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27401,18 +26588,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_review[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_review[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/reviews`
     const headers = this._headers(
@@ -27443,9 +26628,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_review> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27470,9 +26653,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_review> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_review> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/reviews/${p["review"]}/approve`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27503,18 +26684,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_setup_attempt[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_setup_attempt[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_attempts`
     const headers = this._headers(
@@ -27560,18 +26739,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_setup_intent[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_setup_intent[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/setup_intents`
     const headers = this._headers(
@@ -27973,9 +27150,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -27995,9 +27170,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28368,9 +27541,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28394,9 +27565,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28774,9 +27943,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/setup_intents/${p["intent"]}/confirm`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28799,9 +27966,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_setup_intent> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_setup_intent> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/setup_intents/${p["intent"]}/verify_microdeposits`
     const headers = this._headers(
@@ -28834,18 +27999,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_shipping_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_shipping_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/shipping_rates`
     const headers = this._headers(
@@ -28907,9 +28070,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28928,9 +28089,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28972,9 +28131,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_shipping_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_shipping_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/shipping_rates/${p["shippingRateToken"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -28996,18 +28153,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_scheduled_query_run[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_scheduled_query_run[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sigma/scheduled_query_runs`
     const headers = this._headers(
@@ -29037,11 +28192,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_scheduled_query_run> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/sigma/scheduled_query_runs/${p["scheduledQueryRun"]}`
     const headers = this._headers(
@@ -29147,9 +28298,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29169,9 +28318,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29268,9 +28415,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29291,9 +28436,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
-    >
+    Res<200, t_source_mandate_notification> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -29324,18 +28467,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_source_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_source_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/sources/${p["source"]}/source_transactions`
     const headers = this._headers(
@@ -29366,11 +28507,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_source_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_source_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/sources/${p["source"]}/source_transactions/${p["sourceTransaction"]}`
@@ -29398,9 +28535,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_source> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_source> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/sources/${p["source"]}/verify`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29423,18 +28558,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_items`
     const headers = this._headers(
@@ -29502,9 +28635,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29526,11 +28657,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29553,9 +28680,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29619,9 +28744,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription_item> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription_item> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_items/${p["item"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29644,18 +28767,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_usage_record_summary[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_usage_record_summary[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -29691,9 +28812,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_usage_record> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_usage_record> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/subscription_items/${p["subscriptionItem"]}/usage_records`
@@ -29751,18 +28870,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription_schedule[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription_schedule[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscription_schedules`
     const headers = this._headers(
@@ -29941,11 +29058,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -29964,11 +29077,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -30134,11 +29243,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscription_schedules/${p["schedule"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -30160,11 +29265,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/cancel`
     const headers = this._headers(
@@ -30186,11 +29287,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_subscription_schedule> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_subscription_schedule> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscription_schedules/${p["schedule"]}/release`
     const headers = this._headers(
@@ -30255,18 +29352,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions`
     const headers = this._headers(
@@ -30550,9 +29645,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscriptions`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -30574,20 +29667,18 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_subscription[]
-            has_more: boolean
-            next_page?: string | null
-            object: "search_result"
-            total_count?: number
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_subscription[]
+          has_more: boolean
+          next_page?: string | null
+          object: "search_result"
+          total_count?: number
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/subscriptions/search`
     const headers = this._headers(
@@ -30633,9 +29724,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
@@ -30659,9 +29748,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
@@ -30948,9 +30035,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}`
     const headers = this._headers(
@@ -30969,9 +30054,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_discount> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_discount> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/subscriptions/${p["subscriptionExposedId"]}/discount`
     const headers = this._headers(
@@ -30999,9 +30082,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_subscription> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_subscription> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/subscriptions/${p["subscription"]}/resume`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31145,9 +30226,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_calculation> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/calculations`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31166,9 +30245,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_calculation> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_calculation> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/calculations/${p["calculation"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31196,18 +30273,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_calculation_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_calculation_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/tax/calculations/${p["calculation"]}/line_items`
@@ -31242,18 +30317,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_registration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_registration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax/registrations`
     const headers = this._headers(
@@ -31589,9 +30662,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31610,9 +30681,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31639,9 +30708,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_registration> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_registration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/registrations/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31659,9 +30726,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_settings> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/settings`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31699,9 +30764,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_settings> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_settings> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/settings`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31726,9 +30789,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/create_from_calculation`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31768,9 +30829,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/create_reversal`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31789,9 +30848,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_transaction> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax/transactions/${p["transaction"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31819,18 +30876,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_transaction_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_transaction_line_item[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/tax/transactions/${p["transaction"]}/line_items`
@@ -31864,18 +30919,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_code[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_code[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_codes`
     const headers = this._headers(
@@ -31905,9 +30958,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_code> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_code> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_codes/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -31939,18 +30990,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_id[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_id[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_ids`
     const headers = this._headers(
@@ -32069,9 +31118,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32089,9 +31136,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_deleted_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32114,9 +31159,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_id> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_id> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_ids/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32153,18 +31196,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_tax_rate[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_tax_rate[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/tax_rates`
     const headers = this._headers(
@@ -32223,9 +31264,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32244,9 +31283,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32297,9 +31334,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_tax_rate> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_tax_rate> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tax_rates/${p["taxRate"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32322,18 +31357,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_configuration[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_configuration[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/configurations`
     const headers = this._headers(
@@ -32462,11 +31495,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_terminal_configuration> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_terminal_configuration> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/configurations`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32485,9 +31514,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_terminal_configuration> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -32513,10 +31540,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -32650,10 +31675,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_configuration | t_deleted_terminal_configuration>
+    | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/terminal/configurations/${p["configuration"]}`
@@ -32675,11 +31698,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_terminal_connection_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/connection_tokens`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32701,18 +31720,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_location[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_location[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations`
     const headers = this._headers(
@@ -32757,9 +31774,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_location> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_location> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/locations`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32777,11 +31792,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_terminal_location> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32805,10 +31816,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_location | t_deleted_terminal_location>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_location | t_deleted_terminal_location>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
@@ -32850,10 +31859,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_location | t_deleted_terminal_location>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_location | t_deleted_terminal_location>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/locations/${p["location"]}`
     const headers = this._headers(
@@ -32888,18 +31895,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_terminal_reader[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_terminal_reader[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers`
     const headers = this._headers(
@@ -32941,9 +31946,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/readers`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32961,11 +31964,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_terminal_reader> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -32989,10 +31988,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
@@ -33025,10 +32022,8 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_terminal_reader | t_deleted_terminal_reader>
-      | Res<StatusCode, t_error>
-    >
+    | Res<200, t_terminal_reader | t_deleted_terminal_reader>
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/terminal/readers/${p["reader"]}`
     const headers = this._headers(
@@ -33049,9 +32044,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/cancel_action`
     const headers = this._headers(
@@ -33081,9 +32074,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/terminal/readers/${p["reader"]}/process_payment_intent`
@@ -33110,9 +32101,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/process_setup_intent`
     const headers = this._headers(
@@ -33144,9 +32133,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/refund_payment`
     const headers = this._headers(
@@ -33178,9 +32165,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/terminal/readers/${p["reader"]}/set_reader_display`
     const headers = this._headers(
@@ -33455,11 +32440,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_confirmation_token> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_confirmation_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/confirmation_tokens`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -33483,9 +32464,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
-    >
+    Res<200, t_customer_cash_balance_transaction> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -33901,11 +32880,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/issuing/authorizations`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -34003,11 +32978,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/capture`
@@ -34029,11 +33000,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/expire`
@@ -34105,11 +33072,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/finalize_amount`
@@ -34132,11 +33095,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/fraud_challenges/respond`
@@ -34160,11 +33119,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/increment`
@@ -34187,11 +33142,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_authorization> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_authorization> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/authorizations/${p["authorization"]}/reverse`
@@ -34213,9 +33164,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/deliver`
@@ -34237,9 +33186,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/fail`
@@ -34261,9 +33208,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/return`
@@ -34285,9 +33230,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/ship`
@@ -34309,9 +33252,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_issuing_card> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_issuing_card> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/cards/${p["card"]}/shipping/submit`
@@ -34334,9 +33275,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -34360,9 +33299,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -34407,9 +33344,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
-    >
+    Res<200, t_issuing_personalization_design> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -34439,11 +33374,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_settlement> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/issuing/settlements`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -34846,11 +33777,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_force_capture`
@@ -35255,11 +34182,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/create_unlinked_refund`
@@ -35282,11 +34205,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_issuing_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_issuing_transaction> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/issuing/transactions/${p["transaction"]}/refund`
@@ -35308,9 +34227,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_refund> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_refund> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/refunds/${p["refund"]}/expire`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35338,9 +34255,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_terminal_reader> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_terminal_reader> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/terminal/readers/${p["reader"]}/present_payment_method`
@@ -35364,18 +34279,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_test_helpers_test_clock[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_test_helpers_test_clock[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
     const headers = this._headers(
@@ -35407,11 +34320,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/test_clocks`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35430,9 +34339,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
+    Res<200, t_deleted_test_helpers_test_clock> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers(
@@ -35456,11 +34363,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35486,11 +34389,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_test_helpers_test_clock> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/test_helpers/test_clocks/${p["testClock"]}/advance`
     const headers = this._headers(
@@ -35527,11 +34426,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/fail`
@@ -35553,11 +34448,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/return`
@@ -35579,11 +34470,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/inbound_transfers/${p["id"]}/succeed`
@@ -35616,11 +34503,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/test_helpers/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers(
@@ -35641,11 +34524,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/fail`
@@ -35667,11 +34546,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/post`
@@ -35706,11 +34581,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/test_helpers/treasury/outbound_payments/${p["id"]}/return`
@@ -35744,9 +34615,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -35770,9 +34639,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -35796,9 +34663,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -35835,9 +34700,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -35872,11 +34735,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/treasury/received_credits`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -35908,11 +34767,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/treasury/received_debits`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36235,7 +35090,7 @@ export class StripeApi extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36254,7 +35109,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_token> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_token> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/tokens/${p["token"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36298,18 +35153,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_topup[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_topup[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/topups`
     const headers = this._headers(
@@ -36353,7 +35206,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36372,7 +35225,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36403,7 +35256,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36423,7 +35276,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_topup> | Res<StatusCode, t_error>>> {
+  ): Promise<Res<200, t_topup> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/topups/${p["topup"]}/cancel`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36455,18 +35308,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers`
     const headers = this._headers(
@@ -36509,9 +35360,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36534,18 +35383,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_transfer_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_transfer_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers(
@@ -36584,9 +35431,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["id"]}/reversals`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36605,9 +35450,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36638,9 +35481,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/transfers/${p["transfer"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36660,9 +35501,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers(
@@ -36694,9 +35533,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_transfer_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/transfers/${p["transfer"]}/reversals/${p["id"]}`
     const headers = this._headers(
@@ -36722,18 +35559,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_credit_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_credit_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/credit_reversals`
     const headers = this._headers(
@@ -36770,11 +35605,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/credit_reversals`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36793,11 +35624,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_credit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/credit_reversals/${p["creditReversal"]}`
     const headers = this._headers(
@@ -36829,18 +35656,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_debit_reversal[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_debit_reversal[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/debit_reversals`
     const headers = this._headers(
@@ -36878,11 +35703,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/debit_reversals`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -36901,11 +35722,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_debit_reversal> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/debit_reversals/${p["debitReversal"]}`
     const headers = this._headers(
@@ -36941,18 +35758,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_financial_account[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_financial_account[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
     const headers = this._headers(
@@ -37029,9 +35844,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/financial_accounts`
     const headers = this._headers(
@@ -37052,9 +35865,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
@@ -37126,9 +35937,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
@@ -37150,9 +35959,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -37216,9 +36023,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_financial_account_features> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -37245,18 +36050,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_inbound_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_inbound_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
     const headers = this._headers(
@@ -37297,11 +36100,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/inbound_transfers`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37320,11 +36119,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/inbound_transfers/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37349,11 +36144,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_inbound_transfer> | Res<StatusCode, t_error>> {
     const url =
       this.basePath +
       `/v1/treasury/inbound_transfers/${p["inboundTransfer"]}/cancel`
@@ -37388,18 +36179,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_outbound_payment[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_outbound_payment[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_payments`
     const headers = this._headers(
@@ -37483,11 +36272,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/outbound_payments`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37506,11 +36291,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/outbound_payments/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37535,11 +36316,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_outbound_payment> | Res<StatusCode, t_error>> {
     const url =
       this.basePath + `/v1/treasury/outbound_payments/${p["id"]}/cancel`
     const headers = this._headers(
@@ -37564,18 +36341,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_outbound_transfer[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_outbound_transfer[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
     const headers = this._headers(
@@ -37624,9 +36399,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/outbound_transfers`
     const headers = this._headers(
@@ -37647,9 +36420,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath + `/v1/treasury/outbound_transfers/${p["outboundTransfer"]}`
@@ -37677,9 +36448,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_outbound_transfer> | Res<StatusCode, t_error>
   > {
     const url =
       this.basePath +
@@ -37713,18 +36482,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_received_credit[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_received_credit[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_credits`
     const headers = this._headers(
@@ -37757,11 +36524,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_received_credit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_credits/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37790,18 +36553,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_received_debit[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_received_debit[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/received_debits`
     const headers = this._headers(
@@ -37833,11 +36594,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_received_debit> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/received_debits/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -37883,18 +36640,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_transaction_entry[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_transaction_entry[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries`
     const headers = this._headers(
@@ -37930,9 +36685,7 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
-    >
+    Res<200, t_treasury_transaction_entry> | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transaction_entries/${p["id"]}`
     const headers = this._headers(
@@ -37981,18 +36734,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_treasury_transaction[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_treasury_transaction[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/treasury/transactions`
     const headers = this._headers(
@@ -38027,11 +36778,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_treasury_transaction> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_treasury_transaction> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/treasury/transactions/${p["id"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38058,18 +36805,16 @@ export class StripeApi extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            data: t_webhook_endpoint[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }
-        >
-      | Res<StatusCode, t_error>
-    >
+    | Res<
+        200,
+        {
+          data: t_webhook_endpoint[]
+          has_more: boolean
+          object: "list"
+          url: string
+        }
+      >
+    | Res<StatusCode, t_error>
   > {
     const url = this.basePath + `/v1/webhook_endpoints`
     const headers = this._headers(
@@ -38455,9 +37200,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38475,11 +37218,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>
-    >
-  > {
+  ): Promise<Res<200, t_deleted_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38502,9 +37241,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -38779,9 +37516,7 @@ export class StripeApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>>
-  > {
+  ): Promise<Res<200, t_webhook_endpoint> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/webhook_endpoints/${p["webhookEndpoint"]}`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },

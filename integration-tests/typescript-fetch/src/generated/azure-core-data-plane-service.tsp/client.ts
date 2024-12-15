@@ -26,7 +26,6 @@ import {
   Res,
   Server,
   StatusCode,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoWidgetManagerServers {
@@ -71,15 +70,13 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            statusString: string
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        200,
+        {
+          statusString: string
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/service-status`
     const headers = this._headers(
@@ -104,23 +101,21 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          | {
-              error?: t_Azure_Core_Foundations_Error
-              id: string
-              result?: t_Widget
-              status: t_Azure_Core_Foundations_OperationState
-            }
-          | {
-              error?: t_Azure_Core_Foundations_Error
-              id: string
-              status: t_Azure_Core_Foundations_OperationState
-            }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        200,
+        | {
+            error?: t_Azure_Core_Foundations_Error
+            id: string
+            result?: t_Widget
+            status: t_Azure_Core_Foundations_OperationState
+          }
+        | {
+            error?: t_Azure_Core_Foundations_Error
+            id: string
+            status: t_Azure_Core_Foundations_OperationState
+          }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -151,11 +146,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Widget>
-      | Res<201, t_Widget>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_Widget>
+    | Res<201, t_Widget>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -194,10 +187,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Widget>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    Res<200, t_Widget> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -234,17 +224,15 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          202,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        202,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}`
     const headers = this._headers(
@@ -280,10 +268,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_PagedWidget>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_PagedWidget>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets`
     const headers = this._headers(
@@ -318,10 +304,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_WidgetAnalytics>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_WidgetAnalytics>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -359,11 +343,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_WidgetAnalytics>
-      | Res<201, t_WidgetAnalytics>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_WidgetAnalytics>
+    | Res<201, t_WidgetAnalytics>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/analytics/current`
     const headers = this._headers(
@@ -398,18 +380,16 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: t_WidgetRepairRequest
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        200,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: t_WidgetRepairRequest
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetId"]}/repairs/${p["operationId"]}`
@@ -435,24 +415,22 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          202,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: {
-              completedDateTime: string
-              createdDateTime: string
-              requestState: t_WidgetRepairState
-              scheduledDateTime: string
-              updatedDateTime: string
-            }
-            status: t_Azure_Core_Foundations_OperationState
+    | Res<
+        202,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: {
+            completedDateTime: string
+            createdDateTime: string
+            requestState: t_WidgetRepairState
+            scheduledDateTime: string
+            updatedDateTime: string
           }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}:scheduleRepairs`
     const headers = this._headers(
@@ -484,18 +462,16 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: t_WidgetPart
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        200,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: t_WidgetPart
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -526,9 +502,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    Res<201, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -563,10 +537,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_PagedWidgetPart>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_PagedWidgetPart>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts`
     const headers = this._headers(
@@ -596,10 +568,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_WidgetPart>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_WidgetPart>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -638,9 +608,7 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    Res<204, void> | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath + `/widgets/${p["widgetName"]}/parts/${p["widgetPartName"]}`
@@ -677,17 +645,15 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          202,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        202,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/widgets/${p["widgetName"]}/parts:reorderParts`
     const headers = this._headers(
@@ -718,18 +684,16 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            result?: t_Manufacturer
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        200,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          result?: t_Manufacturer
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -760,11 +724,9 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Manufacturer>
-      | Res<201, t_Manufacturer>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_Manufacturer>
+    | Res<201, t_Manufacturer>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -803,10 +765,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Manufacturer>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_Manufacturer>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -843,17 +803,15 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          202,
-          {
-            error?: t_Azure_Core_Foundations_Error
-            id: string
-            status: t_Azure_Core_Foundations_OperationState
-          }
-        >
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<
+        202,
+        {
+          error?: t_Azure_Core_Foundations_Error
+          id: string
+          status: t_Azure_Core_Foundations_OperationState
+        }
+      >
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers/${p["manufacturerId"]}`
     const headers = this._headers(
@@ -885,10 +843,8 @@ export class ContosoWidgetManager extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_PagedManufacturer>
-      | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
-    >
+    | Res<200, t_PagedManufacturer>
+    | Res<StatusCode, t_Azure_Core_Foundations_ErrorResponse>
   > {
     const url = this.basePath + `/manufacturers`
     const headers = this._headers(

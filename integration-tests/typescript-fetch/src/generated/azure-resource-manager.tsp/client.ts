@@ -18,7 +18,6 @@ import {
   Res,
   Server,
   StatusCode,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class ContosoProviderHubClientServers {
@@ -60,10 +59,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_OperationListResult>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_OperationListResult>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath + `/providers/Microsoft.ContosoProviderHub/operations`
@@ -87,10 +84,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_Employee>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -116,11 +111,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Employee>
-      | Res<201, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_Employee>
+    | Res<201, t_Employee>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -150,10 +143,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Employee>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_Employee>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -182,11 +173,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<202, void>
-      | Res<204, void>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<202, void>
+    | Res<204, void>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -211,11 +200,9 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<204, void>
-      | Res<404, void>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<204, void>
+    | Res<404, void>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -239,10 +226,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_EmployeeListResult>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_EmployeeListResult>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -265,10 +250,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_EmployeeListResult>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_EmployeeListResult>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
@@ -294,10 +277,8 @@ export class ContosoProviderHubClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_MoveResponse>
-      | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
-    >
+    | Res<200, t_MoveResponse>
+    | Res<StatusCode, t_Azure_ResourceManager_CommonTypes_ErrorResponse>
   > {
     const url =
       this.basePath +
