@@ -9,7 +9,6 @@ import {
   Res,
   Server,
   StatusCode,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class SwaggerPetstoreServers {
@@ -50,7 +49,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Pet[]> | Res<StatusCode, t_Error>>> {
+  ): Promise<Res<200, t_Pet[]> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ tags: p["tags"], limit: p["limit"] })
@@ -68,7 +67,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
+  ): Promise<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -85,7 +84,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Pet> | Res<StatusCode, t_Error>>> {
+  ): Promise<Res<200, t_Pet> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
@@ -98,7 +97,7 @@ export class SwaggerPetstore extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<StatusCode, t_Error>>> {
+  ): Promise<Res<204, void> | Res<StatusCode, t_Error>> {
     const url = this.basePath + `/pets/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 

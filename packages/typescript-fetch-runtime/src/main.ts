@@ -26,14 +26,10 @@ export type StatusCode =
   | StatusCode4xx
   | StatusCode5xx
 
-export type Res<Status extends StatusCode, Type> = {
+export interface Res<Status extends StatusCode, JsonBody> extends Response {
   status: Status
-  json: () => Promise<Type>
+  json: () => Promise<JsonBody>
 }
-
-export type TypedFetchResponse<R extends Res<StatusCode, unknown>> = Promise<
-  Omit<Response, "json" | "status"> & R
->
 
 export type Server<T> = string & {__server__: T}
 
@@ -83,7 +79,7 @@ export abstract class AbstractFetchClient {
     url: string,
     opts: RequestInit,
     timeout: number | undefined = this.defaultTimeout,
-  ): TypedFetchResponse<R> {
+  ): Promise<R> {
     // main abort controller that will be returned to the caller
     const cancelRequest = new AbortController()
 
@@ -118,7 +114,7 @@ export abstract class AbstractFetchClient {
       }
       // if not aborted just throw
       throw err
-    }) as TypedFetchResponse<R>
+    }) as unknown as R
   }
 
   protected _query(params: QueryParams): string {

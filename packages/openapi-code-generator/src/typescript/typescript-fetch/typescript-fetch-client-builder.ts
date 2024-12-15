@@ -15,7 +15,6 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
         "AbstractFetchClient",
         "Server",
         "Res",
-        "TypedFetchResponse",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
@@ -112,7 +111,7 @@ export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
           default: "{}",
         },
       ],
-      returnType: `TypedFetchResponse<${returnType}>`,
+      returnType,
       body,
     })
   }

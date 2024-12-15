@@ -25,7 +25,6 @@ import {
   AbstractFetchClientConfig,
   Res,
   Server,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class MyAccountManagementServers {
@@ -71,13 +70,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_AppAuthenticatorEnrollment>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-    >
+    | Res<200, t_AppAuthenticatorEnrollment>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/app-authenticators`
     const headers = this._headers(
@@ -96,9 +93,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, void> | Res<204, void> | Res<400, void>>
-  > {
+  ): Promise<Res<200, void> | Res<204, void> | Res<400, void>> {
     const url =
       this.basePath +
       `/idp/myaccount/app-authenticators/challenge/${p["challengeId"]}/verify`
@@ -119,12 +114,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_AppAuthenticatorEnrollment>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-    >
+    | Res<200, t_AppAuthenticatorEnrollment>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
   > {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
@@ -148,9 +141,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
-    >
+    Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
   > {
     const url =
       this.basePath + `/idp/myaccount/app-authenticators/${p["enrollmentId"]}`
@@ -165,11 +156,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_PushNotificationChallenge[]> | Res<401, t_Error>
-    >
-  > {
+  ): Promise<Res<200, t_PushNotificationChallenge[]> | Res<401, t_Error>> {
     const url =
       this.basePath +
       `/idp/myaccount/app-authenticators/${p["enrollmentId"]}/push/notifications`
@@ -185,9 +172,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_Authenticator[]> | Res<403, t_Error> | Res<429, t_Error>
-    >
+    Res<200, t_Authenticator[]> | Res<403, t_Error> | Res<429, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/authenticators`
     const headers = this._headers({}, opts.headers)
@@ -208,12 +193,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Authenticator>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Authenticator>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/idp/myaccount/authenticators/${p["authenticatorId"]}`
@@ -234,12 +217,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_AuthenticatorEnrollment[]>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_AuthenticatorEnrollment[]>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath +
@@ -257,12 +238,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_AuthenticatorEnrollment>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_AuthenticatorEnrollment>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath +
@@ -275,7 +254,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async listEmails(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Email[]> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Email[]> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers({}, opts.headers)
 
@@ -296,13 +275,11 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_Email>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<409, t_Error>
-    >
+    | Res<201, t_Email>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<409, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/emails`
     const headers = this._headers(
@@ -320,7 +297,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Email> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Email> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
@@ -334,9 +311,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<404, t_Error>
-    >
+    Res<204, void> | Res<400, t_Error> | Res<401, t_Error> | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}`
     const headers = this._headers({}, opts.headers)
@@ -354,36 +329,34 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          201,
-          {
-            _links: {
-              poll: {
-                hints: {
-                  allow: "GET"[]
-                }
-                href: string
+    | Res<
+        201,
+        {
+          _links: {
+            poll: {
+              hints: {
+                allow: "GET"[]
               }
-              verify: {
-                hints: {
-                  allow: "POST"[]
-                }
-                href: string
+              href: string
+            }
+            verify: {
+              hints: {
+                allow: "POST"[]
               }
+              href: string
             }
-            expiresAt: string
-            id: string
-            profile: {
-              email: string
-            }
-            status: "VERIFIED" | "UNVERIFIED"
           }
-        >
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-    >
+          expiresAt: string
+          id: string
+          profile: {
+            email: string
+          }
+          status: "VERIFIED" | "UNVERIFIED"
+        }
+      >
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/emails/${p["id"]}/challenge`
     const headers = this._headers(
@@ -403,35 +376,33 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            _links: {
-              poll: {
-                hints: {
-                  allow: ("DELETE" | "GET" | "POST" | "PUT")[]
-                }
-                href: string
+    | Res<
+        200,
+        {
+          _links: {
+            poll: {
+              hints: {
+                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
               }
-              verify: {
-                hints: {
-                  allow: ("DELETE" | "GET" | "POST" | "PUT")[]
-                }
-                href: string
+              href: string
+            }
+            verify: {
+              hints: {
+                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
               }
+              href: string
             }
-            expiresAt: string
-            id: string
-            profile: {
-              email: string
-            }
-            status: "VERIFIED" | "UNVERIFIED"
           }
-        >
-      | Res<401, t_Error>
-      | Res<404, t_Error>
-    >
+          expiresAt: string
+          id: string
+          profile: {
+            email: string
+          }
+          status: "VERIFIED" | "UNVERIFIED"
+        }
+      >
+    | Res<401, t_Error>
+    | Res<404, t_Error>
   > {
     const url =
       this.basePath +
@@ -452,9 +423,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
-    >
+    Res<200, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
   > {
     const url =
       this.basePath +
@@ -471,9 +440,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async listOktaApplications(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_OktaApplication[]> | Res<400, t_Error>>
-  > {
+  ): Promise<Res<200, t_OktaApplication[]> | Res<400, t_Error>> {
     const url = this.basePath + `/idp/myaccount/okta-applications`
     const headers = this._headers({}, opts.headers)
 
@@ -483,7 +450,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getOrganization(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Organization> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Organization> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/organization`
     const headers = this._headers({}, opts.headers)
 
@@ -493,9 +460,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getPassword(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<200, t_PasswordResponse> | Res<401, t_Error>>
-  > {
+  ): Promise<Res<200, t_PasswordResponse> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({}, opts.headers)
 
@@ -513,12 +478,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_PasswordResponse>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-    >
+    | Res<201, t_PasswordResponse>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
@@ -541,12 +504,10 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_PasswordResponse>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-    >
+    | Res<201, t_PasswordResponse>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers(
@@ -561,9 +522,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async deletePassword(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>>
-  > {
+  ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/password`
     const headers = this._headers({}, opts.headers)
 
@@ -573,7 +532,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async listPhones(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Phone[]> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Phone[]> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers({}, opts.headers)
 
@@ -593,14 +552,12 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_Phone>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<409, t_Error>
-      | Res<500, t_Error>
-    >
+    | Res<201, t_Phone>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<409, t_Error>
+    | Res<500, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones`
     const headers = this._headers(
@@ -618,11 +575,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_Phone> | Res<401, t_Error> | Res<404, t_Error>
-    >
-  > {
+  ): Promise<Res<200, t_Phone> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({}, opts.headers)
 
@@ -636,9 +589,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
-    >
+    Res<204, void> | Res<401, t_Error> | Res<403, t_Error> | Res<404, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}`
     const headers = this._headers({}, opts.headers)
@@ -657,26 +608,24 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            _links?: {
-              verify?: {
-                hints: {
-                  allow: "GET"[]
-                }
-                href: string
+    | Res<
+        200,
+        {
+          _links?: {
+            verify?: {
+              hints: {
+                allow: "GET"[]
               }
+              href: string
             }
           }
-        >
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<500, t_Error>
-    >
+        }
+      >
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<500, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/challenge`
     const headers = this._headers(
@@ -698,14 +647,12 @@ export class MyAccountManagement extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<204, void>
-      | Res<400, t_Error>
-      | Res<401, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<409, t_Error>
-    >
+    | Res<204, void>
+    | Res<400, t_Error>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<409, t_Error>
   > {
     const url = this.basePath + `/idp/myaccount/phones/${p["id"]}/verify`
     const headers = this._headers(
@@ -720,7 +667,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getProfile(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Profile> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Profile> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers({}, opts.headers)
 
@@ -735,11 +682,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>
-    >
-  > {
+  ): Promise<Res<200, t_Profile> | Res<400, t_Error> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -753,7 +696,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async getProfileSchema(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_Schema> | Res<401, t_Error>>> {
+  ): Promise<Res<200, t_Schema> | Res<401, t_Error>> {
     const url = this.basePath + `/idp/myaccount/profile/schema`
     const headers = this._headers({}, opts.headers)
 
@@ -763,9 +706,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async deleteSessions(
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>>
-  > {
+  ): Promise<Res<204, void> | Res<401, t_Error> | Res<404, t_Error>> {
     const url = this.basePath + `/idp/myaccount/sessions`
     const headers = this._headers({}, opts.headers)
 

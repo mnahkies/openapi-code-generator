@@ -39,7 +39,6 @@ import {
   AbstractFetchClientConfig,
   Res,
   Server,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
 export class OktaOpenIdConnectOAuth20Servers {
@@ -85,7 +84,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_OidcMetadata> | Res<400, t_Error>>> {
+  ): Promise<Res<200, t_OidcMetadata> | Res<400, t_Error>> {
     const url = this.basePath + `/.well-known/openid-configuration`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
@@ -122,7 +121,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/authorize`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -162,12 +161,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_BackchannelAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_BackchannelAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/bc/authorize`
     const headers = this._headers(
@@ -186,13 +183,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ChallengeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_OAuthError>
-    >
+    | Res<200, t_ChallengeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
   > {
     const url = this.basePath + `/oauth2/v1/challenge`
     const headers = this._headers(
@@ -212,11 +207,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_Client[]> | Res<403, t_Error> | Res<429, t_Error>
-    >
-  > {
+  ): Promise<Res<200, t_Client[]> | Res<403, t_Error> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/clients`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -239,12 +230,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<201, t_Client>
-      | Res<400, t_Error>
-      | Res<403, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<201, t_Client>
+    | Res<400, t_Error>
+    | Res<403, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients`
     const headers = this._headers(
@@ -263,12 +252,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
     const headers = this._headers({}, opts.headers)
@@ -284,13 +271,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<400, t_Error>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<400, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
     const headers = this._headers(
@@ -309,9 +294,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<403, t_Error> | Res<404, t_Error> | Res<429, t_Error>
-    >
+    Res<204, void> | Res<403, t_Error> | Res<404, t_Error> | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/clients/${p["clientId"]}`
     const headers = this._headers({}, opts.headers)
@@ -326,12 +309,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_Client>
-      | Res<403, t_Error>
-      | Res<404, t_Error>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_Client>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/v1/clients/${p["clientId"]}/lifecycle/newSecret`
@@ -347,12 +328,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_DeviceAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_DeviceAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/device/authorize`
     const headers = this._headers(
@@ -371,9 +350,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<400, void> | Res<403, t_Error> | Res<429, t_Error>
-    >
+    Res<204, void> | Res<400, void> | Res<403, t_Error> | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/global-token-revocation`
     const headers = this._headers(
@@ -392,12 +369,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_IntrospectionResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_IntrospectionResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/introspect`
     const headers = this._headers(
@@ -415,7 +390,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_OAuthKeys> | Res<429, t_Error>>> {
+  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/keys`
     const headers = this._headers({}, opts.headers)
     const query = this._query({ client_id: p["clientId"] })
@@ -435,7 +410,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/logout`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -457,7 +432,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/logout`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
@@ -475,13 +450,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_OobAuthenticateResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_OAuthError>
-    >
+    | Res<200, t_OobAuthenticateResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
   > {
     const url = this.basePath + `/oauth2/v1/oob-authenticate`
     const headers = this._headers(
@@ -499,7 +472,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/par`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -513,13 +486,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ParResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_ParResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/par`
     const headers = this._headers(
@@ -538,12 +509,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, void>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, void>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/revoke`
     const headers = this._headers(
@@ -561,7 +530,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/v1/token`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -575,12 +544,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_TokenResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_TokenResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/token`
     const headers = this._headers(
@@ -596,9 +563,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
-    >
+    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/v1/userinfo`
     const headers = this._headers({}, opts.headers)
@@ -614,9 +579,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_OAuthMetadata> | Res<400, t_Error> | Res<404, t_Error>
-    >
+    Res<200, t_OAuthMetadata> | Res<400, t_Error> | Res<404, t_Error>
   > {
     const url =
       this.basePath +
@@ -638,11 +601,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    TypedFetchResponse<
-      Res<200, t_OidcMetadata> | Res<400, t_Error> | Res<404, t_Error>
-    >
-  > {
+  ): Promise<Res<200, t_OidcMetadata> | Res<400, t_Error> | Res<404, t_Error>> {
     const url =
       this.basePath +
       `/oauth2/${p["authorizationServerId"]}/.well-known/openid-configuration`
@@ -682,7 +641,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<429, t_Error>>> {
+  ): Promise<Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/authorize`
     const headers = this._headers({}, opts.headers)
@@ -724,12 +683,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_BackchannelAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_BackchannelAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/bc/authorize`
@@ -750,13 +707,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ChallengeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_OAuthError>
-    >
+    | Res<200, t_ChallengeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/challenge`
@@ -777,12 +732,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_DeviceAuthorizeResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_DeviceAuthorizeResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath +
@@ -804,12 +757,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_IntrospectionResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_IntrospectionResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/introspect`
@@ -828,7 +779,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_OAuthKeys> | Res<429, t_Error>>> {
+  ): Promise<Res<200, t_OAuthKeys> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/keys`
     const headers = this._headers({}, opts.headers)
 
@@ -844,7 +795,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const headers = this._headers({}, opts.headers)
@@ -868,7 +819,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, void> | Res<429, t_Error>>> {
+  ): Promise<Res<200, void> | Res<429, t_Error>> {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/logout`
     const headers = this._headers(
@@ -888,13 +839,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_OobAuthenticateResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_OAuthError>
-    >
+    | Res<200, t_OobAuthenticateResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_OAuthError>
   > {
     const url =
       this.basePath +
@@ -915,7 +864,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -930,13 +879,11 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_ParResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<403, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_ParResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<403, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/par`
     const headers = this._headers(
@@ -956,12 +903,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, void>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, void>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/revoke`
@@ -981,7 +926,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void> | Res<429, t_Error>>> {
+  ): Promise<Res<204, void> | Res<429, t_Error>> {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
     const headers = this._headers({ Origin: p["origin"] }, opts.headers)
 
@@ -996,12 +941,10 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<200, t_TokenResponse>
-      | Res<400, t_OAuthError>
-      | Res<401, t_OAuthError>
-      | Res<429, t_Error>
-    >
+    | Res<200, t_TokenResponse>
+    | Res<400, t_OAuthError>
+    | Res<401, t_OAuthError>
+    | Res<429, t_Error>
   > {
     const url = this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/token`
     const headers = this._headers(
@@ -1020,9 +963,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
-    >
+    Res<200, t_UserInfo> | Res<401, void> | Res<403, void> | Res<429, t_Error>
   > {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/userinfo`
