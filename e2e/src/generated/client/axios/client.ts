@@ -8,6 +8,11 @@ import {
   t_getHeadersUndeclaredJson200Response,
 } from "./models"
 import {
+  s_RandomNumber,
+  s_getHeadersRequestJson200Response,
+  s_getHeadersUndeclaredJson200Response,
+} from "./schemas"
+import {
   AbstractAxiosClient,
   AbstractAxiosConfig,
   Server,
@@ -65,13 +70,18 @@ export class E2ETestClient extends AbstractAxiosClient {
     const url = `/headers/undeclared`
     const headers = this._headers({}, opts.headers)
 
-    return this._request({
+    const res = await this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
     })
+
+    return {
+      ...res,
+      data: s_getHeadersUndeclaredJson200Response.parse(res.data),
+    }
   }
 
   async getHeadersRequest(
@@ -93,13 +103,15 @@ export class E2ETestClient extends AbstractAxiosClient {
       opts.headers,
     )
 
-    return this._request({
+    const res = await this._request({
       url: url,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
     })
+
+    return { ...res, data: s_getHeadersRequestJson200Response.parse(res.data) }
   }
 
   async getValidationNumbersRandomNumber(
@@ -119,13 +131,15 @@ export class E2ETestClient extends AbstractAxiosClient {
       forbidden: p["forbidden"],
     })
 
-    return this._request({
+    const res = await this._request({
       url: url + query,
       method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
     })
+
+    return { ...res, data: s_RandomNumber.parse(res.data) }
   }
 }
 

@@ -16,6 +16,7 @@ yarn openapi-code-generator \
   --template typescript-fetch \
   --schema-builder zod \
   --extract-inline-schemas \
+  --enable-runtime-response-validation \
   --override-specification-title "E2E Test Client"
 
 yarn openapi-code-generator \
@@ -24,4 +25,5 @@ yarn openapi-code-generator \
   --template typescript-axios \
   --schema-builder zod \
   --extract-inline-schemas \
+  --enable-runtime-response-validation \
   --override-specification-title "E2E Test Client"

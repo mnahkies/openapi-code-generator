@@ -15,29 +15,36 @@ export function responseValidationFactory(
   ): Promise<any> => {
     const res = await whenRes
 
-    return {
-      ...res,
-      json: async () => {
-        const status = res.status
-        const value = await res.json()
+    const json = async () => {
+      const status = res.status
+      const value = await res.json()
 
-        for (const [match, schema] of possibleResponses) {
-          const isMatch =
-            (/^\d+$/.test(match) && String(status) === match) ||
-            (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
+      for (const [match, schema] of possibleResponses) {
+        const isMatch =
+          (/^\d+$/.test(match) && String(status) === match) ||
+          (/^\d[xX]{2}$/.test(match) && String(status)[0] === match[0])
 
-          if (isMatch) {
-            return schema.parse(value)
-          }
+        if (isMatch) {
+          return schema.parse(value)
         }
+      }
 
-        if (defaultResponse) {
-          return defaultResponse.parse(value)
-        }
+      if (defaultResponse) {
+        return defaultResponse.parse(value)
+      }
 
-        // TODO: throw on unmatched response?
-        return value
-      },
+      // TODO: throw on unmatched response?
+      return value
     }
+
+    return new Proxy(res, {
+      get(target, prop, receiver) {
+        if (prop === "json") {
+          return json
+        }
+
+        return Reflect.get(target, prop, receiver)
+      },
+    })
   }
 }
