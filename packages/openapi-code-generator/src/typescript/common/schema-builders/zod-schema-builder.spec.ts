@@ -1185,9 +1185,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-          "const x = z
-            .union([z.object({ foo: z.string() }), z.object({ bar: z.string() })])
-            .merge(z.object({ id: z.string() }))"
+          "const x = z.intersection(
+            z.union([z.object({ foo: z.string() }), z.object({ bar: z.string() })]),
+            z.object({ id: z.string() }),
+          )"
         `)
 
         await expect(execute({id: "1234", foo: "bla"})).resolves.toEqual({
