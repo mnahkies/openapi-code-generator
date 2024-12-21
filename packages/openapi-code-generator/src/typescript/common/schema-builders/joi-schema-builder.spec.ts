@@ -1185,7 +1185,8 @@ describe.each(testVersions)(
         await expect(execute({foo: "bla"})).rejects.toThrow('"bar" is required')
       })
 
-      it("can intersect unions", async () => {
+      // TODO: https://github.com/hapijs/joi/issues/3057
+      it.skip("can intersect unions", async () => {
         const {code, execute} = await getActualFromModel(
           irModelObject({
             allOf: [
