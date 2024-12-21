@@ -2448,15 +2448,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/address@npm:^4.0.1":
-  version: 4.1.0
-  resolution: "@hapi/address@npm:4.1.0"
-  dependencies:
-    "@hapi/hoek": "npm:^9.0.0"
-  checksum: 10/89da7cdcbaef078c6aec69ec167f12bbc3ba61f339678b5cf566b722cafe3e8f63af535a0dc95ba1c1fa3f125ead84821287c1e543b99cd215f58ef718f7da5b
-  languageName: node
-  linkType: hard
-
 "@hapi/bourne@npm:^3.0.0":
   version: 3.0.0
   resolution: "@hapi/bourne@npm:3.0.0"
@@ -2464,41 +2455,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@hapi/formula@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "@hapi/formula@npm:2.0.0"
-  checksum: 10/13c1e066f237bfa2410ff19686e0ac08d48dceffcd51903acb2859644bddf4b313dc4bcc785a1f89690ec7d7e0eceb90c26473335117a09cc5b8d3202868f508
-  languageName: node
-  linkType: hard
-
-"@hapi/hoek@npm:^9.0.0":
+"@hapi/hoek@npm:^9.0.0, @hapi/hoek@npm:^9.3.0":
   version: 9.3.0
   resolution: "@hapi/hoek@npm:9.3.0"
   checksum: 10/ad83a223787749f3873bce42bd32a9a19673765bf3edece0a427e138859ff729469e68d5fdf9ff6bbee6fb0c8e21bab61415afa4584f527cfc40b59ea1957e70
   languageName: node
   linkType: hard
 
-"@hapi/joi@npm:^17.1.1":
-  version: 17.1.1
-  resolution: "@hapi/joi@npm:17.1.1"
-  dependencies:
-    "@hapi/address": "npm:^4.0.1"
-    "@hapi/formula": "npm:^2.0.0"
-    "@hapi/hoek": "npm:^9.0.0"
-    "@hapi/pinpoint": "npm:^2.0.0"
-    "@hapi/topo": "npm:^5.0.0"
-  checksum: 10/ee454f653f6dc973fd6500529a84b7a01cef145b9b50e126ea8db3099c7600002c92345909970947f844b7d02ca78b452ce43ec03772220a5aaae76b68f92537
-  languageName: node
-  linkType: hard
-
-"@hapi/pinpoint@npm:^2.0.0":
-  version: 2.0.1
-  resolution: "@hapi/pinpoint@npm:2.0.1"
-  checksum: 10/28e72305c13de10893be33273cd33c7d7b1c89cfcf707de5a7e214b08f8e3c440adf7df0ff1c9ab4d86744eefdab3ae549456b641f66a2af47ed862f764d6c49
-  languageName: node
-  linkType: hard
-
-"@hapi/topo@npm:^5.0.0":
+"@hapi/topo@npm:^5.1.0":
   version: 5.1.0
   resolution: "@hapi/topo@npm:5.1.0"
   dependencies:
@@ -3710,21 +3674,21 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/typescript-koa-runtime@workspace:packages/typescript-koa-runtime"
   dependencies:
-    "@hapi/joi": "npm:^17.1.1"
     "@koa/cors": "npm:^5.0.0"
     "@koa/router": "npm:^13.1.0"
     "@types/koa": "npm:^2.15.0"
     "@types/koa__cors": "npm:^5.0.0"
     "@types/koa__router": "npm:^12.0.4"
     jest: "npm:^30.0.0-alpha.6"
+    joi: "npm:^17.1.1"
     koa: "npm:^2.15.3"
     koa-body: "npm:^6.0.1"
     typescript: "npm:~5.7.2"
     zod: "npm:^3.23.8"
   peerDependencies:
-    "@hapi/joi": ^17.1.1
     "@koa/cors": ^5.0.0
     "@koa/router": ^13.0.0
+    joi: ^17.1.1
     koa: ^2.14.1
     koa-body: ^6.0.1
     zod: ^3.20.6
@@ -5331,6 +5295,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@sideway/address@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "@sideway/address@npm:4.1.5"
+  dependencies:
+    "@hapi/hoek": "npm:^9.0.0"
+  checksum: 10/c4c73ac0339504f34e016d3a687118e7ddf197c1c968579572123b67b230be84caa705f0f634efdfdde7f2e07a6e0224b3c70665dc420d8bc95bf400cfc4c998
+  languageName: node
+  linkType: hard
+
+"@sideway/formula@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "@sideway/formula@npm:3.0.1"
+  checksum: 10/8d3ee7f80df4e5204b2cbe92a2a711ca89684965a5c9eb3b316b7051212d3522e332a65a0bb2a07cc708fcd1d0b27fcb30f43ff0bcd5089d7006c7160a89eefe
+  languageName: node
+  linkType: hard
+
+"@sideway/pinpoint@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "@sideway/pinpoint@npm:2.0.0"
+  checksum: 10/1ed21800128b2b23280ba4c9db26c8ff6142b97a8683f17639fd7f2128aa09046461574800b30fb407afc5b663c2331795ccf3b654d4b38fa096e41a5c786bf8
+  languageName: node
+  linkType: hard
+
 "@sigstore/bundle@npm:^2.3.2":
   version: 2.3.2
   resolution: "@sigstore/bundle@npm:2.3.2"
@@ -6260,13 +6247,6 @@ __metadata:
   version: 7946.0.14
   resolution: "@types/geojson@npm:7946.0.14"
   checksum: 10/ae511bee6488ae3bd5a3a3347aedb0371e997b14225b8983679284e22fa4ebd88627c6e3ff8b08bf4cc35068cb29310c89427311ffc9322c255615821a922e71
-  languageName: node
-  linkType: hard
-
-"@types/hapi__joi@npm:^17.1.15":
-  version: 17.1.15
-  resolution: "@types/hapi__joi@npm:17.1.15"
-  checksum: 10/01885cb343b51b0c168f62176479169c4ce972b41ac3e295aa3f438818158ff6d6dce2efc65c5ab9209fb2a1b1b5638d571e4059d67451c90711b8e817f263ed
   languageName: node
   linkType: hard
 
@@ -12982,6 +12962,19 @@ __metadata:
   bin:
     jiti: bin/jiti.js
   checksum: 10/289b124cea411c130a14ffe88e3d38376ab44b6695616dfa0a1f32176a8f20ec90cdd6d2b9d81450fc6467cfa4d865f04f49b98452bff0f812bc400fd0ae78d6
+  languageName: node
+  linkType: hard
+
+"joi@npm:^17.1.1, joi@npm:^17.13.3":
+  version: 17.13.3
+  resolution: "joi@npm:17.13.3"
+  dependencies:
+    "@hapi/hoek": "npm:^9.3.0"
+    "@hapi/topo": "npm:^5.1.0"
+    "@sideway/address": "npm:^4.1.5"
+    "@sideway/formula": "npm:^3.0.1"
+    "@sideway/pinpoint": "npm:^2.0.0"
+  checksum: 10/4c150db0c820c3a52f4a55c82c1fc5e144a5b5f4da9ffebc7339a15469d1a447ebb427ced446efcb9709ab56bd71a06c4c67c9381bc1b9f9ae63fc7c89209bdf
   languageName: node
   linkType: hard
 
@@ -19761,12 +19754,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "typescript-koa@workspace:integration-tests/typescript-koa"
   dependencies:
-    "@hapi/joi": "npm:^17.1.1"
     "@koa/router": "npm:^13.1.0"
     "@nahkies/typescript-koa-runtime": "npm:*"
-    "@types/hapi__joi": "npm:^17.1.15"
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
+    joi: "npm:^17.13.3"
     koa: "npm:^2.15.3"
     typescript: "npm:~5.7.2"
     zod: "npm:^3.23.8"

@@ -24,7 +24,7 @@ describe.each(testVersions)(
         //       I think it should be possible move loading of joi into the context, such that
         //       it gets the contexts global RegExp correctly, but I can't figure it out right now.
 
-        {joi: require("@hapi/joi"), RegExp},
+        {joi: require("joi"), RegExp},
       )
     }
 
@@ -44,7 +44,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_SimpleObject = joi
           .object()
@@ -75,7 +75,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_AString = joi.string().required().id("s_AString")
 
@@ -124,7 +124,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_OneOf = joi
           .alternatives()
@@ -152,7 +152,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_AnyOf = joi
           .alternatives()
@@ -172,7 +172,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_Base = joi
           .object()
@@ -205,7 +205,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_Recursive = joi
           .object()
@@ -226,7 +226,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_AOrdering = joi
           .object()
@@ -264,7 +264,7 @@ describe.each(testVersions)(
       `)
 
       expect(schemas).toMatchInlineSnapshot(`
-        "import joi from "@hapi/joi"
+        "import joi from "joi"
 
         export const s_Enums = joi
           .object()
@@ -291,7 +291,7 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import joi from "@hapi/joi"
+          "import joi from "joi"
 
           export const s_AdditionalPropertiesBool = joi
             .object()
@@ -313,7 +313,7 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import joi from "@hapi/joi"
+          "import joi from "joi"
 
           export const s_AdditionalPropertiesUnknownEmptySchema = joi
             .object()
@@ -335,7 +335,7 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import joi from "@hapi/joi"
+          "import joi from "joi"
 
           export const s_AdditionalPropertiesUnknownEmptyObjectSchema = joi
             .object()
@@ -357,7 +357,7 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import joi from "@hapi/joi"
+          "import joi from "joi"
 
           export const s_NamedNullableStringEnum = joi
             .string()
@@ -388,7 +388,7 @@ describe.each(testVersions)(
         `)
 
         expect(schemas).toMatchInlineSnapshot(`
-          "import joi from "@hapi/joi"
+          "import joi from "joi"
 
           export const s_AdditionalPropertiesMixed = joi
             .object()
@@ -449,7 +449,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(5)).rejects.toThrow(
-          '"value" must be larger than or equal to 10',
+          '"value" must be greater than or equal to 10',
         )
         await expect(execute(20)).resolves.toBe(20)
       })
@@ -482,7 +482,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(5)).rejects.toThrow(
-          '"value" must be larger than or equal to 10',
+          '"value" must be greater than or equal to 10',
         )
         await expect(execute(25)).rejects.toThrow(
           '"value" must be less than or equal to 24',
@@ -552,7 +552,7 @@ describe.each(testVersions)(
           '"value" must be a multiple of 4',
         )
         await expect(execute(8)).rejects.toThrow(
-          '"value" must be larger than or equal to 10',
+          '"value" must be greater than or equal to 10',
         )
         await expect(execute(24)).rejects.toThrow(
           '"value" must be less than or equal to 20',
@@ -571,7 +571,7 @@ describe.each(testVersions)(
         )
 
         await expect(execute(-1)).rejects.toThrow(
-          '"value" must be larger than or equal to 0',
+          '"value" must be greater than or equal to 0',
         )
       })
 
