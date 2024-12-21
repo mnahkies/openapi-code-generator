@@ -12,6 +12,39 @@ import type {SchemaBuilderConfig} from "./abstract-schema-builder"
 import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-schema-builder"
 
+function irModelObject(partial: Partial<IRModelObject> = {}): IRModelObject {
+  return {
+    type: "object",
+    allOf: [],
+    anyOf: [],
+    oneOf: [],
+    properties: {},
+    additionalProperties: undefined,
+    required: [],
+    nullable: false,
+    readOnly: false,
+    ...partial,
+  }
+}
+
+function irModelString(partial: Partial<IRModelString> = {}): IRModelString {
+  return {
+    type: "string",
+    nullable: false,
+    readOnly: false,
+    ...partial,
+  }
+}
+
+function irModelNumber(partial: Partial<IRModelNumeric> = {}): IRModelNumeric {
+  return {
+    type: "number",
+    nullable: false,
+    readOnly: false,
+    ...partial,
+  }
+}
+
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",
   (version) => {
@@ -1042,6 +1075,130 @@ describe.each(testVersions)(
           name: "example",
           age: 22,
         })
+      })
+    })
+
+    describe("unions", () => {
+      it("can union a string and number", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            anyOf: [irModelString(), irModelNumber()],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.union([z.string(), z.coerce.number()])"`,
+        )
+
+        await expect(execute("some string")).resolves.toEqual("some string")
+        await expect(execute(1234)).resolves.toEqual(1234)
+        await expect(execute(undefined)).rejects.toThrow("Required")
+      })
+
+      it("can union an intersected object and string", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            anyOf: [
+              irModelString(),
+              irModelObject({
+                allOf: [
+                  irModelObject({
+                    properties: {foo: irModelString()},
+                    required: ["foo"],
+                  }),
+                  irModelObject({
+                    properties: {bar: irModelString()},
+                    required: ["bar"],
+                  }),
+                ],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z.union([
+            z.string(),
+            z.object({ foo: z.string() }).merge(z.object({ bar: z.string() })),
+          ])"
+        `)
+
+        await expect(execute("some string")).resolves.toEqual("some string")
+        await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
+          foo: "bla",
+          bar: "foobar",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+      })
+    })
+
+    describe("intersections", () => {
+      it("can intersect objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            allOf: [
+              irModelObject({
+                properties: {foo: irModelString()},
+                required: ["foo"],
+              }),
+              irModelObject({
+                properties: {bar: irModelString()},
+                required: ["bar"],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.object({ foo: z.string() }).merge(z.object({ bar: z.string() }))"`,
+        )
+
+        await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
+          foo: "bla",
+          bar: "foobar",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
+      })
+
+      it("can intersect unions", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            allOf: [
+              irModelObject({
+                oneOf: [
+                  irModelObject({
+                    properties: {foo: irModelString()},
+                    required: ["foo"],
+                  }),
+                  irModelObject({
+                    properties: {bar: irModelString()},
+                    required: ["bar"],
+                  }),
+                ],
+              }),
+              irModelObject({
+                properties: {id: irModelString()},
+                required: ["id"],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z
+            .union([z.object({ foo: z.string() }), z.object({ bar: z.string() })])
+            .merge(z.object({ id: z.string() }))"
+        `)
+
+        await expect(execute({id: "1234", foo: "bla"})).resolves.toEqual({
+          id: "1234",
+          foo: "bla",
+        })
+        await expect(execute({id: "1234", bar: "bla"})).resolves.toEqual({
+          id: "1234",
+          bar: "bla",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
       })
     })
 
