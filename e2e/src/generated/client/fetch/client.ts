@@ -8,11 +8,17 @@ import {
   t_getHeadersUndeclaredJson200Response,
 } from "./models"
 import {
+  s_RandomNumber,
+  s_getHeadersRequestJson200Response,
+  s_getHeadersUndeclaredJson200Response,
+} from "./schemas"
+import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
   Server,
 } from "@nahkies/typescript-fetch-runtime/main"
+import { responseValidationFactory } from "@nahkies/typescript-fetch-runtime/zod"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {
@@ -65,7 +71,12 @@ export class E2ETestClient extends AbstractFetchClient {
     const url = this.basePath + `/headers/undeclared`
     const headers = this._headers({}, opts.headers)
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+
+    return responseValidationFactory(
+      [["200", s_getHeadersUndeclaredJson200Response]],
+      undefined,
+    )(res)
   }
 
   async getHeadersRequest(
@@ -87,7 +98,12 @@ export class E2ETestClient extends AbstractFetchClient {
       opts.headers,
     )
 
-    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+
+    return responseValidationFactory(
+      [["200", s_getHeadersRequestJson200Response]],
+      undefined,
+    )(res)
   }
 
   async getValidationNumbersRandomNumber(
@@ -107,11 +123,13 @@ export class E2ETestClient extends AbstractFetchClient {
       forbidden: p["forbidden"],
     })
 
-    return this._fetch(
+    const res = this._fetch(
       url + query,
       { method: "GET", ...opts, headers },
       timeout,
     )
+
+    return responseValidationFactory([["200", s_RandomNumber]], undefined)(res)
   }
 }
 
