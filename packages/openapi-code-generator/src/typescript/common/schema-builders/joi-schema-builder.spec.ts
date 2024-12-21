@@ -9,7 +9,12 @@ import type {
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
-import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
+import {
+  irModelNumber,
+  irModelObject,
+  irModelString,
+  schemaBuilderTestHarness,
+} from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-schema-builder"
 
 describe.each(testVersions)(
@@ -1065,6 +1070,180 @@ describe.each(testVersions)(
           name: "example",
           age: 22,
         })
+      })
+    })
+
+    describe("unions", () => {
+      it("can union a string and number", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            anyOf: [irModelString(), irModelNumber()],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .alternatives()
+            .try(joi.string().required(), joi.number().required())
+            .required()"
+        `)
+
+        await expect(execute("some string")).resolves.toEqual("some string")
+        await expect(execute(1234)).resolves.toEqual(1234)
+        await expect(execute(undefined)).rejects.toThrow('"value" is required')
+      })
+
+      it("can union an intersected object and string", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            anyOf: [
+              irModelString(),
+              irModelObject({
+                allOf: [
+                  irModelObject({
+                    properties: {foo: irModelString()},
+                    required: ["foo"],
+                  }),
+                  irModelObject({
+                    properties: {bar: irModelString()},
+                    required: ["bar"],
+                  }),
+                ],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .alternatives()
+            .try(
+              joi.string().required(),
+              joi
+                .object()
+                .keys({ foo: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required()
+                .concat(
+                  joi
+                    .object()
+                    .keys({ bar: joi.string().required() })
+                    .options({ stripUnknown: true })
+                    .required(),
+                )
+                .required(),
+            )
+            .required()"
+        `)
+
+        await expect(execute("some string")).resolves.toEqual("some string")
+        await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
+          foo: "bla",
+          bar: "foobar",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow('"bar" is required')
+      })
+    })
+
+    describe("intersections", () => {
+      it("can intersect objects", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            allOf: [
+              irModelObject({
+                properties: {foo: irModelString()},
+                required: ["foo"],
+              }),
+              irModelObject({
+                properties: {bar: irModelString()},
+                required: ["bar"],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .object()
+            .keys({ foo: joi.string().required() })
+            .options({ stripUnknown: true })
+            .required()
+            .concat(
+              joi
+                .object()
+                .keys({ bar: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required(),
+            )
+            .required()"
+        `)
+
+        await expect(execute({foo: "bla", bar: "foobar"})).resolves.toEqual({
+          foo: "bla",
+          bar: "foobar",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow('"bar" is required')
+      })
+
+      it("can intersect unions", async () => {
+        const {code, execute} = await getActualFromModel(
+          irModelObject({
+            allOf: [
+              irModelObject({
+                oneOf: [
+                  irModelObject({
+                    properties: {foo: irModelString()},
+                    required: ["foo"],
+                  }),
+                  irModelObject({
+                    properties: {bar: irModelString()},
+                    required: ["bar"],
+                  }),
+                ],
+              }),
+              irModelObject({
+                properties: {id: irModelString()},
+                required: ["id"],
+              }),
+            ],
+          }),
+        )
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = joi
+            .alternatives()
+            .try(
+              joi
+                .object()
+                .keys({ foo: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required(),
+              joi
+                .object()
+                .keys({ bar: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required(),
+            )
+            .required()
+            .concat(
+              joi
+                .object()
+                .keys({ id: joi.string().required() })
+                .options({ stripUnknown: true })
+                .required(),
+            )
+            .required()"
+        `)
+
+        await expect(execute({id: "1234", foo: "bla"})).resolves.toEqual({
+          id: "1234",
+          foo: "bla",
+        })
+        await expect(execute({id: "1234", bar: "bla"})).resolves.toEqual({
+          id: "1234",
+          bar: "bla",
+        })
+        await expect(execute({foo: "bla"})).rejects.toThrow("Required")
       })
     })
 

@@ -9,41 +9,13 @@ import type {
 } from "../../../core/openapi-types-normalized"
 import {testVersions} from "../../../test/input.test-utils"
 import type {SchemaBuilderConfig} from "./abstract-schema-builder"
-import {schemaBuilderTestHarness} from "./schema-builder.test-utils"
+import {
+  irModelNumber,
+  irModelObject,
+  irModelString,
+  schemaBuilderTestHarness,
+} from "./schema-builder.test-utils"
 import {staticSchemas} from "./zod-schema-builder"
-
-function irModelObject(partial: Partial<IRModelObject> = {}): IRModelObject {
-  return {
-    type: "object",
-    allOf: [],
-    anyOf: [],
-    oneOf: [],
-    properties: {},
-    additionalProperties: undefined,
-    required: [],
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
-}
-
-function irModelString(partial: Partial<IRModelString> = {}): IRModelString {
-  return {
-    type: "string",
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
-}
-
-function irModelNumber(partial: Partial<IRModelNumeric> = {}): IRModelNumeric {
-  return {
-    type: "number",
-    nullable: false,
-    readOnly: false,
-    ...partial,
-  }
-}
 
 describe.each(testVersions)(
   "%s - typescript/common/schema-builders/zod-schema-builder",

@@ -1,6 +1,9 @@
 import type {Input} from "../../../core/input"
 import type {
   IRModel,
+  IRModelNumeric,
+  IRModelObject,
+  IRModelString,
   MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {
@@ -92,5 +95,44 @@ export function schemaBuilderTestHarness(
   return {
     getActualFromModel,
     getActual,
+  }
+}
+
+export function irModelObject(
+  partial: Partial<IRModelObject> = {},
+): IRModelObject {
+  return {
+    type: "object",
+    allOf: [],
+    anyOf: [],
+    oneOf: [],
+    properties: {},
+    additionalProperties: undefined,
+    required: [],
+    nullable: false,
+    readOnly: false,
+    ...partial,
+  }
+}
+
+export function irModelString(
+  partial: Partial<IRModelString> = {},
+): IRModelString {
+  return {
+    type: "string",
+    nullable: false,
+    readOnly: false,
+    ...partial,
+  }
+}
+
+export function irModelNumber(
+  partial: Partial<IRModelNumeric> = {},
+): IRModelNumeric {
+  return {
+    type: "number",
+    nullable: false,
+    readOnly: false,
+    ...partial,
   }
 }
