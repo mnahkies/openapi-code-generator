@@ -19,6 +19,7 @@ import {
   Server,
 } from "@nahkies/typescript-fetch-runtime/main"
 import { responseValidationFactory } from "@nahkies/typescript-fetch-runtime/zod"
+import { z } from "zod"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {
@@ -130,6 +131,18 @@ export class E2ETestClient extends AbstractFetchClient {
     )
 
     return responseValidationFactory([["200", s_RandomNumber]], undefined)(res)
+  }
+
+  async getResponsesEmpty(
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url = this.basePath + `/responses/empty`
+    const headers = this._headers({}, opts.headers)
+
+    const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+
+    return responseValidationFactory([["204", z.undefined()]], undefined)(res)
   }
 }
 

@@ -1,4 +1,5 @@
 import {
+  type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
   createRouter,
 } from "../generated/routes/validation"
@@ -28,8 +29,13 @@ const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
     return respond.withStatus(404)
   }
 
+const getResponsesEmpty: GetResponsesEmpty = async (_, respond) => {
+  return respond.with204()
+}
+
 export function createValidationRouter() {
   return createRouter({
     getValidationNumbersRandomNumber,
+    getResponsesEmpty,
   })
 }
