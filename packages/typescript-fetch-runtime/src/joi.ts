@@ -1,4 +1,4 @@
-import type {Schema as JoiSchema} from "@hapi/joi"
+import type {Schema as JoiSchema} from "joi"
 import type {Res, StatusCode} from "./main"
 
 export function responseValidationFactory(

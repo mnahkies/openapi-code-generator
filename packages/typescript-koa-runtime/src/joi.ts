@@ -1,4 +1,4 @@
-import type {Schema as JoiSchema} from "@hapi/joi"
+import type {Schema as JoiSchema} from "joi"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
 export type Params<Params, Query, Body> = {

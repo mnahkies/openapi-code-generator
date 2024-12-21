@@ -10,10 +10,9 @@
     "validate": "tsc -p ./tsconfig.json"
   },
   "dependencies": {
-    "@hapi/joi": "^17.1.1",
     "@koa/router": "^13.1.0",
     "@nahkies/typescript-koa-runtime": "*",
-    "@types/hapi__joi": "^17.1.15",
+    "joi": "^17.13.3",
     "koa": "^2.15.3",
     "zod": "^3.23.8"
   },

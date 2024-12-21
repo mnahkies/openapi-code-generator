@@ -48,7 +48,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   }
 
   protected importHelpers(imports: ImportBuilder) {
-    imports.addModule(joi, "@hapi/joi")
+    imports.addModule(joi, "joi")
   }
 
   public parse(schema: string, value: string): string {
