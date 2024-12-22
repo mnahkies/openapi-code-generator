@@ -158,7 +158,7 @@ export class E2ETestClient extends AbstractAxiosClient {
       headers,
     })
 
-    return { ...res, data: z.undefined().parse(res.data) }
+    return { ...res, data: z.any().parse(res.data) }
   }
 }
 

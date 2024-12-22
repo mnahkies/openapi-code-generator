@@ -142,7 +142,7 @@ export class E2ETestClient extends AbstractFetchClient {
 
     const res = this._fetch(url, { method: "GET", ...opts, headers }, timeout)
 
-    return responseValidationFactory([["204", z.undefined()]], undefined)(res)
+    return responseValidationFactory([["204", z.any()]], undefined)(res)
   }
 }
 

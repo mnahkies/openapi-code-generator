@@ -201,8 +201,10 @@ describe("e2e - typescript-axios client", () => {
 
   describe("GET /responses/empty", () => {
     it("returns undefined", async () => {
-      const {data} = await client.getResponsesEmpty()
-      expect(data).toBeUndefined()
+      const {status, data} = await client.getResponsesEmpty()
+
+      expect(status).toBe(204)
+      expect(data).toEqual("")
     })
   })
 })

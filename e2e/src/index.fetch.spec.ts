@@ -229,8 +229,8 @@ describe("e2e - typescript-fetch client", () => {
     it("returns undefined", async () => {
       const res = await client.getResponsesEmpty()
 
-      const body = await res.json()
-      expect(body).toBeUndefined()
+      expect(res.status).toBe(204)
+      await expect(res.json()).rejects.toThrow("Unexpected end of JSON input")
     })
   })
 })

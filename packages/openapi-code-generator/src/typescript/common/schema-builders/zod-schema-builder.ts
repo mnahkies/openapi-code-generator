@@ -269,7 +269,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return this.addStaticSchema("PermissiveBoolean")
   }
 
-  protected any(): string {
+  public any(): string {
     return [zod, "any()"].filter(isDefined).join(".")
   }
 
