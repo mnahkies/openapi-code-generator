@@ -9,7 +9,7 @@ export class TypescriptEmitter {
   constructor(
     private readonly fsAdaptor: IFsAdaptor,
     private readonly formatter: IFormatter,
-    private readonly config: {
+    public readonly config: {
       destinationDirectory: string
       allowUnusedImports: boolean
     },
