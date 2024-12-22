@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.17.0...v0.18.0) (2024-12-22)
+
+- fix(typescript-axios)!: remove unused exports (#281) ([7b34fd4](https://github.com/mnahkies/openapi-code-generator/commit/7b34fd4bf337ae75aeb07ce5416805ea96fd6d99)), closes [#281](https://github.com/mnahkies/openapi-code-generator/issues/281)
+
+### BREAKING CHANGES
+
+- unused symbols `Res` and `StatusCode` dropped from `typescript-axios-runtime`
+
 # [0.17.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.16.0...v0.17.0) (2024-12-11)
 
 ### Features

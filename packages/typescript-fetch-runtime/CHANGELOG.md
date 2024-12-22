@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.18.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.17.0...v0.18.0) (2024-12-22)
+
+### Bug Fixes
+
+- **typescript-fetch:** runtime validation works ([#287](https://github.com/mnahkies/openapi-code-generator/issues/287)) ([cead53a](https://github.com/mnahkies/openapi-code-generator/commit/cead53a25272764b012925115d247eb5cd619d49)), closes [#286](https://github.com/mnahkies/openapi-code-generator/issues/286)
+
+- fix(joi)!: switch from @hapi/joi to joi (#284) ([6693e1d](https://github.com/mnahkies/openapi-code-generator/commit/6693e1de7b635bf99b3b41a1f41f66932697d416)), closes [#284](https://github.com/mnahkies/openapi-code-generator/issues/284)
+- feat(typescript-fetch)!: simplify response types (#280) ([4340caf](https://github.com/mnahkies/openapi-code-generator/commit/4340caf009684a9034d1b90e4dc4753ab174e131)), closes [#280](https://github.com/mnahkies/openapi-code-generator/issues/280)
+
+### BREAKING CHANGES
+
+- `peerDependency` changed to `joi` for users of
+  `--schema-builder joi`
+- `TypedFetchResponse` is removed, use `Res` directly if
+  needed
+
 # [0.17.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.16.0...v0.17.0) (2024-12-11)
 
 ### Features
