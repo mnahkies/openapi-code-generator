@@ -35,7 +35,7 @@ export type GetTodoListItemsResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoListItems = (
-  params: Params<t_GetTodoListItemsParamSchema, void, void>,
+  params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
   respond: GetTodoListItemsResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -48,7 +48,8 @@ export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
     void,
-    t_CreateTodoListItemBodySchema
+    t_CreateTodoListItemBodySchema,
+    void
   >,
   respond: CreateTodoListItemResponder,
   ctx: { request: NextRequest },
@@ -71,6 +72,7 @@ export const _GET =
       // TODO: this swallows repeated parameters
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -131,6 +133,7 @@ export const _POST =
         await request.json(),
         RequestInputType.RequestBody,
       ),
+      headers: undefined,
     }
 
     const responder = {

@@ -22,7 +22,7 @@ export type GetTodoListsResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoLists = (
-  params: Params<void, t_GetTodoListsQuerySchema, void>,
+  params: Params<void, t_GetTodoListsQuerySchema, void, void>,
   respond: GetTodoListsResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -58,6 +58,7 @@ export const _GET =
         RequestInputType.QueryString,
       ),
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
