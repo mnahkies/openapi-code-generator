@@ -8,6 +8,30 @@ import { Callout, Steps } from 'nextra/components'
 </Callout>
 
 <Steps>
+### 22 Dec 2024 (v0.18.0)
+Primarily a bug-fix release focusing on improving client SDK runtime validation.
+
+**POTENTIALLY BREAKING CHANGES**
+- Users of `joi` validation must change the dependency from `@hapi/joi` to `joi`
+- Unused `Res` and `StatusCode` types removed from `typescript-axios-runtime` package
+- `TypedFetchResponse` removed from `typescript-fetch-runtime` package, use exported type `Res` instead if needed
+
+**Bug fixes**
+* feat(typescript-fetch)!: simplify response types by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/280
+* fix(typescript-axios)!: remove unused exports by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/281
+* fix(joi)!: switch from @hapi/joi to joi by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/284
+* fix: intersected union schemas by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/283
+* fix(typescript-fetch): runtime validation works by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/287
+* fix(client-sdks): handle 204 empty responses with runtime validation by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/288
+
+**Misc**
+* chore: refresh / update deps by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/289
+* test: add missing unit tests to utils by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/292
+* docs: regenerate release-notes by @mnahkies in https://github.com/mnahkies/openapi-code-generator/pull/279
+
+
+**Full Changelog**: https://github.com/mnahkies/openapi-code-generator/compare/v0.17.0...v0.18.0
+    
 ### 11 Dec 2024 (v0.17.0)
 The main change is that `server` overrides at the path / operation level will now be respected and create an additional positional parameter for these methods when generating clients (closes #266).
 
