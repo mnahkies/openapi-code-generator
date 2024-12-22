@@ -2,14 +2,50 @@ import {describe, expect, it} from "@jest/globals"
 import {
   camelCase,
   coalesce,
+  hasSingleElement,
+  isDefined,
+  isHttpMethod,
   kebabCase,
   mediaTypeToIdentifier,
   normalizeFilename,
   snakeCase,
   titleCase,
+  upperFirst,
 } from "./utils"
 
 describe("core/utils", () => {
+  describe("#isDefined", () => {
+    it.each([
+      ["", true],
+      [0, true],
+      [false, true],
+      [null, true],
+      [undefined, false],
+    ])("%s -> %s", (input, expected) => {
+      expect(isDefined(input)).toBe(expected)
+    })
+  })
+
+  describe("#hasSingleElement", () => {
+    it.each([
+      [[], false],
+      [[1], true],
+      [[1, 2], false],
+    ])("%s -> %s", (input, expected) => {
+      expect(hasSingleElement(input)).toBe(expected)
+    })
+  })
+
+  describe("#isHttpMethod", () => {
+    it.each([
+      ["GET", true],
+      ["post", true],
+      ["random", false],
+    ])("%s -> %s", (input, expected) => {
+      expect(isHttpMethod(input)).toBe(expected)
+    })
+  })
+
   describe("#coalesce", () => {
     it("returns the first defined parameter", () => {
       expect(coalesce(null, undefined, 1, 2)).toBe(1)
@@ -32,8 +68,34 @@ describe("core/utils", () => {
       ["single", "Single"],
       ["two words", "TwoWords"],
       ["camelCase", "CamelCase"],
+      ["pipe-case", "PipeCase"],
+      ["snake_case", "SnakeCase"],
     ])("%s -> %s", (input, expected) => {
       expect(titleCase(input)).toBe(expected)
+    })
+  })
+
+  describe("#camelCase", () => {
+    it.each([
+      ["single", "single"],
+      ["two words", "twoWords"],
+      ["camelCase", "camelCase"],
+      ["pipe-case", "pipeCase"],
+      ["snake_case", "snakeCase"],
+    ])("%s -> %s", (input, expected) => {
+      expect(camelCase(input)).toBe(expected)
+    })
+  })
+
+  describe("#upperFirst", () => {
+    it.each([
+      ["single", "Single"],
+      ["two words", "Two words"],
+      ["camelCase", "CamelCase"],
+      ["pipe-case", "Pipe-case"],
+      ["snake_case", "Snake_case"],
+    ])("%s -> %s", (input, expected) => {
+      expect(upperFirst(input)).toBe(expected)
     })
   })
 
