@@ -246,7 +246,7 @@ export class ServerRouterBuilder implements ICompilable {
                       (bodyParamsType === "void" || bodyParamIsRequired
                         ? ""
                         : " | undefined")
-                    }>,
+                    }, void>,
                     respond: ${titleCase(operation.operationId)}Responder,
                     ctx: {request: NextRequest}
                   ) => Promise<KoaRuntimeResponse<unknown>>`,
