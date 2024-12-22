@@ -65,6 +65,9 @@ import {
   t_code_scanning_analysis_sarif_id,
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
+  t_code_scanning_autofix,
+  t_code_scanning_autofix_commits,
+  t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
   t_code_scanning_default_setup_options,
@@ -114,6 +117,7 @@ import {
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
+  t_custom_property_set_payload,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -185,6 +189,8 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_private_registry_configuration,
+  t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
@@ -1105,80 +1111,305 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async copilotListCopilotSeatsForEnterprise(
+  async codeSecurityGetConfigurationsForEnterprise(
     p: {
       enterprise: string
-      page?: number
       perPage?: number
+      before?: string
+      after?: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_security_configuration[]>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityCreateConfigurationForEnterprise(
+    p: {
+      enterprise: string
+      requestBody: {
+        advanced_security?: ("enabled" | "disabled") | undefined
+        code_scanning_default_setup?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        code_scanning_default_setup_options?:
+          | t_code_scanning_default_setup_options
+          | undefined
+        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_security_updates?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph_autosubmit_action?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph_autosubmit_action_options?:
+          | {
+              labeled_runners?: boolean | undefined
+            }
+          | undefined
+        description: string
+        enforcement?: ("enforced" | "unenforced") | undefined
+        name: string
+        private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_non_provider_patterns?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_push_protection?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_validity_checks?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_security_configuration>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityGetDefaultConfigurationsForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_security_default_configurations>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/defaults`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityGetSingleConfigurationForEnterprise(
+    p: {
+      enterprise: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_security_configuration>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityUpdateEnterpriseConfiguration(
+    p: {
+      enterprise: string
+      configurationId: number
+      requestBody: {
+        advanced_security?: ("enabled" | "disabled") | undefined
+        code_scanning_default_setup?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        code_scanning_default_setup_options?:
+          | t_code_scanning_default_setup_options
+          | undefined
+        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_security_updates?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph_autosubmit_action?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        dependency_graph_autosubmit_action_options?:
+          | {
+              labeled_runners?: boolean | undefined
+            }
+          | undefined
+        description?: string | undefined
+        enforcement?: ("enforced" | "unenforced") | undefined
+        name?: string | undefined
+        private_vulnerability_reporting?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_non_provider_patterns?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_push_protection?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_validity_checks?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_security_configuration>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityDeleteConfigurationForEnterprise(
+    p: {
+      enterprise: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeSecurityAttachEnterpriseConfiguration(
+    p: {
+      enterprise: string
+      configurationId: number
+      requestBody: {
+        scope: "all" | "all_without_configurations"
+      }
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
   ): Promise<
     AxiosResponse<{
-      seats?: t_copilot_seat_details[] | undefined
-      total_seats?: number | undefined
+      [key: string]: unknown | undefined
     }>
   > {
-    const url = `/enterprises/${p["enterprise"]}/copilot/billing/seats`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/attach`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
     return this._request({
-      url: url + query,
-      method: "GET",
+      url: url,
+      method: "POST",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
     })
   }
 
-  async copilotCopilotMetricsForEnterprise(
+  async codeSecuritySetConfigurationAsDefaultForEnterprise(
     p: {
       enterprise: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
+      configurationId: number
+      requestBody: {
+        default_for_new_repos?:
+          | ("all" | "none" | "private_and_internal" | "public")
+          | undefined
+      }
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
-    const url = `/enterprises/${p["enterprise"]}/copilot/metrics`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+  ): Promise<
+    AxiosResponse<{
+      configuration?: t_code_security_configuration | undefined
+      default_for_new_repos?:
+        | ("all" | "none" | "private_and_internal" | "public")
+        | undefined
+    }>
+  > {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/defaults`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
 
     return this._request({
-      url: url + query,
-      method: "GET",
+      url: url,
+      method: "PUT",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
     })
   }
 
-  async copilotUsageMetricsForEnterprise(
+  async codeSecurityGetRepositoriesForEnterpriseConfiguration(
     p: {
       enterprise: string
-      since?: string
-      until?: string
-      page?: number
+      configurationId: number
       perPage?: number
+      before?: string
+      after?: string
+      status?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
-    const url = `/enterprises/${p["enterprise"]}/copilot/usage`
+  ): Promise<AxiosResponse<t_code_security_configuration_repositories[]>> {
+    const url = `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
       per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
     })
 
     return this._request({
@@ -1267,66 +1498,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async copilotCopilotMetricsForEnterpriseTeam(
-    p: {
-      enterprise: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
-    const url = `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async copilotUsageMetricsForEnterpriseTeam(
-    p: {
-      enterprise: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
-    const url = `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
     })
 
     return this._request({
@@ -4013,6 +4184,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                     | undefined
                 }
               | undefined
+            bundle_url?: string | undefined
             repository_id?: number | undefined
           }[]
         | undefined
@@ -5691,11 +5863,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -5834,11 +6006,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       minTimestamp: string
       maxTimestamp?: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
     },
     timeout?: number,
@@ -5919,11 +6091,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -7425,6 +7597,164 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async privateRegistriesListOrgPrivateRegistries(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      configurations: t_org_private_registry_configuration[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/private-registries`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async privateRegistriesCreateOrgPrivateRegistry(
+    p: {
+      org: string
+      requestBody: {
+        encrypted_value: string
+        key_id: string
+        registry_type: "maven_repository"
+        selected_repository_ids?: number[] | undefined
+        username?: (string | null) | undefined
+        visibility: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<t_org_private_registry_configuration_with_selected_repositories>
+  > {
+    const url = `/orgs/${p["org"]}/private-registries`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async privateRegistriesGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      key: string
+      key_id: string
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/private-registries/public-key`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async privateRegistriesGetOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_org_private_registry_configuration>> {
+    const url = `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async privateRegistriesUpdateOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string | undefined
+        key_id?: string | undefined
+        registry_type?: "maven_repository" | undefined
+        selected_repository_ids?: number[] | undefined
+        username?: (string | null) | undefined
+        visibility?: ("all" | "private" | "selected") | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async privateRegistriesDeleteOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async projectsListForOrg(
     p: {
       org: string
@@ -7550,13 +7880,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       customPropertyName: string
-      requestBody: {
-        allowed_values?: (string[] | null) | undefined
-        default_value?: (string | string[] | null) | undefined
-        description?: (string | null) | undefined
-        required?: boolean | undefined
-        value_type: "string" | "single_select" | "multi_select" | "true_false"
-      }
+      requestBody: t_custom_property_set_payload
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7861,7 +8185,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push") | undefined
+        target?: ("branch" | "tag" | "push" | "repository") | undefined
       }
     },
     timeout?: number,
@@ -7969,7 +8293,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement?: t_repository_rule_enforcement | undefined
         name?: string | undefined
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push") | undefined
+        target?: ("branch" | "tag" | "push" | "repository") | undefined
       }
     },
     timeout?: number,
@@ -11864,6 +12188,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                     | undefined
                 }
               | undefined
+            bundle_url?: string | undefined
             repository_id?: number | undefined
           }[]
         | undefined
@@ -13428,6 +13753,75 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeScanningGetAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_scanning_autofix>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeScanningCreateAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_scanning_autofix>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async codeScanningCommitAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      requestBody?: t_code_scanning_autofix_commits
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_code_scanning_autofix_commits_response>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
       data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
@@ -25271,6 +25665,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         attestations?:
           | {
               bundle?: t_sigstore_bundle_0 | undefined
+              bundle_url?: string | undefined
               repository_id?: number | undefined
             }[]
           | undefined

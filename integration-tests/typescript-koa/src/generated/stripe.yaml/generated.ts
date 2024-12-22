@@ -23099,6 +23099,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       .optional(),
                   })
                   .optional(),
+                visa_compliance: z
+                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
+                  .optional(),
               }),
               z.enum([""]),
             ])
@@ -24029,7 +24032,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           bacs_debit: z
             .object({
-              mandate_options: z.object({}).optional(),
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
               setup_future_usage: z
                 .enum(["none", "off_session", "on_session"])
                 .optional(),
@@ -24230,7 +24239,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           sepa_debit: z
             .object({
-              mandate_options: z.object({}).optional(),
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
               setup_future_usage: z
                 .enum(["none", "off_session", "on_session"])
                 .optional(),
@@ -27183,14 +27198,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
             type: z.enum([
               "ad_nrt",
               "ae_trn",
+              "al_tin",
+              "am_tin",
+              "ao_tin",
               "ar_cuit",
               "au_abn",
               "au_arn",
+              "ba_tin",
+              "bb_tin",
               "bg_uic",
               "bh_vat",
               "bo_tin",
               "br_cnpj",
               "br_cpf",
+              "bs_tin",
               "by_tin",
               "ca_bn",
               "ca_gst_hst",
@@ -27198,6 +27219,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "ca_pst_mb",
               "ca_pst_sk",
               "ca_qst",
+              "cd_nif",
               "ch_uid",
               "ch_vat",
               "cl_tin",
@@ -27213,6 +27235,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "eu_vat",
               "gb_vat",
               "ge_vat",
+              "gn_nif",
               "hk_br",
               "hr_oib",
               "hu_tin",
@@ -27224,12 +27247,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "jp_rn",
               "jp_trn",
               "ke_pin",
+              "kh_tin",
               "kr_brn",
               "kz_bin",
               "li_uid",
               "li_vat",
               "ma_vat",
               "md_vat",
+              "me_pib",
+              "mk_vat",
+              "mr_nif",
               "mx_rfc",
               "my_frp",
               "my_itn",
@@ -27237,6 +27264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "ng_tin",
               "no_vat",
               "no_voec",
+              "np_pan",
               "nz_gst",
               "om_vat",
               "pe_ruc",
@@ -27249,12 +27277,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "sg_gst",
               "sg_uen",
               "si_tin",
+              "sn_ninea",
+              "sr_fin",
               "sv_nit",
               "th_vat",
+              "tj_tin",
               "tr_tin",
               "tw_vat",
               "tz_vat",
               "ua_vat",
+              "ug_tin",
               "us_ein",
               "uy_ruc",
               "uz_tin",
@@ -27262,6 +27294,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "ve_rif",
               "vn_tin",
               "za_vat",
+              "zm_tin",
+              "zw_tin",
             ]),
             value: z.string(),
           }),
@@ -31518,14 +31552,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum([
       "ad_nrt",
       "ae_trn",
+      "al_tin",
+      "am_tin",
+      "ao_tin",
       "ar_cuit",
       "au_abn",
       "au_arn",
+      "ba_tin",
+      "bb_tin",
       "bg_uic",
       "bh_vat",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
+      "bs_tin",
       "by_tin",
       "ca_bn",
       "ca_gst_hst",
@@ -31533,6 +31573,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ca_pst_mb",
       "ca_pst_sk",
       "ca_qst",
+      "cd_nif",
       "ch_uid",
       "ch_vat",
       "cl_tin",
@@ -31548,6 +31589,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "eu_vat",
       "gb_vat",
       "ge_vat",
+      "gn_nif",
       "hk_br",
       "hr_oib",
       "hu_tin",
@@ -31559,12 +31601,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "jp_rn",
       "jp_trn",
       "ke_pin",
+      "kh_tin",
       "kr_brn",
       "kz_bin",
       "li_uid",
       "li_vat",
       "ma_vat",
       "md_vat",
+      "me_pib",
+      "mk_vat",
+      "mr_nif",
       "mx_rfc",
       "my_frp",
       "my_itn",
@@ -31572,6 +31618,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ng_tin",
       "no_vat",
       "no_voec",
+      "np_pan",
       "nz_gst",
       "om_vat",
       "pe_ruc",
@@ -31584,12 +31631,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "sg_gst",
       "sg_uen",
       "si_tin",
+      "sn_ninea",
+      "sr_fin",
       "sv_nit",
       "th_vat",
+      "tj_tin",
       "tr_tin",
       "tw_vat",
       "tz_vat",
       "ua_vat",
+      "ug_tin",
       "us_ein",
       "uy_ruc",
       "uz_tin",
@@ -31597,6 +31648,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ve_rif",
       "vn_tin",
       "za_vat",
+      "zm_tin",
+      "zw_tin",
     ]),
     value: z.string(),
   })
@@ -32055,6 +32108,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                       )
                       .optional(),
                   })
+                  .optional(),
+                visa_compliance: z
+                  .object({ fee_acknowledged: PermissiveBoolean.optional() })
                   .optional(),
               }),
               z.enum([""]),
@@ -34505,7 +34561,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
     metadata: z.record(z.string()).optional(),
     payment_method: z.string().max(5000),
     replacements: z.array(
-      z.enum(["card_cvc", "card_expiry", "card_number", "cardholder_name"]),
+      z.enum([
+        "card_cvc",
+        "card_expiry",
+        "card_number",
+        "cardholder_name",
+        "request_signature",
+      ]),
     ),
     request: z
       .object({
@@ -36494,14 +36556,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 type: z.enum([
                   "ad_nrt",
                   "ae_trn",
+                  "al_tin",
+                  "am_tin",
+                  "ao_tin",
                   "ar_cuit",
                   "au_abn",
                   "au_arn",
+                  "ba_tin",
+                  "bb_tin",
                   "bg_uic",
                   "bh_vat",
                   "bo_tin",
                   "br_cnpj",
                   "br_cpf",
+                  "bs_tin",
                   "by_tin",
                   "ca_bn",
                   "ca_gst_hst",
@@ -36509,6 +36577,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ca_pst_mb",
                   "ca_pst_sk",
                   "ca_qst",
+                  "cd_nif",
                   "ch_uid",
                   "ch_vat",
                   "cl_tin",
@@ -36524,6 +36593,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "eu_vat",
                   "gb_vat",
                   "ge_vat",
+                  "gn_nif",
                   "hk_br",
                   "hr_oib",
                   "hu_tin",
@@ -36535,12 +36605,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "jp_rn",
                   "jp_trn",
                   "ke_pin",
+                  "kh_tin",
                   "kr_brn",
                   "kz_bin",
                   "li_uid",
                   "li_vat",
                   "ma_vat",
                   "md_vat",
+                  "me_pib",
+                  "mk_vat",
+                  "mr_nif",
                   "mx_rfc",
                   "my_frp",
                   "my_itn",
@@ -36548,6 +36622,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ng_tin",
                   "no_vat",
                   "no_voec",
+                  "np_pan",
                   "nz_gst",
                   "om_vat",
                   "pe_ruc",
@@ -36560,12 +36635,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "sg_gst",
                   "sg_uen",
                   "si_tin",
+                  "sn_ninea",
+                  "sr_fin",
                   "sv_nit",
                   "th_vat",
+                  "tj_tin",
                   "tr_tin",
                   "tw_vat",
                   "tz_vat",
                   "ua_vat",
+                  "ug_tin",
                   "us_ein",
                   "uy_ruc",
                   "uz_tin",
@@ -36573,6 +36652,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ve_rif",
                   "vn_tin",
                   "za_vat",
+                  "zm_tin",
+                  "zw_tin",
                 ]),
                 value: z.string(),
               }),
@@ -37082,14 +37163,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
               type: z.enum([
                 "ad_nrt",
                 "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "ba_tin",
+                "bb_tin",
                 "bg_uic",
                 "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "bs_tin",
                 "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
@@ -37097,6 +37184,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "cd_nif",
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
@@ -37112,6 +37200,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "eu_vat",
                 "gb_vat",
                 "ge_vat",
+                "gn_nif",
                 "hk_br",
                 "hr_oib",
                 "hu_tin",
@@ -37123,12 +37212,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kh_tin",
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
                 "li_vat",
                 "ma_vat",
                 "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -37136,6 +37229,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ng_tin",
                 "no_vat",
                 "no_voec",
+                "np_pan",
                 "nz_gst",
                 "om_vat",
                 "pe_ruc",
@@ -37148,12 +37242,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "sg_gst",
                 "sg_uen",
                 "si_tin",
+                "sn_ninea",
+                "sr_fin",
                 "sv_nit",
                 "th_vat",
+                "tj_tin",
                 "tr_tin",
                 "tw_vat",
                 "tz_vat",
                 "ua_vat",
+                "ug_tin",
                 "us_ein",
                 "uy_ruc",
                 "uz_tin",
@@ -37161,6 +37259,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
+                "zm_tin",
+                "zw_tin",
               ]),
               value: z.string(),
             }),
@@ -37671,14 +37771,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
               type: z.enum([
                 "ad_nrt",
                 "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "ba_tin",
+                "bb_tin",
                 "bg_uic",
                 "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "bs_tin",
                 "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
@@ -37686,6 +37792,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "cd_nif",
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
@@ -37701,6 +37808,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "eu_vat",
                 "gb_vat",
                 "ge_vat",
+                "gn_nif",
                 "hk_br",
                 "hr_oib",
                 "hu_tin",
@@ -37712,12 +37820,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kh_tin",
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
                 "li_vat",
                 "ma_vat",
                 "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -37725,6 +37837,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ng_tin",
                 "no_vat",
                 "no_voec",
+                "np_pan",
                 "nz_gst",
                 "om_vat",
                 "pe_ruc",
@@ -37737,12 +37850,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "sg_gst",
                 "sg_uen",
                 "si_tin",
+                "sn_ninea",
+                "sr_fin",
                 "sv_nit",
                 "th_vat",
+                "tj_tin",
                 "tr_tin",
                 "tw_vat",
                 "tz_vat",
                 "ua_vat",
+                "ug_tin",
                 "us_ein",
                 "uy_ruc",
                 "uz_tin",
@@ -37750,6 +37867,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
+                "zm_tin",
+                "zw_tin",
               ]),
               value: z.string(),
             }),
@@ -47284,7 +47403,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         bacs_debit: z
           .union([
             z.object({
-              mandate_options: z.object({}).optional(),
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -47766,7 +47891,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         sepa_debit: z
           .union([
             z.object({
-              mandate_options: z.object({}).optional(),
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
               setup_future_usage: z
                 .enum(["", "none", "off_session", "on_session"])
                 .optional(),
@@ -48490,7 +48621,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bacs_debit: z
             .union([
               z.object({
-                mandate_options: z.object({}).optional(),
+                mandate_options: z
+                  .object({
+                    reference_prefix: z
+                      .union([z.string().max(12), z.enum([""])])
+                      .optional(),
+                  })
+                  .optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -48978,7 +49115,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           sepa_debit: z
             .union([
               z.object({
-                mandate_options: z.object({}).optional(),
+                mandate_options: z
+                  .object({
+                    reference_prefix: z
+                      .union([z.string().max(12), z.enum([""])])
+                      .optional(),
+                  })
+                  .optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -49771,7 +49914,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bacs_debit: z
             .union([
               z.object({
-                mandate_options: z.object({}).optional(),
+                mandate_options: z
+                  .object({
+                    reference_prefix: z
+                      .union([z.string().max(12), z.enum([""])])
+                      .optional(),
+                  })
+                  .optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -50259,7 +50408,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           sepa_debit: z
             .union([
               z.object({
-                mandate_options: z.object({}).optional(),
+                mandate_options: z
+                  .object({
+                    reference_prefix: z
+                      .union([z.string().max(12), z.enum([""])])
+                      .optional(),
+                  })
+                  .optional(),
                 setup_future_usage: z
                   .enum(["", "none", "off_session", "on_session"])
                   .optional(),
@@ -51744,6 +51899,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+          trial_period_days: z
+            .union([z.coerce.number(), z.enum([""])])
+            .optional(),
           trial_settings: z
             .union([
               z.object({
@@ -59959,7 +60117,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           amazon_pay: z.object({}).optional(),
           bacs_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           card: z
             .object({
@@ -60036,7 +60202,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           us_bank_account: z
             .object({
@@ -60521,7 +60695,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           amazon_pay: z.object({}).optional(),
           bacs_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           card: z
             .object({
@@ -60598,7 +60780,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           us_bank_account: z
             .object({
@@ -61099,7 +61289,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           amazon_pay: z.object({}).optional(),
           bacs_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           card: z
             .object({
@@ -61176,7 +61374,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ billing_agreement_id: z.string().max(5000).optional() })
             .optional(),
           sepa_debit: z
-            .object({ mandate_options: z.object({}).optional() })
+            .object({
+              mandate_options: z
+                .object({
+                  reference_prefix: z
+                    .union([z.string().max(12), z.enum([""])])
+                    .optional(),
+                })
+                .optional(),
+            })
             .optional(),
           us_bank_account: z
             .object({
@@ -65332,14 +65538,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
               type: z.enum([
                 "ad_nrt",
                 "ae_trn",
+                "al_tin",
+                "am_tin",
+                "ao_tin",
                 "ar_cuit",
                 "au_abn",
                 "au_arn",
+                "ba_tin",
+                "bb_tin",
                 "bg_uic",
                 "bh_vat",
                 "bo_tin",
                 "br_cnpj",
                 "br_cpf",
+                "bs_tin",
                 "by_tin",
                 "ca_bn",
                 "ca_gst_hst",
@@ -65347,6 +65559,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ca_pst_mb",
                 "ca_pst_sk",
                 "ca_qst",
+                "cd_nif",
                 "ch_uid",
                 "ch_vat",
                 "cl_tin",
@@ -65362,6 +65575,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "eu_vat",
                 "gb_vat",
                 "ge_vat",
+                "gn_nif",
                 "hk_br",
                 "hr_oib",
                 "hu_tin",
@@ -65373,12 +65587,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "jp_rn",
                 "jp_trn",
                 "ke_pin",
+                "kh_tin",
                 "kr_brn",
                 "kz_bin",
                 "li_uid",
                 "li_vat",
                 "ma_vat",
                 "md_vat",
+                "me_pib",
+                "mk_vat",
+                "mr_nif",
                 "mx_rfc",
                 "my_frp",
                 "my_itn",
@@ -65386,6 +65604,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ng_tin",
                 "no_vat",
                 "no_voec",
+                "np_pan",
                 "nz_gst",
                 "om_vat",
                 "pe_ruc",
@@ -65398,12 +65617,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "sg_gst",
                 "sg_uen",
                 "si_tin",
+                "sn_ninea",
+                "sr_fin",
                 "sv_nit",
                 "th_vat",
+                "tj_tin",
                 "tr_tin",
                 "tw_vat",
                 "tz_vat",
                 "ua_vat",
+                "ug_tin",
                 "us_ein",
                 "uy_ruc",
                 "uz_tin",
@@ -65411,6 +65634,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ve_rif",
                 "vn_tin",
                 "za_vat",
+                "zm_tin",
+                "zw_tin",
               ]),
               value: z.string(),
             }),
@@ -65753,6 +65978,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
     country: z.string().max(5000),
     country_options: z.object({
       ae: z.object({ type: z.enum(["standard"]) }).optional(),
+      al: z.object({ type: z.enum(["standard"]) }).optional(),
+      am: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ao: z.object({ type: z.enum(["standard"]) }).optional(),
       at: z
         .object({
           standard: z
@@ -65764,6 +65992,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       au: z.object({ type: z.enum(["standard"]) }).optional(),
+      ba: z.object({ type: z.enum(["standard"]) }).optional(),
+      bb: z.object({ type: z.enum(["standard"]) }).optional(),
       be: z
         .object({
           standard: z
@@ -65785,6 +66015,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       bh: z.object({ type: z.enum(["standard"]) }).optional(),
+      bs: z.object({ type: z.enum(["standard"]) }).optional(),
       by: z.object({ type: z.enum(["simplified"]) }).optional(),
       ca: z
         .object({
@@ -65794,6 +66025,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["province_standard", "simplified", "standard"]),
         })
         .optional(),
+      cd: z.object({ type: z.enum(["standard"]) }).optional(),
       ch: z.object({ type: z.enum(["standard"]) }).optional(),
       cl: z.object({ type: z.enum(["simplified"]) }).optional(),
       co: z.object({ type: z.enum(["simplified"]) }).optional(),
@@ -65882,6 +66114,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       gb: z.object({ type: z.enum(["standard"]) }).optional(),
       ge: z.object({ type: z.enum(["simplified"]) }).optional(),
+      gn: z.object({ type: z.enum(["standard"]) }).optional(),
       gr: z
         .object({
           standard: z
@@ -65936,6 +66169,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       jp: z.object({ type: z.enum(["standard"]) }).optional(),
       ke: z.object({ type: z.enum(["simplified"]) }).optional(),
+      kh: z.object({ type: z.enum(["simplified"]) }).optional(),
       kr: z.object({ type: z.enum(["simplified"]) }).optional(),
       kz: z.object({ type: z.enum(["simplified"]) }).optional(),
       lt: z
@@ -65970,6 +66204,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       ma: z.object({ type: z.enum(["simplified"]) }).optional(),
       md: z.object({ type: z.enum(["simplified"]) }).optional(),
+      me: z.object({ type: z.enum(["standard"]) }).optional(),
+      mk: z.object({ type: z.enum(["standard"]) }).optional(),
+      mr: z.object({ type: z.enum(["standard"]) }).optional(),
       mt: z
         .object({
           standard: z
@@ -65994,8 +66231,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       no: z.object({ type: z.enum(["standard"]) }).optional(),
+      np: z.object({ type: z.enum(["simplified"]) }).optional(),
       nz: z.object({ type: z.enum(["standard"]) }).optional(),
       om: z.object({ type: z.enum(["standard"]) }).optional(),
+      pe: z.object({ type: z.enum(["simplified"]) }).optional(),
       pl: z
         .object({
           standard: z
@@ -66060,9 +66299,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           type: z.enum(["ioss", "oss_non_union", "oss_union", "standard"]),
         })
         .optional(),
+      sn: z.object({ type: z.enum(["simplified"]) }).optional(),
+      sr: z.object({ type: z.enum(["standard"]) }).optional(),
       th: z.object({ type: z.enum(["simplified"]) }).optional(),
+      tj: z.object({ type: z.enum(["simplified"]) }).optional(),
       tr: z.object({ type: z.enum(["simplified"]) }).optional(),
       tz: z.object({ type: z.enum(["simplified"]) }).optional(),
+      ug: z.object({ type: z.enum(["simplified"]) }).optional(),
       us: z
         .object({
           local_amusement_tax: z
@@ -66095,9 +66338,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
           ]),
         })
         .optional(),
+      uy: z.object({ type: z.enum(["standard"]) }).optional(),
       uz: z.object({ type: z.enum(["simplified"]) }).optional(),
       vn: z.object({ type: z.enum(["simplified"]) }).optional(),
       za: z.object({ type: z.enum(["standard"]) }).optional(),
+      zm: z.object({ type: z.enum(["simplified"]) }).optional(),
+      zw: z.object({ type: z.enum(["standard"]) }).optional(),
     }),
     expand: z.array(z.string().max(5000)).optional(),
     expires_at: z.coerce.number().optional(),
@@ -66940,14 +67186,20 @@ export function createRouter(implementation: Implementation): KoaRouter {
     type: z.enum([
       "ad_nrt",
       "ae_trn",
+      "al_tin",
+      "am_tin",
+      "ao_tin",
       "ar_cuit",
       "au_abn",
       "au_arn",
+      "ba_tin",
+      "bb_tin",
       "bg_uic",
       "bh_vat",
       "bo_tin",
       "br_cnpj",
       "br_cpf",
+      "bs_tin",
       "by_tin",
       "ca_bn",
       "ca_gst_hst",
@@ -66955,6 +67207,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ca_pst_mb",
       "ca_pst_sk",
       "ca_qst",
+      "cd_nif",
       "ch_uid",
       "ch_vat",
       "cl_tin",
@@ -66970,6 +67223,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "eu_vat",
       "gb_vat",
       "ge_vat",
+      "gn_nif",
       "hk_br",
       "hr_oib",
       "hu_tin",
@@ -66981,12 +67235,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "jp_rn",
       "jp_trn",
       "ke_pin",
+      "kh_tin",
       "kr_brn",
       "kz_bin",
       "li_uid",
       "li_vat",
       "ma_vat",
       "md_vat",
+      "me_pib",
+      "mk_vat",
+      "mr_nif",
       "mx_rfc",
       "my_frp",
       "my_itn",
@@ -66994,6 +67252,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ng_tin",
       "no_vat",
       "no_voec",
+      "np_pan",
       "nz_gst",
       "om_vat",
       "pe_ruc",
@@ -67006,12 +67265,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "sg_gst",
       "sg_uen",
       "si_tin",
+      "sn_ninea",
+      "sr_fin",
       "sv_nit",
       "th_vat",
+      "tj_tin",
       "tr_tin",
       "tw_vat",
       "tz_vat",
       "ua_vat",
+      "ug_tin",
       "us_ein",
       "uy_ruc",
       "uz_tin",
@@ -67019,6 +67282,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       "ve_rif",
       "vn_tin",
       "za_vat",
+      "zm_tin",
+      "zw_tin",
     ]),
     value: z.string(),
   })
@@ -77808,6 +78073,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2024-09-30.acacia",
         "2024-10-28.acacia",
         "2024-11-20.acacia",
+        "2024-12-18.acacia",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),

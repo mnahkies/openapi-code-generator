@@ -4680,6 +4680,9 @@ export class StripeApi extends AbstractFetchClient {
                     }
                   }[]
                 }
+                visa_compliance?: {
+                  fee_acknowledged?: boolean
+                }
               }
             | ""
           product_description?: string
@@ -5230,7 +5233,9 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
           }
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           bancontact?: {
@@ -5375,7 +5380,9 @@ export class StripeApi extends AbstractFetchClient {
             capture_method?: "manual"
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           sofort?: {
@@ -7006,14 +7013,20 @@ export class StripeApi extends AbstractFetchClient {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -7021,6 +7034,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -7036,6 +7050,7 @@ export class StripeApi extends AbstractFetchClient {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -7047,12 +7062,16 @@ export class StripeApi extends AbstractFetchClient {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -7060,6 +7079,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -7072,12 +7092,16 @@ export class StripeApi extends AbstractFetchClient {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -7085,6 +7109,8 @@ export class StripeApi extends AbstractFetchClient {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
         test_clock?: string
@@ -9177,14 +9203,20 @@ export class StripeApi extends AbstractFetchClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
           | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
@@ -9192,6 +9224,7 @@ export class StripeApi extends AbstractFetchClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
@@ -9207,6 +9240,7 @@ export class StripeApi extends AbstractFetchClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
           | "hr_oib"
           | "hu_tin"
@@ -9218,12 +9252,16 @@ export class StripeApi extends AbstractFetchClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
           | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -9231,6 +9269,7 @@ export class StripeApi extends AbstractFetchClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -9243,12 +9282,16 @@ export class StripeApi extends AbstractFetchClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
           | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
           | "uz_tin"
@@ -9256,6 +9299,8 @@ export class StripeApi extends AbstractFetchClient {
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
@@ -9456,6 +9501,9 @@ export class StripeApi extends AbstractFetchClient {
                       state?: string | ""
                     }
                   }[]
+                }
+                visa_compliance?: {
+                  fee_acknowledged?: boolean
                 }
               }
             | ""
@@ -10611,6 +10659,7 @@ export class StripeApi extends AbstractFetchClient {
           | "card_expiry"
           | "card_number"
           | "cardholder_name"
+          | "request_signature"
         )[]
         request?: {
           body?: string
@@ -11642,14 +11691,20 @@ export class StripeApi extends AbstractFetchClient {
             type:
               | "ad_nrt"
               | "ae_trn"
+              | "al_tin"
+              | "am_tin"
+              | "ao_tin"
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "ba_tin"
+              | "bb_tin"
               | "bg_uic"
               | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "bs_tin"
               | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
@@ -11657,6 +11712,7 @@ export class StripeApi extends AbstractFetchClient {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "cd_nif"
               | "ch_uid"
               | "ch_vat"
               | "cl_tin"
@@ -11672,6 +11728,7 @@ export class StripeApi extends AbstractFetchClient {
               | "eu_vat"
               | "gb_vat"
               | "ge_vat"
+              | "gn_nif"
               | "hk_br"
               | "hr_oib"
               | "hu_tin"
@@ -11683,12 +11740,16 @@ export class StripeApi extends AbstractFetchClient {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kh_tin"
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
               | "li_vat"
               | "ma_vat"
               | "md_vat"
+              | "me_pib"
+              | "mk_vat"
+              | "mr_nif"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -11696,6 +11757,7 @@ export class StripeApi extends AbstractFetchClient {
               | "ng_tin"
               | "no_vat"
               | "no_voec"
+              | "np_pan"
               | "nz_gst"
               | "om_vat"
               | "pe_ruc"
@@ -11708,12 +11770,16 @@ export class StripeApi extends AbstractFetchClient {
               | "sg_gst"
               | "sg_uen"
               | "si_tin"
+              | "sn_ninea"
+              | "sr_fin"
               | "sv_nit"
               | "th_vat"
+              | "tj_tin"
               | "tr_tin"
               | "tw_vat"
               | "tz_vat"
               | "ua_vat"
+              | "ug_tin"
               | "us_ein"
               | "uy_ruc"
               | "uz_tin"
@@ -11721,6 +11787,8 @@ export class StripeApi extends AbstractFetchClient {
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
+              | "zm_tin"
+              | "zw_tin"
             value: string
           }[]
         }
@@ -12032,14 +12100,20 @@ export class StripeApi extends AbstractFetchClient {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -12047,6 +12121,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -12062,6 +12137,7 @@ export class StripeApi extends AbstractFetchClient {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -12073,12 +12149,16 @@ export class StripeApi extends AbstractFetchClient {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -12086,6 +12166,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -12098,12 +12179,16 @@ export class StripeApi extends AbstractFetchClient {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -12111,6 +12196,8 @@ export class StripeApi extends AbstractFetchClient {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
       }
@@ -12459,14 +12546,20 @@ export class StripeApi extends AbstractFetchClient {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -12474,6 +12567,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -12489,6 +12583,7 @@ export class StripeApi extends AbstractFetchClient {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -12500,12 +12595,16 @@ export class StripeApi extends AbstractFetchClient {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -12513,6 +12612,7 @@ export class StripeApi extends AbstractFetchClient {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -12525,12 +12625,16 @@ export class StripeApi extends AbstractFetchClient {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -12538,6 +12642,8 @@ export class StripeApi extends AbstractFetchClient {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
       }
@@ -19247,7 +19353,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -19580,7 +19688,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20072,7 +20182,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20405,7 +20517,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -20919,7 +21033,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           bacs_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -21252,7 +21368,9 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           sepa_debit?:
             | {
-                mandate_options?: EmptyObject
+                mandate_options?: {
+                  reference_prefix?: string | ""
+                }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
               }
             | ""
@@ -22377,6 +22495,7 @@ export class StripeApi extends AbstractFetchClient {
                 [key: string]: string | undefined
               }
             | ""
+          trial_period_days?: number | ""
           trial_settings?:
             | {
                 end_behavior: {
@@ -27061,7 +27180,9 @@ export class StripeApi extends AbstractFetchClient {
           }
           amazon_pay?: EmptyObject
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           card?: {
             mandate_options?: {
@@ -27113,7 +27234,9 @@ export class StripeApi extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27459,7 +27582,9 @@ export class StripeApi extends AbstractFetchClient {
           }
           amazon_pay?: EmptyObject
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           card?: {
             mandate_options?: {
@@ -27511,7 +27636,9 @@ export class StripeApi extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
@@ -27860,7 +27987,9 @@ export class StripeApi extends AbstractFetchClient {
           }
           amazon_pay?: EmptyObject
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           card?: {
             mandate_options?: {
@@ -27912,7 +28041,9 @@ export class StripeApi extends AbstractFetchClient {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
@@ -30113,14 +30244,20 @@ export class StripeApi extends AbstractFetchClient {
             type:
               | "ad_nrt"
               | "ae_trn"
+              | "al_tin"
+              | "am_tin"
+              | "ao_tin"
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "ba_tin"
+              | "bb_tin"
               | "bg_uic"
               | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "bs_tin"
               | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
@@ -30128,6 +30265,7 @@ export class StripeApi extends AbstractFetchClient {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "cd_nif"
               | "ch_uid"
               | "ch_vat"
               | "cl_tin"
@@ -30143,6 +30281,7 @@ export class StripeApi extends AbstractFetchClient {
               | "eu_vat"
               | "gb_vat"
               | "ge_vat"
+              | "gn_nif"
               | "hk_br"
               | "hr_oib"
               | "hu_tin"
@@ -30154,12 +30293,16 @@ export class StripeApi extends AbstractFetchClient {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kh_tin"
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
               | "li_vat"
               | "ma_vat"
               | "md_vat"
+              | "me_pib"
+              | "mk_vat"
+              | "mr_nif"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -30167,6 +30310,7 @@ export class StripeApi extends AbstractFetchClient {
               | "ng_tin"
               | "no_vat"
               | "no_voec"
+              | "np_pan"
               | "nz_gst"
               | "om_vat"
               | "pe_ruc"
@@ -30179,12 +30323,16 @@ export class StripeApi extends AbstractFetchClient {
               | "sg_gst"
               | "sg_uen"
               | "si_tin"
+              | "sn_ninea"
+              | "sr_fin"
               | "sv_nit"
               | "th_vat"
+              | "tj_tin"
               | "tr_tin"
               | "tw_vat"
               | "tz_vat"
               | "ua_vat"
+              | "ug_tin"
               | "us_ein"
               | "uy_ruc"
               | "uz_tin"
@@ -30192,6 +30340,8 @@ export class StripeApi extends AbstractFetchClient {
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
+              | "zm_tin"
+              | "zw_tin"
             value: string
           }[]
           taxability_override?: "customer_exempt" | "none" | "reverse_charge"
@@ -30358,6 +30508,15 @@ export class StripeApi extends AbstractFetchClient {
           ae?: {
             type: "standard"
           }
+          al?: {
+            type: "standard"
+          }
+          am?: {
+            type: "simplified"
+          }
+          ao?: {
+            type: "standard"
+          }
           at?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -30365,6 +30524,12 @@ export class StripeApi extends AbstractFetchClient {
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
           au?: {
+            type: "standard"
+          }
+          ba?: {
+            type: "standard"
+          }
+          bb?: {
             type: "standard"
           }
           be?: {
@@ -30382,6 +30547,9 @@ export class StripeApi extends AbstractFetchClient {
           bh?: {
             type: "standard"
           }
+          bs?: {
+            type: "standard"
+          }
           by?: {
             type: "simplified"
           }
@@ -30390,6 +30558,9 @@ export class StripeApi extends AbstractFetchClient {
               province: string
             }
             type: "province_standard" | "simplified" | "standard"
+          }
+          cd?: {
+            type: "standard"
           }
           ch?: {
             type: "standard"
@@ -30463,6 +30634,9 @@ export class StripeApi extends AbstractFetchClient {
           ge?: {
             type: "simplified"
           }
+          gn?: {
+            type: "standard"
+          }
           gr?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -30505,6 +30679,9 @@ export class StripeApi extends AbstractFetchClient {
           ke?: {
             type: "simplified"
           }
+          kh?: {
+            type: "simplified"
+          }
           kr?: {
             type: "simplified"
           }
@@ -30535,6 +30712,15 @@ export class StripeApi extends AbstractFetchClient {
           md?: {
             type: "simplified"
           }
+          me?: {
+            type: "standard"
+          }
+          mk?: {
+            type: "standard"
+          }
+          mr?: {
+            type: "standard"
+          }
           mt?: {
             standard?: {
               place_of_supply_scheme: "small_seller" | "standard"
@@ -30559,11 +30745,17 @@ export class StripeApi extends AbstractFetchClient {
           no?: {
             type: "standard"
           }
+          np?: {
+            type: "simplified"
+          }
           nz?: {
             type: "standard"
           }
           om?: {
             type: "standard"
+          }
+          pe?: {
+            type: "simplified"
           }
           pl?: {
             standard?: {
@@ -30613,13 +30805,25 @@ export class StripeApi extends AbstractFetchClient {
             }
             type: "ioss" | "oss_non_union" | "oss_union" | "standard"
           }
+          sn?: {
+            type: "simplified"
+          }
+          sr?: {
+            type: "standard"
+          }
           th?: {
+            type: "simplified"
+          }
+          tj?: {
             type: "simplified"
           }
           tr?: {
             type: "simplified"
           }
           tz?: {
+            type: "simplified"
+          }
+          ug?: {
             type: "simplified"
           }
           us?: {
@@ -30646,6 +30850,9 @@ export class StripeApi extends AbstractFetchClient {
               | "state_retail_delivery_fee"
               | "state_sales_tax"
           }
+          uy?: {
+            type: "standard"
+          }
           uz?: {
             type: "simplified"
           }
@@ -30653,6 +30860,12 @@ export class StripeApi extends AbstractFetchClient {
             type: "simplified"
           }
           za?: {
+            type: "standard"
+          }
+          zm?: {
+            type: "simplified"
+          }
+          zw?: {
             type: "standard"
           }
         }
@@ -31034,14 +31247,20 @@ export class StripeApi extends AbstractFetchClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
           | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
@@ -31049,6 +31268,7 @@ export class StripeApi extends AbstractFetchClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
@@ -31064,6 +31284,7 @@ export class StripeApi extends AbstractFetchClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
           | "hr_oib"
           | "hu_tin"
@@ -31075,12 +31296,16 @@ export class StripeApi extends AbstractFetchClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
           | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -31088,6 +31313,7 @@ export class StripeApi extends AbstractFetchClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -31100,12 +31326,16 @@ export class StripeApi extends AbstractFetchClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
           | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
           | "uz_tin"
@@ -31113,6 +31343,8 @@ export class StripeApi extends AbstractFetchClient {
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
@@ -36945,6 +37177,7 @@ export class StripeApi extends AbstractFetchClient {
           | "2024-09-30.acacia"
           | "2024-10-28.acacia"
           | "2024-11-20.acacia"
+          | "2024-12-18.acacia"
         connect?: boolean
         description?: string | ""
         enabled_events: (

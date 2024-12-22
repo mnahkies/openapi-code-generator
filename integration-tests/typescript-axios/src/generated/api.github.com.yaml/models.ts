@@ -230,6 +230,12 @@ export type t_api_overview = {
   domains?:
     | {
         actions?: string[] | undefined
+        actions_inbound?:
+          | {
+              full_domains?: string[] | undefined
+              wildcard_domains?: string[] | undefined
+            }
+          | undefined
         artifact_attestations?:
           | {
               services?: string[] | undefined
@@ -1006,6 +1012,32 @@ export type t_code_scanning_analysis_tool_version = string | null
 
 export type t_code_scanning_analysis_url = string
 
+export type t_code_scanning_autofix = {
+  description: t_code_scanning_autofix_description
+  started_at: t_code_scanning_autofix_started_at
+  status: t_code_scanning_autofix_status
+}
+
+export type t_code_scanning_autofix_commits = {
+  message?: string | undefined
+  target_ref?: string | undefined
+} | null
+
+export type t_code_scanning_autofix_commits_response = {
+  sha?: string | undefined
+  target_ref?: string | undefined
+}
+
+export type t_code_scanning_autofix_description = string | null
+
+export type t_code_scanning_autofix_started_at = string
+
+export type t_code_scanning_autofix_status =
+  | "pending"
+  | "error"
+  | "success"
+  | "outdated"
+
 export type t_code_scanning_codeql_database = {
   commit_oid?: (string | null) | undefined
   content_type: string
@@ -1022,6 +1054,7 @@ export type t_code_scanning_codeql_database = {
 export type t_code_scanning_default_setup = {
   languages?:
     | (
+        | "actions"
         | "c-cpp"
         | "csharp"
         | "go"
@@ -1048,6 +1081,7 @@ export type t_code_scanning_default_setup_options = {
 export type t_code_scanning_default_setup_update = {
   languages?:
     | (
+        | "actions"
         | "c-cpp"
         | "csharp"
         | "go"
@@ -1976,6 +2010,14 @@ export type t_custom_property = {
   url?: string | undefined
   value_type: "string" | "single_select" | "multi_select" | "true_false"
   values_editable_by?: ("org_actors" | "org_and_repo_actors" | null) | undefined
+}
+
+export type t_custom_property_set_payload = {
+  allowed_values?: (string[] | null) | undefined
+  default_value?: (string | string[] | null) | undefined
+  description?: (string | null) | undefined
+  required?: boolean | undefined
+  value_type: "string" | "single_select" | "multi_select" | "true_false"
 }
 
 export type t_custom_property_value = {
@@ -4310,6 +4352,25 @@ export type t_org_membership = {
   user: t_nullable_simple_user
 }
 
+export type t_org_private_registry_configuration = {
+  created_at: string
+  name: string
+  registry_type: "maven_repository"
+  updated_at: string
+  username?: (string | null) | undefined
+  visibility: "all" | "private" | "selected"
+}
+
+export type t_org_private_registry_configuration_with_selected_repositories = {
+  created_at: string
+  name: string
+  registry_type: "maven_repository"
+  selected_repository_ids?: number[] | undefined
+  updated_at: string
+  username?: string | undefined
+  visibility: "all" | "private" | "selected"
+}
+
 export type t_org_repo_custom_property_values = {
   properties: t_custom_property_value[]
   repository_full_name: string
@@ -4521,6 +4582,7 @@ export type t_organization_secret_scanning_alert = {
   push_protection_bypass_request_comment?: (string | null) | undefined
   push_protection_bypass_request_html_url?: (string | null) | undefined
   push_protection_bypass_request_reviewer?: t_nullable_simple_user | undefined
+  push_protection_bypass_request_reviewer_comment?: (string | null) | undefined
   push_protection_bypassed?: (boolean | null) | undefined
   push_protection_bypassed_at?: (string | null) | undefined
   push_protection_bypassed_by?: t_nullable_simple_user | undefined
@@ -5355,6 +5417,7 @@ export type t_rate_limit_overview = {
   rate: t_rate_limit
   resources: {
     actions_runner_registration?: t_rate_limit | undefined
+    code_scanning_autofix?: t_rate_limit | undefined
     code_scanning_upload?: t_rate_limit | undefined
     code_search?: t_rate_limit | undefined
     core: t_rate_limit
@@ -6033,6 +6096,7 @@ export type t_repository_rule_params_workflow_file_reference = {
 export type t_repository_rule_pull_request = {
   parameters?:
     | {
+        allowed_merge_methods?: string[] | undefined
         dismiss_stale_reviews_on_push: boolean
         require_code_owner_review: boolean
         require_last_push_approval: boolean
@@ -6159,8 +6223,8 @@ export type t_repository_ruleset = {
   node_id?: string | undefined
   rules?: t_repository_rule[] | undefined
   source: string
-  source_type?: ("Repository" | "Organization") | undefined
-  target?: ("branch" | "tag" | "push") | undefined
+  source_type?: ("Repository" | "Organization" | "Enterprise") | undefined
+  target?: ("branch" | "tag" | "push" | "repository") | undefined
   updated_at?: string | undefined
 }
 
@@ -6470,6 +6534,7 @@ export type t_secret_scanning_alert = {
   push_protection_bypass_request_comment?: (string | null) | undefined
   push_protection_bypass_request_html_url?: (string | null) | undefined
   push_protection_bypass_request_reviewer?: t_nullable_simple_user | undefined
+  push_protection_bypass_request_reviewer_comment?: (string | null) | undefined
   push_protection_bypassed?: (boolean | null) | undefined
   push_protection_bypassed_at?: (string | null) | undefined
   push_protection_bypassed_by?: t_nullable_simple_user | undefined

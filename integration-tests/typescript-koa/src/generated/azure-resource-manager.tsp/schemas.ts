@@ -17,6 +17,8 @@ export const PermissiveBoolean = z.preprocess((value) => {
   return value
 }, z.boolean())
 
+export const s_Azure_Core_armResourceType = z.string()
+
 export const s_Azure_Core_uuid = z.string()
 
 export const s_Azure_ResourceManager_CommonTypes_ActionType = z.union([
@@ -70,7 +72,7 @@ export const s_Azure_ResourceManager_CommonTypes_SystemData = z.object({
 export const s_Azure_ResourceManager_CommonTypes_Resource = z.object({
   id: z.string().optional(),
   name: z.string().optional(),
-  type: z.string().optional(),
+  type: s_Azure_Core_armResourceType.optional(),
   systemData: s_Azure_ResourceManager_CommonTypes_SystemData.optional(),
 })
 

@@ -475,12 +475,19 @@ export type t_address = {
   state?: (string | null) | undefined
 }
 
+export type t_amazon_pay_underlying_payment_method_funding_details = {
+  card?: t_payment_method_details_passthrough_card | undefined
+  type?: ("card" | null) | undefined
+}
+
 export type t_api_errors = {
   charge?: string | undefined
   code?: string | undefined
   decline_code?: string | undefined
   doc_url?: string | undefined
   message?: string | undefined
+  network_advice_code?: string | undefined
+  network_decline_code?: string | undefined
   param?: string | undefined
   payment_intent?: t_payment_intent | undefined
   payment_method?: t_payment_method | undefined
@@ -545,6 +552,13 @@ export type t_apps_secret = {
 }
 
 export type t_automatic_tax = {
+  disabled_reason?:
+    | (
+        | "finalization_requires_location_inputs"
+        | "finalization_system_error"
+        | null
+      )
+    | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
   status?:
@@ -655,6 +669,8 @@ export type t_balance_transaction = {
     | "payout"
     | "payout_cancel"
     | "payout_failure"
+    | "payout_minimum_balance_hold"
+    | "payout_minimum_balance_release"
     | "refund"
     | "refund_failure"
     | "reserve_transaction"
@@ -898,8 +914,17 @@ export type t_billing_credit_grants_resource_applicability_config = {
 
 export type t_billing_credit_grants_resource_balance_credit = {
   amount: t_billing_credit_grants_resource_amount
-  type: "credits_granted"
+  credits_application_invoice_voided?:
+    | (t_billing_credit_grants_resource_balance_credits_application_invoice_voided | null)
+    | undefined
+  type: "credits_application_invoice_voided" | "credits_granted"
 }
+
+export type t_billing_credit_grants_resource_balance_credits_application_invoice_voided =
+  {
+    invoice: string | t_invoice
+    invoice_line_item: string
+  }
 
 export type t_billing_credit_grants_resource_balance_credits_applied = {
   invoice: string | t_invoice
@@ -1079,6 +1104,7 @@ export type t_card = {
   address_state?: (string | null) | undefined
   address_zip?: (string | null) | undefined
   address_zip_check?: (string | null) | undefined
+  allow_redisplay?: ("always" | "limited" | "unspecified" | null) | undefined
   available_payout_methods?: (("instant" | "standard")[] | null) | undefined
   brand: string
   country?: (string | null) | undefined
@@ -1092,6 +1118,7 @@ export type t_card = {
   fingerprint?: (string | null) | undefined
   funding: string
   id: string
+  iin?: string | undefined
   last4: string
   metadata?:
     | ({
@@ -1101,6 +1128,7 @@ export type t_card = {
   name?: (string | null) | undefined
   networks?: t_token_card_networks | undefined
   object: "card"
+  regulated_status?: ("regulated" | "unregulated" | null) | undefined
   status?: (string | null) | undefined
   tokenization_method?: (string | null) | undefined
 }
@@ -1195,6 +1223,8 @@ export type t_charge_fraud_details = {
 }
 
 export type t_charge_outcome = {
+  network_advice_code?: (string | null) | undefined
+  network_decline_code?: (string | null) | undefined
   network_status?: (string | null) | undefined
   reason?: (string | null) | undefined
   risk_level?: string | undefined
@@ -1520,11 +1550,13 @@ export type t_checkout_payco_payment_method_options = {
   capture_method?: "manual" | undefined
 }
 
-export type t_checkout_payment_method_options_mandate_options_bacs_debit =
-  EmptyObject
+export type t_checkout_payment_method_options_mandate_options_bacs_debit = {
+  reference_prefix?: string | undefined
+}
 
-export type t_checkout_payment_method_options_mandate_options_sepa_debit =
-  EmptyObject
+export type t_checkout_payment_method_options_mandate_options_sepa_debit = {
+  reference_prefix?: string | undefined
+}
 
 export type t_checkout_paynow_payment_method_options = {
   setup_future_usage?: "none" | undefined
@@ -2622,6 +2654,7 @@ export type t_dispute_enhanced_eligibility = {
   visa_compelling_evidence_3?:
     | t_dispute_enhanced_eligibility_visa_compelling_evidence3
     | undefined
+  visa_compliance?: t_dispute_enhanced_eligibility_visa_compliance | undefined
 }
 
 export type t_dispute_enhanced_eligibility_visa_compelling_evidence3 = {
@@ -2635,10 +2668,15 @@ export type t_dispute_enhanced_eligibility_visa_compelling_evidence3 = {
   status: "not_qualified" | "qualified" | "requires_action"
 }
 
+export type t_dispute_enhanced_eligibility_visa_compliance = {
+  status: "fee_acknowledged" | "requires_fee_acknowledgement"
+}
+
 export type t_dispute_enhanced_evidence = {
   visa_compelling_evidence_3?:
     | t_dispute_enhanced_evidence_visa_compelling_evidence3
     | undefined
+  visa_compliance?: t_dispute_enhanced_evidence_visa_compliance | undefined
 }
 
 export type t_dispute_enhanced_evidence_visa_compelling_evidence3 = {
@@ -2646,6 +2684,10 @@ export type t_dispute_enhanced_evidence_visa_compelling_evidence3 = {
     | (t_dispute_visa_compelling_evidence3_disputed_transaction | null)
     | undefined
   prior_undisputed_transactions: t_dispute_visa_compelling_evidence3_prior_undisputed_transaction[]
+}
+
+export type t_dispute_enhanced_evidence_visa_compliance = {
+  fee_acknowledged: boolean
 }
 
 export type t_dispute_evidence = {
@@ -3035,6 +3077,7 @@ export type t_forwarding_request = {
     | "card_expiry"
     | "card_number"
     | "cardholder_name"
+    | "request_signature"
   )[]
   request_context?: (t_forwarded_request_context | null) | undefined
   request_details?: (t_forwarded_request_details | null) | undefined
@@ -3089,19 +3132,26 @@ export type t_funding_instructions_bank_transfer_financial_address = {
 }
 
 export type t_funding_instructions_bank_transfer_iban_record = {
+  account_holder_address: t_address
   account_holder_name: string
+  bank_address: t_address
   bic: string
   country: string
   iban: string
 }
 
 export type t_funding_instructions_bank_transfer_sort_code_record = {
+  account_holder_address: t_address
   account_holder_name: string
   account_number: string
+  bank_address: t_address
   sort_code: string
 }
 
 export type t_funding_instructions_bank_transfer_spei_record = {
+  account_holder_address: t_address
+  account_holder_name: string
+  bank_address: t_address
   bank_code: string
   bank_name: string
   clabe: string
@@ -3118,9 +3168,11 @@ export type t_funding_instructions_bank_transfer_swift_record = {
 }
 
 export type t_funding_instructions_bank_transfer_zengin_record = {
+  account_holder_address: t_address
   account_holder_name?: (string | null) | undefined
   account_number?: (string | null) | undefined
   account_type?: (string | null) | undefined
+  bank_address: t_address
   bank_code?: (string | null) | undefined
   bank_name?: (string | null) | undefined
   branch_code?: (string | null) | undefined
@@ -3824,14 +3876,20 @@ export type t_invoices_resource_invoice_tax_id = {
   type:
     | "ad_nrt"
     | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
     | "ar_cuit"
     | "au_abn"
     | "au_arn"
+    | "ba_tin"
+    | "bb_tin"
     | "bg_uic"
     | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
+    | "bs_tin"
     | "by_tin"
     | "ca_bn"
     | "ca_gst_hst"
@@ -3839,6 +3897,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "cd_nif"
     | "ch_uid"
     | "ch_vat"
     | "cl_tin"
@@ -3854,6 +3913,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "eu_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gn_nif"
     | "hk_br"
     | "hr_oib"
     | "hu_tin"
@@ -3865,12 +3925,16 @@ export type t_invoices_resource_invoice_tax_id = {
     | "jp_rn"
     | "jp_trn"
     | "ke_pin"
+    | "kh_tin"
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
     | "li_vat"
     | "ma_vat"
     | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
@@ -3878,6 +3942,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "ng_tin"
     | "no_vat"
     | "no_voec"
+    | "np_pan"
     | "nz_gst"
     | "om_vat"
     | "pe_ruc"
@@ -3890,12 +3955,16 @@ export type t_invoices_resource_invoice_tax_id = {
     | "sg_gst"
     | "sg_uen"
     | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
     | "sv_nit"
     | "th_vat"
+    | "tj_tin"
     | "tr_tin"
     | "tw_vat"
     | "tz_vat"
     | "ua_vat"
+    | "ug_tin"
     | "unknown"
     | "us_ein"
     | "uy_ruc"
@@ -3904,6 +3973,8 @@ export type t_invoices_resource_invoice_tax_id = {
     | "ve_rif"
     | "vn_tin"
     | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
   value?: (string | null) | undefined
 }
 
@@ -4277,6 +4348,7 @@ export type t_issuing_authorization_merchant_data = {
   network_id: string
   postal_code?: (string | null) | undefined
   state?: (string | null) | undefined
+  tax_id?: (string | null) | undefined
   terminal_id?: (string | null) | undefined
   url?: (string | null) | undefined
 }
@@ -6676,7 +6748,7 @@ export type t_item = {
   amount_tax: number
   amount_total: number
   currency: string
-  description?: string | undefined
+  description?: (string | null) | undefined
   discounts?: t_line_items_discount_amount[] | undefined
   id: string
   object: "item"
@@ -7775,10 +7847,14 @@ export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
   }
 
 export type t_payment_intent_payment_method_options_mandate_options_bacs_debit =
-  EmptyObject
+  {
+    reference_prefix?: string | undefined
+  }
 
 export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
-  EmptyObject
+  {
+    reference_prefix?: string | undefined
+  }
 
 export type t_payment_intent_payment_method_options_mobilepay = {
   capture_method?: "manual" | undefined
@@ -8484,6 +8560,7 @@ export type t_payment_method_card = {
   generated_from?: (t_payment_method_card_generated_card | null) | undefined
   last4: string
   networks?: (t_networks | null) | undefined
+  regulated_status?: ("regulated" | "unregulated" | null) | undefined
   three_d_secure_usage?: (t_three_d_secure_usage | null) | undefined
   wallet?: (t_payment_method_card_wallet | null) | undefined
 }
@@ -8802,7 +8879,9 @@ export type t_payment_method_details_afterpay_clearpay = {
 
 export type t_payment_method_details_alma = EmptyObject
 
-export type t_payment_method_details_amazon_pay = EmptyObject
+export type t_payment_method_details_amazon_pay = {
+  funding?: t_amazon_pay_underlying_payment_method_funding_details | undefined
+}
 
 export type t_payment_method_details_au_becs_debit = {
   bsb_number?: (string | null) | undefined
@@ -8864,9 +8943,11 @@ export type t_payment_method_details_card = {
   network_token?:
     | (t_payment_method_details_card_network_token | null)
     | undefined
+  network_transaction_id?: (string | null) | undefined
   overcapture?:
     | t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture
     | undefined
+  regulated_status?: ("regulated" | "unregulated" | null) | undefined
   three_d_secure?: (t_three_d_secure_details_charge | null) | undefined
   wallet?: (t_payment_method_details_card_wallet | null) | undefined
 }
@@ -9276,6 +9357,15 @@ export type t_payment_method_details_p24 = {
   verified_name?: (string | null) | undefined
 }
 
+export type t_payment_method_details_passthrough_card = {
+  brand?: (string | null) | undefined
+  country?: (string | null) | undefined
+  exp_month?: (number | null) | undefined
+  exp_year?: (number | null) | undefined
+  funding?: (string | null) | undefined
+  last4?: (string | null) | undefined
+}
+
 export type t_payment_method_details_payco = {
   buyer_id?: (string | null) | undefined
 }
@@ -9300,7 +9390,9 @@ export type t_payment_method_details_promptpay = {
   reference?: (string | null) | undefined
 }
 
-export type t_payment_method_details_revolut_pay = EmptyObject
+export type t_payment_method_details_revolut_pay = {
+  funding?: t_revolut_pay_underlying_payment_method_funding_details | undefined
+}
 
 export type t_payment_method_details_samsung_pay = {
   buyer_id?: (string | null) | undefined
@@ -10306,14 +10398,20 @@ export type t_payment_pages_checkout_session_tax_id = {
   type:
     | "ad_nrt"
     | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
     | "ar_cuit"
     | "au_abn"
     | "au_arn"
+    | "ba_tin"
+    | "bb_tin"
     | "bg_uic"
     | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
+    | "bs_tin"
     | "by_tin"
     | "ca_bn"
     | "ca_gst_hst"
@@ -10321,6 +10419,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "cd_nif"
     | "ch_uid"
     | "ch_vat"
     | "cl_tin"
@@ -10336,6 +10435,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "eu_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gn_nif"
     | "hk_br"
     | "hr_oib"
     | "hu_tin"
@@ -10347,12 +10447,16 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "jp_rn"
     | "jp_trn"
     | "ke_pin"
+    | "kh_tin"
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
     | "li_vat"
     | "ma_vat"
     | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
@@ -10360,6 +10464,7 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "ng_tin"
     | "no_vat"
     | "no_voec"
+    | "np_pan"
     | "nz_gst"
     | "om_vat"
     | "pe_ruc"
@@ -10372,12 +10477,16 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "sg_gst"
     | "sg_uen"
     | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
     | "sv_nit"
     | "th_vat"
+    | "tj_tin"
     | "tr_tin"
     | "tw_vat"
     | "tz_vat"
     | "ua_vat"
+    | "ug_tin"
     | "unknown"
     | "us_ein"
     | "uy_ruc"
@@ -10386,6 +10495,8 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "ve_rif"
     | "vn_tin"
     | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
   value?: (string | null) | undefined
 }
 
@@ -10737,9 +10848,7 @@ export type t_portal_subscription_update = {
   enabled: boolean
   products?: (t_portal_subscription_update_product[] | null) | undefined
   proration_behavior: "always_invoice" | "create_prorations" | "none"
-  schedule_at_period_end?:
-    | t_portal_resource_schedule_update_at_period_end
-    | undefined
+  schedule_at_period_end: t_portal_resource_schedule_update_at_period_end
 }
 
 export type t_portal_subscription_update_product = {
@@ -11266,6 +11375,11 @@ export type t_review = {
   session?: (t_radar_review_resource_session | null) | undefined
 }
 
+export type t_revolut_pay_underlying_payment_method_funding_details = {
+  card?: t_payment_method_details_passthrough_card | undefined
+  type?: ("card" | null) | undefined
+}
+
 export type t_rule = {
   action: string
   id: string
@@ -11287,6 +11401,7 @@ export type t_scheduled_query_run = {
 }
 
 export type t_schedules_phase_automatic_tax = {
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -11675,11 +11790,13 @@ export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   transaction_type?: ("business" | "personal" | null) | undefined
 }
 
-export type t_setup_intent_payment_method_options_mandate_options_bacs_debit =
-  EmptyObject
+export type t_setup_intent_payment_method_options_mandate_options_bacs_debit = {
+  reference_prefix?: string | undefined
+}
 
-export type t_setup_intent_payment_method_options_mandate_options_sepa_debit =
-  EmptyObject
+export type t_setup_intent_payment_method_options_mandate_options_sepa_debit = {
+  reference_prefix?: string | undefined
+}
 
 export type t_setup_intent_payment_method_options_paypal = {
   billing_agreement_id?: (string | null) | undefined
@@ -11762,6 +11879,7 @@ export type t_source = {
   ach_debit?: t_source_type_ach_debit | undefined
   acss_debit?: t_source_type_acss_debit | undefined
   alipay?: t_source_type_alipay | undefined
+  allow_redisplay?: ("always" | "limited" | "unspecified" | null) | undefined
   amount?: (number | null) | undefined
   au_becs_debit?: t_source_type_au_becs_debit | undefined
   bancontact?: t_source_type_bancontact | undefined
@@ -12261,6 +12379,7 @@ export type t_subscription = {
 }
 
 export type t_subscription_automatic_tax = {
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -12433,6 +12552,7 @@ export type t_subscription_schedules_resource_default_settings = {
 }
 
 export type t_subscription_schedules_resource_default_settings_automatic_tax = {
+  disabled_reason?: ("requires_location_inputs" | null) | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -12700,14 +12820,20 @@ export type t_tax_id = {
   type:
     | "ad_nrt"
     | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
     | "ar_cuit"
     | "au_abn"
     | "au_arn"
+    | "ba_tin"
+    | "bb_tin"
     | "bg_uic"
     | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
+    | "bs_tin"
     | "by_tin"
     | "ca_bn"
     | "ca_gst_hst"
@@ -12715,6 +12841,7 @@ export type t_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "cd_nif"
     | "ch_uid"
     | "ch_vat"
     | "cl_tin"
@@ -12730,6 +12857,7 @@ export type t_tax_id = {
     | "eu_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gn_nif"
     | "hk_br"
     | "hr_oib"
     | "hu_tin"
@@ -12741,12 +12869,16 @@ export type t_tax_id = {
     | "jp_rn"
     | "jp_trn"
     | "ke_pin"
+    | "kh_tin"
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
     | "li_vat"
     | "ma_vat"
     | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
@@ -12754,6 +12886,7 @@ export type t_tax_id = {
     | "ng_tin"
     | "no_vat"
     | "no_voec"
+    | "np_pan"
     | "nz_gst"
     | "om_vat"
     | "pe_ruc"
@@ -12766,12 +12899,16 @@ export type t_tax_id = {
     | "sg_gst"
     | "sg_uen"
     | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
     | "sv_nit"
     | "th_vat"
+    | "tj_tin"
     | "tr_tin"
     | "tw_vat"
     | "tz_vat"
     | "ua_vat"
+    | "ug_tin"
     | "unknown"
     | "us_ein"
     | "uy_ruc"
@@ -12780,6 +12917,8 @@ export type t_tax_id = {
     | "ve_rif"
     | "vn_tin"
     | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
   value: string
   verification?: (t_tax_id_verification | null) | undefined
 }
@@ -12792,15 +12931,24 @@ export type t_tax_id_verification = {
 
 export type t_tax_product_registrations_resource_country_options = {
   ae?: t_tax_product_registrations_resource_country_options_default | undefined
+  al?: t_tax_product_registrations_resource_country_options_default | undefined
+  am?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  ao?: t_tax_product_registrations_resource_country_options_default | undefined
   at?: t_tax_product_registrations_resource_country_options_europe | undefined
   au?: t_tax_product_registrations_resource_country_options_default | undefined
+  ba?: t_tax_product_registrations_resource_country_options_default | undefined
+  bb?: t_tax_product_registrations_resource_country_options_default | undefined
   be?: t_tax_product_registrations_resource_country_options_europe | undefined
   bg?: t_tax_product_registrations_resource_country_options_europe | undefined
   bh?: t_tax_product_registrations_resource_country_options_default | undefined
+  bs?: t_tax_product_registrations_resource_country_options_default | undefined
   by?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   ca?: t_tax_product_registrations_resource_country_options_canada | undefined
+  cd?: t_tax_product_registrations_resource_country_options_default | undefined
   ch?: t_tax_product_registrations_resource_country_options_default | undefined
   cl?:
     | t_tax_product_registrations_resource_country_options_simplified
@@ -12829,6 +12977,7 @@ export type t_tax_product_registrations_resource_country_options = {
   ge?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
+  gn?: t_tax_product_registrations_resource_country_options_default | undefined
   gr?: t_tax_product_registrations_resource_country_options_europe | undefined
   hr?: t_tax_product_registrations_resource_country_options_europe | undefined
   hu?: t_tax_product_registrations_resource_country_options_europe | undefined
@@ -12840,6 +12989,9 @@ export type t_tax_product_registrations_resource_country_options = {
   it?: t_tax_product_registrations_resource_country_options_europe | undefined
   jp?: t_tax_product_registrations_resource_country_options_default | undefined
   ke?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  kh?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   kr?:
@@ -12857,6 +13009,9 @@ export type t_tax_product_registrations_resource_country_options = {
   md?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
+  me?: t_tax_product_registrations_resource_country_options_default | undefined
+  mk?: t_tax_product_registrations_resource_country_options_default | undefined
+  mr?: t_tax_product_registrations_resource_country_options_default | undefined
   mt?: t_tax_product_registrations_resource_country_options_europe | undefined
   mx?:
     | t_tax_product_registrations_resource_country_options_simplified
@@ -12869,8 +13024,14 @@ export type t_tax_product_registrations_resource_country_options = {
     | undefined
   nl?: t_tax_product_registrations_resource_country_options_europe | undefined
   no?: t_tax_product_registrations_resource_country_options_default | undefined
+  np?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
   nz?: t_tax_product_registrations_resource_country_options_default | undefined
   om?: t_tax_product_registrations_resource_country_options_default | undefined
+  pe?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
   pl?: t_tax_product_registrations_resource_country_options_europe | undefined
   pt?: t_tax_product_registrations_resource_country_options_europe | undefined
   ro?: t_tax_product_registrations_resource_country_options_europe | undefined
@@ -12885,7 +13046,14 @@ export type t_tax_product_registrations_resource_country_options = {
   sg?: t_tax_product_registrations_resource_country_options_default | undefined
   si?: t_tax_product_registrations_resource_country_options_europe | undefined
   sk?: t_tax_product_registrations_resource_country_options_europe | undefined
+  sn?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  sr?: t_tax_product_registrations_resource_country_options_default | undefined
   th?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  tj?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   tr?:
@@ -12894,9 +13062,13 @@ export type t_tax_product_registrations_resource_country_options = {
   tz?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
+  ug?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
   us?:
     | t_tax_product_registrations_resource_country_options_united_states
     | undefined
+  uy?: t_tax_product_registrations_resource_country_options_default | undefined
   uz?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
@@ -12904,6 +13076,10 @@ export type t_tax_product_registrations_resource_country_options = {
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   za?: t_tax_product_registrations_resource_country_options_default | undefined
+  zm?:
+    | t_tax_product_registrations_resource_country_options_simplified
+    | undefined
+  zw?: t_tax_product_registrations_resource_country_options_default | undefined
 }
 
 export type t_tax_product_registrations_resource_country_options_ca_province_standard =
@@ -12995,14 +13171,20 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
   type:
     | "ad_nrt"
     | "ae_trn"
+    | "al_tin"
+    | "am_tin"
+    | "ao_tin"
     | "ar_cuit"
     | "au_abn"
     | "au_arn"
+    | "ba_tin"
+    | "bb_tin"
     | "bg_uic"
     | "bh_vat"
     | "bo_tin"
     | "br_cnpj"
     | "br_cpf"
+    | "bs_tin"
     | "by_tin"
     | "ca_bn"
     | "ca_gst_hst"
@@ -13010,6 +13192,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "ca_pst_mb"
     | "ca_pst_sk"
     | "ca_qst"
+    | "cd_nif"
     | "ch_uid"
     | "ch_vat"
     | "cl_tin"
@@ -13025,6 +13208,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "eu_vat"
     | "gb_vat"
     | "ge_vat"
+    | "gn_nif"
     | "hk_br"
     | "hr_oib"
     | "hu_tin"
@@ -13036,12 +13220,16 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "jp_rn"
     | "jp_trn"
     | "ke_pin"
+    | "kh_tin"
     | "kr_brn"
     | "kz_bin"
     | "li_uid"
     | "li_vat"
     | "ma_vat"
     | "md_vat"
+    | "me_pib"
+    | "mk_vat"
+    | "mr_nif"
     | "mx_rfc"
     | "my_frp"
     | "my_itn"
@@ -13049,6 +13237,7 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "ng_tin"
     | "no_vat"
     | "no_voec"
+    | "np_pan"
     | "nz_gst"
     | "om_vat"
     | "pe_ruc"
@@ -13061,12 +13250,16 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "sg_gst"
     | "sg_uen"
     | "si_tin"
+    | "sn_ninea"
+    | "sr_fin"
     | "sv_nit"
     | "th_vat"
+    | "tj_tin"
     | "tr_tin"
     | "tw_vat"
     | "tz_vat"
     | "ua_vat"
+    | "ug_tin"
     | "unknown"
     | "us_ein"
     | "uy_ruc"
@@ -13075,6 +13268,8 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "ve_rif"
     | "vn_tin"
     | "za_vat"
+    | "zm_tin"
+    | "zw_tin"
   value: string
 }
 
@@ -14103,12 +14298,6 @@ export type t_treasury_financial_accounts_resource_aba_toggle_settings = {
   status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
 }
 
-export type t_treasury_financial_accounts_resource_ach_toggle_settings = {
-  requested: boolean
-  status: "active" | "pending" | "restricted"
-  status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
-}
-
 export type t_treasury_financial_accounts_resource_balance = {
   cash: {
     [key: string]: number | undefined
@@ -14136,19 +14325,39 @@ export type t_treasury_financial_accounts_resource_financial_addresses_features 
     aba?: t_treasury_financial_accounts_resource_aba_toggle_settings | undefined
   }
 
+export type t_treasury_financial_accounts_resource_inbound_ach_toggle_settings =
+  {
+    requested: boolean
+    status: "active" | "pending" | "restricted"
+    status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
+  }
+
 export type t_treasury_financial_accounts_resource_inbound_transfers = {
-  ach?: t_treasury_financial_accounts_resource_ach_toggle_settings | undefined
+  ach?:
+    | t_treasury_financial_accounts_resource_inbound_ach_toggle_settings
+    | undefined
 }
 
+export type t_treasury_financial_accounts_resource_outbound_ach_toggle_settings =
+  {
+    requested: boolean
+    status: "active" | "pending" | "restricted"
+    status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
+  }
+
 export type t_treasury_financial_accounts_resource_outbound_payments = {
-  ach?: t_treasury_financial_accounts_resource_ach_toggle_settings | undefined
+  ach?:
+    | t_treasury_financial_accounts_resource_outbound_ach_toggle_settings
+    | undefined
   us_domestic_wire?:
     | t_treasury_financial_accounts_resource_toggle_settings
     | undefined
 }
 
 export type t_treasury_financial_accounts_resource_outbound_transfers = {
-  ach?: t_treasury_financial_accounts_resource_ach_toggle_settings | undefined
+  ach?:
+    | t_treasury_financial_accounts_resource_outbound_ach_toggle_settings
+    | undefined
   us_domestic_wire?:
     | t_treasury_financial_accounts_resource_toggle_settings
     | undefined

@@ -4,6 +4,8 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type t_Azure_Core_armResourceType = string
+
 export type t_Azure_Core_uuid = string
 
 export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
@@ -30,10 +32,10 @@ export type t_Azure_ResourceManager_CommonTypes_ErrorResponse = {
 }
 
 export type t_Azure_ResourceManager_CommonTypes_Operation = {
-  actionType?: t_Azure_ResourceManager_CommonTypes_ActionType | undefined
-  readonly display?:
-    | t_Azure_ResourceManager_CommonTypes_OperationDisplay
+  readonly actionType?:
+    | t_Azure_ResourceManager_CommonTypes_ActionType
     | undefined
+  display?: t_Azure_ResourceManager_CommonTypes_OperationDisplay | undefined
   readonly isDataAction?: boolean | undefined
   readonly name?: string | undefined
   readonly origin?: t_Azure_ResourceManager_CommonTypes_Origin | undefined
@@ -58,7 +60,7 @@ export type t_Azure_ResourceManager_CommonTypes_Resource = {
   readonly systemData?:
     | t_Azure_ResourceManager_CommonTypes_SystemData
     | undefined
-  readonly type?: string | undefined
+  readonly type?: t_Azure_Core_armResourceType | undefined
 }
 
 export type t_Azure_ResourceManager_CommonTypes_SystemData = {
