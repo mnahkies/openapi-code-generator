@@ -66,6 +66,9 @@ import {
   t_code_scanning_analysis_sarif_id,
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
+  t_code_scanning_autofix,
+  t_code_scanning_autofix_commits,
+  t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
   t_code_scanning_default_setup_options,
@@ -115,6 +118,7 @@ import {
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
+  t_custom_property_set_payload,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -186,6 +190,8 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_private_registry_configuration,
+  t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
@@ -1152,30 +1158,27 @@ export class GitHubV3RestApiService {
     )
   }
 
-  copilotListCopilotSeatsForEnterprise(p: {
+  codeSecurityGetConfigurationsForEnterprise(p: {
     enterprise: string
-    page?: number
     perPage?: number
+    before?: string
+    after?: string
   }): Observable<
-    | (HttpResponse<{
-        seats?: t_copilot_seat_details[]
-        total_seats?: number
-      }> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_code_security_configuration[]> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
-      page: p["page"],
       per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
     })
 
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath +
-        `/enterprises/${p["enterprise"]}/copilot/billing/seats`,
+        `/enterprises/${p["enterprise"]}/code-security/configurations`,
       {
         params,
         observe: "response",
@@ -1184,62 +1187,250 @@ export class GitHubV3RestApiService {
     )
   }
 
-  copilotCopilotMetricsForEnterprise(p: {
+  codeSecurityCreateConfigurationForEnterprise(p: {
     enterprise: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
+    requestBody: {
+      advanced_security?: "enabled" | "disabled"
+      code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      dependabot_alerts?: "enabled" | "disabled" | "not_set"
+      dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+      dependency_graph?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action_options?: {
+        labeled_runners?: boolean
+      }
+      description: string
+      enforcement?: "enforced" | "unenforced"
+      name: string
+      private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+      secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
+      secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+    }
   }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
+    | (HttpResponse<t_code_security_configuration> & { status: 201 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
     | HttpResponse<unknown>
   > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
 
     return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/enterprises/${p["enterprise"]}/copilot/metrics`,
+      "POST",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations`,
       {
-        params,
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
     )
   }
 
-  copilotUsageMetricsForEnterprise(p: {
+  codeSecurityGetDefaultConfigurationsForEnterprise(p: {
     enterprise: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
   }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
+    | (HttpResponse<t_code_security_default_configurations> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/defaults`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetSingleConfigurationForEnterprise(p: {
+    enterprise: string
+    configurationId: number
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration> & { status: 200 })
+    | (HttpResponse<void> & { status: 304 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityUpdateEnterpriseConfiguration(p: {
+    enterprise: string
+    configurationId: number
+    requestBody: {
+      advanced_security?: "enabled" | "disabled"
+      code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+      code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      dependabot_alerts?: "enabled" | "disabled" | "not_set"
+      dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+      dependency_graph?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+      dependency_graph_autosubmit_action_options?: {
+        labeled_runners?: boolean
+      }
+      description?: string
+      enforcement?: "enforced" | "unenforced"
+      name?: string
+      private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+      secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
+      secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+      secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+    }
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration> & { status: 200 })
+    | (HttpResponse<void> & { status: 304 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityDeleteConfigurationForEnterprise(p: {
+    enterprise: string
+    configurationId: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityAttachEnterpriseConfiguration(p: {
+    enterprise: string
+    configurationId: number
+    requestBody: {
+      scope: "all" | "all_without_configurations"
+    }
+  }): Observable<
+    | (HttpResponse<{
+        [key: string]: unknown | undefined
+      }> & { status: 202 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/attach`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecuritySetConfigurationAsDefaultForEnterprise(p: {
+    enterprise: string
+    configurationId: number
+    requestBody: {
+      default_for_new_repos?: "all" | "none" | "private_and_internal" | "public"
+    }
+  }): Observable<
+    | (HttpResponse<{
+        configuration?: t_code_security_configuration
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/defaults`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeSecurityGetRepositoriesForEnterpriseConfiguration(p: {
+    enterprise: string
+    configurationId: number
+    perPage?: number
+    before?: string
+    after?: string
+    status?: string
+  }): Observable<
+    | (HttpResponse<t_code_security_configuration_repositories[]> & {
+        status: 200
+      })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
     | HttpResponse<unknown>
   > {
     const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
       per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
     })
 
     return this.httpClient.request<any>(
       "GET",
-      this.config.basePath + `/enterprises/${p["enterprise"]}/copilot/usage`,
+      this.config.basePath +
+        `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/repositories`,
       {
         params,
         observe: "response",
@@ -1338,74 +1529,6 @@ export class GitHubV3RestApiService {
       "GET",
       this.config.basePath +
         `/enterprises/${p["enterprise"]}/secret-scanning/alerts`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  copilotCopilotMetricsForEnterpriseTeam(p: {
-    enterprise: string
-    teamSlug: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics_day[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 422 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  copilotUsageMetricsForEnterpriseTeam(p: {
-    enterprise: string
-    teamSlug: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`,
       {
         params,
         observe: "response",
@@ -4023,6 +4146,7 @@ export class GitHubV3RestApiService {
               [key: string]: unknown | undefined
             }
           }
+          bundle_url?: string
           repository_id?: number
         }[]
       }> & { status: 200 })
@@ -5658,11 +5782,11 @@ export class GitHubV3RestApiService {
   apiInsightsGetRouteStatsByActor(p: {
     org: string
     actorType:
-      | "installations"
-      | "classic_pats"
-      | "fine_grained_pats"
-      | "oauth_apps"
-      | "github_apps_user_to_server"
+      | "installation"
+      | "classic_pat"
+      | "fine_grained_pat"
+      | "oauth_app"
+      | "github_app_user_to_server"
     actorId: number
     minTimestamp: string
     maxTimestamp?: string
@@ -5799,11 +5923,11 @@ export class GitHubV3RestApiService {
     minTimestamp: string
     maxTimestamp?: string
     actorType:
-      | "installations"
-      | "classic_pats"
-      | "fine_grained_pats"
-      | "oauth_apps"
-      | "github_apps_user_to_server"
+      | "installation"
+      | "classic_pat"
+      | "fine_grained_pat"
+      | "oauth_app"
+      | "github_app_user_to_server"
     actorId: number
   }): Observable<
     | (HttpResponse<t_api_insights_summary_stats> & { status: 200 })
@@ -5883,11 +6007,11 @@ export class GitHubV3RestApiService {
   apiInsightsGetTimeStatsByActor(p: {
     org: string
     actorType:
-      | "installations"
-      | "classic_pats"
-      | "fine_grained_pats"
-      | "oauth_apps"
-      | "github_apps_user_to_server"
+      | "installation"
+      | "classic_pat"
+      | "fine_grained_pat"
+      | "oauth_app"
+      | "github_app_user_to_server"
     actorId: number
     minTimestamp: string
     maxTimestamp?: string
@@ -7360,6 +7484,160 @@ export class GitHubV3RestApiService {
     )
   }
 
+  privateRegistriesListOrgPrivateRegistries(p: {
+    org: string
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<{
+        configurations: t_org_private_registry_configuration[]
+        total_count: number
+      }> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/private-registries`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  privateRegistriesCreateOrgPrivateRegistry(p: {
+    org: string
+    requestBody: {
+      encrypted_value: string
+      key_id: string
+      registry_type: "maven_repository"
+      selected_repository_ids?: number[]
+      username?: string | null
+      visibility: "all" | "private" | "selected"
+    }
+  }): Observable<
+    | (HttpResponse<t_org_private_registry_configuration_with_selected_repositories> & {
+        status: 201
+      })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/private-registries`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  privateRegistriesGetOrgPublicKey(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<{
+        key: string
+        key_id: string
+      }> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/private-registries/public-key`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  privateRegistriesGetOrgPrivateRegistry(p: {
+    org: string
+    secretName: string
+  }): Observable<
+    | (HttpResponse<t_org_private_registry_configuration> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/private-registries/${p["secretName"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  privateRegistriesUpdateOrgPrivateRegistry(p: {
+    org: string
+    secretName: string
+    requestBody: {
+      encrypted_value?: string
+      key_id?: string
+      registry_type?: "maven_repository"
+      selected_repository_ids?: number[]
+      username?: string | null
+      visibility?: "all" | "private" | "selected"
+    }
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/private-registries/${p["secretName"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  privateRegistriesDeleteOrgPrivateRegistry(p: {
+    org: string
+    secretName: string
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/private-registries/${p["secretName"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   projectsListForOrg(p: {
     org: string
     state?: "open" | "closed" | "all"
@@ -7484,13 +7762,7 @@ export class GitHubV3RestApiService {
   orgsCreateOrUpdateCustomProperty(p: {
     org: string
     customPropertyName: string
-    requestBody: {
-      allowed_values?: string[] | null
-      default_value?: string | string[] | null
-      description?: string | null
-      required?: boolean
-      value_type: "string" | "single_select" | "multi_select" | "true_false"
-    }
+    requestBody: t_custom_property_set_payload
   }): Observable<
     | (HttpResponse<t_custom_property> & { status: 200 })
     | (HttpResponse<t_basic_error> & { status: 403 })
@@ -7785,7 +8057,7 @@ export class GitHubV3RestApiService {
       enforcement: t_repository_rule_enforcement
       name: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag" | "push"
+      target?: "branch" | "tag" | "push" | "repository"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 201 })
@@ -7892,7 +8164,7 @@ export class GitHubV3RestApiService {
       enforcement?: t_repository_rule_enforcement
       name?: string
       rules?: t_repository_rule[]
-      target?: "branch" | "tag" | "push"
+      target?: "branch" | "tag" | "push" | "repository"
     }
   }): Observable<
     | (HttpResponse<t_repository_ruleset> & { status: 200 })
@@ -11646,6 +11918,7 @@ export class GitHubV3RestApiService {
               [key: string]: unknown | undefined
             }
           }
+          bundle_url?: string
           repository_id?: number
         }[]
       }> & { status: 200 })
@@ -13135,6 +13408,96 @@ export class GitHubV3RestApiService {
       "PATCH",
       this.config.basePath +
         `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningGetAutofix(p: {
+    owner: string
+    repo: string
+    alertNumber: t_alert_number
+  }): Observable<
+    | (HttpResponse<t_code_scanning_autofix> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningCreateAutofix(p: {
+    owner: string
+    repo: string
+    alertNumber: t_alert_number
+  }): Observable<
+    | (HttpResponse<t_code_scanning_autofix> & { status: 200 })
+    | (HttpResponse<t_code_scanning_autofix> & { status: 202 })
+    | (HttpResponse<t_basic_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  codeScanningCommitAutofix(p: {
+    owner: string
+    repo: string
+    alertNumber: t_alert_number
+    requestBody?: t_code_scanning_autofix_commits
+  }): Observable<
+    | (HttpResponse<t_code_scanning_autofix_commits_response> & { status: 201 })
+    | (HttpResponse<t_basic_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 403 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<void> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`,
       {
         headers,
         body,
@@ -25209,6 +25572,7 @@ export class GitHubV3RestApiService {
     | (HttpResponse<{
         attestations?: {
           bundle?: t_sigstore_bundle_0
+          bundle_url?: string
           repository_id?: number
         }[]
       }> & { status: 200 })

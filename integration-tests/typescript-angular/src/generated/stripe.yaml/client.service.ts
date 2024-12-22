@@ -5100,6 +5100,9 @@ export class StripeApiService {
                   }
                 }[]
               }
+              visa_compliance?: {
+                fee_acknowledged?: boolean
+              }
             }
           | ""
         product_description?: string
@@ -5688,7 +5691,9 @@ export class StripeApiService {
             setup_future_usage?: "none"
           }
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           bancontact?: {
@@ -5833,7 +5838,9 @@ export class StripeApiService {
             capture_method?: "manual"
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
             setup_future_usage?: "none" | "off_session" | "on_session"
           }
           sofort?: {
@@ -7584,14 +7591,20 @@ export class StripeApiService {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -7599,6 +7612,7 @@ export class StripeApiService {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -7614,6 +7628,7 @@ export class StripeApiService {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -7625,12 +7640,16 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -7638,6 +7657,7 @@ export class StripeApiService {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -7650,12 +7670,16 @@ export class StripeApiService {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -7663,6 +7687,8 @@ export class StripeApiService {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
         test_clock?: string
@@ -9868,14 +9894,20 @@ export class StripeApiService {
       type:
         | "ad_nrt"
         | "ae_trn"
+        | "al_tin"
+        | "am_tin"
+        | "ao_tin"
         | "ar_cuit"
         | "au_abn"
         | "au_arn"
+        | "ba_tin"
+        | "bb_tin"
         | "bg_uic"
         | "bh_vat"
         | "bo_tin"
         | "br_cnpj"
         | "br_cpf"
+        | "bs_tin"
         | "by_tin"
         | "ca_bn"
         | "ca_gst_hst"
@@ -9883,6 +9915,7 @@ export class StripeApiService {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "cd_nif"
         | "ch_uid"
         | "ch_vat"
         | "cl_tin"
@@ -9898,6 +9931,7 @@ export class StripeApiService {
         | "eu_vat"
         | "gb_vat"
         | "ge_vat"
+        | "gn_nif"
         | "hk_br"
         | "hr_oib"
         | "hu_tin"
@@ -9909,12 +9943,16 @@ export class StripeApiService {
         | "jp_rn"
         | "jp_trn"
         | "ke_pin"
+        | "kh_tin"
         | "kr_brn"
         | "kz_bin"
         | "li_uid"
         | "li_vat"
         | "ma_vat"
         | "md_vat"
+        | "me_pib"
+        | "mk_vat"
+        | "mr_nif"
         | "mx_rfc"
         | "my_frp"
         | "my_itn"
@@ -9922,6 +9960,7 @@ export class StripeApiService {
         | "ng_tin"
         | "no_vat"
         | "no_voec"
+        | "np_pan"
         | "nz_gst"
         | "om_vat"
         | "pe_ruc"
@@ -9934,12 +9973,16 @@ export class StripeApiService {
         | "sg_gst"
         | "sg_uen"
         | "si_tin"
+        | "sn_ninea"
+        | "sr_fin"
         | "sv_nit"
         | "th_vat"
+        | "tj_tin"
         | "tr_tin"
         | "tw_vat"
         | "tz_vat"
         | "ua_vat"
+        | "ug_tin"
         | "us_ein"
         | "uy_ruc"
         | "uz_tin"
@@ -9947,6 +9990,8 @@ export class StripeApiService {
         | "ve_rif"
         | "vn_tin"
         | "za_vat"
+        | "zm_tin"
+        | "zw_tin"
       value: string
     }
   }): Observable<
@@ -10165,6 +10210,9 @@ export class StripeApiService {
                     state?: string | ""
                   }
                 }[]
+              }
+              visa_compliance?: {
+                fee_acknowledged?: boolean
               }
             }
           | ""
@@ -11417,6 +11465,7 @@ export class StripeApiService {
         | "card_expiry"
         | "card_number"
         | "cardholder_name"
+        | "request_signature"
       )[]
       request?: {
         body?: string
@@ -12526,14 +12575,20 @@ export class StripeApiService {
             type:
               | "ad_nrt"
               | "ae_trn"
+              | "al_tin"
+              | "am_tin"
+              | "ao_tin"
               | "ar_cuit"
               | "au_abn"
               | "au_arn"
+              | "ba_tin"
+              | "bb_tin"
               | "bg_uic"
               | "bh_vat"
               | "bo_tin"
               | "br_cnpj"
               | "br_cpf"
+              | "bs_tin"
               | "by_tin"
               | "ca_bn"
               | "ca_gst_hst"
@@ -12541,6 +12596,7 @@ export class StripeApiService {
               | "ca_pst_mb"
               | "ca_pst_sk"
               | "ca_qst"
+              | "cd_nif"
               | "ch_uid"
               | "ch_vat"
               | "cl_tin"
@@ -12556,6 +12612,7 @@ export class StripeApiService {
               | "eu_vat"
               | "gb_vat"
               | "ge_vat"
+              | "gn_nif"
               | "hk_br"
               | "hr_oib"
               | "hu_tin"
@@ -12567,12 +12624,16 @@ export class StripeApiService {
               | "jp_rn"
               | "jp_trn"
               | "ke_pin"
+              | "kh_tin"
               | "kr_brn"
               | "kz_bin"
               | "li_uid"
               | "li_vat"
               | "ma_vat"
               | "md_vat"
+              | "me_pib"
+              | "mk_vat"
+              | "mr_nif"
               | "mx_rfc"
               | "my_frp"
               | "my_itn"
@@ -12580,6 +12641,7 @@ export class StripeApiService {
               | "ng_tin"
               | "no_vat"
               | "no_voec"
+              | "np_pan"
               | "nz_gst"
               | "om_vat"
               | "pe_ruc"
@@ -12592,12 +12654,16 @@ export class StripeApiService {
               | "sg_gst"
               | "sg_uen"
               | "si_tin"
+              | "sn_ninea"
+              | "sr_fin"
               | "sv_nit"
               | "th_vat"
+              | "tj_tin"
               | "tr_tin"
               | "tw_vat"
               | "tz_vat"
               | "ua_vat"
+              | "ug_tin"
               | "us_ein"
               | "uy_ruc"
               | "uz_tin"
@@ -12605,6 +12671,8 @@ export class StripeApiService {
               | "ve_rif"
               | "vn_tin"
               | "za_vat"
+              | "zm_tin"
+              | "zw_tin"
             value: string
           }[]
         }
@@ -12923,14 +12991,20 @@ export class StripeApiService {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -12938,6 +13012,7 @@ export class StripeApiService {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -12953,6 +13028,7 @@ export class StripeApiService {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -12964,12 +13040,16 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -12977,6 +13057,7 @@ export class StripeApiService {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -12989,12 +13070,16 @@ export class StripeApiService {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -13002,6 +13087,8 @@ export class StripeApiService {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
       }
@@ -13356,14 +13443,20 @@ export class StripeApiService {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -13371,6 +13464,7 @@ export class StripeApiService {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -13386,6 +13480,7 @@ export class StripeApiService {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -13397,12 +13492,16 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -13410,6 +13509,7 @@ export class StripeApiService {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -13422,12 +13522,16 @@ export class StripeApiService {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -13435,6 +13539,8 @@ export class StripeApiService {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
       }
@@ -20360,7 +20466,9 @@ export class StripeApiService {
           | ""
         bacs_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -20688,7 +20796,9 @@ export class StripeApiService {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -21189,7 +21299,9 @@ export class StripeApiService {
           | ""
         bacs_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -21517,7 +21629,9 @@ export class StripeApiService {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -22058,7 +22172,9 @@ export class StripeApiService {
           | ""
         bacs_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -22386,7 +22502,9 @@ export class StripeApiService {
           | ""
         sepa_debit?:
           | {
-              mandate_options?: EmptyObject
+              mandate_options?: {
+                reference_prefix?: string | ""
+              }
               setup_future_usage?: "" | "none" | "off_session" | "on_session"
             }
           | ""
@@ -23542,6 +23660,7 @@ export class StripeApiService {
               [key: string]: string | undefined
             }
           | ""
+        trial_period_days?: number | ""
         trial_settings?:
           | {
               end_behavior: {
@@ -28546,7 +28665,9 @@ export class StripeApiService {
           }
           amazon_pay?: EmptyObject
           bacs_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           card?: {
             mandate_options?: {
@@ -28598,7 +28719,9 @@ export class StripeApiService {
             billing_agreement_id?: string
           }
           sepa_debit?: {
-            mandate_options?: EmptyObject
+            mandate_options?: {
+              reference_prefix?: string | ""
+            }
           }
           us_bank_account?: {
             financial_connections?: {
@@ -28956,7 +29079,9 @@ export class StripeApiService {
         }
         amazon_pay?: EmptyObject
         bacs_debit?: {
-          mandate_options?: EmptyObject
+          mandate_options?: {
+            reference_prefix?: string | ""
+          }
         }
         card?: {
           mandate_options?: {
@@ -29008,7 +29133,9 @@ export class StripeApiService {
           billing_agreement_id?: string
         }
         sepa_debit?: {
-          mandate_options?: EmptyObject
+          mandate_options?: {
+            reference_prefix?: string | ""
+          }
         }
         us_bank_account?: {
           financial_connections?: {
@@ -29368,7 +29495,9 @@ export class StripeApiService {
         }
         amazon_pay?: EmptyObject
         bacs_debit?: {
-          mandate_options?: EmptyObject
+          mandate_options?: {
+            reference_prefix?: string | ""
+          }
         }
         card?: {
           mandate_options?: {
@@ -29420,7 +29549,9 @@ export class StripeApiService {
           billing_agreement_id?: string
         }
         sepa_debit?: {
-          mandate_options?: EmptyObject
+          mandate_options?: {
+            reference_prefix?: string | ""
+          }
         }
         us_bank_account?: {
           financial_connections?: {
@@ -31756,14 +31887,20 @@ export class StripeApiService {
           type:
             | "ad_nrt"
             | "ae_trn"
+            | "al_tin"
+            | "am_tin"
+            | "ao_tin"
             | "ar_cuit"
             | "au_abn"
             | "au_arn"
+            | "ba_tin"
+            | "bb_tin"
             | "bg_uic"
             | "bh_vat"
             | "bo_tin"
             | "br_cnpj"
             | "br_cpf"
+            | "bs_tin"
             | "by_tin"
             | "ca_bn"
             | "ca_gst_hst"
@@ -31771,6 +31908,7 @@ export class StripeApiService {
             | "ca_pst_mb"
             | "ca_pst_sk"
             | "ca_qst"
+            | "cd_nif"
             | "ch_uid"
             | "ch_vat"
             | "cl_tin"
@@ -31786,6 +31924,7 @@ export class StripeApiService {
             | "eu_vat"
             | "gb_vat"
             | "ge_vat"
+            | "gn_nif"
             | "hk_br"
             | "hr_oib"
             | "hu_tin"
@@ -31797,12 +31936,16 @@ export class StripeApiService {
             | "jp_rn"
             | "jp_trn"
             | "ke_pin"
+            | "kh_tin"
             | "kr_brn"
             | "kz_bin"
             | "li_uid"
             | "li_vat"
             | "ma_vat"
             | "md_vat"
+            | "me_pib"
+            | "mk_vat"
+            | "mr_nif"
             | "mx_rfc"
             | "my_frp"
             | "my_itn"
@@ -31810,6 +31953,7 @@ export class StripeApiService {
             | "ng_tin"
             | "no_vat"
             | "no_voec"
+            | "np_pan"
             | "nz_gst"
             | "om_vat"
             | "pe_ruc"
@@ -31822,12 +31966,16 @@ export class StripeApiService {
             | "sg_gst"
             | "sg_uen"
             | "si_tin"
+            | "sn_ninea"
+            | "sr_fin"
             | "sv_nit"
             | "th_vat"
+            | "tj_tin"
             | "tr_tin"
             | "tw_vat"
             | "tz_vat"
             | "ua_vat"
+            | "ug_tin"
             | "us_ein"
             | "uy_ruc"
             | "uz_tin"
@@ -31835,6 +31983,8 @@ export class StripeApiService {
             | "ve_rif"
             | "vn_tin"
             | "za_vat"
+            | "zm_tin"
+            | "zw_tin"
           value: string
         }[]
         taxability_override?: "customer_exempt" | "none" | "reverse_charge"
@@ -32010,6 +32160,15 @@ export class StripeApiService {
         ae?: {
           type: "standard"
         }
+        al?: {
+          type: "standard"
+        }
+        am?: {
+          type: "simplified"
+        }
+        ao?: {
+          type: "standard"
+        }
         at?: {
           standard?: {
             place_of_supply_scheme: "small_seller" | "standard"
@@ -32017,6 +32176,12 @@ export class StripeApiService {
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
         }
         au?: {
+          type: "standard"
+        }
+        ba?: {
+          type: "standard"
+        }
+        bb?: {
           type: "standard"
         }
         be?: {
@@ -32034,6 +32199,9 @@ export class StripeApiService {
         bh?: {
           type: "standard"
         }
+        bs?: {
+          type: "standard"
+        }
         by?: {
           type: "simplified"
         }
@@ -32042,6 +32210,9 @@ export class StripeApiService {
             province: string
           }
           type: "province_standard" | "simplified" | "standard"
+        }
+        cd?: {
+          type: "standard"
         }
         ch?: {
           type: "standard"
@@ -32115,6 +32286,9 @@ export class StripeApiService {
         ge?: {
           type: "simplified"
         }
+        gn?: {
+          type: "standard"
+        }
         gr?: {
           standard?: {
             place_of_supply_scheme: "small_seller" | "standard"
@@ -32157,6 +32331,9 @@ export class StripeApiService {
         ke?: {
           type: "simplified"
         }
+        kh?: {
+          type: "simplified"
+        }
         kr?: {
           type: "simplified"
         }
@@ -32187,6 +32364,15 @@ export class StripeApiService {
         md?: {
           type: "simplified"
         }
+        me?: {
+          type: "standard"
+        }
+        mk?: {
+          type: "standard"
+        }
+        mr?: {
+          type: "standard"
+        }
         mt?: {
           standard?: {
             place_of_supply_scheme: "small_seller" | "standard"
@@ -32211,11 +32397,17 @@ export class StripeApiService {
         no?: {
           type: "standard"
         }
+        np?: {
+          type: "simplified"
+        }
         nz?: {
           type: "standard"
         }
         om?: {
           type: "standard"
+        }
+        pe?: {
+          type: "simplified"
         }
         pl?: {
           standard?: {
@@ -32265,13 +32457,25 @@ export class StripeApiService {
           }
           type: "ioss" | "oss_non_union" | "oss_union" | "standard"
         }
+        sn?: {
+          type: "simplified"
+        }
+        sr?: {
+          type: "standard"
+        }
         th?: {
+          type: "simplified"
+        }
+        tj?: {
           type: "simplified"
         }
         tr?: {
           type: "simplified"
         }
         tz?: {
+          type: "simplified"
+        }
+        ug?: {
           type: "simplified"
         }
         us?: {
@@ -32298,6 +32502,9 @@ export class StripeApiService {
             | "state_retail_delivery_fee"
             | "state_sales_tax"
         }
+        uy?: {
+          type: "standard"
+        }
         uz?: {
           type: "simplified"
         }
@@ -32305,6 +32512,12 @@ export class StripeApiService {
           type: "simplified"
         }
         za?: {
+          type: "standard"
+        }
+        zm?: {
+          type: "simplified"
+        }
+        zw?: {
           type: "standard"
         }
       }
@@ -32739,14 +32952,20 @@ export class StripeApiService {
       type:
         | "ad_nrt"
         | "ae_trn"
+        | "al_tin"
+        | "am_tin"
+        | "ao_tin"
         | "ar_cuit"
         | "au_abn"
         | "au_arn"
+        | "ba_tin"
+        | "bb_tin"
         | "bg_uic"
         | "bh_vat"
         | "bo_tin"
         | "br_cnpj"
         | "br_cpf"
+        | "bs_tin"
         | "by_tin"
         | "ca_bn"
         | "ca_gst_hst"
@@ -32754,6 +32973,7 @@ export class StripeApiService {
         | "ca_pst_mb"
         | "ca_pst_sk"
         | "ca_qst"
+        | "cd_nif"
         | "ch_uid"
         | "ch_vat"
         | "cl_tin"
@@ -32769,6 +32989,7 @@ export class StripeApiService {
         | "eu_vat"
         | "gb_vat"
         | "ge_vat"
+        | "gn_nif"
         | "hk_br"
         | "hr_oib"
         | "hu_tin"
@@ -32780,12 +33001,16 @@ export class StripeApiService {
         | "jp_rn"
         | "jp_trn"
         | "ke_pin"
+        | "kh_tin"
         | "kr_brn"
         | "kz_bin"
         | "li_uid"
         | "li_vat"
         | "ma_vat"
         | "md_vat"
+        | "me_pib"
+        | "mk_vat"
+        | "mr_nif"
         | "mx_rfc"
         | "my_frp"
         | "my_itn"
@@ -32793,6 +33018,7 @@ export class StripeApiService {
         | "ng_tin"
         | "no_vat"
         | "no_voec"
+        | "np_pan"
         | "nz_gst"
         | "om_vat"
         | "pe_ruc"
@@ -32805,12 +33031,16 @@ export class StripeApiService {
         | "sg_gst"
         | "sg_uen"
         | "si_tin"
+        | "sn_ninea"
+        | "sr_fin"
         | "sv_nit"
         | "th_vat"
+        | "tj_tin"
         | "tr_tin"
         | "tw_vat"
         | "tz_vat"
         | "ua_vat"
+        | "ug_tin"
         | "us_ein"
         | "uy_ruc"
         | "uz_tin"
@@ -32818,6 +33048,8 @@ export class StripeApiService {
         | "ve_rif"
         | "vn_tin"
         | "za_vat"
+        | "zm_tin"
+        | "zw_tin"
       value: string
     }
   }): Observable<
@@ -39156,6 +39388,7 @@ export class StripeApiService {
         | "2024-09-30.acacia"
         | "2024-10-28.acacia"
         | "2024-11-20.acacia"
+        | "2024-12-18.acacia"
       connect?: boolean
       description?: string | ""
       enabled_events: (

@@ -210,6 +210,12 @@ export const s_api_overview = z.object({
       copilot: z.array(z.string()).optional(),
       packages: z.array(z.string()).optional(),
       actions: z.array(z.string()).optional(),
+      actions_inbound: z
+        .object({
+          full_domains: z.array(z.string()).optional(),
+          wildcard_domains: z.array(z.string()).optional(),
+        })
+        .optional(),
       artifact_attestations: z
         .object({
           trust_domain: z.string().optional(),
@@ -613,11 +619,34 @@ export const s_code_scanning_analysis_tool_version = z.string().nullable()
 
 export const s_code_scanning_analysis_url = z.string()
 
+export const s_code_scanning_autofix_commits = z
+  .object({ target_ref: z.string().optional(), message: z.string().optional() })
+  .nullable()
+
+export const s_code_scanning_autofix_commits_response = z.object({
+  target_ref: z.string().optional(),
+  sha: z.string().optional(),
+})
+
+export const s_code_scanning_autofix_description = z.string().nullable()
+
+export const s_code_scanning_autofix_started_at = z
+  .string()
+  .datetime({ offset: true })
+
+export const s_code_scanning_autofix_status = z.enum([
+  "pending",
+  "error",
+  "success",
+  "outdated",
+])
+
 export const s_code_scanning_default_setup = z.object({
   state: z.enum(["configured", "not-configured"]).optional(),
   languages: z
     .array(
       z.enum([
+        "actions",
         "c-cpp",
         "csharp",
         "go",
@@ -651,6 +680,7 @@ export const s_code_scanning_default_setup_update = z.object({
   languages: z
     .array(
       z.enum([
+        "actions",
         "c-cpp",
         "csharp",
         "go",
@@ -1200,6 +1230,17 @@ export const s_custom_property = z.object({
     .enum(["org_actors", "org_and_repo_actors"])
     .nullable()
     .optional(),
+})
+
+export const s_custom_property_set_payload = z.object({
+  value_type: z.enum(["string", "single_select", "multi_select", "true_false"]),
+  required: PermissiveBoolean.optional(),
+  default_value: z
+    .union([z.string(), z.array(z.string())])
+    .nullable()
+    .optional(),
+  description: z.string().nullable().optional(),
+  allowed_values: z.array(z.string().max(75)).max(200).nullable().optional(),
 })
 
 export const s_custom_property_value = z.object({
@@ -2059,6 +2100,26 @@ export const s_org_hook = z.object({
   type: z.string(),
 })
 
+export const s_org_private_registry_configuration = z.object({
+  name: z.string(),
+  registry_type: z.enum(["maven_repository"]),
+  username: z.string().nullable().optional(),
+  visibility: z.enum(["all", "private", "selected"]),
+  created_at: z.string().datetime({ offset: true }),
+  updated_at: z.string().datetime({ offset: true }),
+})
+
+export const s_org_private_registry_configuration_with_selected_repositories =
+  z.object({
+    name: z.string(),
+    registry_type: z.enum(["maven_repository"]),
+    username: z.string().optional(),
+    visibility: z.enum(["all", "private", "selected"]),
+    selected_repository_ids: z.array(z.coerce.number()).optional(),
+    created_at: z.string().datetime({ offset: true }),
+    updated_at: z.string().datetime({ offset: true }),
+  })
+
 export const s_organization_actions_secret = z.object({
   name: z.string(),
   created_at: z.string().datetime({ offset: true }),
@@ -2666,6 +2727,7 @@ export const s_repository_rule_pull_request = z.object({
   type: z.enum(["pull_request"]),
   parameters: z
     .object({
+      allowed_merge_methods: z.array(z.string()).optional(),
       dismiss_stale_reviews_on_push: PermissiveBoolean,
       require_code_owner_review: PermissiveBoolean,
       require_last_push_approval: PermissiveBoolean,
@@ -3621,6 +3683,12 @@ export const s_code_scanning_analysis_tool = z.object({
   name: s_code_scanning_analysis_tool_name.optional(),
   version: s_code_scanning_analysis_tool_version.optional(),
   guid: s_code_scanning_analysis_tool_guid.optional(),
+})
+
+export const s_code_scanning_autofix = z.object({
+  status: s_code_scanning_autofix_status,
+  description: s_code_scanning_autofix_description,
+  started_at: s_code_scanning_autofix_started_at,
 })
 
 export const s_code_scanning_codeql_database = z.object({
@@ -4689,6 +4757,7 @@ export const s_rate_limit_overview = z.object({
     actions_runner_registration: s_rate_limit.optional(),
     scim: s_rate_limit.optional(),
     dependency_snapshots: s_rate_limit.optional(),
+    code_scanning_autofix: s_rate_limit.optional(),
   }),
   rate: s_rate_limit,
 })
@@ -5149,6 +5218,10 @@ export const s_secret_scanning_alert = z.object({
     .nullable()
     .optional(),
   push_protection_bypass_request_reviewer: s_nullable_simple_user.optional(),
+  push_protection_bypass_request_reviewer_comment: z
+    .string()
+    .nullable()
+    .optional(),
   push_protection_bypass_request_comment: z.string().nullable().optional(),
   push_protection_bypass_request_html_url: z.string().nullable().optional(),
   validity: z.enum(["active", "inactive", "unknown"]).optional(),
@@ -6913,6 +6986,10 @@ export const s_organization_secret_scanning_alert = z.object({
     .nullable()
     .optional(),
   push_protection_bypass_request_reviewer: s_nullable_simple_user.optional(),
+  push_protection_bypass_request_reviewer_comment: z
+    .string()
+    .nullable()
+    .optional(),
   push_protection_bypass_request_comment: z.string().nullable().optional(),
   push_protection_bypass_request_html_url: z.string().nullable().optional(),
   resolution_comment: z.string().nullable().optional(),
@@ -7872,8 +7949,8 @@ export const s_issue_event_for_issue = z.union([
 export const s_repository_ruleset = z.object({
   id: z.coerce.number(),
   name: z.string(),
-  target: z.enum(["branch", "tag", "push"]).optional(),
-  source_type: z.enum(["Repository", "Organization"]).optional(),
+  target: z.enum(["branch", "tag", "push", "repository"]).optional(),
+  source_type: z.enum(["Repository", "Organization", "Enterprise"]).optional(),
   source: z.string(),
   enforcement: s_repository_rule_enforcement,
   bypass_actors: z.array(s_repository_ruleset_bypass_actor).optional(),

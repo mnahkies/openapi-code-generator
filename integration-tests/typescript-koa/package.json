@@ -14,7 +14,7 @@
     "@nahkies/typescript-koa-runtime": "*",
     "joi": "^17.13.3",
     "koa": "^2.15.3",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "devDependencies": {
     "@types/koa": "^2.15.0",

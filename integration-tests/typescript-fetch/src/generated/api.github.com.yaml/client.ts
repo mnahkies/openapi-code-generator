@@ -66,6 +66,9 @@ import {
   t_code_scanning_analysis_sarif_id,
   t_code_scanning_analysis_tool_guid,
   t_code_scanning_analysis_tool_name,
+  t_code_scanning_autofix,
+  t_code_scanning_autofix_commits,
+  t_code_scanning_autofix_commits_response,
   t_code_scanning_codeql_database,
   t_code_scanning_default_setup,
   t_code_scanning_default_setup_options,
@@ -115,6 +118,7 @@ import {
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
+  t_custom_property_set_payload,
   t_custom_property_value,
   t_dependabot_alert,
   t_dependabot_alert_with_repository,
@@ -186,6 +190,8 @@ import {
   t_oidc_custom_sub_repo,
   t_org_hook,
   t_org_membership,
+  t_org_private_registry_configuration,
+  t_org_private_registry_configuration_with_selected_repositories,
   t_org_repo_custom_property_values,
   t_org_ruleset_conditions,
   t_organization_actions_secret,
@@ -1010,64 +1016,28 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
   }
 
-  async copilotListCopilotSeatsForEnterprise(
+  async codeSecurityGetConfigurationsForEnterprise(
     p: {
       enterprise: string
-      page?: number
       perPage?: number
+      before?: string
+      after?: string
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<
-        200,
-        {
-          seats?: t_copilot_seat_details[]
-          total_seats?: number
-        }
-      >
-    | Res<401, t_basic_error>
+    | Res<200, t_code_security_configuration[]>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
-    | Res<500, t_basic_error>
   > {
     const url =
-      this.basePath + `/enterprises/${p["enterprise"]}/copilot/billing/seats`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({ page: p["page"], per_page: p["perPage"] })
-
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
-  }
-
-  async copilotCopilotMetricsForEnterprise(
-    p: {
-      enterprise: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics_day[]>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/enterprises/${p["enterprise"]}/copilot/metrics`
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
       per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
     })
 
     return this._fetch(
@@ -1077,30 +1047,263 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
-  async copilotUsageMetricsForEnterprise(
+  async codeSecurityCreateConfigurationForEnterprise(
     p: {
       enterprise: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
+        description: string
+        enforcement?: "enforced" | "unenforced"
+        name: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+      }
     },
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    | Res<200, t_copilot_usage_metrics[]>
-    | Res<401, t_basic_error>
+    | Res<201, t_code_security_configuration>
+    | Res<400, t_scim_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
-    | Res<500, t_basic_error>
   > {
-    const url = this.basePath + `/enterprises/${p["enterprise"]}/copilot/usage`
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetDefaultConfigurationsForEnterprise(
+    p: {
+      enterprise: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_code_security_default_configurations>> {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/defaults`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetSingleConfigurationForEnterprise(
+    p: {
+      enterprise: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_security_configuration>
+    | Res<304, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityUpdateEnterpriseConfiguration(
+    p: {
+      enterprise: string
+      configurationId: number
+      requestBody: {
+        advanced_security?: "enabled" | "disabled"
+        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        dependabot_alerts?: "enabled" | "disabled" | "not_set"
+        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
+        dependency_graph?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+        dependency_graph_autosubmit_action_options?: {
+          labeled_runners?: boolean
+        }
+        description?: string
+        enforcement?: "enforced" | "unenforced"
+        name?: string
+        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
+        secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_non_provider_patterns?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
+        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_security_configuration>
+    | Res<304, void>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async codeSecurityDeleteConfigurationForEnterprise(
+    p: {
+      enterprise: string
+      configurationId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<400, t_scim_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async codeSecurityAttachEnterpriseConfiguration(
+    p: {
+      enterprise: string
+      configurationId: number
+      requestBody: {
+        scope: "all" | "all_without_configurations"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        202,
+        {
+          [key: string]: unknown | undefined
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/attach`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecuritySetConfigurationAsDefaultForEnterprise(
+    p: {
+      enterprise: string
+      configurationId: number
+      requestBody: {
+        default_for_new_repos?:
+          | "all"
+          | "none"
+          | "private_and_internal"
+          | "public"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          configuration?: t_code_security_configuration
+          default_for_new_repos?:
+            | "all"
+            | "none"
+            | "private_and_internal"
+            | "public"
+        }
+      >
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/defaults`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
+  async codeSecurityGetRepositoriesForEnterpriseConfiguration(
+    p: {
+      enterprise: string
+      configurationId: number
+      perPage?: number
+      before?: string
+      after?: string
+      status?: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_security_configuration_repositories[]>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/enterprises/${p["enterprise"]}/code-security/configurations/${p["configurationId"]}/repositories`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
       per_page: p["perPage"],
+      before: p["before"],
+      after: p["after"],
+      status: p["status"],
     })
 
     return this._fetch(
@@ -1204,78 +1407,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       validity: p["validity"],
       is_publicly_leaked: p["isPubliclyLeaked"],
       is_multi_repo: p["isMultiRepo"],
-    })
-
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
-  }
-
-  async copilotCopilotMetricsForEnterpriseTeam(
-    p: {
-      enterprise: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics_day[]>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<422, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/metrics`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
-  }
-
-  async copilotUsageMetricsForEnterpriseTeam(
-    p: {
-      enterprise: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics[]>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url =
-      this.basePath +
-      `/enterprises/${p["enterprise"]}/team/${p["teamSlug"]}/copilot/usage`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
     })
 
     return this._fetch(
@@ -3754,6 +3885,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               [key: string]: unknown | undefined
             }
           }
+          bundle_url?: string
           repository_id?: number
         }[]
       }
@@ -5349,11 +5481,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -5488,11 +5620,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       minTimestamp: string
       maxTimestamp?: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
     },
     timeout?: number,
@@ -5571,11 +5703,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       actorType:
-        | "installations"
-        | "classic_pats"
-        | "fine_grained_pats"
-        | "oauth_apps"
-        | "github_apps_user_to_server"
+        | "installation"
+        | "classic_pat"
+        | "fine_grained_pat"
+        | "oauth_app"
+        | "github_app_user_to_server"
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -7020,6 +7152,155 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async privateRegistriesListOrgPrivateRegistries(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          configurations: t_org_private_registry_configuration[]
+          total_count: number
+        }
+      >
+    | Res<400, t_scim_error>
+    | Res<404, t_basic_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/private-registries`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async privateRegistriesCreateOrgPrivateRegistry(
+    p: {
+      org: string
+      requestBody: {
+        encrypted_value: string
+        key_id: string
+        registry_type: "maven_repository"
+        selected_repository_ids?: number[]
+        username?: string | null
+        visibility: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_org_private_registry_configuration_with_selected_repositories>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/private-registries`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async privateRegistriesGetOrgPublicKey(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<
+        200,
+        {
+          key: string
+          key_id: string
+        }
+      >
+    | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/private-registries/public-key`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async privateRegistriesGetOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_org_private_registry_configuration> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async privateRegistriesUpdateOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+      requestBody: {
+        encrypted_value?: string
+        key_id?: string
+        registry_type?: "maven_repository"
+        selected_repository_ids?: number[]
+        username?: string | null
+        visibility?: "all" | "private" | "selected"
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<404, t_basic_error> | Res<422, t_validation_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async privateRegistriesDeleteOrgPrivateRegistry(
+    p: {
+      org: string
+      secretName: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<204, void> | Res<400, t_scim_error> | Res<404, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/private-registries/${p["secretName"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async projectsListForOrg(
     p: {
       org: string
@@ -7142,13 +7423,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       customPropertyName: string
-      requestBody: {
-        allowed_values?: string[] | null
-        default_value?: string | string[] | null
-        description?: string | null
-        required?: boolean
-        value_type: "string" | "single_select" | "multi_select" | "true_false"
-      }
+      requestBody: t_custom_property_set_payload
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7428,7 +7703,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        target?: "branch" | "tag" | "push" | "repository"
       }
     },
     timeout?: number,
@@ -7529,7 +7804,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        target?: "branch" | "tag" | "push" | "repository"
       }
     },
     timeout?: number,
@@ -11177,6 +11452,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               [key: string]: unknown | undefined
             }
           }
+          bundle_url?: string
           repository_id?: number
         }[]
       }
@@ -12593,6 +12869,104 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       { method: "PATCH", body, ...opts, headers },
       timeout,
     )
+  }
+
+  async codeScanningGetAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_scanning_autofix>
+    | Res<400, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async codeScanningCreateAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_code_scanning_autofix>
+    | Res<202, t_code_scanning_autofix>
+    | Res<400, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, void>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "POST", ...opts, headers }, timeout)
+  }
+
+  async codeScanningCommitAutofix(
+    p: {
+      owner: string
+      repo: string
+      alertNumber: t_alert_number
+      requestBody?: t_code_scanning_autofix_commits
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<201, t_code_scanning_autofix_commits_response>
+    | Res<400, t_basic_error>
+    | Res<403, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, void>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/code-scanning/alerts/${p["alertNumber"]}/autofix/commits`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async codeScanningListAlertInstances(
@@ -24251,6 +24625,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         {
           attestations?: {
             bundle?: t_sigstore_bundle_0
+            bundle_url?: string
             repository_id?: number
           }[]
         }

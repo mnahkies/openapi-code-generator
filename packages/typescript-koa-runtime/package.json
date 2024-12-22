@@ -58,11 +58,11 @@
     "@types/koa__cors": "^5.0.0",
     "@types/koa__router": "^12.0.4",
     "jest": "^30.0.0-alpha.6",
-    "joi": "^17.1.1",
+    "joi": "^17.13.3",
     "koa": "^2.15.3",
     "koa-body": "^6.0.1",
     "typescript": "~5.7.2",
-    "zod": "^3.23.8"
+    "zod": "^3.24.1"
   },
   "files": [
     "src",

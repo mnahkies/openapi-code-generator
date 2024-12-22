@@ -5832,6 +5832,11 @@ export class StripeApi extends AbstractAxiosClient {
                                 | undefined
                             }
                           | undefined
+                        visa_compliance?:
+                          | {
+                              fee_acknowledged?: boolean | undefined
+                            }
+                          | undefined
                       }
                     | ""
                   )
@@ -6547,7 +6552,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               bacs_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
@@ -6775,7 +6784,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               sepa_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
@@ -8678,14 +8691,20 @@ export class StripeApi extends AbstractAxiosClient {
               type:
                 | "ad_nrt"
                 | "ae_trn"
+                | "al_tin"
+                | "am_tin"
+                | "ao_tin"
                 | "ar_cuit"
                 | "au_abn"
                 | "au_arn"
+                | "ba_tin"
+                | "bb_tin"
                 | "bg_uic"
                 | "bh_vat"
                 | "bo_tin"
                 | "br_cnpj"
                 | "br_cpf"
+                | "bs_tin"
                 | "by_tin"
                 | "ca_bn"
                 | "ca_gst_hst"
@@ -8693,6 +8712,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ca_pst_mb"
                 | "ca_pst_sk"
                 | "ca_qst"
+                | "cd_nif"
                 | "ch_uid"
                 | "ch_vat"
                 | "cl_tin"
@@ -8708,6 +8728,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "eu_vat"
                 | "gb_vat"
                 | "ge_vat"
+                | "gn_nif"
                 | "hk_br"
                 | "hr_oib"
                 | "hu_tin"
@@ -8719,12 +8740,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "jp_rn"
                 | "jp_trn"
                 | "ke_pin"
+                | "kh_tin"
                 | "kr_brn"
                 | "kz_bin"
                 | "li_uid"
                 | "li_vat"
                 | "ma_vat"
                 | "md_vat"
+                | "me_pib"
+                | "mk_vat"
+                | "mr_nif"
                 | "mx_rfc"
                 | "my_frp"
                 | "my_itn"
@@ -8732,6 +8757,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ng_tin"
                 | "no_vat"
                 | "no_voec"
+                | "np_pan"
                 | "nz_gst"
                 | "om_vat"
                 | "pe_ruc"
@@ -8744,12 +8770,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "sg_gst"
                 | "sg_uen"
                 | "si_tin"
+                | "sn_ninea"
+                | "sr_fin"
                 | "sv_nit"
                 | "th_vat"
+                | "tj_tin"
                 | "tr_tin"
                 | "tw_vat"
                 | "tz_vat"
                 | "ua_vat"
+                | "ug_tin"
                 | "us_ein"
                 | "uy_ruc"
                 | "uz_tin"
@@ -8757,6 +8787,8 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ve_rif"
                 | "vn_tin"
                 | "za_vat"
+                | "zm_tin"
+                | "zw_tin"
               value: string
             }[]
           | undefined
@@ -11273,14 +11305,20 @@ export class StripeApi extends AbstractAxiosClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
           | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
@@ -11288,6 +11326,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
@@ -11303,6 +11342,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
           | "hr_oib"
           | "hu_tin"
@@ -11314,12 +11354,16 @@ export class StripeApi extends AbstractAxiosClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
           | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -11327,6 +11371,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -11339,12 +11384,16 @@ export class StripeApi extends AbstractAxiosClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
           | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
           | "uz_tin"
@@ -11352,6 +11401,8 @@ export class StripeApi extends AbstractAxiosClient {
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
@@ -11606,6 +11657,11 @@ export class StripeApi extends AbstractAxiosClient {
                                       | undefined
                                   }[]
                                 | undefined
+                            }
+                          | undefined
+                        visa_compliance?:
+                          | {
+                              fee_acknowledged?: boolean | undefined
                             }
                           | undefined
                       }
@@ -12869,6 +12925,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "card_expiry"
           | "card_number"
           | "cardholder_name"
+          | "request_signature"
         )[]
         request?:
           | {
@@ -14132,14 +14189,20 @@ export class StripeApi extends AbstractAxiosClient {
                     type:
                       | "ad_nrt"
                       | "ae_trn"
+                      | "al_tin"
+                      | "am_tin"
+                      | "ao_tin"
                       | "ar_cuit"
                       | "au_abn"
                       | "au_arn"
+                      | "ba_tin"
+                      | "bb_tin"
                       | "bg_uic"
                       | "bh_vat"
                       | "bo_tin"
                       | "br_cnpj"
                       | "br_cpf"
+                      | "bs_tin"
                       | "by_tin"
                       | "ca_bn"
                       | "ca_gst_hst"
@@ -14147,6 +14210,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ca_pst_mb"
                       | "ca_pst_sk"
                       | "ca_qst"
+                      | "cd_nif"
                       | "ch_uid"
                       | "ch_vat"
                       | "cl_tin"
@@ -14162,6 +14226,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "eu_vat"
                       | "gb_vat"
                       | "ge_vat"
+                      | "gn_nif"
                       | "hk_br"
                       | "hr_oib"
                       | "hu_tin"
@@ -14173,12 +14238,16 @@ export class StripeApi extends AbstractAxiosClient {
                       | "jp_rn"
                       | "jp_trn"
                       | "ke_pin"
+                      | "kh_tin"
                       | "kr_brn"
                       | "kz_bin"
                       | "li_uid"
                       | "li_vat"
                       | "ma_vat"
                       | "md_vat"
+                      | "me_pib"
+                      | "mk_vat"
+                      | "mr_nif"
                       | "mx_rfc"
                       | "my_frp"
                       | "my_itn"
@@ -14186,6 +14255,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ng_tin"
                       | "no_vat"
                       | "no_voec"
+                      | "np_pan"
                       | "nz_gst"
                       | "om_vat"
                       | "pe_ruc"
@@ -14198,12 +14268,16 @@ export class StripeApi extends AbstractAxiosClient {
                       | "sg_gst"
                       | "sg_uen"
                       | "si_tin"
+                      | "sn_ninea"
+                      | "sr_fin"
                       | "sv_nit"
                       | "th_vat"
+                      | "tj_tin"
                       | "tr_tin"
                       | "tw_vat"
                       | "tz_vat"
                       | "ua_vat"
+                      | "ug_tin"
                       | "us_ein"
                       | "uy_ruc"
                       | "uz_tin"
@@ -14211,6 +14285,8 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ve_rif"
                       | "vn_tin"
                       | "za_vat"
+                      | "zm_tin"
+                      | "zw_tin"
                     value: string
                   }[]
                 | undefined
@@ -14631,14 +14707,20 @@ export class StripeApi extends AbstractAxiosClient {
               type:
                 | "ad_nrt"
                 | "ae_trn"
+                | "al_tin"
+                | "am_tin"
+                | "ao_tin"
                 | "ar_cuit"
                 | "au_abn"
                 | "au_arn"
+                | "ba_tin"
+                | "bb_tin"
                 | "bg_uic"
                 | "bh_vat"
                 | "bo_tin"
                 | "br_cnpj"
                 | "br_cpf"
+                | "bs_tin"
                 | "by_tin"
                 | "ca_bn"
                 | "ca_gst_hst"
@@ -14646,6 +14728,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ca_pst_mb"
                 | "ca_pst_sk"
                 | "ca_qst"
+                | "cd_nif"
                 | "ch_uid"
                 | "ch_vat"
                 | "cl_tin"
@@ -14661,6 +14744,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "eu_vat"
                 | "gb_vat"
                 | "ge_vat"
+                | "gn_nif"
                 | "hk_br"
                 | "hr_oib"
                 | "hu_tin"
@@ -14672,12 +14756,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "jp_rn"
                 | "jp_trn"
                 | "ke_pin"
+                | "kh_tin"
                 | "kr_brn"
                 | "kz_bin"
                 | "li_uid"
                 | "li_vat"
                 | "ma_vat"
                 | "md_vat"
+                | "me_pib"
+                | "mk_vat"
+                | "mr_nif"
                 | "mx_rfc"
                 | "my_frp"
                 | "my_itn"
@@ -14685,6 +14773,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ng_tin"
                 | "no_vat"
                 | "no_voec"
+                | "np_pan"
                 | "nz_gst"
                 | "om_vat"
                 | "pe_ruc"
@@ -14697,12 +14786,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "sg_gst"
                 | "sg_uen"
                 | "si_tin"
+                | "sn_ninea"
+                | "sr_fin"
                 | "sv_nit"
                 | "th_vat"
+                | "tj_tin"
                 | "tr_tin"
                 | "tw_vat"
                 | "tz_vat"
                 | "ua_vat"
+                | "ug_tin"
                 | "us_ein"
                 | "uy_ruc"
                 | "uz_tin"
@@ -14710,6 +14803,8 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ve_rif"
                 | "vn_tin"
                 | "za_vat"
+                | "zm_tin"
+                | "zw_tin"
               value: string
             }[]
           | undefined
@@ -15161,14 +15256,20 @@ export class StripeApi extends AbstractAxiosClient {
               type:
                 | "ad_nrt"
                 | "ae_trn"
+                | "al_tin"
+                | "am_tin"
+                | "ao_tin"
                 | "ar_cuit"
                 | "au_abn"
                 | "au_arn"
+                | "ba_tin"
+                | "bb_tin"
                 | "bg_uic"
                 | "bh_vat"
                 | "bo_tin"
                 | "br_cnpj"
                 | "br_cpf"
+                | "bs_tin"
                 | "by_tin"
                 | "ca_bn"
                 | "ca_gst_hst"
@@ -15176,6 +15277,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ca_pst_mb"
                 | "ca_pst_sk"
                 | "ca_qst"
+                | "cd_nif"
                 | "ch_uid"
                 | "ch_vat"
                 | "cl_tin"
@@ -15191,6 +15293,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "eu_vat"
                 | "gb_vat"
                 | "ge_vat"
+                | "gn_nif"
                 | "hk_br"
                 | "hr_oib"
                 | "hu_tin"
@@ -15202,12 +15305,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "jp_rn"
                 | "jp_trn"
                 | "ke_pin"
+                | "kh_tin"
                 | "kr_brn"
                 | "kz_bin"
                 | "li_uid"
                 | "li_vat"
                 | "ma_vat"
                 | "md_vat"
+                | "me_pib"
+                | "mk_vat"
+                | "mr_nif"
                 | "mx_rfc"
                 | "my_frp"
                 | "my_itn"
@@ -15215,6 +15322,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ng_tin"
                 | "no_vat"
                 | "no_voec"
+                | "np_pan"
                 | "nz_gst"
                 | "om_vat"
                 | "pe_ruc"
@@ -15227,12 +15335,16 @@ export class StripeApi extends AbstractAxiosClient {
                 | "sg_gst"
                 | "sg_uen"
                 | "si_tin"
+                | "sn_ninea"
+                | "sr_fin"
                 | "sv_nit"
                 | "th_vat"
+                | "tj_tin"
                 | "tr_tin"
                 | "tw_vat"
                 | "tz_vat"
                 | "ua_vat"
+                | "ug_tin"
                 | "us_ein"
                 | "uy_ruc"
                 | "uz_tin"
@@ -15240,6 +15352,8 @@ export class StripeApi extends AbstractAxiosClient {
                 | "ve_rif"
                 | "vn_tin"
                 | "za_vat"
+                | "zm_tin"
+                | "zw_tin"
               value: string
             }[]
           | undefined
@@ -22743,7 +22857,11 @@ export class StripeApi extends AbstractAxiosClient {
               bacs_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -23250,7 +23368,11 @@ export class StripeApi extends AbstractAxiosClient {
               sepa_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -23901,7 +24023,11 @@ export class StripeApi extends AbstractAxiosClient {
               bacs_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -24408,7 +24534,11 @@ export class StripeApi extends AbstractAxiosClient {
               sepa_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -25102,7 +25232,11 @@ export class StripeApi extends AbstractAxiosClient {
               bacs_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -25609,7 +25743,11 @@ export class StripeApi extends AbstractAxiosClient {
               sepa_debit?:
                 | (
                     | {
-                        mandate_options?: EmptyObject | undefined
+                        mandate_options?:
+                          | {
+                              reference_prefix?: (string | "") | undefined
+                            }
+                          | undefined
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
@@ -26986,6 +27124,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | ""
                   )
                 | undefined
+              trial_period_days?: (number | "") | undefined
               trial_settings?:
                 | (
                     | {
@@ -32634,7 +32773,11 @@ export class StripeApi extends AbstractAxiosClient {
               amazon_pay?: EmptyObject | undefined
               bacs_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               card?:
@@ -32720,7 +32863,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               sepa_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               us_bank_account?:
@@ -33165,7 +33312,11 @@ export class StripeApi extends AbstractAxiosClient {
               amazon_pay?: EmptyObject | undefined
               bacs_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               card?:
@@ -33251,7 +33402,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               sepa_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               us_bank_account?:
@@ -33702,7 +33857,11 @@ export class StripeApi extends AbstractAxiosClient {
               amazon_pay?: EmptyObject | undefined
               bacs_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               card?:
@@ -33788,7 +33947,11 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               sepa_debit?:
                 | {
-                    mandate_options?: EmptyObject | undefined
+                    mandate_options?:
+                      | {
+                          reference_prefix?: (string | "") | undefined
+                        }
+                      | undefined
                   }
                 | undefined
               us_bank_account?:
@@ -36621,14 +36784,20 @@ export class StripeApi extends AbstractAxiosClient {
                     type:
                       | "ad_nrt"
                       | "ae_trn"
+                      | "al_tin"
+                      | "am_tin"
+                      | "ao_tin"
                       | "ar_cuit"
                       | "au_abn"
                       | "au_arn"
+                      | "ba_tin"
+                      | "bb_tin"
                       | "bg_uic"
                       | "bh_vat"
                       | "bo_tin"
                       | "br_cnpj"
                       | "br_cpf"
+                      | "bs_tin"
                       | "by_tin"
                       | "ca_bn"
                       | "ca_gst_hst"
@@ -36636,6 +36805,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ca_pst_mb"
                       | "ca_pst_sk"
                       | "ca_qst"
+                      | "cd_nif"
                       | "ch_uid"
                       | "ch_vat"
                       | "cl_tin"
@@ -36651,6 +36821,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "eu_vat"
                       | "gb_vat"
                       | "ge_vat"
+                      | "gn_nif"
                       | "hk_br"
                       | "hr_oib"
                       | "hu_tin"
@@ -36662,12 +36833,16 @@ export class StripeApi extends AbstractAxiosClient {
                       | "jp_rn"
                       | "jp_trn"
                       | "ke_pin"
+                      | "kh_tin"
                       | "kr_brn"
                       | "kz_bin"
                       | "li_uid"
                       | "li_vat"
                       | "ma_vat"
                       | "md_vat"
+                      | "me_pib"
+                      | "mk_vat"
+                      | "mr_nif"
                       | "mx_rfc"
                       | "my_frp"
                       | "my_itn"
@@ -36675,6 +36850,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ng_tin"
                       | "no_vat"
                       | "no_voec"
+                      | "np_pan"
                       | "nz_gst"
                       | "om_vat"
                       | "pe_ruc"
@@ -36687,12 +36863,16 @@ export class StripeApi extends AbstractAxiosClient {
                       | "sg_gst"
                       | "sg_uen"
                       | "si_tin"
+                      | "sn_ninea"
+                      | "sr_fin"
                       | "sv_nit"
                       | "th_vat"
+                      | "tj_tin"
                       | "tr_tin"
                       | "tw_vat"
                       | "tz_vat"
                       | "ua_vat"
+                      | "ug_tin"
                       | "us_ein"
                       | "uy_ruc"
                       | "uz_tin"
@@ -36700,6 +36880,8 @@ export class StripeApi extends AbstractAxiosClient {
                       | "ve_rif"
                       | "vn_tin"
                       | "za_vat"
+                      | "zm_tin"
+                      | "zw_tin"
                     value: string
                   }[]
                 | undefined
@@ -36883,6 +37065,21 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "standard"
               }
             | undefined
+          al?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          am?:
+            | {
+                type: "simplified"
+              }
+            | undefined
+          ao?:
+            | {
+                type: "standard"
+              }
+            | undefined
           at?:
             | {
                 standard?:
@@ -36894,6 +37091,16 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           au?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          ba?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          bb?:
             | {
                 type: "standard"
               }
@@ -36923,6 +37130,11 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "standard"
               }
             | undefined
+          bs?:
+            | {
+                type: "standard"
+              }
+            | undefined
           by?:
             | {
                 type: "simplified"
@@ -36936,6 +37148,11 @@ export class StripeApi extends AbstractAxiosClient {
                     }
                   | undefined
                 type: "province_standard" | "simplified" | "standard"
+              }
+            | undefined
+          cd?:
+            | {
+                type: "standard"
               }
             | undefined
           ch?:
@@ -37058,6 +37275,11 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "simplified"
               }
             | undefined
+          gn?:
+            | {
+                type: "standard"
+              }
+            | undefined
           gr?:
             | {
                 standard?:
@@ -37128,6 +37350,11 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "simplified"
               }
             | undefined
+          kh?:
+            | {
+                type: "simplified"
+              }
+            | undefined
           kr?:
             | {
                 type: "simplified"
@@ -37178,6 +37405,21 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "simplified"
               }
             | undefined
+          me?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          mk?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          mr?:
+            | {
+                type: "standard"
+              }
+            | undefined
           mt?:
             | {
                 standard?:
@@ -37218,6 +37460,11 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "standard"
               }
             | undefined
+          np?:
+            | {
+                type: "simplified"
+              }
+            | undefined
           nz?:
             | {
                 type: "standard"
@@ -37226,6 +37473,11 @@ export class StripeApi extends AbstractAxiosClient {
           om?:
             | {
                 type: "standard"
+              }
+            | undefined
+          pe?:
+            | {
+                type: "simplified"
               }
             | undefined
           pl?:
@@ -37308,7 +37560,22 @@ export class StripeApi extends AbstractAxiosClient {
                 type: "ioss" | "oss_non_union" | "oss_union" | "standard"
               }
             | undefined
+          sn?:
+            | {
+                type: "simplified"
+              }
+            | undefined
+          sr?:
+            | {
+                type: "standard"
+              }
+            | undefined
           th?:
+            | {
+                type: "simplified"
+              }
+            | undefined
+          tj?:
             | {
                 type: "simplified"
               }
@@ -37319,6 +37586,11 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           tz?:
+            | {
+                type: "simplified"
+              }
+            | undefined
+          ug?:
             | {
                 type: "simplified"
               }
@@ -37355,6 +37627,11 @@ export class StripeApi extends AbstractAxiosClient {
                   | "state_sales_tax"
               }
             | undefined
+          uy?:
+            | {
+                type: "standard"
+              }
+            | undefined
           uz?:
             | {
                 type: "simplified"
@@ -37366,6 +37643,16 @@ export class StripeApi extends AbstractAxiosClient {
               }
             | undefined
           za?:
+            | {
+                type: "standard"
+              }
+            | undefined
+          zm?:
+            | {
+                type: "simplified"
+              }
+            | undefined
+          zw?:
             | {
                 type: "standard"
               }
@@ -37810,14 +38097,20 @@ export class StripeApi extends AbstractAxiosClient {
         type:
           | "ad_nrt"
           | "ae_trn"
+          | "al_tin"
+          | "am_tin"
+          | "ao_tin"
           | "ar_cuit"
           | "au_abn"
           | "au_arn"
+          | "ba_tin"
+          | "bb_tin"
           | "bg_uic"
           | "bh_vat"
           | "bo_tin"
           | "br_cnpj"
           | "br_cpf"
+          | "bs_tin"
           | "by_tin"
           | "ca_bn"
           | "ca_gst_hst"
@@ -37825,6 +38118,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "ca_pst_mb"
           | "ca_pst_sk"
           | "ca_qst"
+          | "cd_nif"
           | "ch_uid"
           | "ch_vat"
           | "cl_tin"
@@ -37840,6 +38134,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "eu_vat"
           | "gb_vat"
           | "ge_vat"
+          | "gn_nif"
           | "hk_br"
           | "hr_oib"
           | "hu_tin"
@@ -37851,12 +38146,16 @@ export class StripeApi extends AbstractAxiosClient {
           | "jp_rn"
           | "jp_trn"
           | "ke_pin"
+          | "kh_tin"
           | "kr_brn"
           | "kz_bin"
           | "li_uid"
           | "li_vat"
           | "ma_vat"
           | "md_vat"
+          | "me_pib"
+          | "mk_vat"
+          | "mr_nif"
           | "mx_rfc"
           | "my_frp"
           | "my_itn"
@@ -37864,6 +38163,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "ng_tin"
           | "no_vat"
           | "no_voec"
+          | "np_pan"
           | "nz_gst"
           | "om_vat"
           | "pe_ruc"
@@ -37876,12 +38176,16 @@ export class StripeApi extends AbstractAxiosClient {
           | "sg_gst"
           | "sg_uen"
           | "si_tin"
+          | "sn_ninea"
+          | "sr_fin"
           | "sv_nit"
           | "th_vat"
+          | "tj_tin"
           | "tr_tin"
           | "tw_vat"
           | "tz_vat"
           | "ua_vat"
+          | "ug_tin"
           | "us_ein"
           | "uy_ruc"
           | "uz_tin"
@@ -37889,6 +38193,8 @@ export class StripeApi extends AbstractAxiosClient {
           | "ve_rif"
           | "vn_tin"
           | "za_vat"
+          | "zm_tin"
+          | "zw_tin"
         value: string
       }
     },
@@ -44788,6 +45094,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "2024-09-30.acacia"
               | "2024-10-28.acacia"
               | "2024-11-20.acacia"
+              | "2024-12-18.acacia"
             )
           | undefined
         connect?: boolean | undefined
