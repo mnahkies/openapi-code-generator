@@ -128,7 +128,7 @@ export class ClientOperationBuilder {
           acc.defaultResponse = {
             schema: content
               ? schemaBuilder.fromModel(content.schema, true, true)
-              : schemaBuilder.void(),
+              : schemaBuilder.any(),
             type: content ? models.schemaObjectToType(content.schema) : "void",
           }
         } else {
@@ -138,7 +138,7 @@ export class ClientOperationBuilder {
             type: content ? models.schemaObjectToType(content.schema) : "void",
             schema: content
               ? schemaBuilder.fromModel(content.schema, true, true)
-              : schemaBuilder.void(),
+              : schemaBuilder.any(),
           })
         }
 

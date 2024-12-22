@@ -74,7 +74,13 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RandomNumber'
-
+  /responses/empty:
+    get:
+      tags:
+        - validation
+      responses:
+        204:
+          description: Ok
 components:
   responses:
     GetHeaders:

@@ -404,7 +404,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract boolean(): string
 
-  protected abstract any(): string
+  public abstract any(): string
 
   protected abstract unknown(): string
 

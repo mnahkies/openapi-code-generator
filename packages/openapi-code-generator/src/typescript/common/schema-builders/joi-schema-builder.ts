@@ -259,7 +259,7 @@ export class JoiBuilder extends AbstractSchemaBuilder<
       .join(".")
   }
 
-  protected any(): string {
+  public any(): string {
     return [joi, "any()"].filter(isDefined).join(".")
   }
 

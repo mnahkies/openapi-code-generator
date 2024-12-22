@@ -40,8 +40,19 @@ export type GetValidationNumbersRandomNumber = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
 
+export type GetResponsesEmptyResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type GetResponsesEmpty = (
+  params: Params<void, void, void, void>,
+  respond: GetResponsesEmptyResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
 export type ValidationImplementation = {
   getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber
+  getResponsesEmpty: GetResponsesEmpty
 }
 
 export function createValidationRouter(
@@ -101,6 +112,42 @@ export function createValidationRouter(
       return next()
     },
   )
+
+  const getResponsesEmptyResponseValidator = responseValidationFactory(
+    [["204", z.undefined()]],
+    undefined,
+  )
+
+  router.get("getResponsesEmpty", "/responses/empty", async (ctx, next) => {
+    const input = {
+      params: undefined,
+      query: undefined,
+      body: undefined,
+      headers: undefined,
+    }
+
+    const responder = {
+      with204() {
+        return new KoaRuntimeResponse<void>(204)
+      },
+      withStatus(status: StatusCode) {
+        return new KoaRuntimeResponse(status)
+      },
+    }
+
+    const response = await implementation
+      .getResponsesEmpty(input, responder, ctx)
+      .catch((err) => {
+        throw KoaRuntimeError.HandlerError(err)
+      })
+
+    const { status, body } =
+      response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+    ctx.body = getResponsesEmptyResponseValidator(status, body)
+    ctx.status = status
+    return next()
+  })
 
   return router
 }

@@ -18,6 +18,7 @@ import {
   Server,
 } from "@nahkies/typescript-axios-runtime/main"
 import { AxiosRequestConfig, AxiosResponse } from "axios"
+import { z } from "zod"
 
 export class E2ETestClientServers {
   static default(): Server<"E2ETestClient"> {
@@ -140,6 +141,24 @@ export class E2ETestClient extends AbstractAxiosClient {
     })
 
     return { ...res, data: s_RandomNumber.parse(res.data) }
+  }
+
+  async getResponsesEmpty(
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/responses/empty`
+    const headers = this._headers({}, opts.headers)
+
+    const res = await this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+
+    return { ...res, data: z.any().parse(res.data) }
   }
 }
 
