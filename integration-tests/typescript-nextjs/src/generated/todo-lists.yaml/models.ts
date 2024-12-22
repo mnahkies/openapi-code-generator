@@ -36,6 +36,10 @@ export type t_DeleteTodoListByIdParamSchema = {
   listId: string
 }
 
+export type t_UnknownObject = {
+  [key: string]: unknown | undefined
+}
+
 export type t_GetTodoListByIdParamSchema = {
   listId: string
 }
@@ -56,4 +60,8 @@ export type t_UpdateTodoListByIdBodySchema = {
 
 export type t_UpdateTodoListByIdParamSchema = {
   listId: string
+}
+
+export type t_UploadAttachmentBodySchema = {
+  file?: unknown
 }

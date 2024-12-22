@@ -7,18 +7,147 @@ import {
   t_Error,
   t_Statuses,
   t_TodoList,
+  t_UnknownObject,
 } from "../models"
 import {
   AbstractFetchClient,
   AbstractFetchClientConfig,
   Res,
+  Server,
   StatusCode,
   StatusCode4xx,
   StatusCode5xx,
-  TypedFetchResponse,
 } from "@nahkies/typescript-fetch-runtime/main"
 
-export interface ApiClientConfig extends AbstractFetchClientConfig {}
+export class ApiClientServersOperations {
+  static listAttachments(url?: "{schema}://{tenant}.attachments.example.com"): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"listAttachments_ApiClient">
+  }
+  static listAttachments(url?: "https://attachments.example.com"): {
+    build: () => Server<"listAttachments_ApiClient">
+  }
+  static listAttachments(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"listAttachments_ApiClient"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"listAttachments_ApiClient">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"listAttachments_ApiClient"> {
+            return "https://attachments.example.com" as Server<"listAttachments_ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static uploadAttachment(
+    url?: "{schema}://{tenant}.attachments.example.com",
+  ): {
+    build: (
+      schema?: "http" | "https",
+      tenant?: string,
+    ) => Server<"uploadAttachment_ApiClient">
+  }
+  static uploadAttachment(url?: "https://attachments.example.com"): {
+    build: () => Server<"uploadAttachment_ApiClient">
+  }
+  static uploadAttachment(
+    url: string = "{schema}://{tenant}.attachments.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.attachments.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"uploadAttachment_ApiClient"> {
+            return "{schema}://{tenant}.attachments.example.com"
+              .replace("{schema}", schema)
+              .replace(
+                "{tenant}",
+                tenant,
+              ) as Server<"uploadAttachment_ApiClient">
+          },
+        }
+
+      case "https://attachments.example.com":
+        return {
+          build(): Server<"uploadAttachment_ApiClient"> {
+            return "https://attachments.example.com" as Server<"uploadAttachment_ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+}
+
+export class ApiClientServers {
+  static default(): Server<"ApiClient"> {
+    return ApiClientServers.server().build()
+  }
+
+  static server(url?: "{schema}://{tenant}.todo-lists.example.com"): {
+    build: (schema?: "http" | "https", tenant?: string) => Server<"ApiClient">
+  }
+  static server(url?: "https://todo-lists.example.com"): {
+    build: () => Server<"ApiClient">
+  }
+  static server(
+    url: string = "{schema}://{tenant}.todo-lists.example.com",
+  ): unknown {
+    switch (url) {
+      case "{schema}://{tenant}.todo-lists.example.com":
+        return {
+          build(
+            schema: "http" | "https" = "https",
+            tenant = "your-slug",
+          ): Server<"ApiClient"> {
+            return "{schema}://{tenant}.todo-lists.example.com"
+              .replace("{schema}", schema)
+              .replace("{tenant}", tenant) as Server<"ApiClient">
+          },
+        }
+
+      case "https://todo-lists.example.com":
+        return {
+          build(): Server<"ApiClient"> {
+            return "https://todo-lists.example.com" as Server<"ApiClient">
+          },
+        }
+
+      default:
+        throw new Error(`no matching server for url '${url}'`)
+    }
+  }
+
+  static readonly operations = ApiClientServersOperations
+}
+
+export interface ApiClientConfig extends AbstractFetchClientConfig {
+  basePath: Server<"ApiClient"> | string
+}
 
 export class ApiClient extends AbstractFetchClient {
   constructor(config: ApiClientConfig) {
@@ -33,7 +162,7 @@ export class ApiClient extends AbstractFetchClient {
     } = {},
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<200, t_TodoList[]>>> {
+  ): Promise<Res<200, t_TodoList[]>> {
     const url = this.basePath + `/list`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
@@ -56,9 +185,7 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
@@ -74,9 +201,7 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<200, t_TodoList> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers(
@@ -95,9 +220,7 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
-    >
+    Res<204, void> | Res<StatusCode4xx, t_Error> | Res<StatusCode, void>
   > {
     const url = this.basePath + `/list/${p["listId"]}`
     const headers = this._headers({}, opts.headers)
@@ -112,24 +235,22 @@ export class ApiClient extends AbstractFetchClient {
     timeout?: number,
     opts: RequestInit = {},
   ): Promise<
-    TypedFetchResponse<
-      | Res<
-          200,
-          {
-            completedAt?: string
-            content: string
-            createdAt: string
-            id: string
-          }
-        >
-      | Res<
-          StatusCode5xx,
-          {
-            code: string
-            message: string
-          }
-        >
-    >
+    | Res<
+        200,
+        {
+          completedAt?: string
+          content: string
+          createdAt: string
+          id: string
+        }
+      >
+    | Res<
+        StatusCode5xx,
+        {
+          code: string
+          message: string
+        }
+      >
   > {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers({}, opts.headers)
@@ -148,7 +269,7 @@ export class ApiClient extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<TypedFetchResponse<Res<204, void>>> {
+  ): Promise<Res<204, void>> {
     const url = this.basePath + `/list/${p["listId"]}/items`
     const headers = this._headers(
       { "Content-Type": "application/json" },
@@ -158,4 +279,42 @@ export class ApiClient extends AbstractFetchClient {
 
     return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
+
+  async listAttachments(
+    basePath:
+      | Server<"listAttachments_ApiClient">
+      | string = ApiClientServers.operations.listAttachments().build(),
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_UnknownObject[]>> {
+    const url = basePath + `/attachments`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async uploadAttachment(
+    p: {
+      requestBody: {
+        file?: unknown
+      }
+    },
+    basePath:
+      | Server<"uploadAttachment_ApiClient">
+      | string = ApiClientServers.operations.uploadAttachment().build(),
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<202, void>> {
+    const url = basePath + `/attachments`
+    const headers = this._headers(
+      { "Content-Type": "multipart/form-data" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
 }
+
+export { ApiClient as ApiClient }
+export type { ApiClientConfig as ApiClientConfig }

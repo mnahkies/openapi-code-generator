@@ -21,3 +21,5 @@ export const s_TodoList = z.object({
   created: z.string().datetime({ offset: true }),
   updated: z.string().datetime({ offset: true }),
 })
+
+export const s_UnknownObject = z.record(z.unknown())
