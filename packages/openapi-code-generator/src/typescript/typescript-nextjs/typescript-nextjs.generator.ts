@@ -23,6 +23,7 @@ import {
   isDefined,
   isHttpMethod,
   titleCase,
+  upperFirst,
 } from "../../core/utils"
 import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
@@ -130,6 +131,15 @@ export class ServerRouterBuilder implements ICompilable {
       : undefined
     let queryParamsType = "void"
 
+    const headerParams = operation.parameters
+      .filter((it) => it.in === "header")
+      .map((it) => ({...it, name: it.name.toLowerCase()}))
+    const headerSchema = headerParams.length
+      ? schemaBuilder.fromParameters(headerParams)
+      : undefined
+
+    let headerParamsType = "void"
+
     const {requestBodyParameter} = requestBodyAsParameter(operation)
     const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
     const bodyParamSchema = requestBodyParameter
@@ -163,6 +173,19 @@ export class ServerRouterBuilder implements ICompilable {
         ),
       )
       this.statements.push(`const ${name} = ${querySchema.toString()}`)
+    }
+
+    if (headerSchema) {
+      const name = `${operation.operationId}HeaderSchema`
+
+      headerParamsType = types.schemaObjectToType(
+        this.input.loader.addVirtualType(
+          operation.operationId,
+          upperFirst(name),
+          reduceParamsToOpenApiSchema(headerParams),
+        ),
+      )
+      this.statements.push(`const ${name} = ${headerSchema.toString()}`)
     }
 
     if (bodyParamSchema && requestBodyParameter) {
@@ -246,7 +269,7 @@ export class ServerRouterBuilder implements ICompilable {
                       (bodyParamsType === "void" || bodyParamIsRequired
                         ? ""
                         : " | undefined")
-                    }, void>,
+                    }, ${headerParamsType}>,
                     respond: ${titleCase(operation.operationId)}Responder,
                     ctx: {request: NextRequest}
                   ) => Promise<KoaRuntimeResponse<unknown>>`,
@@ -275,6 +298,11 @@ export class ServerRouterBuilder implements ICompilable {
         body: ${
           bodyParamSchema
             ? `parseRequestInput(${operation.operationId}BodySchema, await request.json(), RequestInputType.RequestBody)`
+            : "undefined"
+        },
+        headers: ${
+          headerSchema
+            ? `parseRequestInput(${operation.operationId}HeaderSchema, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)`
             : "undefined"
         }
        }
