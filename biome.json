@@ -11,6 +11,7 @@
   "files": {
     "ignore": [
       "integration-tests/**/generated/*",
+      "integration-tests/typescript-nextjs/src/app/**/*",
       "integration-tests-definitions/**/*",
       "e2e/src/generated/**/*",
       "schemas/*.json",
