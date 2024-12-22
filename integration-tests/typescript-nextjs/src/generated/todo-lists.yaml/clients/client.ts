@@ -315,6 +315,3 @@ export class ApiClient extends AbstractFetchClient {
     return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 }
-
-export { ApiClient as ApiClient }
-export type { ApiClientConfig as ApiClientConfig }

@@ -32,7 +32,7 @@ export type GetTodoListByIdResponder = {
 } & KoaRuntimeResponder
 
 export type GetTodoListById = (
-  params: Params<t_GetTodoListByIdParamSchema, void, void>,
+  params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
   respond: GetTodoListByIdResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -47,7 +47,8 @@ export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
     void,
-    t_UpdateTodoListByIdBodySchema
+    t_UpdateTodoListByIdBodySchema,
+    void
   >,
   respond: UpdateTodoListByIdResponder,
   ctx: { request: NextRequest },
@@ -60,7 +61,7 @@ export type DeleteTodoListByIdResponder = {
 } & KoaRuntimeResponder
 
 export type DeleteTodoListById = (
-  params: Params<t_DeleteTodoListByIdParamSchema, void, void>,
+  params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
   respond: DeleteTodoListByIdResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -82,6 +83,7 @@ export const _GET =
       // TODO: this swallows repeated parameters
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -133,6 +135,7 @@ export const _PUT =
         await request.json(),
         RequestInputType.RequestBody,
       ),
+      headers: undefined,
     }
 
     const responder = {
@@ -178,6 +181,7 @@ export const _DELETE =
       // TODO: this swallows repeated parameters
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {

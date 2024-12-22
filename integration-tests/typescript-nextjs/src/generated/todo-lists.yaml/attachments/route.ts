@@ -21,7 +21,7 @@ export type ListAttachmentsResponder = {
 } & KoaRuntimeResponder
 
 export type ListAttachments = (
-  params: Params<void, void, void>,
+  params: Params<void, void, void, void>,
   respond: ListAttachmentsResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -31,7 +31,7 @@ export type UploadAttachmentResponder = {
 } & KoaRuntimeResponder
 
 export type UploadAttachment = (
-  params: Params<void, void, t_UploadAttachmentBodySchema>,
+  params: Params<void, void, t_UploadAttachmentBodySchema, void>,
   respond: UploadAttachmentResponder,
   ctx: { request: NextRequest },
 ) => Promise<KoaRuntimeResponse<unknown>>
@@ -47,6 +47,7 @@ export const _GET =
       // TODO: this swallows repeated parameters
       query: undefined,
       body: undefined,
+      headers: undefined,
     }
 
     const responder = {
@@ -86,6 +87,7 @@ export const _POST =
         await request.json(),
         RequestInputType.RequestBody,
       ),
+      headers: undefined,
     }
 
     const responder = {
