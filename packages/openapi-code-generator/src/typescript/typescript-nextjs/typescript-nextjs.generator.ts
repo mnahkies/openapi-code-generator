@@ -547,6 +547,7 @@ export async function generateTypescriptNextJS(
     rootSchemaBuilder.withImports(clientImportBuilder),
     {
       enableRuntimeResponseValidation: config.enableRuntimeResponseValidation,
+      enableTypedBasePaths: config.enableTypedBasePaths,
     },
   )
 
