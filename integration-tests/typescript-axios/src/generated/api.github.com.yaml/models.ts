@@ -1068,6 +1068,8 @@ export type t_code_scanning_default_setup = {
       )[]
     | undefined
   query_suite?: ("default" | "extended") | undefined
+  runner_label?: (string | null) | undefined
+  runner_type?: ("standard" | "labeled" | null) | undefined
   schedule?: ("weekly" | null) | undefined
   state?: ("configured" | "not-configured") | undefined
   updated_at?: (string | null) | undefined
