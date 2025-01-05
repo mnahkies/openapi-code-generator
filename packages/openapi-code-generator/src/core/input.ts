@@ -169,9 +169,7 @@ export class Input {
       const tag = operation.tags[0]
 
       if (!tag) {
-        throw new Error(
-          `cannot group operations by first tag as operationId: '${operation.operationId}' has no tags`,
-        )
+        return "generated"
       }
 
       return tag.toLowerCase()
@@ -185,9 +183,7 @@ export class Input {
       ).replace(/[{}]*/g, "")
 
       if (!slug) {
-        throw new Error(
-          `cannot group operations by first slug as operationId: '${operation.operationId}' has no slugs`,
-        )
+        return "generated"
       }
 
       return slug.toLowerCase()

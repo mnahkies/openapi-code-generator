@@ -50,7 +50,7 @@ const defaultConfig = {
   enableRuntimeResponseValidation: true,
   extractInlineSchemas: true,
   allowUnusedImports: false,
-  groupingStrategy: "none",
+  groupingStrategy: "first-tag",
   tsAllowAny: false,
   tsCompilerOptions: {exactOptionalPropertyTypes: false},
   enableTypedBasePaths: true,

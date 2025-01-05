@@ -25,32 +25,46 @@ export class TypescriptEmitter {
         }
       })
 
-    logger.time("format output")
+    logger.time("format and write output")
 
-    await Promise.all(
+    const result = await Promise.allSettled(
       outputs.map(async (output) => {
-        output.data = await this.formatter.format(output.filename, output.data)
-      }),
-    )
-
-    logger.time("write output")
-
-    await Promise.all(
-      outputs.map(async (output) => {
+        const {result, err} = await this.formatter.format(
+          output.filename,
+          output.data,
+        )
+        output.data = result
         await this.writeOutput(output.filename, output.data)
+
+        if (err) {
+          throw err
+        }
       }),
     )
+
+    const error = result.find((result) => result.status === "rejected")
+
+    if (error) {
+      throw error.reason
+    }
   }
 
   private async writeOutput(filename: string, data: string) {
-    const outputDirectory = path.dirname(
-      path.join(this.config.destinationDirectory, filename),
-    )
-    const outputFilepath = path.join(this.config.destinationDirectory, filename)
+    try {
+      const outputDirectory = path.dirname(
+        path.join(this.config.destinationDirectory, filename),
+      )
+      const outputFilepath = path.join(
+        this.config.destinationDirectory,
+        filename,
+      )
 
-    await this.fsAdaptor.mkDir(outputDirectory, true)
-    await this.fsAdaptor.writeFile(outputFilepath, data)
+      await this.fsAdaptor.mkDir(outputDirectory, true)
+      await this.fsAdaptor.writeFile(outputFilepath, data)
 
-    logger.info(`Wrote ${outputFilepath}`)
+      logger.info(`Wrote ${outputFilepath}`)
+    } catch (err) {
+      throw new Error(`failed to write ${filename}`, {cause: err})
+    }
   }
 }

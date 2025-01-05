@@ -461,10 +461,10 @@ describe.each(testVersions)(
           const x: ${type}
         `,
           )
-        ).trim(),
+        ).result.trim(),
         types: (
           await formatter.format("unit-test.types.ts", builder.toString())
-        ).trim(),
+        ).result.trim(),
       }
     }
   },

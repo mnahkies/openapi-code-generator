@@ -28,20 +28,27 @@ export class TypescriptFormatterBiome implements IFormatter {
     })
   }
 
-  async format(filename: string, raw: string): Promise<string> {
+  async format(
+    filename: string,
+    raw: string,
+  ): Promise<{result: string; err?: Error}> {
+    const trimmed = raw
+      .split("\n")
+      .map((it) => it.trim())
+      .join("\n")
+
     try {
-      const trimmed = raw
-        .split("\n")
-        .map((it) => it.trim())
-        .join("\n")
       const formatted = this.biome.formatContent(trimmed, {
         filePath: filename,
       })
 
-      return formatted.content
+      return {result: formatted.content}
     } catch (err) {
       logger.error("failed to format", {err})
-      return raw
+      return {
+        result: trimmed,
+        err: new Error(`failed to format ${filename}`, {cause: err}),
+      }
     }
   }
 

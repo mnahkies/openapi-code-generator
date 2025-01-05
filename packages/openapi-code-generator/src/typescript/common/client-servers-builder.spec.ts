@@ -29,7 +29,7 @@ async function runTest(
   const formatter = await TypescriptFormatterBiome.createNodeFormatter()
 
   return {
-    output: await formatter.format("unit-test.ts", builder.toString()),
+    output: (await formatter.format("unit-test.ts", builder.toString())).result,
     hasServers: builder.hasServers,
     hasOperationServers: builder.hasOperationServers,
     builder,
