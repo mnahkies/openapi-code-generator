@@ -7,10 +7,6 @@ import fs from "fs/promises"
 import type {IFsAdaptor} from "./fs-adaptor"
 
 export class NodeFsAdaptor implements IFsAdaptor {
-  clearFiles(filter: (it: string) => boolean) {
-    throw new Error("not implemented for nodejs")
-  }
-
   async readFile(path: string) {
     return await fs.readFile(path, "utf-8")
   }
