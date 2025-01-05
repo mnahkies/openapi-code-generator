@@ -2015,12 +2015,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@commander-js/extra-typings@npm:^12.1.0":
-  version: 12.1.0
-  resolution: "@commander-js/extra-typings@npm:12.1.0"
+"@commander-js/extra-typings@npm:^13.0.0":
+  version: 13.0.0
+  resolution: "@commander-js/extra-typings@npm:13.0.0"
   peerDependencies:
-    commander: ~12.1.0
-  checksum: 10/489ef40dcf18508da5d8db288fa1536e294773b8d07e4c1edee6709972fe4310e3713819ef10bdc1d234615c5cf42df6acf9ddce0b31c6c8114be704fd626971
+    commander: ~13.0.0
+  checksum: 10/aead01ccf74e37d2a87ffc5a80f8dcfa302022edf00ee21577ceaf2f3c00ba1dc548f6a989840493f5c153b0accc85d39dab8e00a7d00b76093c6e7f782a9d05
   languageName: node
   linkType: hard
 
@@ -3824,7 +3824,7 @@ __metadata:
     "@biomejs/biome": "npm:1.9.4"
     "@biomejs/js-api": "npm:0.7.1"
     "@biomejs/wasm-nodejs": "npm:1.9.4"
-    "@commander-js/extra-typings": "npm:^12.1.0"
+    "@commander-js/extra-typings": "npm:^13.0.0"
     "@types/js-yaml": "npm:^4.0.9"
     "@types/lodash": "npm:^4.17.14"
     "@types/prettier": "npm:^3.0.0"
@@ -3838,7 +3838,7 @@ __metadata:
     ajv: "npm:^8.17.1"
     ajv-draft-04: "npm:^1.0.0"
     ajv-formats: "npm:^3.0.1"
-    commander: "npm:^12.1.0"
+    commander: "npm:^13.0.0"
     js-yaml: "npm:^4.1.0"
     json5: "npm:^2.2.3"
     lodash: "npm:^4.17.21"
@@ -3847,11 +3847,11 @@ __metadata:
     typescript: "npm:~5.7.2"
     zod: "npm:^3.24.1"
   peerDependencies:
-    "@typespec/compiler": ^0.62.0
-    "@typespec/http": ^0.62.0
-    "@typespec/openapi": ^0.62.0
-    "@typespec/openapi3": ^0.62.0
-    "@typespec/versioning": ^0.62.0
+    "@typespec/compiler": ^0.63.0
+    "@typespec/http": ^0.63.0
+    "@typespec/openapi": ^0.63.0
+    "@typespec/openapi3": ^0.63.0
+    "@typespec/versioning": ^0.63.0
   peerDependenciesMeta:
     "@typespec/compiler":
       optional: true
@@ -8730,13 +8730,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"commander@npm:^12.1.0, commander@npm:~12.1.0":
-  version: 12.1.0
-  resolution: "commander@npm:12.1.0"
-  checksum: 10/cdaeb672d979816853a4eed7f1310a9319e8b976172485c2a6b437ed0db0a389a44cfb222bfbde772781efa9f215bdd1b936f80d6b249485b465c6cb906e1f93
-  languageName: node
-  linkType: hard
-
 "commander@npm:^13.0.0":
   version: 13.0.0
   resolution: "commander@npm:13.0.0"
@@ -8755,6 +8748,13 @@ __metadata:
   version: 8.3.0
   resolution: "commander@npm:8.3.0"
   checksum: 10/6b7b5d334483ce24bd73c5dac2eab901a7dbb25fd983ea24a1eeac6e7166bb1967f641546e8abf1920afbde86a45fbfe5812fbc69d0dc451bb45ca416a12a3a3
+  languageName: node
+  linkType: hard
+
+"commander@npm:~12.1.0":
+  version: 12.1.0
+  resolution: "commander@npm:12.1.0"
+  checksum: 10/cdaeb672d979816853a4eed7f1310a9319e8b976172485c2a6b437ed0db0a389a44cfb222bfbde772781efa9f215bdd1b936f80d6b249485b465c6cb906e1f93
   languageName: node
   linkType: hard
 
