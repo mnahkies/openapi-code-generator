@@ -16,7 +16,8 @@ for (const sample of sampleFilenames) {
   try {
     await copyFile(sourcePath, destinationPath)
     console.log(`Copied ${sample} to ${destinationPath}`)
-  } catch (error) {
-    console.error(`Failed to copy ${sample}:`, error)
+  } catch (err) {
+    console.error(`Failed to copy ${sample}:`, err)
+    throw err
   }
 }
