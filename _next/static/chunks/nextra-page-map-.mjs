@@ -128,6 +128,12 @@ export const pageMap = [{
     }
   }]
 }, {
+  name: "playground",
+  route: "/playground",
+  frontMatter: {
+    "sidebarTitle": "Playground"
+  }
+}, {
   name: "reference",
   route: "/reference",
   children: [{
