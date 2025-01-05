@@ -1008,6 +1008,8 @@ export type t_code_scanning_default_setup = {
     | "swift"
   )[]
   query_suite?: "default" | "extended"
+  runner_label?: string | null
+  runner_type?: "standard" | "labeled" | null
   schedule?: "weekly" | null
   state?: "configured" | "not-configured"
   updated_at?: string | null

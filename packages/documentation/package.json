@@ -24,17 +24,17 @@
     "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
-    "next": "15.1.2",
-    "nextra": "^3.3.0",
-    "nextra-theme-docs": "^3.3.0",
+    "next": "15.1.3",
+    "nextra": "^3.3.1",
+    "nextra-theme-docs": "^3.3.1",
     "react": "19.0.0",
     "react-dom": "19.0.0"
   },
   "devDependencies": {
-    "@types/node": "^22.10.2",
+    "@types/node": "^22.10.5",
     "@types/react": "^19.0.2",
     "@types/react-dom": "^19.0.2",
-    "gh-pages": "^6.2.0",
+    "gh-pages": "^6.3.0",
     "typescript": "^5.7.2"
   }
 }

@@ -660,6 +660,8 @@ export const s_code_scanning_default_setup = z.object({
       ]),
     )
     .optional(),
+  runner_type: z.enum(["standard", "labeled"]).nullable().optional(),
+  runner_label: z.string().nullable().optional(),
   query_suite: z.enum(["default", "extended"]).optional(),
   updated_at: z.string().datetime({ offset: true }).nullable().optional(),
   schedule: z.enum(["weekly"]).nullable().optional(),
