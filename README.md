@@ -13,6 +13,9 @@ With typescript templates for [koa](https://openapi-code-generator.nahkies.co.nz
 
 The [fetch](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-fetch) and [axios](https://openapi-code-generator.nahkies.co.nz/guides/client-templates/typescript-axios) templates work great in conjunction with [react-query](https://tanstack.com/query/latest)
 
+> [!TIP]
+> Try out our [interactive playground here](https://openapi-code-generator.nahkies.co.nz/playground)
+
 <!-- toc -->
 
 - [Documentation](#documentation)
