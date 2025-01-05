@@ -45,11 +45,11 @@
     "@biomejs/biome": "1.9.4",
     "@biomejs/js-api": "0.7.1",
     "@biomejs/wasm-nodejs": "1.9.4",
-    "@commander-js/extra-typings": "^12.1.0",
+    "@commander-js/extra-typings": "^13.0.0",
     "ajv": "^8.17.1",
     "ajv-draft-04": "^1.0.0",
     "ajv-formats": "^3.0.1",
-    "commander": "^12.1.0",
+    "commander": "^13.0.0",
     "js-yaml": "^4.1.0",
     "json5": "^2.2.3",
     "lodash": "^4.17.21",
@@ -58,11 +58,11 @@
     "zod": "^3.24.1"
   },
   "peerDependencies": {
-    "@typespec/compiler": "^0.62.0",
-    "@typespec/http": "^0.62.0",
-    "@typespec/openapi": "^0.62.0",
-    "@typespec/openapi3": "^0.62.0",
-    "@typespec/versioning": "^0.62.0"
+    "@typespec/compiler": "^0.63.0",
+    "@typespec/http": "^0.63.0",
+    "@typespec/openapi": "^0.63.0",
+    "@typespec/openapi3": "^0.63.0",
+    "@typespec/versioning": "^0.63.0"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {
