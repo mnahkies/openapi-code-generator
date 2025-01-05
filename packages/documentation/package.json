@@ -27,7 +27,7 @@
   },
   "dependencies": {
     "@hookform/resolvers": "^3.9.1",
-    "@monaco-editor/react": "^4.6.0",
+    "@monaco-editor/react": "^4.7.0-rc.0",
     "@nahkies/openapi-code-generator": "*",
     "monaco-editor": "^0.52.2",
     "monaco-editor-auto-typings": "^0.4.6",
