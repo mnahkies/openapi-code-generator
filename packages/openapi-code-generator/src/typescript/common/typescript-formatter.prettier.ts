@@ -9,22 +9,30 @@ const plugins = [
 export class TypescriptFormatterPrettier implements IFormatter {
   private constructor() {}
 
-  async format(filename: string, raw: string): Promise<string> {
-    try {
-      const trimmed = raw
-        .split("\n")
-        .map((it) => it.trim())
-        .join("\n")
+  async format(
+    filename: string,
+    raw: string,
+  ): Promise<{result: string; err?: Error}> {
+    const trimmed = raw
+      .split("\n")
+      .map((it) => it.trim())
+      .join("\n")
 
-      return prettier.format(trimmed, {
+    try {
+      const formatted = await prettier.format(trimmed, {
         semi: false,
         arrowParens: "always",
         parser: "typescript",
         plugins,
       })
+
+      return {result: formatted}
     } catch (err) {
       logger.error("failed to format", {err})
-      return raw
+      return {
+        result: trimmed,
+        err: new Error(`failed to format ${filename}`, {cause: err}),
+      }
     }
   }
 

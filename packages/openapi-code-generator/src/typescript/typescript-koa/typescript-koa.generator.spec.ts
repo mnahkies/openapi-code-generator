@@ -102,10 +102,12 @@ describe("typescript/typescript-koa", () => {
         tags: [],
       })
 
-      return formatter.format(
-        "unit-test.ts",
-        serverRouterBuilder.implementationExport("UnitTestImplementation"),
-      )
+      return (
+        await formatter.format(
+          "unit-test.ts",
+          serverRouterBuilder.implementationExport("UnitTestImplementation"),
+        )
+      ).result
     }
   })
 })

@@ -66,7 +66,7 @@ export function schemaBuilderTestHarness(
           const x = ${schema}
         `,
       )
-    ).trim()
+    ).result.trim()
 
     const schemas = (
       await formatter.format(
@@ -76,7 +76,7 @@ export function schemaBuilderTestHarness(
           includeHeader: false,
         }),
       )
-    ).trim()
+    ).result.trim()
 
     return {
       code,

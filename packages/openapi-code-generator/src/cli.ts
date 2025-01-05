@@ -17,7 +17,7 @@ import {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiValidator} from "./core/openapi-validator"
 import type {IdentifierConvention} from "./core/utils"
-import {generate} from "./index"
+import {configSchema, generate} from "./index"
 import type {templates} from "./templates"
 import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptFormatterBiome} from "./typescript/common/typescript-formatter.biome"
@@ -253,10 +253,10 @@ async function main() {
   )
 
   await generate(
-    {
+    configSchema.parse({
       ...config,
       tsCompilerOptions: compilerOptions,
-    },
+    }),
     fsAdaptor,
     formatter,
     validator,

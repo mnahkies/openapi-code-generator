@@ -1,0 +1,12 @@
+.container {
+  display: grid;
+  grid-gap: 0.5rem;
+  align-items: center;
+  grid-template-columns: 1fr 1fr;
+  max-width: 500px;
+
+  @media (min-width: 1536px) {
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    max-width: 800px;
+  }
+}

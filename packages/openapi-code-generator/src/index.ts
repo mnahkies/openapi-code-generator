@@ -1,42 +1,22 @@
+import type {Config} from "./config"
 import type {IFsAdaptor} from "./core/file-system/fs-adaptor"
 import {Input} from "./core/input"
 import type {IFormatter} from "./core/interfaces"
-import {
-  GenericLoader,
-  type GenericLoaderRequestHeaders,
-} from "./core/loaders/generic.loader"
-import type {CompilerOptions} from "./core/loaders/tsconfig.loader"
+import {GenericLoader} from "./core/loaders/generic.loader"
 import type {TypespecLoader} from "./core/loaders/typespec.loader"
 import {logger} from "./core/logger"
 import {OpenapiLoader} from "./core/openapi-loader"
 import type {OpenapiValidator} from "./core/openapi-validator"
-import type {IdentifierConvention} from "./core/utils"
 import {templates} from "./templates"
-import type {ServerImplementationMethod} from "./templates.types"
 import {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
-export type Config = {
-  input: string
-  inputType: "openapi3" | "typespec"
-  overrideSpecificationTitle?: string | undefined
-  output: string
-  template:
-    | "typescript-fetch"
-    | "typescript-axios"
-    | "typescript-angular"
-    | "typescript-koa"
-  schemaBuilder: "zod" | "joi"
-  enableRuntimeResponseValidation: boolean
-  enableTypedBasePaths: boolean
-  extractInlineSchemas: boolean
-  allowUnusedImports: boolean
-  groupingStrategy: "none" | "first-slug" | "first-tag"
-  filenameConvention: IdentifierConvention
-  tsAllowAny: boolean
-  tsServerImplementationMethod: ServerImplementationMethod
-  tsCompilerOptions: CompilerOptions
-  remoteSpecRequestHeaders?: GenericLoaderRequestHeaders | undefined
-}
+export {type Config, configSchema} from "./config"
+export {NodeFsAdaptor} from "./core/file-system/node-fs-adaptor"
+export {WebFsAdaptor} from "./core/file-system/web-fs-adaptor"
+export {TypescriptFormatterPrettier} from "./typescript/common/typescript-formatter.prettier"
+export type {IFormatter} from "./core/interfaces"
+export {OpenapiValidator} from "./core/openapi-validator"
+export {TypespecLoader} from "./core/loaders/typespec.loader"
 
 export async function generate(
   config: Config,

@@ -11,4 +11,15 @@ export default {
     display: "hidden",
     title: "",
   },
+  docs: {
+    title: "Docs",
+    type: "page",
+    href: "/",
+  },
+  playground: {
+    type: "page",
+    theme: {
+      layout: "full",
+    },
+  },
 }
