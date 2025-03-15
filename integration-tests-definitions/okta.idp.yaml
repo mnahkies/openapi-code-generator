@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: MyAccount Management
-  version: 2024.08.3
+  version: 2025.01.1
   description: |-
     APIs for managing a user's own emails, phones, profile, and app authenticators.
     > **Note:** The MyAccount API doesn't support [delegated authentication](https://help.okta.com/okta_help.htm?id=ext_Security_Authentication).
@@ -22,7 +22,7 @@ servers:
     variables:
       yourOktaDomain:
         default: subdomain.okta.com
-        description: The domain of your organization. This can be an official Okta domain (okta.com, oktapreview.com, etc) or one of your configured custom domains.
+        description: The domain of your organization. This can be an official Okta domain (for example, `okta.com` or `oktapreview.com`) or one of your configured custom domains.
 tags:
   - name: AppAuthenticator
     x-displayName: App Authenticators
@@ -78,7 +78,7 @@ tags:
         - Okta Identity Engine
   - name: Organization
     description: |
-      <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>The MyAccount Profile API provides operations to view Org details.
+      <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>The MyAccount Profile API provides operations to view org details.
 
       ### API versioning
       A valid API version in the `Accept` header is required to access the API. Current version: `1.0.0`
@@ -94,7 +94,7 @@ tags:
     description: |
       The MyAccount Password API provides operations to enroll, update, and delete passwords.
 
-      > **Note:** Super admins can enable the IDP MyAccount API Password feature. See [Manage Early Access and Beta features](https://help.okta.com/okta_help.htm?type=oie&id=ext_secur_manage_ea_bata).
+      > **Note:** Super admins can enable the IDP MyAccount API password feature. See [Enable self-service features](https://help.okta.com/okta_help.htm?type=oie&id=ext_secur_manage_ea_bata).
 
       ### API versioning
       A valid API version in the `Accept` header is required to access the API. Current version: `1.0.0`
@@ -122,9 +122,9 @@ tags:
   - name: Sessions
     x-displayName: Sessions
     description: |
-      <div class="x-lifecycle-container"><x-lifecycle class="lea"></x-lifecycle> <x-lifecycle class="oie"></x-lifecycle></div>The MyAccount Sessions API provides operations to manage sessions. 
+      The MyAccount Sessions API provides operations to manage sessions.
 
-      See [Sessions](/openapi/okta-management/management/tag/Session/) for more information.
+      See [sessions](/openapi/okta-management/management/tag/Session/) for more information.
 
       ### API versioning
       A valid API version in the `Accept` header is required to access the API. Current version: `1.0.0`
@@ -132,17 +132,15 @@ tags:
       Accept: application/json; okta-version=1.0.0
       ```
     x-okta-lifecycle:
-      lifecycle: LIMITED_GA
-      isGenerallyAvailable: false
-      SKUs:
-        - Okta Identity Engine
+      lifecycle: GA
+      isGenerallyAvailable: true
 externalDocs:
   description: Find more info here
   url: https://developer.okta.com
 paths:
   /idp/myaccount/app-authenticators:
     post:
-      summary: Create an app authenticator enrollment
+      summary: Create an App Authenticator Enrollment
       description: Creates an app authenticator enrollment
       operationId: createAppAuthenticatorEnrollment
       requestBody:
@@ -203,7 +201,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/appAuthenticatorChallengeId'
     post:
-      summary: Verify a push notification challenge response from the app authenticator
+      summary: Verify a Push Notification Challenge Response from the App Authenticator
       description: Verifies a push notification challenge from the app authenticator
       operationId: verifyAppAuthenticatorPushNotificationChallenge
       requestBody:
@@ -232,7 +230,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
     patch:
-      summary: Update an app authenticator enrollment
+      summary: Update an App Authenticator Enrollment
       description: |-
         Updates an app authenticator enrollment
 
@@ -300,7 +298,7 @@ paths:
         SKUs:
           - Okta Identity Engine
     delete:
-      summary: Delete an app authenticator enrollment
+      summary: Delete an App Authenticator Enrollment
       description: Deletes an app authenticator enrollment
       operationId: deleteAppAuthenticatorEnrollment
       responses:
@@ -338,7 +336,7 @@ paths:
     parameters:
       - $ref: '#/components/parameters/appAuthenticatorEnrollmentId'
     get:
-      summary: List all pending push notification challenges
+      summary: List all pending Push Notification Challenges
       description: Lists all pending push notification challenges
       operationId: listAppAuthenticatorPendingPushNotificationChallenges
       responses:
@@ -400,7 +398,7 @@ paths:
     get:
       summary: Retrieve an Authenticator
       description: |
-        Retrieves an Authenticator by `authenticatorId`
+        Retrieves an authenticator by `authenticatorId`
       operationId: getAuthenticator
       parameters:
         - $ref: '#/components/parameters/queryExpandAuthenticator'
@@ -429,7 +427,7 @@ paths:
     get:
       summary: List all Enrollments
       description: |
-        Lists all Enrollments the current user has for an authenticator
+        Lists all enrollments the current user has for an authenticator
       operationId: listEnrollments
       responses:
         '200':
@@ -457,7 +455,7 @@ paths:
     get:
       summary: Retrieve an Enrollment
       description: |
-        Retrieves an Enrollment by `enrollmentId`
+        Retrieves an enrollment by `enrollmentId`
       operationId: getEnrollment
       responses:
         '200':
@@ -471,6 +469,59 @@ paths:
       security:
         - oauth2:
             - okta.myAccount.authenticators.read
+      tags:
+        - Authenticators
+      x-okta-lifecycle:
+        lifecycle: LIMITED_GA
+        isGenerallyAvailable: false
+        SKUs:
+          - Okta Identity Engine
+    patch:
+      summary: Update an enrollment
+      description: |
+        Updates an authenticator enrollment by `enrollmentId`.
+        The following update operations are allowed:
+        * Update the enrollment nickname
+        * Remove the enrollment nickname
+      operationId: updateEnrollment
+      requestBody:
+        content:
+          application/merge-patch+json;okta-version=1.0.0:
+            schema:
+              $ref: '#/components/schemas/UpdateAuthenticatorEnrollmentRequest'
+            examples:
+              UpdateAuthenticatorEnrollmentNicknameEx:
+                $ref: '#/components/examples/UpdateAuthenticatorEnrollmentNicknameEx'
+              RemoveAuthenticatorEnrollmentNicknameEx:
+                $ref: '#/components/examples/RemoveAuthenticatorEnrollmentNicknameEx'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/AuthenticatorEnrollment'
+        '401':
+          description: Unauthorized
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '403':
+          description: Access Denied
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+        '404':
+          description: Resource Not Found
+          content:
+            application/json;okta-version=1.0.0:
+              schema:
+                $ref: '#/components/schemas/Error'
+      security:
+        - oauth2:
+            - okta.myAccount.authenticators.manage
       tags:
         - Authenticators
       x-okta-lifecycle:
@@ -1039,7 +1090,7 @@ paths:
       SKUs:
         - Okta Identity Engine
     get:
-      summary: List all Okta apps
+      summary: List all Okta Apps
       description: |
         Lists all of the current user's Okta apps
       operationId: listOktaApplications
@@ -1060,9 +1111,9 @@ paths:
       SKUs:
         - Okta Identity Engine
     get:
-      summary: Retrieve the Org details
+      summary: Retrieve the Org Details
       description: |
-        Retrieves the Org details
+        Retrieves the org details
       operationId: getOrganization
       responses:
         '200':
@@ -1464,7 +1515,7 @@ paths:
   /idp/myaccount/profile:
     get:
       summary: Retrieve my Profile
-      description: Retrieves the caller's Okta User Profile, without attributes excluded by the [Get My User Profile Schema](/openapi/okta-myaccount/myaccount/tag/Profile/#tag/Profile/operation/getProfileSchema)
+      description: Retrieves the caller's Okta user profile, without attributes excluded by the [Get my user profile schema](/openapi/okta-myaccount/myaccount/tag/Profile/#tag/Profile/operation/getProfileSchema)
       operationId: getProfile
       responses:
         '200':
@@ -1481,11 +1532,11 @@ paths:
         lifecycle: GA
         isGenerallyAvailable: true
     put:
-      summary: Replace my Profile My User Profile
+      summary: Replace my User Profile
       description: |-
-        Replaces the caller's User Profile
+        Replaces the caller's user profile
 
-        > **Note:** This API differs from the the existing [Users API](https://developer.okta.com/docs/reference/api/users/) in that only the PUT operation is supported.  Partial updates (PATCH requests) aren't available. All values returned by fetching a User Profile must pass to the MyAccount API, or the update doesn't pass validation. This applies even if the omitted schema property is optional. To ensure an optional property passes, enter a value of 'null'.
+        > **Note:** This API differs from the the existing [Users API](https://developer.okta.com/docs/reference/api/users/) in that only the PUT operation is supported.  Partial updates (PATCH requests) aren't available. All values returned by fetching a user profile must pass to the MyAccount API, or the update doesn't pass validation. This applies even if the omitted schema property is optional. To ensure an optional property passes, enter a value of 'null'.
       operationId: replaceProfile
       requestBody:
         content:
@@ -1544,7 +1595,7 @@ paths:
     get:
       summary: Retrieve my Profile Schema
       description: |-
-        Retrieves the appropriate User Profile Schema for the caller's [User Type](https://developer.okta.com/docs/reference/api/user-types/)
+        Retrieves the appropriate user profile schema for the caller's [user type](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/UserType/)
 
         > **Note:** If a property's value isn't visible to an end user (because it's hidden or [sensitive](https://help.okta.com/okta_help.htm?id=ext-hide-sensitive-attributes)), then the property's definition is also hidden in the output of the MyAccount API.
       operationId: getProfileSchema
@@ -1605,12 +1656,10 @@ paths:
         isGenerallyAvailable: true
   /idp/myaccount/sessions:
     x-okta-lifecycle:
-      lifecycle: LIMITED_GA
-      isGenerallyAvailable: false
-      SKUs:
-        - Okta Identity Engine
+      lifecycle: GA
+      isGenerallyAvailable: true
     delete:
-      summary: Delete all sessions
+      summary: Delete all Sessions
       description: |
         Deletes all sessions. Revokes all active identity provider sessions of the user. This forces the user to authenticate on the next operation. Also revokes OpenID Connect and OAuth refresh and access tokens issued to the user.
       operationId: deleteSessions
@@ -1637,7 +1686,30 @@ paths:
 components:
   examples:
     AuthenticatorExamplePassword:
-      summary: Password Authenticator
+      summary: Password authenticator
+      value:
+        id: aut3jiaiZukD4Ta0Z0g5
+        key: okta_password
+        name: Okta password
+        enrollable: true
+        _links:
+          self:
+            href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5
+            hints:
+              allow:
+                - GET
+          enroll:
+            href: https://sampleorg.okta.com/idp/authenticators/setup/aut3jiaiZukD4Ta0Z0g5
+            hints:
+              allow:
+                - GET
+          enrollments:
+            href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments
+            hints:
+              allow:
+                - GET
+    AuthenticatorExampleSecurityKey:
+      summary: Security key authenticator
       value:
         id: aut65i8bdXk90tyfr0q7
         key: webauthn
@@ -1654,26 +1726,8 @@ components:
             hints:
               allow:
                 - GET
-    AuthenticatorExampleSecurityKey:
-      summary: Security key Authenticator
-      value:
-        id: aut3jiaiZukD4Ta0Z0g5
-        key: okta_password
-        name: Okta Password
-        enrollable: true
-        _links:
-          self:
-            href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5
-            hints:
-              allow:
-                - GET
-          enrollments:
-            href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments
-            hints:
-              allow:
-                - GET
     CreateAppAuthenticatorEnrollment:
-      summary: Create App Authenticator enrollment
+      summary: Create app authenticator enrollment
       value:
         authenticatorId: aut12i8bdXk90NIfr0q5
         device:
@@ -1719,13 +1773,15 @@ components:
                 - LOGIN
                 - CIBA
     EnrollmentExampleEmail:
-      summary: Email Enrollment
+      summary: Email enrollment
       value:
         id: eae3jiacDBMEjIC9V0g5
         name: Email
         created: '2023-08-10T20:11:55.000Z'
         profile:
           email: s***q@example.com
+        canReset: false
+        canUnenroll: true
         _links:
           self:
             href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji50IyerHHpCa0g5/enrollments/eae3jiacDBMEjIC9V0g5
@@ -1737,11 +1793,16 @@ components:
             hints:
               allow:
                 - GET
+          unenroll:
+            href: https://sampleorg.okta.com/idp/authenticators/aut3ji50IyerHHpCa0g5/unenroll
+            hints:
+              allow:
+                - GET
     EnrollmentExamplePassword:
-      summary: Password Enrollment
+      summary: Password enrollment
       value:
         id: pasfs1tgsKqEha3JwZKq
-        name: Okta Password
+        name: Okta password
         created: '2023-05-01T14:24:54.000Z'
         lastChallenged: '2023-06-01T13:44:54.000Z'
         canReset: true
@@ -1757,13 +1818,20 @@ components:
             hints:
               allow:
                 - GET
+          modify:
+            href: https://sampleorg.okta.com/idp/authenticators/aut7liEC2BWqGZ8tosym/modify
+            hints:
+              allow:
+                - GET
     EnrollmentExampleSecurityKey:
-      summary: Security key Enrollment
+      summary: Security key enrollment
       value:
         id: fwf3jiaukymSFdBBS0g5
         name: YubiKey 5
         created: '2023-05-01T14:24:54.000Z'
         lastChallenged: '2023-06-01T13:44:54.000Z'
+        canReset: false
+        canUnenroll: true
         _links:
           self:
             href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut7liEC2BWqGZ8tosym/enrollments/pasfs1tgsKqEha3JwZKq
@@ -1772,6 +1840,11 @@ components:
                 - GET
           authenticator:
             href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut7liEC2BWqGZ8tosym
+            hints:
+              allow:
+                - GET
+          unenroll:
+            href: https://sampleorg.okta.com/idp/authenticators/aut7liEC2BWqGZ8tosym/unenroll
             hints:
               allow:
                 - GET
@@ -1847,12 +1920,12 @@ components:
           userId: 00u44bx5BuSpiLUMl0w5
           ver: 0
     GetPendingNotificationsSuccessResponse:
-      summary: Success Response
+      summary: Success response
       value:
         - payloadVersion: IDXv1
           challenge: Your encoded challenge request JWT
     ListAuthenticatorsExample:
-      summary: List all Authenticators
+      summary: List all authenticators
       value:
         - id: aut3ji50IyerHHpCa0g5
           key: okta_email
@@ -1861,6 +1934,11 @@ components:
           _links:
             self:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji50IyerHHpCa0g5
+              hints:
+                allow:
+                  - GET
+            enroll:
+              href: https://sampleorg.okta.com/idp/authenticators/setup/aut3ji50IyerHHpCa0g5
               hints:
                 allow:
                   - GET
@@ -1879,6 +1957,11 @@ components:
               hints:
                 allow:
                   - GET
+            enroll:
+              href: https://sampleorg.okta.com/idp/authenticators/setup/aut3ji4zFcHpwBlic0g5/enrollments
+              hints:
+                allow:
+                  - GET
             enrollments:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji4zFcHpwBlic0g5/enrollments
               hints:
@@ -1894,13 +1977,18 @@ components:
               hints:
                 allow:
                   - GET
+            enroll:
+              href: https://sampleorg.okta.com/idp/authenticators/setup/aut3jiaiZukD4Ta0Z0g5
+              hints:
+                allow:
+                  - GET
             enrollments:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments
               hints:
                 allow:
                   - GET
     ListAuthenticatorsExpandExample:
-      summary: List all Authenticators with embedded enrollments using the `expand=enrollments` query parameter
+      summary: List all authenticators with embedded enrollments using the `expand=enrollments` query parameter
       value:
         - id: aut3ji50IyerHHpCa0g5
           key: okta_email
@@ -1909,6 +1997,11 @@ components:
           _links:
             self:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji50IyerHHpCa0g5
+              hints:
+                allow:
+                  - GET
+            enroll:
+              href: https://sampleorg.okta.com/idpauthenticators/setup/aut3ji50IyerHHpCa0g5
               hints:
                 allow:
                   - GET
@@ -1924,6 +2017,8 @@ components:
                 created: '2023-08-10T20:11:55.000Z'
                 profile:
                   email: s***q@example.com
+                canUnenroll: true
+                canReset: false
                 links:
                   self:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji50IyerHHpCa0g5/enrollments/eae3jiacDBMEjIC9V0g5
@@ -1932,6 +2027,11 @@ components:
                         - GET
                   authenticator:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji50IyerHHpCa0g5
+                    hints:
+                      allow:
+                        - GET
+                  unenroll:
+                    href: https://sampleorg.okta.com/idp/authenticators/aut3ji50IyerHHpCa0g5/unenroll
                     hints:
                       allow:
                         - GET
@@ -1945,6 +2045,11 @@ components:
               hints:
                 allow:
                   - GET
+            enroll:
+              href: https://sampleorg.okta.com/idpauthenticators/setup/aut3ji4zFcHpwBlic0g5
+              hints:
+                allow:
+                  - GET
             enrollments:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji4zFcHpwBlic0g5/enrollments
               hints:
@@ -1955,6 +2060,8 @@ components:
               - id: lae9bw3rvnO03wAbx0g4
                 name: Password
                 created: '2023-08-10T20:11:55.000Z'
+                canUnenroll: false
+                canReset: true
                 links:
                   self:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji4zFcHpwBlic0g5/enrollments/lae9bw3rvnO03wAbx0g4
@@ -1963,6 +2070,11 @@ components:
                         - GET
                   authenticator:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3ji4zFcHpwBlic0g5
+                    hints:
+                      allow:
+                        - GET
+                  modify:
+                    href: https://sampleorg.okta.com/idp/authenticators/aut3ji4zFcHpwBlic0g5/modify
                     hints:
                       allow:
                         - GET
@@ -1976,6 +2088,11 @@ components:
               hints:
                 allow:
                   - GET
+            enroll:
+              href: https://sampleorg.okta.com/idp/authenticators/setup/aut3jiaiZukD4Ta0Z0g5
+              hints:
+                allow:
+                  - GET
             enrollments:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments
               hints:
@@ -1986,6 +2103,8 @@ components:
               - id: fwf3jiatpzkqerFkA0g5
                 name: MacBook Touch ID
                 created: '2023-08-10T20:12:01.000Z'
+                canUnenroll: true
+                canReset: false
                 links:
                   self:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments/fwf3jiatpzkqerFkA0g5
@@ -1997,9 +2116,16 @@ components:
                     hints:
                       allow:
                         - GET
+                  unenroll:
+                    href: https://sampleorg.okta.com/idp/authenticators/aut3jiaiZukD4Ta0Z0g5/unenroll
+                    hints:
+                      allow:
+                        - GET
               - id: fwf3jiaukymSFdBBS0g5
                 name: YubiKey 5
                 created: '2023-08-10T20:12:03.000Z'
+                canUnenroll: false
+                canReset: false
                 links:
                   self:
                     href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments/fwf3jiaukymSFdBBS0g5
@@ -2012,11 +2138,13 @@ components:
                       allow:
                         - GET
     ListEnrollmentsExample:
-      summary: All security key and biometric Enrollments
+      summary: All security key and biometric enrollments
       value:
         - id: fwf3jiatpzkqerFkA0g5
           name: MacBook Touch ID
           created: '2023-08-10T20:12:01.000Z'
+          canReset: false
+          canUnenroll: true
           links:
             self:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments/fwf3jiatpzkqerFkA0g5
@@ -2028,9 +2156,16 @@ components:
               hints:
                 allow:
                   - GET
+            unenroll:
+              href: https://sampleorg.okta.com/idp/authenticators/aut3jiaiZukD4Ta0Z0g5/unenroll
+              hints:
+                allow:
+                  - GET
         - id: fwf3jiaukymSFdBBS0g5
           name: YubiKey 5
           created: '2023-08-10T20:12:03.000Z'
+          canReset: false
+          canUnenroll: true
           links:
             self:
               href: https://sampleorg.okta.com/idp/myaccount/authenticators/aut3jiaiZukD4Ta0Z0g5/enrollments/fwf3jiaukymSFdBBS0g5
@@ -2042,21 +2177,30 @@ components:
               hints:
                 allow:
                   - GET
+            unenroll:
+              href: https://sampleorg.okta.com/idp/authenticators/aut3jiaiZukD4Ta0Z0g5/unenroll
+              hints:
+                allow:
+                  - GET
+    RemoveAuthenticatorEnrollmentNicknameEx:
+      summary: Remove authenticator enrollment nickname
+      value:
+        nickname: null
     UnenrollAppAuthenticatorEnrollmentUserVerificationKey:
-      summary: Unenroll App Authenticator Enrollment User Verification Key
+      summary: Unenroll app authenticator enrollment user verification key
       value:
         methods:
           push:
             keys:
               userVerification: null
     UpdateAppAuthenticatorEnrollmentPushToken:
-      summary: Update App Authenticator Enrollment Push Token
+      summary: Update app authenticator enrollment push token
       value:
         methods:
           push:
             pushToken: 667b713e90871f014805f45f770c90d161b84b609d167039b2c388c7bacfdaa1
     UpdateAppAuthenticatorEnrollmentPushTokenAndUserVerificationKey:
-      summary: Update App Authenticator Enrollment Push Token and Enroll User Verification Key
+      summary: Update app authenticator enrollment push token and enroll user verification key
       value:
         methods:
           push:
@@ -2070,7 +2214,7 @@ components:
                 crv: P-256
                 kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
     UpdateAppAuthenticatorEnrollmentTransactionType:
-      summary: Update App Authenticator Enrollment Transaction Type
+      summary: Update app authenticator enrollment transaction type
       value:
         methods:
           push:
@@ -2079,7 +2223,7 @@ components:
                 - LOGIN
                 - CIBA
     UpdateAppAuthenticatorEnrollmentUserVerificationKey:
-      summary: Enroll App Authenticator Enrollment User Verification Key
+      summary: Enroll app authenticator enrollment user verification key
       value:
         methods:
           push:
@@ -2091,6 +2235,10 @@ components:
                 okta:kpr: HARDWARE
                 crv: P-256
                 kid: 80D6AC7B-B640-4899-A32C-CA7B98BE0AE6
+    UpdateAuthenticatorEnrollmentNicknameEx:
+      summary: Update authenticator enrollment nickname
+      value:
+        nickname: Bob's Phone
     VerifyPushNotificationChallengeJWTHeader:
       summary: JWT Header
       value:
@@ -2129,7 +2277,7 @@ components:
           userConsent: APPROVED_CONSENT_PROMPT
           transactionType: LOGIN
     VerifyPushNotificationChallengeRequest:
-      summary: Push Notification Challenge Request
+      summary: Push notification challenge request
       value:
         method: push
         challengeResponse: Your encoded challenge response JWT
@@ -2154,7 +2302,7 @@ components:
       name: authenticatorId
       in: path
       required: true
-      description: '`id` of the Authenticator'
+      description: '`id` of the authenticator'
       schema:
         type: string
         example: aut9gnvcjUHIWb37J0g4
@@ -2162,7 +2310,7 @@ components:
       name: enrollmentId
       in: path
       required: true
-      description: '`id` of the authenticator Enrollment'
+      description: '`id` of the authenticator enrollment'
       schema:
         type: string
         example: ufs2bysphxKODSZKWVCT
@@ -2291,7 +2439,7 @@ components:
                   displayName: Okta Dashboard
                 - id: okta.b8003760-1ca5-51b8-9404-85bb7ef9bc8c
                   name: okta_account_settings
-                  displayName: Okta End User Settings
+                  displayName: Okta End user Settings
                 - id: okta.ee074f99-1b5b-513e-8ea6-f8beeab8dbb9
                   name: okta_browser_plugin
                   displayName: Okta Browser Plugin
@@ -2724,7 +2872,7 @@ components:
             Invalid-Email-Deletion-400:
               value:
                 errorCode: E0000001
-                errorSummary: 'Api validation failed: Email'
+                errorSummary: 'Api validation failed: email'
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
@@ -2739,7 +2887,7 @@ components:
             Invalid-Email-400:
               value:
                 errorCode: E0000001
-                errorSummary: 'Api validation failed: Email'
+                errorSummary: 'Api validation failed: email'
                 errorLink: E0000001
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
@@ -2754,7 +2902,7 @@ components:
             Email-Conflict-409:
               value:
                 errorCode: E0000157
-                errorSummary: 'Another authenticator with key: Email is already active.'
+                errorSummary: 'Another authenticator with key: email is already active.'
                 errorLink: E0000157
                 errorId: oaejUwz8U5FQ_SyggQwz1kC3w
                 errorCauses:
@@ -3139,7 +3287,7 @@ components:
               type: string
           readOnly: true
     AppAuthenticatorEnrollmentRequest:
-      description: App Authenticator enrollment request
+      description: App authenticator enrollment request
       type: object
       properties:
         authenticatorId:
@@ -3236,7 +3384,7 @@ components:
               - LOGIN
               - CIBA
     Authenticator:
-      description: A specific Authenticator of the current user
+      description: A specific authenticator of the current user
       type: object
       properties:
         enrollable:
@@ -3264,10 +3412,12 @@ components:
           properties:
             self:
               $ref: '#/components/schemas/HrefObject'
+            enroll:
+              $ref: '#/components/schemas/HrefObject'
             enrollments:
               $ref: '#/components/schemas/HrefObject'
     AuthenticatorEnrollment:
-      description: Authenticator Enrollment of the current user
+      description: Authenticator enrollment of the current user
       type: object
       properties:
         canReset:
@@ -3287,6 +3437,8 @@ components:
           readOnly: true
         name:
           type: string
+        nickname:
+          type: string
         profile:
           type: object
           readOnly: true
@@ -3297,6 +3449,10 @@ components:
             self:
               $ref: '#/components/schemas/HrefObject'
             authenticator:
+              $ref: '#/components/schemas/HrefObject'
+            modify:
+              $ref: '#/components/schemas/HrefObject'
+            unenroll:
               $ref: '#/components/schemas/HrefObject'
     AuthenticatorKey:
       type: string
@@ -3318,7 +3474,7 @@ components:
         - yubikey_token
       readOnly: true
     Email:
-      description: Email Object
+      description: Email object
       type: object
       properties:
         id:
@@ -3445,7 +3601,7 @@ components:
         - profile
         - roles
     Error:
-      description: Standard API Error Object
+      description: Standard API error object
       type: object
       properties:
         errorCauses:
@@ -3480,7 +3636,7 @@ components:
           example: Bad request because XYZ is missing.
           readOnly: true
     HrefObject:
-      title: Link Object
+      title: Link object
       type: object
       properties:
         hints:
@@ -3596,30 +3752,30 @@ components:
           minLength: 1
           readOnly: true
     Organization:
-      description: Org Object
+      description: Org object
       type: object
       properties:
         helpLink:
           type: string
-          description: The URL of the Org's help resources
+          description: The URL of the org's help resources
           readOnly: true
         name:
           type: string
-          description: The name of the Org
+          description: The name of the org
           minLength: 1
           readOnly: true
         supportEmail:
           type: string
-          description: The email address of the Org support contact
+          description: The email address of the org support contact
           readOnly: true
         url:
           type: string
-          description: The URL of the Org
+          description: The URL of the org
           minLength: 1
           readOnly: true
         _links:
           type: object
-          description: Discoverable resources related to the Org
+          description: Discoverable resources related to the org
           properties:
             self:
               type: object
@@ -3640,7 +3796,7 @@ components:
                         enum:
                           - GET
     PasswordResponse:
-      description: Password Response Object
+      description: Password response object
       type: object
       properties:
         created:
@@ -3681,7 +3837,7 @@ components:
                           - GET
                           - PUT
     Phone:
-      description: Phone Object
+      description: Phone object
       type: object
       properties:
         id:
@@ -3793,7 +3949,7 @@ components:
           readOnly: true
         profile:
           type: object
-          description: The properties defined in the [User Profile schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)
+          description: The properties defined in the [user profile schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)
         _links:
           type: object
           properties:
@@ -4166,7 +4322,7 @@ components:
       properties:
         properties:
           type: object
-          description: The properties defined in the [User Profile schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)
+          description: The properties defined in the [user profile schema](https://developer.okta.com/docs/api/openapi/okta-management/management/tag/Schema/)
           readOnly: true
         _links:
           type: object
@@ -4210,6 +4366,11 @@ components:
                 capabilities:
                   type: object
                   $ref: '#/components/schemas/AppAuthenticatorMethodCapabilities'
+    UpdateAuthenticatorEnrollmentRequest:
+      type: object
+      properties:
+        nickname:
+          type: string
   securitySchemes:
     oauth2:
       type: oauth2
@@ -4223,6 +4384,7 @@ components:
             okta.myAccount.appAuthenticator.maintenance.read: Read access to non-sensitive attributes of user app authenticator enrollments
             okta.myAccount.appAuthenticator.manage: Write access to user app authenticator enrollments
             okta.myAccount.appAuthenticator.read: Read access to user app authenticator enrollments
+            okta.myAccount.authenticators.manage: Write access to user authenticator enrollments
             okta.myAccount.authenticators.read: Read access to user authenticator configurations and enrollments
             okta.myAccount.email.manage: Write access to user emails
             okta.myAccount.email.read: Read access to user emails
