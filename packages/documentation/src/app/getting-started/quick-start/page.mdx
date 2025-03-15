@@ -1,0 +1,134 @@
+---
+title: Quick Start
+---
+
+import {Steps, Tabs} from "nextra/components"
+
+# Quick Start
+Install the latest [NodeJS LTS release](https://nodejs.org/en/download), though any recent version of NodeJS will likely work.
+
+You'll also need either an OpenAPI v3 / v3.1, or TypeSpec API specification to generate from. You can
+provide OpenAPI specifications as YAML or JSON, local files or remote urls - we'll load them all! 🚀
+
+Cross-file references are also supported, so don't worry about pre-processing the input.
+
+You can check the version we develop and test against [here](https://github.com/mnahkies/openapi-code-generator/blob/main/.github/workflows/ci.yml#L17).
+
+<Tabs items={[<h2 style={{paddingRight: 20}}>Fetch Client</h2>, <h2 style={{paddingRight: 20}}>Axios Client</h2>, <h2 style={{paddingRight: 20}}>Koa Server</h2>]}>
+  <Tabs.Tab>
+    <Steps>
+      {<h3>Install dependencies</h3>}
+      First install the CLI and the required runtime packages to your project:
+      ```sh npm2yarn
+      npm i --dev @nahkies/openapi-code-generator
+      npm i @nahkies/typescript-fetch-runtime
+      ```
+
+      You could also install the CLI globally if you prefer, but it's best to version it per project.
+
+      {<h3>Run generation</h3>}
+      This will generate the client to `./src/generated/clients/some-service`
+
+      You can provide either a local file path or url for the input file.
+      ```sh npm2yarn
+      npm run openapi-code-generator \
+      --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
+      --output ./src/generated/clients/some-service \
+      --template typescript-fetch
+      ```
+      {<h3>Profit</h3>}
+      Use your new type-safe client, and never worry about making a typo in a url or parameter name again.
+      Let the typescript compiler take care of checking that for you.
+
+      See [Guide to typescript-fetch client template](../guides/client-templates/typescript-fetch) for more details.
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+      {<h3>Install dependencies</h3>}
+      First install the CLI and the required runtime packages to your project:
+      ```sh npm2yarn
+      npm i --dev @nahkies/openapi-code-generator
+      npm i axios @nahkies/typescript-axios-runtime
+      ```
+      You could also install the CLI globally if you prefer, but it's best to version it per project.
+
+      {<h3>Run generation</h3>}
+      This will generate the client to `./src/generated/clients/some-service`
+
+      You can provide either a local file path or url for the input file.
+      ```sh npm2yarn
+      npm run openapi-code-generator \
+      --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
+      --output ./src/generated/clients/some-service \
+      --template typescript-axios
+      ```
+
+      {<h3>Profit</h3>}
+      Use your new type-safe client, and never worry about making a typo in a url or parameter name again.
+      Let the typescript compiler take care of checking that for you.
+
+      See [Guide to typescript-axios client template](../guides/client-templates/typescript-axios) for more details.
+    </Steps>
+  </Tabs.Tab>
+
+  <Tabs.Tab>
+    <Steps>
+      {<h3>Install dependencies</h3>}
+      First install the CLI and the required runtime packages to your project:
+      ```sh npm2yarn
+      npm i --dev @nahkies/openapi-code-generator @types/koa @types/koa__router
+      npm i @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
+      ```
+      You could also install the CLI globally if you prefer, but it's best to version it per project.
+
+      You can provide either a local file path or url for the input file.
+
+      {<h3>Run generation</h3>}
+      This will generate the server router and validation logic to `./src/generated`
+      ```sh npm2yarn
+      npm run openapi-code-generator \
+      --input ./openapi.yaml \ # or https://example.com/openapi.{json,yaml}
+      --output ./src/generated \
+      --template typescript-koa
+      ```
+
+      {<h3>Profit</h3>}
+      Implement handlers for your server, and be confident that they match what the client expects. Everything
+      will be strongly typed, so typos are surfaced at development time, not runtime.
+
+      By default the runtime validation is using zod.
+
+      See [Guide to typescript-koa client template](../guides/server-templates/typescript-koa) for more details.
+    </Steps>
+  </Tabs.Tab>
+</Tabs>
+
+## CLI options
+See the [cli reference](../reference/cli-options) for the full range of supported options, or try
+```sh npm2yarn
+npm run openapi-code-generator --help
+```
+
+## Typespec specifications
+If you want to use [typespec](https://typespec.io/) instead of [openapi3](https://spec.openapis.org/oas/latest.html)
+as your input specifications, additionally install the typespec compiler and supporting packages.
+
+```sh npm2yarn
+npm i --dev @typespec/compiler @typespec/http @typespec/openapi @typespec/openapi3 @typespec/versioning
+```
+
+Depending on how your `typespec` specification is written, you may need to install additional packages such
+as `@typespec/rest`.
+
+You can then generate like so:
+```sh npm2yarn
+npm run openapi-code-generator \
+  --input ./some-service.tsp \ # or https://example.com/some-service.tsp
+  --input-type=typespec \
+  --output ./src/generated/clients/some-service \
+  --template typescript-fetch
+```
+
+You can see [examples of code generated](https://github.com/mnahkies/openapi-code-generator/blob/main/integration-tests/typescript-fetch/src/generated/azure-resource-manager.tsp/client.ts) from typespec specifications here
