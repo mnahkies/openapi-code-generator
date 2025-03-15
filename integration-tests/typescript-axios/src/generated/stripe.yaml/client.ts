@@ -345,6 +345,56 @@ export class StripeApi extends AbstractAxiosClient {
                 features?: EmptyObject | undefined
               }
             | undefined
+          financial_account?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      disable_stripe_user_authentication?: boolean | undefined
+                      external_account_collection?: boolean | undefined
+                      send_money?: boolean | undefined
+                      transfer_balance?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
+          financial_account_transactions?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      card_spend_dispute_management?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
+          issuing_card?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      card_management?: boolean | undefined
+                      card_spend_dispute_management?: boolean | undefined
+                      cardholder_management?: boolean | undefined
+                      spend_control_management?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
+          issuing_cards_list?:
+            | {
+                enabled: boolean
+                features?:
+                  | {
+                      card_management?: boolean | undefined
+                      card_spend_dispute_management?: boolean | undefined
+                      cardholder_management?: boolean | undefined
+                      disable_stripe_user_authentication?: boolean | undefined
+                      spend_control_management?: boolean | undefined
+                    }
+                  | undefined
+              }
+            | undefined
           notification_banner?:
             | {
                 enabled: boolean
@@ -742,6 +792,11 @@ export class StripeApi extends AbstractAxiosClient {
                     requested?: boolean | undefined
                   }
                 | undefined
+              pay_by_bank_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
               payco_payments?:
                 | {
                     requested?: boolean | undefined
@@ -864,6 +919,13 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               directors_provided?: boolean | undefined
+              directorship_declaration?:
+                | {
+                    date?: number | undefined
+                    ip?: string | undefined
+                    user_agent?: string | undefined
+                  }
+                | undefined
               executives_provided?: boolean | undefined
               export_license_id?: string | undefined
               export_purpose_code?: string | undefined
@@ -877,6 +939,13 @@ export class StripeApi extends AbstractAxiosClient {
                     ip?: string | undefined
                     user_agent?: string | undefined
                   }
+                | undefined
+              ownership_exemption_reason?:
+                | (
+                    | ""
+                    | "qualified_entity_exceeds_ownership_threshold"
+                    | "qualifies_as_financial_institution"
+                  )
                 | undefined
               phone?: string | undefined
               registration_number?: string | undefined
@@ -978,6 +1047,11 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               proof_of_registration?:
+                | {
+                    files?: string[] | undefined
+                  }
+                | undefined
+              proof_of_ultimate_beneficial_ownership?:
                 | {
                     files?: string[] | undefined
                   }
@@ -1499,6 +1573,11 @@ export class StripeApi extends AbstractAxiosClient {
                     requested?: boolean | undefined
                   }
                 | undefined
+              pay_by_bank_payments?:
+                | {
+                    requested?: boolean | undefined
+                  }
+                | undefined
               payco_payments?:
                 | {
                     requested?: boolean | undefined
@@ -1621,6 +1700,13 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               directors_provided?: boolean | undefined
+              directorship_declaration?:
+                | {
+                    date?: number | undefined
+                    ip?: string | undefined
+                    user_agent?: string | undefined
+                  }
+                | undefined
               executives_provided?: boolean | undefined
               export_license_id?: string | undefined
               export_purpose_code?: string | undefined
@@ -1634,6 +1720,13 @@ export class StripeApi extends AbstractAxiosClient {
                     ip?: string | undefined
                     user_agent?: string | undefined
                   }
+                | undefined
+              ownership_exemption_reason?:
+                | (
+                    | ""
+                    | "qualified_entity_exceeds_ownership_threshold"
+                    | "qualifies_as_financial_institution"
+                  )
                 | undefined
               phone?: string | undefined
               registration_number?: string | undefined
@@ -1714,6 +1807,11 @@ export class StripeApi extends AbstractAxiosClient {
                   }
                 | undefined
               proof_of_registration?:
+                | {
+                    files?: string[] | undefined
+                  }
+                | undefined
+              proof_of_ultimate_beneficial_ownership?:
                 | {
                     files?: string[] | undefined
                   }
@@ -2619,7 +2717,7 @@ export class StripeApi extends AbstractAxiosClient {
         nationality?: string | undefined
         person_token?: string | undefined
         phone?: string | undefined
-        political_exposure?: string | undefined
+        political_exposure?: ("existing" | "none") | undefined
         registered_address?:
           | {
               city?: string | undefined
@@ -2836,7 +2934,7 @@ export class StripeApi extends AbstractAxiosClient {
         nationality?: string | undefined
         person_token?: string | undefined
         phone?: string | undefined
-        political_exposure?: string | undefined
+        political_exposure?: ("existing" | "none") | undefined
         registered_address?:
           | {
               city?: string | undefined
@@ -3049,7 +3147,7 @@ export class StripeApi extends AbstractAxiosClient {
         nationality?: string | undefined
         person_token?: string | undefined
         phone?: string | undefined
-        political_exposure?: string | undefined
+        political_exposure?: ("existing" | "none") | undefined
         registered_address?:
           | {
               city?: string | undefined
@@ -3266,7 +3364,7 @@ export class StripeApi extends AbstractAxiosClient {
         nationality?: string | undefined
         person_token?: string | undefined
         phone?: string | undefined
-        political_exposure?: string | undefined
+        political_exposure?: ("existing" | "none") | undefined
         registered_address?:
           | {
               city?: string | undefined
@@ -4267,7 +4365,12 @@ export class StripeApi extends AbstractAxiosClient {
       filter: {
         applicability_scope?:
           | {
-              price_type: "metered"
+              price_type?: "metered" | undefined
+              prices?:
+                | {
+                    id: string
+                  }[]
+                | undefined
             }
           | undefined
         credit_grant?: string | undefined
@@ -4429,7 +4532,12 @@ export class StripeApi extends AbstractAxiosClient {
         }
         applicability_config: {
           scope: {
-            price_type: "metered"
+            price_type?: "metered" | undefined
+            prices?:
+              | {
+                  id: string
+                }[]
+              | undefined
           }
         }
         category: "paid" | "promotional"
@@ -4443,6 +4551,7 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         name?: string | undefined
+        priority?: number | undefined
       }
     },
     timeout?: number,
@@ -6520,6 +6629,7 @@ export class StripeApi extends AbstractAxiosClient {
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
+                    target_date?: string | undefined
                     verification_method?:
                       | ("automatic" | "instant" | "microdeposits")
                       | undefined
@@ -6548,6 +6658,7 @@ export class StripeApi extends AbstractAxiosClient {
               au_becs_debit?:
                 | {
                     setup_future_usage?: "none" | undefined
+                    target_date?: string | undefined
                   }
                 | undefined
               bacs_debit?:
@@ -6560,6 +6671,7 @@ export class StripeApi extends AbstractAxiosClient {
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
+                    target_date?: string | undefined
                   }
                 | undefined
               bancontact?:
@@ -6594,6 +6706,18 @@ export class StripeApi extends AbstractAxiosClient {
                     request_overcapture?: ("if_available" | "never") | undefined
                     request_three_d_secure?:
                       | ("any" | "automatic" | "challenge")
+                      | undefined
+                    restrictions?:
+                      | {
+                          brands_blocked?:
+                            | (
+                                | "american_express"
+                                | "discover_global_network"
+                                | "mastercard"
+                                | "visa"
+                              )[]
+                            | undefined
+                        }
                       | undefined
                     setup_future_usage?:
                       | ("off_session" | "on_session")
@@ -6722,6 +6846,7 @@ export class StripeApi extends AbstractAxiosClient {
                     tos_shown_and_accepted?: boolean | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?:
                 | {
                     capture_method?: "manual" | undefined
@@ -6792,6 +6917,7 @@ export class StripeApi extends AbstractAxiosClient {
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
+                    target_date?: string | undefined
                   }
                 | undefined
               sofort?:
@@ -6824,6 +6950,7 @@ export class StripeApi extends AbstractAxiosClient {
                     setup_future_usage?:
                       | ("none" | "off_session" | "on_session")
                       | undefined
+                    target_date?: string | undefined
                     verification_method?: ("automatic" | "instant") | undefined
                   }
                 | undefined
@@ -6867,6 +6994,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "naver_pay"
               | "oxxo"
               | "p24"
+              | "pay_by_bank"
               | "payco"
               | "paynow"
               | "paypal"
@@ -7098,6 +7226,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "SA"
                 | "SB"
                 | "SC"
+                | "SD"
                 | "SE"
                 | "SG"
                 | "SH"
@@ -7329,6 +7458,23 @@ export class StripeApi extends AbstractAxiosClient {
     p: {
       session: string
       requestBody?: {
+        collected_information?:
+          | {
+              shipping_details?:
+                | {
+                    address: {
+                      city?: string | undefined
+                      country: string
+                      line1: string
+                      line2?: string | undefined
+                      postal_code?: string | undefined
+                      state?: string | undefined
+                    }
+                    name: string
+                  }
+                | undefined
+            }
+          | undefined
         expand?: string[] | undefined
         metadata?:
           | (
@@ -9982,6 +10128,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "naver_pay"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
@@ -22688,6 +22835,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -22741,6 +22889,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -22788,6 +22937,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -22850,6 +23000,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -22865,6 +23016,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -23274,6 +23426,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | ""
                   )
                 | undefined
+              pay_by_bank?: (EmptyObject | "") | undefined
               payco?:
                 | (
                     | {
@@ -23376,6 +23529,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -23463,6 +23617,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -23854,6 +24009,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -23907,6 +24063,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -23954,6 +24111,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -24016,6 +24174,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -24031,6 +24190,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -24440,6 +24600,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | ""
                   )
                 | undefined
+              pay_by_bank?: (EmptyObject | "") | undefined
               payco?:
                 | (
                     | {
@@ -24542,6 +24703,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -24629,6 +24791,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -25063,6 +25226,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -25116,6 +25280,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -25163,6 +25328,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -25225,6 +25391,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -25240,6 +25407,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -25649,6 +25817,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | ""
                   )
                 | undefined
+              pay_by_bank?: (EmptyObject | "") | undefined
               payco?:
                 | (
                     | {
@@ -25751,6 +25920,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                       }
                     | ""
                   )
@@ -25838,6 +26008,7 @@ export class StripeApi extends AbstractAxiosClient {
                         setup_future_usage?:
                           | ("" | "none" | "off_session" | "on_session")
                           | undefined
+                        target_date?: string | undefined
                         verification_method?:
                           | ("automatic" | "instant" | "microdeposits")
                           | undefined
@@ -26250,6 +26421,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "multibanco"
               | "oxxo"
               | "p24"
+              | "pay_by_bank"
               | "paynow"
               | "paypal"
               | "pix"
@@ -26462,6 +26634,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "SA"
                 | "SB"
                 | "SC"
+                | "SD"
                 | "SE"
                 | "SG"
                 | "SH"
@@ -26830,6 +27003,7 @@ export class StripeApi extends AbstractAxiosClient {
                   | "multibanco"
                   | "oxxo"
                   | "p24"
+                  | "pay_by_bank"
                   | "paynow"
                   | "paypal"
                   | "pix"
@@ -26844,6 +27018,11 @@ export class StripeApi extends AbstractAxiosClient {
                 )[]
               | ""
             )
+          | undefined
+        phone_number_collection?:
+          | {
+              enabled: boolean
+            }
           | undefined
         restrictions?:
           | (
@@ -27043,6 +27222,7 @@ export class StripeApi extends AbstractAxiosClient {
                     | "SA"
                     | "SB"
                     | "SC"
+                    | "SD"
                     | "SE"
                     | "SG"
                     | "SH"
@@ -27538,6 +27718,15 @@ export class StripeApi extends AbstractAxiosClient {
             }
           | undefined
         parent?: string | undefined
+        pay_by_bank?:
+          | {
+              display_preference?:
+                | {
+                    preference?: ("none" | "off" | "on") | undefined
+                  }
+                | undefined
+            }
+          | undefined
         paynow?:
           | {
               display_preference?:
@@ -27972,6 +28161,15 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        pay_by_bank?:
+          | {
+              display_preference?:
+                | {
+                    preference?: ("none" | "off" | "on") | undefined
+                  }
+                | undefined
+            }
+          | undefined
         paynow?:
           | {
               display_preference?:
@@ -28285,6 +28483,7 @@ export class StripeApi extends AbstractAxiosClient {
         | "naver_pay"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
@@ -28567,6 +28766,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        pay_by_bank?: EmptyObject | undefined
         payco?: EmptyObject | undefined
         payment_method?: string | undefined
         paynow?: EmptyObject | undefined
@@ -28623,6 +28823,7 @@ export class StripeApi extends AbstractAxiosClient {
               | "naver_pay"
               | "oxxo"
               | "p24"
+              | "pay_by_bank"
               | "payco"
               | "paynow"
               | "paypal"
@@ -28752,6 +28953,7 @@ export class StripeApi extends AbstractAxiosClient {
               funding?: ("card" | "points") | undefined
             }
           | undefined
+        pay_by_bank?: EmptyObject | undefined
         us_bank_account?:
           | {
               account_holder_type?: ("company" | "individual") | undefined
@@ -29716,6 +29918,11 @@ export class StripeApi extends AbstractAxiosClient {
                     maximum?: number | undefined
                     minimum?: number | undefined
                     preset?: number | undefined
+                  }
+                | undefined
+              metadata?:
+                | {
+                    [key: string]: string | undefined
                   }
                 | undefined
               recurring?:
@@ -32665,6 +32872,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -32718,6 +32926,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -33204,6 +33413,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -33257,6 +33467,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -33749,6 +33960,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -33802,6 +34014,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -38598,6 +38811,13 @@ export class StripeApi extends AbstractAxiosClient {
                         smart_tip_threshold?: number | undefined
                       }
                     | undefined
+                  jpy?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
                   myr?:
                     | {
                         fixed_amounts?: number[] | undefined
@@ -38824,6 +39044,13 @@ export class StripeApi extends AbstractAxiosClient {
                       }
                     | undefined
                   hkd?:
+                    | {
+                        fixed_amounts?: number[] | undefined
+                        percentages?: number[] | undefined
+                        smart_tip_threshold?: number | undefined
+                      }
+                    | undefined
+                  jpy?:
                     | {
                         fixed_amounts?: number[] | undefined
                         percentages?: number[] | undefined
@@ -39708,6 +39935,7 @@ export class StripeApi extends AbstractAxiosClient {
                       | undefined
                   }
                 | undefined
+              pay_by_bank?: EmptyObject | undefined
               payco?: EmptyObject | undefined
               paynow?: EmptyObject | undefined
               paypal?: EmptyObject | undefined
@@ -39761,6 +39989,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | "naver_pay"
                 | "oxxo"
                 | "p24"
+                | "pay_by_bank"
                 | "payco"
                 | "paynow"
                 | "paypal"
@@ -40925,6 +41154,33 @@ export class StripeApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_issuing_settlement>> {
     const url = `/v1/test_helpers/issuing/settlements`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTestHelpersIssuingSettlementsSettlementComplete(
+    p: {
+      settlement: string
+      requestBody?: {
+        expand?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issuing_settlement>> {
+    const url = `/v1/test_helpers/issuing/settlements/${p["settlement"]}/complete`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -42604,6 +42860,13 @@ export class StripeApi extends AbstractAxiosClient {
                         }
                       | undefined
                     directors_provided?: boolean | undefined
+                    directorship_declaration?:
+                      | {
+                          date?: number | undefined
+                          ip?: string | undefined
+                          user_agent?: string | undefined
+                        }
+                      | undefined
                     executives_provided?: boolean | undefined
                     export_license_id?: string | undefined
                     export_purpose_code?: string | undefined
@@ -42619,6 +42882,13 @@ export class StripeApi extends AbstractAxiosClient {
                         }
                       | undefined
                     ownership_declaration_shown_and_signed?: boolean | undefined
+                    ownership_exemption_reason?:
+                      | (
+                          | ""
+                          | "qualified_entity_exceeds_ownership_threshold"
+                          | "qualifies_as_financial_institution"
+                        )
+                      | undefined
                     phone?: string | undefined
                     registration_number?: string | undefined
                     structure?:
@@ -42914,7 +43184,7 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
               nationality?: string | undefined
               phone?: string | undefined
-              political_exposure?: string | undefined
+              political_exposure?: ("existing" | "none") | undefined
               registered_address?:
                 | {
                     city?: string | undefined
@@ -43838,6 +44108,7 @@ export class StripeApi extends AbstractAxiosClient {
               [key: string]: string | undefined
             }
           | undefined
+        nickname?: (string | "") | undefined
         platform_restrictions?:
           | {
               inbound_flows?: ("restricted" | "unrestricted") | undefined
@@ -43964,11 +44235,19 @@ export class StripeApi extends AbstractAxiosClient {
                 | undefined
             }
           | undefined
+        forwarding_settings?:
+          | {
+              financial_account?: string | undefined
+              payment_method?: string | undefined
+              type: "financial_account" | "payment_method"
+            }
+          | undefined
         metadata?:
           | {
               [key: string]: string | undefined
             }
           | undefined
+        nickname?: (string | "") | undefined
         platform_restrictions?:
           | {
               inbound_flows?: ("restricted" | "unrestricted") | undefined
@@ -43981,6 +44260,40 @@ export class StripeApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_treasury_financial_account>> {
     const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async postTreasuryFinancialAccountsFinancialAccountClose(
+    p: {
+      financialAccount: string
+      requestBody?: {
+        expand?: string[] | undefined
+        forwarding_settings?:
+          | {
+              financial_account?: string | undefined
+              payment_method?: string | undefined
+              type: "financial_account" | "payment_method"
+            }
+          | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_treasury_financial_account>> {
+    const url = `/v1/treasury/financial_accounts/${p["financialAccount"]}/close`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -44506,6 +44819,12 @@ export class StripeApi extends AbstractAxiosClient {
         currency: string
         description?: string | undefined
         destination_payment_method?: string | undefined
+        destination_payment_method_data?:
+          | {
+              financial_account?: string | undefined
+              type: "financial_account"
+            }
+          | undefined
         destination_payment_method_options?:
           | {
               us_bank_account?:
@@ -44613,6 +44932,7 @@ export class StripeApi extends AbstractAxiosClient {
           | "credit_reversal"
           | "other"
           | "outbound_payment"
+          | "outbound_transfer"
           | "payout"
       }
       startingAfter?: string
@@ -45095,6 +45415,8 @@ export class StripeApi extends AbstractAxiosClient {
               | "2024-10-28.acacia"
               | "2024-11-20.acacia"
               | "2024-12-18.acacia"
+              | "2025-01-27.acacia"
+              | "2025-02-24.acacia"
             )
           | undefined
         connect?: boolean | undefined

@@ -355,6 +355,56 @@ export type t_AuthorizeCustomAsQuerySchema = {
   state: string
 }
 
+export type t_AuthorizeCustomAsWithPostBodySchema = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
+  request?: string
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string
+  state: string
+}
+
+export type t_AuthorizeCustomAsWithPostParamSchema = {
+  authorizationServerId: string
+}
+
+export type t_AuthorizeWithPostBodySchema = {
+  acr_values?: t_AcrValue & string
+  client_id: string
+  code_challenge?: string
+  code_challenge_method?: t_CodeChallengeMethod & string
+  display?: string
+  enroll_amr_values?: t_AmrValue & string
+  idp?: string
+  idp_scope?: string
+  login_hint?: string
+  max_age?: number
+  nonce?: string
+  prompt?: t_Prompt & string
+  redirect_uri: string
+  request?: string
+  request_uri?: string
+  response_mode?: t_ResponseMode & string
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string
+  state: string
+}
+
 export type t_BcAuthorizeBodySchema = {
   binding_message?: string
   id_token_hint: string

@@ -62,6 +62,42 @@ export type t_actions_get_default_workflow_permissions = {
   default_workflow_permissions: t_actions_default_workflow_permissions
 }
 
+export type t_actions_hosted_runner = {
+  id: number
+  image_details: t_nullable_actions_hosted_runner_pool_image
+  last_active_on?: string | null
+  machine_size_details: t_actions_hosted_runner_machine_spec
+  maximum_runners?: number
+  name: string
+  platform: string
+  public_ip_enabled: boolean
+  public_ips?: t_public_ip[]
+  runner_group_id?: number
+  status: "Ready" | "Provisioning" | "Shutdown" | "Deleting" | "Stuck"
+}
+
+export type t_actions_hosted_runner_image = {
+  display_name: string
+  id: string
+  platform: string
+  size_gb: number
+  source: "github" | "partner" | "custom"
+}
+
+export type t_actions_hosted_runner_limits = {
+  public_ips: {
+    current_usage: number
+    maximum: number
+  }
+}
+
+export type t_actions_hosted_runner_machine_spec = {
+  cpu_cores: number
+  id: string
+  memory_gb: number
+  storage_gb: number
+}
+
 export type t_actions_organization_permissions = {
   allowed_actions?: t_allowed_actions
   enabled_repositories: t_enabled_repositories
@@ -307,6 +343,7 @@ export type t_app_permissions = {
 export type t_artifact = {
   archive_download_url: string
   created_at: string | null
+  digest?: string | null
   expired: boolean
   expires_at: string | null
   id: number
@@ -395,6 +432,7 @@ export type t_autolink = {
 
 export type t_base_gist = {
   comments: number
+  comments_enabled?: boolean
   comments_url: string
   commits_url: string
   created_at: string
@@ -796,6 +834,7 @@ export type t_code_of_conduct_simple = {
 
 export type t_code_scanning_alert = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -818,6 +857,8 @@ export type t_code_scanning_alert_classification =
   | "test"
   | "library"
   | null
+
+export type t_code_scanning_alert_create_request = boolean
 
 export type t_code_scanning_alert_dismissed_comment = string | null
 
@@ -846,6 +887,7 @@ export type t_code_scanning_alert_instance = {
 
 export type t_code_scanning_alert_items = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -1055,6 +1097,7 @@ export type t_code_scanning_default_setup_update_response = {
 
 export type t_code_scanning_organization_alert_items = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -1186,6 +1229,7 @@ export type t_code_security_configuration = {
     runner_label?: string | null
     runner_type?: "standard" | "labeled" | "not_set" | null
   } | null
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   created_at?: string
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
@@ -1201,6 +1245,7 @@ export type t_code_security_configuration = {
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass_options?: {
     reviewers?: {
@@ -1208,6 +1253,7 @@ export type t_code_security_configuration = {
       reviewer_type: "TEAM" | "ROLE"
     }[]
   }
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -1818,10 +1864,10 @@ export type t_copilot_ide_code_completions = {
 export type t_copilot_organization_details = {
   cli?: "enabled" | "disabled" | "unconfigured"
   ide_chat?: "enabled" | "disabled" | "unconfigured"
-  plan_type?: "business" | "enterprise" | "unknown"
+  plan_type?: "business" | "enterprise"
   platform_chat?: "enabled" | "disabled" | "unconfigured"
-  public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown"
-  seat_breakdown: t_copilot_seat_breakdown
+  public_code_suggestions: "allow" | "block" | "unconfigured"
+  seat_breakdown: t_copilot_organization_seat_breakdown
   seat_management_setting:
     | "assign_all"
     | "assign_selected"
@@ -1830,7 +1876,7 @@ export type t_copilot_organization_details = {
   [key: string]: unknown | undefined
 }
 
-export type t_copilot_seat_breakdown = {
+export type t_copilot_organization_seat_breakdown = {
   active_this_cycle?: number
   added_this_cycle?: number
   inactive_this_cycle?: number
@@ -1950,6 +1996,7 @@ export type t_dependabot_alert = {
   readonly dependency: {
     readonly manifest_path?: string
     package?: t_dependabot_alert_package
+    readonly relationship?: "unknown" | "direct" | "transitive" | null
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -1989,6 +2036,7 @@ export type t_dependabot_alert_security_advisory = {
     readonly name: string
   }[]
   readonly description: string
+  epss?: t_security_advisory_epss
   readonly ghsa_id: string
   readonly identifiers: {
     readonly type: "CVE" | "GHSA"
@@ -2020,6 +2068,7 @@ export type t_dependabot_alert_with_repository = {
   readonly dependency: {
     readonly manifest_path?: string
     package?: t_dependabot_alert_package
+    readonly relationship?: "unknown" | "direct" | "transitive" | null
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -2274,6 +2323,7 @@ export type t_enterprise = {
 export type t_enterprise_team = {
   created_at: string
   group_id?: string | null
+  group_name?: string | null
   html_url: string
   id: number
   members_url: string
@@ -2588,6 +2638,7 @@ export type t_gist_history = {
 
 export type t_gist_simple = {
   comments?: number
+  comments_enabled?: boolean
   comments_url?: string
   commits_url?: string
   created_at?: string
@@ -2608,6 +2659,7 @@ export type t_gist_simple = {
   }
   fork_of?: {
     comments: number
+    comments_enabled?: boolean
     comments_url: string
     commits_url: string
     created_at: string
@@ -2692,7 +2744,7 @@ export type t_git_commit = {
     reason: string
     signature: string | null
     verified: boolean
-    verified_at?: string | null
+    verified_at: string | null
   }
 }
 
@@ -2765,10 +2817,7 @@ export type t_global_advisory = {
       }[]
     | null
   description: string | null
-  epss?: {
-    percentage?: number
-    percentile?: number
-  } | null
+  epss?: t_security_advisory_epss
   readonly ghsa_id: string
   readonly github_reviewed_at: string | null
   readonly html_url: string
@@ -2997,7 +3046,7 @@ export type t_integration = {
   installations_count?: number
   name: string
   node_id: string
-  owner: t_nullable_simple_user
+  owner: t_simple_user | t_enterprise
   pem?: string
   permissions: {
     checks?: string
@@ -3665,6 +3714,29 @@ export type t_moved_column_in_project_issue_event = {
   url: string
 }
 
+export type t_network_configuration = {
+  compute_service?: "none" | "actions" | "codespaces"
+  created_on: string | null
+  id: string
+  name: string
+  network_settings_ids?: string[]
+}
+
+export type t_network_settings = {
+  id: string
+  name: string
+  network_configuration_id?: string
+  region: string
+  subnet_id: string
+}
+
+export type t_nullable_actions_hosted_runner_pool_image = {
+  display_name: string
+  id: string
+  size_gb: number
+  source: "github" | "partner" | "custom"
+} | null
+
 export type t_nullable_alert_updated_at = string | null
 
 export type t_nullable_code_of_conduct_simple = {
@@ -3739,7 +3811,7 @@ export type t_nullable_integration = {
   installations_count?: number
   name: string
   node_id: string
-  owner: t_nullable_simple_user
+  owner: t_simple_user | t_enterprise
   pem?: string
   permissions: {
     checks?: string
@@ -4369,6 +4441,7 @@ export type t_organization_role = {
 export type t_organization_secret_scanning_alert = {
   created_at?: t_alert_created_at
   html_url?: t_alert_html_url
+  is_base64_encoded?: boolean | null
   locations_url?: string
   multi_repo?: boolean | null
   number?: t_alert_number
@@ -4852,6 +4925,12 @@ export type t_protected_branch_required_status_check = {
   enforcement_level?: string
   strict?: boolean
   url?: string
+}
+
+export type t_public_ip = {
+  enabled?: boolean
+  length?: number
+  prefix?: string
 }
 
 export type t_public_user = {
@@ -6129,8 +6208,22 @@ export type t_rule_suites = {
   result?: "pass" | "fail" | "bypass"
 }[]
 
+export type t_ruleset_version = {
+  actor: {
+    id?: number
+    type?: string
+  }
+  updated_at: string
+  version_id: number
+}
+
+export type t_ruleset_version_with_state = t_ruleset_version & {
+  state: EmptyObject
+}
+
 export type t_runner = {
   busy: boolean
+  ephemeral?: boolean
   id: number
   labels: t_runner_label[]
   name: string
@@ -6156,6 +6249,7 @@ export type t_runner_groups_org = {
   inherited: boolean
   inherited_allows_public_repositories?: boolean
   name: string
+  network_configuration_id?: string
   restricted_to_workflows?: boolean
   runners_url: string
   selected_repositories_url?: string
@@ -6193,6 +6287,7 @@ export type t_search_result_text_matches = {
 export type t_secret_scanning_alert = {
   created_at?: t_alert_created_at
   html_url?: t_alert_html_url
+  is_base64_encoded?: boolean | null
   locations_url?: string
   multi_repo?: boolean | null
   number?: t_alert_number
@@ -6384,6 +6479,11 @@ export type t_security_advisory_ecosystems =
   | "other"
   | "swift"
 
+export type t_security_advisory_epss = {
+  percentage?: number
+  percentile?: number
+} | null
+
 export type t_security_and_analysis = {
   advanced_security?: {
     status?: "enabled" | "disabled"
@@ -6427,42 +6527,6 @@ export type t_short_branch = {
   protected: boolean
   protection?: t_branch_protection
   protection_url?: string
-}
-
-export type t_sigstore_bundle_0 = {
-  dsseEnvelope?: {
-    payload?: string
-    payloadType?: string
-    signatures?: {
-      keyid?: string
-      sig?: string
-    }[]
-  }
-  mediaType?: string
-  verificationMaterial?: {
-    timestampVerificationData?: string | null
-    tlogEntries?: {
-      canonicalizedBody?: string
-      inclusionPromise?: {
-        signedEntryTimestamp?: string
-      }
-      inclusionProof?: string | null
-      integratedTime?: string
-      kindVersion?: {
-        kind?: string
-        version?: string
-      }
-      logId?: {
-        keyId?: string
-      }
-      logIndex?: string
-    }[]
-    x509CertificateChain?: {
-      certificates?: {
-        rawBytes?: string
-      }[]
-    }
-  }
 }
 
 export type t_simple_classroom = {
@@ -7131,7 +7195,7 @@ export type t_timeline_committed_event = {
     reason: string
     signature: string | null
     verified: boolean
-    verified_at?: string | null
+    verified_at: string | null
   }
 }
 
@@ -7390,7 +7454,7 @@ export type t_verification = {
   reason: string
   signature: string | null
   verified: boolean
-  verified_at?: string | null
+  verified_at: string | null
 }
 
 export type t_view_traffic = {

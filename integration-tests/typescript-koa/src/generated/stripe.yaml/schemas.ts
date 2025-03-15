@@ -116,6 +116,7 @@ import {
   t_payment_method_details_us_bank_account,
   t_payment_method_sepa_debit,
   t_payment_pages_checkout_session_automatic_tax,
+  t_payment_pages_checkout_session_discount,
   t_payment_pages_checkout_session_invoice_creation,
   t_payment_pages_checkout_session_invoice_settings,
   t_payment_pages_checkout_session_total_details,
@@ -264,6 +265,7 @@ export const s_account_capabilities = z.object({
   naver_pay_payments: z.enum(["active", "inactive", "pending"]).optional(),
   oxxo_payments: z.enum(["active", "inactive", "pending"]).optional(),
   p24_payments: z.enum(["active", "inactive", "pending"]).optional(),
+  pay_by_bank_payments: z.enum(["active", "inactive", "pending"]).optional(),
   payco_payments: z.enum(["active", "inactive", "pending"]).optional(),
   paynow_payments: z.enum(["active", "inactive", "pending"]).optional(),
   promptpay_payments: z.enum(["active", "inactive", "pending"]).optional(),
@@ -321,8 +323,6 @@ export const s_account_payments_settings = z.object({
   statement_descriptor: z.string().max(5000).nullable().optional(),
   statement_descriptor_kana: z.string().max(5000).nullable().optional(),
   statement_descriptor_kanji: z.string().max(5000).nullable().optional(),
-  statement_descriptor_prefix_kana: z.string().max(5000).nullable().optional(),
-  statement_descriptor_prefix_kanji: z.string().max(5000).nullable().optional(),
 })
 
 export const s_account_requirements_alternative = z.object({
@@ -539,13 +539,13 @@ export const s_bank_connections_resource_transaction_resource_status_transitions
 export const s_billing_clocks_resource_status_details_advancing_status_details =
   z.object({ target_frozen_time: z.coerce.number() })
 
+export const s_billing_credit_grants_resource_applicable_price = z.object({
+  id: z.string().max(5000).nullable().optional(),
+})
+
 export const s_billing_credit_grants_resource_monetary_amount = z.object({
   currency: z.string().max(5000),
   value: z.coerce.number(),
-})
-
-export const s_billing_credit_grants_resource_scope = z.object({
-  price_type: z.enum(["metered"]),
 })
 
 export const s_billing_meter_event = z.object({
@@ -650,6 +650,7 @@ export const s_checkout_amazon_pay_payment_method_options = z.object({
 
 export const s_checkout_au_becs_debit_payment_method_options = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_checkout_bancontact_payment_method_options = z.object({
@@ -807,6 +808,31 @@ export const s_connect_embedded_account_features_claim = z.object({
 })
 
 export const s_connect_embedded_base_features = z.object({})
+
+export const s_connect_embedded_financial_account_features = z.object({
+  disable_stripe_user_authentication: PermissiveBoolean,
+  external_account_collection: PermissiveBoolean,
+  send_money: PermissiveBoolean,
+  transfer_balance: PermissiveBoolean,
+})
+
+export const s_connect_embedded_financial_account_transactions_features =
+  z.object({ card_spend_dispute_management: PermissiveBoolean })
+
+export const s_connect_embedded_issuing_card_features = z.object({
+  card_management: PermissiveBoolean,
+  card_spend_dispute_management: PermissiveBoolean,
+  cardholder_management: PermissiveBoolean,
+  spend_control_management: PermissiveBoolean,
+})
+
+export const s_connect_embedded_issuing_cards_list_features = z.object({
+  card_management: PermissiveBoolean,
+  card_spend_dispute_management: PermissiveBoolean,
+  cardholder_management: PermissiveBoolean,
+  disable_stripe_user_authentication: PermissiveBoolean,
+  spend_control_management: PermissiveBoolean,
+})
 
 export const s_connect_embedded_payments_features = z.object({
   capture_payments: PermissiveBoolean,
@@ -1381,6 +1407,10 @@ export const s_invoice_rendering_template = z.object({
   version: z.coerce.number(),
 })
 
+export const s_invoice_setting_checkout_rendering_options = z.object({
+  amount_tax_display: z.string().max(5000).nullable().optional(),
+})
+
 export const s_invoice_setting_custom_field = z.object({
   name: z.string().max(5000),
   value: z.string().max(5000),
@@ -1389,10 +1419,6 @@ export const s_invoice_setting_custom_field = z.object({
 export const s_invoice_setting_customer_rendering_options = z.object({
   amount_tax_display: z.string().max(5000).nullable().optional(),
   template: z.string().max(5000).nullable().optional(),
-})
-
-export const s_invoice_setting_rendering_options = z.object({
-  amount_tax_display: z.string().max(5000).nullable().optional(),
 })
 
 export const s_invoices_resource_invoice_tax_id = z.object({
@@ -2502,6 +2528,12 @@ export const s_klarna_address = z.object({
   country: z.string().max(5000).nullable().optional(),
 })
 
+export const s_legal_entity_directorship_declaration = z.object({
+  date: z.coerce.number().nullable().optional(),
+  ip: z.string().max(5000).nullable().optional(),
+  user_agent: z.string().max(5000).nullable().optional(),
+})
+
 export const s_legal_entity_dob = z.object({
   day: z.coerce.number().nullable().optional(),
   month: z.coerce.number().nullable().optional(),
@@ -2611,6 +2643,9 @@ export const s_online_acceptance = z.object({
 })
 
 export const s_outbound_payments_payment_method_details_financial_account =
+  z.object({ id: z.string().max(5000), network: z.enum(["stripe"]) })
+
+export const s_outbound_transfers_payment_method_details_financial_account =
   z.object({ id: z.string().max(5000), network: z.enum(["stripe"]) })
 
 export const s_package_dimensions = z.object({
@@ -2817,6 +2852,7 @@ export const s_payment_intent_next_action_wechat_pay_redirect_to_ios_app =
 
 export const s_payment_intent_payment_method_options_au_becs_debit = z.object({
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_payment_intent_payment_method_options_blik = z.object({
@@ -3111,6 +3147,7 @@ export const s_payment_links_resource_shipping_address_collection = z.object({
       "SA",
       "SB",
       "SC",
+      "SD",
       "SE",
       "SG",
       "SH",
@@ -3551,6 +3588,8 @@ export const s_payment_method_details_passthrough_card = z.object({
   last4: z.string().max(5000).nullable().optional(),
 })
 
+export const s_payment_method_details_pay_by_bank = z.object({})
+
 export const s_payment_method_details_payco = z.object({
   buyer_id: z.string().max(5000).nullable().optional(),
 })
@@ -3877,6 +3916,8 @@ export const s_payment_method_options_p24 = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
 
+export const s_payment_method_options_pay_by_bank = z.object({})
+
 export const s_payment_method_options_paynow = z.object({
   setup_future_usage: z.enum(["none"]).optional(),
 })
@@ -3964,11 +4005,14 @@ export const s_payment_method_p24 = z.object({
     .optional(),
 })
 
+export const s_payment_method_pay_by_bank = z.object({})
+
 export const s_payment_method_payco = z.object({})
 
 export const s_payment_method_paynow = z.object({})
 
 export const s_payment_method_paypal = z.object({
+  country: z.string().max(5000).nullable().optional(),
   payer_email: z.string().max(5000).nullable().optional(),
   payer_id: z.string().max(5000).nullable().optional(),
 })
@@ -4283,6 +4327,7 @@ export const s_payment_pages_checkout_session_shipping_address_collection =
         "SA",
         "SB",
         "SC",
+        "SD",
         "SE",
         "SG",
         "SH",
@@ -4451,6 +4496,20 @@ export const s_payment_pages_checkout_session_tax_id_collection = z.object({
   enabled: PermissiveBoolean,
   required: z.enum(["if_supported", "never"]),
 })
+
+export const s_payment_pages_private_card_payment_method_options_resource_restrictions =
+  z.object({
+    brands_blocked: z
+      .array(
+        z.enum([
+          "american_express",
+          "discover_global_network",
+          "mastercard",
+          "visa",
+        ]),
+      )
+      .optional(),
+  })
 
 export const s_payouts_trace_id = z.object({
   status: z.string().max(5000),
@@ -5991,8 +6050,9 @@ export const s_billing_credit_grants_resource_amount = z.object({
   type: z.enum(["monetary"]),
 })
 
-export const s_billing_credit_grants_resource_applicability_config = z.object({
-  scope: s_billing_credit_grants_resource_scope,
+export const s_billing_credit_grants_resource_scope = z.object({
+  price_type: z.enum(["metered"]).optional(),
+  prices: z.array(s_billing_credit_grants_resource_applicable_price).optional(),
 })
 
 export const s_billing_details = z.object({
@@ -6038,6 +6098,10 @@ export const s_cash_balance = z.object({
 })
 
 export const s_charge_outcome = z.object({
+  advice_code: z
+    .enum(["confirm_card_data", "do_not_try_again", "try_again_later"])
+    .nullable()
+    .optional(),
   network_advice_code: z.string().max(5000).nullable().optional(),
   network_decline_code: z.string().max(5000).nullable().optional(),
   network_status: z.string().max(5000).nullable().optional(),
@@ -6053,6 +6117,7 @@ export const s_checkout_acss_debit_payment_method_options = z.object({
   currency: z.enum(["cad", "usd"]).optional(),
   mandate_options: s_checkout_acss_debit_mandate_options.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
   verification_method: z
     .enum(["automatic", "instant", "microdeposits"])
     .optional(),
@@ -6062,6 +6127,7 @@ export const s_checkout_bacs_debit_payment_method_options = z.object({
   mandate_options:
     s_checkout_payment_method_options_mandate_options_bacs_debit.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_checkout_card_payment_method_options = z.object({
@@ -6073,6 +6139,8 @@ export const s_checkout_card_payment_method_options = z.object({
   request_multicapture: z.enum(["if_available", "never"]).optional(),
   request_overcapture: z.enum(["if_available", "never"]).optional(),
   request_three_d_secure: z.enum(["any", "automatic", "challenge"]),
+  restrictions:
+    s_payment_pages_private_card_payment_method_options_resource_restrictions.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
   statement_descriptor_suffix_kana: z.string().max(5000).optional(),
   statement_descriptor_suffix_kanji: z.string().max(5000).optional(),
@@ -6103,6 +6171,7 @@ export const s_checkout_sepa_debit_payment_method_options = z.object({
   mandate_options:
     s_checkout_payment_method_options_mandate_options_sepa_debit.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_climate_supplier = z.object({
@@ -6150,12 +6219,33 @@ export const s_connect_embedded_base_config_claim = z.object({
   features: s_connect_embedded_base_features,
 })
 
+export const s_connect_embedded_financial_account_config_claim = z.object({
+  enabled: PermissiveBoolean,
+  features: s_connect_embedded_financial_account_features,
+})
+
+export const s_connect_embedded_financial_account_transactions_config_claim =
+  z.object({
+    enabled: PermissiveBoolean,
+    features: s_connect_embedded_financial_account_transactions_features,
+  })
+
+export const s_connect_embedded_issuing_card_config_claim = z.object({
+  enabled: PermissiveBoolean,
+  features: s_connect_embedded_issuing_card_features,
+})
+
+export const s_connect_embedded_issuing_cards_list_config_claim = z.object({
+  enabled: PermissiveBoolean,
+  features: s_connect_embedded_issuing_cards_list_features,
+})
+
 export const s_connect_embedded_payments_config_claim = z.object({
   enabled: PermissiveBoolean,
   features: s_connect_embedded_payments_features,
 })
 
-export const s_connect_embedded_payouts_config_claim = z.object({
+export const s_connect_embedded_payouts_config = z.object({
   enabled: PermissiveBoolean,
   features: s_connect_embedded_payouts_features,
 })
@@ -8036,6 +8126,7 @@ export const s_payment_intent_payment_method_options_acss_debit = z.object({
   mandate_options:
     s_payment_intent_payment_method_options_mandate_options_acss_debit.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
   verification_method: z
     .enum(["automatic", "instant", "microdeposits"])
     .optional(),
@@ -8045,12 +8136,14 @@ export const s_payment_intent_payment_method_options_bacs_debit = z.object({
   mandate_options:
     s_payment_intent_payment_method_options_mandate_options_bacs_debit.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_payment_intent_payment_method_options_sepa_debit = z.object({
   mandate_options:
     s_payment_intent_payment_method_options_mandate_options_sepa_debit.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
 })
 
 export const s_payment_links_resource_after_completion = z.object({
@@ -8234,6 +8327,7 @@ export const s_payment_method_details_mobilepay = z.object({
 })
 
 export const s_payment_method_details_paypal = z.object({
+  country: z.string().max(5000).nullable().optional(),
   payer_email: z.string().max(5000).nullable().optional(),
   payer_id: z.string().max(5000).nullable().optional(),
   payer_name: z.string().max(5000).nullable().optional(),
@@ -8838,6 +8932,7 @@ export const s_terminal_configuration_configuration_resource_tipping = z.object(
     eur: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     gbp: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     hkd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
+    jpy: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     myr: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     nok: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
     nzd: s_terminal_configuration_configuration_resource_currency_specific_config.optional(),
@@ -8962,6 +9057,10 @@ export const s_balance_detail = z.object({
   available: z.array(s_balance_amount),
 })
 
+export const s_billing_credit_grants_resource_applicability_config = z.object({
+  scope: s_billing_credit_grants_resource_scope,
+})
+
 export const s_card_generated_from_payment_method_details = z.object({
   card_present: s_payment_method_details_card_present.optional(),
   type: z.string().max(5000),
@@ -8977,6 +9076,7 @@ export const s_checkout_customer_balance_payment_method_options = z.object({
 export const s_checkout_us_bank_account_payment_method_options = z.object({
   financial_connections: s_linked_account_options_us_bank_account.optional(),
   setup_future_usage: z.enum(["none", "off_session", "on_session"]).optional(),
+  target_date: z.string().max(5000).optional(),
   verification_method: z.enum(["automatic", "instant"]).optional(),
 })
 
@@ -9008,12 +9108,17 @@ export const s_confirmation_tokens_resource_mandate_data = z.object({
 export const s_connect_embedded_account_session_create_components = z.object({
   account_management: s_connect_embedded_account_config_claim,
   account_onboarding: s_connect_embedded_account_config_claim,
-  balances: s_connect_embedded_payouts_config_claim,
+  balances: s_connect_embedded_payouts_config,
   documents: s_connect_embedded_base_config_claim,
+  financial_account: s_connect_embedded_financial_account_config_claim,
+  financial_account_transactions:
+    s_connect_embedded_financial_account_transactions_config_claim,
+  issuing_card: s_connect_embedded_issuing_card_config_claim,
+  issuing_cards_list: s_connect_embedded_issuing_cards_list_config_claim,
   notification_banner: s_connect_embedded_account_config_claim,
   payment_details: s_connect_embedded_payments_config_claim,
   payments: s_connect_embedded_payments_config_claim,
-  payouts: s_connect_embedded_payouts_config_claim,
+  payouts: s_connect_embedded_payouts_config,
   payouts_list: s_connect_embedded_base_config_claim,
   tax_registrations: s_connect_embedded_base_config_claim,
   tax_settings: s_connect_embedded_base_config_claim,
@@ -9344,6 +9449,7 @@ export const s_payment_intent_payment_method_options_us_bank_account = z.object(
     setup_future_usage: z
       .enum(["none", "off_session", "on_session"])
       .optional(),
+    target_date: z.string().max(5000).optional(),
     verification_method: z
       .enum(["automatic", "instant", "microdeposits"])
       .optional(),
@@ -9456,6 +9562,8 @@ export const s_payment_method_configuration = z.object({
   oxxo: s_payment_method_config_resource_payment_method_properties.optional(),
   p24: s_payment_method_config_resource_payment_method_properties.optional(),
   parent: z.string().max(5000).nullable().optional(),
+  pay_by_bank:
+    s_payment_method_config_resource_payment_method_properties.optional(),
   paynow: s_payment_method_config_resource_payment_method_properties.optional(),
   paypal: s_payment_method_config_resource_payment_method_properties.optional(),
   promptpay:
@@ -9542,6 +9650,10 @@ export const s_payment_method_us_bank_account = z.object({
   status_details: s_payment_method_us_bank_account_status_details
     .nullable()
     .optional(),
+})
+
+export const s_payment_pages_checkout_session_collected_information = z.object({
+  shipping_details: s_shipping.nullable().optional(),
 })
 
 export const s_payment_pages_checkout_session_custom_fields = z.object({
@@ -10186,6 +10298,12 @@ export const s_payment_intent_payment_method_options = z.object({
   p24: z
     .union([
       s_payment_method_options_p24,
+      s_payment_intent_type_specific_payment_method_options_client,
+    ])
+    .optional(),
+  pay_by_bank: z
+    .union([
+      s_payment_method_options_pay_by_bank,
       s_payment_intent_type_specific_payment_method_options_client,
     ])
     .optional(),
@@ -10848,8 +10966,10 @@ export const s_treasury_financial_account = z.object({
     s_treasury_financial_accounts_resource_financial_address,
   ),
   id: z.string().max(5000),
+  is_default: PermissiveBoolean.optional(),
   livemode: PermissiveBoolean,
   metadata: z.record(z.string().max(500)).nullable().optional(),
+  nickname: z.string().max(5000).nullable().optional(),
   object: z.enum(["treasury.financial_account"]),
   pending_features: z
     .array(
@@ -11358,6 +11478,7 @@ export const s_billing_credit_grant: z.ZodType<
   metadata: z.record(z.string().max(500)),
   name: z.string().max(5000).nullable().optional(),
   object: z.enum(["billing.credit_grant"]),
+  priority: z.coerce.number().nullable().optional(),
   test_clock: z
     .union([z.string().max(5000), s_test_helpers_test_clock])
     .nullable()
@@ -11557,6 +11678,9 @@ export const s_checkout_session: z.ZodType<
   cancel_url: z.string().max(5000).nullable().optional(),
   client_reference_id: z.string().max(5000).nullable().optional(),
   client_secret: z.string().max(5000).nullable().optional(),
+  collected_information: s_payment_pages_checkout_session_collected_information
+    .nullable()
+    .optional(),
   consent: s_payment_pages_checkout_session_consent.nullable().optional(),
   consent_collection: s_payment_pages_checkout_session_consent_collection
     .nullable()
@@ -11577,6 +11701,10 @@ export const s_checkout_session: z.ZodType<
     .nullable()
     .optional(),
   customer_email: z.string().max(5000).nullable().optional(),
+  discounts: z
+    .array(z.lazy(() => s_payment_pages_checkout_session_discount))
+    .nullable()
+    .optional(),
   expires_at: z.coerce.number(),
   id: z.string().max(5000),
   invoice: z
@@ -11789,9 +11917,9 @@ export const s_credit_note: z.ZodType<t_credit_note, z.ZodTypeDef, unknown> =
     object: z.enum(["credit_note"]),
     out_of_band_amount: z.coerce.number().nullable().optional(),
     pdf: z.string().max(5000),
-    pretax_credit_amounts: z
-      .array(z.lazy(() => s_credit_notes_pretax_credit_amount))
-      .optional(),
+    pretax_credit_amounts: z.array(
+      z.lazy(() => s_credit_notes_pretax_credit_amount),
+    ),
     reason: z
       .enum([
         "duplicate",
@@ -11830,9 +11958,9 @@ export const s_credit_note_line_item: z.ZodType<
   invoice_line_item: z.string().max(5000).optional(),
   livemode: PermissiveBoolean,
   object: z.enum(["credit_note_line_item"]),
-  pretax_credit_amounts: z
-    .array(z.lazy(() => s_credit_notes_pretax_credit_amount))
-    .optional(),
+  pretax_credit_amounts: z.array(
+    z.lazy(() => s_credit_notes_pretax_credit_amount),
+  ),
   quantity: z.coerce.number().nullable().optional(),
   tax_amounts: z.array(s_credit_note_tax_amount),
   tax_rates: z.array(s_tax_rate),
@@ -12117,6 +12245,7 @@ export const s_payment_method: z.ZodType<
   object: z.enum(["payment_method"]),
   oxxo: s_payment_method_oxxo.optional(),
   p24: s_payment_method_p24.optional(),
+  pay_by_bank: s_payment_method_pay_by_bank.optional(),
   payco: s_payment_method_payco.optional(),
   paynow: s_payment_method_paynow.optional(),
   paypal: s_payment_method_paypal.optional(),
@@ -12161,6 +12290,7 @@ export const s_payment_method: z.ZodType<
     "naver_pay",
     "oxxo",
     "p24",
+    "pay_by_bank",
     "payco",
     "paynow",
     "paypal",
@@ -13271,6 +13401,7 @@ export const s_payment_link: z.ZodType<t_payment_link, z.ZodTypeDef, unknown> =
           "multibanco",
           "oxxo",
           "p24",
+          "pay_by_bank",
           "paynow",
           "paypal",
           "pix",
@@ -14303,6 +14434,9 @@ export const s_legal_entity_company: z.ZodType<
   address_kana: s_legal_entity_japan_address.nullable().optional(),
   address_kanji: s_legal_entity_japan_address.nullable().optional(),
   directors_provided: PermissiveBoolean.optional(),
+  directorship_declaration: s_legal_entity_directorship_declaration
+    .nullable()
+    .optional(),
   executives_provided: PermissiveBoolean.optional(),
   export_license_id: z.string().max(5000).optional(),
   export_purpose_code: z.string().max(5000).optional(),
@@ -14311,6 +14445,12 @@ export const s_legal_entity_company: z.ZodType<
   name_kanji: z.string().max(5000).nullable().optional(),
   owners_provided: PermissiveBoolean.optional(),
   ownership_declaration: s_legal_entity_ubo_declaration.nullable().optional(),
+  ownership_exemption_reason: z
+    .enum([
+      "qualified_entity_exceeds_ownership_threshold",
+      "qualifies_as_financial_institution",
+    ])
+    .optional(),
   phone: z.string().max(5000).nullable().optional(),
   structure: z
     .enum([
@@ -14366,6 +14506,7 @@ export const s_account_settings: z.ZodType<
 
 export const s_api_errors: z.ZodType<t_api_errors, z.ZodTypeDef, unknown> =
   z.object({
+    advice_code: z.string().max(5000).optional(),
     charge: z.string().max(5000).optional(),
     code: z.string().max(5000).optional(),
     decline_code: z.string().max(5000).optional(),
@@ -14499,6 +14640,7 @@ export const s_payment_method_details: z.ZodType<
   naver_pay: s_payment_method_details_naver_pay.optional(),
   oxxo: s_payment_method_details_oxxo.optional(),
   p24: s_payment_method_details_p24.optional(),
+  pay_by_bank: s_payment_method_details_pay_by_bank.optional(),
   payco: s_payment_method_details_payco.optional(),
   paynow: s_payment_method_details_paynow.optional(),
   paypal: s_payment_method_details_paypal.optional(),
@@ -14604,6 +14746,21 @@ export const s_payment_pages_checkout_session_automatic_tax: z.ZodType<
     .optional(),
 })
 
+export const s_payment_pages_checkout_session_discount: z.ZodType<
+  t_payment_pages_checkout_session_discount,
+  z.ZodTypeDef,
+  unknown
+> = z.object({
+  coupon: z
+    .union([z.string().max(5000), s_coupon])
+    .nullable()
+    .optional(),
+  promotion_code: z
+    .union([z.string().max(5000), z.lazy(() => s_promotion_code)])
+    .nullable()
+    .optional(),
+})
+
 export const s_payment_pages_checkout_session_invoice_creation: z.ZodType<
   t_payment_pages_checkout_session_invoice_creation,
   z.ZodTypeDef,
@@ -14674,6 +14831,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
   naver_pay: s_payment_method_naver_pay.optional(),
   oxxo: s_payment_method_oxxo.optional(),
   p24: s_payment_method_p24.optional(),
+  pay_by_bank: s_payment_method_pay_by_bank.optional(),
   payco: s_payment_method_payco.optional(),
   paynow: s_payment_method_paynow.optional(),
   paypal: s_payment_method_paypal.optional(),
@@ -14717,6 +14875,7 @@ export const s_confirmation_tokens_resource_payment_method_preview: z.ZodType<
     "naver_pay",
     "oxxo",
     "p24",
+    "pay_by_bank",
     "payco",
     "paynow",
     "paypal",
@@ -15397,7 +15556,9 @@ export const s_outbound_transfers_payment_method_details: z.ZodType<
   unknown
 > = z.object({
   billing_details: s_treasury_shared_resource_billing_details,
-  type: z.enum(["us_bank_account"]),
+  financial_account:
+    s_outbound_transfers_payment_method_details_financial_account.optional(),
+  type: z.enum(["financial_account", "us_bank_account"]),
   us_bank_account: z.lazy(() =>
     s_outbound_transfers_payment_method_details_us_bank_account.optional(),
   ),
@@ -15689,7 +15850,9 @@ export const s_payment_pages_checkout_session_invoice_settings: z.ZodType<
   footer: z.string().max(5000).nullable().optional(),
   issuer: z.lazy(() => s_connect_account_reference.nullable().optional()),
   metadata: z.record(z.string().max(500)).nullable().optional(),
-  rendering_options: s_invoice_setting_rendering_options.nullable().optional(),
+  rendering_options: s_invoice_setting_checkout_rendering_options
+    .nullable()
+    .optional(),
 })
 
 export const s_payment_pages_checkout_session_total_details_resource_breakdown: z.ZodType<
@@ -15892,7 +16055,9 @@ export const s_payment_links_resource_invoice_settings: z.ZodType<
   footer: z.string().max(5000).nullable().optional(),
   issuer: z.lazy(() => s_connect_account_reference.nullable().optional()),
   metadata: z.record(z.string().max(500)).nullable().optional(),
-  rendering_options: s_invoice_setting_rendering_options.nullable().optional(),
+  rendering_options: s_invoice_setting_checkout_rendering_options
+    .nullable()
+    .optional(),
 })
 
 export const s_payment_links_resource_subscription_data_invoice_settings: z.ZodType<
@@ -16253,8 +16418,15 @@ export const s_treasury_received_credits_resource_source_flows_details: z.ZodTyp
 > = z.object({
   credit_reversal: z.lazy(() => s_treasury_credit_reversal.optional()),
   outbound_payment: z.lazy(() => s_treasury_outbound_payment.optional()),
+  outbound_transfer: z.lazy(() => s_treasury_outbound_transfer.optional()),
   payout: z.lazy(() => s_payout.optional()),
-  type: z.enum(["credit_reversal", "other", "outbound_payment", "payout"]),
+  type: z.enum([
+    "credit_reversal",
+    "other",
+    "outbound_payment",
+    "outbound_transfer",
+    "payout",
+  ]),
 })
 
 export const s_legal_entity_company_verification_document: z.ZodType<

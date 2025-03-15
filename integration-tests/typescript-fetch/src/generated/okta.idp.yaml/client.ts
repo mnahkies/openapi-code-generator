@@ -19,6 +19,7 @@ import {
   t_PushNotificationVerification,
   t_Schema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
+  t_UpdateAuthenticatorEnrollmentRequest,
 } from "./models"
 import {
   AbstractFetchClient,
@@ -249,6 +250,36 @@ export class MyAccountManagement extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async updateEnrollment(
+    p: {
+      authenticatorId: string
+      enrollmentId: string
+      requestBody: t_UpdateAuthenticatorEnrollmentRequest
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_AuthenticatorEnrollment>
+    | Res<401, t_Error>
+    | Res<403, t_Error>
+    | Res<404, t_Error>
+  > {
+    const url =
+      this.basePath +
+      `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
   }
 
   async listEmails(

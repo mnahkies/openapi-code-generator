@@ -10,6 +10,10 @@ import {
   t_actions_cache_usage_org_enterprise,
   t_actions_enabled,
   t_actions_get_default_workflow_permissions,
+  t_actions_hosted_runner,
+  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_limits,
+  t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
   t_actions_public_key,
   t_actions_repository_permissions,
@@ -52,6 +56,7 @@ import {
   t_code_frequency_stat,
   t_code_of_conduct,
   t_code_scanning_alert,
+  t_code_scanning_alert_create_request,
   t_code_scanning_alert_dismissed_comment,
   t_code_scanning_alert_dismissed_reason,
   t_code_scanning_alert_instance,
@@ -186,6 +191,8 @@ import {
   t_migration,
   t_milestone,
   t_minimal_repository,
+  t_network_configuration,
+  t_network_settings,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -262,6 +269,8 @@ import {
   t_root,
   t_rule_suite,
   t_rule_suites,
+  t_ruleset_version,
+  t_ruleset_version_with_state,
   t_runner,
   t_runner_application,
   t_runner_groups_org,
@@ -280,7 +289,6 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
-  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -1193,6 +1201,10 @@ export class GitHubV3RestApiService {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
       code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      code_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -1205,6 +1217,11 @@ export class GitHubV3RestApiService {
       name: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+      secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -1277,6 +1294,10 @@ export class GitHubV3RestApiService {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
       code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      code_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -1289,6 +1310,11 @@ export class GitHubV3RestApiService {
       name?: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
+      secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -1445,8 +1471,9 @@ export class GitHubV3RestApiService {
     severity?: string
     ecosystem?: string
     package?: string
+    epssPercentage?: string
     scope?: "development" | "runtime"
-    sort?: "created" | "updated"
+    sort?: "created" | "updated" | "epss_percentage"
     direction?: "asc" | "desc"
     before?: string
     after?: string
@@ -1466,6 +1493,7 @@ export class GitHubV3RestApiService {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -2895,6 +2923,226 @@ export class GitHubV3RestApiService {
     )
   }
 
+  actionsListHostedRunnersForOrg(p: {
+    org: string
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<{
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/actions/hosted-runners`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsCreateHostedRunnerForOrg(p: {
+    org: string
+    requestBody: {
+      enable_static_ip?: boolean
+      image: {
+        id?: string
+        source?: "github" | "partner" | "custom"
+      }
+      maximum_runners?: number
+      name: string
+      runner_group_id: number
+      size: string
+    }
+  }): Observable<
+    | (HttpResponse<t_actions_hosted_runner> & { status: 201 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/actions/hosted-runners`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnersGithubOwnedImagesForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<{
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/images/github-owned`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnersPartnerImagesForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<{
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/images/partner`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnersLimitsForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<t_actions_hosted_runner_limits> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/actions/hosted-runners/limits`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnersMachineSpecsForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<{
+        machine_specs: t_actions_hosted_runner_machine_spec[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/machine-sizes`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnersPlatformsForOrg(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<{
+        platforms: string[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/platforms`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsGetHostedRunnerForOrg(p: {
+    org: string
+    hostedRunnerId: number
+  }): Observable<
+    | (HttpResponse<t_actions_hosted_runner> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsUpdateHostedRunnerForOrg(p: {
+    org: string
+    hostedRunnerId: number
+    requestBody: {
+      enable_static_ip?: boolean
+      maximum_runners?: number
+      name?: string
+      runner_group_id?: number
+    }
+  }): Observable<
+    | (HttpResponse<t_actions_hosted_runner> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsDeleteHostedRunnerForOrg(p: {
+    org: string
+    hostedRunnerId: number
+  }): Observable<
+    | (HttpResponse<t_actions_hosted_runner> & { status: 202 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   oidcGetOidcCustomSubTemplateForOrg(p: {
     org: string
   }): Observable<
@@ -3171,6 +3419,7 @@ export class GitHubV3RestApiService {
     requestBody: {
       allows_public_repositories?: boolean
       name: string
+      network_configuration_id?: string
       restricted_to_workflows?: boolean
       runners?: number[]
       selected_repository_ids?: number[]
@@ -3220,6 +3469,7 @@ export class GitHubV3RestApiService {
     requestBody: {
       allows_public_repositories?: boolean
       name: string
+      network_configuration_id?: string | null
       restricted_to_workflows?: boolean
       selected_workflows?: string[]
       visibility?: "selected" | "all" | "private"
@@ -3255,6 +3505,35 @@ export class GitHubV3RestApiService {
       this.config.basePath +
         `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  actionsListGithubHostedRunnersInGroupForOrg(p: {
+    org: string
+    runnerGroupId: number
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<{
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`,
+      {
+        params,
         observe: "response",
         reportProgress: false,
       },
@@ -3500,6 +3779,7 @@ export class GitHubV3RestApiService {
         runner: t_runner
       }> & { status: 201 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
     | (HttpResponse<t_validation_error_simple> & { status: 422 })
     | HttpResponse<unknown>
   > {
@@ -3781,8 +4061,8 @@ export class GitHubV3RestApiService {
     org: string
     secretName: string
     requestBody: {
-      encrypted_value?: string
-      key_id?: string
+      encrypted_value: string
+      key_id: string
       selected_repository_ids?: number[]
       visibility: "all" | "private" | "selected"
     }
@@ -4134,6 +4414,7 @@ export class GitHubV3RestApiService {
     after?: string
     org: string
     subjectDigest: string
+    predicateType?: string
   }): Observable<
     | (HttpResponse<{
         attestations?: {
@@ -4156,6 +4437,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this.httpClient.request<any>(
@@ -4329,6 +4611,10 @@ export class GitHubV3RestApiService {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
       code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      code_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4341,6 +4627,10 @@ export class GitHubV3RestApiService {
       name: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
       secret_scanning_delegated_bypass_options?: {
         reviewers?: {
@@ -4348,6 +4638,7 @@ export class GitHubV3RestApiService {
           reviewer_type: "TEAM" | "ROLE"
         }[]
       }
+      secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -4448,6 +4739,10 @@ export class GitHubV3RestApiService {
       advanced_security?: "enabled" | "disabled"
       code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
       code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+      code_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       dependabot_alerts?: "enabled" | "disabled" | "not_set"
       dependabot_security_updates?: "enabled" | "disabled" | "not_set"
       dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4460,6 +4755,10 @@ export class GitHubV3RestApiService {
       name?: string
       private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
       secret_scanning?: "enabled" | "disabled" | "not_set"
+      secret_scanning_delegated_alert_dismissal?:
+        | "enabled"
+        | "disabled"
+        | "not_set"
       secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
       secret_scanning_delegated_bypass_options?: {
         reviewers?: {
@@ -4467,6 +4766,7 @@ export class GitHubV3RestApiService {
           reviewer_type: "TEAM" | "ROLE"
         }[]
       }
+      secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
       secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
       secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
       secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -5203,8 +5503,9 @@ export class GitHubV3RestApiService {
     severity?: string
     ecosystem?: string
     package?: string
+    epssPercentage?: string
     scope?: "development" | "runtime"
-    sort?: "created" | "updated"
+    sort?: "created" | "updated" | "epss_percentage"
     direction?: "asc" | "desc"
     before?: string
     after?: string
@@ -5225,6 +5526,7 @@ export class GitHubV3RestApiService {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -7225,6 +7527,7 @@ export class GitHubV3RestApiService {
     permission?: string
     lastUsedBefore?: string
     lastUsedAfter?: string
+    tokenId?: string[]
   }): Observable<
     | (HttpResponse<t_organization_programmatic_access_grant_request[]> & {
         status: 200
@@ -7245,6 +7548,7 @@ export class GitHubV3RestApiService {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this.httpClient.request<any>(
@@ -7361,6 +7665,7 @@ export class GitHubV3RestApiService {
     permission?: string
     lastUsedBefore?: string
     lastUsedAfter?: string
+    tokenId?: string[]
   }): Observable<
     | (HttpResponse<t_organization_programmatic_access_grant[]> & {
         status: 200
@@ -7381,6 +7686,7 @@ export class GitHubV3RestApiService {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this.httpClient.request<any>(
@@ -8206,6 +8512,55 @@ export class GitHubV3RestApiService {
     )
   }
 
+  orgsGetOrgRulesetHistory(p: {
+    org: string
+    perPage?: number
+    page?: number
+    rulesetId: number
+  }): Observable<
+    | (HttpResponse<t_ruleset_version[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsGetOrgRulesetVersion(p: {
+    org: string
+    rulesetId: number
+    versionId: number
+  }): Observable<
+    | (HttpResponse<t_ruleset_version_with_state> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   secretScanningListAlertsForOrg(p: {
     org: string
     state?: "open" | "resolved"
@@ -8381,6 +8736,141 @@ export class GitHubV3RestApiService {
       "GET",
       this.config.basePath +
         `/orgs/${p["org"]}/settings/billing/shared-storage`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeListNetworkConfigurationsForOrg(p: {
+    org: string
+    perPage?: number
+    page?: number
+  }): Observable<
+    | (HttpResponse<{
+        network_configurations: t_network_configuration[]
+        total_count: number
+      }> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-configurations`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeCreateNetworkConfigurationForOrg(p: {
+    org: string
+    requestBody: {
+      compute_service?: "none" | "actions"
+      name: string
+      network_settings_ids: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_network_configuration> & { status: 201 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-configurations`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeGetNetworkConfigurationForOrg(p: {
+    org: string
+    networkConfigurationId: string
+  }): Observable<
+    | (HttpResponse<t_network_configuration> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeUpdateNetworkConfigurationForOrg(p: {
+    org: string
+    networkConfigurationId: string
+    requestBody: {
+      compute_service?: "none" | "actions"
+      name?: string
+      network_settings_ids?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_network_configuration> & { status: 200 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeDeleteNetworkConfigurationFromOrg(p: {
+    org: string
+    networkConfigurationId: string
+  }): Observable<
+    (HttpResponse<void> & { status: 204 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  hostedComputeGetNetworkSettingsForOrg(p: {
+    org: string
+    networkSettingsId: string
+  }): Observable<
+    (HttpResponse<t_network_settings> & { status: 200 }) | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/settings/network-settings/${p["networkSettingsId"]}`,
       {
         observe: "response",
         reportProgress: false,
@@ -10623,6 +11113,7 @@ export class GitHubV3RestApiService {
         runner: t_runner
       }> & { status: 201 })
     | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 409 })
     | (HttpResponse<t_validation_error_simple> & { status: 422 })
     | HttpResponse<unknown>
   > {
@@ -11422,8 +11913,8 @@ export class GitHubV3RestApiService {
     repo: string
     secretName: string
     requestBody: {
-      encrypted_value?: string
-      key_id?: string
+      encrypted_value: string
+      key_id: string
     }
   }): Observable<
     | (HttpResponse<t_empty_object> & { status: 201 })
@@ -11906,6 +12397,7 @@ export class GitHubV3RestApiService {
     before?: string
     after?: string
     subjectDigest: string
+    predicateType?: string
   }): Observable<
     | (HttpResponse<{
         attestations?: {
@@ -11928,6 +12420,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this.httpClient.request<any>(
@@ -13386,12 +13879,14 @@ export class GitHubV3RestApiService {
     repo: string
     alertNumber: t_alert_number
     requestBody: {
+      create_request?: t_code_scanning_alert_create_request
       dismissed_comment?: t_code_scanning_alert_dismissed_comment
       dismissed_reason?: t_code_scanning_alert_dismissed_reason
       state: t_code_scanning_alert_set_state
     }
   }): Observable<
     | (HttpResponse<t_code_scanning_alert> & { status: 200 })
+    | (HttpResponse<t_scim_error> & { status: 400 })
     | (HttpResponse<t_basic_error> & { status: 403 })
     | (HttpResponse<t_basic_error> & { status: 404 })
     | (HttpResponse<{
@@ -15155,8 +15650,9 @@ export class GitHubV3RestApiService {
     ecosystem?: string
     package?: string
     manifest?: string
+    epssPercentage?: string
     scope?: "development" | "runtime"
-    sort?: "created" | "updated"
+    sort?: "created" | "updated" | "epss_percentage"
     direction?: "asc" | "desc"
     page?: number
     perPage?: number
@@ -15179,6 +15675,7 @@ export class GitHubV3RestApiService {
       ecosystem: p["ecosystem"],
       package: p["package"],
       manifest: p["manifest"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -20979,6 +21476,57 @@ export class GitHubV3RestApiService {
     )
   }
 
+  reposGetRepoRulesetHistory(p: {
+    owner: string
+    repo: string
+    perPage?: number
+    page?: number
+    rulesetId: number
+  }): Observable<
+    | (HttpResponse<t_ruleset_version[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      per_page: p["perPage"],
+      page: p["page"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  reposGetRepoRulesetVersion(p: {
+    owner: string
+    repo: string
+    rulesetId: number
+    versionId: number
+  }): Observable<
+    | (HttpResponse<t_ruleset_version_with_state> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 500 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   secretScanningListAlertsForRepo(p: {
     owner: string
     repo: string
@@ -22132,6 +22680,7 @@ export class GitHubV3RestApiService {
     order?: "desc" | "asc"
     perPage?: number
     page?: number
+    advancedSearch?: string
   }): Observable<
     | (HttpResponse<{
         incomplete_results: boolean
@@ -22154,6 +22703,7 @@ export class GitHubV3RestApiService {
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
+      advanced_search: p["advancedSearch"],
     })
 
     return this.httpClient.request<any>(
@@ -25568,10 +26118,19 @@ export class GitHubV3RestApiService {
     after?: string
     username: string
     subjectDigest: string
+    predicateType?: string
   }): Observable<
     | (HttpResponse<{
         attestations?: {
-          bundle?: t_sigstore_bundle_0
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
           bundle_url?: string
           repository_id?: number
         }[]
@@ -25585,6 +26144,7 @@ export class GitHubV3RestApiService {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this.httpClient.request<any>(

@@ -111,6 +111,7 @@ export type t_account_capabilities = {
   naver_pay_payments?: "active" | "inactive" | "pending"
   oxxo_payments?: "active" | "inactive" | "pending"
   p24_payments?: "active" | "inactive" | "pending"
+  pay_by_bank_payments?: "active" | "inactive" | "pending"
   payco_payments?: "active" | "inactive" | "pending"
   paynow_payments?: "active" | "inactive" | "pending"
   promptpay_payments?: "active" | "inactive" | "pending"
@@ -246,8 +247,6 @@ export type t_account_payments_settings = {
   statement_descriptor?: string | null
   statement_descriptor_kana?: string | null
   statement_descriptor_kanji?: string | null
-  statement_descriptor_prefix_kana?: string | null
-  statement_descriptor_prefix_kanji?: string | null
 }
 
 export type t_account_payout_settings = {
@@ -466,6 +465,7 @@ export type t_amazon_pay_underlying_payment_method_funding_details = {
 }
 
 export type t_api_errors = {
+  advice_code?: string
   charge?: string
   code?: string
   decline_code?: string
@@ -792,6 +792,7 @@ export type t_billing_credit_grant = {
   }
   name?: string | null
   object: "billing.credit_grant"
+  priority?: number | null
   test_clock?: string | t_test_helpers_test_clock | null
   updated: number
   voided_at?: number | null
@@ -862,6 +863,10 @@ export type t_billing_credit_grants_resource_applicability_config = {
   scope: t_billing_credit_grants_resource_scope
 }
 
+export type t_billing_credit_grants_resource_applicable_price = {
+  id?: string | null
+}
+
 export type t_billing_credit_grants_resource_balance_credit = {
   amount: t_billing_credit_grants_resource_amount
   credits_application_invoice_voided?: t_billing_credit_grants_resource_balance_credits_application_invoice_voided | null
@@ -891,7 +896,8 @@ export type t_billing_credit_grants_resource_monetary_amount = {
 }
 
 export type t_billing_credit_grants_resource_scope = {
-  price_type: "metered"
+  price_type?: "metered"
+  prices?: t_billing_credit_grants_resource_applicable_price[]
 }
 
 export type t_billing_details = {
@@ -1153,6 +1159,11 @@ export type t_charge_fraud_details = {
 }
 
 export type t_charge_outcome = {
+  advice_code?:
+    | "confirm_card_data"
+    | "do_not_try_again"
+    | "try_again_later"
+    | null
   network_advice_code?: string | null
   network_decline_code?: string | null
   network_status?: string | null
@@ -1180,6 +1191,7 @@ export type t_checkout_session = {
   cancel_url?: string | null
   client_reference_id?: string | null
   client_secret?: string | null
+  collected_information?: t_payment_pages_checkout_session_collected_information | null
   consent?: t_payment_pages_checkout_session_consent | null
   consent_collection?: t_payment_pages_checkout_session_consent_collection | null
   created: number
@@ -1191,6 +1203,7 @@ export type t_checkout_session = {
   customer_creation?: "always" | "if_required" | null
   customer_details?: t_payment_pages_checkout_session_customer_details | null
   customer_email?: string | null
+  discounts?: t_payment_pages_checkout_session_discount[] | null
   expires_at: number
   id: string
   invoice?: string | t_invoice | null
@@ -1289,6 +1302,7 @@ export type t_checkout_acss_debit_payment_method_options = {
   currency?: "cad" | "usd"
   mandate_options?: t_checkout_acss_debit_mandate_options
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
 
@@ -1310,11 +1324,13 @@ export type t_checkout_amazon_pay_payment_method_options = {
 
 export type t_checkout_au_becs_debit_payment_method_options = {
   setup_future_usage?: "none"
+  target_date?: string
 }
 
 export type t_checkout_bacs_debit_payment_method_options = {
   mandate_options?: t_checkout_payment_method_options_mandate_options_bacs_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
 }
 
 export type t_checkout_bancontact_payment_method_options = {
@@ -1337,6 +1353,7 @@ export type t_checkout_card_payment_method_options = {
   request_multicapture?: "if_available" | "never"
   request_overcapture?: "if_available" | "never"
   request_three_d_secure: "any" | "automatic" | "challenge"
+  restrictions?: t_payment_pages_private_card_payment_method_options_resource_restrictions
   setup_future_usage?: "none" | "off_session" | "on_session"
   statement_descriptor_suffix_kana?: string
   statement_descriptor_suffix_kanji?: string
@@ -1474,6 +1491,7 @@ export type t_checkout_samsung_pay_payment_method_options = {
 export type t_checkout_sepa_debit_payment_method_options = {
   mandate_options?: t_checkout_payment_method_options_mandate_options_sepa_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
 }
 
 export type t_checkout_session_payment_method_options = {
@@ -1527,6 +1545,7 @@ export type t_checkout_swish_payment_method_options = {
 export type t_checkout_us_bank_account_payment_method_options = {
   financial_connections?: t_linked_account_options_us_bank_account
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
   verification_method?: "automatic" | "instant"
 }
 
@@ -1687,6 +1706,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   naver_pay?: t_payment_method_naver_pay
   oxxo?: t_payment_method_oxxo
   p24?: t_payment_method_p24
+  pay_by_bank?: t_payment_method_pay_by_bank
   payco?: t_payment_method_payco
   paynow?: t_payment_method_paynow
   paypal?: t_payment_method_paypal
@@ -1730,6 +1750,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -1782,12 +1803,16 @@ export type t_connect_embedded_account_features_claim = {
 export type t_connect_embedded_account_session_create_components = {
   account_management: t_connect_embedded_account_config_claim
   account_onboarding: t_connect_embedded_account_config_claim
-  balances: t_connect_embedded_payouts_config_claim
+  balances: t_connect_embedded_payouts_config
   documents: t_connect_embedded_base_config_claim
+  financial_account: t_connect_embedded_financial_account_config_claim
+  financial_account_transactions: t_connect_embedded_financial_account_transactions_config_claim
+  issuing_card: t_connect_embedded_issuing_card_config_claim
+  issuing_cards_list: t_connect_embedded_issuing_cards_list_config_claim
   notification_banner: t_connect_embedded_account_config_claim
   payment_details: t_connect_embedded_payments_config_claim
   payments: t_connect_embedded_payments_config_claim
-  payouts: t_connect_embedded_payouts_config_claim
+  payouts: t_connect_embedded_payouts_config
   payouts_list: t_connect_embedded_base_config_claim
   tax_registrations: t_connect_embedded_base_config_claim
   tax_settings: t_connect_embedded_base_config_claim
@@ -1799,6 +1824,52 @@ export type t_connect_embedded_base_config_claim = {
 }
 
 export type t_connect_embedded_base_features = EmptyObject
+
+export type t_connect_embedded_financial_account_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_financial_account_features
+}
+
+export type t_connect_embedded_financial_account_features = {
+  disable_stripe_user_authentication: boolean
+  external_account_collection: boolean
+  send_money: boolean
+  transfer_balance: boolean
+}
+
+export type t_connect_embedded_financial_account_transactions_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_financial_account_transactions_features
+}
+
+export type t_connect_embedded_financial_account_transactions_features = {
+  card_spend_dispute_management: boolean
+}
+
+export type t_connect_embedded_issuing_card_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_issuing_card_features
+}
+
+export type t_connect_embedded_issuing_card_features = {
+  card_management: boolean
+  card_spend_dispute_management: boolean
+  cardholder_management: boolean
+  spend_control_management: boolean
+}
+
+export type t_connect_embedded_issuing_cards_list_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_issuing_cards_list_features
+}
+
+export type t_connect_embedded_issuing_cards_list_features = {
+  card_management: boolean
+  card_spend_dispute_management: boolean
+  cardholder_management: boolean
+  disable_stripe_user_authentication: boolean
+  spend_control_management: boolean
+}
 
 export type t_connect_embedded_payments_config_claim = {
   enabled: boolean
@@ -1812,7 +1883,7 @@ export type t_connect_embedded_payments_features = {
   refund_management: boolean
 }
 
-export type t_connect_embedded_payouts_config_claim = {
+export type t_connect_embedded_payouts_config = {
   enabled: boolean
   features: t_connect_embedded_payouts_features
 }
@@ -1912,7 +1983,7 @@ export type t_credit_note = {
   object: "credit_note"
   out_of_band_amount?: number | null
   pdf: string
-  pretax_credit_amounts?: t_credit_notes_pretax_credit_amount[]
+  pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   reason?:
     | "duplicate"
     | "fraudulent"
@@ -1941,7 +2012,7 @@ export type t_credit_note_line_item = {
   invoice_line_item?: string
   livemode: boolean
   object: "credit_note_line_item"
-  pretax_credit_amounts?: t_credit_notes_pretax_credit_amount[]
+  pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: number | null
   tax_amounts: t_credit_note_tax_amount[]
   tax_rates: t_tax_rate[]
@@ -3427,6 +3498,10 @@ export type t_invoice_rendering_template = {
   version: number
 }
 
+export type t_invoice_setting_checkout_rendering_options = {
+  amount_tax_display?: string | null
+}
+
 export type t_invoice_setting_custom_field = {
   name: string
   value: string
@@ -3447,10 +3522,6 @@ export type t_invoice_setting_customer_setting = {
 export type t_invoice_setting_quote_setting = {
   days_until_due?: number | null
   issuer: t_connect_account_reference
-}
-
-export type t_invoice_setting_rendering_options = {
-  amount_tax_display?: string | null
 }
 
 export type t_invoice_setting_subscription_schedule_phase_setting = {
@@ -6398,6 +6469,7 @@ export type t_legal_entity_company = {
   address_kana?: t_legal_entity_japan_address | null
   address_kanji?: t_legal_entity_japan_address | null
   directors_provided?: boolean
+  directorship_declaration?: t_legal_entity_directorship_declaration | null
   executives_provided?: boolean
   export_license_id?: string
   export_purpose_code?: string
@@ -6406,6 +6478,9 @@ export type t_legal_entity_company = {
   name_kanji?: string | null
   owners_provided?: boolean
   ownership_declaration?: t_legal_entity_ubo_declaration | null
+  ownership_exemption_reason?:
+    | "qualified_entity_exceeds_ownership_threshold"
+    | "qualifies_as_financial_institution"
   phone?: string | null
   structure?:
     | "free_zone_establishment"
@@ -6446,6 +6521,12 @@ export type t_legal_entity_company_verification_document = {
   details?: string | null
   details_code?: string | null
   front?: string | t_file | null
+}
+
+export type t_legal_entity_directorship_declaration = {
+  date?: number | null
+  ip?: string | null
+  user_agent?: string | null
 }
 
 export type t_legal_entity_dob = {
@@ -6691,8 +6772,14 @@ export type t_outbound_payments_payment_method_details_us_bank_account = {
 
 export type t_outbound_transfers_payment_method_details = {
   billing_details: t_treasury_shared_resource_billing_details
-  type: "us_bank_account"
+  financial_account?: t_outbound_transfers_payment_method_details_financial_account
+  type: "financial_account" | "us_bank_account"
   us_bank_account?: t_outbound_transfers_payment_method_details_us_bank_account
+}
+
+export type t_outbound_transfers_payment_method_details_financial_account = {
+  id: string
+  network: "stripe"
 }
 
 export type t_outbound_transfers_payment_method_details_us_bank_account = {
@@ -7146,6 +7233,9 @@ export type t_payment_intent_payment_method_options = {
   p24?:
     | t_payment_method_options_p24
     | t_payment_intent_type_specific_payment_method_options_client
+  pay_by_bank?:
+    | t_payment_method_options_pay_by_bank
+    | t_payment_intent_type_specific_payment_method_options_client
   payco?:
     | t_payment_flows_private_payment_methods_payco_payment_method_options
     | t_payment_intent_type_specific_payment_method_options_client
@@ -7193,16 +7283,19 @@ export type t_payment_intent_payment_method_options = {
 export type t_payment_intent_payment_method_options_acss_debit = {
   mandate_options?: t_payment_intent_payment_method_options_mandate_options_acss_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
 
 export type t_payment_intent_payment_method_options_au_becs_debit = {
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
 }
 
 export type t_payment_intent_payment_method_options_bacs_debit = {
   mandate_options?: t_payment_intent_payment_method_options_mandate_options_bacs_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
 }
 
 export type t_payment_intent_payment_method_options_blik = {
@@ -7274,6 +7367,7 @@ export type t_payment_intent_payment_method_options_mobilepay = {
 export type t_payment_intent_payment_method_options_sepa_debit = {
   mandate_options?: t_payment_intent_payment_method_options_mandate_options_sepa_debit
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
 }
 
 export type t_payment_intent_payment_method_options_swish = {
@@ -7286,6 +7380,7 @@ export type t_payment_intent_payment_method_options_us_bank_account = {
   mandate_options?: t_payment_method_options_us_bank_account_mandate_options
   preferred_settlement_speed?: "fastest" | "standard"
   setup_future_usage?: "none" | "off_session" | "on_session"
+  target_date?: string
   verification_method?: "automatic" | "instant" | "microdeposits"
 }
 
@@ -7365,6 +7460,7 @@ export type t_payment_link = {
         | "multibanco"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "paynow"
         | "paypal"
         | "pix"
@@ -7478,7 +7574,7 @@ export type t_payment_links_resource_invoice_settings = {
   metadata?: {
     [key: string]: string | undefined
   } | null
-  rendering_options?: t_invoice_setting_rendering_options | null
+  rendering_options?: t_invoice_setting_checkout_rendering_options | null
 }
 
 export type t_payment_links_resource_payment_intent_data = {
@@ -7691,6 +7787,7 @@ export type t_payment_links_resource_shipping_address_collection = {
     | "SA"
     | "SB"
     | "SC"
+    | "SD"
     | "SE"
     | "SG"
     | "SH"
@@ -7818,6 +7915,7 @@ export type t_payment_method = {
   object: "payment_method"
   oxxo?: t_payment_method_oxxo
   p24?: t_payment_method_p24
+  pay_by_bank?: t_payment_method_pay_by_bank
   payco?: t_payment_method_payco
   paynow?: t_payment_method_paynow
   paypal?: t_payment_method_paypal
@@ -7862,6 +7960,7 @@ export type t_payment_method = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -8079,6 +8178,7 @@ export type t_payment_method_configuration = {
   oxxo?: t_payment_method_config_resource_payment_method_properties
   p24?: t_payment_method_config_resource_payment_method_properties
   parent?: string | null
+  pay_by_bank?: t_payment_method_config_resource_payment_method_properties
   paynow?: t_payment_method_config_resource_payment_method_properties
   paypal?: t_payment_method_config_resource_payment_method_properties
   promptpay?: t_payment_method_config_resource_payment_method_properties
@@ -8128,6 +8228,7 @@ export type t_payment_method_details = {
   naver_pay?: t_payment_method_details_naver_pay
   oxxo?: t_payment_method_details_oxxo
   p24?: t_payment_method_details_p24
+  pay_by_bank?: t_payment_method_details_pay_by_bank
   payco?: t_payment_method_details_payco
   paynow?: t_payment_method_details_paynow
   paypal?: t_payment_method_details_paypal
@@ -8631,6 +8732,8 @@ export type t_payment_method_details_passthrough_card = {
   last4?: string | null
 }
 
+export type t_payment_method_details_pay_by_bank = EmptyObject
+
 export type t_payment_method_details_payco = {
   buyer_id?: string | null
 }
@@ -8640,6 +8743,7 @@ export type t_payment_method_details_paynow = {
 }
 
 export type t_payment_method_details_paypal = {
+  country?: string | null
   payer_email?: string | null
   payer_id?: string | null
   payer_name?: string | null
@@ -9058,6 +9162,8 @@ export type t_payment_method_options_p24 = {
   setup_future_usage?: "none"
 }
 
+export type t_payment_method_options_pay_by_bank = EmptyObject
+
 export type t_payment_method_options_paynow = {
   setup_future_usage?: "none"
 }
@@ -9140,11 +9246,14 @@ export type t_payment_method_p24 = {
     | null
 }
 
+export type t_payment_method_pay_by_bank = EmptyObject
+
 export type t_payment_method_payco = EmptyObject
 
 export type t_payment_method_paynow = EmptyObject
 
 export type t_payment_method_paypal = {
+  country?: string | null
   payer_email?: string | null
   payer_id?: string | null
 }
@@ -9240,6 +9349,10 @@ export type t_payment_pages_checkout_session_automatic_tax = {
   status?: "complete" | "failed" | "requires_location_inputs" | null
 }
 
+export type t_payment_pages_checkout_session_collected_information = {
+  shipping_details?: t_shipping | null
+}
+
 export type t_payment_pages_checkout_session_consent = {
   promotions?: "opt_in" | "opt_out" | null
   terms_of_service?: "accepted" | null
@@ -9318,6 +9431,11 @@ export type t_payment_pages_checkout_session_customer_details = {
   tax_ids?: t_payment_pages_checkout_session_tax_id[] | null
 }
 
+export type t_payment_pages_checkout_session_discount = {
+  coupon?: string | t_coupon | null
+  promotion_code?: string | t_promotion_code | null
+}
+
 export type t_payment_pages_checkout_session_invoice_creation = {
   enabled: boolean
   invoice_data: t_payment_pages_checkout_session_invoice_settings
@@ -9332,7 +9450,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
   metadata?: {
     [key: string]: string | undefined
   } | null
-  rendering_options?: t_invoice_setting_rendering_options | null
+  rendering_options?: t_invoice_setting_checkout_rendering_options | null
 }
 
 export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
@@ -9535,6 +9653,7 @@ export type t_payment_pages_checkout_session_shipping_address_collection = {
     | "SA"
     | "SB"
     | "SC"
+    | "SD"
     | "SE"
     | "SG"
     | "SH"
@@ -9726,6 +9845,16 @@ export type t_payment_pages_checkout_session_total_details_resource_breakdown =
   {
     discounts: t_line_items_discount_amount[]
     taxes: t_line_items_tax_amount[]
+  }
+
+export type t_payment_pages_private_card_payment_method_options_resource_restrictions =
+  {
+    brands_blocked?: (
+      | "american_express"
+      | "discover_global_network"
+      | "mastercard"
+      | "visa"
+    )[]
   }
 
 export type t_payment_source = t_account | t_bank_account | t_card | t_source
@@ -12496,6 +12625,7 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   eur?: t_terminal_configuration_configuration_resource_currency_specific_config
   gbp?: t_terminal_configuration_configuration_resource_currency_specific_config
   hkd?: t_terminal_configuration_configuration_resource_currency_specific_config
+  jpy?: t_terminal_configuration_configuration_resource_currency_specific_config
   myr?: t_terminal_configuration_configuration_resource_currency_specific_config
   nok?: t_terminal_configuration_configuration_resource_currency_specific_config
   nzd?: t_terminal_configuration_configuration_resource_currency_specific_config
@@ -12819,10 +12949,12 @@ export type t_treasury_financial_account = {
   features?: t_treasury_financial_account_features
   financial_addresses: t_treasury_financial_accounts_resource_financial_address[]
   id: string
+  is_default?: boolean
   livemode: boolean
   metadata?: {
     [key: string]: string | undefined
   } | null
+  nickname?: string | null
   object: "treasury.financial_account"
   pending_features?: (
     | "card_issuing"
@@ -13313,8 +13445,14 @@ export type t_treasury_received_credits_resource_reversal_details = {
 export type t_treasury_received_credits_resource_source_flows_details = {
   credit_reversal?: t_treasury_credit_reversal
   outbound_payment?: t_treasury_outbound_payment
+  outbound_transfer?: t_treasury_outbound_transfer
   payout?: t_payout
-  type: "credit_reversal" | "other" | "outbound_payment" | "payout"
+  type:
+    | "credit_reversal"
+    | "other"
+    | "outbound_payment"
+    | "outbound_transfer"
+    | "payout"
 }
 
 export type t_treasury_received_credits_resource_status_transitions = {
@@ -14041,7 +14179,10 @@ export type t_GetBillingCreditBalanceSummaryQuerySchema = {
   expand?: string[]
   filter: {
     applicability_scope?: {
-      price_type: "metered"
+      price_type?: "metered"
+      prices?: {
+        id: string
+      }[]
     }
     credit_grant?: string
     type: "applicability_scope" | "credit_grant"
@@ -14705,6 +14846,7 @@ export type t_GetCustomersCustomerPaymentMethodsQuerySchema = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -16561,6 +16703,7 @@ export type t_GetPaymentMethodsQuerySchema = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -17849,6 +17992,7 @@ export type t_GetTreasuryReceivedCreditsQuerySchema = {
       | "credit_reversal"
       | "other"
       | "outbound_payment"
+      | "outbound_transfer"
       | "payout"
   }
   starting_after?: string
@@ -18026,6 +18170,40 @@ export type t_PostAccountSessionsBodySchema = {
     documents?: {
       enabled: boolean
       features?: EmptyObject
+    }
+    financial_account?: {
+      enabled: boolean
+      features?: {
+        disable_stripe_user_authentication?: boolean
+        external_account_collection?: boolean
+        send_money?: boolean
+        transfer_balance?: boolean
+      }
+    }
+    financial_account_transactions?: {
+      enabled: boolean
+      features?: {
+        card_spend_dispute_management?: boolean
+      }
+    }
+    issuing_card?: {
+      enabled: boolean
+      features?: {
+        card_management?: boolean
+        card_spend_dispute_management?: boolean
+        cardholder_management?: boolean
+        spend_control_management?: boolean
+      }
+    }
+    issuing_cards_list?: {
+      enabled: boolean
+      features?: {
+        card_management?: boolean
+        card_spend_dispute_management?: boolean
+        cardholder_management?: boolean
+        disable_stripe_user_authentication?: boolean
+        spend_control_management?: boolean
+      }
     }
     notification_banner?: {
       enabled: boolean
@@ -18234,6 +18412,9 @@ export type t_PostAccountsBodySchema = {
     p24_payments?: {
       requested?: boolean
     }
+    pay_by_bank_payments?: {
+      requested?: boolean
+    }
     payco_payments?: {
       requested?: boolean
     }
@@ -18314,6 +18495,11 @@ export type t_PostAccountsBodySchema = {
       town?: string
     }
     directors_provided?: boolean
+    directorship_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
     executives_provided?: boolean
     export_license_id?: string
     export_purpose_code?: string
@@ -18326,6 +18512,10 @@ export type t_PostAccountsBodySchema = {
       ip?: string
       user_agent?: string
     }
+    ownership_exemption_reason?:
+      | ""
+      | "qualified_entity_exceeds_ownership_threshold"
+      | "qualifies_as_financial_institution"
     phone?: string
     registration_number?: string
     structure?:
@@ -18397,6 +18587,9 @@ export type t_PostAccountsBodySchema = {
       files?: string[]
     }
     proof_of_registration?: {
+      files?: string[]
+    }
+    proof_of_ultimate_beneficial_ownership?: {
       files?: string[]
     }
   }
@@ -18695,6 +18888,9 @@ export type t_PostAccountsAccountBodySchema = {
     p24_payments?: {
       requested?: boolean
     }
+    pay_by_bank_payments?: {
+      requested?: boolean
+    }
     payco_payments?: {
       requested?: boolean
     }
@@ -18775,6 +18971,11 @@ export type t_PostAccountsAccountBodySchema = {
       town?: string
     }
     directors_provided?: boolean
+    directorship_declaration?: {
+      date?: number
+      ip?: string
+      user_agent?: string
+    }
     executives_provided?: boolean
     export_license_id?: string
     export_purpose_code?: string
@@ -18787,6 +18988,10 @@ export type t_PostAccountsAccountBodySchema = {
       ip?: string
       user_agent?: string
     }
+    ownership_exemption_reason?:
+      | ""
+      | "qualified_entity_exceeds_ownership_threshold"
+      | "qualifies_as_financial_institution"
     phone?: string
     registration_number?: string
     structure?:
@@ -18845,6 +19050,9 @@ export type t_PostAccountsAccountBodySchema = {
       files?: string[]
     }
     proof_of_registration?: {
+      files?: string[]
+    }
+    proof_of_ultimate_beneficial_ownership?: {
       files?: string[]
     }
   }
@@ -19225,7 +19433,7 @@ export type t_PostAccountsAccountPeopleBodySchema = {
   nationality?: string
   person_token?: string
   phone?: string
-  political_exposure?: string
+  political_exposure?: "existing" | "none"
   registered_address?: {
     city?: string
     country?: string
@@ -19334,7 +19542,7 @@ export type t_PostAccountsAccountPeoplePersonBodySchema = {
   nationality?: string
   person_token?: string
   phone?: string
-  political_exposure?: string
+  political_exposure?: "existing" | "none"
   registered_address?: {
     city?: string
     country?: string
@@ -19444,7 +19652,7 @@ export type t_PostAccountsAccountPersonsBodySchema = {
   nationality?: string
   person_token?: string
   phone?: string
-  political_exposure?: string
+  political_exposure?: "existing" | "none"
   registered_address?: {
     city?: string
     country?: string
@@ -19553,7 +19761,7 @@ export type t_PostAccountsAccountPersonsPersonBodySchema = {
   nationality?: string
   person_token?: string
   phone?: string
-  political_exposure?: string
+  political_exposure?: "existing" | "none"
   registered_address?: {
     city?: string
     country?: string
@@ -19709,7 +19917,10 @@ export type t_PostBillingCreditGrantsBodySchema = {
   }
   applicability_config: {
     scope: {
-      price_type: "metered"
+      price_type?: "metered"
+      prices?: {
+        id: string
+      }[]
     }
   }
   category: "paid" | "promotional"
@@ -19721,6 +19932,7 @@ export type t_PostBillingCreditGrantsBodySchema = {
     [key: string]: string | undefined
   }
   name?: string
+  priority?: number
 }
 
 export type t_PostBillingCreditGrantsIdBodySchema = {
@@ -20560,6 +20772,7 @@ export type t_PostCheckoutSessionsBodySchema = {
         transaction_type?: "business" | "personal"
       }
       setup_future_usage?: "none" | "off_session" | "on_session"
+      target_date?: string
       verification_method?: "automatic" | "instant" | "microdeposits"
     }
     affirm?: {
@@ -20576,12 +20789,14 @@ export type t_PostCheckoutSessionsBodySchema = {
     }
     au_becs_debit?: {
       setup_future_usage?: "none"
+      target_date?: string
     }
     bacs_debit?: {
       mandate_options?: {
         reference_prefix?: string | ""
       }
       setup_future_usage?: "none" | "off_session" | "on_session"
+      target_date?: string
     }
     bancontact?: {
       setup_future_usage?: "none"
@@ -20599,6 +20814,14 @@ export type t_PostCheckoutSessionsBodySchema = {
       request_multicapture?: "if_available" | "never"
       request_overcapture?: "if_available" | "never"
       request_three_d_secure?: "any" | "automatic" | "challenge"
+      restrictions?: {
+        brands_blocked?: (
+          | "american_express"
+          | "discover_global_network"
+          | "mastercard"
+          | "visa"
+        )[]
+      }
       setup_future_usage?: "off_session" | "on_session"
       statement_descriptor_suffix_kana?: string
       statement_descriptor_suffix_kanji?: string
@@ -20681,6 +20904,7 @@ export type t_PostCheckoutSessionsBodySchema = {
       setup_future_usage?: "none"
       tos_shown_and_accepted?: boolean
     }
+    pay_by_bank?: EmptyObject
     payco?: {
       capture_method?: "manual"
     }
@@ -20729,6 +20953,7 @@ export type t_PostCheckoutSessionsBodySchema = {
         reference_prefix?: string | ""
       }
       setup_future_usage?: "none" | "off_session" | "on_session"
+      target_date?: string
     }
     sofort?: {
       setup_future_usage?: "none"
@@ -20747,6 +20972,7 @@ export type t_PostCheckoutSessionsBodySchema = {
         prefetch?: ("balances" | "ownership" | "transactions")[]
       }
       setup_future_usage?: "none" | "off_session" | "on_session"
+      target_date?: string
       verification_method?: "automatic" | "instant"
     }
     wechat_pay?: {
@@ -20785,6 +21011,7 @@ export type t_PostCheckoutSessionsBodySchema = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -21002,6 +21229,7 @@ export type t_PostCheckoutSessionsBodySchema = {
       | "SA"
       | "SB"
       | "SC"
+      | "SD"
       | "SE"
       | "SG"
       | "SH"
@@ -21129,6 +21357,19 @@ export type t_PostCheckoutSessionsBodySchema = {
 }
 
 export type t_PostCheckoutSessionsSessionBodySchema = {
+  collected_information?: {
+    shipping_details?: {
+      address: {
+        city?: string
+        country: string
+        line1: string
+        line2?: string
+        postal_code?: string
+        state?: string
+      }
+      name: string
+    }
+  }
   expand?: string[]
   metadata?:
     | {
@@ -28439,6 +28680,7 @@ export type t_PostPaymentIntentsBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -28486,6 +28728,7 @@ export type t_PostPaymentIntentsBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -28520,6 +28763,7 @@ export type t_PostPaymentIntentsBodySchema = {
             transaction_type?: "business" | "personal"
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -28556,6 +28800,7 @@ export type t_PostPaymentIntentsBodySchema = {
     au_becs_debit?:
       | {
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bacs_debit?:
@@ -28564,6 +28809,7 @@ export type t_PostPaymentIntentsBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bancontact?:
@@ -28825,6 +29071,7 @@ export type t_PostPaymentIntentsBodySchema = {
           tos_shown_and_accepted?: boolean
         }
       | ""
+    pay_by_bank?: EmptyObject | ""
     payco?:
       | {
           capture_method?: "" | "manual"
@@ -28894,6 +29141,7 @@ export type t_PostPaymentIntentsBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     sofort?:
@@ -28944,6 +29192,7 @@ export type t_PostPaymentIntentsBodySchema = {
           }
           preferred_settlement_speed?: "" | "fastest" | "standard"
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -29175,6 +29424,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -29222,6 +29472,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -29256,6 +29507,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             transaction_type?: "business" | "personal"
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -29292,6 +29544,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
     au_becs_debit?:
       | {
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bacs_debit?:
@@ -29300,6 +29553,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bancontact?:
@@ -29561,6 +29815,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
           tos_shown_and_accepted?: boolean
         }
       | ""
+    pay_by_bank?: EmptyObject | ""
     payco?:
       | {
           capture_method?: "" | "manual"
@@ -29630,6 +29885,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     sofort?:
@@ -29680,6 +29936,7 @@ export type t_PostPaymentIntentsIntentBodySchema = {
           }
           preferred_settlement_speed?: "" | "fastest" | "standard"
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -29971,6 +30228,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -30018,6 +30276,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -30052,6 +30311,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             transaction_type?: "business" | "personal"
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -30088,6 +30348,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
     au_becs_debit?:
       | {
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bacs_debit?:
@@ -30096,6 +30357,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     bancontact?:
@@ -30357,6 +30619,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
           tos_shown_and_accepted?: boolean
         }
       | ""
+    pay_by_bank?: EmptyObject | ""
     payco?:
       | {
           capture_method?: "" | "manual"
@@ -30426,6 +30689,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
             reference_prefix?: string | ""
           }
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
         }
       | ""
     sofort?:
@@ -30476,6 +30740,7 @@ export type t_PostPaymentIntentsIntentConfirmBodySchema = {
           }
           preferred_settlement_speed?: "" | "fastest" | "standard"
           setup_future_usage?: "" | "none" | "off_session" | "on_session"
+          target_date?: string
           verification_method?: "automatic" | "instant" | "microdeposits"
         }
       | ""
@@ -30705,6 +30970,7 @@ export type t_PostPaymentLinksBodySchema = {
     | "multibanco"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "paynow"
     | "paypal"
     | "pix"
@@ -30911,6 +31177,7 @@ export type t_PostPaymentLinksBodySchema = {
       | "SA"
       | "SB"
       | "SC"
+      | "SD"
       | "SE"
       | "SG"
       | "SH"
@@ -31145,6 +31412,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "multibanco"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "paynow"
         | "paypal"
         | "pix"
@@ -31158,6 +31426,9 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
         | "zip"
       )[]
     | ""
+  phone_number_collection?: {
+    enabled: boolean
+  }
   restrictions?:
     | {
         completed_sessions: {
@@ -31352,6 +31623,7 @@ export type t_PostPaymentLinksPaymentLinkBodySchema = {
           | "SA"
           | "SB"
           | "SC"
+          | "SD"
           | "SE"
           | "SG"
           | "SH"
@@ -31599,6 +31871,11 @@ export type t_PostPaymentMethodConfigurationsBodySchema = {
     }
   }
   parent?: string
+  pay_by_bank?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
   paynow?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
@@ -31811,6 +32088,11 @@ export type t_PostPaymentMethodConfigurationsConfigurationBodySchema = {
     }
   }
   p24?: {
+    display_preference?: {
+      preference?: "none" | "off" | "on"
+    }
+  }
+  pay_by_bank?: {
     display_preference?: {
       preference?: "none" | "off" | "on"
     }
@@ -32083,6 +32365,7 @@ export type t_PostPaymentMethodsBodySchema = {
       | "velobank"
       | "volkswagen_bank"
   }
+  pay_by_bank?: EmptyObject
   payco?: EmptyObject
   payment_method?: string
   paynow?: EmptyObject
@@ -32132,6 +32415,7 @@ export type t_PostPaymentMethodsBodySchema = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -32191,6 +32475,7 @@ export type t_PostPaymentMethodsPaymentMethodBodySchema = {
   naver_pay?: {
     funding?: "card" | "points"
   }
+  pay_by_bank?: EmptyObject
   us_bank_account?: {
     account_holder_type?: "company" | "individual"
     account_type?: "checking" | "savings"
@@ -32476,6 +32761,9 @@ export type t_PostProductsBodySchema = {
       maximum?: number
       minimum?: number
       preset?: number
+    }
+    metadata?: {
+      [key: string]: string | undefined
     }
     recurring?: {
       interval: "day" | "month" | "week" | "year"
@@ -33726,6 +34014,7 @@ export type t_PostSetupIntentsBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -33773,6 +34062,7 @@ export type t_PostSetupIntentsBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -34084,6 +34374,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -34131,6 +34422,7 @@ export type t_PostSetupIntentsIntentBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -34462,6 +34754,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -34509,6 +34802,7 @@ export type t_PostSetupIntentsIntentConfirmBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -36625,6 +36919,11 @@ export type t_PostTerminalConfigurationsBodySchema = {
           percentages?: number[]
           smart_tip_threshold?: number
         }
+        jpy?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
         myr?: {
           fixed_amounts?: number[]
           percentages?: number[]
@@ -36729,6 +37028,11 @@ export type t_PostTerminalConfigurationsConfigurationBodySchema = {
           smart_tip_threshold?: number
         }
         hkd?: {
+          fixed_amounts?: number[]
+          percentages?: number[]
+          smart_tip_threshold?: number
+        }
+        jpy?: {
           fixed_amounts?: number[]
           percentages?: number[]
           smart_tip_threshold?: number
@@ -37102,6 +37406,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
         | "velobank"
         | "volkswagen_bank"
     }
+    pay_by_bank?: EmptyObject
     payco?: EmptyObject
     paynow?: EmptyObject
     paypal?: EmptyObject
@@ -37149,6 +37454,7 @@ export type t_PostTestHelpersConfirmationTokensBodySchema = {
       | "naver_pay"
       | "oxxo"
       | "p24"
+      | "pay_by_bank"
       | "payco"
       | "paynow"
       | "paypal"
@@ -37875,6 +38181,14 @@ export type t_PostTestHelpersIssuingSettlementsBodySchema = {
   network_settlement_identifier?: string
   transaction_count?: number
   transaction_volume?: number
+}
+
+export type t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema = {
+  expand?: string[]
+}
+
+export type t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema = {
+  settlement: string
 }
 
 export type t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema = {
@@ -38927,6 +39241,11 @@ export type t_PostTokensBodySchema = {
         town?: string
       }
       directors_provided?: boolean
+      directorship_declaration?: {
+        date?: number
+        ip?: string
+        user_agent?: string
+      }
       executives_provided?: boolean
       export_license_id?: string
       export_purpose_code?: string
@@ -38940,6 +39259,10 @@ export type t_PostTokensBodySchema = {
         user_agent?: string
       }
       ownership_declaration_shown_and_signed?: boolean
+      ownership_exemption_reason?:
+        | ""
+        | "qualified_entity_exceeds_ownership_threshold"
+        | "qualifies_as_financial_institution"
       phone?: string
       registration_number?: string
       structure?:
@@ -39164,7 +39487,7 @@ export type t_PostTokensBodySchema = {
       | ""
     nationality?: string
     phone?: string
-    political_exposure?: string
+    political_exposure?: "existing" | "none"
     registered_address?: {
       city?: string
       country?: string
@@ -39353,6 +39676,7 @@ export type t_PostTreasuryFinancialAccountsBodySchema = {
   metadata?: {
     [key: string]: string | undefined
   }
+  nickname?: string | ""
   platform_restrictions?: {
     inbound_flows?: "restricted" | "unrestricted"
     outbound_flows?: "restricted" | "unrestricted"
@@ -39399,9 +39723,15 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
       }
     }
   }
+  forwarding_settings?: {
+    financial_account?: string
+    payment_method?: string
+    type: "financial_account" | "payment_method"
+  }
   metadata?: {
     [key: string]: string | undefined
   }
+  nickname?: string | ""
   platform_restrictions?: {
     inbound_flows?: "restricted" | "unrestricted"
     outbound_flows?: "restricted" | "unrestricted"
@@ -39409,6 +39739,19 @@ export type t_PostTreasuryFinancialAccountsFinancialAccountBodySchema = {
 }
 
 export type t_PostTreasuryFinancialAccountsFinancialAccountParamSchema = {
+  financial_account: string
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema = {
+  expand?: string[]
+  forwarding_settings?: {
+    financial_account?: string
+    payment_method?: string
+    type: "financial_account" | "payment_method"
+  }
+}
+
+export type t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema = {
   financial_account: string
 }
 
@@ -39545,6 +39888,10 @@ export type t_PostTreasuryOutboundTransfersBodySchema = {
   currency: string
   description?: string
   destination_payment_method?: string
+  destination_payment_method_data?: {
+    financial_account?: string
+    type: "financial_account"
+  }
   destination_payment_method_options?: {
     us_bank_account?:
       | {
@@ -39676,6 +40023,8 @@ export type t_PostWebhookEndpointsBodySchema = {
     | "2024-10-28.acacia"
     | "2024-11-20.acacia"
     | "2024-12-18.acacia"
+    | "2025-01-27.acacia"
+    | "2025-02-24.acacia"
   connect?: boolean
   description?: string | ""
   enabled_events: (

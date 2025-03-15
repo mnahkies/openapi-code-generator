@@ -19,6 +19,7 @@ import {
   t_PushNotificationVerification,
   t_Schema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
+  t_UpdateAuthenticatorEnrollmentRequest,
 } from "./models"
 import { HttpClient, HttpParams, HttpResponse } from "@angular/common/http"
 import { Injectable } from "@angular/core"
@@ -335,6 +336,35 @@ export class MyAccountManagementService {
       this.config.basePath +
         `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`,
       {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  updateEnrollment(p: {
+    authenticatorId: string
+    enrollmentId: string
+    requestBody: t_UpdateAuthenticatorEnrollmentRequest
+  }): Observable<
+    | (HttpResponse<t_AuthenticatorEnrollment> & { status: 200 })
+    | (HttpResponse<t_Error> & { status: 401 })
+    | (HttpResponse<t_Error> & { status: 403 })
+    | (HttpResponse<t_Error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/merge-patch+json;okta-version=1.0.0",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },

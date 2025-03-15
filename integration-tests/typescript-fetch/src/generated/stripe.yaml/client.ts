@@ -321,6 +321,40 @@ export class StripeApi extends AbstractFetchClient {
             enabled: boolean
             features?: EmptyObject
           }
+          financial_account?: {
+            enabled: boolean
+            features?: {
+              disable_stripe_user_authentication?: boolean
+              external_account_collection?: boolean
+              send_money?: boolean
+              transfer_balance?: boolean
+            }
+          }
+          financial_account_transactions?: {
+            enabled: boolean
+            features?: {
+              card_spend_dispute_management?: boolean
+            }
+          }
+          issuing_card?: {
+            enabled: boolean
+            features?: {
+              card_management?: boolean
+              card_spend_dispute_management?: boolean
+              cardholder_management?: boolean
+              spend_control_management?: boolean
+            }
+          }
+          issuing_cards_list?: {
+            enabled: boolean
+            features?: {
+              card_management?: boolean
+              card_spend_dispute_management?: boolean
+              cardholder_management?: boolean
+              disable_stripe_user_authentication?: boolean
+              spend_control_management?: boolean
+            }
+          }
           notification_banner?: {
             enabled: boolean
             features?: {
@@ -598,6 +632,9 @@ export class StripeApi extends AbstractFetchClient {
           p24_payments?: {
             requested?: boolean
           }
+          pay_by_bank_payments?: {
+            requested?: boolean
+          }
           payco_payments?: {
             requested?: boolean
           }
@@ -678,6 +715,11 @@ export class StripeApi extends AbstractFetchClient {
             town?: string
           }
           directors_provided?: boolean
+          directorship_declaration?: {
+            date?: number
+            ip?: string
+            user_agent?: string
+          }
           executives_provided?: boolean
           export_license_id?: string
           export_purpose_code?: string
@@ -690,6 +732,10 @@ export class StripeApi extends AbstractFetchClient {
             ip?: string
             user_agent?: string
           }
+          ownership_exemption_reason?:
+            | ""
+            | "qualified_entity_exceeds_ownership_threshold"
+            | "qualifies_as_financial_institution"
           phone?: string
           registration_number?: string
           structure?:
@@ -761,6 +807,9 @@ export class StripeApi extends AbstractFetchClient {
             files?: string[]
           }
           proof_of_registration?: {
+            files?: string[]
+          }
+          proof_of_ultimate_beneficial_ownership?: {
             files?: string[]
           }
         }
@@ -1125,6 +1174,9 @@ export class StripeApi extends AbstractFetchClient {
           p24_payments?: {
             requested?: boolean
           }
+          pay_by_bank_payments?: {
+            requested?: boolean
+          }
           payco_payments?: {
             requested?: boolean
           }
@@ -1205,6 +1257,11 @@ export class StripeApi extends AbstractFetchClient {
             town?: string
           }
           directors_provided?: boolean
+          directorship_declaration?: {
+            date?: number
+            ip?: string
+            user_agent?: string
+          }
           executives_provided?: boolean
           export_license_id?: string
           export_purpose_code?: string
@@ -1217,6 +1274,10 @@ export class StripeApi extends AbstractFetchClient {
             ip?: string
             user_agent?: string
           }
+          ownership_exemption_reason?:
+            | ""
+            | "qualified_entity_exceeds_ownership_threshold"
+            | "qualifies_as_financial_institution"
           phone?: string
           registration_number?: string
           structure?:
@@ -1275,6 +1336,9 @@ export class StripeApi extends AbstractFetchClient {
             files?: string[]
           }
           proof_of_registration?: {
+            files?: string[]
+          }
+          proof_of_ultimate_beneficial_ownership?: {
             files?: string[]
           }
         }
@@ -2005,7 +2069,7 @@ export class StripeApi extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2177,7 +2241,7 @@ export class StripeApi extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2351,7 +2415,7 @@ export class StripeApi extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -2523,7 +2587,7 @@ export class StripeApi extends AbstractFetchClient {
         nationality?: string
         person_token?: string
         phone?: string
-        political_exposure?: string
+        political_exposure?: "existing" | "none"
         registered_address?: {
           city?: string
           country?: string
@@ -3403,7 +3467,10 @@ export class StripeApi extends AbstractFetchClient {
       expand?: string[]
       filter: {
         applicability_scope?: {
-          price_type: "metered"
+          price_type?: "metered"
+          prices?: {
+            id: string
+          }[]
         }
         credit_grant?: string
         type: "applicability_scope" | "credit_grant"
@@ -3563,7 +3630,10 @@ export class StripeApi extends AbstractFetchClient {
         }
         applicability_config: {
           scope: {
-            price_type: "metered"
+            price_type?: "metered"
+            prices?: {
+              id: string
+            }[]
           }
         }
         category: "paid" | "promotional"
@@ -3575,6 +3645,7 @@ export class StripeApi extends AbstractFetchClient {
           [key: string]: string | undefined
         }
         name?: string
+        priority?: number
       }
     },
     timeout?: number,
@@ -5215,6 +5286,7 @@ export class StripeApi extends AbstractFetchClient {
               transaction_type?: "business" | "personal"
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
             verification_method?: "automatic" | "instant" | "microdeposits"
           }
           affirm?: {
@@ -5231,12 +5303,14 @@ export class StripeApi extends AbstractFetchClient {
           }
           au_becs_debit?: {
             setup_future_usage?: "none"
+            target_date?: string
           }
           bacs_debit?: {
             mandate_options?: {
               reference_prefix?: string | ""
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
           }
           bancontact?: {
             setup_future_usage?: "none"
@@ -5254,6 +5328,14 @@ export class StripeApi extends AbstractFetchClient {
             request_multicapture?: "if_available" | "never"
             request_overcapture?: "if_available" | "never"
             request_three_d_secure?: "any" | "automatic" | "challenge"
+            restrictions?: {
+              brands_blocked?: (
+                | "american_express"
+                | "discover_global_network"
+                | "mastercard"
+                | "visa"
+              )[]
+            }
             setup_future_usage?: "off_session" | "on_session"
             statement_descriptor_suffix_kana?: string
             statement_descriptor_suffix_kanji?: string
@@ -5336,6 +5418,7 @@ export class StripeApi extends AbstractFetchClient {
             setup_future_usage?: "none"
             tos_shown_and_accepted?: boolean
           }
+          pay_by_bank?: EmptyObject
           payco?: {
             capture_method?: "manual"
           }
@@ -5384,6 +5467,7 @@ export class StripeApi extends AbstractFetchClient {
               reference_prefix?: string | ""
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
           }
           sofort?: {
             setup_future_usage?: "none"
@@ -5402,6 +5486,7 @@ export class StripeApi extends AbstractFetchClient {
               prefetch?: ("balances" | "ownership" | "transactions")[]
             }
             setup_future_usage?: "none" | "off_session" | "on_session"
+            target_date?: string
             verification_method?: "automatic" | "instant"
           }
           wechat_pay?: {
@@ -5440,6 +5525,7 @@ export class StripeApi extends AbstractFetchClient {
           | "naver_pay"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
           | "payco"
           | "paynow"
           | "paypal"
@@ -5657,6 +5743,7 @@ export class StripeApi extends AbstractFetchClient {
             | "SA"
             | "SB"
             | "SC"
+            | "SD"
             | "SE"
             | "SG"
             | "SH"
@@ -5824,6 +5911,19 @@ export class StripeApi extends AbstractFetchClient {
     p: {
       session: string
       requestBody?: {
+        collected_information?: {
+          shipping_details?: {
+            address: {
+              city?: string
+              country: string
+              line1: string
+              line2?: string
+              postal_code?: string
+              state?: string
+            }
+            name: string
+          }
+        }
         expand?: string[]
         metadata?:
           | {
@@ -8154,6 +8254,7 @@ export class StripeApi extends AbstractFetchClient {
         | "naver_pay"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
@@ -19232,6 +19333,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -19279,6 +19381,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -19313,6 +19416,7 @@ export class StripeApi extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -19349,6 +19453,7 @@ export class StripeApi extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
@@ -19357,6 +19462,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -19623,6 +19729,7 @@ export class StripeApi extends AbstractFetchClient {
                 tos_shown_and_accepted?: boolean
               }
             | ""
+          pay_by_bank?: EmptyObject | ""
           payco?:
             | {
                 capture_method?: "" | "manual"
@@ -19692,6 +19799,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -19742,6 +19850,7 @@ export class StripeApi extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -20061,6 +20170,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -20108,6 +20218,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -20142,6 +20253,7 @@ export class StripeApi extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -20178,6 +20290,7 @@ export class StripeApi extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
@@ -20186,6 +20299,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -20452,6 +20566,7 @@ export class StripeApi extends AbstractFetchClient {
                 tos_shown_and_accepted?: boolean
               }
             | ""
+          pay_by_bank?: EmptyObject | ""
           payco?:
             | {
                 capture_method?: "" | "manual"
@@ -20521,6 +20636,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -20571,6 +20687,7 @@ export class StripeApi extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -20912,6 +21029,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -20959,6 +21077,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -20993,6 +21112,7 @@ export class StripeApi extends AbstractFetchClient {
                   transaction_type?: "business" | "personal"
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -21029,6 +21149,7 @@ export class StripeApi extends AbstractFetchClient {
           au_becs_debit?:
             | {
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bacs_debit?:
@@ -21037,6 +21158,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           bancontact?:
@@ -21303,6 +21425,7 @@ export class StripeApi extends AbstractFetchClient {
                 tos_shown_and_accepted?: boolean
               }
             | ""
+          pay_by_bank?: EmptyObject | ""
           payco?:
             | {
                 capture_method?: "" | "manual"
@@ -21372,6 +21495,7 @@ export class StripeApi extends AbstractFetchClient {
                   reference_prefix?: string | ""
                 }
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
               }
             | ""
           sofort?:
@@ -21422,6 +21546,7 @@ export class StripeApi extends AbstractFetchClient {
                 }
                 preferred_settlement_speed?: "" | "fastest" | "standard"
                 setup_future_usage?: "" | "none" | "off_session" | "on_session"
+                target_date?: string
                 verification_method?: "automatic" | "instant" | "microdeposits"
               }
             | ""
@@ -21736,6 +21861,7 @@ export class StripeApi extends AbstractFetchClient {
           | "multibanco"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
           | "paynow"
           | "paypal"
           | "pix"
@@ -21942,6 +22068,7 @@ export class StripeApi extends AbstractFetchClient {
             | "SA"
             | "SB"
             | "SC"
+            | "SD"
             | "SE"
             | "SG"
             | "SH"
@@ -22219,6 +22346,7 @@ export class StripeApi extends AbstractFetchClient {
               | "multibanco"
               | "oxxo"
               | "p24"
+              | "pay_by_bank"
               | "paynow"
               | "paypal"
               | "pix"
@@ -22232,6 +22360,9 @@ export class StripeApi extends AbstractFetchClient {
               | "zip"
             )[]
           | ""
+        phone_number_collection?: {
+          enabled: boolean
+        }
         restrictions?:
           | {
               completed_sessions: {
@@ -22426,6 +22557,7 @@ export class StripeApi extends AbstractFetchClient {
                 | "SA"
                 | "SB"
                 | "SC"
+                | "SD"
                 | "SE"
                 | "SG"
                 | "SH"
@@ -22772,6 +22904,11 @@ export class StripeApi extends AbstractFetchClient {
           }
         }
         parent?: string
+        pay_by_bank?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         paynow?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -23033,6 +23170,11 @@ export class StripeApi extends AbstractFetchClient {
             preference?: "none" | "off" | "on"
           }
         }
+        pay_by_bank?: {
+          display_preference?: {
+            preference?: "none" | "off" | "on"
+          }
+        }
         paynow?: {
           display_preference?: {
             preference?: "none" | "off" | "on"
@@ -23279,6 +23421,7 @@ export class StripeApi extends AbstractFetchClient {
         | "naver_pay"
         | "oxxo"
         | "p24"
+        | "pay_by_bank"
         | "payco"
         | "paynow"
         | "paypal"
@@ -23517,6 +23660,7 @@ export class StripeApi extends AbstractFetchClient {
             | "velobank"
             | "volkswagen_bank"
         }
+        pay_by_bank?: EmptyObject
         payco?: EmptyObject
         payment_method?: string
         paynow?: EmptyObject
@@ -23566,6 +23710,7 @@ export class StripeApi extends AbstractFetchClient {
           | "naver_pay"
           | "oxxo"
           | "p24"
+          | "pay_by_bank"
           | "payco"
           | "paynow"
           | "paypal"
@@ -23665,6 +23810,7 @@ export class StripeApi extends AbstractFetchClient {
         naver_pay?: {
           funding?: "card" | "points"
         }
+        pay_by_bank?: EmptyObject
         us_bank_account?: {
           account_holder_type?: "company" | "individual"
           account_type?: "checking" | "savings"
@@ -24475,6 +24621,9 @@ export class StripeApi extends AbstractFetchClient {
             maximum?: number
             minimum?: number
             preset?: number
+          }
+          metadata?: {
+            [key: string]: string | undefined
           }
           recurring?: {
             interval: "day" | "month" | "week" | "year"
@@ -27095,6 +27244,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -27142,6 +27292,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -27497,6 +27648,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -27544,6 +27696,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -27902,6 +28055,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -27949,6 +28103,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -31683,6 +31838,11 @@ export class StripeApi extends AbstractFetchClient {
                 percentages?: number[]
                 smart_tip_threshold?: number
               }
+              jpy?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
               myr?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
@@ -31856,6 +32016,11 @@ export class StripeApi extends AbstractFetchClient {
                 smart_tip_threshold?: number
               }
               hkd?: {
+                fixed_amounts?: number[]
+                percentages?: number[]
+                smart_tip_threshold?: number
+              }
+              jpy?: {
                 fixed_amounts?: number[]
                 percentages?: number[]
                 smart_tip_threshold?: number
@@ -32583,6 +32748,7 @@ export class StripeApi extends AbstractFetchClient {
               | "velobank"
               | "volkswagen_bank"
           }
+          pay_by_bank?: EmptyObject
           payco?: EmptyObject
           paynow?: EmptyObject
           paypal?: EmptyObject
@@ -32630,6 +32796,7 @@ export class StripeApi extends AbstractFetchClient {
             | "naver_pay"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "payco"
             | "paynow"
             | "paypal"
@@ -33608,6 +33775,28 @@ export class StripeApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
     const url = this.basePath + `/v1/test_helpers/issuing/settlements`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTestHelpersIssuingSettlementsSettlementComplete(
+    p: {
+      settlement: string
+      requestBody?: {
+        expand?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issuing_settlement> | Res<StatusCode, t_error>> {
+    const url =
+      this.basePath +
+      `/v1/test_helpers/issuing/settlements/${p["settlement"]}/complete`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -35047,6 +35236,11 @@ export class StripeApi extends AbstractFetchClient {
               town?: string
             }
             directors_provided?: boolean
+            directorship_declaration?: {
+              date?: number
+              ip?: string
+              user_agent?: string
+            }
             executives_provided?: boolean
             export_license_id?: string
             export_purpose_code?: string
@@ -35060,6 +35254,10 @@ export class StripeApi extends AbstractFetchClient {
               user_agent?: string
             }
             ownership_declaration_shown_and_signed?: boolean
+            ownership_exemption_reason?:
+              | ""
+              | "qualified_entity_exceeds_ownership_threshold"
+              | "qualifies_as_financial_institution"
             phone?: string
             registration_number?: string
             structure?:
@@ -35284,7 +35482,7 @@ export class StripeApi extends AbstractFetchClient {
             | ""
           nationality?: string
           phone?: string
-          political_exposure?: string
+          political_exposure?: "existing" | "none"
           registered_address?: {
             city?: string
             country?: string
@@ -36066,6 +36264,7 @@ export class StripeApi extends AbstractFetchClient {
         metadata?: {
           [key: string]: string | undefined
         }
+        nickname?: string | ""
         platform_restrictions?: {
           inbound_flows?: "restricted" | "unrestricted"
           outbound_flows?: "restricted" | "unrestricted"
@@ -36157,9 +36356,15 @@ export class StripeApi extends AbstractFetchClient {
             }
           }
         }
+        forwarding_settings?: {
+          financial_account?: string
+          payment_method?: string
+          type: "financial_account" | "payment_method"
+        }
         metadata?: {
           [key: string]: string | undefined
         }
+        nickname?: string | ""
         platform_restrictions?: {
           inbound_flows?: "restricted" | "unrestricted"
           outbound_flows?: "restricted" | "unrestricted"
@@ -36173,6 +36378,35 @@ export class StripeApi extends AbstractFetchClient {
   > {
     const url =
       this.basePath + `/v1/treasury/financial_accounts/${p["financialAccount"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async postTreasuryFinancialAccountsFinancialAccountClose(
+    p: {
+      financialAccount: string
+      requestBody?: {
+        expand?: string[]
+        forwarding_settings?: {
+          financial_account?: string
+          payment_method?: string
+          type: "financial_account" | "payment_method"
+        }
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<200, t_treasury_financial_account> | Res<StatusCode, t_error>
+  > {
+    const url =
+      this.basePath +
+      `/v1/treasury/financial_accounts/${p["financialAccount"]}/close`
     const headers = this._headers(
       { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
@@ -36613,6 +36847,10 @@ export class StripeApi extends AbstractFetchClient {
         currency: string
         description?: string
         destination_payment_method?: string
+        destination_payment_method_data?: {
+          financial_account?: string
+          type: "financial_account"
+        }
         destination_payment_method_options?: {
           us_bank_account?:
             | {
@@ -36705,6 +36943,7 @@ export class StripeApi extends AbstractFetchClient {
           | "credit_reversal"
           | "other"
           | "outbound_payment"
+          | "outbound_transfer"
           | "payout"
       }
       startingAfter?: string
@@ -37178,6 +37417,8 @@ export class StripeApi extends AbstractFetchClient {
           | "2024-10-28.acacia"
           | "2024-11-20.acacia"
           | "2024-12-18.acacia"
+          | "2025-01-27.acacia"
+          | "2025-02-24.acacia"
         connect?: boolean
         description?: string | ""
         enabled_events: (

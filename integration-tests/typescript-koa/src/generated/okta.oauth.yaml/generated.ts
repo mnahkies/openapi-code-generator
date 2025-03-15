@@ -5,7 +5,10 @@
 import {
   t_AuthorizeCustomAsParamSchema,
   t_AuthorizeCustomAsQuerySchema,
+  t_AuthorizeCustomAsWithPostBodySchema,
+  t_AuthorizeCustomAsWithPostParamSchema,
   t_AuthorizeQuerySchema,
+  t_AuthorizeWithPostBodySchema,
   t_BackchannelAuthorizeResponse,
   t_BcAuthorizeBodySchema,
   t_BcAuthorizeCustomAsBodySchema,
@@ -76,6 +79,7 @@ import {
 import {
   s_AcrValue,
   s_AmrValue,
+  s_AuthorizeWithPost,
   s_BackchannelAuthorizeRequest,
   s_BackchannelAuthorizeResponse,
   s_ChallengeRequest,
@@ -152,6 +156,16 @@ export type AuthorizeResponder = {
 export type Authorize = (
   params: Params<void, t_AuthorizeQuerySchema, void, void>,
   respond: AuthorizeResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
+export type AuthorizeWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type AuthorizeWithPost = (
+  params: Params<void, void, t_AuthorizeWithPostBodySchema, void>,
+  respond: AuthorizeWithPostResponder,
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
@@ -596,6 +610,21 @@ export type AuthorizeCustomAs = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
+export type AuthorizeCustomAsWithPostResponder = {
+  with429(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type AuthorizeCustomAsWithPost = (
+  params: Params<
+    t_AuthorizeCustomAsWithPostParamSchema,
+    void,
+    t_AuthorizeCustomAsWithPostBodySchema,
+    void
+  >,
+  respond: AuthorizeCustomAsWithPostResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
+
 export type BcAuthorizeCustomAsResponder = {
   with200(): KoaRuntimeResponse<t_BackchannelAuthorizeResponse>
   with400(): KoaRuntimeResponse<t_OAuthError>
@@ -898,6 +927,7 @@ export type UserinfoCustomAs = (
 export type Implementation = {
   getWellKnownOpenIdConfiguration: GetWellKnownOpenIdConfiguration
   authorize: Authorize
+  authorizeWithPost: AuthorizeWithPost
   bcAuthorize: BcAuthorize
   challenge: Challenge
   listClients: ListClients
@@ -922,6 +952,7 @@ export type Implementation = {
   getWellKnownOAuthConfigurationCustomAs: GetWellKnownOAuthConfigurationCustomAs
   getWellKnownOpenIdConfigurationCustomAs: GetWellKnownOpenIdConfigurationCustomAs
   authorizeCustomAs: AuthorizeCustomAs
+  authorizeCustomAsWithPost: AuthorizeCustomAsWithPost
   bcAuthorizeCustomAs: BcAuthorizeCustomAs
   challengeCustomAs: ChallengeCustomAs
   deviceAuthorizeCustomAs: DeviceAuthorizeCustomAs
@@ -1058,6 +1089,52 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
+
+  const authorizeWithPostBodySchema = s_AuthorizeWithPost
+
+  const authorizeWithPostResponseValidator = responseValidationFactory(
+    [["429", s_Error]],
+    undefined,
+  )
+
+  router.post(
+    "authorizeWithPost",
+    "/oauth2/v1/authorize",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: undefined,
+        body: parseRequestInput(
+          authorizeWithPostBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .authorizeWithPost(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = authorizeWithPostResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
 
   const bcAuthorizeBodySchema = s_BackchannelAuthorizeRequest
 
@@ -2449,6 +2526,60 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = authorizeCustomAsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const authorizeCustomAsWithPostParamSchema = z.object({
+    authorizationServerId: z.string(),
+  })
+
+  const authorizeCustomAsWithPostBodySchema = s_AuthorizeWithPost
+
+  const authorizeCustomAsWithPostResponseValidator = responseValidationFactory(
+    [["429", s_Error]],
+    undefined,
+  )
+
+  router.post(
+    "authorizeCustomAsWithPost",
+    "/oauth2/:authorizationServerId/v1/authorize",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          authorizeCustomAsWithPostParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          authorizeCustomAsWithPostBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with429() {
+          return new KoaRuntimeResponse<t_Error>(429)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .authorizeCustomAsWithPost(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = authorizeCustomAsWithPostResponseValidator(status, body)
       ctx.status = status
       return next()
     },

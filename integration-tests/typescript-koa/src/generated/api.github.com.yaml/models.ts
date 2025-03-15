@@ -62,6 +62,42 @@ export type t_actions_get_default_workflow_permissions = {
   default_workflow_permissions: t_actions_default_workflow_permissions
 }
 
+export type t_actions_hosted_runner = {
+  id: number
+  image_details: t_nullable_actions_hosted_runner_pool_image
+  last_active_on?: string | null
+  machine_size_details: t_actions_hosted_runner_machine_spec
+  maximum_runners?: number
+  name: string
+  platform: string
+  public_ip_enabled: boolean
+  public_ips?: t_public_ip[]
+  runner_group_id?: number
+  status: "Ready" | "Provisioning" | "Shutdown" | "Deleting" | "Stuck"
+}
+
+export type t_actions_hosted_runner_image = {
+  display_name: string
+  id: string
+  platform: string
+  size_gb: number
+  source: "github" | "partner" | "custom"
+}
+
+export type t_actions_hosted_runner_limits = {
+  public_ips: {
+    current_usage: number
+    maximum: number
+  }
+}
+
+export type t_actions_hosted_runner_machine_spec = {
+  cpu_cores: number
+  id: string
+  memory_gb: number
+  storage_gb: number
+}
+
 export type t_actions_organization_permissions = {
   allowed_actions?: t_allowed_actions
   enabled_repositories: t_enabled_repositories
@@ -302,6 +338,7 @@ export type t_app_permissions = {
 export type t_artifact = {
   archive_download_url: string
   created_at: string | null
+  digest?: string | null
   expired: boolean
   expires_at: string | null
   id: number
@@ -390,6 +427,7 @@ export type t_autolink = {
 
 export type t_base_gist = {
   comments: number
+  comments_enabled?: boolean
   comments_url: string
   commits_url: string
   created_at: string
@@ -791,6 +829,7 @@ export type t_code_of_conduct_simple = {
 
 export type t_code_scanning_alert = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -813,6 +852,8 @@ export type t_code_scanning_alert_classification =
   | "test"
   | "library"
   | null
+
+export type t_code_scanning_alert_create_request = boolean
 
 export type t_code_scanning_alert_dismissed_comment = string | null
 
@@ -841,6 +882,7 @@ export type t_code_scanning_alert_instance = {
 
 export type t_code_scanning_alert_items = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -1027,6 +1069,7 @@ export type t_code_scanning_default_setup_update_response = {
 
 export type t_code_scanning_organization_alert_items = {
   created_at: t_alert_created_at
+  dismissal_approved_by?: t_nullable_simple_user
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
@@ -1158,6 +1201,7 @@ export type t_code_security_configuration = {
     runner_label?: string | null
     runner_type?: "standard" | "labeled" | "not_set" | null
   } | null
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   created_at?: string
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
@@ -1173,6 +1217,7 @@ export type t_code_security_configuration = {
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass_options?: {
     reviewers?: {
@@ -1180,6 +1225,7 @@ export type t_code_security_configuration = {
       reviewer_type: "TEAM" | "ROLE"
     }[]
   }
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -1790,10 +1836,10 @@ export type t_copilot_ide_code_completions = {
 export type t_copilot_organization_details = {
   cli?: "enabled" | "disabled" | "unconfigured"
   ide_chat?: "enabled" | "disabled" | "unconfigured"
-  plan_type?: "business" | "enterprise" | "unknown"
+  plan_type?: "business" | "enterprise"
   platform_chat?: "enabled" | "disabled" | "unconfigured"
-  public_code_suggestions: "allow" | "block" | "unconfigured" | "unknown"
-  seat_breakdown: t_copilot_seat_breakdown
+  public_code_suggestions: "allow" | "block" | "unconfigured"
+  seat_breakdown: t_copilot_organization_seat_breakdown
   seat_management_setting:
     | "assign_all"
     | "assign_selected"
@@ -1802,7 +1848,7 @@ export type t_copilot_organization_details = {
   [key: string]: unknown | undefined
 }
 
-export type t_copilot_seat_breakdown = {
+export type t_copilot_organization_seat_breakdown = {
   active_this_cycle?: number
   added_this_cycle?: number
   inactive_this_cycle?: number
@@ -1914,6 +1960,7 @@ export type t_dependabot_alert = {
   readonly dependency: {
     readonly manifest_path?: string
     package?: t_dependabot_alert_package
+    readonly relationship?: "unknown" | "direct" | "transitive" | null
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -1953,6 +2000,7 @@ export type t_dependabot_alert_security_advisory = {
     readonly name: string
   }[]
   readonly description: string
+  epss?: t_security_advisory_epss
   readonly ghsa_id: string
   readonly identifiers: {
     readonly type: "CVE" | "GHSA"
@@ -1984,6 +2032,7 @@ export type t_dependabot_alert_with_repository = {
   readonly dependency: {
     readonly manifest_path?: string
     package?: t_dependabot_alert_package
+    readonly relationship?: "unknown" | "direct" | "transitive" | null
     readonly scope?: "development" | "runtime" | null
   }
   dismissed_at: t_alert_dismissed_at
@@ -2229,6 +2278,7 @@ export type t_enterprise = {
 export type t_enterprise_team = {
   created_at: string
   group_id?: string | null
+  group_name?: string | null
   html_url: string
   id: number
   members_url: string
@@ -2543,6 +2593,7 @@ export type t_gist_history = {
 
 export type t_gist_simple = {
   comments?: number
+  comments_enabled?: boolean
   comments_url?: string
   commits_url?: string
   created_at?: string
@@ -2563,6 +2614,7 @@ export type t_gist_simple = {
   }
   fork_of?: {
     comments: number
+    comments_enabled?: boolean
     comments_url: string
     commits_url: string
     created_at: string
@@ -2647,7 +2699,7 @@ export type t_git_commit = {
     reason: string
     signature: string | null
     verified: boolean
-    verified_at?: string | null
+    verified_at: string | null
   }
 }
 
@@ -2720,10 +2772,7 @@ export type t_global_advisory = {
       }[]
     | null
   description: string | null
-  epss?: {
-    percentage?: number
-    percentile?: number
-  } | null
+  epss?: t_security_advisory_epss
   readonly ghsa_id: string
   readonly github_reviewed_at: string | null
   readonly html_url: string
@@ -2952,7 +3001,7 @@ export type t_integration = {
   installations_count?: number
   name: string
   node_id: string
-  owner: t_nullable_simple_user
+  owner: t_simple_user | t_enterprise
   pem?: string
   permissions: {
     checks?: string
@@ -3615,6 +3664,29 @@ export type t_moved_column_in_project_issue_event = {
   url: string
 }
 
+export type t_network_configuration = {
+  compute_service?: "none" | "actions" | "codespaces"
+  created_on: string | null
+  id: string
+  name: string
+  network_settings_ids?: string[]
+}
+
+export type t_network_settings = {
+  id: string
+  name: string
+  network_configuration_id?: string
+  region: string
+  subnet_id: string
+}
+
+export type t_nullable_actions_hosted_runner_pool_image = {
+  display_name: string
+  id: string
+  size_gb: number
+  source: "github" | "partner" | "custom"
+} | null
+
 export type t_nullable_alert_updated_at = string | null
 
 export type t_nullable_code_of_conduct_simple = {
@@ -3689,7 +3761,7 @@ export type t_nullable_integration = {
   installations_count?: number
   name: string
   node_id: string
-  owner: t_nullable_simple_user
+  owner: t_simple_user | t_enterprise
   pem?: string
   permissions: {
     checks?: string
@@ -4319,6 +4391,7 @@ export type t_organization_role = {
 export type t_organization_secret_scanning_alert = {
   created_at?: t_alert_created_at
   html_url?: t_alert_html_url
+  is_base64_encoded?: boolean | null
   locations_url?: string
   multi_repo?: boolean | null
   number?: t_alert_number
@@ -4782,6 +4855,12 @@ export type t_protected_branch_required_status_check = {
   enforcement_level?: string
   strict?: boolean
   url?: string
+}
+
+export type t_public_ip = {
+  enabled?: boolean
+  length?: number
+  prefix?: string
 }
 
 export type t_public_user = {
@@ -6007,8 +6086,22 @@ export type t_rule_suites = {
   result?: "pass" | "fail" | "bypass"
 }[]
 
+export type t_ruleset_version = {
+  actor: {
+    id?: number
+    type?: string
+  }
+  updated_at: string
+  version_id: number
+}
+
+export type t_ruleset_version_with_state = t_ruleset_version & {
+  state: EmptyObject
+}
+
 export type t_runner = {
   busy: boolean
+  ephemeral?: boolean
   id: number
   labels: t_runner_label[]
   name: string
@@ -6034,6 +6127,7 @@ export type t_runner_groups_org = {
   inherited: boolean
   inherited_allows_public_repositories?: boolean
   name: string
+  network_configuration_id?: string
   restricted_to_workflows?: boolean
   runners_url: string
   selected_repositories_url?: string
@@ -6071,6 +6165,7 @@ export type t_search_result_text_matches = {
 export type t_secret_scanning_alert = {
   created_at?: t_alert_created_at
   html_url?: t_alert_html_url
+  is_base64_encoded?: boolean | null
   locations_url?: string
   multi_repo?: boolean | null
   number?: t_alert_number
@@ -6262,6 +6357,11 @@ export type t_security_advisory_ecosystems =
   | "other"
   | "swift"
 
+export type t_security_advisory_epss = {
+  percentage?: number
+  percentile?: number
+} | null
+
 export type t_security_and_analysis = {
   advanced_security?: {
     status?: "enabled" | "disabled"
@@ -6305,42 +6405,6 @@ export type t_short_branch = {
   protected: boolean
   protection?: t_branch_protection
   protection_url?: string
-}
-
-export type t_sigstore_bundle_0 = {
-  dsseEnvelope?: {
-    payload?: string
-    payloadType?: string
-    signatures?: {
-      keyid?: string
-      sig?: string
-    }[]
-  }
-  mediaType?: string
-  verificationMaterial?: {
-    timestampVerificationData?: string | null
-    tlogEntries?: {
-      canonicalizedBody?: string
-      inclusionPromise?: {
-        signedEntryTimestamp?: string
-      }
-      inclusionProof?: string | null
-      integratedTime?: string
-      kindVersion?: {
-        kind?: string
-        version?: string
-      }
-      logId?: {
-        keyId?: string
-      }
-      logIndex?: string
-    }[]
-    x509CertificateChain?: {
-      certificates?: {
-        rawBytes?: string
-      }[]
-    }
-  }
 }
 
 export type t_simple_classroom = {
@@ -6988,7 +7052,7 @@ export type t_timeline_committed_event = {
     reason: string
     signature: string | null
     verified: boolean
-    verified_at?: string | null
+    verified_at: string | null
   }
 }
 
@@ -7247,7 +7311,7 @@ export type t_verification = {
   reason: string
   signature: string | null
   verified: boolean
-  verified_at?: string | null
+  verified_at: string | null
 }
 
 export type t_view_traffic = {
@@ -7451,6 +7515,22 @@ export type t_ActionsCreateEnvironmentVariableParamSchema = {
   repo: string
 }
 
+export type t_ActionsCreateHostedRunnerForOrgBodySchema = {
+  enable_static_ip?: boolean
+  image: {
+    id?: string
+    source?: "github" | "partner" | "custom"
+  }
+  maximum_runners?: number
+  name: string
+  runner_group_id: number
+  size: string
+}
+
+export type t_ActionsCreateHostedRunnerForOrgParamSchema = {
+  org: string
+}
+
 export type t_ActionsCreateOrUpdateEnvironmentSecretBodySchema = {
   encrypted_value: string
   key_id: string
@@ -7464,8 +7544,8 @@ export type t_ActionsCreateOrUpdateEnvironmentSecretParamSchema = {
 }
 
 export type t_ActionsCreateOrUpdateOrgSecretBodySchema = {
-  encrypted_value?: string
-  key_id?: string
+  encrypted_value: string
+  key_id: string
   selected_repository_ids?: number[]
   visibility: "all" | "private" | "selected"
 }
@@ -7476,8 +7556,8 @@ export type t_ActionsCreateOrUpdateOrgSecretParamSchema = {
 }
 
 export type t_ActionsCreateOrUpdateRepoSecretBodySchema = {
-  encrypted_value?: string
-  key_id?: string
+  encrypted_value: string
+  key_id: string
 }
 
 export type t_ActionsCreateOrUpdateRepoSecretParamSchema = {
@@ -7528,6 +7608,7 @@ export type t_ActionsCreateRepoVariableParamSchema = {
 export type t_ActionsCreateSelfHostedRunnerGroupForOrgBodySchema = {
   allows_public_repositories?: boolean
   name: string
+  network_configuration_id?: string
   restricted_to_workflows?: boolean
   runners?: number[]
   selected_repository_ids?: number[]
@@ -7586,6 +7667,11 @@ export type t_ActionsDeleteEnvironmentVariableParamSchema = {
   name: string
   owner: string
   repo: string
+}
+
+export type t_ActionsDeleteHostedRunnerForOrgParamSchema = {
+  hosted_runner_id: number
+  org: string
 }
 
 export type t_ActionsDeleteOrgSecretParamSchema = {
@@ -7809,6 +7895,31 @@ export type t_ActionsGetGithubActionsPermissionsRepositoryParamSchema = {
   repo: string
 }
 
+export type t_ActionsGetHostedRunnerForOrgParamSchema = {
+  hosted_runner_id: number
+  org: string
+}
+
+export type t_ActionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsGetHostedRunnersLimitsForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsGetHostedRunnersMachineSpecsForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsGetHostedRunnersPartnerImagesForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsGetHostedRunnersPlatformsForOrgParamSchema = {
+  org: string
+}
+
 export type t_ActionsGetJobForWorkflowRunParamSchema = {
   job_id: number
   owner: string
@@ -7947,6 +8058,25 @@ export type t_ActionsListEnvironmentVariablesParamSchema = {
 }
 
 export type t_ActionsListEnvironmentVariablesQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ActionsListGithubHostedRunnersInGroupForOrgParamSchema = {
+  org: string
+  runner_group_id: number
+}
+
+export type t_ActionsListGithubHostedRunnersInGroupForOrgQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ActionsListHostedRunnersForOrgParamSchema = {
+  org: string
+}
+
+export type t_ActionsListHostedRunnersForOrgQuerySchema = {
   page?: number
   per_page?: number
 }
@@ -8483,6 +8613,18 @@ export type t_ActionsUpdateEnvironmentVariableParamSchema = {
   repo: string
 }
 
+export type t_ActionsUpdateHostedRunnerForOrgBodySchema = {
+  enable_static_ip?: boolean
+  maximum_runners?: number
+  name?: string
+  runner_group_id?: number
+}
+
+export type t_ActionsUpdateHostedRunnerForOrgParamSchema = {
+  hosted_runner_id: number
+  org: string
+}
+
 export type t_ActionsUpdateOrgVariableBodySchema = {
   name?: string
   selected_repository_ids?: number[]
@@ -8509,6 +8651,7 @@ export type t_ActionsUpdateRepoVariableParamSchema = {
 export type t_ActionsUpdateSelfHostedRunnerGroupForOrgBodySchema = {
   allows_public_repositories?: boolean
   name: string
+  network_configuration_id?: string | null
   restricted_to_workflows?: boolean
   selected_workflows?: string[]
   visibility?: "selected" | "all" | "private"
@@ -9497,6 +9640,7 @@ export type t_CodeScanningListRecentAnalysesQuerySchema = {
 }
 
 export type t_CodeScanningUpdateAlertBodySchema = {
+  create_request?: t_code_scanning_alert_create_request
   dismissed_comment?: t_code_scanning_alert_dismissed_comment
   dismissed_reason?: t_code_scanning_alert_dismissed_reason
   state: t_code_scanning_alert_set_state
@@ -9574,6 +9718,7 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   advanced_security?: "enabled" | "disabled"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9586,6 +9731,7 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
   name: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass_options?: {
     reviewers?: {
@@ -9593,6 +9739,7 @@ export type t_CodeSecurityCreateConfigurationBodySchema = {
       reviewer_type: "TEAM" | "ROLE"
     }[]
   }
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -9606,6 +9753,7 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseBodySchema = {
   advanced_security?: "enabled" | "disabled"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9618,6 +9766,8 @@ export type t_CodeSecurityCreateConfigurationForEnterpriseBodySchema = {
   name: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -9737,6 +9887,7 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   advanced_security?: "enabled" | "disabled"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9749,6 +9900,7 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
   secret_scanning_delegated_bypass_options?: {
     reviewers?: {
@@ -9756,6 +9908,7 @@ export type t_CodeSecurityUpdateConfigurationBodySchema = {
       reviewer_type: "TEAM" | "ROLE"
     }[]
   }
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -9770,6 +9923,7 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationBodySchema = {
   advanced_security?: "enabled" | "disabled"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+  code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
   dependabot_alerts?: "enabled" | "disabled" | "not_set"
   dependabot_security_updates?: "enabled" | "disabled" | "not_set"
   dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -9782,6 +9936,8 @@ export type t_CodeSecurityUpdateEnterpriseConfigurationBodySchema = {
   name?: string
   private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
   secret_scanning?: "enabled" | "disabled" | "not_set"
+  secret_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
+  secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
   secret_scanning_non_provider_patterns?: "enabled" | "disabled" | "not_set"
   secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
   secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
@@ -10354,13 +10510,14 @@ export type t_DependabotListAlertsForEnterpriseQuerySchema = {
   before?: string
   direction?: "asc" | "desc"
   ecosystem?: string
+  epss_percentage?: string
   first?: number
   last?: number
   package?: string
   per_page?: number
   scope?: "development" | "runtime"
   severity?: string
-  sort?: "created" | "updated"
+  sort?: "created" | "updated" | "epss_percentage"
   state?: string
 }
 
@@ -10373,13 +10530,14 @@ export type t_DependabotListAlertsForOrgQuerySchema = {
   before?: string
   direction?: "asc" | "desc"
   ecosystem?: string
+  epss_percentage?: string
   first?: number
   last?: number
   package?: string
   per_page?: number
   scope?: "development" | "runtime"
   severity?: string
-  sort?: "created" | "updated"
+  sort?: "created" | "updated" | "epss_percentage"
   state?: string
 }
 
@@ -10393,6 +10551,7 @@ export type t_DependabotListAlertsForRepoQuerySchema = {
   before?: string
   direction?: "asc" | "desc"
   ecosystem?: string
+  epss_percentage?: string
   first?: number
   last?: number
   manifest?: string
@@ -10401,7 +10560,7 @@ export type t_DependabotListAlertsForRepoQuerySchema = {
   per_page?: number
   scope?: "development" | "runtime"
   severity?: string
-  sort?: "created" | "updated"
+  sort?: "created" | "updated" | "epss_percentage"
   state?: string
 }
 
@@ -10780,6 +10939,51 @@ export type t_GitUpdateRefParamSchema = {
 
 export type t_GitignoreGetTemplateParamSchema = {
   name: string
+}
+
+export type t_HostedComputeCreateNetworkConfigurationForOrgBodySchema = {
+  compute_service?: "none" | "actions"
+  name: string
+  network_settings_ids: string[]
+}
+
+export type t_HostedComputeCreateNetworkConfigurationForOrgParamSchema = {
+  org: string
+}
+
+export type t_HostedComputeDeleteNetworkConfigurationFromOrgParamSchema = {
+  network_configuration_id: string
+  org: string
+}
+
+export type t_HostedComputeGetNetworkConfigurationForOrgParamSchema = {
+  network_configuration_id: string
+  org: string
+}
+
+export type t_HostedComputeGetNetworkSettingsForOrgParamSchema = {
+  network_settings_id: string
+  org: string
+}
+
+export type t_HostedComputeListNetworkConfigurationsForOrgParamSchema = {
+  org: string
+}
+
+export type t_HostedComputeListNetworkConfigurationsForOrgQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_HostedComputeUpdateNetworkConfigurationForOrgBodySchema = {
+  compute_service?: "none" | "actions"
+  name?: string
+  network_settings_ids?: string[]
+}
+
+export type t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema = {
+  network_configuration_id: string
+  org: string
 }
 
 export type t_InteractionsGetRestrictionsForOrgParamSchema = {
@@ -11690,6 +11894,22 @@ export type t_OrgsGetOrgRoleParamSchema = {
   role_id: number
 }
 
+export type t_OrgsGetOrgRulesetHistoryParamSchema = {
+  org: string
+  ruleset_id: number
+}
+
+export type t_OrgsGetOrgRulesetHistoryQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_OrgsGetOrgRulesetVersionParamSchema = {
+  org: string
+  ruleset_id: number
+  version_id: number
+}
+
 export type t_OrgsGetWebhookParamSchema = {
   hook_id: number
   org: string
@@ -11729,6 +11949,7 @@ export type t_OrgsListAttestationsQuerySchema = {
   after?: string
   before?: string
   per_page?: number
+  predicate_type?: string
 }
 
 export type t_OrgsListBlockedUsersParamSchema = {
@@ -11868,6 +12089,7 @@ export type t_OrgsListPatGrantRequestsQuerySchema = {
   permission?: string
   repository?: string
   sort?: "created_at"
+  token_id?: string[]
 }
 
 export type t_OrgsListPatGrantsParamSchema = {
@@ -11884,6 +12106,7 @@ export type t_OrgsListPatGrantsQuerySchema = {
   permission?: string
   repository?: string
   sort?: "created_at"
+  token_id?: string[]
 }
 
 export type t_OrgsListPendingInvitationsParamSchema = {
@@ -14291,6 +14514,24 @@ export type t_ReposGetRepoRulesetQuerySchema = {
   includes_parents?: boolean
 }
 
+export type t_ReposGetRepoRulesetHistoryParamSchema = {
+  owner: string
+  repo: string
+  ruleset_id: number
+}
+
+export type t_ReposGetRepoRulesetHistoryQuerySchema = {
+  page?: number
+  per_page?: number
+}
+
+export type t_ReposGetRepoRulesetVersionParamSchema = {
+  owner: string
+  repo: string
+  ruleset_id: number
+  version_id: number
+}
+
 export type t_ReposGetRepoRulesetsParamSchema = {
   owner: string
   repo: string
@@ -14391,6 +14632,7 @@ export type t_ReposListAttestationsQuerySchema = {
   after?: string
   before?: string
   per_page?: number
+  predicate_type?: string
 }
 
 export type t_ReposListAutolinksParamSchema = {
@@ -15180,6 +15422,7 @@ export type t_SearchCommitsQuerySchema = {
 }
 
 export type t_SearchIssuesAndPullRequestsQuerySchema = {
+  advanced_search?: string
   order?: "desc" | "asc"
   page?: number
   per_page?: number
@@ -16092,6 +16335,7 @@ export type t_UsersListAttestationsQuerySchema = {
   after?: string
   before?: string
   per_page?: number
+  predicate_type?: string
 }
 
 export type t_UsersListBlockedByAuthenticatedUserQuerySchema = {

@@ -18,6 +18,7 @@ import {
   t_PushNotificationVerification,
   t_Schema,
   t_UpdateAppAuthenticatorEnrollmentRequest,
+  t_UpdateAuthenticatorEnrollmentRequest,
 } from "./models"
 import {
   AbstractAxiosClient,
@@ -248,6 +249,32 @@ export class MyAccountManagement extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async updateEnrollment(
+    p: {
+      authenticatorId: string
+      enrollmentId: string
+      requestBody: t_UpdateAuthenticatorEnrollmentRequest
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_AuthenticatorEnrollment>> {
+    const url = `/idp/myaccount/authenticators/${p["authenticatorId"]}/enrollments/${p["enrollmentId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/merge-patch+json;okta-version=1.0.0" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
