@@ -112,6 +112,7 @@ export type t_account_capabilities = {
   naver_pay_payments?: ("active" | "inactive" | "pending") | undefined
   oxxo_payments?: ("active" | "inactive" | "pending") | undefined
   p24_payments?: ("active" | "inactive" | "pending") | undefined
+  pay_by_bank_payments?: ("active" | "inactive" | "pending") | undefined
   payco_payments?: ("active" | "inactive" | "pending") | undefined
   paynow_payments?: ("active" | "inactive" | "pending") | undefined
   promptpay_payments?: ("active" | "inactive" | "pending") | undefined
@@ -256,8 +257,6 @@ export type t_account_payments_settings = {
   statement_descriptor?: (string | null) | undefined
   statement_descriptor_kana?: (string | null) | undefined
   statement_descriptor_kanji?: (string | null) | undefined
-  statement_descriptor_prefix_kana?: (string | null) | undefined
-  statement_descriptor_prefix_kanji?: (string | null) | undefined
 }
 
 export type t_account_payout_settings = {
@@ -481,6 +480,7 @@ export type t_amazon_pay_underlying_payment_method_funding_details = {
 }
 
 export type t_api_errors = {
+  advice_code?: string | undefined
   charge?: string | undefined
   code?: string | undefined
   decline_code?: string | undefined
@@ -836,6 +836,7 @@ export type t_billing_credit_grant = {
   }
   name?: (string | null) | undefined
   object: "billing.credit_grant"
+  priority?: (number | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   updated: number
   voided_at?: (number | null) | undefined
@@ -912,6 +913,10 @@ export type t_billing_credit_grants_resource_applicability_config = {
   scope: t_billing_credit_grants_resource_scope
 }
 
+export type t_billing_credit_grants_resource_applicable_price = {
+  id?: (string | null) | undefined
+}
+
 export type t_billing_credit_grants_resource_balance_credit = {
   amount: t_billing_credit_grants_resource_amount
   credits_application_invoice_voided?:
@@ -945,7 +950,8 @@ export type t_billing_credit_grants_resource_monetary_amount = {
 }
 
 export type t_billing_credit_grants_resource_scope = {
-  price_type: "metered"
+  price_type?: "metered" | undefined
+  prices?: t_billing_credit_grants_resource_applicable_price[] | undefined
 }
 
 export type t_billing_details = {
@@ -1223,6 +1229,9 @@ export type t_charge_fraud_details = {
 }
 
 export type t_charge_outcome = {
+  advice_code?:
+    | ("confirm_card_data" | "do_not_try_again" | "try_again_later" | null)
+    | undefined
   network_advice_code?: (string | null) | undefined
   network_decline_code?: (string | null) | undefined
   network_status?: (string | null) | undefined
@@ -1254,6 +1263,9 @@ export type t_checkout_session = {
   cancel_url?: (string | null) | undefined
   client_reference_id?: (string | null) | undefined
   client_secret?: (string | null) | undefined
+  collected_information?:
+    | (t_payment_pages_checkout_session_collected_information | null)
+    | undefined
   consent?: (t_payment_pages_checkout_session_consent | null) | undefined
   consent_collection?:
     | (t_payment_pages_checkout_session_consent_collection | null)
@@ -1271,6 +1283,7 @@ export type t_checkout_session = {
     | (t_payment_pages_checkout_session_customer_details | null)
     | undefined
   customer_email?: (string | null) | undefined
+  discounts?: (t_payment_pages_checkout_session_discount[] | null) | undefined
   expires_at: number
   id: string
   invoice?: (string | t_invoice | null) | undefined
@@ -1396,6 +1409,7 @@ export type t_checkout_acss_debit_payment_method_options = {
   currency?: ("cad" | "usd") | undefined
   mandate_options?: t_checkout_acss_debit_mandate_options | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
   verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
 }
 
@@ -1417,6 +1431,7 @@ export type t_checkout_amazon_pay_payment_method_options = {
 
 export type t_checkout_au_becs_debit_payment_method_options = {
   setup_future_usage?: "none" | undefined
+  target_date?: string | undefined
 }
 
 export type t_checkout_bacs_debit_payment_method_options = {
@@ -1424,6 +1439,7 @@ export type t_checkout_bacs_debit_payment_method_options = {
     | t_checkout_payment_method_options_mandate_options_bacs_debit
     | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
 }
 
 export type t_checkout_bancontact_payment_method_options = {
@@ -1446,6 +1462,9 @@ export type t_checkout_card_payment_method_options = {
   request_multicapture?: ("if_available" | "never") | undefined
   request_overcapture?: ("if_available" | "never") | undefined
   request_three_d_secure: "any" | "automatic" | "challenge"
+  restrictions?:
+    | t_payment_pages_private_card_payment_method_options_resource_restrictions
+    | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
   statement_descriptor_suffix_kana?: string | undefined
   statement_descriptor_suffix_kanji?: string | undefined
@@ -1586,6 +1605,7 @@ export type t_checkout_sepa_debit_payment_method_options = {
     | t_checkout_payment_method_options_mandate_options_sepa_debit
     | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
 }
 
 export type t_checkout_session_payment_method_options = {
@@ -1645,6 +1665,7 @@ export type t_checkout_swish_payment_method_options = {
 export type t_checkout_us_bank_account_payment_method_options = {
   financial_connections?: t_linked_account_options_us_bank_account | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
   verification_method?: ("automatic" | "instant") | undefined
 }
 
@@ -1817,6 +1838,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   naver_pay?: t_payment_method_naver_pay | undefined
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
+  pay_by_bank?: t_payment_method_pay_by_bank | undefined
   payco?: t_payment_method_payco | undefined
   paynow?: t_payment_method_paynow | undefined
   paypal?: t_payment_method_paypal | undefined
@@ -1860,6 +1882,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -1912,12 +1935,16 @@ export type t_connect_embedded_account_features_claim = {
 export type t_connect_embedded_account_session_create_components = {
   account_management: t_connect_embedded_account_config_claim
   account_onboarding: t_connect_embedded_account_config_claim
-  balances: t_connect_embedded_payouts_config_claim
+  balances: t_connect_embedded_payouts_config
   documents: t_connect_embedded_base_config_claim
+  financial_account: t_connect_embedded_financial_account_config_claim
+  financial_account_transactions: t_connect_embedded_financial_account_transactions_config_claim
+  issuing_card: t_connect_embedded_issuing_card_config_claim
+  issuing_cards_list: t_connect_embedded_issuing_cards_list_config_claim
   notification_banner: t_connect_embedded_account_config_claim
   payment_details: t_connect_embedded_payments_config_claim
   payments: t_connect_embedded_payments_config_claim
-  payouts: t_connect_embedded_payouts_config_claim
+  payouts: t_connect_embedded_payouts_config
   payouts_list: t_connect_embedded_base_config_claim
   tax_registrations: t_connect_embedded_base_config_claim
   tax_settings: t_connect_embedded_base_config_claim
@@ -1929,6 +1956,52 @@ export type t_connect_embedded_base_config_claim = {
 }
 
 export type t_connect_embedded_base_features = EmptyObject
+
+export type t_connect_embedded_financial_account_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_financial_account_features
+}
+
+export type t_connect_embedded_financial_account_features = {
+  disable_stripe_user_authentication: boolean
+  external_account_collection: boolean
+  send_money: boolean
+  transfer_balance: boolean
+}
+
+export type t_connect_embedded_financial_account_transactions_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_financial_account_transactions_features
+}
+
+export type t_connect_embedded_financial_account_transactions_features = {
+  card_spend_dispute_management: boolean
+}
+
+export type t_connect_embedded_issuing_card_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_issuing_card_features
+}
+
+export type t_connect_embedded_issuing_card_features = {
+  card_management: boolean
+  card_spend_dispute_management: boolean
+  cardholder_management: boolean
+  spend_control_management: boolean
+}
+
+export type t_connect_embedded_issuing_cards_list_config_claim = {
+  enabled: boolean
+  features: t_connect_embedded_issuing_cards_list_features
+}
+
+export type t_connect_embedded_issuing_cards_list_features = {
+  card_management: boolean
+  card_spend_dispute_management: boolean
+  cardholder_management: boolean
+  disable_stripe_user_authentication: boolean
+  spend_control_management: boolean
+}
 
 export type t_connect_embedded_payments_config_claim = {
   enabled: boolean
@@ -1942,7 +2015,7 @@ export type t_connect_embedded_payments_features = {
   refund_management: boolean
 }
 
-export type t_connect_embedded_payouts_config_claim = {
+export type t_connect_embedded_payouts_config = {
   enabled: boolean
   features: t_connect_embedded_payouts_features
 }
@@ -2050,7 +2123,7 @@ export type t_credit_note = {
   object: "credit_note"
   out_of_band_amount?: (number | null) | undefined
   pdf: string
-  pretax_credit_amounts?: t_credit_notes_pretax_credit_amount[] | undefined
+  pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   reason?:
     | (
         | "duplicate"
@@ -2082,7 +2155,7 @@ export type t_credit_note_line_item = {
   invoice_line_item?: string | undefined
   livemode: boolean
   object: "credit_note_line_item"
-  pretax_credit_amounts?: t_credit_notes_pretax_credit_amount[] | undefined
+  pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: (number | null) | undefined
   tax_amounts: t_credit_note_tax_amount[]
   tax_rates: t_tax_rate[]
@@ -3687,6 +3760,10 @@ export type t_invoice_rendering_template = {
   version: number
 }
 
+export type t_invoice_setting_checkout_rendering_options = {
+  amount_tax_display?: (string | null) | undefined
+}
+
 export type t_invoice_setting_custom_field = {
   name: string
   value: string
@@ -3709,10 +3786,6 @@ export type t_invoice_setting_customer_setting = {
 export type t_invoice_setting_quote_setting = {
   days_until_due?: (number | null) | undefined
   issuer: t_connect_account_reference
-}
-
-export type t_invoice_setting_rendering_options = {
-  amount_tax_display?: (string | null) | undefined
 }
 
 export type t_invoice_setting_subscription_schedule_phase_setting = {
@@ -6770,6 +6843,9 @@ export type t_legal_entity_company = {
   address_kana?: (t_legal_entity_japan_address | null) | undefined
   address_kanji?: (t_legal_entity_japan_address | null) | undefined
   directors_provided?: boolean | undefined
+  directorship_declaration?:
+    | (t_legal_entity_directorship_declaration | null)
+    | undefined
   executives_provided?: boolean | undefined
   export_license_id?: string | undefined
   export_purpose_code?: string | undefined
@@ -6778,6 +6854,12 @@ export type t_legal_entity_company = {
   name_kanji?: (string | null) | undefined
   owners_provided?: boolean | undefined
   ownership_declaration?: (t_legal_entity_ubo_declaration | null) | undefined
+  ownership_exemption_reason?:
+    | (
+        | "qualified_entity_exceeds_ownership_threshold"
+        | "qualifies_as_financial_institution"
+      )
+    | undefined
   phone?: (string | null) | undefined
   structure?:
     | (
@@ -6821,6 +6903,12 @@ export type t_legal_entity_company_verification_document = {
   details?: (string | null) | undefined
   details_code?: (string | null) | undefined
   front?: (string | t_file | null) | undefined
+}
+
+export type t_legal_entity_directorship_declaration = {
+  date?: (number | null) | undefined
+  ip?: (string | null) | undefined
+  user_agent?: (string | null) | undefined
 }
 
 export type t_legal_entity_dob = {
@@ -7086,10 +7174,18 @@ export type t_outbound_payments_payment_method_details_us_bank_account = {
 
 export type t_outbound_transfers_payment_method_details = {
   billing_details: t_treasury_shared_resource_billing_details
-  type: "us_bank_account"
+  financial_account?:
+    | t_outbound_transfers_payment_method_details_financial_account
+    | undefined
+  type: "financial_account" | "us_bank_account"
   us_bank_account?:
     | t_outbound_transfers_payment_method_details_us_bank_account
     | undefined
+}
+
+export type t_outbound_transfers_payment_method_details_financial_account = {
+  id: string
+  network: "stripe"
 }
 
 export type t_outbound_transfers_payment_method_details_us_bank_account = {
@@ -7683,6 +7779,12 @@ export type t_payment_intent_payment_method_options = {
         | t_payment_intent_type_specific_payment_method_options_client
       )
     | undefined
+  pay_by_bank?:
+    | (
+        | t_payment_method_options_pay_by_bank
+        | t_payment_intent_type_specific_payment_method_options_client
+      )
+    | undefined
   payco?:
     | (
         | t_payment_flows_private_payment_methods_payco_payment_method_options
@@ -7774,11 +7876,13 @@ export type t_payment_intent_payment_method_options_acss_debit = {
     | t_payment_intent_payment_method_options_mandate_options_acss_debit
     | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
   verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
 }
 
 export type t_payment_intent_payment_method_options_au_becs_debit = {
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_bacs_debit = {
@@ -7786,6 +7890,7 @@ export type t_payment_intent_payment_method_options_bacs_debit = {
     | t_payment_intent_payment_method_options_mandate_options_bacs_debit
     | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_blik = {
@@ -7866,6 +7971,7 @@ export type t_payment_intent_payment_method_options_sepa_debit = {
     | t_payment_intent_payment_method_options_mandate_options_sepa_debit
     | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_swish = {
@@ -7880,6 +7986,7 @@ export type t_payment_intent_payment_method_options_us_bank_account = {
     | undefined
   preferred_settlement_speed?: ("fastest" | "standard") | undefined
   setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  target_date?: string | undefined
   verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
 }
 
@@ -7970,6 +8077,7 @@ export type t_payment_link = {
             | "multibanco"
             | "oxxo"
             | "p24"
+            | "pay_by_bank"
             | "paynow"
             | "paypal"
             | "pix"
@@ -8103,7 +8211,9 @@ export type t_payment_links_resource_invoice_settings = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  rendering_options?: (t_invoice_setting_rendering_options | null) | undefined
+  rendering_options?:
+    | (t_invoice_setting_checkout_rendering_options | null)
+    | undefined
 }
 
 export type t_payment_links_resource_payment_intent_data = {
@@ -8318,6 +8428,7 @@ export type t_payment_links_resource_shipping_address_collection = {
     | "SA"
     | "SB"
     | "SC"
+    | "SD"
     | "SE"
     | "SG"
     | "SH"
@@ -8449,6 +8560,7 @@ export type t_payment_method = {
   object: "payment_method"
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
+  pay_by_bank?: t_payment_method_pay_by_bank | undefined
   payco?: t_payment_method_payco | undefined
   paynow?: t_payment_method_paynow | undefined
   paypal?: t_payment_method_paypal | undefined
@@ -8493,6 +8605,7 @@ export type t_payment_method = {
     | "naver_pay"
     | "oxxo"
     | "p24"
+    | "pay_by_bank"
     | "payco"
     | "paynow"
     | "paypal"
@@ -8759,6 +8872,9 @@ export type t_payment_method_configuration = {
   oxxo?: t_payment_method_config_resource_payment_method_properties | undefined
   p24?: t_payment_method_config_resource_payment_method_properties | undefined
   parent?: (string | null) | undefined
+  pay_by_bank?:
+    | t_payment_method_config_resource_payment_method_properties
+    | undefined
   paynow?:
     | t_payment_method_config_resource_payment_method_properties
     | undefined
@@ -8824,6 +8940,7 @@ export type t_payment_method_details = {
   naver_pay?: t_payment_method_details_naver_pay | undefined
   oxxo?: t_payment_method_details_oxxo | undefined
   p24?: t_payment_method_details_p24 | undefined
+  pay_by_bank?: t_payment_method_details_pay_by_bank | undefined
   payco?: t_payment_method_details_payco | undefined
   paynow?: t_payment_method_details_paynow | undefined
   paypal?: t_payment_method_details_paypal | undefined
@@ -9366,6 +9483,8 @@ export type t_payment_method_details_passthrough_card = {
   last4?: (string | null) | undefined
 }
 
+export type t_payment_method_details_pay_by_bank = EmptyObject
+
 export type t_payment_method_details_payco = {
   buyer_id?: (string | null) | undefined
 }
@@ -9375,6 +9494,7 @@ export type t_payment_method_details_paynow = {
 }
 
 export type t_payment_method_details_paypal = {
+  country?: (string | null) | undefined
   payer_email?: (string | null) | undefined
   payer_id?: (string | null) | undefined
   payer_name?: (string | null) | undefined
@@ -9815,6 +9935,8 @@ export type t_payment_method_options_p24 = {
   setup_future_usage?: "none" | undefined
 }
 
+export type t_payment_method_options_pay_by_bank = EmptyObject
+
 export type t_payment_method_options_paynow = {
   setup_future_usage?: "none" | undefined
 }
@@ -9902,11 +10024,14 @@ export type t_payment_method_p24 = {
     | undefined
 }
 
+export type t_payment_method_pay_by_bank = EmptyObject
+
 export type t_payment_method_payco = EmptyObject
 
 export type t_payment_method_paynow = EmptyObject
 
 export type t_payment_method_paypal = {
+  country?: (string | null) | undefined
   payer_email?: (string | null) | undefined
   payer_id?: (string | null) | undefined
 }
@@ -10014,6 +10139,10 @@ export type t_payment_pages_checkout_session_automatic_tax = {
     | undefined
 }
 
+export type t_payment_pages_checkout_session_collected_information = {
+  shipping_details?: (t_shipping | null) | undefined
+}
+
 export type t_payment_pages_checkout_session_consent = {
   promotions?: ("opt_in" | "opt_out" | null) | undefined
   terms_of_service?: ("accepted" | null) | undefined
@@ -10102,6 +10231,11 @@ export type t_payment_pages_checkout_session_customer_details = {
   tax_ids?: (t_payment_pages_checkout_session_tax_id[] | null) | undefined
 }
 
+export type t_payment_pages_checkout_session_discount = {
+  coupon?: (string | t_coupon | null) | undefined
+  promotion_code?: (string | t_promotion_code | null) | undefined
+}
+
 export type t_payment_pages_checkout_session_invoice_creation = {
   enabled: boolean
   invoice_data: t_payment_pages_checkout_session_invoice_settings
@@ -10120,7 +10254,9 @@ export type t_payment_pages_checkout_session_invoice_settings = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  rendering_options?: (t_invoice_setting_rendering_options | null) | undefined
+  rendering_options?:
+    | (t_invoice_setting_checkout_rendering_options | null)
+    | undefined
 }
 
 export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
@@ -10325,6 +10461,7 @@ export type t_payment_pages_checkout_session_shipping_address_collection = {
     | "SA"
     | "SB"
     | "SC"
+    | "SD"
     | "SE"
     | "SG"
     | "SH"
@@ -10518,6 +10655,18 @@ export type t_payment_pages_checkout_session_total_details_resource_breakdown =
   {
     discounts: t_line_items_discount_amount[]
     taxes: t_line_items_tax_amount[]
+  }
+
+export type t_payment_pages_private_card_payment_method_options_resource_restrictions =
+  {
+    brands_blocked?:
+      | (
+          | "american_express"
+          | "discover_global_network"
+          | "mastercard"
+          | "visa"
+        )[]
+      | undefined
   }
 
 export type t_payment_source = t_account | t_bank_account | t_card | t_source
@@ -13606,6 +13755,9 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   hkd?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
+  jpy?:
+    | t_terminal_configuration_configuration_resource_currency_specific_config
+    | undefined
   myr?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
@@ -13979,12 +14131,14 @@ export type t_treasury_financial_account = {
   features?: t_treasury_financial_account_features | undefined
   financial_addresses: t_treasury_financial_accounts_resource_financial_address[]
   id: string
+  is_default?: boolean | undefined
   livemode: boolean
   metadata?:
     | ({
         [key: string]: string | undefined
       } | null)
     | undefined
+  nickname?: (string | null) | undefined
   object: "treasury.financial_account"
   pending_features?:
     | (
@@ -14548,8 +14702,14 @@ export type t_treasury_received_credits_resource_reversal_details = {
 export type t_treasury_received_credits_resource_source_flows_details = {
   credit_reversal?: t_treasury_credit_reversal | undefined
   outbound_payment?: t_treasury_outbound_payment | undefined
+  outbound_transfer?: t_treasury_outbound_transfer | undefined
   payout?: t_payout | undefined
-  type: "credit_reversal" | "other" | "outbound_payment" | "payout"
+  type:
+    | "credit_reversal"
+    | "other"
+    | "outbound_payment"
+    | "outbound_transfer"
+    | "payout"
 }
 
 export type t_treasury_received_credits_resource_status_transitions = {

@@ -10,6 +10,10 @@ import {
   t_actions_cache_usage_org_enterprise,
   t_actions_enabled,
   t_actions_get_default_workflow_permissions,
+  t_actions_hosted_runner,
+  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_limits,
+  t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
   t_actions_public_key,
   t_actions_repository_permissions,
@@ -52,6 +56,7 @@ import {
   t_code_frequency_stat,
   t_code_of_conduct,
   t_code_scanning_alert,
+  t_code_scanning_alert_create_request,
   t_code_scanning_alert_dismissed_comment,
   t_code_scanning_alert_dismissed_reason,
   t_code_scanning_alert_instance,
@@ -186,6 +191,8 @@ import {
   t_migration,
   t_milestone,
   t_minimal_repository,
+  t_network_configuration,
+  t_network_settings,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -262,6 +269,8 @@ import {
   t_root,
   t_rule_suite,
   t_rule_suites,
+  t_ruleset_version,
+  t_ruleset_version_with_state,
   t_runner,
   t_runner_application,
   t_runner_groups_org,
@@ -280,7 +289,6 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
-  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -1054,6 +1062,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        code_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -1066,6 +1078,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -1138,6 +1155,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        code_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -1150,6 +1171,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -1320,8 +1346,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       severity?: string
       ecosystem?: string
       package?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       before?: string
       after?: string
@@ -1346,6 +1373,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -2685,6 +2713,227 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async actionsListHostedRunnersForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }
+    >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/hosted-runners`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsCreateHostedRunnerForOrg(
+    p: {
+      org: string
+      requestBody: {
+        enable_static_ip?: boolean
+        image: {
+          id?: string
+          source?: "github" | "partner" | "custom"
+        }
+        maximum_runners?: number
+        name: string
+        runner_group_id: number
+        size: string
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_actions_hosted_runner>> {
+    const url = this.basePath + `/orgs/${p["org"]}/actions/hosted-runners`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnersGithubOwnedImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/images/github-owned`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnersPartnerImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/hosted-runners/images/partner`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnersLimitsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_hosted_runner_limits>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/hosted-runners/limits`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnersMachineSpecsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        machine_specs: t_actions_hosted_runner_machine_spec[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/hosted-runners/machine-sizes`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnersPlatformsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        platforms: string[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/actions/hosted-runners/platforms`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsGetHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_hosted_runner>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async actionsUpdateHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+      requestBody: {
+        enable_static_ip?: boolean
+        maximum_runners?: number
+        name?: string
+        runner_group_id?: number
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_actions_hosted_runner>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async actionsDeleteHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<202, t_actions_hosted_runner>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async oidcGetOidcCustomSubTemplateForOrg(
     p: {
       org: string
@@ -2939,6 +3188,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         allows_public_repositories?: boolean
         name: string
+        network_configuration_id?: string
         restricted_to_workflows?: boolean
         runners?: number[]
         selected_repository_ids?: number[]
@@ -2982,6 +3232,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         allows_public_repositories?: boolean
         name: string
+        network_configuration_id?: string | null
         restricted_to_workflows?: boolean
         selected_workflows?: string[]
         visibility?: "selected" | "all" | "private"
@@ -3020,6 +3271,37 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async actionsListGithubHostedRunnersInGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
   }
 
   async actionsListRepoAccessToSelfHostedRunnerGroupInOrg(
@@ -3265,6 +3547,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         }
       >
     | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
     | Res<422, t_validation_error_simple>
   > {
     const url =
@@ -3539,8 +3822,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
+        encrypted_value: string
+        key_id: string
         selected_repository_ids?: number[]
         visibility: "all" | "private" | "selected"
       }
@@ -3868,6 +4151,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       after?: string
       org: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -3898,6 +4182,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._fetch(
@@ -4057,6 +4342,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        code_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4069,6 +4358,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
         secret_scanning_delegated_bypass_options?: {
           reviewers?: {
@@ -4076,6 +4369,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             reviewer_type: "TEAM" | "ROLE"
           }[]
         }
+        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -4176,6 +4470,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         advanced_security?: "enabled" | "disabled"
         code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
+        code_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         dependabot_alerts?: "enabled" | "disabled" | "not_set"
         dependabot_security_updates?: "enabled" | "disabled" | "not_set"
         dependency_graph?: "enabled" | "disabled" | "not_set"
@@ -4188,6 +4486,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name?: string
         private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
         secret_scanning?: "enabled" | "disabled" | "not_set"
+        secret_scanning_delegated_alert_dismissal?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
         secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
         secret_scanning_delegated_bypass_options?: {
           reviewers?: {
@@ -4195,6 +4497,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             reviewer_type: "TEAM" | "ROLE"
           }[]
         }
+        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
@@ -4946,8 +5249,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       severity?: string
       ecosystem?: string
       package?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       before?: string
       after?: string
@@ -4972,6 +5276,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -6897,6 +7202,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       permission?: string
       lastUsedBefore?: string
       lastUsedAfter?: string
+      tokenId?: string[]
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6920,6 +7226,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this._fetch(
@@ -7033,6 +7340,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       permission?: string
       lastUsedBefore?: string
       lastUsedAfter?: string
+      tokenId?: string[]
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7055,6 +7363,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this._fetch(
@@ -7840,6 +8149,53 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
+  async orgsGetOrgRulesetHistory(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      rulesetId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ruleset_version[]>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async orgsGetOrgRulesetVersion(
+    p: {
+      org: string
+      rulesetId: number
+      versionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ruleset_version_with_state>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
   async secretScanningListAlertsForOrg(
     p: {
       org: string
@@ -8009,6 +8365,135 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   ): Promise<Res<200, t_combined_billing_usage>> {
     const url =
       this.basePath + `/orgs/${p["org"]}/settings/billing/shared-storage`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async hostedComputeListNetworkConfigurationsForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    Res<
+      200,
+      {
+        network_configurations: t_network_configuration[]
+        total_count: number
+      }
+    >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/settings/network-configurations`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async hostedComputeCreateNetworkConfigurationForOrg(
+    p: {
+      org: string
+      requestBody: {
+        compute_service?: "none" | "actions"
+        name: string
+        network_settings_ids: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<201, t_network_configuration>> {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/settings/network-configurations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async hostedComputeGetNetworkConfigurationForOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_network_configuration>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async hostedComputeUpdateNetworkConfigurationForOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+      requestBody: {
+        compute_service?: "none" | "actions"
+        name?: string
+        network_settings_ids?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_network_configuration>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async hostedComputeDeleteNetworkConfigurationFromOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<204, void>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
+  async hostedComputeGetNetworkSettingsForOrg(
+    p: {
+      org: string
+      networkSettingsId: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_network_settings>> {
+    const url =
+      this.basePath +
+      `/orgs/${p["org"]}/settings/network-settings/${p["networkSettingsId"]}`
     const headers = this._headers({}, opts.headers)
 
     return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
@@ -10176,6 +10661,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         }
       >
     | Res<404, t_basic_error>
+    | Res<409, t_basic_error>
     | Res<422, t_validation_error_simple>
   > {
     const url =
@@ -10967,8 +11453,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       secretName: string
       requestBody: {
-        encrypted_value?: string
-        key_id?: string
+        encrypted_value: string
+        key_id: string
       }
     },
     timeout?: number,
@@ -11435,6 +11921,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       before?: string
       after?: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -11466,6 +11953,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._fetch(
@@ -12835,6 +13323,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       alertNumber: t_alert_number
       requestBody: {
+        create_request?: t_code_scanning_alert_create_request
         dismissed_comment?: t_code_scanning_alert_dismissed_comment
         dismissed_reason?: t_code_scanning_alert_dismissed_reason
         state: t_code_scanning_alert_set_state
@@ -12844,6 +13333,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     opts: RequestInit = {},
   ): Promise<
     | Res<200, t_code_scanning_alert>
+    | Res<400, t_scim_error>
     | Res<403, t_basic_error>
     | Res<404, t_basic_error>
     | Res<
@@ -14643,8 +15133,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem?: string
       package?: string
       manifest?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       page?: number
       perPage?: number
@@ -14672,6 +15163,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       manifest: p["manifest"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -20190,6 +20682,56 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
+  async reposGetRepoRulesetHistory(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      rulesetId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ruleset_version[]>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async reposGetRepoRulesetVersion(
+    p: {
+      owner: string
+      repo: string
+      rulesetId: number
+      versionId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_ruleset_version_with_state>
+    | Res<404, t_basic_error>
+    | Res<500, t_basic_error>
+  > {
+    const url =
+      this.basePath +
+      `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
   async secretScanningListAlertsForRepo(
     p: {
       owner: string
@@ -21313,6 +21855,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       order?: "desc" | "asc"
       perPage?: number
       page?: number
+      advancedSearch?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21345,6 +21888,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
+      advanced_search: p["advancedSearch"],
     })
 
     return this._fetch(
@@ -24616,6 +25160,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       after?: string
       username: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24624,7 +25169,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         200,
         {
           attestations?: {
-            bundle?: t_sigstore_bundle_0
+            bundle?: {
+              dsseEnvelope?: {
+                [key: string]: unknown | undefined
+              }
+              mediaType?: string
+              verificationMaterial?: {
+                [key: string]: unknown | undefined
+              }
+            }
             bundle_url?: string
             repository_id?: number
           }[]
@@ -24642,6 +25195,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._fetch(

@@ -29,6 +29,29 @@ export type t_AmrValue =
 
 export type t_ApplicationType = "browser" | "native" | "service" | "web"
 
+export type t_AuthorizeWithPost = {
+  acr_values?: (t_AcrValue & string) | undefined
+  client_id: string
+  code_challenge?: string | undefined
+  code_challenge_method?: (t_CodeChallengeMethod & string) | undefined
+  display?: string | undefined
+  enroll_amr_values?: (t_AmrValue & string) | undefined
+  idp?: string | undefined
+  idp_scope?: string | undefined
+  login_hint?: string | undefined
+  max_age?: number | undefined
+  nonce?: string | undefined
+  prompt?: (t_Prompt & string) | undefined
+  redirect_uri: string
+  request?: string | undefined
+  request_uri?: string | undefined
+  response_mode?: (t_ResponseMode & string) | undefined
+  response_type: t_ResponseTypesSupported & string
+  scope: string
+  sessionToken?: string | undefined
+  state: string
+}
+
 export type t_BackchannelAuthorizeRequest = {
   binding_message?: string | undefined
   id_token_hint: string

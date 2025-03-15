@@ -266,6 +266,31 @@ export const s_sub_id = z.object({
   id: z.string().optional(),
 })
 
+export const s_AuthorizeWithPost = z.object({
+  acr_values: z.intersection(s_AcrValue, z.string()).optional(),
+  client_id: z.string(),
+  code_challenge: z.string().optional(),
+  code_challenge_method: z
+    .intersection(s_CodeChallengeMethod, z.string())
+    .optional(),
+  display: z.string().optional(),
+  enroll_amr_values: z.intersection(s_AmrValue, z.string()).optional(),
+  idp: z.string().optional(),
+  idp_scope: z.string().optional(),
+  login_hint: z.string().optional(),
+  max_age: z.coerce.number().optional(),
+  nonce: z.string().optional(),
+  prompt: z.intersection(s_Prompt, z.string()).optional(),
+  redirect_uri: z.string(),
+  request: z.string().optional(),
+  request_uri: z.string().optional(),
+  response_mode: z.intersection(s_ResponseMode, z.string()).optional(),
+  response_type: z.intersection(s_ResponseTypesSupported, z.string()),
+  scope: z.string(),
+  sessionToken: z.string().optional(),
+  state: z.string(),
+})
+
 export const s_ChallengeRequest = z.object({
   challenge_types_supported: z.array(s_ChallengeType).optional(),
   channel_hint: s_Channel.optional(),

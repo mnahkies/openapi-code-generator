@@ -5,6 +5,7 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_AuthorizeWithPost,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
   t_ChallengeRequest,
@@ -149,6 +150,30 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
     return this._request({
       url: url + query,
       method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async authorizeWithPost(
+    p: {
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -392,7 +417,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_IntrospectionResponse>> {
     const url = `/oauth2/v1/introspect`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -730,6 +755,31 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
     })
   }
 
+  async authorizeCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/oauth2/${p["authorizationServerId"]}/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async bcAuthorizeCustomAs(
     p: {
       authorizationServerId: string
@@ -815,7 +865,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractAxiosClient {
   ): Promise<AxiosResponse<t_IntrospectionResponse>> {
     const url = `/oauth2/${p["authorizationServerId"]}/v1/introspect`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)

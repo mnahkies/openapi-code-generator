@@ -10,6 +10,10 @@ import {
   t_actions_cache_usage_org_enterprise,
   t_actions_enabled,
   t_actions_get_default_workflow_permissions,
+  t_actions_hosted_runner,
+  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_limits,
+  t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
   t_actions_public_key,
   t_actions_repository_permissions,
@@ -51,6 +55,7 @@ import {
   t_code_frequency_stat,
   t_code_of_conduct,
   t_code_scanning_alert,
+  t_code_scanning_alert_create_request,
   t_code_scanning_alert_dismissed_comment,
   t_code_scanning_alert_dismissed_reason,
   t_code_scanning_alert_instance,
@@ -185,6 +190,8 @@ import {
   t_migration,
   t_milestone,
   t_minimal_repository,
+  t_network_configuration,
+  t_network_settings,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -260,6 +267,8 @@ import {
   t_root,
   t_rule_suite,
   t_rule_suites,
+  t_ruleset_version,
+  t_ruleset_version_with_state,
   t_runner,
   t_runner_application,
   t_runner_groups_org,
@@ -277,7 +286,6 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
-  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -1149,6 +1157,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
+        code_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
         dependabot_security_updates?:
           | ("enabled" | "disabled" | "not_set")
@@ -1169,6 +1180,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_generic_secrets?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         secret_scanning_non_provider_patterns?:
           | ("enabled" | "disabled" | "not_set")
           | undefined
@@ -1251,6 +1268,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
+        code_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
         dependabot_security_updates?:
           | ("enabled" | "disabled" | "not_set")
@@ -1271,6 +1291,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
+        secret_scanning_generic_secrets?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         secret_scanning_non_provider_patterns?:
           | ("enabled" | "disabled" | "not_set")
           | undefined
@@ -1428,8 +1454,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       severity?: string
       ecosystem?: string
       package?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       before?: string
       after?: string
@@ -1447,6 +1474,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -2802,6 +2830,254 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async actionsListHostedRunnersForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      runners: t_actions_hosted_runner[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsCreateHostedRunnerForOrg(
+    p: {
+      org: string
+      requestBody: {
+        enable_static_ip?: boolean | undefined
+        image: {
+          id?: string | undefined
+          source?: ("github" | "partner" | "custom") | undefined
+        }
+        maximum_runners?: number | undefined
+        name: string
+        runner_group_id: number
+        size: string
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnersGithubOwnedImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      images: t_actions_hosted_runner_image[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/github-owned`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnersPartnerImagesForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      images: t_actions_hosted_runner_image[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/images/partner`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnersLimitsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner_limits>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/limits`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnersMachineSpecsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      machine_specs: t_actions_hosted_runner_machine_spec[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/machine-sizes`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnersPlatformsForOrg(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      platforms: string[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/platforms`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsGetHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsUpdateHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+      requestBody: {
+        enable_static_ip?: boolean | undefined
+        maximum_runners?: number | undefined
+        name?: string | undefined
+        runner_group_id?: number | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsDeleteHostedRunnerForOrg(
+    p: {
+      org: string
+      hostedRunnerId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_actions_hosted_runner>> {
+    const url = `/orgs/${p["org"]}/actions/hosted-runners/${p["hostedRunnerId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async oidcGetOidcCustomSubTemplateForOrg(
     p: {
       org: string
@@ -3113,6 +3389,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         allows_public_repositories?: boolean | undefined
         name: string
+        network_configuration_id?: string | undefined
         restricted_to_workflows?: boolean | undefined
         runners?: number[] | undefined
         selected_repository_ids?: number[] | undefined
@@ -3167,6 +3444,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         allows_public_repositories?: boolean | undefined
         name: string
+        network_configuration_id?: (string | null) | undefined
         restricted_to_workflows?: boolean | undefined
         selected_workflows?: string[] | undefined
         visibility?: ("selected" | "all" | "private") | undefined
@@ -3206,6 +3484,34 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     return this._request({
       url: url,
       method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async actionsListGithubHostedRunnersInGroupForOrg(
+    p: {
+      org: string
+      runnerGroupId: number
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      runners: t_actions_hosted_runner[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/actions/runner-groups/${p["runnerGroupId"]}/hosted-runners`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
       ...(timeout ? { timeout } : {}),
       ...opts,
       headers,
@@ -3785,8 +4091,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       secretName: string
       requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
+        encrypted_value: string
+        key_id: string
         selected_repository_ids?: number[] | undefined
         visibility: "all" | "private" | "selected"
       }
@@ -4162,6 +4468,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       after?: string
       org: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -4196,6 +4503,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._request({
@@ -4370,6 +4678,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
+        code_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
         dependabot_security_updates?:
           | ("enabled" | "disabled" | "not_set")
@@ -4390,6 +4701,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         secret_scanning_delegated_bypass?:
           | ("enabled" | "disabled" | "not_set")
           | undefined
@@ -4402,6 +4716,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                   }[]
                 | undefined
             }
+          | undefined
+        secret_scanning_generic_secrets?:
+          | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning_non_provider_patterns?:
           | ("enabled" | "disabled" | "not_set")
@@ -4512,6 +4829,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
+        code_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
         dependabot_security_updates?:
           | ("enabled" | "disabled" | "not_set")
@@ -4532,6 +4852,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning_delegated_alert_dismissal?:
+          | ("enabled" | "disabled" | "not_set")
+          | undefined
         secret_scanning_delegated_bypass?:
           | ("enabled" | "disabled" | "not_set")
           | undefined
@@ -4544,6 +4867,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
                   }[]
                 | undefined
             }
+          | undefined
+        secret_scanning_generic_secrets?:
+          | ("enabled" | "disabled" | "not_set")
           | undefined
         secret_scanning_non_provider_patterns?:
           | ("enabled" | "disabled" | "not_set")
@@ -5266,8 +5592,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       severity?: string
       ecosystem?: string
       package?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       before?: string
       after?: string
@@ -5285,6 +5612,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       severity: p["severity"],
       ecosystem: p["ecosystem"],
       package: p["package"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -7361,6 +7689,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       permission?: string
       lastUsedBefore?: string
       lastUsedAfter?: string
+      tokenId?: string[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7379,6 +7708,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this._request({
@@ -7487,6 +7817,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       permission?: string
       lastUsedBefore?: string
       lastUsedAfter?: string
+      tokenId?: string[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7503,6 +7834,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       permission: p["permission"],
       last_used_before: p["lastUsedBefore"],
       last_used_after: p["lastUsedAfter"],
+      token_id: p["tokenId"],
     })
 
     return this._request({
@@ -8336,6 +8668,50 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async orgsGetOrgRulesetHistory(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+      rulesetId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_ruleset_version[]>> {
+    const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsGetOrgRulesetVersion(
+    p: {
+      org: string
+      rulesetId: number
+      versionId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_ruleset_version_with_state>> {
+    const url = `/orgs/${p["org"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async secretScanningListAlertsForOrg(
     p: {
       org: string
@@ -8519,6 +8895,152 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_combined_billing_usage>> {
     const url = `/orgs/${p["org"]}/settings/billing/shared-storage`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeListNetworkConfigurationsForOrg(
+    p: {
+      org: string
+      perPage?: number
+      page?: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<
+    AxiosResponse<{
+      network_configurations: t_network_configuration[]
+      total_count: number
+    }>
+  > {
+    const url = `/orgs/${p["org"]}/settings/network-configurations`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeCreateNetworkConfigurationForOrg(
+    p: {
+      org: string
+      requestBody: {
+        compute_service?: ("none" | "actions") | undefined
+        name: string
+        network_settings_ids: string[]
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_network_configuration>> {
+    const url = `/orgs/${p["org"]}/settings/network-configurations`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeGetNetworkConfigurationForOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_network_configuration>> {
+    const url = `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeUpdateNetworkConfigurationForOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+      requestBody: {
+        compute_service?: ("none" | "actions") | undefined
+        name?: string | undefined
+        network_settings_ids?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_network_configuration>> {
+    const url = `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeDeleteNetworkConfigurationFromOrg(
+    p: {
+      org: string
+      networkConfigurationId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/settings/network-configurations/${p["networkConfigurationId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async hostedComputeGetNetworkSettingsForOrg(
+    p: {
+      org: string
+      networkSettingsId: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_network_settings>> {
+    const url = `/orgs/${p["org"]}/settings/network-settings/${p["networkSettingsId"]}`
     const headers = this._headers({}, opts.headers)
 
     return this._request({
@@ -11644,8 +12166,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       secretName: string
       requestBody: {
-        encrypted_value?: string | undefined
-        key_id?: string | undefined
+        encrypted_value: string
+        key_id: string
       }
     },
     timeout?: number,
@@ -12166,6 +12688,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       before?: string
       after?: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -12200,6 +12723,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._request({
@@ -13735,6 +14259,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       alertNumber: t_alert_number
       requestBody: {
+        create_request?: t_code_scanning_alert_create_request | undefined
         dismissed_comment?: t_code_scanning_alert_dismissed_comment | undefined
         dismissed_reason?: t_code_scanning_alert_dismissed_reason | undefined
         state: t_code_scanning_alert_set_state
@@ -15338,8 +15863,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       manifest?: string
+      epssPercentage?: string
       scope?: "development" | "runtime"
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | "epss_percentage"
       direction?: "asc" | "desc"
       page?: number
       perPage?: number
@@ -15359,6 +15885,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem: p["ecosystem"],
       package: p["package"],
       manifest: p["manifest"],
+      epss_percentage: p["epssPercentage"],
       scope: p["scope"],
       sort: p["sort"],
       direction: p["direction"],
@@ -21221,6 +21748,52 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async reposGetRepoRulesetHistory(
+    p: {
+      owner: string
+      repo: string
+      perPage?: number
+      page?: number
+      rulesetId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_ruleset_version[]>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({ per_page: p["perPage"], page: p["page"] })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async reposGetRepoRulesetVersion(
+    p: {
+      owner: string
+      repo: string
+      rulesetId: number
+      versionId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_ruleset_version_with_state>> {
+    const url = `/repos/${p["owner"]}/${p["repo"]}/rulesets/${p["rulesetId"]}/history/${p["versionId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async secretScanningListAlertsForRepo(
     p: {
       owner: string
@@ -22363,6 +22936,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       order?: "desc" | "asc"
       perPage?: number
       page?: number
+      advancedSearch?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22381,6 +22955,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       order: p["order"],
       per_page: p["perPage"],
       page: p["page"],
+      advanced_search: p["advancedSearch"],
     })
 
     return this._request({
@@ -25657,6 +26232,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       after?: string
       username: string
       subjectDigest: string
+      predicateType?: string
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25664,7 +26240,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     | AxiosResponse<{
         attestations?:
           | {
-              bundle?: t_sigstore_bundle_0 | undefined
+              bundle?:
+                | {
+                    dsseEnvelope?:
+                      | {
+                          [key: string]: unknown | undefined
+                        }
+                      | undefined
+                    mediaType?: string | undefined
+                    verificationMaterial?:
+                      | {
+                          [key: string]: unknown | undefined
+                        }
+                      | undefined
+                  }
+                | undefined
               bundle_url?: string | undefined
               repository_id?: number | undefined
             }[]
@@ -25679,6 +26269,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       per_page: p["perPage"],
       before: p["before"],
       after: p["after"],
+      predicate_type: p["predicateType"],
     })
 
     return this._request({

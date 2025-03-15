@@ -16,6 +16,8 @@ import {
   t_ActionsCancelWorkflowRunParamSchema,
   t_ActionsCreateEnvironmentVariableBodySchema,
   t_ActionsCreateEnvironmentVariableParamSchema,
+  t_ActionsCreateHostedRunnerForOrgBodySchema,
+  t_ActionsCreateHostedRunnerForOrgParamSchema,
   t_ActionsCreateOrUpdateEnvironmentSecretBodySchema,
   t_ActionsCreateOrUpdateEnvironmentSecretParamSchema,
   t_ActionsCreateOrUpdateOrgSecretBodySchema,
@@ -40,6 +42,7 @@ import {
   t_ActionsDeleteArtifactParamSchema,
   t_ActionsDeleteEnvironmentSecretParamSchema,
   t_ActionsDeleteEnvironmentVariableParamSchema,
+  t_ActionsDeleteHostedRunnerForOrgParamSchema,
   t_ActionsDeleteOrgSecretParamSchema,
   t_ActionsDeleteOrgVariableParamSchema,
   t_ActionsDeleteRepoSecretParamSchema,
@@ -79,6 +82,12 @@ import {
   t_ActionsGetGithubActionsDefaultWorkflowPermissionsRepositoryParamSchema,
   t_ActionsGetGithubActionsPermissionsOrganizationParamSchema,
   t_ActionsGetGithubActionsPermissionsRepositoryParamSchema,
+  t_ActionsGetHostedRunnerForOrgParamSchema,
+  t_ActionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema,
+  t_ActionsGetHostedRunnersLimitsForOrgParamSchema,
+  t_ActionsGetHostedRunnersMachineSpecsForOrgParamSchema,
+  t_ActionsGetHostedRunnersPartnerImagesForOrgParamSchema,
+  t_ActionsGetHostedRunnersPlatformsForOrgParamSchema,
   t_ActionsGetJobForWorkflowRunParamSchema,
   t_ActionsGetOrgPublicKeyParamSchema,
   t_ActionsGetOrgSecretParamSchema,
@@ -105,6 +114,10 @@ import {
   t_ActionsListEnvironmentSecretsQuerySchema,
   t_ActionsListEnvironmentVariablesParamSchema,
   t_ActionsListEnvironmentVariablesQuerySchema,
+  t_ActionsListGithubHostedRunnersInGroupForOrgParamSchema,
+  t_ActionsListGithubHostedRunnersInGroupForOrgQuerySchema,
+  t_ActionsListHostedRunnersForOrgParamSchema,
+  t_ActionsListHostedRunnersForOrgQuerySchema,
   t_ActionsListJobsForWorkflowRunAttemptParamSchema,
   t_ActionsListJobsForWorkflowRunAttemptQuerySchema,
   t_ActionsListJobsForWorkflowRunParamSchema,
@@ -199,6 +212,8 @@ import {
   t_ActionsSetWorkflowAccessToRepositoryParamSchema,
   t_ActionsUpdateEnvironmentVariableBodySchema,
   t_ActionsUpdateEnvironmentVariableParamSchema,
+  t_ActionsUpdateHostedRunnerForOrgBodySchema,
+  t_ActionsUpdateHostedRunnerForOrgParamSchema,
   t_ActionsUpdateOrgVariableBodySchema,
   t_ActionsUpdateOrgVariableParamSchema,
   t_ActionsUpdateRepoVariableBodySchema,
@@ -585,6 +600,15 @@ import {
   t_GitUpdateRefBodySchema,
   t_GitUpdateRefParamSchema,
   t_GitignoreGetTemplateParamSchema,
+  t_HostedComputeCreateNetworkConfigurationForOrgBodySchema,
+  t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
+  t_HostedComputeDeleteNetworkConfigurationFromOrgParamSchema,
+  t_HostedComputeGetNetworkConfigurationForOrgParamSchema,
+  t_HostedComputeGetNetworkSettingsForOrgParamSchema,
+  t_HostedComputeListNetworkConfigurationsForOrgParamSchema,
+  t_HostedComputeListNetworkConfigurationsForOrgQuerySchema,
+  t_HostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+  t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
   t_InteractionsGetRestrictionsForOrgParamSchema,
   t_InteractionsGetRestrictionsForRepoParamSchema,
   t_InteractionsRemoveRestrictionsForOrgParamSchema,
@@ -739,6 +763,9 @@ import {
   t_OrgsGetMembershipForAuthenticatedUserParamSchema,
   t_OrgsGetMembershipForUserParamSchema,
   t_OrgsGetOrgRoleParamSchema,
+  t_OrgsGetOrgRulesetHistoryParamSchema,
+  t_OrgsGetOrgRulesetHistoryQuerySchema,
+  t_OrgsGetOrgRulesetVersionParamSchema,
   t_OrgsGetParamSchema,
   t_OrgsGetWebhookConfigForOrgParamSchema,
   t_OrgsGetWebhookDeliveryParamSchema,
@@ -1155,8 +1182,11 @@ import {
   t_ReposGetRepoRuleSuiteParamSchema,
   t_ReposGetRepoRuleSuitesParamSchema,
   t_ReposGetRepoRuleSuitesQuerySchema,
+  t_ReposGetRepoRulesetHistoryParamSchema,
+  t_ReposGetRepoRulesetHistoryQuerySchema,
   t_ReposGetRepoRulesetParamSchema,
   t_ReposGetRepoRulesetQuerySchema,
+  t_ReposGetRepoRulesetVersionParamSchema,
   t_ReposGetRepoRulesetsParamSchema,
   t_ReposGetRepoRulesetsQuerySchema,
   t_ReposGetStatusChecksProtectionParamSchema,
@@ -1475,6 +1505,10 @@ import {
   t_actions_cache_usage_by_repository,
   t_actions_cache_usage_org_enterprise,
   t_actions_get_default_workflow_permissions,
+  t_actions_hosted_runner,
+  t_actions_hosted_runner_image,
+  t_actions_hosted_runner_limits,
+  t_actions_hosted_runner_machine_spec,
   t_actions_organization_permissions,
   t_actions_public_key,
   t_actions_repository_permissions,
@@ -1625,6 +1659,8 @@ import {
   t_migration,
   t_milestone,
   t_minimal_repository,
+  t_network_configuration,
+  t_network_settings,
   t_oidc_custom_sub,
   t_oidc_custom_sub_repo,
   t_org_hook,
@@ -1690,6 +1726,8 @@ import {
   t_root,
   t_rule_suite,
   t_rule_suites,
+  t_ruleset_version,
+  t_ruleset_version_with_state,
   t_runner,
   t_runner_application,
   t_runner_groups_org,
@@ -1702,7 +1740,6 @@ import {
   t_selected_actions,
   t_short_blob,
   t_short_branch,
-  t_sigstore_bundle_0,
   t_simple_classroom,
   t_simple_classroom_assignment,
   t_simple_user,
@@ -1748,6 +1785,10 @@ import {
   s_actions_cache_usage_org_enterprise,
   s_actions_enabled,
   s_actions_get_default_workflow_permissions,
+  s_actions_hosted_runner,
+  s_actions_hosted_runner_image,
+  s_actions_hosted_runner_limits,
+  s_actions_hosted_runner_machine_spec,
   s_actions_organization_permissions,
   s_actions_public_key,
   s_actions_repository_permissions,
@@ -1790,6 +1831,7 @@ import {
   s_code_frequency_stat,
   s_code_of_conduct,
   s_code_scanning_alert,
+  s_code_scanning_alert_create_request,
   s_code_scanning_alert_dismissed_comment,
   s_code_scanning_alert_dismissed_reason,
   s_code_scanning_alert_instance,
@@ -1924,6 +1966,8 @@ import {
   s_migration,
   s_milestone,
   s_minimal_repository,
+  s_network_configuration,
+  s_network_settings,
   s_oidc_custom_sub,
   s_oidc_custom_sub_repo,
   s_org_hook,
@@ -2000,6 +2044,8 @@ import {
   s_root,
   s_rule_suite,
   s_rule_suites,
+  s_ruleset_version,
+  s_ruleset_version_with_state,
   s_runner,
   s_runner_application,
   s_runner_groups_org,
@@ -2018,7 +2064,6 @@ import {
   s_selected_actions,
   s_short_blob,
   s_short_branch,
-  s_sigstore_bundle_0,
   s_simple_classroom,
   s_simple_classroom_assignment,
   s_simple_user,
@@ -4047,6 +4092,221 @@ export type ActionsGetActionsCacheUsageByRepoForOrg = (
     >
 >
 
+export type ActionsListHostedRunnersForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    runners: t_actions_hosted_runner[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListHostedRunnersForOrg = (
+  params: Params<
+    t_ActionsListHostedRunnersForOrgParamSchema,
+    t_ActionsListHostedRunnersForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListHostedRunnersForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsCreateHostedRunnerForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_actions_hosted_runner>
+} & KoaRuntimeResponder
+
+export type ActionsCreateHostedRunnerForOrg = (
+  params: Params<
+    t_ActionsCreateHostedRunnerForOrgParamSchema,
+    void,
+    t_ActionsCreateHostedRunnerForOrgBodySchema,
+    void
+  >,
+  respond: ActionsCreateHostedRunnerForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<201, t_actions_hosted_runner>
+>
+
+export type ActionsGetHostedRunnersGithubOwnedImagesForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    images: t_actions_hosted_runner_image[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnersGithubOwnedImagesForOrg = (
+  params: Params<
+    t_ActionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetHostedRunnersGithubOwnedImagesForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsGetHostedRunnersPartnerImagesForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    images: t_actions_hosted_runner_image[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnersPartnerImagesForOrg = (
+  params: Params<
+    t_ActionsGetHostedRunnersPartnerImagesForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetHostedRunnersPartnerImagesForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        images: t_actions_hosted_runner_image[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsGetHostedRunnersLimitsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_actions_hosted_runner_limits>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnersLimitsForOrg = (
+  params: Params<
+    t_ActionsGetHostedRunnersLimitsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetHostedRunnersLimitsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_actions_hosted_runner_limits>
+>
+
+export type ActionsGetHostedRunnersMachineSpecsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    machine_specs: t_actions_hosted_runner_machine_spec[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnersMachineSpecsForOrg = (
+  params: Params<
+    t_ActionsGetHostedRunnersMachineSpecsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetHostedRunnersMachineSpecsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        machine_specs: t_actions_hosted_runner_machine_spec[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsGetHostedRunnersPlatformsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    platforms: string[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnersPlatformsForOrg = (
+  params: Params<
+    t_ActionsGetHostedRunnersPlatformsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsGetHostedRunnersPlatformsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        platforms: string[]
+        total_count: number
+      }
+    >
+>
+
+export type ActionsGetHostedRunnerForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_actions_hosted_runner>
+} & KoaRuntimeResponder
+
+export type ActionsGetHostedRunnerForOrg = (
+  params: Params<t_ActionsGetHostedRunnerForOrgParamSchema, void, void, void>,
+  respond: ActionsGetHostedRunnerForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_actions_hosted_runner>
+>
+
+export type ActionsUpdateHostedRunnerForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_actions_hosted_runner>
+} & KoaRuntimeResponder
+
+export type ActionsUpdateHostedRunnerForOrg = (
+  params: Params<
+    t_ActionsUpdateHostedRunnerForOrgParamSchema,
+    void,
+    t_ActionsUpdateHostedRunnerForOrgBodySchema,
+    void
+  >,
+  respond: ActionsUpdateHostedRunnerForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_actions_hosted_runner>
+>
+
+export type ActionsDeleteHostedRunnerForOrgResponder = {
+  with202(): KoaRuntimeResponse<t_actions_hosted_runner>
+} & KoaRuntimeResponder
+
+export type ActionsDeleteHostedRunnerForOrg = (
+  params: Params<
+    t_ActionsDeleteHostedRunnerForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: ActionsDeleteHostedRunnerForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<202, t_actions_hosted_runner>
+>
+
 export type OidcGetOidcCustomSubTemplateForOrgResponder = {
   with200(): KoaRuntimeResponse<t_oidc_custom_sub>
 } & KoaRuntimeResponder
@@ -4346,6 +4606,33 @@ export type ActionsDeleteSelfHostedRunnerGroupFromOrg = (
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
+export type ActionsListGithubHostedRunnersInGroupForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    runners: t_actions_hosted_runner[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type ActionsListGithubHostedRunnersInGroupForOrg = (
+  params: Params<
+    t_ActionsListGithubHostedRunnersInGroupForOrgParamSchema,
+    t_ActionsListGithubHostedRunnersInGroupForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: ActionsListGithubHostedRunnersInGroupForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        runners: t_actions_hosted_runner[]
+        total_count: number
+      }
+    >
+>
+
 export type ActionsListRepoAccessToSelfHostedRunnerGroupInOrgResponder = {
   with200(): KoaRuntimeResponse<{
     repositories: t_minimal_repository[]
@@ -4540,6 +4827,7 @@ export type ActionsGenerateRunnerJitconfigForOrgResponder = {
     runner: t_runner
   }>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
@@ -4562,6 +4850,7 @@ export type ActionsGenerateRunnerJitconfigForOrg = (
       }
     >
   | Response<404, t_basic_error>
+  | Response<409, t_basic_error>
   | Response<422, t_validation_error_simple>
 >
 
@@ -8371,6 +8660,45 @@ export type ReposDeleteOrgRuleset = (
   | Response<500, t_basic_error>
 >
 
+export type OrgsGetOrgRulesetHistoryResponder = {
+  with200(): KoaRuntimeResponse<t_ruleset_version[]>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsGetOrgRulesetHistory = (
+  params: Params<
+    t_OrgsGetOrgRulesetHistoryParamSchema,
+    t_OrgsGetOrgRulesetHistoryQuerySchema,
+    void,
+    void
+  >,
+  respond: OrgsGetOrgRulesetHistoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ruleset_version[]>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type OrgsGetOrgRulesetVersionResponder = {
+  with200(): KoaRuntimeResponse<t_ruleset_version_with_state>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type OrgsGetOrgRulesetVersion = (
+  params: Params<t_OrgsGetOrgRulesetVersionParamSchema, void, void, void>,
+  respond: OrgsGetOrgRulesetVersionResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ruleset_version_with_state>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type SecretScanningListAlertsForOrgResponder = {
   with200(): KoaRuntimeResponse<t_organization_secret_scanning_alert[]>
   with404(): KoaRuntimeResponse<t_basic_error>
@@ -8506,6 +8834,114 @@ export type BillingGetSharedStorageBillingOrg = (
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_combined_billing_usage>
 >
+
+export type HostedComputeListNetworkConfigurationsForOrgResponder = {
+  with200(): KoaRuntimeResponse<{
+    network_configurations: t_network_configuration[]
+    total_count: number
+  }>
+} & KoaRuntimeResponder
+
+export type HostedComputeListNetworkConfigurationsForOrg = (
+  params: Params<
+    t_HostedComputeListNetworkConfigurationsForOrgParamSchema,
+    t_HostedComputeListNetworkConfigurationsForOrgQuerySchema,
+    void,
+    void
+  >,
+  respond: HostedComputeListNetworkConfigurationsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        network_configurations: t_network_configuration[]
+        total_count: number
+      }
+    >
+>
+
+export type HostedComputeCreateNetworkConfigurationForOrgResponder = {
+  with201(): KoaRuntimeResponse<t_network_configuration>
+} & KoaRuntimeResponder
+
+export type HostedComputeCreateNetworkConfigurationForOrg = (
+  params: Params<
+    t_HostedComputeCreateNetworkConfigurationForOrgParamSchema,
+    void,
+    t_HostedComputeCreateNetworkConfigurationForOrgBodySchema,
+    void
+  >,
+  respond: HostedComputeCreateNetworkConfigurationForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<201, t_network_configuration>
+>
+
+export type HostedComputeGetNetworkConfigurationForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_network_configuration>
+} & KoaRuntimeResponder
+
+export type HostedComputeGetNetworkConfigurationForOrg = (
+  params: Params<
+    t_HostedComputeGetNetworkConfigurationForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: HostedComputeGetNetworkConfigurationForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_network_configuration>
+>
+
+export type HostedComputeUpdateNetworkConfigurationForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_network_configuration>
+} & KoaRuntimeResponder
+
+export type HostedComputeUpdateNetworkConfigurationForOrg = (
+  params: Params<
+    t_HostedComputeUpdateNetworkConfigurationForOrgParamSchema,
+    void,
+    t_HostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+    void
+  >,
+  respond: HostedComputeUpdateNetworkConfigurationForOrgResponder,
+  ctx: RouterContext,
+) => Promise<
+  KoaRuntimeResponse<unknown> | Response<200, t_network_configuration>
+>
+
+export type HostedComputeDeleteNetworkConfigurationFromOrgResponder = {
+  with204(): KoaRuntimeResponse<void>
+} & KoaRuntimeResponder
+
+export type HostedComputeDeleteNetworkConfigurationFromOrg = (
+  params: Params<
+    t_HostedComputeDeleteNetworkConfigurationFromOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: HostedComputeDeleteNetworkConfigurationFromOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
+
+export type HostedComputeGetNetworkSettingsForOrgResponder = {
+  with200(): KoaRuntimeResponse<t_network_settings>
+} & KoaRuntimeResponder
+
+export type HostedComputeGetNetworkSettingsForOrg = (
+  params: Params<
+    t_HostedComputeGetNetworkSettingsForOrgParamSchema,
+    void,
+    void,
+    void
+  >,
+  respond: HostedComputeGetNetworkSettingsForOrgResponder,
+  ctx: RouterContext,
+) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_network_settings>>
 
 export type CopilotCopilotMetricsForTeamResponder = {
   with200(): KoaRuntimeResponse<t_copilot_usage_metrics_day[]>
@@ -10232,6 +10668,7 @@ export type ActionsGenerateRunnerJitconfigForRepoResponder = {
     runner: t_runner
   }>
   with404(): KoaRuntimeResponse<t_basic_error>
+  with409(): KoaRuntimeResponse<t_basic_error>
   with422(): KoaRuntimeResponse<t_validation_error_simple>
 } & KoaRuntimeResponder
 
@@ -10254,6 +10691,7 @@ export type ActionsGenerateRunnerJitconfigForRepo = (
       }
     >
   | Response<404, t_basic_error>
+  | Response<409, t_basic_error>
   | Response<422, t_validation_error_simple>
 >
 
@@ -12222,6 +12660,7 @@ export type CodeScanningGetAlert = (
 
 export type CodeScanningUpdateAlertResponder = {
   with200(): KoaRuntimeResponse<t_code_scanning_alert>
+  with400(): KoaRuntimeResponse<t_scim_error>
   with403(): KoaRuntimeResponse<t_basic_error>
   with404(): KoaRuntimeResponse<t_basic_error>
   with503(): KoaRuntimeResponse<{
@@ -12243,6 +12682,7 @@ export type CodeScanningUpdateAlert = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_code_scanning_alert>
+  | Response<400, t_scim_error>
   | Response<403, t_basic_error>
   | Response<404, t_basic_error>
   | Response<
@@ -18046,6 +18486,45 @@ export type ReposDeleteRepoRuleset = (
   | Response<500, t_basic_error>
 >
 
+export type ReposGetRepoRulesetHistoryResponder = {
+  with200(): KoaRuntimeResponse<t_ruleset_version[]>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ReposGetRepoRulesetHistory = (
+  params: Params<
+    t_ReposGetRepoRulesetHistoryParamSchema,
+    t_ReposGetRepoRulesetHistoryQuerySchema,
+    void,
+    void
+  >,
+  respond: ReposGetRepoRulesetHistoryResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ruleset_version[]>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
+export type ReposGetRepoRulesetVersionResponder = {
+  with200(): KoaRuntimeResponse<t_ruleset_version_with_state>
+  with404(): KoaRuntimeResponse<t_basic_error>
+  with500(): KoaRuntimeResponse<t_basic_error>
+} & KoaRuntimeResponder
+
+export type ReposGetRepoRulesetVersion = (
+  params: Params<t_ReposGetRepoRulesetVersionParamSchema, void, void, void>,
+  respond: ReposGetRepoRulesetVersionResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_ruleset_version_with_state>
+  | Response<404, t_basic_error>
+  | Response<500, t_basic_error>
+>
+
 export type SecretScanningListAlertsForRepoResponder = {
   with200(): KoaRuntimeResponse<t_secret_scanning_alert[]>
   with404(): KoaRuntimeResponse<void>
@@ -22117,7 +22596,15 @@ export type UsersGetByUsername = (
 export type UsersListAttestationsResponder = {
   with200(): KoaRuntimeResponse<{
     attestations?: {
-      bundle?: t_sigstore_bundle_0
+      bundle?: {
+        dsseEnvelope?: {
+          [key: string]: unknown | undefined
+        }
+        mediaType?: string
+        verificationMaterial?: {
+          [key: string]: unknown | undefined
+        }
+      }
       bundle_url?: string
       repository_id?: number
     }[]
@@ -22142,7 +22629,15 @@ export type UsersListAttestations = (
       200,
       {
         attestations?: {
-          bundle?: t_sigstore_bundle_0
+          bundle?: {
+            dsseEnvelope?: {
+              [key: string]: unknown | undefined
+            }
+            mediaType?: string
+            verificationMaterial?: {
+              [key: string]: unknown | undefined
+            }
+          }
           bundle_url?: string
           repository_id?: number
         }[]
@@ -22832,6 +23327,16 @@ export type Implementation = {
   orgsDelete: OrgsDelete
   actionsGetActionsCacheUsageForOrg: ActionsGetActionsCacheUsageForOrg
   actionsGetActionsCacheUsageByRepoForOrg: ActionsGetActionsCacheUsageByRepoForOrg
+  actionsListHostedRunnersForOrg: ActionsListHostedRunnersForOrg
+  actionsCreateHostedRunnerForOrg: ActionsCreateHostedRunnerForOrg
+  actionsGetHostedRunnersGithubOwnedImagesForOrg: ActionsGetHostedRunnersGithubOwnedImagesForOrg
+  actionsGetHostedRunnersPartnerImagesForOrg: ActionsGetHostedRunnersPartnerImagesForOrg
+  actionsGetHostedRunnersLimitsForOrg: ActionsGetHostedRunnersLimitsForOrg
+  actionsGetHostedRunnersMachineSpecsForOrg: ActionsGetHostedRunnersMachineSpecsForOrg
+  actionsGetHostedRunnersPlatformsForOrg: ActionsGetHostedRunnersPlatformsForOrg
+  actionsGetHostedRunnerForOrg: ActionsGetHostedRunnerForOrg
+  actionsUpdateHostedRunnerForOrg: ActionsUpdateHostedRunnerForOrg
+  actionsDeleteHostedRunnerForOrg: ActionsDeleteHostedRunnerForOrg
   oidcGetOidcCustomSubTemplateForOrg: OidcGetOidcCustomSubTemplateForOrg
   oidcUpdateOidcCustomSubTemplateForOrg: OidcUpdateOidcCustomSubTemplateForOrg
   actionsGetGithubActionsPermissionsOrganization: ActionsGetGithubActionsPermissionsOrganization
@@ -22849,6 +23354,7 @@ export type Implementation = {
   actionsGetSelfHostedRunnerGroupForOrg: ActionsGetSelfHostedRunnerGroupForOrg
   actionsUpdateSelfHostedRunnerGroupForOrg: ActionsUpdateSelfHostedRunnerGroupForOrg
   actionsDeleteSelfHostedRunnerGroupFromOrg: ActionsDeleteSelfHostedRunnerGroupFromOrg
+  actionsListGithubHostedRunnersInGroupForOrg: ActionsListGithubHostedRunnersInGroupForOrg
   actionsListRepoAccessToSelfHostedRunnerGroupInOrg: ActionsListRepoAccessToSelfHostedRunnerGroupInOrg
   actionsSetRepoAccessToSelfHostedRunnerGroupInOrg: ActionsSetRepoAccessToSelfHostedRunnerGroupInOrg
   actionsAddRepoAccessToSelfHostedRunnerGroupInOrg: ActionsAddRepoAccessToSelfHostedRunnerGroupInOrg
@@ -23041,6 +23547,8 @@ export type Implementation = {
   reposGetOrgRuleset: ReposGetOrgRuleset
   reposUpdateOrgRuleset: ReposUpdateOrgRuleset
   reposDeleteOrgRuleset: ReposDeleteOrgRuleset
+  orgsGetOrgRulesetHistory: OrgsGetOrgRulesetHistory
+  orgsGetOrgRulesetVersion: OrgsGetOrgRulesetVersion
   secretScanningListAlertsForOrg: SecretScanningListAlertsForOrg
   securityAdvisoriesListOrgRepositoryAdvisories: SecurityAdvisoriesListOrgRepositoryAdvisories
   orgsListSecurityManagerTeams: OrgsListSecurityManagerTeams
@@ -23049,6 +23557,12 @@ export type Implementation = {
   billingGetGithubActionsBillingOrg: BillingGetGithubActionsBillingOrg
   billingGetGithubPackagesBillingOrg: BillingGetGithubPackagesBillingOrg
   billingGetSharedStorageBillingOrg: BillingGetSharedStorageBillingOrg
+  hostedComputeListNetworkConfigurationsForOrg: HostedComputeListNetworkConfigurationsForOrg
+  hostedComputeCreateNetworkConfigurationForOrg: HostedComputeCreateNetworkConfigurationForOrg
+  hostedComputeGetNetworkConfigurationForOrg: HostedComputeGetNetworkConfigurationForOrg
+  hostedComputeUpdateNetworkConfigurationForOrg: HostedComputeUpdateNetworkConfigurationForOrg
+  hostedComputeDeleteNetworkConfigurationFromOrg: HostedComputeDeleteNetworkConfigurationFromOrg
+  hostedComputeGetNetworkSettingsForOrg: HostedComputeGetNetworkSettingsForOrg
   copilotCopilotMetricsForTeam: CopilotCopilotMetricsForTeam
   copilotUsageMetricsForTeam: CopilotUsageMetricsForTeam
   teamsList: TeamsList
@@ -23518,6 +24032,8 @@ export type Implementation = {
   reposGetRepoRuleset: ReposGetRepoRuleset
   reposUpdateRepoRuleset: ReposUpdateRepoRuleset
   reposDeleteRepoRuleset: ReposDeleteRepoRuleset
+  reposGetRepoRulesetHistory: ReposGetRepoRulesetHistory
+  reposGetRepoRulesetVersion: ReposGetRepoRulesetVersion
   secretScanningListAlertsForRepo: SecretScanningListAlertsForRepo
   secretScanningGetAlert: SecretScanningGetAlert
   secretScanningUpdateAlert: SecretScanningUpdateAlert
@@ -25672,6 +26188,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .default("disabled"),
     code_scanning_default_setup_options:
       s_code_scanning_default_setup_options.optional(),
+    code_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -25685,6 +26205,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional()
       .default("disabled"),
     secret_scanning_non_provider_patterns: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
+    secret_scanning_generic_secrets: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
+    secret_scanning_delegated_alert_dismissal: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
@@ -25916,6 +26444,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     code_scanning_default_setup_options:
       s_code_scanning_default_setup_options.optional(),
+    code_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -25926,6 +26458,14 @@ export function createRouter(implementation: Implementation): KoaRouter {
     secret_scanning_non_provider_patterns: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
+    secret_scanning_generic_secrets: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
+    secret_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
     private_vulnerability_reporting: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
@@ -26332,8 +26872,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     severity: z.string().optional(),
     ecosystem: z.string().optional(),
     package: z.string().optional(),
+    epss_percentage: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
-    sort: z.enum(["created", "updated"]).optional().default("created"),
+    sort: z
+      .enum(["created", "updated", "epss_percentage"])
+      .optional()
+      .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     before: z.string().optional(),
     after: z.string().optional(),
@@ -29874,6 +30418,594 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const actionsListHostedRunnersForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsListHostedRunnersForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const actionsListHostedRunnersForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            runners: z.array(s_actions_hosted_runner),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListHostedRunnersForOrg",
+    "/orgs/:org/actions/hosted-runners",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListHostedRunnersForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListHostedRunnersForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            runners: t_actions_hosted_runner[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsListHostedRunnersForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsListHostedRunnersForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsCreateHostedRunnerForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsCreateHostedRunnerForOrgBodySchema = z.object({
+    name: z.string(),
+    image: z.object({
+      id: z.string().optional(),
+      source: z.enum(["github", "partner", "custom"]).optional(),
+    }),
+    size: z.string(),
+    runner_group_id: z.coerce.number(),
+    maximum_runners: z.coerce.number().optional(),
+    enable_static_ip: PermissiveBoolean.optional(),
+  })
+
+  const actionsCreateHostedRunnerForOrgResponseValidator =
+    responseValidationFactory([["201", s_actions_hosted_runner]], undefined)
+
+  router.post(
+    "actionsCreateHostedRunnerForOrg",
+    "/orgs/:org/actions/hosted-runners",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsCreateHostedRunnerForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsCreateHostedRunnerForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsCreateHostedRunnerForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsCreateHostedRunnerForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsGetHostedRunnersGithubOwnedImagesForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            images: z.array(s_actions_hosted_runner_image),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetHostedRunnersGithubOwnedImagesForOrg",
+    "/orgs/:org/actions/hosted-runners/images/github-owned",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnersGithubOwnedImagesForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            images: t_actions_hosted_runner_image[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnersGithubOwnedImagesForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        actionsGetHostedRunnersGithubOwnedImagesForOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnersPartnerImagesForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsGetHostedRunnersPartnerImagesForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            images: z.array(s_actions_hosted_runner_image),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetHostedRunnersPartnerImagesForOrg",
+    "/orgs/:org/actions/hosted-runners/images/partner",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnersPartnerImagesForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            images: t_actions_hosted_runner_image[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnersPartnerImagesForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetHostedRunnersPartnerImagesForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnersLimitsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsGetHostedRunnersLimitsForOrgResponseValidator =
+    responseValidationFactory(
+      [["200", s_actions_hosted_runner_limits]],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetHostedRunnersLimitsForOrg",
+    "/orgs/:org/actions/hosted-runners/limits",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnersLimitsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner_limits>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnersLimitsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetHostedRunnersLimitsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnersMachineSpecsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsGetHostedRunnersMachineSpecsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            machine_specs: z.array(s_actions_hosted_runner_machine_spec),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetHostedRunnersMachineSpecsForOrg",
+    "/orgs/:org/actions/hosted-runners/machine-sizes",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnersMachineSpecsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            machine_specs: t_actions_hosted_runner_machine_spec[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnersMachineSpecsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetHostedRunnersMachineSpecsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnersPlatformsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const actionsGetHostedRunnersPlatformsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            platforms: z.array(z.string()),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsGetHostedRunnersPlatformsForOrg",
+    "/orgs/:org/actions/hosted-runners/platforms",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnersPlatformsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            platforms: string[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnersPlatformsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetHostedRunnersPlatformsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsGetHostedRunnerForOrgParamSchema = z.object({
+    org: z.string(),
+    hosted_runner_id: z.coerce.number(),
+  })
+
+  const actionsGetHostedRunnerForOrgResponseValidator =
+    responseValidationFactory([["200", s_actions_hosted_runner]], undefined)
+
+  router.get(
+    "actionsGetHostedRunnerForOrg",
+    "/orgs/:org/actions/hosted-runners/:hosted_runner_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsGetHostedRunnerForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsGetHostedRunnerForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsGetHostedRunnerForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsUpdateHostedRunnerForOrgParamSchema = z.object({
+    org: z.string(),
+    hosted_runner_id: z.coerce.number(),
+  })
+
+  const actionsUpdateHostedRunnerForOrgBodySchema = z.object({
+    name: z.string().optional(),
+    runner_group_id: z.coerce.number().optional(),
+    maximum_runners: z.coerce.number().optional(),
+    enable_static_ip: PermissiveBoolean.optional(),
+  })
+
+  const actionsUpdateHostedRunnerForOrgResponseValidator =
+    responseValidationFactory([["200", s_actions_hosted_runner]], undefined)
+
+  router.patch(
+    "actionsUpdateHostedRunnerForOrg",
+    "/orgs/:org/actions/hosted-runners/:hosted_runner_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsUpdateHostedRunnerForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          actionsUpdateHostedRunnerForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsUpdateHostedRunnerForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsUpdateHostedRunnerForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsDeleteHostedRunnerForOrgParamSchema = z.object({
+    org: z.string(),
+    hosted_runner_id: z.coerce.number(),
+  })
+
+  const actionsDeleteHostedRunnerForOrgResponseValidator =
+    responseValidationFactory([["202", s_actions_hosted_runner]], undefined)
+
+  router.delete(
+    "actionsDeleteHostedRunnerForOrg",
+    "/orgs/:org/actions/hosted-runners/:hosted_runner_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsDeleteHostedRunnerForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with202() {
+          return new KoaRuntimeResponse<t_actions_hosted_runner>(202)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsDeleteHostedRunnerForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsDeleteHostedRunnerForOrgResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const oidcGetOidcCustomSubTemplateForOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -30657,6 +31789,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     allows_public_repositories: PermissiveBoolean.optional().default(false),
     restricted_to_workflows: PermissiveBoolean.optional().default(false),
     selected_workflows: z.array(z.string()).optional(),
+    network_configuration_id: z.string().optional(),
   })
 
   const actionsCreateSelfHostedRunnerGroupForOrgResponseValidator =
@@ -30769,6 +31902,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     allows_public_repositories: PermissiveBoolean.optional().default(false),
     restricted_to_workflows: PermissiveBoolean.optional().default(false),
     selected_workflows: z.array(z.string()).optional(),
+    network_configuration_id: z.string().nullable().optional(),
   })
 
   const actionsUpdateSelfHostedRunnerGroupForOrgResponseValidator =
@@ -30862,6 +31996,79 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = actionsDeleteSelfHostedRunnerGroupFromOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const actionsListGithubHostedRunnersInGroupForOrgParamSchema = z.object({
+    org: z.string(),
+    runner_group_id: z.coerce.number(),
+  })
+
+  const actionsListGithubHostedRunnersInGroupForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const actionsListGithubHostedRunnersInGroupForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            runners: z.array(s_actions_hosted_runner),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "actionsListGithubHostedRunnersInGroupForOrg",
+    "/orgs/:org/actions/runner-groups/:runner_group_id/hosted-runners",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          actionsListGithubHostedRunnersInGroupForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          actionsListGithubHostedRunnersInGroupForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            runners: t_actions_hosted_runner[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .actionsListGithubHostedRunnersInGroupForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = actionsListGithubHostedRunnersInGroupForOrgResponseValidator(
         status,
         body,
       )
@@ -31491,6 +32698,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["201", z.object({ runner: s_runner, encoded_jit_config: z.string() })],
         ["404", s_basic_error],
+        ["409", s_basic_error],
         ["422", s_validation_error_simple],
       ],
       undefined,
@@ -31524,6 +32732,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
         },
         with422() {
           return new KoaRuntimeResponse<t_validation_error_simple>(422)
@@ -32296,9 +33507,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         new RegExp(
           "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
         ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
+      ),
+    key_id: z.string(),
     visibility: z.enum(["all", "private", "selected"]),
     selected_repository_ids: z.array(z.coerce.number()).optional(),
   })
@@ -33212,6 +34422,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     before: z.string().optional(),
     after: z.string().optional(),
+    predicate_type: z.string().optional(),
   })
 
   const orgsListAttestationsResponseValidator = responseValidationFactory(
@@ -33703,6 +34914,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .default("disabled"),
     code_scanning_default_setup_options:
       s_code_scanning_default_setup_options.optional(),
+    code_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("not_set"),
     secret_scanning: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -33735,6 +34950,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional()
       .default("disabled"),
+    secret_scanning_generic_secrets: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
+    secret_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
     private_vulnerability_reporting: z
       .enum(["enabled", "disabled", "not_set"])
       .optional()
@@ -34026,6 +35248,10 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     code_scanning_default_setup_options:
       s_code_scanning_default_setup_options.optional(),
+    code_scanning_delegated_alert_dismissal: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional()
+      .default("disabled"),
     secret_scanning: z.enum(["enabled", "disabled", "not_set"]).optional(),
     secret_scanning_push_protection: z
       .enum(["enabled", "disabled", "not_set"])
@@ -34049,6 +35275,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
     secret_scanning_non_provider_patterns: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning_generic_secrets: z
+      .enum(["enabled", "disabled", "not_set"])
+      .optional(),
+    secret_scanning_delegated_alert_dismissal: z
       .enum(["enabled", "disabled", "not_set"])
       .optional(),
     private_vulnerability_reporting: z
@@ -35976,8 +37208,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     severity: z.string().optional(),
     ecosystem: z.string().optional(),
     package: z.string().optional(),
+    epss_percentage: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
-    sort: z.enum(["created", "updated"]).optional().default("created"),
+    sort: z
+      .enum(["created", "updated", "epss_percentage"])
+      .optional()
+      .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     before: z.string().optional(),
     after: z.string().optional(),
@@ -41158,6 +42394,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
     last_used_after: z.string().datetime({ offset: true }).optional(),
+    token_id: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()).max(50),
+      )
+      .optional(),
   })
 
   const orgsListPatGrantRequestsResponseValidator = responseValidationFactory(
@@ -41476,6 +42718,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     permission: z.string().optional(),
     last_used_before: z.string().datetime({ offset: true }).optional(),
     last_used_after: z.string().datetime({ offset: true }).optional(),
+    token_id: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string()).max(50),
+      )
+      .optional(),
   })
 
   const orgsListPatGrantsResponseValidator = responseValidationFactory(
@@ -43628,6 +44876,134 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const orgsGetOrgRulesetHistoryParamSchema = z.object({
+    org: z.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const orgsGetOrgRulesetHistoryQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const orgsGetOrgRulesetHistoryResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_ruleset_version)],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "orgsGetOrgRulesetHistory",
+    "/orgs/:org/rulesets/:ruleset_id/history",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetOrgRulesetHistoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          orgsGetOrgRulesetHistoryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ruleset_version[]>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsGetOrgRulesetHistory(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsGetOrgRulesetHistoryResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const orgsGetOrgRulesetVersionParamSchema = z.object({
+    org: z.string(),
+    ruleset_id: z.coerce.number(),
+    version_id: z.coerce.number(),
+  })
+
+  const orgsGetOrgRulesetVersionResponseValidator = responseValidationFactory(
+    [
+      ["200", s_ruleset_version_with_state],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "orgsGetOrgRulesetVersion",
+    "/orgs/:org/rulesets/:ruleset_id/history/:version_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          orgsGetOrgRulesetVersionParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ruleset_version_with_state>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .orgsGetOrgRulesetVersion(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = orgsGetOrgRulesetVersionResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const secretScanningListAlertsForOrgParamSchema = z.object({
     org: z.string(),
   })
@@ -44076,6 +45452,348 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = billingGetSharedStorageBillingOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeListNetworkConfigurationsForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const hostedComputeListNetworkConfigurationsForOrgQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const hostedComputeListNetworkConfigurationsForOrgResponseValidator =
+    responseValidationFactory(
+      [
+        [
+          "200",
+          z.object({
+            total_count: z.coerce.number(),
+            network_configurations: z.array(s_network_configuration),
+          }),
+        ],
+      ],
+      undefined,
+    )
+
+  router.get(
+    "hostedComputeListNetworkConfigurationsForOrg",
+    "/orgs/:org/settings/network-configurations",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeListNetworkConfigurationsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          hostedComputeListNetworkConfigurationsForOrgQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            network_configurations: t_network_configuration[]
+            total_count: number
+          }>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeListNetworkConfigurationsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = hostedComputeListNetworkConfigurationsForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeCreateNetworkConfigurationForOrgParamSchema = z.object({
+    org: z.string(),
+  })
+
+  const hostedComputeCreateNetworkConfigurationForOrgBodySchema = z.object({
+    name: z.string(),
+    compute_service: z.enum(["none", "actions"]).optional(),
+    network_settings_ids: z.array(z.string()).min(1).max(1),
+  })
+
+  const hostedComputeCreateNetworkConfigurationForOrgResponseValidator =
+    responseValidationFactory([["201", s_network_configuration]], undefined)
+
+  router.post(
+    "hostedComputeCreateNetworkConfigurationForOrg",
+    "/orgs/:org/settings/network-configurations",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeCreateNetworkConfigurationForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          hostedComputeCreateNetworkConfigurationForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with201() {
+          return new KoaRuntimeResponse<t_network_configuration>(201)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeCreateNetworkConfigurationForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = hostedComputeCreateNetworkConfigurationForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeGetNetworkConfigurationForOrgParamSchema = z.object({
+    org: z.string(),
+    network_configuration_id: z.string(),
+  })
+
+  const hostedComputeGetNetworkConfigurationForOrgResponseValidator =
+    responseValidationFactory([["200", s_network_configuration]], undefined)
+
+  router.get(
+    "hostedComputeGetNetworkConfigurationForOrg",
+    "/orgs/:org/settings/network-configurations/:network_configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeGetNetworkConfigurationForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_network_configuration>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeGetNetworkConfigurationForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = hostedComputeGetNetworkConfigurationForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeUpdateNetworkConfigurationForOrgParamSchema = z.object({
+    org: z.string(),
+    network_configuration_id: z.string(),
+  })
+
+  const hostedComputeUpdateNetworkConfigurationForOrgBodySchema = z.object({
+    name: z.string().optional(),
+    compute_service: z.enum(["none", "actions"]).optional(),
+    network_settings_ids: z.array(z.string()).min(0).max(1).optional(),
+  })
+
+  const hostedComputeUpdateNetworkConfigurationForOrgResponseValidator =
+    responseValidationFactory([["200", s_network_configuration]], undefined)
+
+  router.patch(
+    "hostedComputeUpdateNetworkConfigurationForOrg",
+    "/orgs/:org/settings/network-configurations/:network_configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeUpdateNetworkConfigurationForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          hostedComputeUpdateNetworkConfigurationForOrgBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_network_configuration>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeUpdateNetworkConfigurationForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = hostedComputeUpdateNetworkConfigurationForOrgResponseValidator(
+        status,
+        body,
+      )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeDeleteNetworkConfigurationFromOrgParamSchema = z.object({
+    org: z.string(),
+    network_configuration_id: z.string(),
+  })
+
+  const hostedComputeDeleteNetworkConfigurationFromOrgResponseValidator =
+    responseValidationFactory([["204", z.undefined()]], undefined)
+
+  router.delete(
+    "hostedComputeDeleteNetworkConfigurationFromOrg",
+    "/orgs/:org/settings/network-configurations/:network_configuration_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeDeleteNetworkConfigurationFromOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with204() {
+          return new KoaRuntimeResponse<void>(204)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeDeleteNetworkConfigurationFromOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body =
+        hostedComputeDeleteNetworkConfigurationFromOrgResponseValidator(
+          status,
+          body,
+        )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const hostedComputeGetNetworkSettingsForOrgParamSchema = z.object({
+    org: z.string(),
+    network_settings_id: z.string(),
+  })
+
+  const hostedComputeGetNetworkSettingsForOrgResponseValidator =
+    responseValidationFactory([["200", s_network_settings]], undefined)
+
+  router.get(
+    "hostedComputeGetNetworkSettingsForOrg",
+    "/orgs/:org/settings/network-settings/:network_settings_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          hostedComputeGetNetworkSettingsForOrgParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_network_settings>(200)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .hostedComputeGetNetworkSettingsForOrg(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = hostedComputeGetNetworkSettingsForOrgResponseValidator(
         status,
         body,
       )
@@ -49706,6 +51424,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       [
         ["201", z.object({ runner: s_runner, encoded_jit_config: z.string() })],
         ["404", s_basic_error],
+        ["409", s_basic_error],
         ["422", s_validation_error_simple],
       ],
       undefined,
@@ -49739,6 +51458,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         },
         with404() {
           return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with409() {
+          return new KoaRuntimeResponse<t_basic_error>(409)
         },
         with422() {
           return new KoaRuntimeResponse<t_validation_error_simple>(422)
@@ -51737,9 +53459,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         new RegExp(
           "^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=|[A-Za-z0-9+/]{4})$",
         ),
-      )
-      .optional(),
-    key_id: z.string().optional(),
+      ),
+    key_id: z.string(),
   })
 
   const actionsCreateOrUpdateRepoSecretResponseValidator =
@@ -52837,6 +54558,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     before: z.string().optional(),
     after: z.string().optional(),
+    predicate_type: z.string().optional(),
   })
 
   const reposListAttestationsResponseValidator = responseValidationFactory(
@@ -56454,11 +58176,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
     state: s_code_scanning_alert_set_state,
     dismissed_reason: s_code_scanning_alert_dismissed_reason.optional(),
     dismissed_comment: s_code_scanning_alert_dismissed_comment.optional(),
+    create_request: s_code_scanning_alert_create_request.optional(),
   })
 
   const codeScanningUpdateAlertResponseValidator = responseValidationFactory(
     [
       ["200", s_code_scanning_alert],
+      ["400", s_scim_error],
       ["403", s_basic_error],
       ["404", s_basic_error],
       [
@@ -56495,6 +58219,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
       const responder = {
         with200() {
           return new KoaRuntimeResponse<t_code_scanning_alert>(200)
+        },
+        with400() {
+          return new KoaRuntimeResponse<t_scim_error>(400)
         },
         with403() {
           return new KoaRuntimeResponse<t_basic_error>(403)
@@ -60919,8 +62646,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ecosystem: z.string().optional(),
     package: z.string().optional(),
     manifest: z.string().optional(),
+    epss_percentage: z.string().optional(),
     scope: z.enum(["development", "runtime"]).optional(),
-    sort: z.enum(["created", "updated"]).optional().default("created"),
+    sort: z
+      .enum(["created", "updated", "epss_percentage"])
+      .optional()
+      .default("created"),
     direction: z.enum(["asc", "desc"]).optional().default("desc"),
     page: z.coerce.number().optional().default(1),
     per_page: z.coerce.number().optional().default(30),
@@ -75165,6 +76896,136 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const reposGetRepoRulesetHistoryParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    ruleset_id: z.coerce.number(),
+  })
+
+  const reposGetRepoRulesetHistoryQuerySchema = z.object({
+    per_page: z.coerce.number().optional().default(30),
+    page: z.coerce.number().optional().default(1),
+  })
+
+  const reposGetRepoRulesetHistoryResponseValidator = responseValidationFactory(
+    [
+      ["200", z.array(s_ruleset_version)],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "reposGetRepoRulesetHistory",
+    "/repos/:owner/:repo/rulesets/:ruleset_id/history",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetRepoRulesetHistoryParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          reposGetRepoRulesetHistoryQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ruleset_version[]>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .reposGetRepoRulesetHistory(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = reposGetRepoRulesetHistoryResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const reposGetRepoRulesetVersionParamSchema = z.object({
+    owner: z.string(),
+    repo: z.string(),
+    ruleset_id: z.coerce.number(),
+    version_id: z.coerce.number(),
+  })
+
+  const reposGetRepoRulesetVersionResponseValidator = responseValidationFactory(
+    [
+      ["200", s_ruleset_version_with_state],
+      ["404", s_basic_error],
+      ["500", s_basic_error],
+    ],
+    undefined,
+  )
+
+  router.get(
+    "reposGetRepoRulesetVersion",
+    "/repos/:owner/:repo/rulesets/:ruleset_id/history/:version_id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          reposGetRepoRulesetVersionParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: undefined,
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_ruleset_version_with_state>(200)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_basic_error>(404)
+        },
+        with500() {
+          return new KoaRuntimeResponse<t_basic_error>(500)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .reposGetRepoRulesetVersion(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = reposGetRepoRulesetVersionResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const secretScanningListAlertsForRepoParamSchema = z.object({
     owner: z.string(),
     repo: z.string(),
@@ -78088,6 +79949,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     order: z.enum(["desc", "asc"]).optional().default("desc"),
     per_page: z.coerce.number().optional().default(30),
     page: z.coerce.number().optional().default(1),
+    advanced_search: z.string().optional(),
   })
 
   const searchIssuesAndPullRequestsResponseValidator =
@@ -87339,6 +89201,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     per_page: z.coerce.number().optional().default(30),
     before: z.string().optional(),
     after: z.string().optional(),
+    predicate_type: z.string().optional(),
   })
 
   const usersListAttestationsResponseValidator = responseValidationFactory(
@@ -87349,7 +89212,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
           attestations: z
             .array(
               z.object({
-                bundle: s_sigstore_bundle_0.optional(),
+                bundle: z
+                  .object({
+                    mediaType: z.string().optional(),
+                    verificationMaterial: z.record(z.unknown()).optional(),
+                    dsseEnvelope: z.record(z.unknown()).optional(),
+                  })
+                  .optional(),
                 repository_id: z.coerce.number().optional(),
                 bundle_url: z.string().optional(),
               }),
@@ -87387,7 +89256,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         with200() {
           return new KoaRuntimeResponse<{
             attestations?: {
-              bundle?: t_sigstore_bundle_0
+              bundle?: {
+                dsseEnvelope?: {
+                  [key: string]: unknown | undefined
+                }
+                mediaType?: string
+                verificationMaterial?: {
+                  [key: string]: unknown | undefined
+                }
+              }
               bundle_url?: string
               repository_id?: number
             }[]

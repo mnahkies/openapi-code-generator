@@ -39,6 +39,8 @@ import {
   t_SendPhoneChallengeParamSchema,
   t_UpdateAppAuthenticatorEnrollmentBodySchema,
   t_UpdateAppAuthenticatorEnrollmentParamSchema,
+  t_UpdateEnrollmentBodySchema,
+  t_UpdateEnrollmentParamSchema,
   t_VerifyAppAuthenticatorPushNotificationChallengeBodySchema,
   t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema,
   t_VerifyEmailOtpBodySchema,
@@ -63,6 +65,7 @@ import {
   s_PushNotificationVerification,
   s_Schema,
   s_UpdateAppAuthenticatorEnrollmentRequest,
+  s_UpdateAuthenticatorEnrollmentRequest,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
 import {
@@ -277,6 +280,30 @@ export type GetEnrollment = (
   | Response<403, t_Error>
   | Response<404, t_Error>
   | Response<429, t_Error>
+>
+
+export type UpdateEnrollmentResponder = {
+  with200(): KoaRuntimeResponse<t_AuthenticatorEnrollment>
+  with401(): KoaRuntimeResponse<t_Error>
+  with403(): KoaRuntimeResponse<t_Error>
+  with404(): KoaRuntimeResponse<t_Error>
+} & KoaRuntimeResponder
+
+export type UpdateEnrollment = (
+  params: Params<
+    t_UpdateEnrollmentParamSchema,
+    void,
+    t_UpdateEnrollmentBodySchema,
+    void
+  >,
+  respond: UpdateEnrollmentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_AuthenticatorEnrollment>
+  | Response<401, t_Error>
+  | Response<403, t_Error>
+  | Response<404, t_Error>
 >
 
 export type ListEmailsResponder = {
@@ -825,6 +852,7 @@ export type Implementation = {
   getAuthenticator: GetAuthenticator
   listEnrollments: ListEnrollments
   getEnrollment: GetEnrollment
+  updateEnrollment: UpdateEnrollment
   listEmails: ListEmails
   createEmail: CreateEmail
   getEmail: GetEmail
@@ -1428,6 +1456,75 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getEnrollmentResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const updateEnrollmentParamSchema = z.object({
+    authenticatorId: z.string(),
+    enrollmentId: z.string(),
+  })
+
+  const updateEnrollmentBodySchema = s_UpdateAuthenticatorEnrollmentRequest
+
+  const updateEnrollmentResponseValidator = responseValidationFactory(
+    [
+      ["200", s_AuthenticatorEnrollment],
+      ["401", s_Error],
+      ["403", s_Error],
+      ["404", s_Error],
+    ],
+    undefined,
+  )
+
+  router.patch(
+    "updateEnrollment",
+    "/idp/myaccount/authenticators/:authenticatorId/enrollments/:enrollmentId",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          updateEnrollmentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          updateEnrollmentBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_AuthenticatorEnrollment>(200)
+        },
+        with401() {
+          return new KoaRuntimeResponse<t_Error>(401)
+        },
+        with403() {
+          return new KoaRuntimeResponse<t_Error>(403)
+        },
+        with404() {
+          return new KoaRuntimeResponse<t_Error>(404)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .updateEnrollment(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = updateEnrollmentResponseValidator(status, body)
       ctx.status = status
       return next()
     },

@@ -85,6 +85,7 @@ export type t_Authenticator = {
     enrollments?: t_AuthenticatorEnrollment[]
   }
   readonly _links?: {
+    enroll?: t_HrefObject
     enrollments?: t_HrefObject
     self?: t_HrefObject
   }
@@ -97,7 +98,9 @@ export type t_Authenticator = {
 export type t_AuthenticatorEnrollment = {
   readonly _links?: {
     authenticator?: t_HrefObject
+    modify?: t_HrefObject
     self?: t_HrefObject
+    unenroll?: t_HrefObject
   }
   readonly canReset?: boolean
   readonly canUnenroll?: boolean
@@ -105,6 +108,7 @@ export type t_AuthenticatorEnrollment = {
   readonly id?: string
   readonly lastChallenged?: string
   name?: string
+  nickname?: string
   readonly profile?: EmptyObject
 }
 
@@ -310,4 +314,8 @@ export type t_UpdateAppAuthenticatorEnrollmentRequest = {
       pushToken?: string
     }
   }
+}
+
+export type t_UpdateAuthenticatorEnrollmentRequest = {
+  nickname?: string
 }

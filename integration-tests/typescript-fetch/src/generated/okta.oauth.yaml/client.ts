@@ -5,6 +5,7 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_AuthorizeWithPost,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
   t_ChallengeRequest,
@@ -152,6 +153,23 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
       { method: "GET", ...opts, headers },
       timeout,
     )
+  }
+
+  async authorizeWithPost(
+    p: {
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
+    const url = this.basePath + `/oauth2/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
   }
 
   async bcAuthorize(
@@ -376,7 +394,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
   > {
     const url = this.basePath + `/oauth2/v1/introspect`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)
@@ -675,6 +693,25 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     )
   }
 
+  async authorizeCustomAsWithPost(
+    p: {
+      authorizationServerId: string
+      requestBody: t_AuthorizeWithPost
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<429, t_Error>> {
+    const url =
+      this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/authorize`
+    const headers = this._headers(
+      { "Content-Type": "application/x-www-form-urlencoded" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
   async bcAuthorizeCustomAs(
     p: {
       authorizationServerId: string
@@ -765,7 +802,7 @@ export class OktaOpenIdConnectOAuth20 extends AbstractFetchClient {
     const url =
       this.basePath + `/oauth2/${p["authorizationServerId"]}/v1/introspect`
     const headers = this._headers(
-      { "Content-Type": "application/json" },
+      { "Content-Type": "application/x-www-form-urlencoded" },
       opts.headers,
     )
     const body = JSON.stringify(p.requestBody)

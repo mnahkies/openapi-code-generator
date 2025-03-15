@@ -5,6 +5,7 @@
 import {
   t_AcrValue,
   t_AmrValue,
+  t_AuthorizeWithPost,
   t_BackchannelAuthorizeRequest,
   t_BackchannelAuthorizeResponse,
   t_ChallengeRequest,
@@ -223,6 +224,28 @@ export class OktaOpenIdConnectOAuth20Service {
       this.config.basePath + `/oauth2/v1/authorize`,
       {
         params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  authorizeWithPost(p: {
+    requestBody: t_AuthorizeWithPost
+  }): Observable<
+    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/oauth2/v1/authorize`,
+      {
+        headers,
+        body,
         observe: "response",
         reportProgress: false,
       },
@@ -478,7 +501,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & { status: 429 })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(
@@ -834,6 +859,30 @@ export class OktaOpenIdConnectOAuth20Service {
     )
   }
 
+  authorizeCustomAsWithPost(p: {
+    authorizationServerId: string
+    requestBody: t_AuthorizeWithPost
+  }): Observable<
+    (HttpResponse<t_Error> & { status: 429 }) | HttpResponse<unknown>
+  > {
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath +
+        `/oauth2/${p["authorizationServerId"]}/v1/authorize`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   bcAuthorizeCustomAs(p: {
     authorizationServerId: string
     requestBody: t_BackchannelAuthorizeRequest
@@ -929,7 +978,9 @@ export class OktaOpenIdConnectOAuth20Service {
     | (HttpResponse<t_Error> & { status: 429 })
     | HttpResponse<unknown>
   > {
-    const headers = this._headers({ "Content-Type": "application/json" })
+    const headers = this._headers({
+      "Content-Type": "application/x-www-form-urlencoded",
+    })
     const body = p["requestBody"]
 
     return this.httpClient.request<any>(

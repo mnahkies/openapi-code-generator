@@ -297,6 +297,10 @@ export const s_Schema = z.object({
     .optional(),
 })
 
+export const s_UpdateAuthenticatorEnrollmentRequest = z.object({
+  nickname: z.string().optional(),
+})
+
 export const s_HrefObject = z.object({
   hints: z.object({ allow: z.array(s_HttpMethod).optional() }).optional(),
   href: z.string(),
@@ -342,11 +346,14 @@ export const s_AuthenticatorEnrollment = z.object({
   id: z.string().optional(),
   lastChallenged: z.string().optional(),
   name: z.string().optional(),
+  nickname: z.string().optional(),
   profile: z.object({}).optional(),
   _links: z
     .object({
       self: s_HrefObject.optional(),
       authenticator: s_HrefObject.optional(),
+      modify: s_HrefObject.optional(),
+      unenroll: s_HrefObject.optional(),
     })
     .optional(),
 })
@@ -378,6 +385,7 @@ export const s_Authenticator = z.object({
   _links: z
     .object({
       self: s_HrefObject.optional(),
+      enroll: s_HrefObject.optional(),
       enrollments: s_HrefObject.optional(),
     })
     .optional(),
