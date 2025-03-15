@@ -1,7 +1,7 @@
 openapi: 3.0.3
 info:
   title: Okta OpenID Connect & OAuth 2.0
-  version: 2024.08.3
+  version: 2025.01.1
   description: OAuth 2.0 Protocol APIs
   termsOfService: https://developer.okta.com/terms/
   contact:
@@ -88,7 +88,7 @@ paths:
           description: |-
             An optional parameter that can be included in the authentication request. This parameter increases the level of user assurance.
 
-            > **Note:** Multiple space-delimited values may be provided. The authorization server will choose one and reflect the chosen value in any resulting tokens.
+            > **Note:** Multiple space-delimited values may be provided. The authorization server chooses one and reflects the chosen value in any resulting tokens.
           schema:
             $ref: '#/components/schemas/AcrValue'
         - name: client_id
@@ -226,6 +226,25 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+    post:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: true
+      summary: /authorize
+      description: |-
+        This is a starting point for browser-based OpenID Connect flows such as the implicit and authorization code flows. This endpoint method behaves the same as [`GET /oauth2/v1/authorize`](/openapi/okta-oauth/oauth/tag/OrgAS/#tag/OrgAS/operation/authorize), except that all parameters are specified in the request body, and submitted through the form post. No query parameters are allowed.
+        > **Note:** Requests to the `/authorize` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. Example responses are intentionally omitted, but include displaying a sign-in prompt, redirecting to the client application, or displaying an error.
+      operationId: authorizeWithPost
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthorizeWithPost'
+      responses:
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      tags:
+        - OrgAS
   /oauth2/v1/bc/authorize:
     post:
       x-okta-lifecycle:
@@ -721,7 +740,7 @@ paths:
       operationId: introspect
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/IntrospectionRequest'
       responses:
@@ -1395,7 +1414,7 @@ paths:
           description: |-
             An optional parameter that can be included in the authentication request. This parameter increases the level of user assurance.
 
-            > **Note:** Multiple space-delimited values may be provided. The authorization server will choose one and reflect the chosen value in any resulting tokens.
+            > **Note:** Multiple space-delimited values may be provided. The authorization server chooses one and reflects the chosen value in any resulting tokens.
           schema:
             $ref: '#/components/schemas/AcrValue'
         - name: client_id
@@ -1533,6 +1552,25 @@ paths:
       x-okta-lifecycle:
         lifecycle: GA
         isGenerallyAvailable: true
+    post:
+      x-okta-lifecycle:
+        lifecycle: EA
+        isGenerallyAvailable: true
+      summary: /authorize
+      description: |-
+        This is a starting point for browser-based OpenID Connect flows such as the implicit and authorization code flows. This endpoint method behaves the same as [`GET /oauth2/{authorizationServerId}/v1/authorize`](/openapi/okta-oauth/oauth/tag/CustomAS/#tag/CustomAS/operation/authorizeCustomAS), except that all parameters are specified in the request body, and submitted through the form post. No query parameters are allowed.
+        > **Note:** Requests to the `/authorize` endpoint should redirect the browser (user agent) to the endpoint. You can't use AJAX with this endpoint. Example responses are intentionally omitted, but include displaying a sign-in prompt, redirecting to the client application, or displaying an error.
+      operationId: authorizeCustomASWithPost
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/AuthorizeWithPost'
+      responses:
+        '429':
+          $ref: '#/components/responses/ErrorTooManyRequests429'
+      tags:
+        - CustomAS
   /oauth2/{authorizationServerId}/v1/bc/authorize:
     parameters:
       - $ref: '#/components/parameters/pathAuthorizationServerId'
@@ -1761,7 +1799,7 @@ paths:
       operationId: introspectCustomAS
       requestBody:
         content:
-          application/json:
+          application/x-www-form-urlencoded:
             schema:
               $ref: '#/components/schemas/IntrospectionRequest'
       responses:
@@ -3463,6 +3501,117 @@ components:
         - native
         - service
         - web
+    AuthorizeWithPost:
+      type: object
+      properties:
+        acr_values:
+          allOf:
+            - $ref: '#/components/schemas/AcrValue'
+            - type: string
+              description: |-
+                An optional parameter that can be included in the authentication request. This parameter increases the level of user assurance.
+
+                > **Note:** Multiple space-delimited values may be provided. The authorization server chooses one and reflects the chosen value in any resulting tokens.
+        client_id:
+          description: Obtained during either manual client registration or through the [Dynamic Client Registration API](/openapi/okta-oauth/oauth/tag/Client/). It identifies the client and must match the value preregistered in Okta.
+          type: string
+        code_challenge:
+          description: A challenge for [PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/). The challenge is verified in the access token request.
+          type: string
+        code_challenge_method:
+          allOf:
+            - $ref: '#/components/schemas/CodeChallengeMethod'
+            - type: string
+              description: Method used to derive the code challenge for [PKCE](https://developer.okta.com/docs/guides/implement-grant-type/authcodepkce/main/).
+        display:
+          description: The `display` parameter to be passed to the external Identity Provider when performing [social login](https://developer.okta.com/docs/concepts/identity-providers/).
+          type: string
+        enroll_amr_values:
+          allOf:
+            - $ref: '#/components/schemas/AmrValue'
+            - type: string
+              description: |-
+                A space-delimited list of values indicating which authenticators to enroll in.
+
+                * If the `enroll_amr_values` parameter is specified, then the value for `prompt` must be `enroll_authenticator`.
+                * The parameter value is space-delimited, for example, `pwd sms okta_verify` is a valid request parameter value. You are prompted in the order of the amr values provided.
+        idp:
+          description: An Okta Extension to the OpenID Specification. The ID of the Identity Provider to use if there's no Okta Session.
+          type: string
+        idp_scope:
+          description: An Okta Extension to the OpenID specification. A space-delimited list of scopes to be provided to the external Identity Provider when performing [social login](https://developer.okta.com/docs/concepts/identity-providers/). These scopes are used in addition to the scopes already configured for the Identity Provider.
+          type: string
+        login_hint:
+          description: A username to pre-populate if prompting for authentication
+          type: string
+        max_age:
+          description: Allowable elapsed time, in seconds, since the last time the end user was actively authenticated by Okta.
+          type: integer
+        nonce:
+          description: A value that is returned in the ID token. It is used to mitigate replay attacks. The value is required for Implicit and Hybrid flows, but optional for Auth Code flows. See [OIDC Specs](https://openid.net/specs/openid-connect-core-1_0.html#AuthRequest).
+          type: string
+        prompt:
+          allOf:
+            - $ref: '#/components/schemas/Prompt'
+            - type: string
+              description: |-
+                If no `prompt` parameter is specified, the standard behavior occurs:
+                * If an Okta session already exists and meets the assurance requirements of the app, the user is silently authenticated. Otherwise, the user is prompted to authenticate.
+                * If scopes are requested that require consent and consent isn't yet given by the authenticated user, the user is prompted to give consent.
+        redirect_uri:
+          description: Callback location where the authorization code or tokens should be sent. It must match the value preregistered in Okta during client registration.
+          type: string
+        request:
+          description: |-
+            A JWT created by the client that enables requests to be passed as a single, self-contained parameter.
+
+            * You must sign the JWT using either the app's client secret or a private key whose public key is registered on the app's JWKSet.
+            * The JWT can't be encrypted.
+            >  **Note:** See [Build a JWT for client authentication](https://developer.okta.com/docs/guides/build-self-signed-jwt/) for information on how to build a JWT.
+            * Okta supports the [HMAC](https://tools.ietf.org/html/rfc7518#section-3.2), [RSA](https://tools.ietf.org/html/rfc7518#section-3.3) and [ECDSA](https://tools.ietf.org/html/rfc7518#section-3.4) signature algorithms. HMAC signatures require that the client has a `token_endpoint_auth_method` that uses a `client_secret`. RSA and ECDSA signatures requires that the client registers a public key.
+            * We recommend that you don't duplicate any request parameters in both the JWT and the query URI itself. However, you can do so with `state`, `nonce`, `code_challenge`, and `code_challenge_method`. In those cases, the values in the JWT overrides the query URI values.
+            * Okta validates the `request` parameter in the following ways:
+              1. `iss` is required and must be the `client_id`.
+              2. `aud` is required and must be the same value as the Authorization Server issuer that mints the ID or access token. This value is published in the metadata for your Authorization Server.
+              3. JWT lifetime is evaluated using the `iat` and `exp` claims, if present. If the JWT is expired or not yet valid, Okta returns an `invalid_request_object` error. Okta rejects JWTs that expire more than one hour in the future.
+              4. Okta rejects the JWT if the `jti` claim is present and it has already been processed.
+          type: string
+        request_uri:
+          description: Location where the authorization request payload data is referenced in an authorization request to the `/authorize` endpoint. This is returned from a Pushed Authorization Request at the `/par` endpoint.
+          type: string
+        response_mode:
+          allOf:
+            - $ref: '#/components/schemas/ResponseMode'
+            - type: string
+              description: |-
+                How the authorization response should be returned. If `id_token` or `token` is specified in the `response_type`, then `query` isn't allowed as a response mode. Defaults to `fragment` in implicit and hybrid flows.
+
+                The `Referrer-Policy` header is automatically included in the response when either the fragment or query parameter values are used. The header is set to `Referrer-Policy: no-referrer`.
+        response_type:
+          allOf:
+            - $ref: '#/components/schemas/ResponseTypesSupported'
+            - type: string
+              description: Any combination of `code`, `token`, and `id_token`. The combination determines the [flow](https://developer.okta.com/docs/concepts/oauth-openid/#choose-an-oauth-2-0-flow).
+        scope:
+          description: A space-delimited string of scopes requested
+          type: string
+        sessionToken:
+          description: Okta one-time session token. This is an Okta extension to the OpenID specification. The `sessionToken` allows an API-based user sign-in flow.
+          type: string
+        state:
+          description: |-
+            A value to be returned with the token. The client application can use it to remember the state of its interaction with the end user at the time of the authentication call. It can contain alphanumeric, comma, period, underscore, and hyphen characters. 
+
+            Okta requires the OAuth 2.0 `state` parameter on all requests to the `/authorize` endpoint to prevent cross-site request forgery (CSRF).
+            The OAuth 2.0 specification [requires](https://tools.ietf.org/html/rfc6749#section-10.12) that clients protect their redirect URIs against CSRF by sending a value in the authorize request that binds the request to the user-agent's authenticated state.
+            Using the `state` parameter is also a countermeasure to several other known attacks as outlined in [OAuth 2.0 Threat Model and Security Considerations](https://tools.ietf.org/html/rfc6819).
+          type: string
+      required:
+        - client_id
+        - redirect_uri
+        - response_type
+        - scope
+        - state
     BackchannelAuthorizeRequest:
       additionalProperties: true
       type: object
