@@ -1,0 +1,176 @@
+---
+title: typescript-koa
+---
+
+import {Tabs} from 'nextra/components'
+
+# Using the `typescript-koa` template
+The `typescript-koa` template outputs scaffolding code that handles the following:
+
+- Building a [@koa/router](https://www.npmjs.com/package/@koa/router) instance with all routes in the openapi specification
+- Generating types and runtime schema parsers for all request parameters/bodies and response bodies
+- Generating types for route implementations that receive validated inputs, and have return types that are additionally
+  validated at runtime prior to sending the response
+- (Optionally) Actually starting the server and binding to a port
+
+See [integration-tests/typescript-koa](https://github.com/mnahkies/openapi-code-generator/tree/main/integration-tests/typescript-koa) for more samples.
+
+
+### Install dependencies
+First install the CLI and the required runtime packages to your project:
+```sh npm2yarn
+npm i --dev @nahkies/openapi-code-generator @types/koa @types/koa__router
+npm i @nahkies/typescript-koa-runtime @koa/cors @koa/router koa koa-body zod
+```
+
+See also [quick start](../../getting-started/quick-start) guide
+
+### Run generation
+<Tabs items={["OpenAPI3", "Typespec"]}>
+
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./openapi.yaml \
+      --input-type openapi3 \
+      --output ./src \
+      --template typescript-koa \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    ```sh npm2yarn
+    npm run openapi-code-generator \
+      --input ./typespec.tsp \
+      --input-type typespec \
+      --output ./src \
+      --template typescript-koa \
+      --schema-builder zod
+    ```
+  </Tabs.Tab>
+
+</Tabs>
+
+### Using the generated code
+Running the above will output three files into `./src`:
+
+- `generated.ts` - exports a `createRouter` and `bootstrap` function, along with associated types used to create your server
+- `models.ts` - exports typescript types for schemas
+- `schemas.ts` - exports runtime schema validators
+
+Once generated usage should look something like this:
+
+```typescript
+import {bootstrap, createRouter, CreateTodoList, GetTodoLists} from "../generated"
+
+// Define your route implementations as async functions implementing the types
+// exported from generated.ts
+const createTodoList: CreateTodoList = async ({body}, respond) => {
+  const list = await prisma.todoList.create({
+    data: {
+      // body is strongly typed and parsed at runtime
+      name: body.name,
+    },
+  })
+
+  // (recommended) the respond parameter is a strongly typed helper that
+  // provides a better editor experience.
+  // the response body is additionally validated against the response schema/status code at runtime
+  return respond.with200().body(dbListToApiList(list))
+  // (deprecated) alternatively, you can return a {status, body} object which is also strongly typed
+  // pattern matching the status code against the response schema:
+  // return {
+  //   status: 200 as const,
+  //   body: dbListToApiList(list)
+  // }
+}
+
+const getTodoLists: GetTodoLists = async ({query}) => {
+  // omitted for brevity
+}
+
+// Starts a server listening on `port`
+bootstrap({
+  router: createRouter({getTodoLists, createTodoList}),
+  port: 8080,
+})
+```
+
+### Custom Koa app/config
+
+The provided `bootstrap` function has a limited range of options. For more advanced use-cases,
+such as `https` you will need to construct your own Koa `app`, and mount the router returned by `createRouter`.
+
+The only real requirement is that you provide a body parsing middleware before the `router` that places
+a parsed request body on the `ctx.body` property.
+
+Eg:
+```typescript
+import {createRouter} from "../generated"
+import KoaBody from "koa-body"
+import https from "https"
+
+// ...implement routes here
+
+const app = new Koa()
+
+// it doesn't have to be koa-body, but it does need to put the parsed body on `ctx.body`
+app.use(KoaBody())
+
+// mount the generated router
+const router = createRouter({getTodoLists, createTodoList})
+app.use(router.allowedMethods())
+app.use(router.routes())
+
+https
+  .createServer(
+    {
+      key: "...",
+      cert: "...",
+    },
+    app.callback(),
+  )
+  .listen(433)
+```
+
+### Error Handling
+
+Any errors thrown during the request processing will be wrapped in `KoaRuntimeError` objects,
+and tagged with the `phase` the error was thrown.
+
+```typescript
+interface KoaRuntimeError extends Error {
+  cause: unknown // the originally thrown exception
+  phase: "request_validation" | "request_handler" | "response_validation"
+}
+```
+
+This allows for implementing catch-all error middleware for common concerns like failed request validation,
+or internal server errors.
+
+Eg:
+```typescript
+export async function genericErrorMiddleware(ctx: Context, next: Next) {
+  try {
+    await next()
+  } catch (err) {
+    // if the request validation failed, return a 400 and include helpful
+    // information about the problem
+    if (KoaRuntimeError.isKoaError(err) && err.phase === "request_validation") {
+      ctx.status = 400
+      ctx.body = {
+        message: "request validation failed",
+        meta: err.cause instanceof ZodError ? {issues: err.cause.issues} : {},
+      } satisfies t_Error
+      return
+    }
+
+    // return a 500 and omit information from the response otherwise
+    logger.error("internal server error", err)
+    ctx.status = 500
+    ctx.body = {
+      message: "internal server error",
+    } satisfies t_Error
+  }
+}
+```

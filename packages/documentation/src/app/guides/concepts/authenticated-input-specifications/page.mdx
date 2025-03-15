@@ -1,0 +1,90 @@
+---
+title: Authenticated input specifications
+---
+
+# Authenticated input specifications
+
+Sometimes you want to generate using a URL as the input, but the URL requires some kind of authentication
+header to be passed.
+
+A good example is [Google cloud platforms IAP proxy](https://cloud.google.com/iap/docs/concepts-overview),
+which was the original motivation for supporting this, where we must pass a `Proxy-Authorization` header.
+Or from [private github repositories](https://docs.github.com/en/rest/authentication/authenticating-to-the-rest-api),
+where a `Authorization` header should be supplied.
+
+This can be achieved using the environment variable (preferred)) `OPENAPI_REMOTE_SPEC_REQUEST_HEADERS`,
+also available as the `--remote-spec-request-headers` cli flag.
+
+## Format
+
+The format of the value is a JSON object keyed by URI, with values being either an object,
+or array of `{name, value}` pairs.
+
+For example:
+```json
+{
+  "https://example.com": [
+    {"name": "X-Client-Id", "value": "my-client-id"},
+    {"name": "X-Client-Secret", "value": "some-secret-value"}
+  ],
+  "https://example.org/some/path": {"name": "Proxy-Authorization", "value": "some token"}
+}
+```
+
+As a typescript type:
+```typescript
+type OPENAPI_REMOTE_SPEC_REQUEST_HEADERS = {
+  [uri: string]: { name: string, value: string }[] | { name: string, value: string }
+}
+```
+
+## Hostname matching
+You should set the uris to the least specific uris you're happy for the header to be sent to -
+a full match on the provided uri is required for the headers to be sent.
+
+Eg: given a uri of `https://exmaple.com:8080/openapi.yaml` the headers would **not**
+be sent for requests to other ports, resource paths, or protocols, but a less specific
+uri like `https://example.com` will send headers on any (`https`) request to that domain,
+such as `https://exmaple.com/some/path/openapi.yaml`
+
+## Tips for generating the JSON
+Unfortunately it is a little annoying to formulate in shell scripts, so here's some examples to get you started.
+
+Typically, in any real use cases the secret values would be coming from other shell variables, eg: storing a
+short-lived access token, etc.
+
+### Use `jq`
+Using [jq](https://jqlang.github.io/jq/):
+```shell
+OPENAPI_REMOTE_SPEC_REQUEST_HEADERS=$(jq --null-input --compact-output \
+  --arg domain "https://example.com" \
+  --arg name "proxy-authorization" \
+  --arg value "some secret value" '{$domain: {$name, $value}}')
+echo $OPENAPI_REMOTE_SPEC_REQUEST_HEADERS
+```
+Outputs:
+```json
+{"https://example.com":{"name":"proxy-authorization","value":"some secret value"}}
+```
+
+### Use `node`
+Using [nodejs](https://nodejs.org/):
+
+```shell
+OPENAPI_REMOTE_SPEC_REQUEST_HEADERS=$(node -p 'JSON.stringify({[process.argv[1]]: {name: process.argv[2], value: process.argv[3]}})' \
+  https://example.com \
+  proxy-authorization \
+  'some secret value')
+echo $OPENAPI_REMOTE_SPEC_REQUEST_HEADERS
+```
+Outputs:
+```json
+{"https://example.com":{"name":"proxy-authorization","value":"some secret value"}}
+```
+
+## Why JSON
+Why JSON you ask? Simply put it has very well-defined semantics, and is easy to parse without
+fear of jumbling the pieces together.
+
+I started by trying to come up with a more ergonomic format, and then felt like I was re-inventing JSON
+when it came to dealing with all the edge cases correctly.

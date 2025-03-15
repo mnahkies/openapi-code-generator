@@ -1,0 +1,190 @@
+---
+title: CLI Options Reference
+---
+
+import {
+  Callout
+} from "nextra/components"
+
+## CLI Configuration Reference
+All CLI options can be provided as command-line parameters, or environment variables as you prefer.
+
+
+## Generate
+
+The default action is to run code generation.
+
+### Required Parameters
+
+#### `-i --input <value>`
+As environment variable `OPENAPI_INPUT`
+
+Path to the input specification to generate from. Either a local path, or a url may be provided, though not all
+specifications will build correctly from a url.
+
+By default, this must be a [OpenAPI 3.0](https://swagger.io/specification/v3) or [OpenAPI 3.1](https://swagger.io/specification/)
+specification, in either `YAML` or `JSON` format.
+
+When used in conjunction with `--input-type typespec` then a [TypeSpec](https://typespec.io/) specification can be
+supplied instead.
+
+#### `-o --output <value>`
+As environment variable `OPENAPI_OUTPUT`
+
+directory to output generated code (env: )
+
+#### `-t --template <value>`
+As environment variable `OPENAPI_TEMPLATE`
+
+Which template you wish to generate, one of:
+- [typescript-koa](../guides/server-templates/typescript-koa)
+- [typescript-fetch](../guides/client-templates/typescript-fetch)
+- [typescript-axios](../guides/client-templates/typescript-axios)
+- [typescript-angular](../guides/client-templates/typescript-angular)
+
+
+### Optional Parameters
+
+#### `--input-type <value>`
+As environment variable `OPENAPI_INPUT_TYPE`
+
+What type of input file is being provided, one of:
+- `openapi3` (**default**)
+- `typespec`
+
+
+#### `--override-specification-title <value>`
+As environment variable `OPENAPI_OVERRIDE_SPECIFICATION_TITLE`
+
+Allows overriding the `info.title` field of the input OpenAPI document. This field is used to generate
+some symbol names, and so this is useful when you don't directly control the source specification, and
+wish to customize the output symbol names.
+
+
+#### `-s --schema-builder <value>`
+As environment variable `OPENAPI_SCHEMA_BUILDER`
+
+Which runtime schema parsing library to use, one of:
+- `zod` (default)
+- `joi`
+
+
+#### `--grouping-strategy <value>` (experimental)
+As environment variable `OPENAPI_GROUPING_STRATEGY`
+
+Strategy to use for splitting output into separate files. Set to none for a single `generated.ts` file, one of:
+- `none` don't split output, yield single `generated.ts` (default)
+- `first-tag` group operations based on their first `tag`
+- `first-slug` group operations based on their first route slug/segment
+
+
+#### `--enable-runtime-response-validation` (experimental)
+As environment variable `OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION`
+
+Controls whether to validate response bodies using the chosen runtime schema library.
+
+Default `false`
+
+<Callout type="warning" emoji="⚠️">
+  Note: this is currently always `true` for server templates, and only applies to the client library templates.
+</Callout>
+
+#### `--enable-typed-base-paths` (client sdks only)
+As environment variable `OPENAPI_ENABLE_TYPED_BASE_PATHS`
+
+Controls whether to generate a URL builder from the openapi specifications
+array of server urls and placeholder variables.
+
+When disabled a plain `string` type is used for these parameters.
+
+See [servers object guide](../guides/concepts/servers-object-handling) for detailed explanation
+of how this is handled.
+
+
+Default: `true`
+
+#### `--extract-inline-schemas` (experimental)
+As environment variable `OPENAPI_EXTRACT_INLINE_SCHEMAS`
+
+Generate names based on usage, and extract in-line schemas to be standalone types / schemas in the
+generated code. This is especially useful when dealing with input schemas that don't make good use
+of named `$ref`'s.
+
+See [extract-inline-schemas guide](../guides/concepts/extract-inline-schemas) for details of how this works.
+
+Default `false`
+
+#### `--allow-unused-imports`
+As environment variable `OPENAPI_ALLOW_UNUSED_IMPORTS`
+
+Allow unused imports to be emitted in generated code. Offered as an escape hatch if any bugs
+in the unused-import elimination occur.
+
+Default `false`
+
+#### `--ts-allow-any`
+As environment variable `OPENAPI_TS_ALLOW_ANY`
+
+Determines whether to use `any` or `unknown` when generating types for schemas that don't have
+concrete definitions. Eg: `additionalProperties: true` or `{}` schemas.
+
+Using `unknown` will push you towards using type guards / making runtime checks before interacting
+with the model and should generally result in more robust code, whilst `any` may be more convenient
+during rapid prototyping.
+
+Default: `false` (use `unknown` rather than `any`)
+
+| Input schema                                    | `--ts-allow-any`           | (default)                  |
+|-------------------------------------------------|----------------------------|----------------------------|
+| `{}`                                            | `any`                      | `unknown`                  |
+| `{additionalProperties: true}`                  | `any`                      | `unknown`                  |
+| `{additionalProperties: false}`                 | `{ [key: string]: never }` | `{ [key: string]: never }` |
+| `{type: "object",  additionalProperties: true}` | `{[key: string]: any}`     | `{[key: string]: unknown}` |
+| `{type: "array", items: {}}`                    | `any[]`                    | `unknown[]`                |
+
+#### `--ts-server-implementation-method` (experimental) (server sdks only)
+As environment variable `OPENAPI_TS_SERVER_IMPLEMENTATION_METHOD`
+
+Determines whether to represent server stubs / interfaces as `type`, `interface`, or `abstract class` entities.
+
+This is mostly a case of personal preference, but can be important for better integration with dependency injection
+frameworks, such as [diod](https://github.com/artberri/diod) which rely on `abstract class` objects to define
+interfaces for injection.
+
+| Option           | Example Output                                 |
+|------------------|------------------------------------------------|
+| `interface`      | `export interface Implementation { ... }`      |
+| `type`           | `export type Implementation = { ... }`         |
+| `abstract-class` | `export abstract class Implementation { ... }` |
+
+Default: `type`
+
+#### `--filename-convention <value>`
+As environment variable `OPENAPI_FILENAME_CONVENTION`
+
+Determines which naming convention to use for dynamically generated filenames
+(eg: those generated from `tags` or route prefixes).
+
+| Value        | Example Filename |
+|--------------|------------------|
+| `kebab-case` | `my-file.ts`     |
+| `camel-case` | `myFile.ts`      |
+| `title-case` | `MyFile.ts`      |
+| `snake-case` | `my_file.ts`     |
+
+Default: `kebab-case`
+
+### Misc
+
+#### `--remote-spec-request-headers` (authenticated remote specifications)
+As environment variable `OPENAPI_REMOTE_SPEC_REQUEST_HEADERS`
+
+Allows providing request headers to use when fetching remote specifications. This allows for running
+generation against remote sources that require authentication.
+
+See [authenticated-input-specifications guide](../guides/concepts/authenticated-input-specifications) for
+details of how to use.
+
+#### `-h, --help`
+Displays help text for command
+

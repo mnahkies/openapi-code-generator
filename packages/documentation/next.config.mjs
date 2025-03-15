@@ -23,14 +23,8 @@ const nextConfig = {
 
     return config
   },
-  async redirects() {
-    return [{source: "/", destination: "/overview/about", permanent: false}]
-  },
 }
 
-const withNextra = nextra({
-  theme: "nextra-theme-docs",
-  themeConfig: "./src/theme.config.tsx",
-})
+const withNextra = nextra({})
 
 export default withNextra(nextConfig)

@@ -1,3 +1,5 @@
+"use client"
+
 import {LoadingSpinner} from "@/lib/loading-spinner"
 import {sampleFilenames} from "@/lib/playground/consts"
 import {ControlledSelect} from "@/lib/playground/controls/controlled-select"
@@ -14,7 +16,7 @@ import {Editor, type Monaco, useMonaco} from "@monaco-editor/react"
 import {type Config, WebFsAdaptor} from "@nahkies/openapi-code-generator"
 import type {editor} from "monaco-editor"
 import type {AutoTypingsCore} from "monaco-editor-auto-typings/lib/AutoTypingsCore"
-import {getComponents, useThemeConfig} from "nextra-theme-docs"
+import {useMDXComponents} from "nextra-theme-docs"
 import {Callout} from "nextra/components"
 import type React from "react"
 import type {PropsWithChildren} from "react"
@@ -150,13 +152,7 @@ const PlaygroundInner: React.FC<{
   defaultSample: {filename: string; content: string}
   samples: string[]
 }> = ({monaco, webFsAdaptor, defaultSample, samples}) => {
-  const themeConfig = useThemeConfig()
-
-  const Components = getComponents({
-    isRawLayout: false,
-    components: themeConfig.components,
-    // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-  }) as any
+  const Components = useMDXComponents()
 
   const workerRef = useRef<Worker | null>(null)
   const [config, setConfig] = useState<Config>(defaultConfig)

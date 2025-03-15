@@ -1,0 +1,148 @@
+---
+title: Tips for writing specifications
+---
+
+# Tips for writing a good specification
+
+Garbage in, garbage out applies especially to code generation tools. In short the more detailed, and accurate the
+specification, the better the code and documentation you'll get from it.
+
+This page outlines some tips to enhance the quality of the generated code, and make your specification easier to maintain.
+
+## Declare `operationId`s
+
+The `operationId` is used to generate method and type names. If you don't specify one,
+then one will be generated from the HTTP method and route.
+
+Eg:
+Without an operation id, you'll get generated method names, that might look like:
+```typescript
+client.getV2ListListIdItems(...)
+client.postV2ListListIdItems(...)
+```
+
+Instead of more readable ones like:
+```typescript
+client.getTodoListItems(...)
+client.createTodoListItem(...)
+```
+
+## Make liberal use of `$ref`
+
+Using `$ref` can reduce the repetition in your specification, making it far more readable
+and maintainable.
+
+It also has the advantage of giving a name to things, that can be used in the generated code,
+and avoid generating duplicate code.
+
+If you can't use `$ref` easily, there is also the option to [extract-inline-schemas](./concepts/extract-inline-schemas)
+which will generate names to avoid inline types, but it won't save you from duplicate code.
+
+Example:
+```yaml
+paths:
+  /list:
+    get:
+      operationId: getTodoLists
+      responses:
+        200:
+          description: 'success'
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/TodoList'
+components:
+  schemas:
+    TodoList:
+      properties:
+         ...
+```
+
+## Compose `$ref`s using `allOf` / `anyOf`
+You can create union and intersection types using `allOf` and `anyOf`
+
+**Union Types**
+Using `anyOf` we can combine types / schemas into unions.
+```yaml
+components:
+  schemas:
+    Apple:
+      type: object
+    Pear:
+      type: object
+    Fruit:
+      anyOf:
+        - $ref: "#/components/schemas/Apple"
+        - $ref: "#/components/schemas/Pear"
+```
+Produces something like:
+```typescript
+export type Apple = {}
+export type Pear = {}
+export type Fruit = Apple | Pear
+````
+
+**Intersection Types**
+Using `allOf` of we can combine types / schemas into intersection types. This is often
+handy for "extending" a type with additional properties
+```yaml
+components:
+  schemas:
+    Profile:
+      type: object
+      properties:
+        ...
+
+    FullProfile:
+      type: object
+      allOf:
+        - $ref: "#/components/schemas/Profile"
+        - type: object
+          properties:
+            ...
+```
+Produces something like:
+```typescript
+export type Profile = {}
+export type FullProfile = Profile & {}
+````
+
+## Use validation constraints where sensible
+
+A fairly rich set of validations can be specified in the specification. Make use of these in order
+for robust runtime validation.
+
+Example:
+```yaml
+components:
+  schemas:
+    MyRequestBody:
+      type: object
+      properties:
+        name:
+          type: string
+          minLength: 1
+        tags:
+          type: array
+          minItems: 1
+          maxItems: 100
+          items:
+            type: string
+```
+
+See [compatibility table](../overview/compatibility#schema-object) for an idea of what's possible.
+
+## Use a clear `info.title`
+
+The root `info.title` property is used to name the generated client. Using a name like:
+```yaml
+info:
+  title: Awesome Service
+```
+
+Will output a class `AwesomeServiceClient`
+
+If you can't modify the title, you can use `--override-specification-title "Some Other Title"`
+to workaround.

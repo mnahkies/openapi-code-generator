@@ -34,8 +34,9 @@ export async function generateReleaseNotes() {
 ${it.body
   ?.split("\n")
   .filter((it) => it.startsWith("#") === false)
+  .map((it) => it.trim())
   .join("\n")}
-    `,
+`,
     )
   }
 
@@ -46,7 +47,11 @@ ${it.body
 
 async function main() {
   const notes = await generateReleaseNotes()
-  const result = `import { Callout, Steps } from 'nextra/components'
+  const result = `---
+title: Release Notes
+---
+
+import { Callout, Steps } from 'nextra/components'
 
 # Release notes
 
@@ -63,7 +68,7 @@ ${notes.join("\n")}
   fs.writeFileSync(
     path.resolve(
       __dirname,
-      "../../../packages/documentation/src/pages/reference/release-notes.mdx",
+      "../../../packages/documentation/src/app/reference/release-notes/page.mdx",
     ),
     result.replace(/\r\n/g, "\n"),
     "utf-8",
