@@ -31,7 +31,7 @@
     "@nahkies/openapi-code-generator": "*",
     "monaco-editor": "^0.52.2",
     "monaco-editor-auto-typings": "^0.4.6",
-    "next": "15.2.2",
+    "next": "15.2.3",
     "nextra": "^4.2.16",
     "nextra-theme-docs": "^4.2.16",
     "node-polyfill-webpack-plugin": "^4.1.0",
