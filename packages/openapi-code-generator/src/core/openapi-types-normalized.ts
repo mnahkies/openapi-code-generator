@@ -11,7 +11,6 @@ export interface IRModelBase {
   readOnly: boolean /* false */
   default?: unknown | undefined
   "x-internal-preprocess"?: MaybeIRPreprocess | undefined
-  "x-enum-extensibility": "open" | "closed"
 }
 
 export type MaybeIRPreprocess = IRPreprocess | IRRef
@@ -38,6 +37,8 @@ export interface IRModelNumeric extends IRModelBase {
   maximum?: number | undefined
   minimum?: number | undefined
   multipleOf?: number | undefined
+
+  "x-enum-extensibility"?: "open" | "closed" | undefined
 }
 
 export type IRModelStringFormat =
@@ -55,6 +56,8 @@ export interface IRModelString extends IRModelBase {
   maxLength?: number | undefined
   minLength?: number | undefined
   pattern?: string | undefined
+
+  "x-enum-extensibility"?: "open" | "closed" | undefined
 }
 
 export interface IRModelBoolean extends IRModelBase {
