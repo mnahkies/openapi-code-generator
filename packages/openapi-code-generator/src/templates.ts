@@ -1,4 +1,4 @@
-import type {Generator} from "./templates.types"
+import type {OpenapiGenerator} from "./templates.types"
 import {generateTypescriptAngular} from "./typescript/typescript-angular/typescript-angular.generator"
 import {generateTypescriptAxios} from "./typescript/typescript-axios/typescript-axios.generator"
 import {generateTypescriptFetch} from "./typescript/typescript-fetch/typescript-fetch.generator"
@@ -25,4 +25,4 @@ export const templates = {
     type: "server",
     run: generateTypescriptKoa,
   },
-} satisfies {[key: string]: Generator}
+} satisfies {[key: string]: OpenapiGenerator}

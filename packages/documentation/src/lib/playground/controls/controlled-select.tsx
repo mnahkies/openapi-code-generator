@@ -26,7 +26,7 @@ export function ControlledSelect<
       >
         {props.values.map((it) => (
           <option key={it} value={it}>
-            {it}
+            {it || "(default)"}
           </option>
         ))}
       </select>
