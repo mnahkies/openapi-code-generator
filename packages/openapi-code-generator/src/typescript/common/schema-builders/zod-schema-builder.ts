@@ -210,7 +210,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
         return [
           this.union([
             ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
-            `z.unknown().brand('unsupported enum value')`,
+            `z.number().brand('unsupported enum value')`,
           ]),
         ]
           .filter(isDefined)
@@ -256,7 +256,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
       if (model["x-enum-extensibility"] === "open") {
         return this.union([
           this.stringEnum(model),
-          `z.unknown().brand('unsupported enum value')`,
+          `z.string().brand('unsupported enum value')`,
         ])
       }
 

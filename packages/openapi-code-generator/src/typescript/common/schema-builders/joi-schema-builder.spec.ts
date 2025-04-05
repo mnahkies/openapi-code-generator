@@ -457,6 +457,9 @@ describe.each(testVersions)(
 
         await expect(execute(123)).resolves.toBe(123)
         await expect(execute(404)).resolves.toBe(404)
+        await expect(execute("not a number")).rejects.toThrow(
+          '"value" must be a number',
+        )
       })
 
       it("supports minimum", async () => {
@@ -678,6 +681,7 @@ describe.each(testVersions)(
           await expect(execute(value)).resolves.toBe(value)
         }
         await expect(execute("orange")).resolves.toBe("orange")
+        await expect(execute(404)).rejects.toThrow('"value" must be a string')
       })
 
       it("supports minLength", async () => {
