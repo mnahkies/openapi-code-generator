@@ -70,7 +70,8 @@ export class Input {
 
     return Object.fromEntries(
       Object.entries(schemas).map(([name, maybeSchema]) => {
-        return [name, this.schema(normalizeSchemaObject(maybeSchema))]
+        // TODO: double normalization?
+        return [name, this.schema(this.normalizeSchemaObject(maybeSchema))]
       }),
     )
   }
@@ -217,7 +218,7 @@ export class Input {
 
   schema(maybeRef: Reference | Schema): IRModel {
     const schema = this.loader.schema(maybeRef)
-    return normalizeSchemaObject(schema)
+    return this.normalizeSchemaObject(schema)
   }
 
   preprocess(maybePreprocess: Reference | xInternalPreproccess): IRPreprocess {
@@ -302,7 +303,17 @@ export class Input {
   ): IRParameter[] {
     return parameters
       .map((it) => this.loader.parameter(it))
-      .map(normalizeParameterObject)
+      .map((it: Parameter): IRParameter => {
+        return {
+          name: it.name,
+          in: it.in,
+          schema: this.normalizeSchemaObject(it.schema),
+          description: it.description,
+          required: it.required ?? false,
+          deprecated: it.deprecated ?? false,
+          allowEmptyValue: it.allowEmptyValue ?? false,
+        }
+      })
   }
 
   private normalizeOperationId(
@@ -355,7 +366,7 @@ export class Input {
     const syntheticName = `${operationId}${mediaTypeToIdentifier(
       mediaType,
     )}${suffix}`
-    const result = normalizeSchemaObject(schema)
+    const result = this.normalizeSchemaObject(schema)
 
     const shouldCreateVirtualType =
       this.config.extractInlineSchemas &&
@@ -369,252 +380,242 @@ export class Input {
       ? this.loader.addVirtualType(operationId, syntheticName, result)
       : result
   }
-}
 
-function normalizeParameterObject(parameterObject: Parameter): IRParameter {
-  return {
-    name: parameterObject.name,
-    in: parameterObject.in,
-    schema: normalizeSchemaObject(parameterObject.schema),
-    description: parameterObject.description,
-    required: parameterObject.required ?? false,
-    deprecated: parameterObject.deprecated ?? false,
-    allowEmptyValue: parameterObject.allowEmptyValue ?? false,
-  }
-}
+  private normalizeSchemaObject(schemaObject: Schema): IRModel
+  private normalizeSchemaObject(schemaObject: Reference): IRRef
+  private normalizeSchemaObject(
+    schemaObject: Schema | Reference,
+  ): IRModel | IRRef
+  private normalizeSchemaObject(
+    schemaObject: Schema | Reference,
+  ): IRModel | IRRef {
+    const self = this
 
-function normalizeSchemaObject(schemaObject: Schema): IRModel
-function normalizeSchemaObject(schemaObject: Reference): IRRef
-function normalizeSchemaObject(
-  schemaObject: Schema | Reference,
-): IRModel | IRRef
-function normalizeSchemaObject(
-  schemaObject: Schema | Reference,
-): IRModel | IRRef {
-  if (isRef(schemaObject)) {
-    return schemaObject satisfies IRRef
-  }
-
-  // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
-  //             or is the cleanest way to do it. I'm fairly sure this will work fine
-  //             for most things though.
-  if (Array.isArray(schemaObject.type)) {
-    const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
-    return normalizeSchemaObject({
-      oneOf: schemaObject.type
-        .filter((it) => it !== "null")
-        .map((it) =>
-          normalizeSchemaObject({
-            ...schemaObject,
-            type: it,
-            nullable,
-          }),
-        ),
-    })
-  }
-
-  const base: IRModelBase = {
-    nullable: schemaObject.nullable || false,
-    readOnly: schemaObject.readOnly || false,
-    default: schemaObject.default,
-    "x-internal-preprocess": schemaObject["x-internal-preprocess"],
-  }
-
-  switch (schemaObject.type) {
-    case undefined: {
-      if (
-        deepEqual(schemaObject, {}) ||
-        deepEqual(schemaObject, {additionalProperties: true})
-      ) {
-        return {...base, type: "any"}
-      }
-
-      return normalizeSchemaObject({...schemaObject, type: "object"})
+    if (isRef(schemaObject)) {
+      return schemaObject satisfies IRRef
     }
-    case "any": {
-      return {
-        ...base,
-        type: "any",
-      }
+
+    // TODO: HACK: translates a type array into a a oneOf - unsure if this makes sense,
+    //             or is the cleanest way to do it. I'm fairly sure this will work fine
+    //             for most things though.
+    if (Array.isArray(schemaObject.type)) {
+      const nullable = Boolean(schemaObject.type.find((it) => it === "null"))
+      return self.normalizeSchemaObject({
+        oneOf: schemaObject.type
+          .filter((it) => it !== "null")
+          .map((it) =>
+            self.normalizeSchemaObject({
+              ...schemaObject,
+              type: it,
+              nullable,
+            }),
+          ),
+      })
     }
-    case "null": // TODO: HACK to support OA 3.1
-    case "object": {
-      if (deepEqual(schemaObject, {type: "object"})) {
+
+    const base: IRModelBase = {
+      nullable: schemaObject.nullable || false,
+      readOnly: schemaObject.readOnly || false,
+      default: schemaObject.default,
+      "x-internal-preprocess": schemaObject["x-internal-preprocess"],
+    }
+
+    switch (schemaObject.type) {
+      case undefined: {
+        if (
+          deepEqual(schemaObject, {}) ||
+          deepEqual(schemaObject, {additionalProperties: true})
+        ) {
+          return {...base, type: "any"}
+        }
+
+        return self.normalizeSchemaObject({...schemaObject, type: "object"})
+      }
+      case "any": {
         return {
           ...base,
+          type: "any",
+        }
+      }
+      case "null": // TODO: HACK to support OA 3.1
+      case "object": {
+        if (deepEqual(schemaObject, {type: "object"})) {
+          return {
+            ...base,
+            type: "object",
+            additionalProperties: true,
+            properties: {},
+            allOf: [],
+            oneOf: [],
+            anyOf: [],
+            required: [],
+          }
+        }
+
+        const properties = normalizeProperties(schemaObject.properties)
+
+        const hasNull =
+          hasATypeNull(schemaObject.allOf) ||
+          hasATypeNull(schemaObject.oneOf) ||
+          hasATypeNull(schemaObject.anyOf)
+
+        const allOf = normalizeAllOf(schemaObject.allOf)
+        const oneOf = normalizeOneOf(schemaObject.oneOf)
+        const anyOf = normalizeAnyOf(schemaObject.anyOf)
+
+        const required = (schemaObject.required ?? []).filter((it) => {
+          const include = Reflect.has(properties, it)
+
+          if (!include) {
+            logger.warn("skipping required property not present on object")
+          }
+
+          return include
+        })
+
+        const additionalProperties = normalizeAdditionalProperties(
+          schemaObject.additionalProperties,
+        )
+
+        return {
+          ...base,
+          // TODO: HACK
+          nullable: base.nullable || schemaObject.type === "null" || hasNull,
           type: "object",
-          additionalProperties: true,
-          properties: {},
-          allOf: [],
-          oneOf: [],
-          anyOf: [],
-          required: [],
-        }
+          allOf,
+          oneOf,
+          anyOf,
+          required,
+          properties,
+          additionalProperties,
+        } satisfies IRModelObject
       }
+      case "array": {
+        let items = schemaObject.items
 
-      const properties = normalizeProperties(schemaObject.properties)
-
-      const hasNull =
-        hasATypeNull(schemaObject.allOf) ||
-        hasATypeNull(schemaObject.oneOf) ||
-        hasATypeNull(schemaObject.anyOf)
-
-      const allOf = normalizeAllOf(schemaObject.allOf)
-      const oneOf = normalizeOneOf(schemaObject.oneOf)
-      const anyOf = normalizeAnyOf(schemaObject.anyOf)
-
-      const required = (schemaObject.required ?? []).filter((it) => {
-        const include = Reflect.has(properties, it)
-
-        if (!include) {
-          logger.warn("skipping required property not present on object")
+        if (!items) {
+          logger.warn("array object missing items property", {schemaObject})
+          items = {$ref: generationLib.UnknownObject$Ref}
         }
 
-        return include
-      })
+        return {
+          ...base,
+          type: schemaObject.type,
+          items: self.normalizeSchemaObject(items),
+          uniqueItems: schemaObject.uniqueItems || false,
+          minItems: schemaObject.minItems,
+          maxItems: schemaObject.maxItems,
+        } satisfies IRModelArray
+      }
+      case "number":
+      case "integer": {
+        const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
+        const nullable = schemaObjectEnum.includes(null)
+        const enumValues = schemaObjectEnum.filter((it): it is number =>
+          Number.isFinite(it),
+        )
 
-      const additionalProperties = normalizeAdditionalProperties(
-        schemaObject.additionalProperties,
-      )
+        return {
+          ...base,
+          nullable: nullable || base.nullable,
+          type: "number",
+          // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
+          format: schemaObject.format,
+          enum: enumValues.length ? enumValues : undefined,
+          exclusiveMaximum: schemaObject.exclusiveMaximum,
+          exclusiveMinimum: schemaObject.exclusiveMinimum,
+          maximum: schemaObject.maximum,
+          minimum: schemaObject.minimum,
+          multipleOf: schemaObject.multipleOf,
+        } satisfies IRModelNumeric
+      }
+      case "string": {
+        const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
+        const nullable = schemaObjectEnum.includes(null)
+        const enumValues = schemaObjectEnum
+          .filter((it) => it !== undefined && it !== null)
+          .map((it) => String(it))
 
-      return {
-        ...base,
-        // TODO: HACK
-        nullable: base.nullable || schemaObject.type === "null" || hasNull,
-        type: "object",
-        allOf,
-        oneOf,
-        anyOf,
-        required,
-        properties,
-        additionalProperties,
-      } satisfies IRModelObject
+        return {
+          ...base,
+          nullable: nullable || base.nullable,
+          type: schemaObject.type,
+          format: schemaObject.format,
+          enum: enumValues.length ? enumValues : undefined,
+          maxLength: schemaObject.maxLength,
+          minLength: schemaObject.minLength,
+          pattern: schemaObject.pattern,
+        } satisfies IRModelString
+      }
+      case "boolean":
+        return {
+          ...base,
+          type: schemaObject.type,
+        } satisfies IRModelBoolean
+      default:
+        throw new Error(`unsupported type '${schemaObject.type}'`)
     }
-    case "array": {
-      let items = schemaObject.items
 
-      if (!items) {
-        logger.warn("array object missing items property", {schemaObject})
-        items = {$ref: generationLib.UnknownObject$Ref}
+    function normalizeProperties(
+      properties: Schema["properties"] = {},
+    ): Record<string, MaybeIRModel> {
+      return Object.entries(properties ?? {}).reduce(
+        (result, [name, schemaObject]) => {
+          result[name] = self.normalizeSchemaObject(schemaObject)
+          return result
+        },
+        {} as Record<string, MaybeIRModel>,
+      )
+    }
+
+    function normalizeAdditionalProperties(
+      additionalProperties: Schema["additionalProperties"] = false,
+    ): boolean | MaybeIRModel {
+      if (typeof additionalProperties === "boolean") {
+        return additionalProperties
       }
 
-      return {
-        ...base,
-        type: schemaObject.type,
-        items: normalizeSchemaObject(items),
-        uniqueItems: schemaObject.uniqueItems || false,
-        minItems: schemaObject.minItems,
-        maxItems: schemaObject.maxItems,
-      } satisfies IRModelArray
+      // `additionalProperties: {}` is equivalent to `additionalProperties: true`
+      if (
+        typeof additionalProperties === "object" &&
+        deepEqual(additionalProperties, {})
+      ) {
+        return true
+      }
+
+      return self.normalizeSchemaObject(additionalProperties)
     }
-    case "number":
-    case "integer": {
-      const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
-      const nullable = schemaObjectEnum.includes(null)
-      const enumValues = schemaObjectEnum.filter((it): it is number =>
-        Number.isFinite(it),
+
+    function normalizeAllOf(allOf: Schema["allOf"] = []): MaybeIRModel[] {
+      return allOf
+        ?.filter((it) => isRef(it) || it.type !== "null")
+        .map((it) => self.normalizeSchemaObject(it))
+    }
+
+    function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
+      return oneOf
+        .filter((it) => isRef(it) || it.type !== "null")
+        .map((it) => self.normalizeSchemaObject(it))
+    }
+
+    function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
+      return anyOf
+        .filter((it) => {
+          // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
+          //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
+          //       it's intended to indicate that at least one of the objects properties must be set (consider it a
+          //       Omit<Partial<Thing>, EmptyObject> )
+          return isRef(it) || (Boolean(it.type) && it.type !== "null")
+        })
+        .map((it) => self.normalizeSchemaObject(it))
+    }
+
+    function hasATypeNull(arr?: (Schema | Reference)[]) {
+      return Boolean(
+        arr?.find((it) => {
+          return !isRef(it) && it.type === "null"
+        }),
       )
-
-      return {
-        ...base,
-        nullable: nullable || base.nullable,
-        type: "number",
-        // todo: https://github.com/mnahkies/openapi-code-generator/issues/51
-        format: schemaObject.format,
-        enum: enumValues.length ? enumValues : undefined,
-        exclusiveMaximum: schemaObject.exclusiveMaximum,
-        exclusiveMinimum: schemaObject.exclusiveMinimum,
-        maximum: schemaObject.maximum,
-        minimum: schemaObject.minimum,
-        multipleOf: schemaObject.multipleOf,
-      } satisfies IRModelNumeric
     }
-    case "string": {
-      const schemaObjectEnum = (schemaObject.enum ?? []) as unknown[]
-      const nullable = schemaObjectEnum.includes(null)
-      const enumValues = schemaObjectEnum
-        .filter((it) => it !== undefined && it !== null)
-        .map((it) => String(it))
-
-      return {
-        ...base,
-        nullable: nullable || base.nullable,
-        type: schemaObject.type,
-        format: schemaObject.format,
-        enum: enumValues.length ? enumValues : undefined,
-        maxLength: schemaObject.maxLength,
-        minLength: schemaObject.minLength,
-        pattern: schemaObject.pattern,
-      } satisfies IRModelString
-    }
-    case "boolean":
-      return {
-        ...base,
-        type: schemaObject.type,
-      } satisfies IRModelBoolean
-    default:
-      throw new Error(`unsupported type '${schemaObject.type}'`)
-  }
-
-  function normalizeProperties(
-    properties: Schema["properties"] = {},
-  ): Record<string, MaybeIRModel> {
-    return Object.entries(properties ?? {}).reduce(
-      (result, [name, schemaObject]) => {
-        result[name] = normalizeSchemaObject(schemaObject)
-        return result
-      },
-      {} as Record<string, MaybeIRModel>,
-    )
-  }
-
-  function normalizeAdditionalProperties(
-    additionalProperties: Schema["additionalProperties"] = false,
-  ): boolean | MaybeIRModel {
-    if (typeof additionalProperties === "boolean") {
-      return additionalProperties
-    }
-
-    // `additionalProperties: {}` is equivalent to `additionalProperties: true`
-    if (
-      typeof additionalProperties === "object" &&
-      deepEqual(additionalProperties, {})
-    ) {
-      return true
-    }
-
-    return normalizeSchemaObject(additionalProperties)
-  }
-
-  function normalizeAllOf(allOf: Schema["allOf"] = []): MaybeIRModel[] {
-    return allOf
-      ?.filter((it) => isRef(it) || it.type !== "null")
-      .map(normalizeSchemaObject)
-  }
-
-  function normalizeOneOf(oneOf: Schema["oneOf"] = []): MaybeIRModel[] {
-    return oneOf
-      .filter((it) => isRef(it) || it.type !== "null")
-      .map(normalizeSchemaObject)
-  }
-
-  function normalizeAnyOf(anyOf: Schema["anyOf"] = []): MaybeIRModel[] {
-    return anyOf
-      .filter((it) => {
-        // todo: Github spec uses some complex patterns with anyOf in some situations that aren't well supported. Eg:
-        //       anyOf: [ {required: ["bla"]}, {required: ["foo"]} ] in addition to top-level schema, which looks like
-        //       it's intended to indicate that at least one of the objects properties must be set (consider it a
-        //       Omit<Partial<Thing>, EmptyObject> )
-        return isRef(it) || (Boolean(it.type) && it.type !== "null")
-      })
-      .map(normalizeSchemaObject)
-  }
-
-  function hasATypeNull(arr?: (Schema | Reference)[]) {
-    return Boolean(
-      arr?.find((it) => {
-        return !isRef(it) && it.type === "null"
-      }),
-    )
   }
 }
