@@ -200,6 +200,21 @@ describe("e2e - typescript-axios client", () => {
     })
   })
 
+  describe("POST /validation/enumeration", () => {
+    it("should error if the server receives an unknown enum value", async () => {
+      const res = client.postValidationEnums({
+        requestBody: {
+          // @ts-expect-error: purple isn't a valid enum value
+          colors: "purple",
+          starRatings: 1,
+        },
+      })
+
+      await expect(res).rejects.toThrow("Request failed with status code 400")
+    })
+    // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
+  })
+
   describe("GET /responses/empty", () => {
     it("returns undefined", async () => {
       const {status, data} = await client.getResponsesEmpty()
