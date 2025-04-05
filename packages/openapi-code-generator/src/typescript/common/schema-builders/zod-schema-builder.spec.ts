@@ -375,12 +375,15 @@ describe.each(testVersions)(
             z.literal(200),
             z.literal(301),
             z.literal(404),
-            z.unknown().brand("unsupported enum value"),
+            z.number().brand("unsupported enum value"),
           ])"
         `)
 
         await expect(execute(123)).resolves.toBe(123)
         await expect(execute(404)).resolves.toBe(404)
+        await expect(execute("not a number")).rejects.toThrow(
+          "Expected number, received string",
+        )
       })
 
       it("supports minimum", async () => {
@@ -597,7 +600,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot(`
           "const x = z.union([
             z.enum(["red", "blue", "green"]),
-            z.unknown().brand("unsupported enum value"),
+            z.string().brand("unsupported enum value"),
           ])"
         `)
 
@@ -605,6 +608,9 @@ describe.each(testVersions)(
           await expect(execute(value)).resolves.toBe(value)
         }
         await expect(execute("orange")).resolves.toBe("orange")
+        await expect(execute(404)).rejects.toThrow(
+          "Expected string, received number",
+        )
       })
 
       it("supports nullable string using allOf", async () => {
