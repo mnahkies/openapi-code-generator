@@ -4,6 +4,7 @@
 
 import {
   EmptyObject,
+  UnknownEnumStringValue,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -403,10 +404,16 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async securityAdvisoriesListGlobalAdvisories(
     p: {
       ghsaId?: string
-      type?: "reviewed" | "malware" | "unreviewed"
+      type?: "reviewed" | "malware" | "unreviewed" | UnknownEnumStringValue
       cveId?: string
       ecosystem?: t_security_advisory_ecosystems
-      severity?: "unknown" | "low" | "medium" | "high" | "critical"
+      severity?:
+        | "unknown"
+        | "low"
+        | "medium"
+        | "high"
+        | "critical"
+        | UnknownEnumStringValue
       cwes?: string | string[]
       isWithdrawn?: boolean
       affects?: string | string[]
@@ -417,9 +424,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       epssPercentile?: string
       before?: string
       after?: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
-      sort?: "updated" | "published" | "epss_percentage" | "epss_percentile"
+      sort?:
+        | "updated"
+        | "published"
+        | "epss_percentage"
+        | "epss_percentile"
+        | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: RequestInit = {},
@@ -1059,36 +1071,79 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       enterprise: string
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        code_scanning_default_setup?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         code_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        dependabot_alerts?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependabot_security_updates?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph_autosubmit_action?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependency_graph_autosubmit_action_options?: {
           labeled_runners?: boolean
         }
         description: string
-        enforcement?: "enforced" | "unenforced"
+        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
+        private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_generic_secrets?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_push_protection?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_validity_checks?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -1152,36 +1207,79 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       enterprise: string
       configurationId: number
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        code_scanning_default_setup?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         code_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        dependabot_alerts?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependabot_security_updates?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph_autosubmit_action?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependency_graph_autosubmit_action_options?: {
           labeled_runners?: boolean
         }
         description?: string
-        enforcement?: "enforced" | "unenforced"
+        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name?: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
+        private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_generic_secrets?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_push_protection?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_validity_checks?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -1236,7 +1334,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       enterprise: string
       configurationId: number
       requestBody: {
-        scope: "all" | "all_without_configurations"
+        scope: "all" | "all_without_configurations" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -1274,6 +1372,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "none"
           | "private_and_internal"
           | "public"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -1288,6 +1387,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             | "none"
             | "private_and_internal"
             | "public"
+            | UnknownEnumStringValue
         }
       >
     | Res<403, t_basic_error>
@@ -1347,9 +1447,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
       first?: number
@@ -1394,11 +1494,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async secretScanningListAlertsForEnterprise(
     p: {
       enterprise: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
@@ -1522,7 +1622,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
               }
             | undefined
         }
-        public?: boolean | "true" | "false"
+        public?: boolean | "true" | "false" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -2027,10 +2127,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       collab?: boolean
       orgs?: boolean
@@ -2117,7 +2218,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       requestBody: {
         context?: string
-        mode?: "markdown" | "gfm"
+        mode?: "markdown" | "gfm" | UnknownEnumStringValue
         text: string
       }
     },
@@ -2195,8 +2296,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsListAccountsForPlan(
     p: {
       planId: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -2263,8 +2364,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async appsListAccountsForPlanStubbed(
     p: {
       planId: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -2600,7 +2701,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         billing_email?: string
         blog?: string
         company?: string
-        default_repository_permission?: "read" | "write" | "admin" | "none"
+        default_repository_permission?:
+          | "read"
+          | "write"
+          | "admin"
+          | "none"
+          | UnknownEnumStringValue
         dependabot_alerts_enabled_for_new_repositories?: boolean
         dependabot_security_updates_enabled_for_new_repositories?: boolean
         dependency_graph_enabled_for_new_repositories?: boolean
@@ -2610,7 +2716,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         has_organization_projects?: boolean
         has_repository_projects?: boolean
         location?: string
-        members_allowed_repository_creation_type?: "all" | "private" | "none"
+        members_allowed_repository_creation_type?:
+          | "all"
+          | "private"
+          | "none"
+          | UnknownEnumStringValue
         members_can_create_internal_repositories?: boolean
         members_can_create_pages?: boolean
         members_can_create_private_pages?: boolean
@@ -2748,7 +2858,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enable_static_ip?: boolean
         image: {
           id?: string
-          source?: "github" | "partner" | "custom"
+          source?: "github" | "partner" | "custom" | UnknownEnumStringValue
         }
         maximum_runners?: number
         name: string
@@ -3193,7 +3303,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         runners?: number[]
         selected_repository_ids?: number[]
         selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private"
+        visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -3235,7 +3345,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         network_configuration_id?: string | null
         restricted_to_workflows?: boolean
         selected_workflows?: string[]
-        visibility?: "selected" | "all" | "private"
+        visibility?: "selected" | "all" | "private" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -3825,7 +3935,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         encrypted_value: string
         key_id: string
         selected_repository_ids?: number[]
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -3980,7 +4090,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name: string
         selected_repository_ids?: number[]
         value: string
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4019,7 +4129,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         name?: string
         selected_repository_ids?: number[]
         value?: string
-        visibility?: "all" | "private" | "selected"
+        visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4263,9 +4373,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       after?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | UnknownEnumStringValue
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
@@ -4307,7 +4417,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async codeSecurityGetConfigurationsForOrg(
     p: {
       org: string
-      targetType?: "global" | "all"
+      targetType?: "global" | "all" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
@@ -4339,43 +4449,90 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        code_scanning_default_setup?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         code_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        dependabot_alerts?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependabot_security_updates?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph_autosubmit_action?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependency_graph_autosubmit_action_options?: {
           labeled_runners?: boolean
         }
         description: string
-        enforcement?: "enforced" | "unenforced"
+        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
+        private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_delegated_bypass?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_bypass_options?: {
           reviewers?: {
             reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE"
+            reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
           }[]
         }
-        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
+        secret_scanning_generic_secrets?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_push_protection?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_validity_checks?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4467,43 +4624,90 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       configurationId: number
       requestBody: {
-        advanced_security?: "enabled" | "disabled"
-        code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
+        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        code_scanning_default_setup?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         code_scanning_default_setup_options?: t_code_scanning_default_setup_options
         code_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        dependabot_alerts?: "enabled" | "disabled" | "not_set"
-        dependabot_security_updates?: "enabled" | "disabled" | "not_set"
-        dependency_graph?: "enabled" | "disabled" | "not_set"
-        dependency_graph_autosubmit_action?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        dependabot_alerts?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependabot_security_updates?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        dependency_graph_autosubmit_action?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         dependency_graph_autosubmit_action_options?: {
           labeled_runners?: boolean
         }
         description?: string
-        enforcement?: "enforced" | "unenforced"
+        enforcement?: "enforced" | "unenforced" | UnknownEnumStringValue
         name?: string
-        private_vulnerability_reporting?: "enabled" | "disabled" | "not_set"
-        secret_scanning?: "enabled" | "disabled" | "not_set"
+        private_vulnerability_reporting?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_alert_dismissal?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_delegated_bypass?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_delegated_bypass?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_delegated_bypass_options?: {
           reviewers?: {
             reviewer_id: number
-            reviewer_type: "TEAM" | "ROLE"
+            reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
           }[]
         }
-        secret_scanning_generic_secrets?: "enabled" | "disabled" | "not_set"
+        secret_scanning_generic_secrets?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
         secret_scanning_non_provider_patterns?:
           | "enabled"
           | "disabled"
           | "not_set"
-        secret_scanning_push_protection?: "enabled" | "disabled" | "not_set"
-        secret_scanning_validity_checks?: "enabled" | "disabled" | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_push_protection?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
+        secret_scanning_validity_checks?:
+          | "enabled"
+          | "disabled"
+          | "not_set"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4558,6 +4762,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "public"
           | "private_or_internal"
           | "selected"
+          | UnknownEnumStringValue
         selected_repository_ids?: number[]
       }
     },
@@ -4593,6 +4798,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "none"
           | "private_and_internal"
           | "public"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4607,6 +4813,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             | "none"
             | "private_and_internal"
             | "public"
+            | UnknownEnumStringValue
         }
       >
     | Res<403, t_basic_error>
@@ -4701,6 +4908,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "selected_members"
           | "all_members"
           | "all_members_and_outside_collaborators"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4848,7 +5056,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         encrypted_value?: string
         key_id?: string
         selected_repository_ids?: number[]
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -5250,9 +5458,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
       first?: number
@@ -5359,7 +5567,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         encrypted_value?: string
         key_id?: string
         selected_repository_ids?: string[]
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -5791,12 +5999,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
@@ -5804,6 +6013,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "http_method"
         | "api_route"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       apiRouteSubstring?: string
     },
@@ -5838,13 +6048,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
         | "rate_limited_request_count"
         | "subject_name"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       subjectNameSubstring?: string
     },
@@ -5930,6 +6141,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
     },
     timeout?: number,
@@ -6013,6 +6225,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -6046,13 +6259,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
         | "rate_limited_request_count"
         | "subject_name"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       actorNameSubstring?: string
     },
@@ -6177,7 +6391,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "direct_member"
         | "billing_manager"
         | "hiring_manager"
-      invitationSource?: "all" | "member" | "scim"
+        | UnknownEnumStringValue
+      invitationSource?: "all" | "member" | "scim" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6204,7 +6419,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody?: {
         email?: string
         invitee_id?: number
-        role?: "admin" | "direct_member" | "billing_manager" | "reinstate"
+        role?:
+          | "admin"
+          | "direct_member"
+          | "billing_manager"
+          | "reinstate"
+          | UnknownEnumStringValue
         team_ids?: number[]
       }
     },
@@ -6274,10 +6494,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -6308,8 +6529,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsListMembers(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all"
-      role?: "all" | "admin" | "member"
+      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      role?: "all" | "admin" | "member" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -6493,7 +6714,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       username: string
       requestBody?: {
-        role?: "admin" | "member"
+        role?: "admin" | "member" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -6534,7 +6755,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       perPage?: number
       page?: number
-      exclude?: "repositories"[]
+      exclude?: ("repositories" | UnknownEnumStringValue)[]
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6558,7 +6779,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        exclude?: "repositories"[]
+        exclude?: ("repositories" | UnknownEnumStringValue)[]
         exclude_attachments?: boolean
         exclude_git_data?: boolean
         exclude_metadata?: boolean
@@ -6590,7 +6811,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       migrationId: number
-      exclude?: "repositories"[]
+      exclude?: ("repositories" | UnknownEnumStringValue)[]
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -6872,7 +7093,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async orgsListOutsideCollaborators(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all"
+      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -6954,8 +7175,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       org: string
-      visibility?: "public" | "private" | "internal"
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       page?: number
       perPage?: number
     },
@@ -6992,6 +7214,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
     },
@@ -7015,6 +7238,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
     },
@@ -7043,6 +7267,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       token?: string
@@ -7077,11 +7302,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       page?: number
       perPage?: number
-      state?: "active" | "deleted"
+      state?: "active" | "deleted" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -7117,6 +7343,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7141,6 +7368,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7170,6 +7398,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7195,8 +7424,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
       permission?: string
@@ -7240,7 +7469,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        action: "approve" | "deny"
+        action: "approve" | "deny" | UnknownEnumStringValue
         pat_request_ids?: number[]
         reason?: string | null
       }
@@ -7275,7 +7504,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       patRequestId: number
       requestBody: {
-        action: "approve" | "deny"
+        action: "approve" | "deny" | UnknownEnumStringValue
         reason?: string | null
       }
     },
@@ -7333,8 +7562,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
       permission?: string
@@ -7377,7 +7606,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        action: "revoke"
+        action: "revoke" | UnknownEnumStringValue
         pat_ids: number[]
       }
     },
@@ -7410,7 +7639,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       patId: number
       requestBody: {
-        action: "revoke"
+        action: "revoke" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -7497,10 +7726,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         encrypted_value: string
         key_id: string
-        registry_type: "maven_repository"
+        registry_type: "maven_repository" | UnknownEnumStringValue
         selected_repository_ids?: number[]
         username?: string | null
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -7567,10 +7796,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         encrypted_value?: string
         key_id?: string
-        registry_type?: "maven_repository"
+        registry_type?: "maven_repository" | UnknownEnumStringValue
         selected_repository_ids?: number[]
         username?: string | null
-        visibility?: "all" | "private" | "selected"
+        visibility?: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -7613,7 +7842,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsListForOrg(
     p: {
       org: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -7898,9 +8127,21 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async reposListForOrg(
     p: {
       org: string
-      type?: "all" | "public" | "private" | "forks" | "sources" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?:
+        | "all"
+        | "public"
+        | "private"
+        | "forks"
+        | "sources"
+        | "member"
+        | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -7946,15 +8187,29 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         homepage?: string
         is_template?: boolean
         license_template?: string
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        merge_commit_message?:
+          | "PR_BODY"
+          | "PR_TITLE"
+          | "BLANK"
+          | UnknownEnumStringValue
+        merge_commit_title?:
+          | "PR_TITLE"
+          | "MERGE_MESSAGE"
+          | UnknownEnumStringValue
         name: string
         private?: boolean
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        squash_merge_commit_message?:
+          | "PR_BODY"
+          | "COMMIT_MESSAGES"
+          | "BLANK"
+          | UnknownEnumStringValue
+        squash_merge_commit_title?:
+          | "PR_TITLE"
+          | "COMMIT_OR_PR_TITLE"
+          | UnknownEnumStringValue
         team_id?: number
         use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private"
+        visibility?: "public" | "private" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -8012,7 +8267,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push" | "repository"
+        target?:
+          | "branch"
+          | "tag"
+          | "push"
+          | "repository"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -8037,9 +8297,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       ref?: string
       repositoryName?: string
-      timePeriod?: "hour" | "day" | "week" | "month"
+      timePeriod?: "hour" | "day" | "week" | "month" | UnknownEnumStringValue
       actorName?: string
-      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      ruleSuiteResult?:
+        | "pass"
+        | "fail"
+        | "bypass"
+        | "all"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8113,7 +8378,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push" | "repository"
+        target?:
+          | "branch"
+          | "tag"
+          | "push"
+          | "repository"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -8199,11 +8469,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async secretScanningListAlertsForOrg(
     p: {
       org: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -8253,12 +8523,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async securityAdvisoriesListOrgRepositoryAdvisories(
     p: {
       org: string
-      direction?: "asc" | "desc"
-      sort?: "created" | "updated" | "published"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "published" | UnknownEnumStringValue
       before?: string
       after?: string
       perPage?: number
-      state?: "triage" | "draft" | "published" | "closed"
+      state?:
+        | "triage"
+        | "draft"
+        | "published"
+        | "closed"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -8403,7 +8678,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        compute_service?: "none" | "actions"
+        compute_service?: "none" | "actions" | UnknownEnumStringValue
         name: string
         network_settings_ids: string[]
       }
@@ -8443,7 +8718,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       networkConfigurationId: string
       requestBody: {
-        compute_service?: "none" | "actions"
+        compute_service?: "none" | "actions" | UnknownEnumStringValue
         name?: string
         network_settings_ids?: string[]
       }
@@ -8599,9 +8874,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         notification_setting?:
           | "notifications_enabled"
           | "notifications_disabled"
+          | UnknownEnumStringValue
         parent_team_id?: number
-        permission?: "pull" | "push"
-        privacy?: "secret" | "closed"
+        permission?: "pull" | "push" | UnknownEnumStringValue
+        privacy?: "secret" | "closed" | UnknownEnumStringValue
         repo_names?: string[]
       }
     },
@@ -8646,9 +8922,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         notification_setting?:
           | "notifications_enabled"
           | "notifications_disabled"
+          | UnknownEnumStringValue
         parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin"
-        privacy?: "secret" | "closed"
+        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
+        privacy?: "secret" | "closed" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -8692,7 +8969,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       teamSlug: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       pinned?: string
@@ -8809,7 +9086,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8937,6 +9214,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8976,6 +9254,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9026,6 +9305,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9064,6 +9344,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9125,7 +9406,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       teamSlug: string
-      role?: "member" | "maintainer" | "all"
+      role?: "member" | "maintainer" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9171,7 +9452,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamSlug: string
       username: string
       requestBody?: {
-        role?: "member" | "maintainer"
+        role?: "member" | "maintainer" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9251,7 +9532,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamSlug: string
       projectId: number
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
       } | null
     },
     timeout?: number,
@@ -9409,9 +9690,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "code_scanning_default_setup"
         | "secret_scanning"
         | "secret_scanning_push_protection"
-      enablement: "enable_all" | "disable_all"
+        | UnknownEnumStringValue
+      enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
       requestBody?: {
-        query_suite?: "default" | "extended"
+        query_suite?: "default" | "extended" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9626,7 +9908,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsListCards(
     p: {
       columnId: number
-      archivedState?: "all" | "archived" | "not_archived"
+      archivedState?:
+        | "all"
+        | "archived"
+        | "not_archived"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9746,7 +10032,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody?: {
         body?: string | null
         name?: string
-        organization_permission?: "read" | "write" | "admin" | "none"
+        organization_permission?:
+          | "read"
+          | "write"
+          | "admin"
+          | "none"
+          | UnknownEnumStringValue
         private?: boolean
         state?: string
       }
@@ -9813,7 +10104,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsListCollaborators(
     p: {
       projectId: number
-      affiliation?: "outside" | "direct" | "all"
+      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9847,7 +10138,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       projectId: number
       username: string
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
       } | null
     },
     timeout?: number,
@@ -10020,8 +10311,15 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         has_wiki?: boolean
         homepage?: string
         is_template?: boolean
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        merge_commit_message?:
+          | "PR_BODY"
+          | "PR_TITLE"
+          | "BLANK"
+          | UnknownEnumStringValue
+        merge_commit_title?:
+          | "PR_TITLE"
+          | "MERGE_MESSAGE"
+          | UnknownEnumStringValue
         name?: string
         private?: boolean
         security_and_analysis?: {
@@ -10041,10 +10339,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             status?: string
           }
         } | null
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        squash_merge_commit_message?:
+          | "PR_BODY"
+          | "COMMIT_MESSAGES"
+          | "BLANK"
+          | UnknownEnumStringValue
+        squash_merge_commit_title?:
+          | "PR_TITLE"
+          | "COMMIT_OR_PR_TITLE"
+          | UnknownEnumStringValue
         use_squash_pr_title_as_default?: boolean
-        visibility?: "public" | "private"
+        visibility?: "public" | "private" | UnknownEnumStringValue
         web_commit_signoff_required?: boolean
       }
     },
@@ -10206,8 +10511,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       page?: number
       ref?: string
       key?: string
-      sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
-      direction?: "asc" | "desc"
+      sort?:
+        | "created_at"
+        | "last_accessed_at"
+        | "size_in_bytes"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -10912,6 +11221,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "requested"
         | "waiting"
         | "pending"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
       created?: string
@@ -11208,7 +11518,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       runId: number
-      filter?: "latest" | "all"
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -11301,7 +11611,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         comment: string
         environment_ids: number[]
-        state: "approved" | "rejected"
+        state: "approved" | "rejected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -11736,6 +12046,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "requested"
         | "waiting"
         | "pending"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
       created?: string
@@ -11799,13 +12110,19 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
       ref?: string
       actor?: string
-      timePeriod?: "day" | "week" | "month" | "quarter" | "year"
+      timePeriod?:
+        | "day"
+        | "week"
+        | "month"
+        | "quarter"
+        | "year"
+        | UnknownEnumStringValue
       activityType?:
         | "push"
         | "force_push"
@@ -11813,6 +12130,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "branch_deletion"
         | "pr_merge"
         | "merge_queue_merge"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -13004,12 +13322,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "skipped"
           | "stale"
           | "timed_out"
+          | UnknownEnumStringValue
         details_url?: string
         external_id?: string
         name?: string
         output?: {
           annotations?: {
-            annotation_level: "notice" | "warning" | "failure"
+            annotation_level:
+              | "notice"
+              | "warning"
+              | "failure"
+              | UnknownEnumStringValue
             end_column?: number
             end_line: number
             message: string
@@ -13036,6 +13359,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "waiting"
           | "requested"
           | "pending"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -13177,8 +13501,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       checkSuiteId: number
       checkName?: string
-      status?: "queued" | "in_progress" | "completed"
-      filter?: "latest" | "all"
+      status?: "queued" | "in_progress" | "completed" | UnknownEnumStringValue
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -13239,10 +13563,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       perPage?: number
       ref?: t_code_scanning_ref
       pr?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
       severity?: t_code_scanning_alert_severity
     },
@@ -13513,8 +13837,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       pr?: number
       ref?: t_code_scanning_ref
       sarifId?: t_code_scanning_analysis_sarif_id
-      direction?: "asc" | "desc"
-      sort?: "created"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -14023,7 +14347,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         client_ip?: string
         devcontainer_path?: string
         display_name?: string
-        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+        geo?:
+          | "EuropeWest"
+          | "SoutheastAsia"
+          | "UsEast"
+          | "UsWest"
+          | UnknownEnumStringValue
         idle_timeout_minutes?: number
         location?: string
         machine?: string
@@ -14326,8 +14655,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      affiliation?: "outside" | "direct" | "all"
-      permission?: "pull" | "triage" | "push" | "maintain" | "admin"
+      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
+      permission?:
+        | "pull"
+        | "triage"
+        | "push"
+        | "maintain"
+        | "admin"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -14532,6 +14867,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -14570,6 +14906,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -14792,8 +15129,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       ref: string
       checkName?: string
-      status?: "queued" | "in_progress" | "completed"
-      filter?: "latest" | "all"
+      status?: "queued" | "in_progress" | "completed" | UnknownEnumStringValue
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
       appId?: number
@@ -15134,9 +15471,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       package?: string
       manifest?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -15217,7 +15554,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "no_bandwidth"
           | "not_used"
           | "tolerable_risk"
-        state: "dismissed" | "open"
+          | UnknownEnumStringValue
+        state: "dismissed" | "open" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -15584,6 +15922,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "queued"
           | "pending"
           | "success"
+          | UnknownEnumStringValue
         target_url?: string
       }
     },
@@ -16232,7 +16571,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      sort?: "newest" | "oldest" | "stargazers" | "watchers"
+      sort?:
+        | "newest"
+        | "oldest"
+        | "stargazers"
+        | "watchers"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -16512,7 +16856,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           email: string
           name: string
         }
-        type: "commit" | "tree" | "blob"
+        type: "commit" | "tree" | "blob" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -16557,10 +16901,16 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         base_tree?: string
         tree: {
           content?: string
-          mode?: "100644" | "100755" | "040000" | "160000" | "120000"
+          mode?:
+            | "100644"
+            | "100755"
+            | "040000"
+            | "160000"
+            | "120000"
+            | UnknownEnumStringValue
           path?: string
           sha?: string | null
-          type?: "blob" | "tree" | "commit"
+          type?: "blob" | "tree" | "commit" | UnknownEnumStringValue
         }[]
       }
     },
@@ -16912,7 +17262,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       requestBody: {
         tfvc_project?: string
-        vcs?: "subversion" | "git" | "mercurial" | "tfvc"
+        vcs?:
+          | "subversion"
+          | "git"
+          | "mercurial"
+          | "tfvc"
+          | UnknownEnumStringValue
         vcs_password?: string
         vcs_url: string
         vcs_username?: string
@@ -16942,7 +17297,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       requestBody?: {
         tfvc_project?: string
-        vcs?: "subversion" | "tfvc" | "git" | "mercurial"
+        vcs?:
+          | "subversion"
+          | "tfvc"
+          | "git"
+          | "mercurial"
+          | UnknownEnumStringValue
         vcs_password?: string
         vcs_username?: string
       } | null
@@ -17057,7 +17417,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       requestBody: {
-        use_lfs: "opt_in" | "opt_out"
+        use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -17172,7 +17532,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       invitationId: number
       requestBody?: {
-        permissions?: "read" | "write" | "maintain" | "triage" | "admin"
+        permissions?:
+          | "read"
+          | "write"
+          | "maintain"
+          | "triage"
+          | "admin"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -17216,13 +17582,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       milestone?: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       assignee?: string
       creator?: string
       mentioned?: string
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -17311,8 +17677,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -17418,6 +17784,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -17456,6 +17823,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -17579,8 +17947,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             }
         )[]
         milestone?: string | number | null
-        state?: "open" | "closed"
-        state_reason?: "completed" | "not_planned" | "reopened" | null
+        state?: "open" | "closed" | UnknownEnumStringValue
+        state_reason?:
+          | "completed"
+          | "not_planned"
+          | "reopened"
+          | UnknownEnumStringValue
+          | null
         title?: string | number | null
       }
     },
@@ -17937,7 +18310,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       issueNumber: number
       requestBody?: {
-        lock_reason?: "off-topic" | "too heated" | "resolved" | "spam"
+        lock_reason?:
+          | "off-topic"
+          | "too heated"
+          | "resolved"
+          | "spam"
+          | UnknownEnumStringValue
       } | null
     },
     timeout?: number,
@@ -17994,6 +18372,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -18034,6 +18413,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -18502,9 +18882,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
-      sort?: "due_on" | "completeness"
-      direction?: "asc" | "desc"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      sort?: "due_on" | "completeness" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -18535,7 +18915,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         description?: string
         due_on?: string
-        state?: "open" | "closed"
+        state?: "open" | "closed" | UnknownEnumStringValue
         title: string
       }
     },
@@ -18581,7 +18961,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody?: {
         description?: string
         due_on?: string
-        state?: "open" | "closed"
+        state?: "open" | "closed" | UnknownEnumStringValue
         title?: string
       }
     },
@@ -18728,10 +19108,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: "legacy" | "workflow"
+        build_type?: "legacy" | "workflow" | UnknownEnumStringValue
         source?: {
           branch: string
-          path?: "/" | "/docs"
+          path?: "/" | "/docs" | UnknownEnumStringValue
         }
       } | null
     },
@@ -18755,16 +19135,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: "legacy" | "workflow"
+        build_type?: "legacy" | "workflow" | UnknownEnumStringValue
         cname?: string | null
         https_enforced?: boolean
         source?:
           | "gh-pages"
           | "master"
           | "master /docs"
+          | UnknownEnumStringValue
           | {
               branch: string
-              path: "/" | "/docs"
+              path: "/" | "/docs" | UnknownEnumStringValue
             }
       }
     },
@@ -19017,7 +19398,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -19129,11 +19510,16 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       head?: string
       base?: string
-      sort?: "created" | "updated" | "popularity" | "long-running"
-      direction?: "asc" | "desc"
+      sort?:
+        | "created"
+        | "updated"
+        | "popularity"
+        | "long-running"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -19199,8 +19585,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      sort?: "created" | "updated" | "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -19304,6 +19690,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -19342,6 +19729,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -19419,7 +19807,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         base?: string
         body?: string
         maintainer_can_modify?: boolean
-        state?: "open" | "closed"
+        state?: "open" | "closed" | UnknownEnumStringValue
         title?: string
       }
     },
@@ -19455,7 +19843,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         client_ip?: string
         devcontainer_path?: string
         display_name?: string
-        geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+        geo?:
+          | "EuropeWest"
+          | "SoutheastAsia"
+          | "UsEast"
+          | "UsWest"
+          | UnknownEnumStringValue
         idle_timeout_minutes?: number
         location?: string
         machine?: string
@@ -19498,8 +19891,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       pullNumber: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -19538,10 +19931,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         line?: number
         path: string
         position?: number
-        side?: "LEFT" | "RIGHT"
+        side?: "LEFT" | "RIGHT" | UnknownEnumStringValue
         start_line?: number
-        start_side?: "LEFT" | "RIGHT" | "side"
-        subject_type?: "line" | "file"
+        start_side?: "LEFT" | "RIGHT" | "side" | UnknownEnumStringValue
+        subject_type?: "line" | "file" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -19675,7 +20068,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody?: {
         commit_message?: string
         commit_title?: string
-        merge_method?: "merge" | "squash" | "rebase"
+        merge_method?: "merge" | "squash" | "rebase" | UnknownEnumStringValue
         sha?: string
       } | null
     },
@@ -19827,7 +20220,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           start_side?: string
         }[]
         commit_id?: string
-        event?: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+        event?:
+          | "APPROVE"
+          | "REQUEST_CHANGES"
+          | "COMMENT"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -19948,7 +20345,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       pullNumber: number
       reviewId: number
       requestBody: {
-        event?: "DISMISS"
+        event?: "DISMISS" | UnknownEnumStringValue
         message: string
       }
     },
@@ -19979,7 +20376,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       reviewId: number
       requestBody: {
         body?: string
-        event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+        event:
+          | "APPROVE"
+          | "REQUEST_CHANGES"
+          | "COMMENT"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -20117,7 +20518,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         discussion_category_name?: string
         draft?: boolean
         generate_release_notes?: boolean
-        make_latest?: "true" | "false" | "legacy"
+        make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
         name?: string
         prerelease?: boolean
         tag_name: string
@@ -20289,7 +20690,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         body?: string
         discussion_category_name?: string
         draft?: boolean
-        make_latest?: "true" | "false" | "legacy"
+        make_latest?: "true" | "false" | "legacy" | UnknownEnumStringValue
         name?: string
         prerelease?: boolean
         tag_name?: string
@@ -20395,7 +20796,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       releaseId: number
-      content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+      content?:
+        | "+1"
+        | "laugh"
+        | "heart"
+        | "hooray"
+        | "rocket"
+        | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -20425,7 +20833,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       repo: string
       releaseId: number
       requestBody: {
-        content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+        content:
+          | "+1"
+          | "laugh"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -20529,7 +20944,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        target?: "branch" | "tag" | "push" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -20554,9 +20969,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       ref?: string
-      timePeriod?: "hour" | "day" | "week" | "month"
+      timePeriod?: "hour" | "day" | "week" | "month" | UnknownEnumStringValue
       actorName?: string
-      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      ruleSuiteResult?:
+        | "pass"
+        | "fail"
+        | "bypass"
+        | "all"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -20641,7 +21061,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         enforcement?: t_repository_rule_enforcement
         name?: string
         rules?: t_repository_rule[]
-        target?: "branch" | "tag" | "push"
+        target?: "branch" | "tag" | "push" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -20736,11 +21156,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -20963,12 +21383,17 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      direction?: "asc" | "desc"
-      sort?: "created" | "updated" | "published"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "published" | UnknownEnumStringValue
       before?: string
       after?: string
       perPage?: number
-      state?: "triage" | "draft" | "published" | "closed"
+      state?:
+        | "triage"
+        | "draft"
+        | "published"
+        | "closed"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21284,7 +21709,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       requestBody: {
         context?: string
         description?: string | null
-        state: "error" | "failure" | "pending" | "success"
+        state:
+          | "error"
+          | "failure"
+          | "pending"
+          | "success"
+          | UnknownEnumStringValue
         target_url?: string | null
       }
     },
@@ -21549,7 +21979,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      per?: "day" | "week"
+      per?: "day" | "week" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21601,7 +22031,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       owner: string
       repo: string
-      per?: "day" | "week"
+      per?: "day" | "week" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -21754,8 +22184,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async searchCode(
     p: {
       q: string
-      sort?: "indexed"
-      order?: "desc" | "asc"
+      sort?: "indexed" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -21802,8 +22232,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async searchCommits(
     p: {
       q: string
-      sort?: "author-date" | "committer-date"
-      order?: "desc" | "asc"
+      sort?: "author-date" | "committer-date" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -21852,7 +22282,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "interactions"
         | "created"
         | "updated"
-      order?: "desc" | "asc"
+        | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       advancedSearch?: string
@@ -21902,8 +22333,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       repositoryId: number
       q: string
-      sort?: "created" | "updated"
-      order?: "desc" | "asc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -21944,8 +22375,13 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async searchRepos(
     p: {
       q: string
-      sort?: "stars" | "forks" | "help-wanted-issues" | "updated"
-      order?: "desc" | "asc"
+      sort?:
+        | "stars"
+        | "forks"
+        | "help-wanted-issues"
+        | "updated"
+        | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22025,8 +22461,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async searchUsers(
     p: {
       q: string
-      sort?: "followers" | "repositories" | "joined"
-      order?: "desc" | "asc"
+      sort?: "followers" | "repositories" | "joined" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22091,9 +22527,10 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         notification_setting?:
           | "notifications_enabled"
           | "notifications_disabled"
+          | UnknownEnumStringValue
         parent_team_id?: number | null
-        permission?: "pull" | "push" | "admin"
-        privacy?: "secret" | "closed"
+        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
+        privacy?: "secret" | "closed" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -22137,7 +22574,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async teamsListDiscussionsLegacy(
     p: {
       teamId: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22245,7 +22682,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       teamId: number
       discussionNumber: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22368,6 +22805,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22406,6 +22844,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -22436,6 +22875,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22473,6 +22913,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -22513,7 +22954,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async teamsListMembersLegacy(
     p: {
       teamId: number
-      role?: "member" | "maintainer" | "all"
+      role?: "member" | "maintainer" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22599,7 +23040,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamId: number
       username: string
       requestBody?: {
-        role?: "member" | "maintainer"
+        role?: "member" | "maintainer" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -22676,7 +23117,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       teamId: number
       projectId: number
       requestBody?: {
-        permission?: "read" | "write" | "admin"
+        permission?: "read" | "write" | "admin" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -22763,7 +23204,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       owner: string
       repo: string
       requestBody?: {
-        permission?: "pull" | "push" | "admin"
+        permission?: "pull" | "push" | "admin" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -23002,7 +23443,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
             client_ip?: string
             devcontainer_path?: string
             display_name?: string
-            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+            geo?:
+              | "EuropeWest"
+              | "SoutheastAsia"
+              | "UsEast"
+              | "UsWest"
+              | UnknownEnumStringValue
             idle_timeout_minutes?: number
             location?: string
             machine?: string
@@ -23014,7 +23460,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           }
         | {
             devcontainer_path?: string
-            geo?: "EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest"
+            geo?:
+              | "EuropeWest"
+              | "SoutheastAsia"
+              | "UsEast"
+              | "UsWest"
+              | UnknownEnumStringValue
             idle_timeout_minutes?: number
             location?: string
             machine?: string
@@ -23460,7 +23911,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
     p: {
       requestBody: {
-        visibility: "public" | "private"
+        visibility: "public" | "private" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -23927,10 +24378,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -24097,7 +24549,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async orgsListMembershipsForAuthenticatedUser(
     p: {
-      state?: "active" | "pending"
+      state?: "active" | "pending" | UnknownEnumStringValue
       perPage?: number
       page?: number
     } = {},
@@ -24146,7 +24598,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        state: "active"
+        state: "active" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -24198,7 +24650,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async migrationsStartForAuthenticatedUser(
     p: {
       requestBody: {
-        exclude?: "repositories"[]
+        exclude?: ("repositories" | UnknownEnumStringValue)[]
         exclude_attachments?: boolean
         exclude_git_data?: boolean
         exclude_metadata?: boolean
@@ -24366,7 +24818,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
-      visibility?: "public" | "private" | "internal"
+        | UnknownEnumStringValue
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       page?: number
       perPage?: number
     },
@@ -24398,6 +24851,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
     },
     timeout?: number,
@@ -24419,6 +24873,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
     },
     timeout?: number,
@@ -24445,6 +24900,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       token?: string
     },
@@ -24478,10 +24934,11 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       page?: number
       perPage?: number
-      state?: "active" | "deleted"
+      state?: "active" | "deleted" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: RequestInit = {},
@@ -24517,6 +24974,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -24540,6 +24998,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -24568,6 +25027,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -24640,11 +25100,22 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async reposListForAuthenticatedUser(
     p: {
-      visibility?: "all" | "public" | "private"
+      visibility?: "all" | "public" | "private" | UnknownEnumStringValue
       affiliation?: string
-      type?: "all" | "owner" | "public" | "private" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?:
+        | "all"
+        | "owner"
+        | "public"
+        | "private"
+        | "member"
+        | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       since?: string
@@ -24699,12 +25170,26 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         homepage?: string
         is_template?: boolean
         license_template?: string
-        merge_commit_message?: "PR_BODY" | "PR_TITLE" | "BLANK"
-        merge_commit_title?: "PR_TITLE" | "MERGE_MESSAGE"
+        merge_commit_message?:
+          | "PR_BODY"
+          | "PR_TITLE"
+          | "BLANK"
+          | UnknownEnumStringValue
+        merge_commit_title?:
+          | "PR_TITLE"
+          | "MERGE_MESSAGE"
+          | UnknownEnumStringValue
         name: string
         private?: boolean
-        squash_merge_commit_message?: "PR_BODY" | "COMMIT_MESSAGES" | "BLANK"
-        squash_merge_commit_title?: "PR_TITLE" | "COMMIT_OR_PR_TITLE"
+        squash_merge_commit_message?:
+          | "PR_BODY"
+          | "COMMIT_MESSAGES"
+          | "BLANK"
+          | UnknownEnumStringValue
+        squash_merge_commit_title?:
+          | "PR_TITLE"
+          | "COMMIT_OR_PR_TITLE"
+          | UnknownEnumStringValue
         team_id?: number
       }
     },
@@ -24967,8 +25452,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
 
   async activityListReposStarredByAuthenticatedUser(
     p: {
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     } = {},
@@ -25385,7 +25870,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async usersGetContextForUser(
     p: {
       username: string
-      subjectType?: "organization" | "repository" | "issue" | "pull_request"
+      subjectType?:
+        | "organization"
+        | "repository"
+        | "issue"
+        | "pull_request"
+        | UnknownEnumStringValue
       subjectId?: string
     },
     timeout?: number,
@@ -25471,7 +25961,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
-      visibility?: "public" | "private" | "internal"
+        | UnknownEnumStringValue
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       username: string
       page?: number
       perPage?: number
@@ -25509,6 +26000,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -25532,6 +26024,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -25560,6 +26053,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       token?: string
@@ -25594,6 +26088,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -25622,6 +26117,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
       username: string
@@ -25646,6 +26142,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       packageVersionId: number
@@ -25675,6 +26172,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       packageVersionId: number
@@ -25698,7 +26196,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async projectsListForUser(
     p: {
       username: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -25763,9 +26261,14 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async reposListForUser(
     p: {
       username: string
-      type?: "all" | "owner" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?: "all" | "owner" | "member" | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -25874,8 +26377,8 @@ export class GitHubV3RestApi extends AbstractFetchClient {
   async activityListReposStarredByUser(
     p: {
       username: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },

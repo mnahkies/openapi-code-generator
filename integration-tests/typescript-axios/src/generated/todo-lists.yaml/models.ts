@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type UnknownEnumStringValue = string & { _: "unknown enum string value" }
+
 export type t_Error = {
   code?: number | undefined
   message?: string | undefined
@@ -11,7 +13,7 @@ export type t_CreateUpdateTodoList = {
   name: string
 }
 
-export type t_Statuses = ("incomplete" | "complete")[]
+export type t_Statuses = ("incomplete" | "complete" | UnknownEnumStringValue)[]
 
 export type t_TodoList = {
   created: string

@@ -4,6 +4,7 @@
 
 import {
   EmptyObject,
+  UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
@@ -303,7 +304,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
         profile: {
           email: string
         }
-        role?: ("PRIMARY" | "SECONDARY") | undefined
+        role?: ("PRIMARY" | "SECONDARY" | UnknownEnumStringValue) | undefined
         sendEmail?: boolean | undefined
         state?: string | undefined
       }
@@ -380,13 +381,13 @@ export class MyAccountManagement extends AbstractAxiosClient {
       _links: {
         poll: {
           hints: {
-            allow: "GET"[]
+            allow: ("GET" | UnknownEnumStringValue)[]
           }
           href: string
         }
         verify: {
           hints: {
-            allow: "POST"[]
+            allow: ("POST" | UnknownEnumStringValue)[]
           }
           href: string
         }
@@ -396,7 +397,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       profile: {
         email: string
       }
-      status: "VERIFIED" | "UNVERIFIED"
+      status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge`
@@ -428,13 +429,25 @@ export class MyAccountManagement extends AbstractAxiosClient {
       _links: {
         poll: {
           hints: {
-            allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+            allow: (
+              | "DELETE"
+              | "GET"
+              | "POST"
+              | "PUT"
+              | UnknownEnumStringValue
+            )[]
           }
           href: string
         }
         verify: {
           hints: {
-            allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+            allow: (
+              | "DELETE"
+              | "GET"
+              | "POST"
+              | "PUT"
+              | UnknownEnumStringValue
+            )[]
           }
           href: string
         }
@@ -444,7 +457,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
       profile: {
         email: string
       }
-      status: "VERIFIED" | "UNVERIFIED"
+      status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
     }>
   > {
     const url = `/idp/myaccount/emails/${p["id"]}/challenge/${p["challengeId"]}`
@@ -626,7 +639,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
   async createPhone(
     p: {
       requestBody: {
-        method?: ("SMS" | "CALL") | undefined
+        method?: ("SMS" | "CALL" | UnknownEnumStringValue) | undefined
         profile: {
           phoneNumber?: string | undefined
         }
@@ -695,7 +708,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
     p: {
       id: string
       requestBody: {
-        method: "SMS" | "CALL"
+        method: "SMS" | "CALL" | UnknownEnumStringValue
         retry?: boolean | undefined
       }
     },
@@ -708,7 +721,7 @@ export class MyAccountManagement extends AbstractAxiosClient {
             verify?:
               | {
                   hints: {
-                    allow: "GET"[]
+                    allow: ("GET" | UnknownEnumStringValue)[]
                   }
                   href: string
                 }
