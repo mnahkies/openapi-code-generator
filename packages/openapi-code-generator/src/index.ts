@@ -55,7 +55,7 @@ export async function generate(
     allowUnusedImports: config.allowUnusedImports,
   })
 
-  await generator({
+  await generator.run({
     input,
     emitter,
     schemaBuilder: config.schemaBuilder,
