@@ -26,7 +26,7 @@
     "publish:gh-pages": "yarn gh-pages -d ./dist -b gh-pages --cname openapi-code-generator.nahkies.co.nz --nojekyll"
   },
   "dependencies": {
-    "@hookform/resolvers": "^4.0.0",
+    "@hookform/resolvers": "^5.0.0",
     "@monaco-editor/react": "^4.7.0-rc.0",
     "@nahkies/openapi-code-generator": "*",
     "monaco-editor": "^0.52.2",
@@ -35,8 +35,8 @@
     "nextra": "^4.2.16",
     "nextra-theme-docs": "^4.2.16",
     "node-polyfill-webpack-plugin": "^4.1.0",
-    "react": "19.0.0",
-    "react-dom": "19.0.0",
+    "react": "19.1.0",
+    "react-dom": "19.1.0",
     "react-hook-form": "^7.54.2"
   },
   "devDependencies": {
