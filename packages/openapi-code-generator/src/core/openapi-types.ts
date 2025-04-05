@@ -249,7 +249,11 @@ export interface Schema {
   deprecated?: boolean | undefined
   // xml?: XML | undefined
 
+  /**
+   * Custom extensions
+   */
   "x-internal-preprocess"?: xInternalPreproccess | Reference | undefined
+  "x-enum-extensibility"?: "open" | "closed" | undefined
 }
 
 export interface xInternalPreproccess {
