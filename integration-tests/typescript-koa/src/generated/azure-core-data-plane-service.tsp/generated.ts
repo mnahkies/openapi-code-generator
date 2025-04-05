@@ -908,14 +908,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetsCreateOrUpdateWidgetHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -998,8 +995,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const widgetsGetWidgetHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1064,14 +1061,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetsDeleteWidgetHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1220,8 +1214,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const widgetsGetAnalyticsHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1290,14 +1284,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetsUpdateAnalyticsHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1455,10 +1446,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetsScheduleRepairsHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1646,14 +1634,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetPartsCreateWidgetPartHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1802,8 +1787,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const widgetPartsGetWidgetPartHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1875,14 +1860,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetPartsDeleteWidgetPartHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -1954,10 +1936,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const widgetPartsReorderPartsHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -2128,14 +2107,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const manufacturersCreateOrReplaceManufacturerHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -2223,8 +2199,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
   const manufacturersGetManufacturerHeaderSchema = z.object({
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
@@ -2296,14 +2272,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const manufacturersDeleteManufacturerHeaderSchema = z.object({
     "repeatability-request-id": z.string().optional(),
-    "repeatability-first-sent": z
-      .string()
-      .datetime({ offset: true })
-      .optional(),
+    "repeatability-first-sent": z.string().optional(),
     "if-match": z.string().optional(),
     "if-none-match": z.string().optional(),
-    "if-unmodified-since": z.string().datetime({ offset: true }).optional(),
-    "if-modified-since": z.string().datetime({ offset: true }).optional(),
+    "if-unmodified-since": z.string().optional(),
+    "if-modified-since": z.string().optional(),
     "x-ms-client-request-id": s_Azure_Core_uuid.optional(),
   })
 
