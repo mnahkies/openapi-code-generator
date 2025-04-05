@@ -2,6 +2,15 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type UnknownEnumNumberValue = number & { _: "unknown enum number value" }
+
+export type UnknownEnumStringValue = string & { _: "unknown enum string value" }
+
+export type t_Enumerations = {
+  colors: "red" | "green" | "blue" | UnknownEnumStringValue
+  starRatings: 1 | 2 | 3 | UnknownEnumNumberValue
+}
+
 export type t_RandomNumber = {
   params?:
     | {

@@ -2,6 +2,11 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type t_Enumerations = {
+  colors: "red" | "green" | "blue"
+  starRatings: 1 | 2 | 3
+}
+
 export type t_RandomNumber = {
   params?:
     | {
@@ -33,4 +38,9 @@ export type t_GetValidationNumbersRandomNumberQuerySchema = {
   forbidden?: number[] | undefined
   max?: number | undefined
   min?: number | undefined
+}
+
+export type t_PostValidationEnumsBodySchema = {
+  colors: "red" | "green" | "blue"
+  starRatings: 1 | 2 | 3
 }

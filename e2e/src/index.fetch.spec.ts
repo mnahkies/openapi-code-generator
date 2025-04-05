@@ -225,6 +225,25 @@ describe("e2e - typescript-fetch client", () => {
     })
   })
 
+  describe("POST /validation/enumeration", () => {
+    it("should error if the server receives an unknown enum value", async () => {
+      const res = await client.postValidationEnums({
+        requestBody: {
+          // @ts-expect-error: purple isn't a valid enum value
+          colors: "purple",
+          starRatings: 1,
+        },
+      })
+
+      expect(res.status).toBe(400)
+      const body = await res.json()
+      expect(body).toMatchObject({
+        message: "Request validation failed parsing request body",
+      })
+    })
+    // TODO: figure out how to make a skew between client/server to test client receiving extraneous values
+  })
+
   describe("GET /responses/empty", () => {
     it("returns undefined", async () => {
       const res = await client.getResponsesEmpty()

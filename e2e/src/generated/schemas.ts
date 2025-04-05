@@ -4,6 +4,11 @@
 
 import { z } from "zod"
 
+export const s_Enumerations = z.object({
+  colors: z.enum(["red", "green", "blue"]),
+  starRatings: z.union([z.literal(1), z.literal(2), z.literal(3)]),
+})
+
 export const s_RandomNumber = z.object({
   result: z.coerce.number().optional(),
   params: z
