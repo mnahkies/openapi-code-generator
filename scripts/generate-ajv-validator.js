@@ -2,7 +2,6 @@
 
 const fs = require("node:fs/promises")
 const path = require("node:path")
-const yaml = require("js-yaml")
 
 const AjvDraft04 = require("ajv-draft-04")
 const Ajv2020 = require("ajv/dist/2020")
@@ -12,11 +11,11 @@ const {Biome, Distribution} = require("@biomejs/js-api")
 
 const openapi30Path = path.join(
   __dirname,
-  "../schemas/openapi-3.0-specification.yaml",
+  "../schemas/openapi-3.0-specification.json",
 )
 const openapi31Path = path.join(
   __dirname,
-  "../schemas/openapi-3.1-specification-base.yaml",
+  "../schemas/openapi-3.1-specification.json",
 )
 
 const outputDir = path.join(
@@ -26,7 +25,7 @@ const outputDir = path.join(
 
 const loadYamlFile = async (filepath) => {
   const content = await fs.readFile(filepath, "utf-8")
-  return yaml.load(content)
+  return JSON.parse(content)
 }
 
 const writeOutput = async (filepath, moduleCode) => {
@@ -84,6 +83,48 @@ const compileOpenapi31Standalone = async () => {
     ajv2020.addFormat("media-range", true)
 
     const validate = ajv2020.compile(spec)
+
+    // TODO: it spits out a validator, but it doesn't actually work due to $dynamicAnchor not being supported
+    if (
+      !validate({
+        openapi: "3.1.0",
+        info: {
+          title: "Valid Specification",
+          version: "1.0.0",
+        },
+        paths: {
+          "/something": {
+            get: {
+              responses: {default: {description: "whatever"}},
+            },
+          },
+        },
+        components: {
+          schemas: {
+            Something: {
+              type: ["object", "null"],
+              properties: {
+                name: {type: "string"},
+              },
+            },
+          },
+        },
+      })
+    ) {
+      const messages =
+        validate.errors?.map((err) => {
+          return [`-> ${err.message} at path '${err.instancePath}'`, err.params]
+        }) ?? []
+
+      if (strict) {
+        throw new Error(
+          `Validation failed: ${messages
+            .map((it) => `${it[0]} (${JSON.stringify(it[1])})`)
+            .join("\n")}`,
+        )
+      }
+    }
+
     return standaloneCode(ajv2020, validate)
   } catch (err) {
     // TODO: MissingRefError: can't resolve reference https://spec.openapis.org/oas/3.1/schema/2022-10-07 from id https://spec.openapis.org/oas/3.1/schema-base/2022-10-07
