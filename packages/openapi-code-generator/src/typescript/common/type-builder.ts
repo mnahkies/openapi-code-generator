@@ -159,6 +159,7 @@ export class TypeBuilder implements ICompilable {
 
         case "string": {
           result.push(
+            // TODO: support open / closed
             ...(schemaObject.enum?.map(quotedStringLiteral) ?? ["string"]),
           )
           break
@@ -166,6 +167,7 @@ export class TypeBuilder implements ICompilable {
 
         case "number": {
           // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
+          // TODO: support open / closed
           result.push(...(schemaObject.enum?.map(coerceToString) ?? ["number"]))
           break
         }
