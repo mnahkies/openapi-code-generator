@@ -41,10 +41,15 @@ import {
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
 
+export type InputConfig = {
+  extractInlineSchemas: boolean
+  enumExtensibility: "open" | "closed"
+}
+
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
-    readonly config: {extractInlineSchemas: boolean},
+    readonly config: InputConfig,
   ) {}
 
   name(): string {
@@ -527,6 +532,11 @@ export class Input {
           maximum: schemaObject.maximum,
           minimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
+
+          "x-enum-extensibility": enumValues.length
+            ? (schemaObject["x-enum-extensibility"] ??
+              self.config.enumExtensibility)
+            : undefined,
         } satisfies IRModelNumeric
       }
       case "string": {
@@ -545,6 +555,11 @@ export class Input {
           maxLength: schemaObject.maxLength,
           minLength: schemaObject.minLength,
           pattern: schemaObject.pattern,
+
+          "x-enum-extensibility": enumValues.length
+            ? (schemaObject["x-enum-extensibility"] ??
+              self.config.enumExtensibility)
+            : undefined,
         } satisfies IRModelString
       }
       case "boolean":

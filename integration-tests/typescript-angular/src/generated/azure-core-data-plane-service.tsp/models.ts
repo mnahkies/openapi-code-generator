@@ -2,6 +2,8 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type UnknownEnumStringValue = string & { _: "unknown enum string value" }
+
 export type t_Azure_Core_Foundations_Error = {
   code: string
   details?: t_Azure_Core_Foundations_Error[]
@@ -25,6 +27,7 @@ export type t_Azure_Core_Foundations_OperationState =
   | "Succeeded"
   | "Failed"
   | "Canceled"
+  | UnknownEnumStringValue
   | string
 
 export type t_Azure_Core_eTag = string
@@ -61,7 +64,7 @@ export type t_Widget = {
 }
 
 export type t_WidgetAnalytics = {
-  readonly id: "current"
+  readonly id: "current" | UnknownEnumStringValue
   repairCount: number
   useCount: number
 }
@@ -78,6 +81,7 @@ export type t_WidgetColor =
   | "Red"
   | "Green"
   | "Blue"
+  | UnknownEnumStringValue
 
 export type t_WidgetCreateOrUpdate = {
   color?: t_WidgetColor
@@ -109,3 +113,4 @@ export type t_WidgetRepairState =
   | "Failed"
   | "Canceled"
   | "SentToManufacturer"
+  | UnknownEnumStringValue

@@ -4,11 +4,16 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type UnknownEnumStringValue = string & { _: "unknown enum string value" }
+
 export type t_Azure_Core_armResourceType = string
 
 export type t_Azure_Core_uuid = string
 
-export type t_Azure_ResourceManager_CommonTypes_ActionType = "Internal" | string
+export type t_Azure_ResourceManager_CommonTypes_ActionType =
+  | "Internal"
+  | UnknownEnumStringValue
+  | string
 
 export type t_Azure_ResourceManager_CommonTypes_ErrorAdditionalInfo = {
   readonly info?: EmptyObject
@@ -46,6 +51,7 @@ export type t_Azure_ResourceManager_CommonTypes_Origin =
   | "user"
   | "system"
   | "user,system"
+  | UnknownEnumStringValue
   | string
 
 export type t_Azure_ResourceManager_CommonTypes_Resource = {
@@ -75,6 +81,7 @@ export type t_Azure_ResourceManager_CommonTypes_createdByType =
   | "Application"
   | "ManagedIdentity"
   | "Key"
+  | UnknownEnumStringValue
   | string
 
 export type t_Employee = t_Azure_ResourceManager_CommonTypes_TrackedResource

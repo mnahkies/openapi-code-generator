@@ -4,6 +4,7 @@
 
 import {
   EmptyObject,
+  UnknownEnumStringValue,
   t_actions_billing_usage,
   t_actions_cache_list,
   t_actions_cache_usage_by_repository,
@@ -404,10 +405,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async securityAdvisoriesListGlobalAdvisories(
     p: {
       ghsaId?: string
-      type?: "reviewed" | "malware" | "unreviewed"
+      type?: "reviewed" | "malware" | "unreviewed" | UnknownEnumStringValue
       cveId?: string
       ecosystem?: t_security_advisory_ecosystems
-      severity?: "unknown" | "low" | "medium" | "high" | "critical"
+      severity?:
+        | "unknown"
+        | "low"
+        | "medium"
+        | "high"
+        | "critical"
+        | UnknownEnumStringValue
       cwes?: string | string[]
       isWithdrawn?: boolean
       affects?: string | string[]
@@ -418,9 +425,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       epssPercentile?: string
       before?: string
       after?: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
-      sort?: "updated" | "published" | "epss_percentage" | "epss_percentile"
+      sort?:
+        | "updated"
+        | "published"
+        | "epss_percentage"
+        | "epss_percentile"
+        | UnknownEnumStringValue
     } = {},
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -1150,23 +1162,29 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       enterprise: string
       requestBody: {
-        advanced_security?: ("enabled" | "disabled") | undefined
+        advanced_security?:
+          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | undefined
         code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
         code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_alerts?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         dependency_graph_autosubmit_action_options?:
           | {
@@ -1174,26 +1192,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             }
           | undefined
         description: string
-        enforcement?: ("enforced" | "unenforced") | undefined
+        enforcement?:
+          | ("enforced" | "unenforced" | UnknownEnumStringValue)
+          | undefined
         name: string
         private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
       }
     },
@@ -1261,23 +1283,29 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       enterprise: string
       configurationId: number
       requestBody: {
-        advanced_security?: ("enabled" | "disabled") | undefined
+        advanced_security?:
+          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | undefined
         code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
         code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_alerts?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         dependency_graph_autosubmit_action_options?:
           | {
@@ -1285,26 +1313,30 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             }
           | undefined
         description?: string | undefined
-        enforcement?: ("enforced" | "unenforced") | undefined
+        enforcement?:
+          | ("enforced" | "unenforced" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
       }
     },
@@ -1353,7 +1385,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       enterprise: string
       configurationId: number
       requestBody: {
-        scope: "all" | "all_without_configurations"
+        scope: "all" | "all_without_configurations" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -1386,7 +1418,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       configurationId: number
       requestBody: {
         default_for_new_repos?:
-          | ("all" | "none" | "private_and_internal" | "public")
+          | (
+              | "all"
+              | "none"
+              | "private_and_internal"
+              | "public"
+              | UnknownEnumStringValue
+            )
           | undefined
       }
     },
@@ -1396,7 +1434,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     AxiosResponse<{
       configuration?: t_code_security_configuration | undefined
       default_for_new_repos?:
-        | ("all" | "none" | "private_and_internal" | "public")
+        | (
+            | "all"
+            | "none"
+            | "private_and_internal"
+            | "public"
+            | UnknownEnumStringValue
+          )
         | undefined
     }>
   > {
@@ -1455,9 +1499,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
       first?: number
@@ -1497,11 +1541,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async secretScanningListAlertsForEnterprise(
     p: {
       enterprise: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
@@ -1611,7 +1655,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               }
             | undefined
         }
-        public?: (boolean | "true" | "false") | undefined
+        public?:
+          | (boolean | "true" | "false" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -2105,10 +2151,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       collab?: boolean
       orgs?: boolean
@@ -2195,7 +2242,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       requestBody: {
         context?: string | undefined
-        mode?: ("markdown" | "gfm") | undefined
+        mode?: ("markdown" | "gfm" | UnknownEnumStringValue) | undefined
         text: string
       }
     },
@@ -2286,8 +2333,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsListAccountsForPlan(
     p: {
       planId: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -2355,8 +2402,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async appsListAccountsForPlanStubbed(
     p: {
       planId: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -2704,7 +2751,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         blog?: string | undefined
         company?: string | undefined
         default_repository_permission?:
-          | ("read" | "write" | "admin" | "none")
+          | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
           | undefined
         dependabot_alerts_enabled_for_new_repositories?: boolean | undefined
         dependabot_security_updates_enabled_for_new_repositories?:
@@ -2718,7 +2765,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         has_repository_projects?: boolean | undefined
         location?: string | undefined
         members_allowed_repository_creation_type?:
-          | ("all" | "private" | "none")
+          | ("all" | "private" | "none" | UnknownEnumStringValue)
           | undefined
         members_can_create_internal_repositories?: boolean | undefined
         members_can_create_pages?: boolean | undefined
@@ -2864,7 +2911,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enable_static_ip?: boolean | undefined
         image: {
           id?: string | undefined
-          source?: ("github" | "partner" | "custom") | undefined
+          source?:
+            | ("github" | "partner" | "custom" | UnknownEnumStringValue)
+            | undefined
         }
         maximum_runners?: number | undefined
         name: string
@@ -3394,7 +3443,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         runners?: number[] | undefined
         selected_repository_ids?: number[] | undefined
         selected_workflows?: string[] | undefined
-        visibility?: ("selected" | "all" | "private") | undefined
+        visibility?:
+          | ("selected" | "all" | "private" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -3447,7 +3498,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         network_configuration_id?: (string | null) | undefined
         restricted_to_workflows?: boolean | undefined
         selected_workflows?: string[] | undefined
-        visibility?: ("selected" | "all" | "private") | undefined
+        visibility?:
+          | ("selected" | "all" | "private" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -4094,7 +4147,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         encrypted_value: string
         key_id: string
         selected_repository_ids?: number[] | undefined
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4269,7 +4322,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         name: string
         selected_repository_ids?: number[] | undefined
         value: string
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -4320,7 +4373,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         name?: string | undefined
         selected_repository_ids?: number[] | undefined
         value?: string | undefined
-        visibility?: ("all" | "private" | "selected") | undefined
+        visibility?:
+          | ("all" | "private" | "selected" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -4606,9 +4661,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       after?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | UnknownEnumStringValue
       severity?: t_code_scanning_alert_severity
     },
     timeout?: number,
@@ -4641,7 +4696,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async codeSecurityGetConfigurationsForOrg(
     p: {
       org: string
-      targetType?: "global" | "all"
+      targetType?: "global" | "all" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
@@ -4671,23 +4726,29 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        advanced_security?: ("enabled" | "disabled") | undefined
+        advanced_security?:
+          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | undefined
         code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
         code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_alerts?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         dependency_graph_autosubmit_action_options?:
           | {
@@ -4695,39 +4756,43 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             }
           | undefined
         description: string
-        enforcement?: ("enforced" | "unenforced") | undefined
+        enforcement?:
+          | ("enforced" | "unenforced" | UnknownEnumStringValue)
+          | undefined
         name: string
         private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_delegated_bypass?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_delegated_bypass_options?:
           | {
               reviewers?:
                 | {
                     reviewer_id: number
-                    reviewer_type: "TEAM" | "ROLE"
+                    reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
                   }[]
                 | undefined
             }
           | undefined
         secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
       }
     },
@@ -4822,23 +4887,29 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       configurationId: number
       requestBody: {
-        advanced_security?: ("enabled" | "disabled") | undefined
+        advanced_security?:
+          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | undefined
         code_scanning_default_setup?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         code_scanning_default_setup_options?:
           | t_code_scanning_default_setup_options
           | undefined
         code_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
+        dependabot_alerts?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependabot_security_updates?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+        dependency_graph?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         dependency_graph_autosubmit_action?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         dependency_graph_autosubmit_action_options?:
           | {
@@ -4846,39 +4917,43 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             }
           | undefined
         description?: string | undefined
-        enforcement?: ("enforced" | "unenforced") | undefined
+        enforcement?:
+          | ("enforced" | "unenforced" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         private_vulnerability_reporting?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
-        secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+        secret_scanning?:
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+          | undefined
         secret_scanning_delegated_alert_dismissal?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_delegated_bypass?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_delegated_bypass_options?:
           | {
               reviewers?:
                 | {
                     reviewer_id: number
-                    reviewer_type: "TEAM" | "ROLE"
+                    reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
                   }[]
                 | undefined
             }
           | undefined
         secret_scanning_generic_secrets?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_non_provider_patterns?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_push_protection?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
         secret_scanning_validity_checks?:
-          | ("enabled" | "disabled" | "not_set")
+          | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
           | undefined
       }
     },
@@ -4935,6 +5010,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "public"
           | "private_or_internal"
           | "selected"
+          | UnknownEnumStringValue
         selected_repository_ids?: number[] | undefined
       }
     },
@@ -4968,7 +5044,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       configurationId: number
       requestBody: {
         default_for_new_repos?:
-          | ("all" | "none" | "private_and_internal" | "public")
+          | (
+              | "all"
+              | "none"
+              | "private_and_internal"
+              | "public"
+              | UnknownEnumStringValue
+            )
           | undefined
       }
     },
@@ -4978,7 +5060,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     AxiosResponse<{
       configuration?: t_code_security_configuration | undefined
       default_for_new_repos?:
-        | ("all" | "none" | "private_and_internal" | "public")
+        | (
+            | "all"
+            | "none"
+            | "private_and_internal"
+            | "public"
+            | UnknownEnumStringValue
+          )
         | undefined
     }>
   > {
@@ -5066,6 +5154,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "selected_members"
           | "all_members"
           | "all_members_and_outside_collaborators"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -5216,7 +5305,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         encrypted_value?: string | undefined
         key_id?: string | undefined
         selected_repository_ids?: number[] | undefined
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -5593,9 +5682,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       ecosystem?: string
       package?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
       first?: number
@@ -5706,7 +5795,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         encrypted_value?: string | undefined
         key_id?: string | undefined
         selected_repository_ids?: string[] | undefined
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -6196,12 +6285,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
@@ -6209,6 +6299,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "http_method"
         | "api_route"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       apiRouteSubstring?: string
     },
@@ -6243,13 +6334,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
         | "rate_limited_request_count"
         | "subject_name"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       subjectNameSubstring?: string
     },
@@ -6339,6 +6431,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
     },
     timeout?: number,
@@ -6424,6 +6517,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "fine_grained_pat"
         | "oauth_app"
         | "github_app_user_to_server"
+        | UnknownEnumStringValue
       actorId: number
       minTimestamp: string
       maxTimestamp?: string
@@ -6457,13 +6551,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       maxTimestamp?: string
       page?: number
       perPage?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       sort?: (
         | "last_rate_limited_timestamp"
         | "last_request_timestamp"
         | "rate_limited_request_count"
         | "subject_name"
         | "total_request_count"
+        | UnknownEnumStringValue
       )[]
       actorNameSubstring?: string
     },
@@ -6611,7 +6706,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "direct_member"
         | "billing_manager"
         | "hiring_manager"
-      invitationSource?: "all" | "member" | "scim"
+        | UnknownEnumStringValue
+      invitationSource?: "all" | "member" | "scim" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -6641,7 +6737,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         email?: string | undefined
         invitee_id?: number | undefined
         role?:
-          | ("admin" | "direct_member" | "billing_manager" | "reinstate")
+          | (
+              | "admin"
+              | "direct_member"
+              | "billing_manager"
+              | "reinstate"
+              | UnknownEnumStringValue
+            )
           | undefined
         team_ids?: number[] | undefined
       }
@@ -6719,10 +6821,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -6755,8 +6858,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsListMembers(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all"
-      role?: "all" | "admin" | "member"
+      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
+      role?: "all" | "admin" | "member" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -6940,7 +7043,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       username: string
       requestBody?: {
-        role?: ("admin" | "member") | undefined
+        role?: ("admin" | "member" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -6988,7 +7091,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      exclude?: "repositories"[]
+      exclude?: ("repositories" | UnknownEnumStringValue)[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7014,7 +7117,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        exclude?: "repositories"[] | undefined
+        exclude?: ("repositories" | UnknownEnumStringValue)[] | undefined
         exclude_attachments?: boolean | undefined
         exclude_git_data?: boolean | undefined
         exclude_metadata?: boolean | undefined
@@ -7049,7 +7152,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       migrationId: number
-      exclude?: "repositories"[]
+      exclude?: ("repositories" | UnknownEnumStringValue)[]
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7368,7 +7471,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async orgsListOutsideCollaborators(
     p: {
       org: string
-      filter?: "2fa_disabled" | "all"
+      filter?: "2fa_disabled" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -7449,8 +7552,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       org: string
-      visibility?: "public" | "private" | "internal"
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       page?: number
       perPage?: number
     },
@@ -7484,6 +7588,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
     },
@@ -7511,6 +7616,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
     },
@@ -7538,6 +7644,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       token?: string
@@ -7567,11 +7674,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       page?: number
       perPage?: number
-      state?: "active" | "deleted"
+      state?: "active" | "deleted" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -7602,6 +7710,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7630,6 +7739,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7658,6 +7768,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       org: string
       packageVersionId: number
@@ -7682,8 +7793,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
       permission?: string
@@ -7724,7 +7835,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        action: "approve" | "deny"
+        action: "approve" | "deny" | UnknownEnumStringValue
         pat_request_ids?: number[] | undefined
         reason?: (string | null) | undefined
       }
@@ -7758,7 +7869,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       patRequestId: number
       requestBody: {
-        action: "approve" | "deny"
+        action: "approve" | "deny" | UnknownEnumStringValue
         reason?: (string | null) | undefined
       }
     },
@@ -7810,8 +7921,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       perPage?: number
       page?: number
-      sort?: "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       owner?: string[]
       repository?: string
       permission?: string
@@ -7850,7 +7961,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        action: "revoke"
+        action: "revoke" | UnknownEnumStringValue
         pat_ids: number[]
       }
     },
@@ -7883,7 +7994,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       patId: number
       requestBody: {
-        action: "revoke"
+        action: "revoke" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -7962,10 +8073,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         encrypted_value: string
         key_id: string
-        registry_type: "maven_repository"
+        registry_type: "maven_repository" | UnknownEnumStringValue
         selected_repository_ids?: number[] | undefined
         username?: (string | null) | undefined
-        visibility: "all" | "private" | "selected"
+        visibility: "all" | "private" | "selected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -8041,10 +8152,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         encrypted_value?: string | undefined
         key_id?: string | undefined
-        registry_type?: "maven_repository" | undefined
+        registry_type?:
+          | ("maven_repository" | UnknownEnumStringValue)
+          | undefined
         selected_repository_ids?: number[] | undefined
         username?: (string | null) | undefined
-        visibility?: ("all" | "private" | "selected") | undefined
+        visibility?:
+          | ("all" | "private" | "selected" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -8090,7 +8205,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsListForOrg(
     p: {
       org: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8394,9 +8509,21 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposListForOrg(
     p: {
       org: string
-      type?: "all" | "public" | "private" | "forks" | "sources" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?:
+        | "all"
+        | "public"
+        | "private"
+        | "forks"
+        | "sources"
+        | "member"
+        | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8446,19 +8573,23 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         homepage?: string | undefined
         is_template?: boolean | undefined
         license_template?: string | undefined
-        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+        merge_commit_message?:
+          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+          | undefined
+        merge_commit_title?:
+          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+          | undefined
         name: string
         private?: boolean | undefined
         squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
           | undefined
         squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
           | undefined
         team_id?: number | undefined
         use_squash_pr_title_as_default?: boolean | undefined
-        visibility?: ("public" | "private") | undefined
+        visibility?: ("public" | "private" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -8517,7 +8648,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push" | "repository") | undefined
+        target?:
+          | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -8545,9 +8678,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       ref?: string
       repositoryName?: string
-      timePeriod?: "hour" | "day" | "week" | "month"
+      timePeriod?: "hour" | "day" | "week" | "month" | UnknownEnumStringValue
       actorName?: string
-      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      ruleSuiteResult?:
+        | "pass"
+        | "fail"
+        | "bypass"
+        | "all"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -8625,7 +8763,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement?: t_repository_rule_enforcement | undefined
         name?: string | undefined
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push" | "repository") | undefined
+        target?:
+          | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -8715,11 +8855,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async secretScanningListAlertsForOrg(
     p: {
       org: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -8760,12 +8900,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async securityAdvisoriesListOrgRepositoryAdvisories(
     p: {
       org: string
-      direction?: "asc" | "desc"
-      sort?: "created" | "updated" | "published"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "published" | UnknownEnumStringValue
       before?: string
       after?: string
       perPage?: number
-      state?: "triage" | "draft" | "published" | "closed"
+      state?:
+        | "triage"
+        | "draft"
+        | "published"
+        | "closed"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -8937,7 +9082,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        compute_service?: ("none" | "actions") | undefined
+        compute_service?:
+          | ("none" | "actions" | UnknownEnumStringValue)
+          | undefined
         name: string
         network_settings_ids: string[]
       }
@@ -8987,7 +9134,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       networkConfigurationId: string
       requestBody: {
-        compute_service?: ("none" | "actions") | undefined
+        compute_service?:
+          | ("none" | "actions" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         network_settings_ids?: string[] | undefined
       }
@@ -9142,11 +9291,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         maintainers?: string[] | undefined
         name: string
         notification_setting?:
-          | ("notifications_enabled" | "notifications_disabled")
+          | (
+              | "notifications_enabled"
+              | "notifications_disabled"
+              | UnknownEnumStringValue
+            )
           | undefined
         parent_team_id?: number | undefined
-        permission?: ("pull" | "push") | undefined
-        privacy?: ("secret" | "closed") | undefined
+        permission?: ("pull" | "push" | UnknownEnumStringValue) | undefined
+        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
         repo_names?: string[] | undefined
       }
     },
@@ -9198,11 +9351,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         description?: string | undefined
         name?: string | undefined
         notification_setting?:
-          | ("notifications_enabled" | "notifications_disabled")
+          | (
+              | "notifications_enabled"
+              | "notifications_disabled"
+              | UnknownEnumStringValue
+            )
           | undefined
         parent_team_id?: (number | null) | undefined
-        permission?: ("pull" | "push" | "admin") | undefined
-        privacy?: ("secret" | "closed") | undefined
+        permission?:
+          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
+          | undefined
+        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -9249,7 +9408,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       pinned?: string
@@ -9382,7 +9541,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       teamSlug: string
       discussionNumber: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9524,6 +9683,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9563,6 +9723,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9622,6 +9783,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9660,6 +9822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -9731,7 +9894,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       teamSlug: string
-      role?: "member" | "maintainer" | "all"
+      role?: "member" | "maintainer" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -9782,7 +9945,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       username: string
       requestBody?: {
-        role?: ("member" | "maintainer") | undefined
+        role?: ("member" | "maintainer" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -9876,7 +10039,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamSlug: string
       projectId: number
       requestBody?: {
-        permission?: ("read" | "write" | "admin") | undefined
+        permission?:
+          | ("read" | "write" | "admin" | UnknownEnumStringValue)
+          | undefined
       } | null
     },
     timeout?: number,
@@ -10051,9 +10216,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "code_scanning_default_setup"
         | "secret_scanning"
         | "secret_scanning_push_protection"
-      enablement: "enable_all" | "disable_all"
+        | UnknownEnumStringValue
+      enablement: "enable_all" | "disable_all" | UnknownEnumStringValue
       requestBody?: {
-        query_suite?: ("default" | "extended") | undefined
+        query_suite?:
+          | ("default" | "extended" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -10238,7 +10406,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsListCards(
     p: {
       columnId: number
-      archivedState?: "all" | "archived" | "not_archived"
+      archivedState?:
+        | "all"
+        | "archived"
+        | "not_archived"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -10347,7 +10519,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         body?: (string | null) | undefined
         name?: string | undefined
         organization_permission?:
-          | ("read" | "write" | "admin" | "none")
+          | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
           | undefined
         private?: boolean | undefined
         state?: string | undefined
@@ -10395,7 +10567,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsListCollaborators(
     p: {
       projectId: number
-      affiliation?: "outside" | "direct" | "all"
+      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -10424,7 +10596,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       projectId: number
       username: string
       requestBody?: {
-        permission?: ("read" | "write" | "admin") | undefined
+        permission?:
+          | ("read" | "write" | "admin" | UnknownEnumStringValue)
+          | undefined
       } | null
     },
     timeout?: number,
@@ -10592,8 +10766,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         has_wiki?: boolean | undefined
         homepage?: string | undefined
         is_template?: boolean | undefined
-        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+        merge_commit_message?:
+          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+          | undefined
+        merge_commit_title?:
+          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         private?: boolean | undefined
         security_and_analysis?:
@@ -10626,13 +10804,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             } | null)
           | undefined
         squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
           | undefined
         squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
           | undefined
         use_squash_pr_title_as_default?: boolean | undefined
-        visibility?: ("public" | "private") | undefined
+        visibility?: ("public" | "private" | UnknownEnumStringValue) | undefined
         web_commit_signoff_required?: boolean | undefined
       }
     },
@@ -10801,8 +10979,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       page?: number
       ref?: string
       key?: string
-      sort?: "created_at" | "last_accessed_at" | "size_in_bytes"
-      direction?: "asc" | "desc"
+      sort?:
+        | "created_at"
+        | "last_accessed_at"
+        | "size_in_bytes"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -11574,6 +11756,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "requested"
         | "waiting"
         | "pending"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
       created?: string
@@ -11889,7 +12072,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       runId: number
-      filter?: "latest" | "all"
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -11989,7 +12172,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         comment: string
         environment_ids: number[]
-        state: "approved" | "rejected"
+        state: "approved" | "rejected" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -12488,6 +12671,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "requested"
         | "waiting"
         | "pending"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
       created?: string
@@ -12552,13 +12736,19 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       before?: string
       after?: string
       ref?: string
       actor?: string
-      timePeriod?: "day" | "week" | "month" | "quarter" | "year"
+      timePeriod?:
+        | "day"
+        | "week"
+        | "month"
+        | "quarter"
+        | "year"
+        | UnknownEnumStringValue
       activityType?:
         | "push"
         | "force_push"
@@ -12566,6 +12756,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "branch_deletion"
         | "pr_merge"
         | "merge_queue_merge"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -13935,6 +14126,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               | "skipped"
               | "stale"
               | "timed_out"
+              | UnknownEnumStringValue
             )
           | undefined
         details_url?: string | undefined
@@ -13944,7 +14136,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | {
               annotations?:
                 | {
-                    annotation_level: "notice" | "warning" | "failure"
+                    annotation_level:
+                      | "notice"
+                      | "warning"
+                      | "failure"
+                      | UnknownEnumStringValue
                     end_column?: number | undefined
                     end_line: number
                     message: string
@@ -13976,6 +14172,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               | "waiting"
               | "requested"
               | "pending"
+              | UnknownEnumStringValue
             )
           | undefined
       }
@@ -14133,8 +14330,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       checkSuiteId: number
       checkName?: string
-      status?: "queued" | "in_progress" | "completed"
-      filter?: "latest" | "all"
+      status?: "queued" | "in_progress" | "completed" | UnknownEnumStringValue
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -14196,10 +14393,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       perPage?: number
       ref?: t_code_scanning_ref
       pr?: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       before?: string
       after?: string
-      sort?: "created" | "updated"
+      sort?: "created" | "updated" | UnknownEnumStringValue
       state?: t_code_scanning_alert_state_query
       severity?: t_code_scanning_alert_severity
     },
@@ -14396,8 +14593,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       pr?: number
       ref?: t_code_scanning_ref
       sarifId?: t_code_scanning_analysis_sarif_id
-      direction?: "asc" | "desc"
-      sort?: "created"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -14790,7 +14987,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         client_ip?: string | undefined
         devcontainer_path?: string | undefined
         display_name?: string | undefined
-        geo?: ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest") | undefined
+        geo?:
+          | (
+              | "EuropeWest"
+              | "SoutheastAsia"
+              | "UsEast"
+              | "UsWest"
+              | UnknownEnumStringValue
+            )
+          | undefined
         idle_timeout_minutes?: number | undefined
         location?: string | undefined
         machine?: string | undefined
@@ -15068,8 +15273,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      affiliation?: "outside" | "direct" | "all"
-      permission?: "pull" | "triage" | "push" | "maintain" | "admin"
+      affiliation?: "outside" | "direct" | "all" | UnknownEnumStringValue
+      permission?:
+        | "pull"
+        | "triage"
+        | "push"
+        | "maintain"
+        | "admin"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -15294,6 +15505,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -15332,6 +15544,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -15545,8 +15758,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       ref: string
       checkName?: string
-      status?: "queued" | "in_progress" | "completed"
-      filter?: "latest" | "all"
+      status?: "queued" | "in_progress" | "completed" | UnknownEnumStringValue
+      filter?: "latest" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
       appId?: number
@@ -15864,9 +16077,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       package?: string
       manifest?: string
       epssPercentage?: string
-      scope?: "development" | "runtime"
-      sort?: "created" | "updated" | "epss_percentage"
-      direction?: "asc" | "desc"
+      scope?: "development" | "runtime" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "epss_percentage" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -15941,9 +16154,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               | "no_bandwidth"
               | "not_used"
               | "tolerable_risk"
+              | UnknownEnumStringValue
             )
           | undefined
-        state: "dismissed" | "open"
+        state: "dismissed" | "open" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -16329,6 +16543,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "queued"
           | "pending"
           | "success"
+          | UnknownEnumStringValue
         target_url?: string | undefined
       }
     },
@@ -17065,7 +17280,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      sort?: "newest" | "oldest" | "stargazers" | "watchers"
+      sort?:
+        | "newest"
+        | "oldest"
+        | "stargazers"
+        | "watchers"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -17372,7 +17592,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               name: string
             }
           | undefined
-        type: "commit" | "tree" | "blob"
+        type: "commit" | "tree" | "blob" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -17425,11 +17645,20 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         tree: {
           content?: string | undefined
           mode?:
-            | ("100644" | "100755" | "040000" | "160000" | "120000")
+            | (
+                | "100644"
+                | "100755"
+                | "040000"
+                | "160000"
+                | "120000"
+                | UnknownEnumStringValue
+              )
             | undefined
           path?: string | undefined
           sha?: (string | null) | undefined
-          type?: ("blob" | "tree" | "commit") | undefined
+          type?:
+            | ("blob" | "tree" | "commit" | UnknownEnumStringValue)
+            | undefined
         }[]
       }
     },
@@ -17805,7 +18034,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody: {
         tfvc_project?: string | undefined
-        vcs?: ("subversion" | "git" | "mercurial" | "tfvc") | undefined
+        vcs?:
+          | (
+              | "subversion"
+              | "git"
+              | "mercurial"
+              | "tfvc"
+              | UnknownEnumStringValue
+            )
+          | undefined
         vcs_password?: string | undefined
         vcs_url: string
         vcs_username?: string | undefined
@@ -17837,7 +18074,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       requestBody?: {
         tfvc_project?: string | undefined
-        vcs?: ("subversion" | "tfvc" | "git" | "mercurial") | undefined
+        vcs?:
+          | (
+              | "subversion"
+              | "tfvc"
+              | "git"
+              | "mercurial"
+              | UnknownEnumStringValue
+            )
+          | undefined
         vcs_password?: string | undefined
         vcs_username?: string | undefined
       } | null
@@ -17959,7 +18204,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        use_lfs: "opt_in" | "opt_out"
+        use_lfs: "opt_in" | "opt_out" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -18098,7 +18343,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       invitationId: number
       requestBody?: {
         permissions?:
-          | ("read" | "write" | "maintain" | "triage" | "admin")
+          | (
+              | "read"
+              | "write"
+              | "maintain"
+              | "triage"
+              | "admin"
+              | UnknownEnumStringValue
+            )
           | undefined
       }
     },
@@ -18148,13 +18400,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       milestone?: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       assignee?: string
       creator?: string
       mentioned?: string
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -18234,8 +18486,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -18347,6 +18599,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -18385,6 +18638,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -18515,9 +18769,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             )[]
           | undefined
         milestone?: (string | number | null) | undefined
-        state?: ("open" | "closed") | undefined
+        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
         state_reason?:
-          | ("completed" | "not_planned" | "reopened" | null)
+          | (
+              | "completed"
+              | "not_planned"
+              | "reopened"
+              | UnknownEnumStringValue
+              | null
+            )
           | undefined
         title?: (string | number | null) | undefined
       }
@@ -18862,7 +19122,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       issueNumber: number
       requestBody?: {
         lock_reason?:
-          | ("off-topic" | "too heated" | "resolved" | "spam")
+          | (
+              | "off-topic"
+              | "too heated"
+              | "resolved"
+              | "spam"
+              | UnknownEnumStringValue
+            )
           | undefined
       } | null
     },
@@ -18921,6 +19187,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -18959,6 +19226,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -19466,9 +19734,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
-      sort?: "due_on" | "completeness"
-      direction?: "asc" | "desc"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
+      sort?: "due_on" | "completeness" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -19501,7 +19769,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         description?: string | undefined
         due_on?: string | undefined
-        state?: ("open" | "closed") | undefined
+        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
         title: string
       }
     },
@@ -19554,7 +19822,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody?: {
         description?: string | undefined
         due_on?: string | undefined
-        state?: ("open" | "closed") | undefined
+        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
         title?: string | undefined
       }
     },
@@ -19716,11 +19984,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: ("legacy" | "workflow") | undefined
+        build_type?:
+          | ("legacy" | "workflow" | UnknownEnumStringValue)
+          | undefined
         source?:
           | {
               branch: string
-              path?: ("/" | "/docs") | undefined
+              path?: ("/" | "/docs" | UnknownEnumStringValue) | undefined
             }
           | undefined
       } | null
@@ -19750,7 +20020,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody: {
-        build_type?: ("legacy" | "workflow") | undefined
+        build_type?:
+          | ("legacy" | "workflow" | UnknownEnumStringValue)
+          | undefined
         cname?: (string | null) | undefined
         https_enforced?: boolean | undefined
         source?:
@@ -19758,9 +20030,10 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
               | "gh-pages"
               | "master"
               | "master /docs"
+              | UnknownEnumStringValue
               | {
                   branch: string
-                  path: "/" | "/docs"
+                  path: "/" | "/docs" | UnknownEnumStringValue
                 }
             )
           | undefined
@@ -20054,7 +20327,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -20159,11 +20432,16 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       head?: string
       base?: string
-      sort?: "created" | "updated" | "popularity" | "long-running"
-      direction?: "asc" | "desc"
+      sort?:
+        | "created"
+        | "updated"
+        | "popularity"
+        | "long-running"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -20230,8 +20508,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      sort?: "created" | "updated" | "created_at"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "created_at" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -20343,6 +20621,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -20381,6 +20660,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -20455,7 +20735,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         base?: string | undefined
         body?: string | undefined
         maintainer_can_modify?: boolean | undefined
-        state?: ("open" | "closed") | undefined
+        state?: ("open" | "closed" | UnknownEnumStringValue) | undefined
         title?: string | undefined
       }
     },
@@ -20488,7 +20768,15 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         client_ip?: string | undefined
         devcontainer_path?: string | undefined
         display_name?: string | undefined
-        geo?: ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest") | undefined
+        geo?:
+          | (
+              | "EuropeWest"
+              | "SoutheastAsia"
+              | "UsEast"
+              | "UsWest"
+              | UnknownEnumStringValue
+            )
+          | undefined
         idle_timeout_minutes?: number | undefined
         location?: string | undefined
         machine?: string | undefined
@@ -20522,8 +20810,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       pullNumber: number
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -20562,10 +20850,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         line?: number | undefined
         path: string
         position?: number | undefined
-        side?: ("LEFT" | "RIGHT") | undefined
+        side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue) | undefined
         start_line?: number | undefined
-        start_side?: ("LEFT" | "RIGHT" | "side") | undefined
-        subject_type?: ("line" | "file") | undefined
+        start_side?:
+          | ("LEFT" | "RIGHT" | "side" | UnknownEnumStringValue)
+          | undefined
+        subject_type?: ("line" | "file" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -20695,7 +20985,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody?: {
         commit_message?: string | undefined
         commit_title?: string | undefined
-        merge_method?: ("merge" | "squash" | "rebase") | undefined
+        merge_method?:
+          | ("merge" | "squash" | "rebase" | UnknownEnumStringValue)
+          | undefined
         sha?: string | undefined
       } | null
     },
@@ -20843,7 +21135,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             }[]
           | undefined
         commit_id?: string | undefined
-        event?: ("APPROVE" | "REQUEST_CHANGES" | "COMMENT") | undefined
+        event?:
+          | ("APPROVE" | "REQUEST_CHANGES" | "COMMENT" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -20972,7 +21266,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       pullNumber: number
       reviewId: number
       requestBody: {
-        event?: "DISMISS" | undefined
+        event?: ("DISMISS" | UnknownEnumStringValue) | undefined
         message: string
       }
     },
@@ -21004,7 +21298,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       reviewId: number
       requestBody: {
         body?: string | undefined
-        event: "APPROVE" | "REQUEST_CHANGES" | "COMMENT"
+        event:
+          | "APPROVE"
+          | "REQUEST_CHANGES"
+          | "COMMENT"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -21138,7 +21436,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         discussion_category_name?: string | undefined
         draft?: boolean | undefined
         generate_release_notes?: boolean | undefined
-        make_latest?: ("true" | "false" | "legacy") | undefined
+        make_latest?:
+          | ("true" | "false" | "legacy" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         prerelease?: boolean | undefined
         tag_name: string
@@ -21340,7 +21640,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         body?: string | undefined
         discussion_category_name?: string | undefined
         draft?: boolean | undefined
-        make_latest?: ("true" | "false" | "legacy") | undefined
+        make_latest?:
+          | ("true" | "false" | "legacy" | UnknownEnumStringValue)
+          | undefined
         name?: string | undefined
         prerelease?: boolean | undefined
         tag_name?: string | undefined
@@ -21453,7 +21755,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       releaseId: number
-      content?: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+      content?:
+        | "+1"
+        | "laugh"
+        | "heart"
+        | "hooray"
+        | "rocket"
+        | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -21483,7 +21792,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       repo: string
       releaseId: number
       requestBody: {
-        content: "+1" | "laugh" | "heart" | "hooray" | "rocket" | "eyes"
+        content:
+          | "+1"
+          | "laugh"
+          | "heart"
+          | "hooray"
+          | "rocket"
+          | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -21592,7 +21908,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement: t_repository_rule_enforcement
         name: string
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push") | undefined
+        target?:
+          | ("branch" | "tag" | "push" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -21620,9 +21938,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       ref?: string
-      timePeriod?: "hour" | "day" | "week" | "month"
+      timePeriod?: "hour" | "day" | "week" | "month" | UnknownEnumStringValue
       actorName?: string
-      ruleSuiteResult?: "pass" | "fail" | "bypass" | "all"
+      ruleSuiteResult?:
+        | "pass"
+        | "fail"
+        | "bypass"
+        | "all"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -21704,7 +22027,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         enforcement?: t_repository_rule_enforcement | undefined
         name?: string | undefined
         rules?: t_repository_rule[] | undefined
-        target?: ("branch" | "tag" | "push") | undefined
+        target?:
+          | ("branch" | "tag" | "push" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -21798,11 +22123,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      state?: "open" | "resolved"
+      state?: "open" | "resolved" | UnknownEnumStringValue
       secretType?: string
       resolution?: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       page?: number
       perPage?: number
       before?: string
@@ -21971,12 +22296,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      direction?: "asc" | "desc"
-      sort?: "created" | "updated" | "published"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      sort?: "created" | "updated" | "published" | UnknownEnumStringValue
       before?: string
       after?: string
       perPage?: number
-      state?: "triage" | "draft" | "published" | "closed"
+      state?:
+        | "triage"
+        | "draft"
+        | "published"
+        | "closed"
+        | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22296,7 +22626,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       requestBody: {
         context?: string | undefined
         description?: (string | null) | undefined
-        state: "error" | "failure" | "pending" | "success"
+        state:
+          | "error"
+          | "failure"
+          | "pending"
+          | "success"
+          | UnknownEnumStringValue
         target_url?: (string | null) | undefined
       }
     },
@@ -22603,7 +22938,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      per?: "day" | "week"
+      per?: "day" | "week" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22665,7 +23000,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       owner: string
       repo: string
-      per?: "day" | "week"
+      per?: "day" | "week" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -22849,8 +23184,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async searchCode(
     p: {
       q: string
-      sort?: "indexed"
-      order?: "desc" | "asc"
+      sort?: "indexed" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22885,8 +23220,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async searchCommits(
     p: {
       q: string
-      sort?: "author-date" | "committer-date"
-      order?: "desc" | "asc"
+      sort?: "author-date" | "committer-date" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -22933,7 +23268,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "interactions"
         | "created"
         | "updated"
-      order?: "desc" | "asc"
+        | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       advancedSearch?: string
@@ -22971,8 +23307,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       repositoryId: number
       q: string
-      sort?: "created" | "updated"
-      order?: "desc" | "asc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23008,8 +23344,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async searchRepos(
     p: {
       q: string
-      sort?: "stars" | "forks" | "help-wanted-issues" | "updated"
-      order?: "desc" | "asc"
+      sort?:
+        | "stars"
+        | "forks"
+        | "help-wanted-issues"
+        | "updated"
+        | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23076,8 +23417,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async searchUsers(
     p: {
       q: string
-      sort?: "followers" | "repositories" | "joined"
-      order?: "desc" | "asc"
+      sort?: "followers" | "repositories" | "joined" | UnknownEnumStringValue
+      order?: "desc" | "asc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23135,11 +23476,17 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         description?: string | undefined
         name: string
         notification_setting?:
-          | ("notifications_enabled" | "notifications_disabled")
+          | (
+              | "notifications_enabled"
+              | "notifications_disabled"
+              | UnknownEnumStringValue
+            )
           | undefined
         parent_team_id?: (number | null) | undefined
-        permission?: ("pull" | "push" | "admin") | undefined
-        privacy?: ("secret" | "closed") | undefined
+        permission?:
+          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
+          | undefined
+        privacy?: ("secret" | "closed" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -23184,7 +23531,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsListDiscussionsLegacy(
     p: {
       teamId: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23310,7 +23657,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       teamId: number
       discussionNumber: number
-      direction?: "asc" | "desc"
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23447,6 +23794,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23485,6 +23833,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -23520,6 +23869,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "hooray"
         | "rocket"
         | "eyes"
+        | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23557,6 +23907,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | "hooray"
           | "rocket"
           | "eyes"
+          | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -23604,7 +23955,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async teamsListMembersLegacy(
     p: {
       teamId: number
-      role?: "member" | "maintainer" | "all"
+      role?: "member" | "maintainer" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -23713,7 +24064,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       username: string
       requestBody?: {
-        role?: ("member" | "maintainer") | undefined
+        role?: ("member" | "maintainer" | UnknownEnumStringValue) | undefined
       }
     },
     timeout?: number,
@@ -23803,7 +24154,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       teamId: number
       projectId: number
       requestBody?: {
-        permission?: ("read" | "write" | "admin") | undefined
+        permission?:
+          | ("read" | "write" | "admin" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -23895,7 +24248,9 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       owner: string
       repo: string
       requestBody?: {
-        permission?: ("pull" | "push" | "admin") | undefined
+        permission?:
+          | ("pull" | "push" | "admin" | UnknownEnumStringValue)
+          | undefined
       }
     },
     timeout?: number,
@@ -24127,7 +24482,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             devcontainer_path?: string | undefined
             display_name?: string | undefined
             geo?:
-              | ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest")
+              | (
+                  | "EuropeWest"
+                  | "SoutheastAsia"
+                  | "UsEast"
+                  | "UsWest"
+                  | UnknownEnumStringValue
+                )
               | undefined
             idle_timeout_minutes?: number | undefined
             location?: string | undefined
@@ -24141,7 +24502,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | {
             devcontainer_path?: string | undefined
             geo?:
-              | ("EuropeWest" | "SoutheastAsia" | "UsEast" | "UsWest")
+              | (
+                  | "EuropeWest"
+                  | "SoutheastAsia"
+                  | "UsEast"
+                  | "UsWest"
+                  | UnknownEnumStringValue
+                )
               | undefined
             idle_timeout_minutes?: number | undefined
             location?: string | undefined
@@ -24592,7 +24959,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async usersSetPrimaryEmailVisibilityForAuthenticatedUser(
     p: {
       requestBody: {
-        visibility: "public" | "private"
+        visibility: "public" | "private" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -25041,10 +25408,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "subscribed"
         | "repos"
         | "all"
-      state?: "open" | "closed" | "all"
+        | UnknownEnumStringValue
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
-      sort?: "created" | "updated" | "comments"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
       perPage?: number
       page?: number
@@ -25204,7 +25572,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async orgsListMembershipsForAuthenticatedUser(
     p: {
-      state?: "active" | "pending"
+      state?: "active" | "pending" | UnknownEnumStringValue
       perPage?: number
       page?: number
     } = {},
@@ -25251,7 +25619,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     p: {
       org: string
       requestBody: {
-        state: "active"
+        state: "active" | UnknownEnumStringValue
       }
     },
     timeout?: number,
@@ -25298,7 +25666,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async migrationsStartForAuthenticatedUser(
     p: {
       requestBody: {
-        exclude?: "repositories"[] | undefined
+        exclude?: ("repositories" | UnknownEnumStringValue)[] | undefined
         exclude_attachments?: boolean | undefined
         exclude_git_data?: boolean | undefined
         exclude_metadata?: boolean | undefined
@@ -25460,7 +25828,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
-      visibility?: "public" | "private" | "internal"
+        | UnknownEnumStringValue
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       page?: number
       perPage?: number
     },
@@ -25494,6 +25863,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
     },
     timeout?: number,
@@ -25520,6 +25890,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
     },
     timeout?: number,
@@ -25546,6 +25917,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       token?: string
     },
@@ -25574,10 +25946,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       page?: number
       perPage?: number
-      state?: "active" | "deleted"
+      state?: "active" | "deleted" | UnknownEnumStringValue
     },
     timeout?: number,
     opts: AxiosRequestConfig = {},
@@ -25608,6 +25981,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -25635,6 +26009,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -25662,6 +26037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
     },
@@ -25730,11 +26106,22 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async reposListForAuthenticatedUser(
     p: {
-      visibility?: "all" | "public" | "private"
+      visibility?: "all" | "public" | "private" | UnknownEnumStringValue
       affiliation?: string
-      type?: "all" | "owner" | "public" | "private" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?:
+        | "all"
+        | "owner"
+        | "public"
+        | "private"
+        | "member"
+        | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
       since?: string
@@ -25785,15 +26172,19 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         homepage?: string | undefined
         is_template?: boolean | undefined
         license_template?: string | undefined
-        merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-        merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+        merge_commit_message?:
+          | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+          | undefined
+        merge_commit_title?:
+          | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+          | undefined
         name: string
         private?: boolean | undefined
         squash_merge_commit_message?:
-          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+          | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
           | undefined
         squash_merge_commit_title?:
-          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE")
+          | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
           | undefined
         team_id?: number | undefined
       }
@@ -26038,8 +26429,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
 
   async activityListReposStarredByAuthenticatedUser(
     p: {
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     } = {},
@@ -26483,7 +26874,12 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async usersGetContextForUser(
     p: {
       username: string
-      subjectType?: "organization" | "repository" | "issue" | "pull_request"
+      subjectType?:
+        | "organization"
+        | "repository"
+        | "issue"
+        | "pull_request"
+        | UnknownEnumStringValue
       subjectId?: string
     },
     timeout?: number,
@@ -26577,7 +26973,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
-      visibility?: "public" | "private" | "internal"
+        | UnknownEnumStringValue
+      visibility?: "public" | "private" | "internal" | UnknownEnumStringValue
       username: string
       page?: number
       perPage?: number
@@ -26612,6 +27009,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -26639,6 +27037,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -26666,6 +27065,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       token?: string
@@ -26695,6 +27095,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
     },
@@ -26722,6 +27123,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       packageVersionId: number
       username: string
@@ -26750,6 +27152,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       packageVersionId: number
@@ -26778,6 +27181,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | "docker"
         | "nuget"
         | "container"
+        | UnknownEnumStringValue
       packageName: string
       username: string
       packageVersionId: number
@@ -26800,7 +27204,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async projectsListForUser(
     p: {
       username: string
-      state?: "open" | "closed" | "all"
+      state?: "open" | "closed" | "all" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -26871,9 +27275,14 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async reposListForUser(
     p: {
       username: string
-      type?: "all" | "owner" | "member"
-      sort?: "created" | "updated" | "pushed" | "full_name"
-      direction?: "asc" | "desc"
+      type?: "all" | "owner" | "member" | UnknownEnumStringValue
+      sort?:
+        | "created"
+        | "updated"
+        | "pushed"
+        | "full_name"
+        | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },
@@ -27003,8 +27412,8 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
   async activityListReposStarredByUser(
     p: {
       username: string
-      sort?: "created" | "updated"
-      direction?: "asc" | "desc"
+      sort?: "created" | "updated" | UnknownEnumStringValue
+      direction?: "asc" | "desc" | UnknownEnumStringValue
       perPage?: number
       page?: number
     },

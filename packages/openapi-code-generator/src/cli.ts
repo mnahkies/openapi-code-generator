@@ -172,6 +172,16 @@ const program = new Command()
   )
   .addOption(
     new Option(
+      "--enum-extensibility <value>",
+      "Whether enums should be open to unknown values, or closed. Defaults to open for client templates, and closed for server templates.",
+    )
+      .env("OPENAPI_ENUM_EXTENSIBILITY")
+      .choices(["open", "closed"] as const)
+      .default("")
+      .makeOptionMandatory(),
+  )
+  .addOption(
+    new Option(
       "--grouping-strategy <value>",
       `
     (experimental) Strategy to use for splitting output into separate files.

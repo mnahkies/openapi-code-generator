@@ -11,7 +11,7 @@ servers:
       host:
         default: localhost
       protocol:
-        enum: [http, https]
+        enum: [ http, https ]
         default: http
       port:
         default: '8080'
@@ -43,6 +43,7 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/GetHeaders'
+  # TODO: add tests for enum handling and open/closed
   /validation/numbers/random-number:
     get:
       tags:
@@ -74,6 +75,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/RandomNumber'
+  /validation/enums:
+    post:
+      tags:
+        - validation
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Enumerations'
+      responses:
+        200:
+          description: ok
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Enumerations'
   /responses/empty:
     get:
       tags:
@@ -96,6 +114,24 @@ components:
                 additionalProperties: true
 
   schemas:
+    Enumerations:
+      type: object
+      required:
+        - colors
+        - starRatings
+      properties:
+        colors:
+          type: string
+          enum:
+            - red
+            - green
+            - blue
+        starRatings:
+          type: number
+          enum:
+            - 1
+            - 2
+            - 3
     RandomNumber:
       type: object
       properties:

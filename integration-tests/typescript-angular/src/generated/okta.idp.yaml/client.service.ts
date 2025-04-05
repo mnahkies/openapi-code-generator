@@ -4,6 +4,7 @@
 
 import {
   EmptyObject,
+  UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
@@ -391,7 +392,7 @@ export class MyAccountManagementService {
       profile: {
         email: string
       }
-      role?: "PRIMARY" | "SECONDARY"
+      role?: "PRIMARY" | "SECONDARY" | UnknownEnumStringValue
       sendEmail?: boolean
       state?: string
     }
@@ -464,13 +465,13 @@ export class MyAccountManagementService {
         _links: {
           poll: {
             hints: {
-              allow: "GET"[]
+              allow: ("GET" | UnknownEnumStringValue)[]
             }
             href: string
           }
           verify: {
             hints: {
-              allow: "POST"[]
+              allow: ("POST" | UnknownEnumStringValue)[]
             }
             href: string
           }
@@ -480,7 +481,7 @@ export class MyAccountManagementService {
         profile: {
           email: string
         }
-        status: "VERIFIED" | "UNVERIFIED"
+        status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
       }> & { status: 201 })
     | (HttpResponse<t_Error> & { status: 401 })
     | (HttpResponse<t_Error> & { status: 403 })
@@ -510,13 +511,25 @@ export class MyAccountManagementService {
         _links: {
           poll: {
             hints: {
-              allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+              allow: (
+                | "DELETE"
+                | "GET"
+                | "POST"
+                | "PUT"
+                | UnknownEnumStringValue
+              )[]
             }
             href: string
           }
           verify: {
             hints: {
-              allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+              allow: (
+                | "DELETE"
+                | "GET"
+                | "POST"
+                | "PUT"
+                | UnknownEnumStringValue
+              )[]
             }
             href: string
           }
@@ -526,7 +539,7 @@ export class MyAccountManagementService {
         profile: {
           email: string
         }
-        status: "VERIFIED" | "UNVERIFIED"
+        status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
       }> & { status: 200 })
     | (HttpResponse<t_Error> & { status: 401 })
     | (HttpResponse<t_Error> & { status: 404 })
@@ -706,7 +719,7 @@ export class MyAccountManagementService {
 
   createPhone(p: {
     requestBody: {
-      method?: "SMS" | "CALL"
+      method?: "SMS" | "CALL" | UnknownEnumStringValue
       profile: {
         phoneNumber?: string
       }
@@ -776,7 +789,7 @@ export class MyAccountManagementService {
   sendPhoneChallenge(p: {
     id: string
     requestBody: {
-      method: "SMS" | "CALL"
+      method: "SMS" | "CALL" | UnknownEnumStringValue
       retry?: boolean
     }
   }): Observable<
@@ -784,7 +797,7 @@ export class MyAccountManagementService {
         _links?: {
           verify?: {
             hints: {
-              allow: "GET"[]
+              allow: ("GET" | UnknownEnumStringValue)[]
             }
             href: string
           }

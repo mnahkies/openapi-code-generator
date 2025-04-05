@@ -58,6 +58,7 @@ const defaultConfig = {
   enableTypedBasePaths: true,
   filenameConvention: "kebab-case",
   tsServerImplementationMethod: "type",
+  enumExtensibility: "",
 } satisfies Config
 
 const EditorFileSelectorWrapper: React.FC<PropsWithChildren> = ({children}) => {

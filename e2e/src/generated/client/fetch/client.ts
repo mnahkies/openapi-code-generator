@@ -3,11 +3,13 @@
 /* eslint-disable */
 
 import {
+  t_Enumerations,
   t_RandomNumber,
   t_getHeadersRequestJson200Response,
   t_getHeadersUndeclaredJson200Response,
 } from "./models"
 import {
+  s_Enumerations,
   s_RandomNumber,
   s_getHeadersRequestJson200Response,
   s_getHeadersUndeclaredJson200Response,
@@ -131,6 +133,29 @@ export class E2ETestClient extends AbstractFetchClient {
     )
 
     return responseValidationFactory([["200", s_RandomNumber]], undefined)(res)
+  }
+
+  async postValidationEnums(
+    p: {
+      requestBody: t_Enumerations
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_Enumerations>> {
+    const url = this.basePath + `/validation/enums`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    const res = this._fetch(
+      url,
+      { method: "POST", body, ...opts, headers },
+      timeout,
+    )
+
+    return responseValidationFactory([["200", s_Enumerations]], undefined)(res)
   }
 
   async getResponsesEmpty(
