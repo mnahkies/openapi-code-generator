@@ -116,10 +116,19 @@ updated to explicitly handle them, and it nudges developers to handle the unknow
 ## Customizing the behavior
 There are two ways you can customize this behavior
 
-- Global CLI option
-- Per schema extension
+- Global CLI option `--enum-extensibility <value>`
+- Per schema extension property `x-enum-extensibility: <value>`, overriding the global configuration
 
+Where `<value>` is either `open` or `closed`.
 
+Example:
+```yaml
+type: string
+x-enum-extensibility: closed
+enum:
+  - Dog
+  - Cat
+```
 
 ## Union types vs Enum types
 

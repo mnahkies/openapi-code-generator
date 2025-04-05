@@ -4,7 +4,7 @@ import type {IdentifierConvention} from "./core/utils"
 import type {SchemaBuilderType} from "./typescript/common/schema-builders/schema-builder"
 import type {TypescriptEmitter} from "./typescript/common/typescript-emitter"
 
-export type Generator = {
+export type OpenapiGenerator = {
   language: "typescript"
   type: "client" | "server"
   run: (config: OpenapiTypescriptGeneratorConfig) => Promise<void>
@@ -39,4 +39,8 @@ export interface OpenapiTypescriptGeneratorConfig
    * How to output the implementation types for server templates
    */
   serverImplementationMethod: ServerImplementationMethod
+  /**
+   * Whether to output open or closed enumerated types
+   */
+  enumExtensibility: "open" | "closed"
 }
