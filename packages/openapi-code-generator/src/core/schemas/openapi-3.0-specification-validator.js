@@ -6,7 +6,7 @@
 module.exports = validate10
 module.exports.default = validate10
 const schema11 = {
-  id: "https://spec.openapis.org/oas/3.0/schema/WORK-IN-PROGRESS",
+  id: "https://spec.openapis.org/oas/3.0/schema/2024-10-18",
   $schema: "http://json-schema.org/draft-04/schema#",
   description: "The description of OpenAPI v3.0.x Documents",
   type: "object",
@@ -18215,7 +18215,7 @@ function validate10(
   data,
   {instancePath = "", parentData, parentDataProperty, rootData = data} = {},
 ) {
-  /*# sourceURL="https://spec.openapis.org/oas/3.0/schema/WORK-IN-PROGRESS" */
+  /*# sourceURL="https://spec.openapis.org/oas/3.0/schema/2024-10-18" */
   let vErrors = null
   let errors = 0
   if (errors === 0) {

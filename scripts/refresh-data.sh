@@ -3,13 +3,12 @@
 set -e
 
 # Openapi v3.1 schema definitions
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema.yaml -o ./schemas/openapi-3.1-specification.yaml
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.1/schema-base.yaml -o ./schemas/openapi-3.1-specification-base.yaml
-curl https://raw.githubusercontent.com/OAI/OpenAPI-Specification/main/schemas/v3.0/schema.yaml -o ./schemas/openapi-3.0-specification.yaml
+curl https://spec.openapis.org/oas/3.1/schema/2025-02-13 -o ./schemas/openapi-3.1-specification.json
+curl https://spec.openapis.org/oas/3.0/schema/2024-10-18 -o ./schemas/openapi-3.0-specification.json
 
 # Example API Definitions
 curl -L https://raw.githubusercontent.com/github/rest-api-description/main/descriptions/api.github.com/api.github.com.yaml -o ./integration-tests-definitions/api.github.com.yaml
-curl -L https://raw.githubusercontent.com/OAI/OpenAPI-Specification/refs/heads/main/tests/v3.0/pass/petstore-expanded.yaml -o ./integration-tests-definitions/petstore-expanded.yaml
+curl -L https://github.com/OAI/learn.openapis.org/raw/refs/heads/main/examples/v3.0/petstore-expanded.yaml -o ./integration-tests-definitions/petstore-expanded.yaml
 
 curl -L https://raw.githubusercontent.com/stripe/openapi/master/openapi/spec3.yaml -o ./integration-tests-definitions/stripe.yaml
 
