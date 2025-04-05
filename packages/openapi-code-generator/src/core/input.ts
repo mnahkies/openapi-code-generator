@@ -41,10 +41,15 @@ import {
 export type OperationGroup = {name: string; operations: IROperation[]}
 export type OperationGroupStrategy = "none" | "first-tag" | "first-slug"
 
+export type InputConfig = {
+  extractInlineSchemas: boolean
+  enumExtensibility: "open" | "closed"
+}
+
 export class Input {
   constructor(
     readonly loader: OpenapiLoader,
-    readonly config: {extractInlineSchemas: boolean},
+    readonly config: InputConfig,
   ) {}
 
   name(): string {
@@ -413,12 +418,14 @@ export class Input {
       })
     }
 
-    const base: IRModelBase = {
-      nullable: schemaObject.nullable || false,
-      readOnly: schemaObject.readOnly || false,
-      default: schemaObject.default,
-      "x-internal-preprocess": schemaObject["x-internal-preprocess"],
-    }
+  const base: IRModelBase = {
+    nullable: schemaObject.nullable || false,
+    readOnly: schemaObject.readOnly || false,
+    default: schemaObject.default,
+    "x-internal-preprocess": schemaObject["x-internal-preprocess"],
+    "x-enum-extensibility":
+      schemaObject["x-enum-extensibility"] ?? self.config.enumExtensibility,
+  }
 
     switch (schemaObject.type) {
       case undefined: {

@@ -1,4 +1,3 @@
-import {ServerVariable} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -12,6 +11,7 @@ export interface IRModelBase {
   readOnly: boolean /* false */
   default?: unknown | undefined
   "x-internal-preprocess"?: MaybeIRPreprocess | undefined
+  "x-enum-extensibility": "open" | "closed"
 }
 
 export type MaybeIRPreprocess = IRPreprocess | IRRef

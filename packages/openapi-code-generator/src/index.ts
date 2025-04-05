@@ -64,11 +64,12 @@ export async function generate(
     typespecLoader,
   )
 
+  const generator = templates[config.template]
+
   const input = new Input(loader, {
     extractInlineSchemas: config.extractInlineSchemas,
+    enumExtensibility: enumExtensibility(config, generator),
   })
-
-  const generator = templates[config.template]
 
   const emitter = new TypescriptEmitter(fsAdaptor, formatter, {
     destinationDirectory: config.output,
@@ -86,6 +87,5 @@ export async function generate(
     filenameConvention: config.filenameConvention,
     allowAny: config.tsAllowAny,
     serverImplementationMethod: config.tsServerImplementationMethod,
-    enumExtensibility: enumExtensibility(config, generator),
   })
 }

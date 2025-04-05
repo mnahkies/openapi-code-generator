@@ -39,8 +39,4 @@ export interface OpenapiTypescriptGeneratorConfig
    * How to output the implementation types for server templates
    */
   serverImplementationMethod: ServerImplementationMethod
-  /**
-   * Whether to output open or closed enumerated types
-   */
-  enumExtensibility: "open" | "closed"
 }
