@@ -205,14 +205,29 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
-      return [
-        this.union([
-          ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
-          `z.unknown().brand('unsupported enum value')`,
-        ]),
-      ]
-        .filter(isDefined)
-        .join(".")
+
+      if (model["x-enum-extensibility"] === "open") {
+        return [
+          this.union([
+            ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
+            `z.unknown().brand('unsupported enum value')`,
+          ]),
+        ]
+          .filter(isDefined)
+          .join(".")
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return [
+          this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
+        ]
+          .filter(isDefined)
+          .join(".")
+      }
+
+      throw new Error(
+        `enum specified, but x-enum-extensibility is '${model["x-enum-extensibility"]}'`,
+      )
     }
 
     return [
@@ -238,10 +253,20 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
   protected string(model: IRModelString) {
     if (model.enum) {
-      return this.union([
-        this.stringEnum(model),
-        `z.unknown().brand('unsupported enum value')`,
-      ])
+      if (model["x-enum-extensibility"] === "open") {
+        return this.union([
+          this.stringEnum(model),
+          `z.unknown().brand('unsupported enum value')`,
+        ])
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return this.stringEnum(model)
+      }
+
+      throw new Error(
+        `enum specified, but x-enum-extensibility is '${model["x-enum-extensibility"]}'`,
+      )
     }
 
     return [

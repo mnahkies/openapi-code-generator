@@ -418,14 +418,12 @@ export class Input {
       })
     }
 
-  const base: IRModelBase = {
-    nullable: schemaObject.nullable || false,
-    readOnly: schemaObject.readOnly || false,
-    default: schemaObject.default,
-    "x-internal-preprocess": schemaObject["x-internal-preprocess"],
-    "x-enum-extensibility":
-      schemaObject["x-enum-extensibility"] ?? self.config.enumExtensibility,
-  }
+    const base: IRModelBase = {
+      nullable: schemaObject.nullable || false,
+      readOnly: schemaObject.readOnly || false,
+      default: schemaObject.default,
+      "x-internal-preprocess": schemaObject["x-internal-preprocess"],
+    }
 
     switch (schemaObject.type) {
       case undefined: {
@@ -534,6 +532,11 @@ export class Input {
           maximum: schemaObject.maximum,
           minimum: schemaObject.minimum,
           multipleOf: schemaObject.multipleOf,
+
+          "x-enum-extensibility": enumValues.length
+            ? (schemaObject["x-enum-extensibility"] ??
+              self.config.enumExtensibility)
+            : undefined,
         } satisfies IRModelNumeric
       }
       case "string": {
@@ -552,6 +555,11 @@ export class Input {
           maxLength: schemaObject.maxLength,
           minLength: schemaObject.minLength,
           pattern: schemaObject.pattern,
+
+          "x-enum-extensibility": enumValues.length
+            ? (schemaObject["x-enum-extensibility"] ??
+              self.config.enumExtensibility)
+            : undefined,
         } satisfies IRModelString
       }
       case "boolean":
