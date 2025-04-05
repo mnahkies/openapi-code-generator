@@ -375,7 +375,7 @@ describe.each(testVersions)(
             z.literal(200),
             z.literal(301),
             z.literal(404),
-            z.number().brand("unsupported enum value"),
+            z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
           ])"
         `)
 
@@ -600,7 +600,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot(`
           "const x = z.union([
             z.enum(["red", "blue", "green"]),
-            z.string().brand("unsupported enum value"),
+            z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
           ])"
         `)
 
