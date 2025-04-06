@@ -4,7 +4,9 @@
 
 export type EmptyObject = { [key: string]: never }
 
-export type UnknownEnumStringValue = string & { _: "unknown enum string value" }
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
 
 export type t_AppAuthenticatorEnrollment = {
   readonly authenticatorId?: string
