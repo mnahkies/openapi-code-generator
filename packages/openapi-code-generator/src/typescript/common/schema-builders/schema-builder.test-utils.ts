@@ -90,6 +90,8 @@ export function schemaBuilderTestHarness(
         })()
         `
 
+        // note: transpileModule won't raise any diagnostics for invalid types,
+        //       just transpiles to js
         const transpiledCode = ts.transpileModule(wrappedCode, {
           compilerOptions: {module: ts.ModuleKind.CommonJS},
         }).outputText

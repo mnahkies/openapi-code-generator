@@ -4,7 +4,7 @@ title: Enums
 
 # Enumerated Types
 
-OpenAPI allows use to define enumeration types, allowing us to narrow primitives like `string` from being any
+OpenAPI allows us to define enumeration types, allowing us to narrow primitives like `string` from being any
 `string`, to a limited set of possible values. For example:
 
 ```yaml
@@ -15,7 +15,7 @@ enum:
   - Orange
 ```
 
-Defines a enumerated value that can be one of `Apple`, `Banana`, `Orange`
+Defines an enumerated value that can be one of `Apple`, `Banana`, `Orange`
 
 This is great for documenting the domain of valid values, but can cause problems with safely evolving your API over
 time, as adding a new value to the enum may become a breaking API change.
@@ -28,26 +28,26 @@ if your needs are different.
 We can consider an `enum` "open" if the parsing of it can allow for new/unknown values, and "closed" if new values
 should constitute a parsing error.
 
-The OpenAPI / JSON schema validation specifications don't really discuss this distinction, but generally define
-enums to be "closed". This poses an issue for safely evolving your API surface as your needs change without it
-being a breaking change.
+The OpenAPI and JSON Schema specifications don't explicitly distinguish between open and closed enums.
+By default, they assume enums are closed—meaning only listed values are valid. This poses an issue for safely evolving
+your API surface as your needs change without it being a breaking change.
 
 If you have exact control over all your API clients you could mitigate this by first updating the clients to support
 the new value, then updating the server to produce it.
 
-However, in most real world cases this is either difficult, or not possible. An good example is native mobile applications,
+However, in most real world cases this is either difficult, or not possible. A good example is native mobile applications,
 as there is generally a long tail of outdated app versions in the wild, and as a developer you have little control over
 when your users update their apps.
 
 To prevent this issue, ideally:
 - Our servers will use closed enums, and therefore only ever accept/return valid enum values
 - Our clients will use open enums, and gracefully handle unrecognized enum values
-  _(likely by ignoring them, or the entity that contains them)_
+_(likely by ignoring them, or the entity that contains them)_
 
 ## Code generation of enums
 
-With that in mind, the code generator will default to generating "closed" enums for server templates, and "open" enums
-for client templates.
+With that in mind, the generator takes a conservative approach for servers (closed enums) and a forward-compatible
+approach for clients (open enums).
 
 Using the previous example, lets explore how this gets generated.
 ```yaml
@@ -68,9 +68,12 @@ export const s_Fruit = z.enum(["Apple", "Banana", "Orange"])
 ```
 
 ### Client code (open enum)
-For the client templates, we use a technique called "branded types" to include the `unknown` type in our union
-types, in such a way that typescript knows we __could__ receive any value, but won't let us accidentally assign
-an unknown value.
+
+For the client templates, we use a technique called "branded types" to include the `string` / `number` type in our union
+types, in such a way that typescript knows we __could__ receive any value, but won't let us accidentally assign an unknown value.
+
+This works because a "branded type" creates a distinct type that TypeScript tracks separately, preventing accidental assignment
+of arbitrary strings at compile time, while still allowing unknown values to pass through parsing safely at runtime.
 
 ```typescript
 export const s_unknown_enum_value = z.unknown().brand("unknown enum value")

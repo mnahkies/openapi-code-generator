@@ -373,9 +373,7 @@ describe.each(testVersions)(
 
           export const s_AdditionalPropertiesSchema = joi
             .object()
-            .keys({ name: joi.string() })
-            .options({ stripUnknown: true })
-            .concat(joi.object().pattern(joi.any(), s_NamedNullableStringEnum.required()))
+            .pattern(joi.any(), s_NamedNullableStringEnum.required())
             .required()
             .id("s_AdditionalPropertiesSchema")"
         `)
