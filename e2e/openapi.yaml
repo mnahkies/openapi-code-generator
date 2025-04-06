@@ -43,7 +43,6 @@ paths:
       responses:
         200:
           $ref: '#/components/responses/GetHeaders'
-  # TODO: add tests for enum handling and open/closed
   /validation/numbers/random-number:
     get:
       tags:

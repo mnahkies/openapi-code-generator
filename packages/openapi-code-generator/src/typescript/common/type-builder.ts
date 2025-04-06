@@ -19,10 +19,12 @@ import {buildExport} from "./typescript-common"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",
+  // TODO: results in  TS4023: Exported variable '<schema>' has or is using name '_brand' from external module "<path>" but cannot be named.
+  // Brand: "export const _brand = Symbol.for('brand')",
   UnknownEnumStringValue:
-    "export type UnknownEnumStringValue = (string & {_: 'unknown enum string value'})",
+    "export type UnknownEnumStringValue = (string & {_brand: 'unknown enum string value'})",
   UnknownEnumNumberValue:
-    "export type UnknownEnumNumberValue = (number & {_: 'unknown enum number value'})",
+    "export type UnknownEnumNumberValue = (number & {_brand: 'unknown enum number value'})",
 }
 
 type StaticType = keyof typeof staticTypes
