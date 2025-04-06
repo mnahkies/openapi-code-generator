@@ -28,12 +28,11 @@ export class CompilationUnit {
     return [
       includeHeader ? FILE_HEADER : "",
       this.imports
-        ? this.imports.toString(allowUnusedImports ? "" : this.code)
+        ? `${this.imports.toString(allowUnusedImports ? "" : this.code)}\n`
         : "",
-      "\n",
       this.code,
     ]
-      .filter(Boolean)
+      .filter((it) => it && it.length > 0)
       .join("\n")
   }
 

@@ -1,3 +1,4 @@
+import ts from "typescript"
 import type {Input} from "../../../core/input"
 import type {
   IRModel,
@@ -82,12 +83,20 @@ export function schemaBuilderTestHarness(
       code,
       schemas,
       execute: (input: unknown) => {
-        return executeParseSchema(`
+        const wrappedCode = `
         (async function () {
         ${code}
         return ${schemaBuilder.parse("x", JSON.stringify(input))}
         })()
-        `)
+        `
+
+        // note: transpileModule won't raise any diagnostics for invalid types,
+        //       just transpiles to js
+        const transpiledCode = ts.transpileModule(wrappedCode, {
+          compilerOptions: {module: ts.ModuleKind.CommonJS},
+        }).outputText
+
+        return executeParseSchema(transpiledCode)
       },
     }
   }

@@ -373,9 +373,7 @@ describe.each(testVersions)(
 
           export const s_AdditionalPropertiesSchema = joi
             .object()
-            .keys({ name: joi.string() })
-            .options({ stripUnknown: true })
-            .concat(joi.object().pattern(joi.any(), s_NamedNullableStringEnum.required()))
+            .pattern(joi.any(), s_NamedNullableStringEnum.required())
             .required()
             .id("s_AdditionalPropertiesSchema")"
         `)
@@ -427,10 +425,11 @@ describe.each(testVersions)(
         )
       })
 
-      it("supports enum number", async () => {
+      it("supports closed number enums", async () => {
         const {code, execute} = await getActualFromModel({
           ...base,
           enum: [200, 301, 404],
+          "x-enum-extensibility": "closed",
         })
 
         expect(code).toMatchInlineSnapshot(
@@ -441,6 +440,24 @@ describe.each(testVersions)(
           '"value" must be one of [200, 301, 404]',
         )
         await expect(execute(404)).resolves.toBe(404)
+      })
+
+      it("supports open number enums", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: [200, 301, 404],
+          "x-enum-extensibility": "open",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.number().required()"`,
+        )
+
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute(404)).resolves.toBe(404)
+        await expect(execute("not a number")).rejects.toThrow(
+          '"value" must be a number',
+        )
       })
 
       it("supports minimum", async () => {
@@ -623,6 +640,46 @@ describe.each(testVersions)(
 
         await expect(execute("a string")).resolves.toBe("a string")
         await expect(execute(123)).rejects.toThrow('"value" must be a string')
+      })
+
+      it("supports closed string enums", async () => {
+        const enumValues = ["red", "blue", "green"]
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().valid("red", "blue", "green").required()"`,
+        )
+
+        for (const value of enumValues) {
+          await expect(execute(value)).resolves.toBe(value)
+        }
+
+        await expect(execute("orange")).rejects.toThrow(
+          '"value" must be one of [red, blue, green]',
+        )
+      })
+
+      it("supports open string enums", async () => {
+        const enumValues = ["red", "blue", "green"]
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.string().required()"`,
+        )
+
+        for (const value of enumValues) {
+          await expect(execute(value)).resolves.toBe(value)
+        }
+        await expect(execute("orange")).resolves.toBe("orange")
+        await expect(execute(404)).rejects.toThrow('"value" must be a string')
       })
 
       it("supports minLength", async () => {

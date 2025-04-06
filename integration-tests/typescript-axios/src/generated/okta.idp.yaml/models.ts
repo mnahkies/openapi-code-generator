@@ -4,6 +4,10 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
+
 export type t_AppAuthenticatorEnrollment = {
   readonly authenticatorId?: string | undefined
   readonly createdDate?: string | undefined
@@ -13,7 +17,7 @@ export type t_AppAuthenticatorEnrollment = {
         createdDate?: string | undefined
         id?: string | undefined
         lastUpdated?: string | undefined
-        status?: "ACTIVE" | undefined
+        status?: ("ACTIVE" | UnknownEnumStringValue) | undefined
       }
     | undefined
   readonly id?: string | undefined
@@ -24,7 +28,9 @@ export type t_AppAuthenticatorEnrollment = {
           | {
               hints?:
                 | {
-                    allow?: ("PATCH" | "DELETE")[] | undefined
+                    allow?:
+                      | ("PATCH" | "DELETE" | UnknownEnumStringValue)[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -45,7 +51,9 @@ export type t_AppAuthenticatorEnrollment = {
                       | {
                           hints?:
                             | {
-                                allow?: "GET"[] | undefined
+                                allow?:
+                                  | ("GET" | UnknownEnumStringValue)[]
+                                  | undefined
                               }
                             | undefined
                           href?: string | undefined
@@ -81,13 +89,15 @@ export type t_AppAuthenticatorEnrollmentRequest = {
     manufacturer?: string | undefined
     model?: string | undefined
     osVersion: string
-    platform: "ANDROID" | "IOS"
+    platform: "ANDROID" | "IOS" | UnknownEnumStringValue
     secureHardwarePresent?: boolean | undefined
     udid?: string | undefined
   }
   methods: {
     push: {
-      apsEnvironment?: ("PRODUCTION" | "DEVELOPMENT") | undefined
+      apsEnvironment?:
+        | ("PRODUCTION" | "DEVELOPMENT" | UnknownEnumStringValue)
+        | undefined
       keys: {
         capabilities?: t_AppAuthenticatorMethodCapabilities | undefined
         proofOfPossession: t_KeyObject
@@ -99,7 +109,7 @@ export type t_AppAuthenticatorEnrollmentRequest = {
 }
 
 export type t_AppAuthenticatorMethodCapabilities = {
-  transactionTypes?: ("LOGIN" | "CIBA")[] | undefined
+  transactionTypes?: ("LOGIN" | "CIBA" | UnknownEnumStringValue)[] | undefined
 }
 
 export type t_Authenticator = {
@@ -156,6 +166,7 @@ export type t_AuthenticatorKey =
   | "symantec_vip"
   | "webauthn"
   | "yubikey_token"
+  | UnknownEnumStringValue
 
 export type t_Email = {
   _links?:
@@ -164,7 +175,15 @@ export type t_Email = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                    allow?:
+                      | (
+                          | "DELETE"
+                          | "GET"
+                          | "POST"
+                          | "PUT"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -174,7 +193,15 @@ export type t_Email = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                    allow?:
+                      | (
+                          | "DELETE"
+                          | "GET"
+                          | "POST"
+                          | "PUT"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -184,7 +211,9 @@ export type t_Email = {
           | {
               hints?:
                 | {
-                    allow?: ("GET" | "DELETE" | "PUT")[] | undefined
+                    allow?:
+                      | ("GET" | "DELETE" | "PUT" | UnknownEnumStringValue)[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -194,7 +223,15 @@ export type t_Email = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                    allow?:
+                      | (
+                          | "DELETE"
+                          | "GET"
+                          | "POST"
+                          | "PUT"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -206,8 +243,8 @@ export type t_Email = {
   profile: {
     email: string
   }
-  roles: ("PRIMARY" | "SECONDARY")[]
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  roles: ("PRIMARY" | "SECONDARY" | UnknownEnumStringValue)[]
+  readonly status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
 }
 
 export type t_Error = {
@@ -233,13 +270,18 @@ export type t_HrefObject = {
   type?: string | undefined
 }
 
-export type t_HttpMethod = "DELETE" | "GET" | "POST" | "PUT"
+export type t_HttpMethod =
+  | "DELETE"
+  | "GET"
+  | "POST"
+  | "PUT"
+  | UnknownEnumStringValue
 
 export type t_KeyEC = {
-  crv: "P-256"
+  crv: "P-256" | UnknownEnumStringValue
   kid: string
-  kty: "EC"
-  "okta:kpr": "HARDWARE" | "SOFTWARE"
+  kty: "EC" | UnknownEnumStringValue
+  "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
   x: string
   y: string
 }
@@ -249,9 +291,9 @@ export type t_KeyObject = t_KeyEC | t_KeyRSA
 export type t_KeyRSA = {
   e: string
   kid: string
-  kty: "RSA"
+  kty: "RSA" | UnknownEnumStringValue
   n: string
-  "okta:kpr": "HARDWARE" | "SOFTWARE"
+  "okta:kpr": "HARDWARE" | "SOFTWARE" | UnknownEnumStringValue
 }
 
 export type t_OktaApplication = {
@@ -267,7 +309,7 @@ export type t_Organization = {
           | {
               hints?:
                 | {
-                    allow?: "GET"[] | undefined
+                    allow?: ("GET" | UnknownEnumStringValue)[] | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -288,7 +330,9 @@ export type t_PasswordResponse = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "PUT")[] | undefined
+                    allow?:
+                      | ("DELETE" | "GET" | "PUT" | UnknownEnumStringValue)[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -309,7 +353,15 @@ export type t_Phone = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                    allow?:
+                      | (
+                          | "DELETE"
+                          | "GET"
+                          | "POST"
+                          | "PUT"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -319,7 +371,9 @@ export type t_Phone = {
           | {
               hints?:
                 | {
-                    allow?: ("GET" | "DELETE" | "PUT")[] | undefined
+                    allow?:
+                      | ("GET" | "DELETE" | "PUT" | UnknownEnumStringValue)[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -329,7 +383,15 @@ export type t_Phone = {
           | {
               hints?:
                 | {
-                    allow?: ("DELETE" | "GET" | "POST" | "PUT")[] | undefined
+                    allow?:
+                      | (
+                          | "DELETE"
+                          | "GET"
+                          | "POST"
+                          | "PUT"
+                          | UnknownEnumStringValue
+                        )[]
+                      | undefined
                   }
                 | undefined
               href?: string | undefined
@@ -341,7 +403,7 @@ export type t_Phone = {
   profile: {
     phoneNumber: string
   }
-  readonly status: "VERIFIED" | "UNVERIFIED"
+  readonly status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
 }
 
 export type t_Profile = {
@@ -366,12 +428,12 @@ export type t_Profile = {
 
 export type t_PushNotificationChallenge = {
   challenge?: string | undefined
-  payloadVersion?: "IDXv1" | undefined
+  payloadVersion?: ("IDXv1" | UnknownEnumStringValue) | undefined
 }
 
 export type t_PushNotificationVerification = {
   challengeResponse?: string | undefined
-  method?: "push" | undefined
+  method?: ("push" | UnknownEnumStringValue) | undefined
 }
 
 export type t_Schema = {

@@ -51,7 +51,13 @@ export async function unitTestInput(
     await TypespecLoader.create(),
   )
 
-  return {input: new Input(loader, {extractInlineSchemas: true}), file}
+  return {
+    input: new Input(loader, {
+      extractInlineSchemas: true,
+      enumExtensibility: "closed",
+    }),
+    file,
+  }
 }
 
 export async function createTestInputFromYamlString(
@@ -76,5 +82,8 @@ export async function createTestInputFromYamlString(
     new GenericLoader(new NodeFsAdaptor()),
   )
 
-  return new Input(loader, {extractInlineSchemas: true})
+  return new Input(loader, {
+    extractInlineSchemas: true,
+    enumExtensibility: "closed",
+  })
 }

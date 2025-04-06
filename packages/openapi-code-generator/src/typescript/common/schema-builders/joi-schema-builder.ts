@@ -200,9 +200,15 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     const result = [joi, "number()"].filter(isDefined).join(".")
 
     if (model.enum) {
-      return [result, `valid(${model.enum.join(", ")})`]
-        .filter(isDefined)
-        .join(".")
+      if (model["x-enum-extensibility"] === "open") {
+        return result
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return [result, `valid(${model.enum.join(", ")})`]
+          .filter(isDefined)
+          .join(".")
+      }
     }
 
     return [
@@ -229,12 +235,18 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     const result = [joi, "string()"].filter(isDefined).join(".")
 
     if (model.enum) {
-      return [
-        result,
-        `valid(${model.enum.map(quotedStringLiteral).join(", ")})`,
-      ]
-        .filter(isDefined)
-        .join(".")
+      if (model["x-enum-extensibility"] === "open") {
+        return result
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return [
+          result,
+          `valid(${model.enum.map(quotedStringLiteral).join(", ")})`,
+        ]
+          .filter(isDefined)
+          .join(".")
+      }
     }
 
     return [

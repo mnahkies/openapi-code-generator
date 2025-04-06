@@ -4,10 +4,21 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
+
 export type t_account = {
   business_profile?: (t_account_business_profile | null) | undefined
   business_type?:
-    | ("company" | "government_entity" | "individual" | "non_profit" | null)
+    | (
+        | "company"
+        | "government_entity"
+        | "individual"
+        | "non_profit"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   capabilities?: t_account_capabilities | undefined
   charges_enabled?: boolean | undefined
@@ -22,7 +33,7 @@ export type t_account = {
     | {
         data: (t_bank_account | t_card)[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -35,12 +46,14 @@ export type t_account = {
         [key: string]: string | undefined
       }
     | undefined
-  object: "account"
+  object: "account" | UnknownEnumStringValue
   payouts_enabled?: boolean | undefined
   requirements?: t_account_requirements | undefined
   settings?: (t_account_settings | null) | undefined
   tos_acceptance?: t_account_tos_acceptance | undefined
-  type?: ("custom" | "express" | "none" | "standard") | undefined
+  type?:
+    | ("custom" | "express" | "none" | "standard" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_account_annual_revenue = {
@@ -76,60 +89,168 @@ export type t_account_business_profile = {
 }
 
 export type t_account_capabilities = {
-  acss_debit_payments?: ("active" | "inactive" | "pending") | undefined
-  affirm_payments?: ("active" | "inactive" | "pending") | undefined
-  afterpay_clearpay_payments?: ("active" | "inactive" | "pending") | undefined
-  alma_payments?: ("active" | "inactive" | "pending") | undefined
-  amazon_pay_payments?: ("active" | "inactive" | "pending") | undefined
-  au_becs_debit_payments?: ("active" | "inactive" | "pending") | undefined
-  bacs_debit_payments?: ("active" | "inactive" | "pending") | undefined
-  bancontact_payments?: ("active" | "inactive" | "pending") | undefined
-  bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  blik_payments?: ("active" | "inactive" | "pending") | undefined
-  boleto_payments?: ("active" | "inactive" | "pending") | undefined
-  card_issuing?: ("active" | "inactive" | "pending") | undefined
-  card_payments?: ("active" | "inactive" | "pending") | undefined
-  cartes_bancaires_payments?: ("active" | "inactive" | "pending") | undefined
-  cashapp_payments?: ("active" | "inactive" | "pending") | undefined
-  eps_payments?: ("active" | "inactive" | "pending") | undefined
-  fpx_payments?: ("active" | "inactive" | "pending") | undefined
-  gb_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  giropay_payments?: ("active" | "inactive" | "pending") | undefined
-  grabpay_payments?: ("active" | "inactive" | "pending") | undefined
-  ideal_payments?: ("active" | "inactive" | "pending") | undefined
-  india_international_payments?: ("active" | "inactive" | "pending") | undefined
-  jcb_payments?: ("active" | "inactive" | "pending") | undefined
-  jp_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  kakao_pay_payments?: ("active" | "inactive" | "pending") | undefined
-  klarna_payments?: ("active" | "inactive" | "pending") | undefined
-  konbini_payments?: ("active" | "inactive" | "pending") | undefined
-  kr_card_payments?: ("active" | "inactive" | "pending") | undefined
-  legacy_payments?: ("active" | "inactive" | "pending") | undefined
-  link_payments?: ("active" | "inactive" | "pending") | undefined
-  mobilepay_payments?: ("active" | "inactive" | "pending") | undefined
-  multibanco_payments?: ("active" | "inactive" | "pending") | undefined
-  mx_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  naver_pay_payments?: ("active" | "inactive" | "pending") | undefined
-  oxxo_payments?: ("active" | "inactive" | "pending") | undefined
-  p24_payments?: ("active" | "inactive" | "pending") | undefined
-  pay_by_bank_payments?: ("active" | "inactive" | "pending") | undefined
-  payco_payments?: ("active" | "inactive" | "pending") | undefined
-  paynow_payments?: ("active" | "inactive" | "pending") | undefined
-  promptpay_payments?: ("active" | "inactive" | "pending") | undefined
-  revolut_pay_payments?: ("active" | "inactive" | "pending") | undefined
-  samsung_pay_payments?: ("active" | "inactive" | "pending") | undefined
-  sepa_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  sepa_debit_payments?: ("active" | "inactive" | "pending") | undefined
-  sofort_payments?: ("active" | "inactive" | "pending") | undefined
-  swish_payments?: ("active" | "inactive" | "pending") | undefined
-  tax_reporting_us_1099_k?: ("active" | "inactive" | "pending") | undefined
-  tax_reporting_us_1099_misc?: ("active" | "inactive" | "pending") | undefined
-  transfers?: ("active" | "inactive" | "pending") | undefined
-  treasury?: ("active" | "inactive" | "pending") | undefined
-  twint_payments?: ("active" | "inactive" | "pending") | undefined
-  us_bank_account_ach_payments?: ("active" | "inactive" | "pending") | undefined
-  us_bank_transfer_payments?: ("active" | "inactive" | "pending") | undefined
-  zip_payments?: ("active" | "inactive" | "pending") | undefined
+  acss_debit_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  affirm_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  afterpay_clearpay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  alma_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  amazon_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  au_becs_debit_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  bacs_debit_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  bancontact_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  blik_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  boleto_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  card_issuing?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  card_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  cartes_bancaires_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  cashapp_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  eps_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  fpx_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  gb_bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  giropay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  grabpay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  ideal_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  india_international_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  jcb_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  jp_bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  kakao_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  klarna_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  konbini_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  kr_card_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  legacy_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  link_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  mobilepay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  multibanco_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  mx_bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  naver_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  oxxo_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  p24_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  pay_by_bank_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  payco_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  paynow_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  promptpay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  revolut_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  samsung_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  sepa_bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  sepa_debit_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  sofort_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  swish_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  tax_reporting_us_1099_k?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  tax_reporting_us_1099_misc?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  transfers?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  treasury?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  twint_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  us_bank_account_ach_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  us_bank_transfer_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  zip_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_account_capability_future_requirements = {
@@ -148,6 +269,7 @@ export type t_account_capability_future_requirements = {
         | "rejected.other"
         | "rejected.unsupported_business"
         | "requirements.fields_needed"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -173,6 +295,7 @@ export type t_account_capability_requirements = {
         | "rejected.other"
         | "rejected.unsupported_business"
         | "requirements.fields_needed"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -224,6 +347,7 @@ export type t_account_future_requirements = {
         | "requirements.past_due"
         | "requirements.pending_verification"
         | "under_review"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -244,7 +368,7 @@ export type t_account_invoices_settings = {
 export type t_account_link = {
   created: number
   expires_at: number
-  object: "account_link"
+  object: "account_link" | UnknownEnumStringValue
   url: string
 }
 
@@ -286,6 +410,7 @@ export type t_account_requirements = {
         | "requirements.past_due"
         | "requirements.pending_verification"
         | "under_review"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -391,6 +516,7 @@ export type t_account_requirements_error = {
     | "verification_requires_additional_memorandum_of_associations"
     | "verification_requires_additional_proof_of_registration"
     | "verification_supportability"
+    | UnknownEnumStringValue
   reason: string
   requirement: string
 }
@@ -405,7 +531,7 @@ export type t_account_session = {
   components: t_connect_embedded_account_session_create_components
   expires_at: number
   livemode: boolean
-  object: "account_session"
+  object: "account_session" | UnknownEnumStringValue
 }
 
 export type t_account_settings = {
@@ -442,11 +568,13 @@ export type t_account_unification_account_controller = {
   fees?: t_account_unification_account_controller_fees | undefined
   is_controller?: boolean | undefined
   losses?: t_account_unification_account_controller_losses | undefined
-  requirement_collection?: ("application" | "stripe") | undefined
+  requirement_collection?:
+    | ("application" | "stripe" | UnknownEnumStringValue)
+    | undefined
   stripe_dashboard?:
     | t_account_unification_account_controller_stripe_dashboard
     | undefined
-  type: "account" | "application"
+  type: "account" | "application" | UnknownEnumStringValue
 }
 
 export type t_account_unification_account_controller_fees = {
@@ -455,14 +583,15 @@ export type t_account_unification_account_controller_fees = {
     | "application"
     | "application_custom"
     | "application_express"
+    | UnknownEnumStringValue
 }
 
 export type t_account_unification_account_controller_losses = {
-  payments: "application" | "stripe"
+  payments: "application" | "stripe" | UnknownEnumStringValue
 }
 
 export type t_account_unification_account_controller_stripe_dashboard = {
-  type: "express" | "full" | "none"
+  type: "express" | "full" | "none" | UnknownEnumStringValue
 }
 
 export type t_address = {
@@ -476,7 +605,7 @@ export type t_address = {
 
 export type t_amazon_pay_underlying_payment_method_funding_details = {
   card?: t_payment_method_details_passthrough_card | undefined
-  type?: ("card" | null) | undefined
+  type?: ("card" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_api_errors = {
@@ -500,6 +629,7 @@ export type t_api_errors = {
     | "card_error"
     | "idempotency_error"
     | "invalid_request_error"
+    | UnknownEnumStringValue
 }
 
 export type t_apple_pay_domain = {
@@ -507,13 +637,13 @@ export type t_apple_pay_domain = {
   domain_name: string
   id: string
   livemode: boolean
-  object: "apple_pay_domain"
+  object: "apple_pay_domain" | UnknownEnumStringValue
 }
 
 export type t_application = {
   id: string
   name?: (string | null) | undefined
-  object: "application"
+  object: "application" | UnknownEnumStringValue
 }
 
 export type t_application_fee = {
@@ -528,13 +658,13 @@ export type t_application_fee = {
   fee_source?: (t_platform_earning_fee_source | null) | undefined
   id: string
   livemode: boolean
-  object: "application_fee"
+  object: "application_fee" | UnknownEnumStringValue
   originating_transaction?: (string | t_charge | null) | undefined
   refunded: boolean
   refunds: {
     data: t_fee_refund[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
 }
@@ -546,7 +676,7 @@ export type t_apps_secret = {
   id: string
   livemode: boolean
   name: string
-  object: "apps.secret"
+  object: "apps.secret" | UnknownEnumStringValue
   payload?: (string | null) | undefined
   scope: t_secret_service_resource_scope
 }
@@ -556,13 +686,20 @@ export type t_automatic_tax = {
     | (
         | "finalization_requires_location_inputs"
         | "finalization_system_error"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
   status?:
-    | ("complete" | "failed" | "requires_location_inputs" | null)
+    | (
+        | "complete"
+        | "failed"
+        | "requires_location_inputs"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -572,7 +709,7 @@ export type t_balance = {
   instant_available?: t_balance_amount_net[] | undefined
   issuing?: t_balance_detail | undefined
   livemode: boolean
-  object: "balance"
+  object: "balance" | UnknownEnumStringValue
   pending: t_balance_amount[]
 }
 
@@ -616,7 +753,7 @@ export type t_balance_transaction = {
   fee_details: t_fee[]
   id: string
   net: number
-  object: "balance_transaction"
+  object: "balance_transaction" | UnknownEnumStringValue
   reporting_category: string
   source?:
     | (
@@ -684,6 +821,7 @@ export type t_balance_transaction = {
     | "transfer_cancel"
     | "transfer_failure"
     | "transfer_refund"
+    | UnknownEnumStringValue
 }
 
 export type t_bank_account = {
@@ -691,7 +829,9 @@ export type t_bank_account = {
   account_holder_name?: (string | null) | undefined
   account_holder_type?: (string | null) | undefined
   account_type?: (string | null) | undefined
-  available_payout_methods?: (("instant" | "standard")[] | null) | undefined
+  available_payout_methods?:
+    | (("instant" | "standard" | UnknownEnumStringValue)[] | null)
+    | undefined
   bank_name?: (string | null) | undefined
   country: string
   currency: string
@@ -706,7 +846,7 @@ export type t_bank_account = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "bank_account"
+  object: "bank_account" | UnknownEnumStringValue
   requirements?: (t_external_account_requirements | null) | undefined
   routing_number?: (string | null) | undefined
   status: string
@@ -715,7 +855,7 @@ export type t_bank_account = {
 export type t_bank_connections_resource_accountholder = {
   account?: (string | t_account) | undefined
   customer?: (string | t_customer) | undefined
-  type: "account" | "customer"
+  type: "account" | "customer" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_balance = {
@@ -729,7 +869,7 @@ export type t_bank_connections_resource_balance = {
   current: {
     [key: string]: number | undefined
   }
-  type: "cash" | "credit"
+  type: "cash" | "credit" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_balance_api_resource_cash_balance = {
@@ -751,7 +891,7 @@ export type t_bank_connections_resource_balance_api_resource_credit_balance = {
 export type t_bank_connections_resource_balance_refresh = {
   last_attempted_at: number
   next_refresh_available_at?: (number | null) | undefined
-  status: "failed" | "pending" | "succeeded"
+  status: "failed" | "pending" | "succeeded" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_link_account_session_filters = {
@@ -763,6 +903,7 @@ export type t_bank_connections_resource_link_account_session_filters = {
             | "line_of_credit"
             | "mortgage"
             | "savings"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -773,14 +914,14 @@ export type t_bank_connections_resource_link_account_session_filters = {
 export type t_bank_connections_resource_ownership_refresh = {
   last_attempted_at: number
   next_refresh_available_at?: (number | null) | undefined
-  status: "failed" | "pending" | "succeeded"
+  status: "failed" | "pending" | "succeeded" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_transaction_refresh = {
   id: string
   last_attempted_at: number
   next_refresh_available_at?: (number | null) | undefined
-  status: "failed" | "pending" | "succeeded"
+  status: "failed" | "pending" | "succeeded" | UnknownEnumStringValue
 }
 
 export type t_bank_connections_resource_transaction_resource_status_transitions =
@@ -790,11 +931,13 @@ export type t_bank_connections_resource_transaction_resource_status_transitions 
   }
 
 export type t_billing_alert = {
-  alert_type: "usage_threshold"
+  alert_type: "usage_threshold" | UnknownEnumStringValue
   id: string
   livemode: boolean
-  object: "billing.alert"
-  status?: ("active" | "archived" | "inactive" | null) | undefined
+  object: "billing.alert" | UnknownEnumStringValue
+  status?:
+    | ("active" | "archived" | "inactive" | UnknownEnumStringValue | null)
+    | undefined
   title: string
   usage_threshold?:
     | (t_thresholds_resource_usage_threshold_config | null)
@@ -805,7 +948,7 @@ export type t_billing_credit_balance_summary = {
   balances: t_credit_balance[]
   customer: string | t_customer | t_deleted_customer
   livemode: boolean
-  object: "billing.credit_balance_summary"
+  object: "billing.credit_balance_summary" | UnknownEnumStringValue
 }
 
 export type t_billing_credit_balance_transaction = {
@@ -816,15 +959,15 @@ export type t_billing_credit_balance_transaction = {
   effective_at: number
   id: string
   livemode: boolean
-  object: "billing.credit_balance_transaction"
+  object: "billing.credit_balance_transaction" | UnknownEnumStringValue
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
-  type?: ("credit" | "debit" | null) | undefined
+  type?: ("credit" | "debit" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_billing_credit_grant = {
   amount: t_billing_credit_grants_resource_amount
   applicability_config: t_billing_credit_grants_resource_applicability_config
-  category: "paid" | "promotional"
+  category: "paid" | "promotional" | UnknownEnumStringValue
   created: number
   customer: string | t_customer | t_deleted_customer
   effective_at?: (number | null) | undefined
@@ -835,7 +978,7 @@ export type t_billing_credit_grant = {
     [key: string]: string | undefined
   }
   name?: (string | null) | undefined
-  object: "billing.credit_grant"
+  object: "billing.credit_grant" | UnknownEnumStringValue
   priority?: (number | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   updated: number
@@ -848,11 +991,13 @@ export type t_billing_meter = {
   default_aggregation: t_billing_meter_resource_aggregation_settings
   display_name: string
   event_name: string
-  event_time_window?: ("day" | "hour" | null) | undefined
+  event_time_window?:
+    | ("day" | "hour" | UnknownEnumStringValue | null)
+    | undefined
   id: string
   livemode: boolean
-  object: "billing.meter"
-  status: "active" | "inactive"
+  object: "billing.meter" | UnknownEnumStringValue
+  status: "active" | "inactive" | UnknownEnumStringValue
   status_transitions: t_billing_meter_resource_billing_meter_status_transitions
   updated: number
   value_settings: t_billing_meter_resource_billing_meter_value
@@ -863,7 +1008,7 @@ export type t_billing_meter_event = {
   event_name: string
   identifier: string
   livemode: boolean
-  object: "billing.meter_event"
+  object: "billing.meter_event" | UnknownEnumStringValue
   payload: {
     [key: string]: string | undefined
   }
@@ -876,9 +1021,9 @@ export type t_billing_meter_event_adjustment = {
     | undefined
   event_name: string
   livemode: boolean
-  object: "billing.meter_event_adjustment"
-  status: "complete" | "pending"
-  type: "cancel"
+  object: "billing.meter_event_adjustment" | UnknownEnumStringValue
+  status: "complete" | "pending" | UnknownEnumStringValue
+  type: "cancel" | UnknownEnumStringValue
 }
 
 export type t_billing_meter_event_summary = {
@@ -887,7 +1032,7 @@ export type t_billing_meter_event_summary = {
   id: string
   livemode: boolean
   meter: string
-  object: "billing.meter_event_summary"
+  object: "billing.meter_event_summary" | UnknownEnumStringValue
   start_time: number
 }
 
@@ -906,7 +1051,7 @@ export type t_billing_credit_grants_resource_amount = {
   monetary?:
     | (t_billing_credit_grants_resource_monetary_amount | null)
     | undefined
-  type: "monetary"
+  type: "monetary" | UnknownEnumStringValue
 }
 
 export type t_billing_credit_grants_resource_applicability_config = {
@@ -922,7 +1067,10 @@ export type t_billing_credit_grants_resource_balance_credit = {
   credits_application_invoice_voided?:
     | (t_billing_credit_grants_resource_balance_credits_application_invoice_voided | null)
     | undefined
-  type: "credits_application_invoice_voided" | "credits_granted"
+  type:
+    | "credits_application_invoice_voided"
+    | "credits_granted"
+    | UnknownEnumStringValue
 }
 
 export type t_billing_credit_grants_resource_balance_credits_application_invoice_voided =
@@ -941,7 +1089,11 @@ export type t_billing_credit_grants_resource_balance_debit = {
   credits_applied?:
     | (t_billing_credit_grants_resource_balance_credits_applied | null)
     | undefined
-  type: "credits_applied" | "credits_expired" | "credits_voided"
+  type:
+    | "credits_applied"
+    | "credits_expired"
+    | "credits_voided"
+    | UnknownEnumStringValue
 }
 
 export type t_billing_credit_grants_resource_monetary_amount = {
@@ -950,7 +1102,7 @@ export type t_billing_credit_grants_resource_monetary_amount = {
 }
 
 export type t_billing_credit_grants_resource_scope = {
-  price_type?: "metered" | undefined
+  price_type?: ("metered" | UnknownEnumStringValue) | undefined
   prices?: t_billing_credit_grants_resource_applicable_price[] | undefined
 }
 
@@ -962,7 +1114,7 @@ export type t_billing_details = {
 }
 
 export type t_billing_meter_resource_aggregation_settings = {
-  formula: "count" | "sum"
+  formula: "count" | "sum" | UnknownEnumStringValue
 }
 
 export type t_billing_meter_resource_billing_meter_event_adjustment_cancel = {
@@ -979,7 +1131,7 @@ export type t_billing_meter_resource_billing_meter_value = {
 
 export type t_billing_meter_resource_customer_mapping_settings = {
   event_payload_key: string
-  type: "by_id"
+  type: "by_id" | UnknownEnumStringValue
 }
 
 export type t_billing_portal_configuration = {
@@ -1000,7 +1152,7 @@ export type t_billing_portal_configuration = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "billing_portal.configuration"
+  object: "billing_portal.configuration" | UnknownEnumStringValue
   updated: number
 }
 
@@ -1060,10 +1212,11 @@ export type t_billing_portal_session = {
         | "zh"
         | "zh-HK"
         | "zh-TW"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
-  object: "billing_portal.session"
+  object: "billing_portal.session" | UnknownEnumStringValue
   on_behalf_of?: (string | null) | undefined
   return_url?: (string | null) | undefined
   url: string
@@ -1081,11 +1234,18 @@ export type t_cancellation_details = {
         | "too_complex"
         | "too_expensive"
         | "unused"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   reason?:
-    | ("cancellation_requested" | "payment_disputed" | "payment_failed" | null)
+    | (
+        | "cancellation_requested"
+        | "payment_disputed"
+        | "payment_failed"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -1093,11 +1253,17 @@ export type t_capability = {
   account: string | t_account
   future_requirements?: t_account_capability_future_requirements | undefined
   id: string
-  object: "capability"
+  object: "capability" | UnknownEnumStringValue
   requested: boolean
   requested_at?: (number | null) | undefined
   requirements?: t_account_capability_requirements | undefined
-  status: "active" | "disabled" | "inactive" | "pending" | "unrequested"
+  status:
+    | "active"
+    | "disabled"
+    | "inactive"
+    | "pending"
+    | "unrequested"
+    | UnknownEnumStringValue
 }
 
 export type t_card = {
@@ -1110,8 +1276,12 @@ export type t_card = {
   address_state?: (string | null) | undefined
   address_zip?: (string | null) | undefined
   address_zip_check?: (string | null) | undefined
-  allow_redisplay?: ("always" | "limited" | "unspecified" | null) | undefined
-  available_payout_methods?: (("instant" | "standard")[] | null) | undefined
+  allow_redisplay?:
+    | ("always" | "limited" | "unspecified" | UnknownEnumStringValue | null)
+    | undefined
+  available_payout_methods?:
+    | (("instant" | "standard" | UnknownEnumStringValue)[] | null)
+    | undefined
   brand: string
   country?: (string | null) | undefined
   currency?: (string | null) | undefined
@@ -1133,8 +1303,10 @@ export type t_card = {
     | undefined
   name?: (string | null) | undefined
   networks?: t_token_card_networks | undefined
-  object: "card"
-  regulated_status?: ("regulated" | "unregulated" | null) | undefined
+  object: "card" | UnknownEnumStringValue
+  regulated_status?:
+    | ("regulated" | "unregulated" | UnknownEnumStringValue | null)
+    | undefined
   status?: (string | null) | undefined
   tokenization_method?: (string | null) | undefined
 }
@@ -1160,7 +1332,7 @@ export type t_cash_balance = {
     | undefined
   customer: string
   livemode: boolean
-  object: "cash_balance"
+  object: "cash_balance" | UnknownEnumStringValue
   settings: t_customer_balance_customer_balance_settings
 }
 
@@ -1192,7 +1364,7 @@ export type t_charge = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "charge"
+  object: "charge" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   outcome?: (t_charge_outcome | null) | undefined
   paid: boolean
@@ -1208,7 +1380,7 @@ export type t_charge = {
     | ({
         data: t_refund[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       } | null)
     | undefined
@@ -1217,7 +1389,7 @@ export type t_charge = {
   source_transfer?: (string | t_transfer | null) | undefined
   statement_descriptor?: (string | null) | undefined
   statement_descriptor_suffix?: (string | null) | undefined
-  status: "failed" | "pending" | "succeeded"
+  status: "failed" | "pending" | "succeeded" | UnknownEnumStringValue
   transfer?: (string | t_transfer) | undefined
   transfer_data?: (t_charge_transfer_data | null) | undefined
   transfer_group?: (string | null) | undefined
@@ -1230,7 +1402,13 @@ export type t_charge_fraud_details = {
 
 export type t_charge_outcome = {
   advice_code?:
-    | ("confirm_card_data" | "do_not_try_again" | "try_again_later" | null)
+    | (
+        | "confirm_card_data"
+        | "do_not_try_again"
+        | "try_again_later"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   network_advice_code?: (string | null) | undefined
   network_decline_code?: (string | null) | undefined
@@ -1259,7 +1437,9 @@ export type t_checkout_session = {
   amount_subtotal?: (number | null) | undefined
   amount_total?: (number | null) | undefined
   automatic_tax: t_payment_pages_checkout_session_automatic_tax
-  billing_address_collection?: ("auto" | "required" | null) | undefined
+  billing_address_collection?:
+    | ("auto" | "required" | UnknownEnumStringValue | null)
+    | undefined
   cancel_url?: (string | null) | undefined
   client_reference_id?: (string | null) | undefined
   client_secret?: (string | null) | undefined
@@ -1278,7 +1458,9 @@ export type t_checkout_session = {
   custom_fields: t_payment_pages_checkout_session_custom_fields[]
   custom_text: t_payment_pages_checkout_session_custom_text
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
-  customer_creation?: ("always" | "if_required" | null) | undefined
+  customer_creation?:
+    | ("always" | "if_required" | UnknownEnumStringValue | null)
+    | undefined
   customer_details?:
     | (t_payment_pages_checkout_session_customer_details | null)
     | undefined
@@ -1294,7 +1476,7 @@ export type t_checkout_session = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -1342,6 +1524,7 @@ export type t_checkout_session = {
         | "zh"
         | "zh-HK"
         | "zh-TW"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -1350,11 +1533,13 @@ export type t_checkout_session = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  mode: "payment" | "setup" | "subscription"
-  object: "checkout.session"
+  mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
+  object: "checkout.session" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_link?: (string | t_payment_link | null) | undefined
-  payment_method_collection?: ("always" | "if_required" | null) | undefined
+  payment_method_collection?:
+    | ("always" | "if_required" | UnknownEnumStringValue | null)
+    | undefined
   payment_method_configuration_details?:
     | (t_payment_method_config_biz_payment_method_configuration_details | null)
     | undefined
@@ -1362,12 +1547,18 @@ export type t_checkout_session = {
     | (t_checkout_session_payment_method_options | null)
     | undefined
   payment_method_types: string[]
-  payment_status: "no_payment_required" | "paid" | "unpaid"
+  payment_status:
+    | "no_payment_required"
+    | "paid"
+    | "unpaid"
+    | UnknownEnumStringValue
   phone_number_collection?:
     | t_payment_pages_checkout_session_phone_number_collection
     | undefined
   recovered_from?: (string | null) | undefined
-  redirect_on_completion?: ("always" | "if_required" | "never") | undefined
+  redirect_on_completion?:
+    | ("always" | "if_required" | "never" | UnknownEnumStringValue)
+    | undefined
   return_url?: string | undefined
   saved_payment_method_options?:
     | (t_payment_pages_checkout_session_saved_payment_method_options | null)
@@ -1381,9 +1572,19 @@ export type t_checkout_session = {
     | undefined
   shipping_details?: (t_shipping | null) | undefined
   shipping_options: t_payment_pages_checkout_session_shipping_option[]
-  status?: ("complete" | "expired" | "open" | null) | undefined
+  status?:
+    | ("complete" | "expired" | "open" | UnknownEnumStringValue | null)
+    | undefined
   submit_type?:
-    | ("auto" | "book" | "donate" | "pay" | "subscribe" | null)
+    | (
+        | "auto"
+        | "book"
+        | "donate"
+        | "pay"
+        | "subscribe"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   subscription?: (string | t_subscription | null) | undefined
   success_url?: (string | null) | undefined
@@ -1393,44 +1594,56 @@ export type t_checkout_session = {
   total_details?:
     | (t_payment_pages_checkout_session_total_details | null)
     | undefined
-  ui_mode?: ("embedded" | "hosted" | null) | undefined
+  ui_mode?: ("embedded" | "hosted" | UnknownEnumStringValue | null) | undefined
   url?: (string | null) | undefined
 }
 
 export type t_checkout_acss_debit_mandate_options = {
   custom_mandate_url?: string | undefined
-  default_for?: ("invoice" | "subscription")[] | undefined
+  default_for?:
+    | ("invoice" | "subscription" | UnknownEnumStringValue)[]
+    | undefined
   interval_description?: (string | null) | undefined
-  payment_schedule?: ("combined" | "interval" | "sporadic" | null) | undefined
-  transaction_type?: ("business" | "personal" | null) | undefined
+  payment_schedule?:
+    | ("combined" | "interval" | "sporadic" | UnknownEnumStringValue | null)
+    | undefined
+  transaction_type?:
+    | ("business" | "personal" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_checkout_acss_debit_payment_method_options = {
-  currency?: ("cad" | "usd") | undefined
+  currency?: ("cad" | "usd" | UnknownEnumStringValue) | undefined
   mandate_options?: t_checkout_acss_debit_mandate_options | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_affirm_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_afterpay_clearpay_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_alipay_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_amazon_pay_payment_method_options = {
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_au_becs_debit_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
   target_date?: string | undefined
 }
 
@@ -1438,17 +1651,21 @@ export type t_checkout_bacs_debit_payment_method_options = {
   mandate_options?:
     | t_checkout_payment_method_options_mandate_options_bacs_debit
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
 }
 
 export type t_checkout_bancontact_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_boleto_payment_method_options = {
   expires_after_days: number
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_card_installments_options = {
@@ -1457,21 +1674,35 @@ export type t_checkout_card_installments_options = {
 
 export type t_checkout_card_payment_method_options = {
   installments?: t_checkout_card_installments_options | undefined
-  request_extended_authorization?: ("if_available" | "never") | undefined
-  request_incremental_authorization?: ("if_available" | "never") | undefined
-  request_multicapture?: ("if_available" | "never") | undefined
-  request_overcapture?: ("if_available" | "never") | undefined
-  request_three_d_secure: "any" | "automatic" | "challenge"
+  request_extended_authorization?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_incremental_authorization?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_multicapture?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_overcapture?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_three_d_secure:
+    | "any"
+    | "automatic"
+    | "challenge"
+    | UnknownEnumStringValue
   restrictions?:
     | t_payment_pages_private_card_payment_method_options_resource_restrictions
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   statement_descriptor_suffix_kana?: string | undefined
   statement_descriptor_suffix_kanji?: string | undefined
 }
 
 export type t_checkout_cashapp_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_customer_balance_bank_transfer_payment_method_options = {
@@ -1479,7 +1710,16 @@ export type t_checkout_customer_balance_bank_transfer_payment_method_options = {
     | t_payment_method_options_customer_balance_eu_bank_account
     | undefined
   requested_address_types?:
-    | ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[]
+    | (
+        | "aba"
+        | "iban"
+        | "sepa"
+        | "sort_code"
+        | "spei"
+        | "swift"
+        | "zengin"
+        | UnknownEnumStringValue
+      )[]
     | undefined
   type?:
     | (
@@ -1488,6 +1728,7 @@ export type t_checkout_customer_balance_bank_transfer_payment_method_options = {
         | "jp_bank_transfer"
         | "mx_bank_transfer"
         | "us_bank_transfer"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -1497,76 +1738,84 @@ export type t_checkout_customer_balance_payment_method_options = {
   bank_transfer?:
     | t_checkout_customer_balance_bank_transfer_payment_method_options
     | undefined
-  funding_type?: ("bank_transfer" | null) | undefined
-  setup_future_usage?: "none" | undefined
+  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_eps_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_fpx_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_giropay_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_grab_pay_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_ideal_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_kakao_pay_payment_method_options = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_klarna_payment_method_options = {
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_konbini_payment_method_options = {
   expires_after_days?: (number | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_kr_card_payment_method_options = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_link_payment_method_options = {
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_mobilepay_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_multibanco_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_naver_pay_payment_method_options = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_oxxo_payment_method_options = {
   expires_after_days: number
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_p24_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_payco_payment_method_options = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_payment_method_options_mandate_options_bacs_debit = {
@@ -1578,14 +1827,16 @@ export type t_checkout_payment_method_options_mandate_options_sepa_debit = {
 }
 
 export type t_checkout_paynow_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_paypal_payment_method_options = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   preferred_locale?: (string | null) | undefined
   reference?: (string | null) | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_pix_payment_method_options = {
@@ -1593,18 +1844,22 @@ export type t_checkout_pix_payment_method_options = {
 }
 
 export type t_checkout_revolut_pay_payment_method_options = {
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_checkout_samsung_pay_payment_method_options = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_sepa_debit_payment_method_options = {
   mandate_options?:
     | t_checkout_payment_method_options_mandate_options_sepa_debit
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
 }
 
@@ -1655,7 +1910,7 @@ export type t_checkout_session_payment_method_options = {
 }
 
 export type t_checkout_sofort_payment_method_options = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_checkout_swish_payment_method_options = {
@@ -1664,9 +1919,13 @@ export type t_checkout_swish_payment_method_options = {
 
 export type t_checkout_us_bank_account_payment_method_options = {
   financial_connections?: t_linked_account_options_us_bank_account | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
-  verification_method?: ("automatic" | "instant") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_climate_order = {
@@ -1676,7 +1935,13 @@ export type t_climate_order = {
   beneficiary?: t_climate_removals_beneficiary | undefined
   canceled_at?: (number | null) | undefined
   cancellation_reason?:
-    | ("expired" | "product_unavailable" | "requested" | null)
+    | (
+        | "expired"
+        | "product_unavailable"
+        | "requested"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   certificate?: (string | null) | undefined
   confirmed_at?: (number | null) | undefined
@@ -1692,10 +1957,16 @@ export type t_climate_order = {
     [key: string]: string | undefined
   }
   metric_tons: string
-  object: "climate.order"
+  object: "climate.order" | UnknownEnumStringValue
   product: string | t_climate_product
   product_substituted_at?: (number | null) | undefined
-  status: "awaiting_funds" | "canceled" | "confirmed" | "delivered" | "open"
+  status:
+    | "awaiting_funds"
+    | "canceled"
+    | "confirmed"
+    | "delivered"
+    | "open"
+    | UnknownEnumStringValue
 }
 
 export type t_climate_product = {
@@ -1708,7 +1979,7 @@ export type t_climate_product = {
   livemode: boolean
   metric_tons_available: string
   name: string
-  object: "climate.product"
+  object: "climate.product" | UnknownEnumStringValue
   suppliers: t_climate_supplier[]
 }
 
@@ -1718,11 +1989,12 @@ export type t_climate_supplier = {
   livemode: boolean
   locations: t_climate_removals_location[]
   name: string
-  object: "climate.supplier"
+  object: "climate.supplier" | UnknownEnumStringValue
   removal_pathway:
     | "biomass_carbon_removal_and_storage"
     | "direct_air_capture"
     | "enhanced_weathering"
+    | UnknownEnumStringValue
 }
 
 export type t_climate_removals_beneficiary = {
@@ -1759,7 +2031,7 @@ export type t_confirmation_token = {
   mandate_data?:
     | (t_confirmation_tokens_resource_mandate_data | null)
     | undefined
-  object: "confirmation_token"
+  object: "confirmation_token" | UnknownEnumStringValue
   payment_intent?: (string | null) | undefined
   payment_method_options?:
     | (t_confirmation_tokens_resource_payment_method_options | null)
@@ -1768,7 +2040,9 @@ export type t_confirmation_token = {
     | (t_confirmation_tokens_resource_payment_method_preview | null)
     | undefined
   return_url?: (string | null) | undefined
-  setup_future_usage?: ("off_session" | "on_session" | null) | undefined
+  setup_future_usage?:
+    | ("off_session" | "on_session" | UnknownEnumStringValue | null)
+    | undefined
   setup_intent?: (string | null) | undefined
   shipping?: (t_confirmation_tokens_resource_shipping | null) | undefined
   use_stripe_sdk: boolean
@@ -1808,7 +2082,9 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   affirm?: t_payment_method_affirm | undefined
   afterpay_clearpay?: t_payment_method_afterpay_clearpay | undefined
   alipay?: t_payment_flows_private_payment_methods_alipay | undefined
-  allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+  allow_redisplay?:
+    | ("always" | "limited" | "unspecified" | UnknownEnumStringValue)
+    | undefined
   alma?: t_payment_method_alma | undefined
   amazon_pay?: t_payment_method_amazon_pay | undefined
   au_becs_debit?: t_payment_method_au_becs_debit | undefined
@@ -1897,6 +2173,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
+    | UnknownEnumStringValue
   us_bank_account?: t_payment_method_us_bank_account | undefined
   wechat_pay?: t_payment_method_wechat_pay | undefined
   zip?: t_payment_method_zip | undefined
@@ -1910,7 +2187,7 @@ export type t_confirmation_tokens_resource_shipping = {
 
 export type t_connect_account_reference = {
   account?: (string | t_account) | undefined
-  type: "account" | "self"
+  type: "account" | "self" | UnknownEnumStringValue
 }
 
 export type t_connect_collection_transfer = {
@@ -1919,7 +2196,7 @@ export type t_connect_collection_transfer = {
   destination: string | t_account
   id: string
   livemode: boolean
-  object: "connect_collection_transfer"
+  object: "connect_collection_transfer" | UnknownEnumStringValue
 }
 
 export type t_connect_embedded_account_config_claim = {
@@ -2031,7 +2308,7 @@ export type t_connect_embedded_payouts_features = {
 export type t_country_spec = {
   default_currency: string
   id: string
-  object: "country_spec"
+  object: "country_spec" | UnknownEnumStringValue
   supported_bank_account_currencies: {
     [key: string]: string[] | undefined
   }
@@ -2061,7 +2338,7 @@ export type t_coupon = {
         [key: string]: t_coupon_currency_option | undefined
       }
     | undefined
-  duration: "forever" | "once" | "repeating"
+  duration: "forever" | "once" | "repeating" | UnknownEnumStringValue
   duration_in_months?: (number | null) | undefined
   id: string
   livemode: boolean
@@ -2072,7 +2349,7 @@ export type t_coupon = {
       } | null)
     | undefined
   name?: (string | null) | undefined
-  object: "coupon"
+  object: "coupon" | UnknownEnumStringValue
   percent_off?: (number | null) | undefined
   redeem_by?: (number | null) | undefined
   times_redeemed: number
@@ -2109,7 +2386,7 @@ export type t_credit_note = {
   lines: {
     data: t_credit_note_line_item[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   livemode: boolean
@@ -2120,7 +2397,7 @@ export type t_credit_note = {
       } | null)
     | undefined
   number: string
-  object: "credit_note"
+  object: "credit_note" | UnknownEnumStringValue
   out_of_band_amount?: (number | null) | undefined
   pdf: string
   pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
@@ -2130,18 +2407,19 @@ export type t_credit_note = {
         | "fraudulent"
         | "order_change"
         | "product_unsatisfactory"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   refund?: (string | t_refund | null) | undefined
   shipping_cost?: (t_invoices_resource_shipping_cost | null) | undefined
-  status: "issued" | "void"
+  status: "issued" | "void" | UnknownEnumStringValue
   subtotal: number
   subtotal_excluding_tax?: (number | null) | undefined
   tax_amounts: t_credit_note_tax_amount[]
   total: number
   total_excluding_tax?: (number | null) | undefined
-  type: "post_payment" | "pre_payment"
+  type: "post_payment" | "pre_payment" | UnknownEnumStringValue
   voided_at?: (number | null) | undefined
 }
 
@@ -2154,12 +2432,12 @@ export type t_credit_note_line_item = {
   id: string
   invoice_line_item?: string | undefined
   livemode: boolean
-  object: "credit_note_line_item"
+  object: "credit_note_line_item" | UnknownEnumStringValue
   pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: (number | null) | undefined
   tax_amounts: t_credit_note_tax_amount[]
   tax_rates: t_tax_rate[]
-  type: "custom_line_item" | "invoice_line_item"
+  type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
   unit_amount?: (number | null) | undefined
   unit_amount_decimal?: (string | null) | undefined
   unit_amount_excluding_tax?: (string | null) | undefined
@@ -2186,6 +2464,7 @@ export type t_credit_note_tax_amount = {
         | "standard_rated"
         | "taxable_basis_reduced"
         | "zero_rated"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -2198,12 +2477,20 @@ export type t_credit_notes_pretax_credit_amount = {
     | (string | t_billing_credit_balance_transaction)
     | undefined
   discount?: (string | t_discount | t_deleted_discount) | undefined
-  type: "credit_balance_transaction" | "discount"
+  type: "credit_balance_transaction" | "discount" | UnknownEnumStringValue
 }
 
 export type t_currency_option = {
   custom_unit_amount?: (t_custom_unit_amount | null) | undefined
-  tax_behavior?: ("exclusive" | "inclusive" | "unspecified" | null) | undefined
+  tax_behavior?:
+    | (
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
   tiers?: t_price_tier[] | undefined
   unit_amount?: (number | null) | undefined
   unit_amount_decimal?: (string | null) | undefined
@@ -2244,7 +2531,7 @@ export type t_customer = {
     | undefined
   name?: (string | null) | undefined
   next_invoice_sequence?: number | undefined
-  object: "customer"
+  object: "customer" | UnknownEnumStringValue
   phone?: (string | null) | undefined
   preferred_locales?: (string[] | null) | undefined
   shipping?: (t_shipping | null) | undefined
@@ -2252,7 +2539,7 @@ export type t_customer = {
     | {
         data: (t_bank_account | t_card | t_source)[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -2260,17 +2547,19 @@ export type t_customer = {
     | {
         data: t_subscription[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
   tax?: t_customer_tax | undefined
-  tax_exempt?: ("exempt" | "none" | "reverse" | null) | undefined
+  tax_exempt?:
+    | ("exempt" | "none" | "reverse" | UnknownEnumStringValue | null)
+    | undefined
   tax_ids?:
     | {
         data: t_tax_id[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -2281,11 +2570,11 @@ export type t_customer_acceptance = {
   accepted_at?: (number | null) | undefined
   offline?: t_offline_acceptance | undefined
   online?: t_online_acceptance | undefined
-  type: "offline" | "online"
+  type: "offline" | "online" | UnknownEnumStringValue
 }
 
 export type t_customer_balance_customer_balance_settings = {
-  reconciliation_mode: "automatic" | "manual"
+  reconciliation_mode: "automatic" | "manual" | UnknownEnumStringValue
   using_merchant_default: boolean
 }
 
@@ -2323,6 +2612,7 @@ export type t_customer_balance_resource_cash_balance_transaction_resource_funded
       | "jp_bank_transfer"
       | "mx_bank_transfer"
       | "us_bank_transfer"
+      | UnknownEnumStringValue
     us_bank_transfer?:
       | t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer
       | undefined
@@ -2351,7 +2641,9 @@ export type t_customer_balance_resource_cash_balance_transaction_resource_funded
 
 export type t_customer_balance_resource_cash_balance_transaction_resource_funded_transaction_resource_bank_transfer_resource_us_bank_transfer =
   {
-    network?: ("ach" | "domestic_wire_us" | "swift") | undefined
+    network?:
+      | ("ach" | "domestic_wire_us" | "swift" | UnknownEnumStringValue)
+      | undefined
     sender_name?: (string | null) | undefined
   }
 
@@ -2386,7 +2678,7 @@ export type t_customer_balance_transaction = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "customer_balance_transaction"
+  object: "customer_balance_transaction" | UnknownEnumStringValue
   type:
     | "adjustment"
     | "applied_to_invoice"
@@ -2398,6 +2690,7 @@ export type t_customer_balance_transaction = {
     | "migration"
     | "unapplied_from_invoice"
     | "unspent_receiver_credit"
+    | UnknownEnumStringValue
 }
 
 export type t_customer_cash_balance_transaction = {
@@ -2417,7 +2710,7 @@ export type t_customer_cash_balance_transaction = {
   id: string
   livemode: boolean
   net_amount: number
-  object: "customer_cash_balance_transaction"
+  object: "customer_cash_balance_transaction" | UnknownEnumStringValue
   refunded_from_payment?:
     | t_customer_balance_resource_cash_balance_transaction_resource_refunded_from_payment_transaction
     | undefined
@@ -2434,6 +2727,7 @@ export type t_customer_cash_balance_transaction = {
     | "return_initiated"
     | "transferred_to_balance"
     | "unapplied_from_payment"
+    | UnknownEnumStringValue
   unapplied_from_payment?:
     | t_customer_balance_resource_cash_balance_transaction_resource_unapplied_from_payment_transaction
     | undefined
@@ -2446,7 +2740,7 @@ export type t_customer_session = {
   customer: string | t_customer
   expires_at: number
   livemode: boolean
-  object: "customer_session"
+  object: "customer_session" | UnknownEnumStringValue
 }
 
 export type t_customer_session_resource_components = {
@@ -2472,13 +2766,14 @@ export type t_customer_session_resource_components_resource_payment_element_reso
       | "always"
       | "limited"
       | "unspecified"
+      | UnknownEnumStringValue
     )[]
-    payment_method_redisplay: "disabled" | "enabled"
+    payment_method_redisplay: "disabled" | "enabled" | UnknownEnumStringValue
     payment_method_redisplay_limit?: (number | null) | undefined
-    payment_method_remove: "disabled" | "enabled"
-    payment_method_save: "disabled" | "enabled"
+    payment_method_remove: "disabled" | "enabled" | UnknownEnumStringValue
+    payment_method_save: "disabled" | "enabled" | UnknownEnumStringValue
     payment_method_save_usage?:
-      | ("off_session" | "on_session" | null)
+      | ("off_session" | "on_session" | UnknownEnumStringValue | null)
       | undefined
   }
 
@@ -2492,6 +2787,7 @@ export type t_customer_tax = {
     | "not_collecting"
     | "supported"
     | "unrecognized_location"
+    | UnknownEnumStringValue
   ip_address?: (string | null) | undefined
   location?: (t_customer_tax_location | null) | undefined
 }
@@ -2503,52 +2799,53 @@ export type t_customer_tax_location = {
     | "ip_address"
     | "payment_method"
     | "shipping_destination"
+    | UnknownEnumStringValue
   state?: (string | null) | undefined
 }
 
 export type t_deleted_account = {
   deleted: boolean
   id: string
-  object: "account"
+  object: "account" | UnknownEnumStringValue
 }
 
 export type t_deleted_apple_pay_domain = {
   deleted: boolean
   id: string
-  object: "apple_pay_domain"
+  object: "apple_pay_domain" | UnknownEnumStringValue
 }
 
 export type t_deleted_application = {
   deleted: boolean
   id: string
   name?: (string | null) | undefined
-  object: "application"
+  object: "application" | UnknownEnumStringValue
 }
 
 export type t_deleted_bank_account = {
   currency?: (string | null) | undefined
   deleted: boolean
   id: string
-  object: "bank_account"
+  object: "bank_account" | UnknownEnumStringValue
 }
 
 export type t_deleted_card = {
   currency?: (string | null) | undefined
   deleted: boolean
   id: string
-  object: "card"
+  object: "card" | UnknownEnumStringValue
 }
 
 export type t_deleted_coupon = {
   deleted: boolean
   id: string
-  object: "coupon"
+  object: "coupon" | UnknownEnumStringValue
 }
 
 export type t_deleted_customer = {
   deleted: boolean
   id: string
-  object: "customer"
+  object: "customer" | UnknownEnumStringValue
 }
 
 export type t_deleted_discount = {
@@ -2559,7 +2856,7 @@ export type t_deleted_discount = {
   id: string
   invoice?: (string | null) | undefined
   invoice_item?: (string | null) | undefined
-  object: "discount"
+  object: "discount" | UnknownEnumStringValue
   promotion_code?: (string | t_promotion_code | null) | undefined
   start: number
   subscription?: (string | null) | undefined
@@ -2571,13 +2868,13 @@ export type t_deleted_external_account = t_deleted_bank_account | t_deleted_card
 export type t_deleted_invoice = {
   deleted: boolean
   id: string
-  object: "invoice"
+  object: "invoice" | UnknownEnumStringValue
 }
 
 export type t_deleted_invoiceitem = {
   deleted: boolean
   id: string
-  object: "invoiceitem"
+  object: "invoiceitem" | UnknownEnumStringValue
 }
 
 export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
@@ -2585,85 +2882,85 @@ export type t_deleted_payment_source = t_deleted_bank_account | t_deleted_card
 export type t_deleted_person = {
   deleted: boolean
   id: string
-  object: "person"
+  object: "person" | UnknownEnumStringValue
 }
 
 export type t_deleted_plan = {
   deleted: boolean
   id: string
-  object: "plan"
+  object: "plan" | UnknownEnumStringValue
 }
 
 export type t_deleted_price = {
   deleted: boolean
   id: string
-  object: "price"
+  object: "price" | UnknownEnumStringValue
 }
 
 export type t_deleted_product = {
   deleted: boolean
   id: string
-  object: "product"
+  object: "product" | UnknownEnumStringValue
 }
 
 export type t_deleted_product_feature = {
   deleted: boolean
   id: string
-  object: "product_feature"
+  object: "product_feature" | UnknownEnumStringValue
 }
 
 export type t_deleted_radar_value_list = {
   deleted: boolean
   id: string
-  object: "radar.value_list"
+  object: "radar.value_list" | UnknownEnumStringValue
 }
 
 export type t_deleted_radar_value_list_item = {
   deleted: boolean
   id: string
-  object: "radar.value_list_item"
+  object: "radar.value_list_item" | UnknownEnumStringValue
 }
 
 export type t_deleted_subscription_item = {
   deleted: boolean
   id: string
-  object: "subscription_item"
+  object: "subscription_item" | UnknownEnumStringValue
 }
 
 export type t_deleted_tax_id = {
   deleted: boolean
   id: string
-  object: "tax_id"
+  object: "tax_id" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_configuration = {
   deleted: boolean
   id: string
-  object: "terminal.configuration"
+  object: "terminal.configuration" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_location = {
   deleted: boolean
   id: string
-  object: "terminal.location"
+  object: "terminal.location" | UnknownEnumStringValue
 }
 
 export type t_deleted_terminal_reader = {
   deleted: boolean
   id: string
-  object: "terminal.reader"
+  object: "terminal.reader" | UnknownEnumStringValue
 }
 
 export type t_deleted_test_helpers_test_clock = {
   deleted: boolean
   id: string
-  object: "test_helpers.test_clock"
+  object: "test_helpers.test_clock" | UnknownEnumStringValue
 }
 
 export type t_deleted_webhook_endpoint = {
   deleted: boolean
   id: string
-  object: "webhook_endpoint"
+  object: "webhook_endpoint" | UnknownEnumStringValue
 }
 
 export type t_destination_details_unimplemented = EmptyObject
@@ -2676,7 +2973,7 @@ export type t_discount = {
   id: string
   invoice?: (string | null) | undefined
   invoice_item?: (string | null) | undefined
-  object: "discount"
+  object: "discount" | UnknownEnumStringValue
   promotion_code?: (string | t_promotion_code | null) | undefined
   start: number
   subscription?: (string | null) | undefined
@@ -2700,7 +2997,10 @@ export type t_dispute = {
   charge: string | t_charge
   created: number
   currency: string
-  enhanced_eligibility_types: "visa_compelling_evidence_3"[]
+  enhanced_eligibility_types: (
+    | "visa_compelling_evidence_3"
+    | UnknownEnumStringValue
+  )[]
   evidence: t_dispute_evidence
   evidence_details: t_dispute_evidence_details
   id: string
@@ -2709,7 +3009,7 @@ export type t_dispute = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "dispute"
+  object: "dispute" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_method_details?: t_dispute_payment_method_details | undefined
   reason: string
@@ -2721,6 +3021,7 @@ export type t_dispute = {
     | "warning_needs_response"
     | "warning_under_review"
     | "won"
+    | UnknownEnumStringValue
 }
 
 export type t_dispute_enhanced_eligibility = {
@@ -2737,12 +3038,20 @@ export type t_dispute_enhanced_eligibility_visa_compelling_evidence3 = {
     | "missing_merchandise_or_services"
     | "missing_prior_undisputed_transaction_description"
     | "missing_prior_undisputed_transactions"
+    | UnknownEnumStringValue
   )[]
-  status: "not_qualified" | "qualified" | "requires_action"
+  status:
+    | "not_qualified"
+    | "qualified"
+    | "requires_action"
+    | UnknownEnumStringValue
 }
 
 export type t_dispute_enhanced_eligibility_visa_compliance = {
-  status: "fee_acknowledged" | "requires_fee_acknowledgement"
+  status:
+    | "fee_acknowledged"
+    | "requires_fee_acknowledgement"
+    | UnknownEnumStringValue
 }
 
 export type t_dispute_enhanced_evidence = {
@@ -2807,16 +3116,18 @@ export type t_dispute_payment_method_details = {
   card?: t_dispute_payment_method_details_card | undefined
   klarna?: t_dispute_payment_method_details_klarna | undefined
   paypal?: t_dispute_payment_method_details_paypal | undefined
-  type: "amazon_pay" | "card" | "klarna" | "paypal"
+  type: "amazon_pay" | "card" | "klarna" | "paypal" | UnknownEnumStringValue
 }
 
 export type t_dispute_payment_method_details_amazon_pay = {
-  dispute_type?: ("chargeback" | "claim" | null) | undefined
+  dispute_type?:
+    | ("chargeback" | "claim" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_dispute_payment_method_details_card = {
   brand: string
-  case_type: "chargeback" | "inquiry"
+  case_type: "chargeback" | "inquiry" | UnknownEnumStringValue
   network_reason_code?: (string | null) | undefined
 }
 
@@ -2844,7 +3155,9 @@ export type t_dispute_visa_compelling_evidence3_disputed_transaction = {
   customer_device_id?: (string | null) | undefined
   customer_email_address?: (string | null) | undefined
   customer_purchase_ip?: (string | null) | undefined
-  merchandise_or_services?: ("merchandise" | "services" | null) | undefined
+  merchandise_or_services?:
+    | ("merchandise" | "services" | UnknownEnumStringValue | null)
+    | undefined
   product_description?: (string | null) | undefined
   shipping_address?: (t_dispute_transaction_shipping_address | null) | undefined
 }
@@ -2870,7 +3183,7 @@ export type t_entitlements_active_entitlement = {
   id: string
   livemode: boolean
   lookup_key: string
-  object: "entitlements.active_entitlement"
+  object: "entitlements.active_entitlement" | UnknownEnumStringValue
 }
 
 export type t_entitlements_feature = {
@@ -2882,7 +3195,7 @@ export type t_entitlements_feature = {
     [key: string]: string | undefined
   }
   name: string
-  object: "entitlements.feature"
+  object: "entitlements.feature" | UnknownEnumStringValue
 }
 
 export type t_ephemeral_key = {
@@ -2890,7 +3203,7 @@ export type t_ephemeral_key = {
   expires: number
   id: string
   livemode: boolean
-  object: "ephemeral_key"
+  object: "ephemeral_key" | UnknownEnumStringValue
   secret?: string | undefined
 }
 
@@ -2905,7 +3218,7 @@ export type t_event = {
   data: t_notification_event_data
   id: string
   livemode: boolean
-  object: "event"
+  object: "event" | UnknownEnumStringValue
   pending_webhooks: number
   request?: (t_notification_event_request | null) | undefined
   type: string
@@ -2913,7 +3226,7 @@ export type t_event = {
 
 export type t_exchange_rate = {
   id: string
-  object: "exchange_rate"
+  object: "exchange_rate" | UnknownEnumStringValue
   rates: {
     [key: string]: number | undefined
   }
@@ -2948,7 +3261,7 @@ export type t_fee_refund = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "fee_refund"
+  object: "fee_refund" | UnknownEnumStringValue
 }
 
 export type t_file = {
@@ -2960,11 +3273,11 @@ export type t_file = {
     | ({
         data: t_file_link[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       } | null)
     | undefined
-  object: "file"
+  object: "file" | UnknownEnumStringValue
   purpose:
     | "account_requirement"
     | "additional_verification"
@@ -2983,6 +3296,7 @@ export type t_file = {
     | "sigma_scheduled_query"
     | "tax_document_user_upload"
     | "terminal_reader_splashscreen"
+    | UnknownEnumStringValue
   size: number
   title?: (string | null) | undefined
   type?: (string | null) | undefined
@@ -2999,7 +3313,7 @@ export type t_file_link = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "file_link"
+  object: "file_link" | UnknownEnumStringValue
   url?: (string | null) | undefined
 }
 
@@ -3011,14 +3325,14 @@ export type t_financial_connections_account = {
   balance_refresh?:
     | (t_bank_connections_resource_balance_refresh | null)
     | undefined
-  category: "cash" | "credit" | "investment" | "other"
+  category: "cash" | "credit" | "investment" | "other" | UnknownEnumStringValue
   created: number
   display_name?: (string | null) | undefined
   id: string
   institution_name: string
   last4?: (string | null) | undefined
   livemode: boolean
-  object: "financial_connections.account"
+  object: "financial_connections.account" | UnknownEnumStringValue
   ownership?:
     | (string | t_financial_connections_account_ownership | null)
     | undefined
@@ -3026,9 +3340,18 @@ export type t_financial_connections_account = {
     | (t_bank_connections_resource_ownership_refresh | null)
     | undefined
   permissions?:
-    | (("balances" | "ownership" | "payment_method" | "transactions")[] | null)
+    | (
+        | (
+            | "balances"
+            | "ownership"
+            | "payment_method"
+            | "transactions"
+            | UnknownEnumStringValue
+          )[]
+        | null
+      )
     | undefined
-  status: "active" | "disconnected" | "inactive"
+  status: "active" | "disconnected" | "inactive" | UnknownEnumStringValue
   subcategory:
     | "checking"
     | "credit_card"
@@ -3036,8 +3359,15 @@ export type t_financial_connections_account = {
     | "mortgage"
     | "other"
     | "savings"
-  subscriptions?: ("transactions"[] | null) | undefined
-  supported_payment_method_types: ("link" | "us_bank_account")[]
+    | UnknownEnumStringValue
+  subscriptions?:
+    | (("transactions" | UnknownEnumStringValue)[] | null)
+    | undefined
+  supported_payment_method_types: (
+    | "link"
+    | "us_bank_account"
+    | UnknownEnumStringValue
+  )[]
   transaction_refresh?:
     | (t_bank_connections_resource_transaction_refresh | null)
     | undefined
@@ -3047,7 +3377,7 @@ export type t_financial_connections_account_owner = {
   email?: (string | null) | undefined
   id: string
   name: string
-  object: "financial_connections.account_owner"
+  object: "financial_connections.account_owner" | UnknownEnumStringValue
   ownership: string
   phone?: (string | null) | undefined
   raw_address?: (string | null) | undefined
@@ -3057,11 +3387,11 @@ export type t_financial_connections_account_owner = {
 export type t_financial_connections_account_ownership = {
   created: number
   id: string
-  object: "financial_connections.account_ownership"
+  object: "financial_connections.account_ownership" | UnknownEnumStringValue
   owners: {
     data: t_financial_connections_account_owner[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
 }
@@ -3073,16 +3403,27 @@ export type t_financial_connections_session = {
   accounts: {
     data: t_financial_connections_account[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   client_secret: string
   filters?: t_bank_connections_resource_link_account_session_filters | undefined
   id: string
   livemode: boolean
-  object: "financial_connections.session"
-  permissions: ("balances" | "ownership" | "payment_method" | "transactions")[]
-  prefetch?: (("balances" | "ownership" | "transactions")[] | null) | undefined
+  object: "financial_connections.session" | UnknownEnumStringValue
+  permissions: (
+    | "balances"
+    | "ownership"
+    | "payment_method"
+    | "transactions"
+    | UnknownEnumStringValue
+  )[]
+  prefetch?:
+    | (
+        | ("balances" | "ownership" | "transactions" | UnknownEnumStringValue)[]
+        | null
+      )
+    | undefined
   return_url?: string | undefined
 }
 
@@ -3093,8 +3434,8 @@ export type t_financial_connections_transaction = {
   description: string
   id: string
   livemode: boolean
-  object: "financial_connections.transaction"
-  status: "pending" | "posted" | "void"
+  object: "financial_connections.transaction" | UnknownEnumStringValue
+  status: "pending" | "posted" | "void" | UnknownEnumStringValue
   status_transitions: t_bank_connections_resource_transaction_resource_status_transitions
   transacted_at: number
   transaction_refresh: string
@@ -3120,7 +3461,7 @@ export type t_forwarded_request_context = {
 export type t_forwarded_request_details = {
   body: string
   headers: t_forwarded_request_header[]
-  http_method: "POST"
+  http_method: "POST" | UnknownEnumStringValue
 }
 
 export type t_forwarded_request_header = {
@@ -3143,7 +3484,7 @@ export type t_forwarding_request = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "forwarding.request"
+  object: "forwarding.request" | UnknownEnumStringValue
   payment_method: string
   replacements: (
     | "card_cvc"
@@ -3151,6 +3492,7 @@ export type t_forwarding_request = {
     | "card_number"
     | "cardholder_name"
     | "request_signature"
+    | UnknownEnumStringValue
   )[]
   request_context?: (t_forwarded_request_context | null) | undefined
   request_details?: (t_forwarded_request_details | null) | undefined
@@ -3161,15 +3503,15 @@ export type t_forwarding_request = {
 export type t_funding_instructions = {
   bank_transfer: t_funding_instructions_bank_transfer
   currency: string
-  funding_type: "bank_transfer"
+  funding_type: "bank_transfer" | UnknownEnumStringValue
   livemode: boolean
-  object: "funding_instructions"
+  object: "funding_instructions" | UnknownEnumStringValue
 }
 
 export type t_funding_instructions_bank_transfer = {
   country: string
   financial_addresses: t_funding_instructions_bank_transfer_financial_address[]
-  type: "eu_bank_transfer" | "jp_bank_transfer"
+  type: "eu_bank_transfer" | "jp_bank_transfer" | UnknownEnumStringValue
 }
 
 export type t_funding_instructions_bank_transfer_aba_record = {
@@ -3197,10 +3539,18 @@ export type t_funding_instructions_bank_transfer_financial_address = {
         | "spei"
         | "swift"
         | "zengin"
+        | UnknownEnumStringValue
       )[]
     | undefined
   swift?: t_funding_instructions_bank_transfer_swift_record | undefined
-  type: "aba" | "iban" | "sort_code" | "spei" | "swift" | "zengin"
+  type:
+    | "aba"
+    | "iban"
+    | "sort_code"
+    | "spei"
+    | "swift"
+    | "zengin"
+    | UnknownEnumStringValue
   zengin?: t_funding_instructions_bank_transfer_zengin_record | undefined
 }
 
@@ -3295,8 +3645,16 @@ export type t_gelato_document_report = {
   issuing_country?: (string | null) | undefined
   last_name?: (string | null) | undefined
   number?: (string | null) | undefined
-  status: "unverified" | "verified"
-  type?: ("driving_license" | "id_card" | "passport" | null) | undefined
+  status: "unverified" | "verified" | UnknownEnumStringValue
+  type?:
+    | (
+        | "driving_license"
+        | "id_card"
+        | "passport"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
 }
 
 export type t_gelato_document_report_error = {
@@ -3305,6 +3663,7 @@ export type t_gelato_document_report_error = {
         | "document_expired"
         | "document_type_not_supported"
         | "document_unverified_other"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -3314,12 +3673,17 @@ export type t_gelato_document_report_error = {
 export type t_gelato_email_report = {
   email?: (string | null) | undefined
   error?: (t_gelato_email_report_error | null) | undefined
-  status: "unverified" | "verified"
+  status: "unverified" | "verified" | UnknownEnumStringValue
 }
 
 export type t_gelato_email_report_error = {
   code?:
-    | ("email_unverified_other" | "email_verification_declined" | null)
+    | (
+        | "email_unverified_other"
+        | "email_verification_declined"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   reason?: (string | null) | undefined
 }
@@ -3329,9 +3693,11 @@ export type t_gelato_id_number_report = {
   error?: (t_gelato_id_number_report_error | null) | undefined
   first_name?: (string | null) | undefined
   id_number?: (string | null) | undefined
-  id_number_type?: ("br_cpf" | "sg_nric" | "us_ssn" | null) | undefined
+  id_number_type?:
+    | ("br_cpf" | "sg_nric" | "us_ssn" | UnknownEnumStringValue | null)
+    | undefined
   last_name?: (string | null) | undefined
-  status: "unverified" | "verified"
+  status: "unverified" | "verified" | UnknownEnumStringValue
 }
 
 export type t_gelato_id_number_report_error = {
@@ -3340,6 +3706,7 @@ export type t_gelato_id_number_report_error = {
         | "id_number_insufficient_document_data"
         | "id_number_mismatch"
         | "id_number_unverified_other"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -3349,12 +3716,17 @@ export type t_gelato_id_number_report_error = {
 export type t_gelato_phone_report = {
   error?: (t_gelato_phone_report_error | null) | undefined
   phone?: (string | null) | undefined
-  status: "unverified" | "verified"
+  status: "unverified" | "verified" | UnknownEnumStringValue
 }
 
 export type t_gelato_phone_report_error = {
   code?:
-    | ("phone_unverified_other" | "phone_verification_declined" | null)
+    | (
+        | "phone_unverified_other"
+        | "phone_verification_declined"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   reason?: (string | null) | undefined
 }
@@ -3365,7 +3737,9 @@ export type t_gelato_provided_details = {
 }
 
 export type t_gelato_report_document_options = {
-  allowed_types?: ("driving_license" | "id_card" | "passport")[] | undefined
+  allowed_types?:
+    | ("driving_license" | "id_card" | "passport" | UnknownEnumStringValue)[]
+    | undefined
   require_id_number?: boolean | undefined
   require_live_capture?: boolean | undefined
   require_matching_selfie?: boolean | undefined
@@ -3377,7 +3751,7 @@ export type t_gelato_selfie_report = {
   document?: (string | null) | undefined
   error?: (t_gelato_selfie_report_error | null) | undefined
   selfie?: (string | null) | undefined
-  status: "unverified" | "verified"
+  status: "unverified" | "verified" | UnknownEnumStringValue
 }
 
 export type t_gelato_selfie_report_error = {
@@ -3387,6 +3761,7 @@ export type t_gelato_selfie_report_error = {
         | "selfie_face_mismatch"
         | "selfie_manipulated"
         | "selfie_unverified_other"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -3394,7 +3769,9 @@ export type t_gelato_selfie_report_error = {
 }
 
 export type t_gelato_session_document_options = {
-  allowed_types?: ("driving_license" | "id_card" | "passport")[] | undefined
+  allowed_types?:
+    | ("driving_license" | "id_card" | "passport" | UnknownEnumStringValue)[]
+    | undefined
   require_id_number?: boolean | undefined
   require_live_capture?: boolean | undefined
   require_matching_selfie?: boolean | undefined
@@ -3428,6 +3805,7 @@ export type t_gelato_session_last_error = {
         | "selfie_manipulated"
         | "selfie_unverified_other"
         | "under_supported_age"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -3456,7 +3834,9 @@ export type t_gelato_verified_outputs = {
   email?: (string | null) | undefined
   first_name?: (string | null) | undefined
   id_number?: (string | null) | undefined
-  id_number_type?: ("br_cpf" | "sg_nric" | "us_ssn" | null) | undefined
+  id_number_type?:
+    | ("br_cpf" | "sg_nric" | "us_ssn" | UnknownEnumStringValue | null)
+    | undefined
   last_name?: (string | null) | undefined
   phone?: (string | null) | undefined
 }
@@ -3469,11 +3849,11 @@ export type t_identity_verification_report = {
   id: string
   id_number?: t_gelato_id_number_report | undefined
   livemode: boolean
-  object: "identity.verification_report"
+  object: "identity.verification_report" | UnknownEnumStringValue
   options?: t_gelato_verification_report_options | undefined
   phone?: t_gelato_phone_report | undefined
   selfie?: t_gelato_selfie_report | undefined
-  type: "document" | "id_number" | "verification_flow"
+  type: "document" | "id_number" | "verification_flow" | UnknownEnumStringValue
   verification_flow?: string | undefined
   verification_session?: (string | null) | undefined
 }
@@ -3491,13 +3871,18 @@ export type t_identity_verification_session = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "identity.verification_session"
+  object: "identity.verification_session" | UnknownEnumStringValue
   options?: (t_gelato_verification_session_options | null) | undefined
   provided_details?: (t_gelato_provided_details | null) | undefined
   redaction?: (t_verification_session_redaction | null) | undefined
   related_customer?: (string | null) | undefined
-  status: "canceled" | "processing" | "requires_input" | "verified"
-  type: "document" | "id_number" | "verification_flow"
+  status:
+    | "canceled"
+    | "processing"
+    | "requires_input"
+    | "verified"
+    | UnknownEnumStringValue
+  type: "document" | "id_number" | "verification_flow" | UnknownEnumStringValue
   url?: (string | null) | undefined
   verification_flow?: string | undefined
   verified_outputs?: (t_gelato_verified_outputs | null) | undefined
@@ -3505,20 +3890,24 @@ export type t_identity_verification_session = {
 
 export type t_inbound_transfers = {
   billing_details: t_treasury_shared_resource_billing_details
-  type: "us_bank_account"
+  type: "us_bank_account" | UnknownEnumStringValue
   us_bank_account?:
     | t_inbound_transfers_payment_method_details_us_bank_account
     | undefined
 }
 
 export type t_inbound_transfers_payment_method_details_us_bank_account = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
-  account_type?: ("checking" | "savings" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
+  account_type?:
+    | ("checking" | "savings" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
   last4?: (string | null) | undefined
   mandate?: (string | t_mandate) | undefined
-  network: "ach"
+  network: "ach" | UnknownEnumStringValue
   routing_number?: (string | null) | undefined
 }
 
@@ -3560,11 +3949,15 @@ export type t_invoice = {
         | "subscription_threshold"
         | "subscription_update"
         | "upcoming"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   charge?: (string | t_charge | null) | undefined
-  collection_method: "charge_automatically" | "send_invoice"
+  collection_method:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
   created: number
   currency: string
   custom_fields?: (t_invoice_setting_custom_field[] | null) | undefined
@@ -3574,7 +3967,9 @@ export type t_invoice = {
   customer_name?: (string | null) | undefined
   customer_phone?: (string | null) | undefined
   customer_shipping?: (t_shipping | null) | undefined
-  customer_tax_exempt?: ("exempt" | "none" | "reverse" | null) | undefined
+  customer_tax_exempt?:
+    | ("exempt" | "none" | "reverse" | UnknownEnumStringValue | null)
+    | undefined
   customer_tax_ids?: (t_invoices_resource_invoice_tax_id[] | null) | undefined
   default_payment_method?: (string | t_payment_method | null) | undefined
   default_source?:
@@ -3598,7 +3993,7 @@ export type t_invoice = {
   lines: {
     data: t_line_item[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   livemode: boolean
@@ -3609,7 +4004,7 @@ export type t_invoice = {
     | undefined
   next_payment_attempt?: (number | null) | undefined
   number?: (string | null) | undefined
-  object: "invoice"
+  object: "invoice" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   paid: boolean
   paid_out_of_band: boolean
@@ -3627,7 +4022,15 @@ export type t_invoice = {
   starting_balance: number
   statement_descriptor?: (string | null) | undefined
   status?:
-    | ("draft" | "open" | "paid" | "uncollectible" | "void" | null)
+    | (
+        | "draft"
+        | "open"
+        | "paid"
+        | "uncollectible"
+        | "void"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   status_transitions: t_invoices_resource_status_transitions
   subscription?: (string | t_subscription | null) | undefined
@@ -3667,7 +4070,9 @@ export type t_invoice_line_item_period = {
 
 export type t_invoice_mandate_options_card = {
   amount?: (number | null) | undefined
-  amount_type?: ("fixed" | "maximum" | null) | undefined
+  amount_type?:
+    | ("fixed" | "maximum" | UnknownEnumStringValue | null)
+    | undefined
   description?: (string | null) | undefined
 }
 
@@ -3675,21 +4080,25 @@ export type t_invoice_payment_method_options_acss_debit = {
   mandate_options?:
     | t_invoice_payment_method_options_acss_debit_mandate_options
     | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_invoice_payment_method_options_acss_debit_mandate_options = {
-  transaction_type?: ("business" | "personal" | null) | undefined
+  transaction_type?:
+    | ("business" | "personal" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_invoice_payment_method_options_bancontact = {
-  preferred_language: "de" | "en" | "fr" | "nl"
+  preferred_language: "de" | "en" | "fr" | "nl" | UnknownEnumStringValue
 }
 
 export type t_invoice_payment_method_options_card = {
   installments?: t_invoice_installments_card | undefined
   request_three_d_secure?:
-    | ("any" | "automatic" | "challenge" | null)
+    | ("any" | "automatic" | "challenge" | UnknownEnumStringValue | null)
     | undefined
 }
 
@@ -3697,7 +4106,7 @@ export type t_invoice_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_invoice_payment_method_options_customer_balance_bank_transfer
     | undefined
-  funding_type?: ("bank_transfer" | null) | undefined
+  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_invoice_payment_method_options_customer_balance_bank_transfer = {
@@ -3709,7 +4118,7 @@ export type t_invoice_payment_method_options_customer_balance_bank_transfer = {
 
 export type t_invoice_payment_method_options_customer_balance_bank_transfer_eu_bank_transfer =
   {
-    country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL"
+    country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL" | UnknownEnumStringValue
   }
 
 export type t_invoice_payment_method_options_konbini = EmptyObject
@@ -3720,7 +4129,9 @@ export type t_invoice_payment_method_options_us_bank_account = {
   financial_connections?:
     | t_invoice_payment_method_options_us_bank_account_linked_account_options
     | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_invoice_payment_method_options_us_bank_account_linked_account_options =
@@ -3729,20 +4140,38 @@ export type t_invoice_payment_method_options_us_bank_account_linked_account_opti
       | t_invoice_payment_method_options_us_bank_account_linked_account_options_filters
       | undefined
     permissions?:
-      | ("balances" | "ownership" | "payment_method" | "transactions")[]
+      | (
+          | "balances"
+          | "ownership"
+          | "payment_method"
+          | "transactions"
+          | UnknownEnumStringValue
+        )[]
       | undefined
     prefetch?:
-      | (("balances" | "ownership" | "transactions")[] | null)
+      | (
+          | (
+              | "balances"
+              | "ownership"
+              | "transactions"
+              | UnknownEnumStringValue
+            )[]
+          | null
+        )
       | undefined
   }
 
 export type t_invoice_payment_method_options_us_bank_account_linked_account_options_filters =
   {
-    account_subcategories?: ("checking" | "savings")[] | undefined
+    account_subcategories?:
+      | ("checking" | "savings" | UnknownEnumStringValue)[]
+      | undefined
   }
 
 export type t_invoice_rendering_pdf = {
-  page_size?: ("a4" | "auto" | "letter" | null) | undefined
+  page_size?:
+    | ("a4" | "auto" | "letter" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_invoice_rendering_template = {
@@ -3755,8 +4184,8 @@ export type t_invoice_rendering_template = {
       } | null)
     | undefined
   nickname?: (string | null) | undefined
-  object: "invoice_rendering_template"
-  status: "active" | "archived"
+  object: "invoice_rendering_template" | UnknownEnumStringValue
+  status: "active" | "archived" | UnknownEnumStringValue
   version: number
 }
 
@@ -3825,6 +4254,7 @@ export type t_invoice_tax_amount = {
         | "standard_rated"
         | "taxable_basis_reduced"
         | "zero_rated"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -3857,7 +4287,7 @@ export type t_invoiceitem = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "invoiceitem"
+  object: "invoiceitem" | UnknownEnumStringValue
   period: t_invoice_line_item_period
   price?: (t_price | null) | undefined
   proration: boolean
@@ -3927,6 +4357,7 @@ export type t_invoices_payment_settings = {
             | "swish"
             | "us_bank_account"
             | "wechat_pay"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -4048,6 +4479,7 @@ export type t_invoices_resource_invoice_tax_id = {
     | "za_vat"
     | "zm_tin"
     | "zw_tin"
+    | UnknownEnumStringValue
   value?: (string | null) | undefined
 }
 
@@ -4068,7 +4500,7 @@ export type t_invoices_resource_pretax_credit_amount = {
     | (string | t_billing_credit_balance_transaction | null)
     | undefined
   discount?: (string | t_discount | t_deleted_discount) | undefined
-  type: "credit_balance_transaction" | "discount"
+  type: "credit_balance_transaction" | "discount" | UnknownEnumStringValue
 }
 
 export type t_invoices_resource_shipping_cost = {
@@ -4090,7 +4522,13 @@ export type t_issuing_authorization = {
   amount: number
   amount_details?: (t_issuing_authorization_amount_details | null) | undefined
   approved: boolean
-  authorization_method: "chip" | "contactless" | "keyed_in" | "online" | "swipe"
+  authorization_method:
+    | "chip"
+    | "contactless"
+    | "keyed_in"
+    | "online"
+    | "swipe"
+    | UnknownEnumStringValue
   balance_transactions: t_balance_transaction[]
   card: t_issuing_card
   cardholder?: (string | t_issuing_cardholder | null) | undefined
@@ -4110,10 +4548,10 @@ export type t_issuing_authorization = {
     [key: string]: string | undefined
   }
   network_data?: (t_issuing_authorization_network_data | null) | undefined
-  object: "issuing.authorization"
+  object: "issuing.authorization" | UnknownEnumStringValue
   pending_request?: (t_issuing_authorization_pending_request | null) | undefined
   request_history: t_issuing_authorization_request[]
-  status: "closed" | "pending" | "reversed"
+  status: "closed" | "pending" | "reversed" | UnknownEnumStringValue
   token?: (string | t_issuing_token | null) | undefined
   transactions: t_issuing_transaction[]
   treasury?: (t_issuing_authorization_treasury | null) | undefined
@@ -4125,7 +4563,7 @@ export type t_issuing_authorization = {
 export type t_issuing_card = {
   brand: string
   cancellation_reason?:
-    | ("design_rejected" | "lost" | "stolen" | null)
+    | ("design_rejected" | "lost" | "stolen" | UnknownEnumStringValue | null)
     | undefined
   cardholder: t_issuing_cardholder
   created: number
@@ -4141,19 +4579,26 @@ export type t_issuing_card = {
     [key: string]: string | undefined
   }
   number?: string | undefined
-  object: "issuing.card"
+  object: "issuing.card" | UnknownEnumStringValue
   personalization_design?:
     | (string | t_issuing_personalization_design | null)
     | undefined
   replaced_by?: (string | t_issuing_card | null) | undefined
   replacement_for?: (string | t_issuing_card | null) | undefined
   replacement_reason?:
-    | ("damaged" | "expired" | "lost" | "stolen" | null)
+    | (
+        | "damaged"
+        | "expired"
+        | "lost"
+        | "stolen"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   shipping?: (t_issuing_card_shipping | null) | undefined
   spending_controls: t_issuing_card_authorization_controls
-  status: "active" | "canceled" | "inactive"
-  type: "physical" | "virtual"
+  status: "active" | "canceled" | "inactive" | UnknownEnumStringValue
+  type: "physical" | "virtual" | UnknownEnumStringValue
   wallets?: (t_issuing_card_wallets | null) | undefined
 }
 
@@ -4169,15 +4614,17 @@ export type t_issuing_cardholder = {
     [key: string]: string | undefined
   }
   name: string
-  object: "issuing.cardholder"
+  object: "issuing.cardholder" | UnknownEnumStringValue
   phone_number?: (string | null) | undefined
-  preferred_locales?: (("de" | "en" | "es" | "fr" | "it")[] | null) | undefined
+  preferred_locales?:
+    | (("de" | "en" | "es" | "fr" | "it" | UnknownEnumStringValue)[] | null)
+    | undefined
   requirements: t_issuing_cardholder_requirements
   spending_controls?:
     | (t_issuing_cardholder_authorization_controls | null)
     | undefined
-  status: "active" | "blocked" | "inactive"
-  type: "company" | "individual"
+  status: "active" | "blocked" | "inactive" | UnknownEnumStringValue
+  type: "company" | "individual" | UnknownEnumStringValue
 }
 
 export type t_issuing_dispute = {
@@ -4210,13 +4657,20 @@ export type t_issuing_dispute = {
         | "transaction_electronically_read"
         | "transaction_qualifies_for_visa_easy_payment_service"
         | "transaction_unattended"
+        | UnknownEnumStringValue
       )
     | undefined
   metadata: {
     [key: string]: string | undefined
   }
-  object: "issuing.dispute"
-  status: "expired" | "lost" | "submitted" | "unsubmitted" | "won"
+  object: "issuing.dispute" | UnknownEnumStringValue
+  status:
+    | "expired"
+    | "lost"
+    | "submitted"
+    | "unsubmitted"
+    | "won"
+    | UnknownEnumStringValue
   transaction: string | t_issuing_transaction
   treasury?: (t_issuing_dispute_treasury | null) | undefined
 }
@@ -4234,11 +4688,11 @@ export type t_issuing_personalization_design = {
     [key: string]: string | undefined
   }
   name?: (string | null) | undefined
-  object: "issuing.personalization_design"
+  object: "issuing.personalization_design" | UnknownEnumStringValue
   physical_bundle: string | t_issuing_physical_bundle
   preferences: t_issuing_personalization_design_preferences
   rejection_reasons: t_issuing_personalization_design_rejection_reasons
-  status: "active" | "inactive" | "rejected" | "review"
+  status: "active" | "inactive" | "rejected" | "review" | UnknownEnumStringValue
 }
 
 export type t_issuing_physical_bundle = {
@@ -4246,9 +4700,9 @@ export type t_issuing_physical_bundle = {
   id: string
   livemode: boolean
   name: string
-  object: "issuing.physical_bundle"
-  status: "active" | "inactive" | "review"
-  type: "custom" | "standard"
+  object: "issuing.physical_bundle" | UnknownEnumStringValue
+  status: "active" | "inactive" | "review" | UnknownEnumStringValue
+  type: "custom" | "standard" | UnknownEnumStringValue
 }
 
 export type t_issuing_settlement = {
@@ -4263,12 +4717,12 @@ export type t_issuing_settlement = {
     [key: string]: string | undefined
   }
   net_total: number
-  network: "maestro" | "visa"
+  network: "maestro" | "visa" | UnknownEnumStringValue
   network_fees: number
   network_settlement_identifier: string
-  object: "issuing.settlement"
+  object: "issuing.settlement" | UnknownEnumStringValue
   settlement_service: string
-  status: "complete" | "pending"
+  status: "complete" | "pending" | UnknownEnumStringValue
   transaction_count: number
   transaction_volume: number
 }
@@ -4280,12 +4734,19 @@ export type t_issuing_token = {
   id: string
   last4?: string | undefined
   livemode: boolean
-  network: "mastercard" | "visa"
+  network: "mastercard" | "visa" | UnknownEnumStringValue
   network_data?: t_issuing_network_token_network_data | undefined
   network_updated_at: number
-  object: "issuing.token"
-  status: "active" | "deleted" | "requested" | "suspended"
-  wallet_provider?: ("apple_pay" | "google_pay" | "samsung_pay") | undefined
+  object: "issuing.token" | UnknownEnumStringValue
+  status:
+    | "active"
+    | "deleted"
+    | "requested"
+    | "suspended"
+    | UnknownEnumStringValue
+  wallet_provider?:
+    | ("apple_pay" | "google_pay" | "samsung_pay" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_issuing_transaction = {
@@ -4307,12 +4768,20 @@ export type t_issuing_transaction = {
     [key: string]: string | undefined
   }
   network_data?: (t_issuing_transaction_network_data | null) | undefined
-  object: "issuing.transaction"
+  object: "issuing.transaction" | UnknownEnumStringValue
   purchase_details?: (t_issuing_transaction_purchase_details | null) | undefined
   token?: (string | t_issuing_token | null) | undefined
   treasury?: (t_issuing_transaction_treasury | null) | undefined
-  type: "capture" | "refund"
-  wallet?: ("apple_pay" | "google_pay" | "samsung_pay" | null) | undefined
+  type: "capture" | "refund" | UnknownEnumStringValue
+  wallet?:
+    | (
+        | "apple_pay"
+        | "google_pay"
+        | "samsung_pay"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
 }
 
 export type t_issuing_authorization_amount_details = {
@@ -4321,8 +4790,12 @@ export type t_issuing_authorization_amount_details = {
 }
 
 export type t_issuing_authorization_authentication_exemption = {
-  claimed_by: "acquirer" | "issuer"
-  type: "low_value_transaction" | "transaction_risk_analysis" | "unknown"
+  claimed_by: "acquirer" | "issuer" | UnknownEnumStringValue
+  type:
+    | "low_value_transaction"
+    | "transaction_risk_analysis"
+    | "unknown"
+    | UnknownEnumStringValue
 }
 
 export type t_issuing_authorization_fleet_cardholder_prompt_data = {
@@ -4343,6 +4816,7 @@ export type t_issuing_authorization_fleet_data = {
         | "fuel_and_non_fuel_purchase"
         | "fuel_purchase"
         | "non_fuel_purchase"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -4350,7 +4824,13 @@ export type t_issuing_authorization_fleet_data = {
     | (t_issuing_authorization_fleet_reported_breakdown | null)
     | undefined
   service_type?:
-    | ("full_service" | "non_fuel_transaction" | "self_service" | null)
+    | (
+        | "full_service"
+        | "non_fuel_transaction"
+        | "self_service"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -4376,10 +4856,21 @@ export type t_issuing_authorization_fleet_tax_data = {
 }
 
 export type t_issuing_authorization_fraud_challenge = {
-  channel: "sms"
-  status: "expired" | "pending" | "rejected" | "undeliverable" | "verified"
+  channel: "sms" | UnknownEnumStringValue
+  status:
+    | "expired"
+    | "pending"
+    | "rejected"
+    | "undeliverable"
+    | "verified"
+    | UnknownEnumStringValue
   undeliverable_reason?:
-    | ("no_phone_number" | "unsupported_phone_number" | null)
+    | (
+        | "no_phone_number"
+        | "unsupported_phone_number"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -4393,6 +4884,7 @@ export type t_issuing_authorization_fuel_data = {
         | "unleaded_plus"
         | "unleaded_regular"
         | "unleaded_super"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -4406,6 +4898,7 @@ export type t_issuing_authorization_fuel_data = {
         | "other"
         | "pound"
         | "us_gallon"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -4472,12 +4965,18 @@ export type t_issuing_authorization_request = {
     | "webhook_declined"
     | "webhook_error"
     | "webhook_timeout"
+    | UnknownEnumStringValue
   reason_message?: (string | null) | undefined
   requested_at?: (number | null) | undefined
 }
 
 export type t_issuing_authorization_three_d_secure = {
-  result: "attempt_acknowledged" | "authenticated" | "failed" | "required"
+  result:
+    | "attempt_acknowledged"
+    | "authenticated"
+    | "failed"
+    | "required"
+    | UnknownEnumStringValue
 }
 
 export type t_issuing_authorization_treasury = {
@@ -4487,13 +4986,21 @@ export type t_issuing_authorization_treasury = {
 }
 
 export type t_issuing_authorization_verification_data = {
-  address_line1_check: "match" | "mismatch" | "not_provided"
-  address_postal_code_check: "match" | "mismatch" | "not_provided"
+  address_line1_check:
+    | "match"
+    | "mismatch"
+    | "not_provided"
+    | UnknownEnumStringValue
+  address_postal_code_check:
+    | "match"
+    | "mismatch"
+    | "not_provided"
+    | UnknownEnumStringValue
   authentication_exemption?:
     | (t_issuing_authorization_authentication_exemption | null)
     | undefined
-  cvc_check: "match" | "mismatch" | "not_provided"
-  expiry_check: "match" | "mismatch" | "not_provided"
+  cvc_check: "match" | "mismatch" | "not_provided" | UnknownEnumStringValue
+  expiry_check: "match" | "mismatch" | "not_provided" | UnknownEnumStringValue
   postal_code?: (string | null) | undefined
   three_d_secure?: (t_issuing_authorization_three_d_secure | null) | undefined
 }
@@ -4505,6 +5012,7 @@ export type t_issuing_card_apple_pay = {
         | "missing_agreement"
         | "missing_cardholder_contact"
         | "unsupported_region"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -4809,6 +5317,7 @@ export type t_issuing_card_authorization_controls = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -5112,6 +5621,7 @@ export type t_issuing_card_authorization_controls = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -5128,6 +5638,7 @@ export type t_issuing_card_google_pay = {
         | "missing_agreement"
         | "missing_cardholder_contact"
         | "unsupported_region"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -5138,13 +5649,15 @@ export type t_issuing_card_shipping = {
   address_validation?:
     | (t_issuing_card_shipping_address_validation | null)
     | undefined
-  carrier?: ("dhl" | "fedex" | "royal_mail" | "usps" | null) | undefined
+  carrier?:
+    | ("dhl" | "fedex" | "royal_mail" | "usps" | UnknownEnumStringValue | null)
+    | undefined
   customs?: (t_issuing_card_shipping_customs | null) | undefined
   eta?: (number | null) | undefined
   name: string
   phone_number?: (string | null) | undefined
   require_signature?: (boolean | null) | undefined
-  service: "express" | "priority" | "standard"
+  service: "express" | "priority" | "standard" | UnknownEnumStringValue
   status?:
     | (
         | "canceled"
@@ -5154,19 +5667,30 @@ export type t_issuing_card_shipping = {
         | "returned"
         | "shipped"
         | "submitted"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   tracking_number?: (string | null) | undefined
   tracking_url?: (string | null) | undefined
-  type: "bulk" | "individual"
+  type: "bulk" | "individual" | UnknownEnumStringValue
 }
 
 export type t_issuing_card_shipping_address_validation = {
-  mode: "disabled" | "normalization_only" | "validation_and_normalization"
+  mode:
+    | "disabled"
+    | "normalization_only"
+    | "validation_and_normalization"
+    | UnknownEnumStringValue
   normalized_address?: (t_address | null) | undefined
   result?:
-    | ("indeterminate" | "likely_deliverable" | "likely_undeliverable" | null)
+    | (
+        | "indeterminate"
+        | "likely_deliverable"
+        | "likely_undeliverable"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -5474,6 +5998,7 @@ export type t_issuing_card_spending_limit = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -5485,6 +6010,7 @@ export type t_issuing_card_spending_limit = {
     | "per_authorization"
     | "weekly"
     | "yearly"
+    | UnknownEnumStringValue
 }
 
 export type t_issuing_card_wallets = {
@@ -5796,6 +6322,7 @@ export type t_issuing_cardholder_authorization_controls = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6099,6 +6626,7 @@ export type t_issuing_cardholder_authorization_controls = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6144,6 +6672,7 @@ export type t_issuing_cardholder_requirements = {
         | "rejected.listed"
         | "requirements.past_due"
         | "under_review"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -6159,6 +6688,7 @@ export type t_issuing_cardholder_requirements = {
             | "individual.first_name"
             | "individual.last_name"
             | "individual.verification.document"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6465,6 +6995,7 @@ export type t_issuing_cardholder_spending_limit = {
             | "womens_accessory_and_specialty_shops"
             | "womens_ready_to_wear_stores"
             | "wrecking_and_salvage_yards"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6476,6 +7007,7 @@ export type t_issuing_cardholder_spending_limit = {
     | "per_authorization"
     | "weekly"
     | "yearly"
+    | UnknownEnumStringValue
 }
 
 export type t_issuing_cardholder_user_terms_acceptance = {
@@ -6496,8 +7028,12 @@ export type t_issuing_dispute_canceled_evidence = {
   expected_at?: (number | null) | undefined
   explanation?: (string | null) | undefined
   product_description?: (string | null) | undefined
-  product_type?: ("merchandise" | "service" | null) | undefined
-  return_status?: ("merchant_rejected" | "successful" | null) | undefined
+  product_type?:
+    | ("merchandise" | "service" | UnknownEnumStringValue | null)
+    | undefined
+  return_status?:
+    | ("merchant_rejected" | "successful" | UnknownEnumStringValue | null)
+    | undefined
   returned_at?: (number | null) | undefined
 }
 
@@ -6531,6 +7067,7 @@ export type t_issuing_dispute_evidence = {
     | "not_received"
     | "other"
     | "service_not_as_described"
+    | UnknownEnumStringValue
   service_not_as_described?:
     | t_issuing_dispute_service_not_as_described_evidence
     | undefined
@@ -6546,7 +7083,9 @@ export type t_issuing_dispute_merchandise_not_as_described_evidence = {
   explanation?: (string | null) | undefined
   received_at?: (number | null) | undefined
   return_description?: (string | null) | undefined
-  return_status?: ("merchant_rejected" | "successful" | null) | undefined
+  return_status?:
+    | ("merchant_rejected" | "successful" | UnknownEnumStringValue | null)
+    | undefined
   returned_at?: (number | null) | undefined
 }
 
@@ -6560,14 +7099,18 @@ export type t_issuing_dispute_not_received_evidence = {
   expected_at?: (number | null) | undefined
   explanation?: (string | null) | undefined
   product_description?: (string | null) | undefined
-  product_type?: ("merchandise" | "service" | null) | undefined
+  product_type?:
+    | ("merchandise" | "service" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_issuing_dispute_other_evidence = {
   additional_documentation?: (string | t_file | null) | undefined
   explanation?: (string | null) | undefined
   product_description?: (string | null) | undefined
-  product_type?: ("merchandise" | "service" | null) | undefined
+  product_type?:
+    | ("merchandise" | "service" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_issuing_dispute_service_not_as_described_evidence = {
@@ -6594,7 +7137,7 @@ export type t_issuing_network_token_device = {
   location?: string | undefined
   name?: string | undefined
   phone_number?: string | undefined
-  type?: ("other" | "phone" | "watch") | undefined
+  type?: ("other" | "phone" | "watch" | UnknownEnumStringValue) | undefined
 }
 
 export type t_issuing_network_token_mastercard = {
@@ -6607,7 +7150,7 @@ export type t_issuing_network_token_mastercard = {
 export type t_issuing_network_token_network_data = {
   device?: t_issuing_network_token_device | undefined
   mastercard?: t_issuing_network_token_mastercard | undefined
-  type: "mastercard" | "visa"
+  type: "mastercard" | "visa" | UnknownEnumStringValue
   visa?: t_issuing_network_token_visa | undefined
   wallet_provider?: t_issuing_network_token_wallet_provider | undefined
 }
@@ -6622,7 +7165,9 @@ export type t_issuing_network_token_visa = {
 export type t_issuing_network_token_wallet_provider = {
   account_id?: string | undefined
   account_trust_score?: number | undefined
-  card_number_source?: ("app" | "manual" | "on_file" | "other") | undefined
+  card_number_source?:
+    | ("app" | "manual" | "on_file" | "other" | UnknownEnumStringValue)
+    | undefined
   cardholder_address?: t_issuing_network_token_address | undefined
   cardholder_name?: string | undefined
   device_trust_score?: number | undefined
@@ -6657,9 +7202,12 @@ export type t_issuing_network_token_wallet_provider = {
         | "too_many_different_cardholders"
         | "too_many_recent_attempts"
         | "too_many_recent_tokens"
+        | UnknownEnumStringValue
       )[]
     | undefined
-  suggested_decision?: ("approve" | "decline" | "require_auth") | undefined
+  suggested_decision?:
+    | ("approve" | "decline" | "require_auth" | UnknownEnumStringValue)
+    | undefined
   suggested_decision_version?: string | undefined
 }
 
@@ -6687,6 +7235,7 @@ export type t_issuing_personalization_design_rejection_reasons = {
             | "other"
             | "other_entity"
             | "promotional_material"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6701,6 +7250,7 @@ export type t_issuing_personalization_design_rejection_reasons = {
             | "other"
             | "other_entity"
             | "promotional_material"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -6708,9 +7258,9 @@ export type t_issuing_personalization_design_rejection_reasons = {
 }
 
 export type t_issuing_physical_bundle_features = {
-  card_logo: "optional" | "required" | "unsupported"
-  carrier_text: "optional" | "required" | "unsupported"
-  second_line: "optional" | "required" | "unsupported"
+  card_logo: "optional" | "required" | "unsupported" | UnknownEnumStringValue
+  carrier_text: "optional" | "required" | "unsupported" | UnknownEnumStringValue
+  second_line: "optional" | "required" | "unsupported" | UnknownEnumStringValue
 }
 
 export type t_issuing_transaction_amount_details = {
@@ -6824,7 +7374,7 @@ export type t_item = {
   description?: (string | null) | undefined
   discounts?: t_line_items_discount_amount[] | undefined
   id: string
-  object: "item"
+  object: "item" | UnknownEnumStringValue
   price?: (t_price | null) | undefined
   quantity?: (number | null) | undefined
   taxes?: t_line_items_tax_amount[] | undefined
@@ -6858,6 +7408,7 @@ export type t_legal_entity_company = {
     | (
         | "qualified_entity_exceeds_ownership_threshold"
         | "qualifies_as_financial_institution"
+        | UnknownEnumStringValue
       )
     | undefined
   phone?: (string | null) | undefined
@@ -6886,6 +7437,7 @@ export type t_legal_entity_company = {
         | "unincorporated_association"
         | "unincorporated_non_profit"
         | "unincorporated_partnership"
+        | UnknownEnumStringValue
       )
     | undefined
   tax_id_provided?: boolean | undefined
@@ -6965,7 +7517,7 @@ export type t_line_item = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "line_item"
+  object: "line_item" | UnknownEnumStringValue
   period: t_invoice_line_item_period
   pretax_credit_amounts?:
     | (t_invoices_resource_pretax_credit_amount[] | null)
@@ -6980,7 +7532,7 @@ export type t_line_item = {
   subscription_item?: (string | t_subscription_item) | undefined
   tax_amounts: t_invoice_tax_amount[]
   tax_rates: t_tax_rate[]
-  type: "invoiceitem" | "subscription"
+  type: "invoiceitem" | "subscription" | UnknownEnumStringValue
   unit_amount_excluding_tax?: (string | null) | undefined
 }
 
@@ -7009,6 +7561,7 @@ export type t_line_items_tax_amount = {
         | "standard_rated"
         | "taxable_basis_reduced"
         | "zero_rated"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -7020,15 +7573,26 @@ export type t_linked_account_options_us_bank_account = {
     | t_payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters
     | undefined
   permissions?:
-    | ("balances" | "ownership" | "payment_method" | "transactions")[]
+    | (
+        | "balances"
+        | "ownership"
+        | "payment_method"
+        | "transactions"
+        | UnknownEnumStringValue
+      )[]
     | undefined
-  prefetch?: (("balances" | "ownership" | "transactions")[] | null) | undefined
+  prefetch?:
+    | (
+        | ("balances" | "ownership" | "transactions" | UnknownEnumStringValue)[]
+        | null
+      )
+    | undefined
   return_url?: string | undefined
 }
 
 export type t_login_link = {
   created: number
-  object: "login_link"
+  object: "login_link" | UnknownEnumStringValue
   url: string
 }
 
@@ -7037,20 +7601,26 @@ export type t_mandate = {
   id: string
   livemode: boolean
   multi_use?: t_mandate_multi_use | undefined
-  object: "mandate"
+  object: "mandate" | UnknownEnumStringValue
   on_behalf_of?: string | undefined
   payment_method: string | t_payment_method
   payment_method_details: t_mandate_payment_method_details
   single_use?: t_mandate_single_use | undefined
-  status: "active" | "inactive" | "pending"
-  type: "multi_use" | "single_use"
+  status: "active" | "inactive" | "pending" | UnknownEnumStringValue
+  type: "multi_use" | "single_use" | UnknownEnumStringValue
 }
 
 export type t_mandate_acss_debit = {
-  default_for?: ("invoice" | "subscription")[] | undefined
+  default_for?:
+    | ("invoice" | "subscription" | UnknownEnumStringValue)[]
+    | undefined
   interval_description?: (string | null) | undefined
-  payment_schedule: "combined" | "interval" | "sporadic"
-  transaction_type: "business" | "personal"
+  payment_schedule:
+    | "combined"
+    | "interval"
+    | "sporadic"
+    | UnknownEnumStringValue
+  transaction_type: "business" | "personal" | UnknownEnumStringValue
 }
 
 export type t_mandate_amazon_pay = EmptyObject
@@ -7060,7 +7630,12 @@ export type t_mandate_au_becs_debit = {
 }
 
 export type t_mandate_bacs_debit = {
-  network_status: "accepted" | "pending" | "refused" | "revoked"
+  network_status:
+    | "accepted"
+    | "pending"
+    | "refused"
+    | "revoked"
+    | UnknownEnumStringValue
   reference: string
   revocation_reason?:
     | (
@@ -7069,6 +7644,7 @@ export type t_mandate_bacs_debit = {
         | "bank_ownership_changed"
         | "could_not_process"
         | "debit_not_authorized"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -7120,7 +7696,7 @@ export type t_mandate_single_use = {
 }
 
 export type t_mandate_us_bank_account = {
-  collection_method?: "paper" | undefined
+  collection_method?: ("paper" | UnknownEnumStringValue) | undefined
 }
 
 export type t_networks = {
@@ -7150,7 +7726,7 @@ export type t_outbound_payments_payment_method_details = {
   financial_account?:
     | t_outbound_payments_payment_method_details_financial_account
     | undefined
-  type: "financial_account" | "us_bank_account"
+  type: "financial_account" | "us_bank_account" | UnknownEnumStringValue
   us_bank_account?:
     | t_outbound_payments_payment_method_details_us_bank_account
     | undefined
@@ -7158,17 +7734,21 @@ export type t_outbound_payments_payment_method_details = {
 
 export type t_outbound_payments_payment_method_details_financial_account = {
   id: string
-  network: "stripe"
+  network: "stripe" | UnknownEnumStringValue
 }
 
 export type t_outbound_payments_payment_method_details_us_bank_account = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
-  account_type?: ("checking" | "savings" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
+  account_type?:
+    | ("checking" | "savings" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
   last4?: (string | null) | undefined
   mandate?: (string | t_mandate) | undefined
-  network: "ach" | "us_domestic_wire"
+  network: "ach" | "us_domestic_wire" | UnknownEnumStringValue
   routing_number?: (string | null) | undefined
 }
 
@@ -7177,7 +7757,7 @@ export type t_outbound_transfers_payment_method_details = {
   financial_account?:
     | t_outbound_transfers_payment_method_details_financial_account
     | undefined
-  type: "financial_account" | "us_bank_account"
+  type: "financial_account" | "us_bank_account" | UnknownEnumStringValue
   us_bank_account?:
     | t_outbound_transfers_payment_method_details_us_bank_account
     | undefined
@@ -7185,17 +7765,21 @@ export type t_outbound_transfers_payment_method_details = {
 
 export type t_outbound_transfers_payment_method_details_financial_account = {
   id: string
-  network: "stripe"
+  network: "stripe" | UnknownEnumStringValue
 }
 
 export type t_outbound_transfers_payment_method_details_us_bank_account = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
-  account_type?: ("checking" | "savings" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
+  account_type?:
+    | ("checking" | "savings" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
   last4?: (string | null) | undefined
   mandate?: (string | t_mandate) | undefined
-  network: "ach" | "us_domestic_wire"
+  network: "ach" | "us_domestic_wire" | UnknownEnumStringValue
   routing_number?: (string | null) | undefined
 }
 
@@ -7219,12 +7803,12 @@ export type t_payment_flows_amount_details_client_resource_tip = {
 }
 
 export type t_payment_flows_automatic_payment_methods_payment_intent = {
-  allow_redirects?: ("always" | "never") | undefined
+  allow_redirects?: ("always" | "never" | UnknownEnumStringValue) | undefined
   enabled: boolean
 }
 
 export type t_payment_flows_automatic_payment_methods_setup_intent = {
-  allow_redirects?: ("always" | "never") | undefined
+  allow_redirects?: ("always" | "never" | UnknownEnumStringValue) | undefined
   enabled?: (boolean | null) | undefined
 }
 
@@ -7243,34 +7827,41 @@ export type t_payment_flows_private_payment_methods_alipay_details = {
 
 export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_extended_authorization_extended_authorization =
   {
-    status: "disabled" | "enabled"
+    status: "disabled" | "enabled" | UnknownEnumStringValue
   }
 
 export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_incremental_authorization_incremental_authorization =
   {
-    status: "available" | "unavailable"
+    status: "available" | "unavailable" | UnknownEnumStringValue
   }
 
 export type t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture =
   {
     maximum_amount_capturable: number
-    status: "available" | "unavailable"
+    status: "available" | "unavailable" | UnknownEnumStringValue
   }
 
 export type t_payment_flows_private_payment_methods_card_details_api_resource_multicapture =
   {
-    status: "available" | "unavailable"
+    status: "available" | "unavailable" | UnknownEnumStringValue
   }
 
 export type t_payment_flows_private_payment_methods_card_present_common_wallet =
   {
-    type: "apple_pay" | "google_pay" | "samsung_pay" | "unknown"
+    type:
+      | "apple_pay"
+      | "google_pay"
+      | "samsung_pay"
+      | "unknown"
+      | UnknownEnumStringValue
   }
 
 export type t_payment_flows_private_payment_methods_kakao_pay_payment_method_options =
   {
-    capture_method?: "manual" | undefined
-    setup_future_usage?: ("none" | "off_session") | undefined
+    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    setup_future_usage?:
+      | ("none" | "off_session" | UnknownEnumStringValue)
+      | undefined
   }
 
 export type t_payment_flows_private_payment_methods_klarna_dob = {
@@ -7281,22 +7872,24 @@ export type t_payment_flows_private_payment_methods_klarna_dob = {
 
 export type t_payment_flows_private_payment_methods_naver_pay_payment_method_options =
   {
-    capture_method?: "manual" | undefined
+    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   }
 
 export type t_payment_flows_private_payment_methods_payco_payment_method_options =
   {
-    capture_method?: "manual" | undefined
+    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   }
 
 export type t_payment_flows_private_payment_methods_samsung_pay_payment_method_options =
   {
-    capture_method?: "manual" | undefined
+    capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   }
 
 export type t_payment_flows_private_payment_methods_us_bank_account_linked_account_options_filters =
   {
-    account_subcategories?: ("checking" | "savings")[] | undefined
+    account_subcategories?:
+      | ("checking" | "savings" | UnknownEnumStringValue)[]
+      | undefined
   }
 
 export type t_payment_intent = {
@@ -7321,12 +7914,17 @@ export type t_payment_intent = {
         | "fraudulent"
         | "requested_by_customer"
         | "void_invoice"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
-  capture_method: "automatic" | "automatic_async" | "manual"
+  capture_method:
+    | "automatic"
+    | "automatic_async"
+    | "manual"
+    | UnknownEnumStringValue
   client_secret?: (string | null) | undefined
-  confirmation_method: "automatic" | "manual"
+  confirmation_method: "automatic" | "manual" | UnknownEnumStringValue
   created: number
   currency: string
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
@@ -7342,7 +7940,7 @@ export type t_payment_intent = {
       }
     | undefined
   next_action?: (t_payment_intent_next_action | null) | undefined
-  object: "payment_intent"
+  object: "payment_intent" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method?: (string | t_payment_method | null) | undefined
   payment_method_configuration_details?:
@@ -7355,7 +7953,9 @@ export type t_payment_intent = {
   processing?: (t_payment_intent_processing | null) | undefined
   receipt_email?: (string | null) | undefined
   review?: (string | t_review | null) | undefined
-  setup_future_usage?: ("off_session" | "on_session" | null) | undefined
+  setup_future_usage?:
+    | ("off_session" | "on_session" | UnknownEnumStringValue | null)
+    | undefined
   shipping?: (t_shipping | null) | undefined
   statement_descriptor?: (string | null) | undefined
   statement_descriptor_suffix?: (string | null) | undefined
@@ -7367,6 +7967,7 @@ export type t_payment_intent = {
     | "requires_confirmation"
     | "requires_payment_method"
     | "succeeded"
+    | UnknownEnumStringValue
   transfer_data?: (t_transfer_data | null) | undefined
   transfer_group?: (string | null) | undefined
 }
@@ -7473,6 +8074,7 @@ export type t_payment_intent_next_action_display_bank_transfer_instructions = {
     | "jp_bank_transfer"
     | "mx_bank_transfer"
     | "us_bank_transfer"
+    | UnknownEnumStringValue
 }
 
 export type t_payment_intent_next_action_display_multibanco_details = {
@@ -7567,7 +8169,9 @@ export type t_payment_intent_next_action_swish_qr_code = {
 export type t_payment_intent_next_action_verify_with_microdeposits = {
   arrival_date: number
   hosted_verification_url: string
-  microdeposit_type?: ("amounts" | "descriptor_code" | null) | undefined
+  microdeposit_type?:
+    | ("amounts" | "descriptor_code" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_intent_next_action_wechat_pay_display_qr_code = {
@@ -7875,13 +8479,19 @@ export type t_payment_intent_payment_method_options_acss_debit = {
   mandate_options?:
     | t_payment_intent_payment_method_options_mandate_options_acss_debit
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_intent_payment_method_options_au_becs_debit = {
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
 }
 
@@ -7889,16 +8499,18 @@ export type t_payment_intent_payment_method_options_bacs_debit = {
   mandate_options?:
     | t_payment_intent_payment_method_options_mandate_options_bacs_debit
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_blik = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_intent_payment_method_options_card = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   installments?: (t_payment_method_options_card_installments | null) | undefined
   mandate_options?:
     | (t_payment_method_options_card_mandate_options | null)
@@ -7918,37 +8530,54 @@ export type t_payment_intent_payment_method_options_card = {
         | "unionpay"
         | "unknown"
         | "visa"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
-  request_extended_authorization?: ("if_available" | "never") | undefined
-  request_incremental_authorization?: ("if_available" | "never") | undefined
-  request_multicapture?: ("if_available" | "never") | undefined
-  request_overcapture?: ("if_available" | "never") | undefined
+  request_extended_authorization?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_incremental_authorization?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_multicapture?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
+  request_overcapture?:
+    | ("if_available" | "never" | UnknownEnumStringValue)
+    | undefined
   request_three_d_secure?:
-    | ("any" | "automatic" | "challenge" | null)
+    | ("any" | "automatic" | "challenge" | UnknownEnumStringValue | null)
     | undefined
   require_cvc_recollection?: boolean | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   statement_descriptor_suffix_kana?: string | undefined
   statement_descriptor_suffix_kanji?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_eps = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_intent_payment_method_options_link = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_intent_payment_method_options_mandate_options_acss_debit =
   {
     custom_mandate_url?: string | undefined
     interval_description?: (string | null) | undefined
-    payment_schedule?: ("combined" | "interval" | "sporadic" | null) | undefined
-    transaction_type?: ("business" | "personal" | null) | undefined
+    payment_schedule?:
+      | ("combined" | "interval" | "sporadic" | UnknownEnumStringValue | null)
+      | undefined
+    transaction_type?:
+      | ("business" | "personal" | UnknownEnumStringValue | null)
+      | undefined
   }
 
 export type t_payment_intent_payment_method_options_mandate_options_bacs_debit =
@@ -7962,21 +8591,23 @@ export type t_payment_intent_payment_method_options_mandate_options_sepa_debit =
   }
 
 export type t_payment_intent_payment_method_options_mobilepay = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: "none" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_intent_payment_method_options_sepa_debit = {
   mandate_options?:
     | t_payment_intent_payment_method_options_mandate_options_sepa_debit
     | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
 }
 
 export type t_payment_intent_payment_method_options_swish = {
   reference?: (string | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_intent_payment_method_options_us_bank_account = {
@@ -7984,15 +8615,21 @@ export type t_payment_intent_payment_method_options_us_bank_account = {
   mandate_options?:
     | t_payment_method_options_us_bank_account_mandate_options
     | undefined
-  preferred_settlement_speed?: ("fastest" | "standard") | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  preferred_settlement_speed?:
+    | ("fastest" | "standard" | UnknownEnumStringValue)
+    | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
   target_date?: string | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_intent_processing = {
   card?: t_payment_intent_card_processing | undefined
-  type: "card"
+  type: "card" | UnknownEnumStringValue
 }
 
 export type t_payment_intent_processing_customer_notification = {
@@ -8001,13 +8638,19 @@ export type t_payment_intent_processing_customer_notification = {
 }
 
 export type t_payment_intent_type_specific_payment_method_options_client = {
-  capture_method?: ("manual" | "manual_preferred") | undefined
+  capture_method?:
+    | ("manual" | "manual_preferred" | UnknownEnumStringValue)
+    | undefined
   installments?: t_payment_flows_installment_options | undefined
   request_incremental_authorization_support?: boolean | undefined
   require_cvc_recollection?: boolean | undefined
   routing?: t_payment_method_options_card_present_routing | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_link = {
@@ -8020,14 +8663,14 @@ export type t_payment_link = {
   application_fee_amount?: (number | null) | undefined
   application_fee_percent?: (number | null) | undefined
   automatic_tax: t_payment_links_resource_automatic_tax
-  billing_address_collection: "auto" | "required"
+  billing_address_collection: "auto" | "required" | UnknownEnumStringValue
   consent_collection?:
     | (t_payment_links_resource_consent_collection | null)
     | undefined
   currency: string
   custom_fields: t_payment_links_resource_custom_fields[]
   custom_text: t_payment_links_resource_custom_text
-  customer_creation: "always" | "if_required"
+  customer_creation: "always" | "if_required" | UnknownEnumStringValue
   id: string
   inactive_message?: (string | null) | undefined
   invoice_creation?:
@@ -8037,7 +8680,7 @@ export type t_payment_link = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -8045,12 +8688,12 @@ export type t_payment_link = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "payment_link"
+  object: "payment_link" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   payment_intent_data?:
     | (t_payment_links_resource_payment_intent_data | null)
     | undefined
-  payment_method_collection: "always" | "if_required"
+  payment_method_collection: "always" | "if_required" | UnknownEnumStringValue
   payment_method_types?:
     | (
         | (
@@ -8089,6 +8732,7 @@ export type t_payment_link = {
             | "us_bank_account"
             | "wechat_pay"
             | "zip"
+            | UnknownEnumStringValue
           )[]
         | null
       )
@@ -8099,7 +8743,13 @@ export type t_payment_link = {
     | (t_payment_links_resource_shipping_address_collection | null)
     | undefined
   shipping_options: t_payment_links_resource_shipping_option[]
-  submit_type: "auto" | "book" | "donate" | "pay" | "subscribe"
+  submit_type:
+    | "auto"
+    | "book"
+    | "donate"
+    | "pay"
+    | "subscribe"
+    | UnknownEnumStringValue
   subscription_data?:
     | (t_payment_links_resource_subscription_data | null)
     | undefined
@@ -8113,7 +8763,7 @@ export type t_payment_links_resource_after_completion = {
     | t_payment_links_resource_completion_behavior_confirmation_page
     | undefined
   redirect?: t_payment_links_resource_completion_behavior_redirect | undefined
-  type: "hosted_confirmation" | "redirect"
+  type: "hosted_confirmation" | "redirect" | UnknownEnumStringValue
 }
 
 export type t_payment_links_resource_automatic_tax = {
@@ -8138,8 +8788,10 @@ export type t_payment_links_resource_consent_collection = {
   payment_method_reuse_agreement?:
     | (t_payment_links_resource_payment_method_reuse_agreement | null)
     | undefined
-  promotions?: ("auto" | "none" | null) | undefined
-  terms_of_service?: ("none" | "required" | null) | undefined
+  promotions?: ("auto" | "none" | UnknownEnumStringValue | null) | undefined
+  terms_of_service?:
+    | ("none" | "required" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_links_resource_custom_fields = {
@@ -8149,7 +8801,7 @@ export type t_payment_links_resource_custom_fields = {
   numeric?: t_payment_links_resource_custom_fields_numeric | undefined
   optional: boolean
   text?: t_payment_links_resource_custom_fields_text | undefined
-  type: "dropdown" | "numeric" | "text"
+  type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
 }
 
 export type t_payment_links_resource_custom_fields_dropdown = {
@@ -8163,7 +8815,7 @@ export type t_payment_links_resource_custom_fields_dropdown_option = {
 
 export type t_payment_links_resource_custom_fields_label = {
   custom?: (string | null) | undefined
-  type: "custom"
+  type: "custom" | UnknownEnumStringValue
 }
 
 export type t_payment_links_resource_custom_fields_numeric = {
@@ -8218,20 +8870,28 @@ export type t_payment_links_resource_invoice_settings = {
 
 export type t_payment_links_resource_payment_intent_data = {
   capture_method?:
-    | ("automatic" | "automatic_async" | "manual" | null)
+    | (
+        | "automatic"
+        | "automatic_async"
+        | "manual"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   description?: (string | null) | undefined
   metadata: {
     [key: string]: string | undefined
   }
-  setup_future_usage?: ("off_session" | "on_session" | null) | undefined
+  setup_future_usage?:
+    | ("off_session" | "on_session" | UnknownEnumStringValue | null)
+    | undefined
   statement_descriptor?: (string | null) | undefined
   statement_descriptor_suffix?: (string | null) | undefined
   transfer_group?: (string | null) | undefined
 }
 
 export type t_payment_links_resource_payment_method_reuse_agreement = {
-  position: "auto" | "hidden"
+  position: "auto" | "hidden" | UnknownEnumStringValue
 }
 
 export type t_payment_links_resource_phone_number_collection = {
@@ -8482,6 +9142,7 @@ export type t_payment_links_resource_shipping_address_collection = {
     | "ZM"
     | "ZW"
     | "ZZ"
+    | UnknownEnumStringValue
   )[]
 }
 
@@ -8508,7 +9169,7 @@ export type t_payment_links_resource_subscription_data_invoice_settings = {
 
 export type t_payment_links_resource_tax_id_collection = {
   enabled: boolean
-  required: "if_supported" | "never"
+  required: "if_supported" | "never" | UnknownEnumStringValue
 }
 
 export type t_payment_links_resource_transfer_data = {
@@ -8521,7 +9182,9 @@ export type t_payment_method = {
   affirm?: t_payment_method_affirm | undefined
   afterpay_clearpay?: t_payment_method_afterpay_clearpay | undefined
   alipay?: t_payment_flows_private_payment_methods_alipay | undefined
-  allow_redisplay?: ("always" | "limited" | "unspecified") | undefined
+  allow_redisplay?:
+    | ("always" | "limited" | "unspecified" | UnknownEnumStringValue)
+    | undefined
   alma?: t_payment_method_alma | undefined
   amazon_pay?: t_payment_method_amazon_pay | undefined
   au_becs_debit?: t_payment_method_au_becs_debit | undefined
@@ -8557,7 +9220,7 @@ export type t_payment_method = {
   mobilepay?: t_payment_method_mobilepay | undefined
   multibanco?: t_payment_method_multibanco | undefined
   naver_pay?: t_payment_method_naver_pay | undefined
-  object: "payment_method"
+  object: "payment_method" | UnknownEnumStringValue
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
   pay_by_bank?: t_payment_method_pay_by_bank | undefined
@@ -8620,6 +9283,7 @@ export type t_payment_method = {
     | "us_bank_account"
     | "wechat_pay"
     | "zip"
+    | UnknownEnumStringValue
   us_bank_account?: t_payment_method_us_bank_account | undefined
   wechat_pay?: t_payment_method_wechat_pay | undefined
   zip?: t_payment_method_zip | undefined
@@ -8673,7 +9337,9 @@ export type t_payment_method_card = {
   generated_from?: (t_payment_method_card_generated_card | null) | undefined
   last4: string
   networks?: (t_networks | null) | undefined
-  regulated_status?: ("regulated" | "unregulated" | null) | undefined
+  regulated_status?:
+    | ("regulated" | "unregulated" | UnknownEnumStringValue | null)
+    | undefined
   three_d_secure_usage?: (t_three_d_secure_usage | null) | undefined
   wallet?: (t_payment_method_card_wallet | null) | undefined
 }
@@ -8714,6 +9380,7 @@ export type t_payment_method_card_present = {
         | "contactless_magstripe_mode"
         | "magnetic_stripe_fallback"
         | "magnetic_stripe_track2"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -8745,6 +9412,7 @@ export type t_payment_method_card_wallet = {
     | "masterpass"
     | "samsung_pay"
     | "visa_checkout"
+    | UnknownEnumStringValue
   visa_checkout?: t_payment_method_card_wallet_visa_checkout | undefined
 }
 
@@ -8784,8 +9452,8 @@ export type t_payment_method_config_biz_payment_method_configuration_details = {
 
 export type t_payment_method_config_resource_display_preference = {
   overridable?: (boolean | null) | undefined
-  preference: "none" | "off" | "on"
-  value: "off" | "on"
+  preference: "none" | "off" | "on" | UnknownEnumStringValue
+  value: "off" | "on" | UnknownEnumStringValue
 }
 
 export type t_payment_method_config_resource_payment_method_properties = {
@@ -8868,7 +9536,7 @@ export type t_payment_method_configuration = {
     | t_payment_method_config_resource_payment_method_properties
     | undefined
   name: string
-  object: "payment_method_configuration"
+  object: "payment_method_configuration" | UnknownEnumStringValue
   oxxo?: t_payment_method_config_resource_payment_method_properties | undefined
   p24?: t_payment_method_config_resource_payment_method_properties | undefined
   parent?: (string | null) | undefined
@@ -8968,7 +9636,9 @@ export type t_payment_method_details_ach_credit_transfer = {
 }
 
 export type t_payment_method_details_ach_debit = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   country?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
@@ -9021,7 +9691,9 @@ export type t_payment_method_details_bancontact = {
   generated_sepa_debit?: (string | t_payment_method | null) | undefined
   generated_sepa_debit_mandate?: (string | t_mandate | null) | undefined
   iban_last4?: (string | null) | undefined
-  preferred_language?: ("de" | "en" | "fr" | "nl" | null) | undefined
+  preferred_language?:
+    | ("de" | "en" | "fr" | "nl" | UnknownEnumStringValue | null)
+    | undefined
   verified_name?: (string | null) | undefined
 }
 
@@ -9064,7 +9736,9 @@ export type t_payment_method_details_card = {
   overcapture?:
     | t_payment_flows_private_payment_methods_card_details_api_resource_enterprise_features_overcapture_overcapture
     | undefined
-  regulated_status?: ("regulated" | "unregulated" | null) | undefined
+  regulated_status?:
+    | ("regulated" | "unregulated" | UnknownEnumStringValue | null)
+    | undefined
   three_d_secure?: (t_three_d_secure_details_charge | null) | undefined
   wallet?: (t_payment_method_details_card_wallet | null) | undefined
 }
@@ -9081,8 +9755,8 @@ export type t_payment_method_details_card_installments = {
 
 export type t_payment_method_details_card_installments_plan = {
   count?: (number | null) | undefined
-  interval?: ("month" | null) | undefined
-  type: "fixed_count"
+  interval?: ("month" | UnknownEnumStringValue | null) | undefined
+  type: "fixed_count" | UnknownEnumStringValue
 }
 
 export type t_payment_method_details_card_network_token = {
@@ -9118,6 +9792,7 @@ export type t_payment_method_details_card_present = {
         | "contactless_magstripe_mode"
         | "magnetic_stripe_fallback"
         | "magnetic_stripe_track2"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9129,11 +9804,13 @@ export type t_payment_method_details_card_present = {
 
 export type t_payment_method_details_card_present_offline = {
   stored_at?: (number | null) | undefined
-  type?: ("deferred" | null) | undefined
+  type?: ("deferred" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_payment_method_details_card_present_receipt = {
-  account_type?: ("checking" | "credit" | "prepaid" | "unknown") | undefined
+  account_type?:
+    | ("checking" | "credit" | "prepaid" | "unknown" | UnknownEnumStringValue)
+    | undefined
   application_cryptogram?: (string | null) | undefined
   application_preferred_name?: (string | null) | undefined
   authorization_code?: (string | null) | undefined
@@ -9162,6 +9839,7 @@ export type t_payment_method_details_card_wallet = {
     | "masterpass"
     | "samsung_pay"
     | "visa_checkout"
+    | UnknownEnumStringValue
   visa_checkout?: t_payment_method_details_card_wallet_visa_checkout | undefined
 }
 
@@ -9228,6 +9906,7 @@ export type t_payment_method_details_eps = {
         | "volksbank_gruppe"
         | "volkskreditbank_ag"
         | "vr_bank_braunau"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9258,6 +9937,7 @@ export type t_payment_method_details_fpx = {
     | "rhb"
     | "standard_chartered"
     | "uob"
+    | UnknownEnumStringValue
   transaction_id?: (string | null) | undefined
 }
 
@@ -9291,6 +9971,7 @@ export type t_payment_method_details_ideal = {
         | "triodos_bank"
         | "van_lanschot"
         | "yoursafe"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9313,6 +9994,7 @@ export type t_payment_method_details_ideal = {
         | "REVOLT21"
         | "SNSBNL2A"
         | "TRIONL2U"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9345,6 +10027,7 @@ export type t_payment_method_details_interac_present = {
         | "contactless_magstripe_mode"
         | "magnetic_stripe_fallback"
         | "magnetic_stripe_track2"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9354,7 +10037,9 @@ export type t_payment_method_details_interac_present = {
 }
 
 export type t_payment_method_details_interac_present_receipt = {
-  account_type?: ("checking" | "savings" | "unknown") | undefined
+  account_type?:
+    | ("checking" | "savings" | "unknown" | UnknownEnumStringValue)
+    | undefined
   application_cryptogram?: (string | null) | undefined
   application_preferred_name?: (string | null) | undefined
   authorization_code?: (string | null) | undefined
@@ -9381,7 +10066,14 @@ export type t_payment_method_details_konbini = {
 
 export type t_payment_method_details_konbini_store = {
   chain?:
-    | ("familymart" | "lawson" | "ministop" | "seicomart" | null)
+    | (
+        | "familymart"
+        | "lawson"
+        | "ministop"
+        | "seicomart"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -9410,6 +10102,7 @@ export type t_payment_method_details_kr_card = {
         | "suhyup"
         | "tossbank"
         | "woori"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9467,6 +10160,7 @@ export type t_payment_method_details_p24 = {
         | "toyota_bank"
         | "velobank"
         | "volkswagen_bank"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9536,7 +10230,17 @@ export type t_payment_method_details_sofort = {
   generated_sepa_debit_mandate?: (string | t_mandate | null) | undefined
   iban_last4?: (string | null) | undefined
   preferred_language?:
-    | ("de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null)
+    | (
+        | "de"
+        | "en"
+        | "es"
+        | "fr"
+        | "it"
+        | "nl"
+        | "pl"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   verified_name?: (string | null) | undefined
 }
@@ -9552,8 +10256,12 @@ export type t_payment_method_details_swish = {
 export type t_payment_method_details_twint = EmptyObject
 
 export type t_payment_method_details_us_bank_account = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
-  account_type?: ("checking" | "savings" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
+  account_type?:
+    | ("checking" | "savings" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
   last4?: (string | null) | undefined
@@ -9581,12 +10289,12 @@ export type t_payment_method_domain = {
   id: string
   link: t_payment_method_domain_resource_payment_method_status
   livemode: boolean
-  object: "payment_method_domain"
+  object: "payment_method_domain" | UnknownEnumStringValue
   paypal: t_payment_method_domain_resource_payment_method_status
 }
 
 export type t_payment_method_domain_resource_payment_method_status = {
-  status: "active" | "inactive"
+  status: "active" | "inactive" | UnknownEnumStringValue
   status_details?:
     | t_payment_method_domain_resource_payment_method_status_details
     | undefined
@@ -9627,6 +10335,7 @@ export type t_payment_method_eps = {
         | "volksbank_gruppe"
         | "volkskreditbank_ag"
         | "vr_bank_braunau"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9656,6 +10365,7 @@ export type t_payment_method_fpx = {
     | "rhb"
     | "standard_chartered"
     | "uob"
+    | UnknownEnumStringValue
 }
 
 export type t_payment_method_giropay = EmptyObject
@@ -9681,6 +10391,7 @@ export type t_payment_method_ideal = {
         | "triodos_bank"
         | "van_lanschot"
         | "yoursafe"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9703,6 +10414,7 @@ export type t_payment_method_ideal = {
         | "REVOLT21"
         | "SNSBNL2A"
         | "TRIONL2U"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9728,6 +10440,7 @@ export type t_payment_method_interac_present = {
         | "contactless_magstripe_mode"
         | "magnetic_stripe_fallback"
         | "magnetic_stripe_track2"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9766,6 +10479,7 @@ export type t_payment_method_kr_card = {
         | "suhyup"
         | "tossbank"
         | "woori"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -9781,42 +10495,50 @@ export type t_payment_method_mobilepay = EmptyObject
 export type t_payment_method_multibanco = EmptyObject
 
 export type t_payment_method_naver_pay = {
-  funding: "card" | "points"
+  funding: "card" | "points" | UnknownEnumStringValue
 }
 
 export type t_payment_method_options_affirm = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   preferred_locale?: string | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_afterpay_clearpay = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   reference?: (string | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_alipay = {
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_alma = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_amazon_pay = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_bancontact = {
-  preferred_language: "de" | "en" | "fr" | "nl"
-  setup_future_usage?: ("none" | "off_session") | undefined
+  preferred_language: "de" | "en" | "fr" | "nl" | UnknownEnumStringValue
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_boleto = {
   expires_after_days: number
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_card_installments = {
@@ -9829,14 +10551,20 @@ export type t_payment_method_options_card_installments = {
 
 export type t_payment_method_options_card_mandate_options = {
   amount: number
-  amount_type: "fixed" | "maximum"
+  amount_type: "fixed" | "maximum" | UnknownEnumStringValue
   description?: (string | null) | undefined
   end_date?: (number | null) | undefined
-  interval: "day" | "month" | "sporadic" | "week" | "year"
+  interval:
+    | "day"
+    | "month"
+    | "sporadic"
+    | "week"
+    | "year"
+    | UnknownEnumStringValue
   interval_count?: (number | null) | undefined
   reference: string
   start_date: number
-  supported_types?: ("india"[] | null) | undefined
+  supported_types?: (("india" | UnknownEnumStringValue)[] | null) | undefined
 }
 
 export type t_payment_method_options_card_present = {
@@ -9846,20 +10574,24 @@ export type t_payment_method_options_card_present = {
 }
 
 export type t_payment_method_options_card_present_routing = {
-  requested_priority?: ("domestic" | "international" | null) | undefined
+  requested_priority?:
+    | ("domestic" | "international" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_method_options_cashapp = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session" | "on_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_customer_balance = {
   bank_transfer?:
     | t_payment_method_options_customer_balance_bank_transfer
     | undefined
-  funding_type?: ("bank_transfer" | null) | undefined
-  setup_future_usage?: "none" | undefined
+  funding_type?: ("bank_transfer" | UnknownEnumStringValue | null) | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_customer_balance_bank_transfer = {
@@ -9867,7 +10599,16 @@ export type t_payment_method_options_customer_balance_bank_transfer = {
     | t_payment_method_options_customer_balance_eu_bank_account
     | undefined
   requested_address_types?:
-    | ("aba" | "iban" | "sepa" | "sort_code" | "spei" | "swift" | "zengin")[]
+    | (
+        | "aba"
+        | "iban"
+        | "sepa"
+        | "sort_code"
+        | "spei"
+        | "swift"
+        | "zengin"
+        | UnknownEnumStringValue
+      )[]
     | undefined
   type?:
     | (
@@ -9876,37 +10617,40 @@ export type t_payment_method_options_customer_balance_bank_transfer = {
         | "jp_bank_transfer"
         | "mx_bank_transfer"
         | "us_bank_transfer"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
 }
 
 export type t_payment_method_options_customer_balance_eu_bank_account = {
-  country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL"
+  country: "BE" | "DE" | "ES" | "FR" | "IE" | "NL" | UnknownEnumStringValue
 }
 
 export type t_payment_method_options_fpx = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_giropay = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_grabpay = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_ideal = {
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_interac_present = EmptyObject
 
 export type t_payment_method_options_klarna = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   preferred_locale?: (string | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_konbini = {
@@ -9914,78 +10658,98 @@ export type t_payment_method_options_konbini = {
   expires_after_days?: (number | null) | undefined
   expires_at?: (number | null) | undefined
   product_description?: (string | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_kr_card = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_multibanco = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_oxxo = {
   expires_after_days: number
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_p24 = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_pay_by_bank = EmptyObject
 
 export type t_payment_method_options_paynow = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_paypal = {
-  capture_method?: "manual" | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
   preferred_locale?: (string | null) | undefined
   reference?: (string | null) | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_pix = {
   expires_after_seconds?: (number | null) | undefined
   expires_at?: (number | null) | undefined
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_promptpay = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_revolut_pay = {
-  capture_method?: "manual" | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_sofort = {
   preferred_language?:
-    | ("de" | "en" | "es" | "fr" | "it" | "nl" | "pl" | null)
+    | (
+        | "de"
+        | "en"
+        | "es"
+        | "fr"
+        | "it"
+        | "nl"
+        | "pl"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
-  setup_future_usage?: ("none" | "off_session") | undefined
+  setup_future_usage?:
+    | ("none" | "off_session" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_payment_method_options_twint = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_us_bank_account_mandate_options = {
-  collection_method?: "paper" | undefined
+  collection_method?: ("paper" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_wechat_pay = {
   app_id?: (string | null) | undefined
-  client?: ("android" | "ios" | "web" | null) | undefined
-  setup_future_usage?: "none" | undefined
+  client?:
+    | ("android" | "ios" | "web" | UnknownEnumStringValue | null)
+    | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_options_zip = {
-  setup_future_usage?: "none" | undefined
+  setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
 export type t_payment_method_oxxo = EmptyObject
@@ -10019,6 +10783,7 @@ export type t_payment_method_p24 = {
         | "toyota_bank"
         | "velobank"
         | "volkswagen_bank"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -10062,8 +10827,12 @@ export type t_payment_method_swish = EmptyObject
 export type t_payment_method_twint = EmptyObject
 
 export type t_payment_method_us_bank_account = {
-  account_holder_type?: ("company" | "individual" | null) | undefined
-  account_type?: ("checking" | "savings" | null) | undefined
+  account_holder_type?:
+    | ("company" | "individual" | UnknownEnumStringValue | null)
+    | undefined
+  account_type?:
+    | ("checking" | "savings" | UnknownEnumStringValue | null)
+    | undefined
   bank_name?: (string | null) | undefined
   financial_connections_account?: (string | null) | undefined
   fingerprint?: (string | null) | undefined
@@ -10090,6 +10859,7 @@ export type t_payment_method_us_bank_account_blocked = {
         | "R20"
         | "R29"
         | "R31"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -10101,6 +10871,7 @@ export type t_payment_method_us_bank_account_blocked = {
         | "bank_account_restricted"
         | "bank_account_unusable"
         | "debit_not_authorized"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -10135,7 +10906,13 @@ export type t_payment_pages_checkout_session_automatic_tax = {
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
   status?:
-    | ("complete" | "failed" | "requires_location_inputs" | null)
+    | (
+        | "complete"
+        | "failed"
+        | "requires_location_inputs"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -10144,16 +10921,20 @@ export type t_payment_pages_checkout_session_collected_information = {
 }
 
 export type t_payment_pages_checkout_session_consent = {
-  promotions?: ("opt_in" | "opt_out" | null) | undefined
-  terms_of_service?: ("accepted" | null) | undefined
+  promotions?:
+    | ("opt_in" | "opt_out" | UnknownEnumStringValue | null)
+    | undefined
+  terms_of_service?: ("accepted" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_payment_pages_checkout_session_consent_collection = {
   payment_method_reuse_agreement?:
     | (t_payment_pages_checkout_session_payment_method_reuse_agreement | null)
     | undefined
-  promotions?: ("auto" | "none" | null) | undefined
-  terms_of_service?: ("none" | "required" | null) | undefined
+  promotions?: ("auto" | "none" | UnknownEnumStringValue | null) | undefined
+  terms_of_service?:
+    | ("none" | "required" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_pages_checkout_session_currency_conversion = {
@@ -10170,7 +10951,7 @@ export type t_payment_pages_checkout_session_custom_fields = {
   numeric?: t_payment_pages_checkout_session_custom_fields_numeric | undefined
   optional: boolean
   text?: t_payment_pages_checkout_session_custom_fields_text | undefined
-  type: "dropdown" | "numeric" | "text"
+  type: "dropdown" | "numeric" | "text" | UnknownEnumStringValue
 }
 
 export type t_payment_pages_checkout_session_custom_fields_dropdown = {
@@ -10181,7 +10962,7 @@ export type t_payment_pages_checkout_session_custom_fields_dropdown = {
 
 export type t_payment_pages_checkout_session_custom_fields_label = {
   custom?: (string | null) | undefined
-  type: "custom"
+  type: "custom" | UnknownEnumStringValue
 }
 
 export type t_payment_pages_checkout_session_custom_fields_numeric = {
@@ -10227,7 +11008,9 @@ export type t_payment_pages_checkout_session_customer_details = {
   email?: (string | null) | undefined
   name?: (string | null) | undefined
   phone?: (string | null) | undefined
-  tax_exempt?: ("exempt" | "none" | "reverse" | null) | undefined
+  tax_exempt?:
+    | ("exempt" | "none" | "reverse" | UnknownEnumStringValue | null)
+    | undefined
   tax_ids?: (t_payment_pages_checkout_session_tax_id[] | null) | undefined
 }
 
@@ -10260,7 +11043,7 @@ export type t_payment_pages_checkout_session_invoice_settings = {
 }
 
 export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
-  position: "auto" | "hidden"
+  position: "auto" | "hidden" | UnknownEnumStringValue
 }
 
 export type t_payment_pages_checkout_session_phone_number_collection = {
@@ -10269,10 +11052,14 @@ export type t_payment_pages_checkout_session_phone_number_collection = {
 
 export type t_payment_pages_checkout_session_saved_payment_method_options = {
   allow_redisplay_filters?:
-    | (("always" | "limited" | "unspecified")[] | null)
+    | (("always" | "limited" | "unspecified" | UnknownEnumStringValue)[] | null)
     | undefined
-  payment_method_remove?: ("disabled" | "enabled" | null) | undefined
-  payment_method_save?: ("disabled" | "enabled" | null) | undefined
+  payment_method_remove?:
+    | ("disabled" | "enabled" | UnknownEnumStringValue | null)
+    | undefined
+  payment_method_save?:
+    | ("disabled" | "enabled" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_pages_checkout_session_shipping_address_collection = {
@@ -10515,6 +11302,7 @@ export type t_payment_pages_checkout_session_shipping_address_collection = {
     | "ZM"
     | "ZW"
     | "ZZ"
+    | UnknownEnumStringValue
   )[]
 }
 
@@ -10634,12 +11422,13 @@ export type t_payment_pages_checkout_session_tax_id = {
     | "za_vat"
     | "zm_tin"
     | "zw_tin"
+    | UnknownEnumStringValue
   value?: (string | null) | undefined
 }
 
 export type t_payment_pages_checkout_session_tax_id_collection = {
   enabled: boolean
-  required: "if_supported" | "never"
+  required: "if_supported" | "never" | UnknownEnumStringValue
 }
 
 export type t_payment_pages_checkout_session_total_details = {
@@ -10665,6 +11454,7 @@ export type t_payment_pages_private_card_payment_method_options_resource_restric
           | "discover_global_network"
           | "mastercard"
           | "visa"
+          | UnknownEnumStringValue
         )[]
       | undefined
   }
@@ -10704,15 +11494,19 @@ export type t_payout = {
       } | null)
     | undefined
   method: string
-  object: "payout"
+  object: "payout" | UnknownEnumStringValue
   original_payout?: (string | t_payout | null) | undefined
-  reconciliation_status: "completed" | "in_progress" | "not_applicable"
+  reconciliation_status:
+    | "completed"
+    | "in_progress"
+    | "not_applicable"
+    | UnknownEnumStringValue
   reversed_by?: (string | t_payout | null) | undefined
   source_type: string
   statement_descriptor?: (string | null) | undefined
   status: string
   trace_id?: (t_payouts_trace_id | null) | undefined
-  type: "bank_account" | "card"
+  type: "bank_account" | "card" | UnknownEnumStringValue
 }
 
 export type t_payouts_trace_id = {
@@ -10722,9 +11516,16 @@ export type t_payouts_trace_id = {
 
 export type t_paypal_seller_protection = {
   dispute_categories?:
-    | (("fraudulent" | "product_not_received")[] | null)
+    | (
+        | ("fraudulent" | "product_not_received" | UnknownEnumStringValue)[]
+        | null
+      )
     | undefined
-  status: "eligible" | "not_eligible" | "partially_eligible"
+  status:
+    | "eligible"
+    | "not_eligible"
+    | "partially_eligible"
+    | UnknownEnumStringValue
 }
 
 export type t_period = {
@@ -10760,9 +11561,11 @@ export type t_person = {
       }
     | undefined
   nationality?: (string | null) | undefined
-  object: "person"
+  object: "person" | UnknownEnumStringValue
   phone?: (string | null) | undefined
-  political_exposure?: ("existing" | "none") | undefined
+  political_exposure?:
+    | ("existing" | "none" | UnknownEnumStringValue)
+    | undefined
   registered_address?: t_address | undefined
   relationship?: t_person_relationship | undefined
   requirements?: (t_person_requirements | null) | undefined
@@ -10812,15 +11615,22 @@ export type t_person_requirements = {
 export type t_plan = {
   active: boolean
   aggregate_usage?:
-    | ("last_during_period" | "last_ever" | "max" | "sum" | null)
+    | (
+        | "last_during_period"
+        | "last_ever"
+        | "max"
+        | "sum"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   amount?: (number | null) | undefined
   amount_decimal?: (string | null) | undefined
-  billing_scheme: "per_unit" | "tiered"
+  billing_scheme: "per_unit" | "tiered" | UnknownEnumStringValue
   created: number
   currency: string
   id: string
-  interval: "day" | "month" | "week" | "year"
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
   livemode: boolean
   metadata?:
@@ -10830,13 +11640,15 @@ export type t_plan = {
     | undefined
   meter?: (string | null) | undefined
   nickname?: (string | null) | undefined
-  object: "plan"
+  object: "plan" | UnknownEnumStringValue
   product?: (string | t_product | t_deleted_product | null) | undefined
   tiers?: t_plan_tier[] | undefined
-  tiers_mode?: ("graduated" | "volume" | null) | undefined
+  tiers_mode?:
+    | ("graduated" | "volume" | UnknownEnumStringValue | null)
+    | undefined
   transform_usage?: (t_transform_usage | null) | undefined
   trial_period_days?: (number | null) | undefined
-  usage_type: "licensed" | "metered"
+  usage_type: "licensed" | "metered" | UnknownEnumStringValue
 }
 
 export type t_plan_tier = {
@@ -10850,7 +11662,7 @@ export type t_plan_tier = {
 export type t_platform_earning_fee_source = {
   charge?: string | undefined
   payout?: string | undefined
-  type: "charge" | "payout"
+  type: "charge" | "payout" | UnknownEnumStringValue
 }
 
 export type t_portal_business_profile = {
@@ -10867,6 +11679,7 @@ export type t_portal_customer_update = {
     | "phone"
     | "shipping"
     | "tax_id"
+    | UnknownEnumStringValue
   )[]
   enabled: boolean
 }
@@ -10907,6 +11720,7 @@ export type t_portal_flows_flow = {
     | "subscription_cancel"
     | "subscription_update"
     | "subscription_update_confirm"
+    | UnknownEnumStringValue
 }
 
 export type t_portal_flows_flow_after_completion = {
@@ -10914,7 +11728,11 @@ export type t_portal_flows_flow_after_completion = {
     | (t_portal_flows_after_completion_hosted_confirmation | null)
     | undefined
   redirect?: (t_portal_flows_after_completion_redirect | null) | undefined
-  type: "hosted_confirmation" | "portal_homepage" | "redirect"
+  type:
+    | "hosted_confirmation"
+    | "portal_homepage"
+    | "redirect"
+    | UnknownEnumStringValue
 }
 
 export type t_portal_flows_flow_subscription_cancel = {
@@ -10936,7 +11754,7 @@ export type t_portal_flows_flow_subscription_update_confirm = {
 
 export type t_portal_flows_retention = {
   coupon_offer?: (t_portal_flows_coupon_offer | null) | undefined
-  type: "coupon_offer"
+  type: "coupon_offer" | UnknownEnumStringValue
 }
 
 export type t_portal_flows_subscription_update_confirm_discount = {
@@ -10968,14 +11786,21 @@ export type t_portal_resource_schedule_update_at_period_end = {
 }
 
 export type t_portal_resource_schedule_update_at_period_end_condition = {
-  type: "decreasing_item_amount" | "shortening_interval"
+  type:
+    | "decreasing_item_amount"
+    | "shortening_interval"
+    | UnknownEnumStringValue
 }
 
 export type t_portal_subscription_cancel = {
   cancellation_reason: t_portal_subscription_cancellation_reason
   enabled: boolean
-  mode: "at_period_end" | "immediately"
-  proration_behavior: "always_invoice" | "create_prorations" | "none"
+  mode: "at_period_end" | "immediately" | UnknownEnumStringValue
+  proration_behavior:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
 }
 
 export type t_portal_subscription_cancellation_reason = {
@@ -10989,14 +11814,24 @@ export type t_portal_subscription_cancellation_reason = {
     | "too_complex"
     | "too_expensive"
     | "unused"
+    | UnknownEnumStringValue
   )[]
 }
 
 export type t_portal_subscription_update = {
-  default_allowed_updates: ("price" | "promotion_code" | "quantity")[]
+  default_allowed_updates: (
+    | "price"
+    | "promotion_code"
+    | "quantity"
+    | UnknownEnumStringValue
+  )[]
   enabled: boolean
   products?: (t_portal_subscription_update_product[] | null) | undefined
-  proration_behavior: "always_invoice" | "create_prorations" | "none"
+  proration_behavior:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
   schedule_at_period_end: t_portal_resource_schedule_update_at_period_end
 }
 
@@ -11007,7 +11842,7 @@ export type t_portal_subscription_update_product = {
 
 export type t_price = {
   active: boolean
-  billing_scheme: "per_unit" | "tiered"
+  billing_scheme: "per_unit" | "tiered" | UnknownEnumStringValue
   created: number
   currency: string
   currency_options?:
@@ -11023,14 +11858,24 @@ export type t_price = {
     [key: string]: string | undefined
   }
   nickname?: (string | null) | undefined
-  object: "price"
+  object: "price" | UnknownEnumStringValue
   product: string | t_product | t_deleted_product
   recurring?: (t_recurring | null) | undefined
-  tax_behavior?: ("exclusive" | "inclusive" | "unspecified" | null) | undefined
+  tax_behavior?:
+    | (
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
   tiers?: t_price_tier[] | undefined
-  tiers_mode?: ("graduated" | "volume" | null) | undefined
+  tiers_mode?:
+    | ("graduated" | "volume" | UnknownEnumStringValue | null)
+    | undefined
   transform_quantity?: (t_transform_quantity | null) | undefined
-  type: "one_time" | "recurring"
+  type: "one_time" | "recurring" | UnknownEnumStringValue
   unit_amount?: (number | null) | undefined
   unit_amount_decimal?: (string | null) | undefined
 }
@@ -11056,7 +11901,7 @@ export type t_product = {
     [key: string]: string | undefined
   }
   name: string
-  object: "product"
+  object: "product" | UnknownEnumStringValue
   package_dimensions?: (t_package_dimensions | null) | undefined
   shippable?: (boolean | null) | undefined
   statement_descriptor?: (string | null) | undefined
@@ -11070,7 +11915,7 @@ export type t_product_feature = {
   entitlement_feature: t_entitlements_feature
   id: string
   livemode: boolean
-  object: "product_feature"
+  object: "product_feature" | UnknownEnumStringValue
 }
 
 export type t_product_marketing_feature = {
@@ -11092,7 +11937,7 @@ export type t_promotion_code = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "promotion_code"
+  object: "promotion_code" | UnknownEnumStringValue
   restrictions: t_promotion_codes_resource_restrictions
   times_redeemed: number
 }
@@ -11121,7 +11966,10 @@ export type t_quote = {
   application_fee_amount?: (number | null) | undefined
   application_fee_percent?: (number | null) | undefined
   automatic_tax: t_quotes_resource_automatic_tax
-  collection_method: "charge_automatically" | "send_invoice"
+  collection_method:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
   computed: t_quotes_resource_computed
   created: number
   currency?: (string | null) | undefined
@@ -11140,7 +11988,7 @@ export type t_quote = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -11149,9 +11997,9 @@ export type t_quote = {
     [key: string]: string | undefined
   }
   number?: (string | null) | undefined
-  object: "quote"
+  object: "quote" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
-  status: "accepted" | "canceled" | "draft" | "open"
+  status: "accepted" | "canceled" | "draft" | "open" | UnknownEnumStringValue
   status_transitions: t_quotes_resource_status_transitions
   subscription?: (string | t_subscription | null) | undefined
   subscription_data: t_quotes_resource_subscription_data_subscription_data
@@ -11165,7 +12013,13 @@ export type t_quotes_resource_automatic_tax = {
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
   status?:
-    | ("complete" | "failed" | "requires_location_inputs" | null)
+    | (
+        | "complete"
+        | "failed"
+        | "requires_location_inputs"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
 }
 
@@ -11182,7 +12036,7 @@ export type t_quotes_resource_from_quote = {
 export type t_quotes_resource_recurring = {
   amount_subtotal: number
   amount_total: number
-  interval: "day" | "month" | "week" | "year"
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
   total_details: t_quotes_resource_total_details
 }
@@ -11229,7 +12083,7 @@ export type t_quotes_resource_upfront = {
     | {
         data: t_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       }
     | undefined
@@ -11243,7 +12097,7 @@ export type t_radar_early_fraud_warning = {
   fraud_type: string
   id: string
   livemode: boolean
-  object: "radar.early_fraud_warning"
+  object: "radar.early_fraud_warning" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent) | undefined
 }
 
@@ -11263,10 +12117,11 @@ export type t_radar_value_list = {
     | "sepa_debit_fingerprint"
     | "string"
     | "us_bank_account_fingerprint"
+    | UnknownEnumStringValue
   list_items: {
     data: t_radar_value_list_item[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   livemode: boolean
@@ -11274,7 +12129,7 @@ export type t_radar_value_list = {
     [key: string]: string | undefined
   }
   name: string
-  object: "radar.value_list"
+  object: "radar.value_list" | UnknownEnumStringValue
 }
 
 export type t_radar_value_list_item = {
@@ -11282,7 +12137,7 @@ export type t_radar_value_list_item = {
   created_by: string
   id: string
   livemode: boolean
-  object: "radar.value_list_item"
+  object: "radar.value_list_item" | UnknownEnumStringValue
   value: string
   value_list: string
 }
@@ -11308,17 +12163,24 @@ export type t_radar_review_resource_session = {
 
 export type t_received_payment_method_details_financial_account = {
   id: string
-  network: "stripe"
+  network: "stripe" | UnknownEnumStringValue
 }
 
 export type t_recurring = {
   aggregate_usage?:
-    | ("last_during_period" | "last_ever" | "max" | "sum" | null)
+    | (
+        | "last_during_period"
+        | "last_ever"
+        | "max"
+        | "sum"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
-  interval: "day" | "month" | "week" | "year"
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
   meter?: (string | null) | undefined
-  usage_type: "licensed" | "metered"
+  usage_type: "licensed" | "metered" | UnknownEnumStringValue
 }
 
 export type t_refund = {
@@ -11339,7 +12201,7 @@ export type t_refund = {
       } | null)
     | undefined
   next_action?: t_refund_next_action | undefined
-  object: "refund"
+  object: "refund" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent | null) | undefined
   reason?:
     | (
@@ -11347,6 +12209,7 @@ export type t_refund = {
         | "expired_uncaptured_charge"
         | "fraudulent"
         | "requested_by_customer"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -11406,7 +12269,7 @@ export type t_refund_destination_details_card = {
   reference?: string | undefined
   reference_status?: string | undefined
   reference_type?: string | undefined
-  type: "pending" | "refund" | "reversal"
+  type: "pending" | "refund" | "reversal" | UnknownEnumStringValue
 }
 
 export type t_refund_destination_details_eu_bank_transfer = {
@@ -11470,7 +12333,7 @@ export type t_reporting_report_run = {
   error?: (string | null) | undefined
   id: string
   livemode: boolean
-  object: "reporting.report_run"
+  object: "reporting.report_run" | UnknownEnumStringValue
   parameters: t_financial_reporting_finance_report_run_run_parameters
   report_type: string
   result?: (t_file | null) | undefined
@@ -11485,7 +12348,7 @@ export type t_reporting_report_type = {
   id: string
   livemode: boolean
   name: string
-  object: "reporting.report_type"
+  object: "reporting.report_type" | UnknownEnumStringValue
   updated: number
   version: number
 }
@@ -11495,7 +12358,7 @@ export type t_reserve_transaction = {
   currency: string
   description?: (string | null) | undefined
   id: string
-  object: "reserve_transaction"
+  object: "reserve_transaction" | UnknownEnumStringValue
 }
 
 export type t_review = {
@@ -11508,6 +12371,7 @@ export type t_review = {
         | "redacted"
         | "refunded"
         | "refunded_as_fraud"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -11516,9 +12380,9 @@ export type t_review = {
   ip_address?: (string | null) | undefined
   ip_address_location?: (t_radar_review_resource_location | null) | undefined
   livemode: boolean
-  object: "review"
+  object: "review" | UnknownEnumStringValue
   open: boolean
-  opened_reason: "manual" | "rule"
+  opened_reason: "manual" | "rule" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent) | undefined
   reason: string
   session?: (t_radar_review_resource_session | null) | undefined
@@ -11526,7 +12390,7 @@ export type t_review = {
 
 export type t_revolut_pay_underlying_payment_method_funding_details = {
   card?: t_payment_method_details_passthrough_card | undefined
-  type?: ("card" | null) | undefined
+  type?: ("card" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_rule = {
@@ -11542,7 +12406,7 @@ export type t_scheduled_query_run = {
   file?: (t_file | null) | undefined
   id: string
   livemode: boolean
-  object: "scheduled_query_run"
+  object: "scheduled_query_run" | UnknownEnumStringValue
   result_available_until: number
   sql: string
   status: string
@@ -11550,13 +12414,15 @@ export type t_scheduled_query_run = {
 }
 
 export type t_schedules_phase_automatic_tax = {
-  disabled_reason?: ("requires_location_inputs" | null) | undefined
+  disabled_reason?:
+    | ("requires_location_inputs" | UnknownEnumStringValue | null)
+    | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
 
 export type t_secret_service_resource_scope = {
-  type: "account" | "user"
+  type: "account" | "user" | UnknownEnumStringValue
   user?: string | undefined
 }
 
@@ -11570,10 +12436,12 @@ export type t_setup_attempt = {
   attach_to_self?: boolean | undefined
   created: number
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
-  flow_directions?: (("inbound" | "outbound")[] | null) | undefined
+  flow_directions?:
+    | (("inbound" | "outbound" | UnknownEnumStringValue)[] | null)
+    | undefined
   id: string
   livemode: boolean
-  object: "setup_attempt"
+  object: "setup_attempt" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method: string | t_payment_method
   payment_method_details: t_setup_attempt_payment_method_details
@@ -11625,7 +12493,9 @@ export type t_setup_attempt_payment_method_details_bancontact = {
   generated_sepa_debit?: (string | t_payment_method | null) | undefined
   generated_sepa_debit_mandate?: (string | t_mandate | null) | undefined
   iban_last4?: (string | null) | undefined
-  preferred_language?: ("de" | "en" | "fr" | "nl" | null) | undefined
+  preferred_language?:
+    | ("de" | "en" | "fr" | "nl" | UnknownEnumStringValue | null)
+    | undefined
   verified_name?: (string | null) | undefined
 }
 
@@ -11663,7 +12533,7 @@ export type t_setup_attempt_payment_method_details_card_present = {
 export type t_setup_attempt_payment_method_details_card_wallet = {
   apple_pay?: t_payment_method_details_card_wallet_apple_pay | undefined
   google_pay?: t_payment_method_details_card_wallet_google_pay | undefined
-  type: "apple_pay" | "google_pay" | "link"
+  type: "apple_pay" | "google_pay" | "link" | UnknownEnumStringValue
 }
 
 export type t_setup_attempt_payment_method_details_cashapp = EmptyObject
@@ -11687,6 +12557,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "triodos_bank"
         | "van_lanschot"
         | "yoursafe"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -11709,6 +12580,7 @@ export type t_setup_attempt_payment_method_details_ideal = {
         | "REVOLT21"
         | "SNSBNL2A"
         | "TRIONL2U"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -11739,7 +12611,9 @@ export type t_setup_attempt_payment_method_details_sofort = {
   generated_sepa_debit?: (string | t_payment_method | null) | undefined
   generated_sepa_debit_mandate?: (string | t_mandate | null) | undefined
   iban_last4?: (string | null) | undefined
-  preferred_language?: ("de" | "en" | "fr" | "nl" | null) | undefined
+  preferred_language?:
+    | ("de" | "en" | "fr" | "nl" | UnknownEnumStringValue | null)
+    | undefined
   verified_name?: (string | null) | undefined
 }
 
@@ -11752,13 +12626,21 @@ export type t_setup_intent = {
     | (t_payment_flows_automatic_payment_methods_setup_intent | null)
     | undefined
   cancellation_reason?:
-    | ("abandoned" | "duplicate" | "requested_by_customer" | null)
+    | (
+        | "abandoned"
+        | "duplicate"
+        | "requested_by_customer"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   client_secret?: (string | null) | undefined
   created: number
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
   description?: (string | null) | undefined
-  flow_directions?: (("inbound" | "outbound")[] | null) | undefined
+  flow_directions?:
+    | (("inbound" | "outbound" | UnknownEnumStringValue)[] | null)
+    | undefined
   id: string
   last_setup_error?: (t_api_errors | null) | undefined
   latest_attempt?: (string | t_setup_attempt | null) | undefined
@@ -11770,7 +12652,7 @@ export type t_setup_intent = {
       } | null)
     | undefined
   next_action?: (t_setup_intent_next_action | null) | undefined
-  object: "setup_intent"
+  object: "setup_intent" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   payment_method?: (string | t_payment_method | null) | undefined
   payment_method_configuration_details?:
@@ -11788,6 +12670,7 @@ export type t_setup_intent = {
     | "requires_confirmation"
     | "requires_payment_method"
     | "succeeded"
+    | UnknownEnumStringValue
   usage: string
 }
 
@@ -11811,7 +12694,9 @@ export type t_setup_intent_next_action_redirect_to_url = {
 export type t_setup_intent_next_action_verify_with_microdeposits = {
   arrival_date: number
   hosted_verification_url: string
-  microdeposit_type?: ("amounts" | "descriptor_code" | null) | undefined
+  microdeposit_type?:
+    | ("amounts" | "descriptor_code" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_setup_intent_payment_method_options = {
@@ -11872,11 +12757,13 @@ export type t_setup_intent_payment_method_options = {
 }
 
 export type t_setup_intent_payment_method_options_acss_debit = {
-  currency?: ("cad" | "usd" | null) | undefined
+  currency?: ("cad" | "usd" | UnknownEnumStringValue | null) | undefined
   mandate_options?:
     | t_setup_intent_payment_method_options_mandate_options_acss_debit
     | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_setup_intent_payment_method_options_amazon_pay = EmptyObject
@@ -11906,25 +12793,32 @@ export type t_setup_intent_payment_method_options_card = {
         | "unionpay"
         | "unknown"
         | "visa"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   request_three_d_secure?:
-    | ("any" | "automatic" | "challenge" | null)
+    | ("any" | "automatic" | "challenge" | UnknownEnumStringValue | null)
     | undefined
 }
 
 export type t_setup_intent_payment_method_options_card_mandate_options = {
   amount: number
-  amount_type: "fixed" | "maximum"
+  amount_type: "fixed" | "maximum" | UnknownEnumStringValue
   currency: string
   description?: (string | null) | undefined
   end_date?: (number | null) | undefined
-  interval: "day" | "month" | "sporadic" | "week" | "year"
+  interval:
+    | "day"
+    | "month"
+    | "sporadic"
+    | "week"
+    | "year"
+    | UnknownEnumStringValue
   interval_count?: (number | null) | undefined
   reference: string
   start_date: number
-  supported_types?: ("india"[] | null) | undefined
+  supported_types?: (("india" | UnknownEnumStringValue)[] | null) | undefined
 }
 
 export type t_setup_intent_payment_method_options_card_present = EmptyObject
@@ -11933,10 +12827,16 @@ export type t_setup_intent_payment_method_options_link = EmptyObject
 
 export type t_setup_intent_payment_method_options_mandate_options_acss_debit = {
   custom_mandate_url?: string | undefined
-  default_for?: ("invoice" | "subscription")[] | undefined
+  default_for?:
+    | ("invoice" | "subscription" | UnknownEnumStringValue)[]
+    | undefined
   interval_description?: (string | null) | undefined
-  payment_schedule?: ("combined" | "interval" | "sporadic" | null) | undefined
-  transaction_type?: ("business" | "personal" | null) | undefined
+  payment_schedule?:
+    | ("combined" | "interval" | "sporadic" | UnknownEnumStringValue | null)
+    | undefined
+  transaction_type?:
+    | ("business" | "personal" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_setup_intent_payment_method_options_mandate_options_bacs_debit = {
@@ -11962,11 +12862,15 @@ export type t_setup_intent_payment_method_options_us_bank_account = {
   mandate_options?:
     | t_payment_method_options_us_bank_account_mandate_options
     | undefined
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_setup_intent_type_specific_payment_method_options_client = {
-  verification_method?: ("automatic" | "instant" | "microdeposits") | undefined
+  verification_method?:
+    | ("automatic" | "instant" | "microdeposits" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_shipping = {
@@ -11988,15 +12892,27 @@ export type t_shipping_rate = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "shipping_rate"
-  tax_behavior?: ("exclusive" | "inclusive" | "unspecified" | null) | undefined
+  object: "shipping_rate" | UnknownEnumStringValue
+  tax_behavior?:
+    | (
+        | "exclusive"
+        | "inclusive"
+        | "unspecified"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
   tax_code?: (string | t_tax_code | null) | undefined
-  type: "fixed_amount"
+  type: "fixed_amount" | UnknownEnumStringValue
 }
 
 export type t_shipping_rate_currency_option = {
   amount: number
-  tax_behavior: "exclusive" | "inclusive" | "unspecified"
+  tax_behavior:
+    | "exclusive"
+    | "inclusive"
+    | "unspecified"
+    | UnknownEnumStringValue
 }
 
 export type t_shipping_rate_delivery_estimate = {
@@ -12005,7 +12921,13 @@ export type t_shipping_rate_delivery_estimate = {
 }
 
 export type t_shipping_rate_delivery_estimate_bound = {
-  unit: "business_day" | "day" | "hour" | "month" | "week"
+  unit:
+    | "business_day"
+    | "day"
+    | "hour"
+    | "month"
+    | "week"
+    | UnknownEnumStringValue
   value: number
 }
 
@@ -12028,7 +12950,9 @@ export type t_source = {
   ach_debit?: t_source_type_ach_debit | undefined
   acss_debit?: t_source_type_acss_debit | undefined
   alipay?: t_source_type_alipay | undefined
-  allow_redisplay?: ("always" | "limited" | "unspecified" | null) | undefined
+  allow_redisplay?:
+    | ("always" | "limited" | "unspecified" | UnknownEnumStringValue | null)
+    | undefined
   amount?: (number | null) | undefined
   au_becs_debit?: t_source_type_au_becs_debit | undefined
   bancontact?: t_source_type_bancontact | undefined
@@ -12052,7 +12976,7 @@ export type t_source = {
       } | null)
     | undefined
   multibanco?: t_source_type_multibanco | undefined
-  object: "source"
+  object: "source" | UnknownEnumStringValue
   owner?: (t_source_owner | null) | undefined
   p24?: t_source_type_p24 | undefined
   receiver?: t_source_receiver_flow | undefined
@@ -12082,6 +13006,7 @@ export type t_source = {
     | "sofort"
     | "three_d_secure"
     | "wechat"
+    | UnknownEnumStringValue
   usage?: (string | null) | undefined
   wechat?: t_source_type_wechat | undefined
 }
@@ -12098,7 +13023,7 @@ export type t_source_mandate_notification = {
   created: number
   id: string
   livemode: boolean
-  object: "source_mandate_notification"
+  object: "source_mandate_notification" | UnknownEnumStringValue
   reason: string
   sepa_debit?: t_source_mandate_notification_sepa_debit_data | undefined
   source: t_source
@@ -12179,7 +13104,7 @@ export type t_source_transaction = {
     | undefined
   id: string
   livemode: boolean
-  object: "source_transaction"
+  object: "source_transaction" | UnknownEnumStringValue
   paper_check?: t_source_transaction_paper_check_data | undefined
   sepa_credit_transfer?:
     | t_source_transaction_sepa_credit_transfer_data
@@ -12203,6 +13128,7 @@ export type t_source_transaction = {
     | "sofort"
     | "three_d_secure"
     | "wechat"
+    | UnknownEnumStringValue
 }
 
 export type t_source_transaction_ach_credit_transfer_data = {
@@ -12464,7 +13390,10 @@ export type t_subscription = {
   cancel_at_period_end: boolean
   canceled_at?: (number | null) | undefined
   cancellation_details?: (t_cancellation_details | null) | undefined
-  collection_method: "charge_automatically" | "send_invoice"
+  collection_method:
+    | "charge_automatically"
+    | "send_invoice"
+    | UnknownEnumStringValue
   created: number
   currency: string
   current_period_end: number
@@ -12485,7 +13414,7 @@ export type t_subscription = {
   items: {
     data: t_subscription_item[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   latest_invoice?: (string | t_invoice | null) | undefined
@@ -12494,7 +13423,7 @@ export type t_subscription = {
     [key: string]: string | undefined
   }
   next_pending_invoice_item_invoice?: (number | null) | undefined
-  object: "subscription"
+  object: "subscription" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
   pause_collection?:
     | (t_subscriptions_resource_pause_collection | null)
@@ -12518,6 +13447,7 @@ export type t_subscription = {
     | "paused"
     | "trialing"
     | "unpaid"
+    | UnknownEnumStringValue
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   transfer_data?: (t_subscription_transfer_data | null) | undefined
   trial_end?: (number | null) | undefined
@@ -12528,7 +13458,9 @@ export type t_subscription = {
 }
 
 export type t_subscription_automatic_tax = {
-  disabled_reason?: ("requires_location_inputs" | null) | undefined
+  disabled_reason?:
+    | ("requires_location_inputs" | UnknownEnumStringValue | null)
+    | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -12556,7 +13488,7 @@ export type t_subscription_item = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "subscription_item"
+  object: "subscription_item" | UnknownEnumStringValue
   price: t_price
   quantity?: number | undefined
   subscription: string
@@ -12584,16 +13516,17 @@ export type t_subscription_payment_method_options_card = {
         | "unionpay"
         | "unknown"
         | "visa"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   request_three_d_secure?:
-    | ("any" | "automatic" | "challenge" | null)
+    | ("any" | "automatic" | "challenge" | UnknownEnumStringValue | null)
     | undefined
 }
 
 export type t_subscription_pending_invoice_item_interval = {
-  interval: "day" | "month" | "week" | "year"
+  interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
 }
 
@@ -12607,7 +13540,7 @@ export type t_subscription_schedule = {
   current_phase?: (t_subscription_schedule_current_phase | null) | undefined
   customer: string | t_customer | t_deleted_customer
   default_settings: t_subscription_schedules_resource_default_settings
-  end_behavior: "cancel" | "none" | "release" | "renew"
+  end_behavior: "cancel" | "none" | "release" | "renew" | UnknownEnumStringValue
   id: string
   livemode: boolean
   metadata?:
@@ -12615,11 +13548,17 @@ export type t_subscription_schedule = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "subscription_schedule"
+  object: "subscription_schedule" | UnknownEnumStringValue
   phases: t_subscription_schedule_phase_configuration[]
   released_at?: (number | null) | undefined
   released_subscription?: (string | null) | undefined
-  status: "active" | "canceled" | "completed" | "not_started" | "released"
+  status:
+    | "active"
+    | "canceled"
+    | "completed"
+    | "not_started"
+    | "released"
+    | UnknownEnumStringValue
   subscription?: (string | t_subscription | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
 }
@@ -12655,10 +13594,12 @@ export type t_subscription_schedule_phase_configuration = {
   add_invoice_items: t_subscription_schedule_add_invoice_item[]
   application_fee_percent?: (number | null) | undefined
   automatic_tax?: t_schedules_phase_automatic_tax | undefined
-  billing_cycle_anchor?: ("automatic" | "phase_start" | null) | undefined
+  billing_cycle_anchor?:
+    | ("automatic" | "phase_start" | UnknownEnumStringValue | null)
+    | undefined
   billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   collection_method?:
-    | ("charge_automatically" | "send_invoice" | null)
+    | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue | null)
     | undefined
   coupon?: (string | t_coupon | t_deleted_coupon | null) | undefined
   currency: string
@@ -12677,7 +13618,11 @@ export type t_subscription_schedule_phase_configuration = {
       } | null)
     | undefined
   on_behalf_of?: (string | t_account | null) | undefined
-  proration_behavior: "always_invoice" | "create_prorations" | "none"
+  proration_behavior:
+    | "always_invoice"
+    | "create_prorations"
+    | "none"
+    | UnknownEnumStringValue
   start_date: number
   transfer_data?: (t_subscription_transfer_data | null) | undefined
   trial_end?: (number | null) | undefined
@@ -12688,10 +13633,10 @@ export type t_subscription_schedules_resource_default_settings = {
   automatic_tax?:
     | t_subscription_schedules_resource_default_settings_automatic_tax
     | undefined
-  billing_cycle_anchor: "automatic" | "phase_start"
+  billing_cycle_anchor: "automatic" | "phase_start" | UnknownEnumStringValue
   billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   collection_method?:
-    | ("charge_automatically" | "send_invoice" | null)
+    | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue | null)
     | undefined
   default_payment_method?: (string | t_payment_method | null) | undefined
   description?: (string | null) | undefined
@@ -12701,7 +13646,9 @@ export type t_subscription_schedules_resource_default_settings = {
 }
 
 export type t_subscription_schedules_resource_default_settings_automatic_tax = {
-  disabled_reason?: ("requires_location_inputs" | null) | undefined
+  disabled_reason?:
+    | ("requires_location_inputs" | UnknownEnumStringValue | null)
+    | undefined
   enabled: boolean
   liability?: (t_connect_account_reference | null) | undefined
 }
@@ -12720,7 +13667,11 @@ export type t_subscriptions_resource_billing_cycle_anchor_config = {
 }
 
 export type t_subscriptions_resource_pause_collection = {
-  behavior: "keep_as_draft" | "mark_uncollectible" | "void"
+  behavior:
+    | "keep_as_draft"
+    | "mark_uncollectible"
+    | "void"
+    | UnknownEnumStringValue
   resumes_at?: (number | null) | undefined
 }
 
@@ -12780,11 +13731,14 @@ export type t_subscriptions_resource_payment_settings = {
             | "swish"
             | "us_bank_account"
             | "wechat_pay"
+            | UnknownEnumStringValue
           )[]
         | null
       )
     | undefined
-  save_default_payment_method?: ("off" | "on_subscription" | null) | undefined
+  save_default_payment_method?:
+    | ("off" | "on_subscription" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_subscriptions_resource_pending_update = {
@@ -12803,7 +13757,11 @@ export type t_subscriptions_resource_subscription_invoice_settings = {
 }
 
 export type t_subscriptions_trials_resource_end_behavior = {
-  missing_payment_method: "cancel" | "create_invoice" | "pause"
+  missing_payment_method:
+    | "cancel"
+    | "create_invoice"
+    | "pause"
+    | UnknownEnumStringValue
 }
 
 export type t_subscriptions_trials_resource_trial_settings = {
@@ -12821,12 +13779,12 @@ export type t_tax_calculation = {
     | ({
         data: t_tax_calculation_line_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       } | null)
     | undefined
   livemode: boolean
-  object: "tax.calculation"
+  object: "tax.calculation" | UnknownEnumStringValue
   ship_from_details?:
     | (t_tax_product_resource_ship_from_details | null)
     | undefined
@@ -12844,11 +13802,11 @@ export type t_tax_calculation_line_item = {
   amount_tax: number
   id: string
   livemode: boolean
-  object: "tax.calculation_line_item"
+  object: "tax.calculation_line_item" | UnknownEnumStringValue
   product?: (string | null) | undefined
   quantity: number
   reference?: (string | null) | undefined
-  tax_behavior: "exclusive" | "inclusive"
+  tax_behavior: "exclusive" | "inclusive" | UnknownEnumStringValue
   tax_breakdown?:
     | (t_tax_product_resource_line_item_tax_breakdown[] | null)
     | undefined
@@ -12863,8 +13821,8 @@ export type t_tax_registration = {
   expires_at?: (number | null) | undefined
   id: string
   livemode: boolean
-  object: "tax.registration"
-  status: "active" | "expired" | "scheduled"
+  object: "tax.registration" | UnknownEnumStringValue
+  status: "active" | "expired" | "scheduled" | UnknownEnumStringValue
 }
 
 export type t_tax_settings = {
@@ -12873,8 +13831,8 @@ export type t_tax_settings = {
     | (t_tax_product_resource_tax_settings_head_office | null)
     | undefined
   livemode: boolean
-  object: "tax.settings"
-  status: "active" | "pending"
+  object: "tax.settings" | UnknownEnumStringValue
+  status: "active" | "pending" | UnknownEnumStringValue
   status_details: t_tax_product_resource_tax_settings_status_details
 }
 
@@ -12888,7 +13846,7 @@ export type t_tax_transaction = {
     | ({
         data: t_tax_transaction_line_item[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       } | null)
     | undefined
@@ -12898,7 +13856,7 @@ export type t_tax_transaction = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "tax.transaction"
+  object: "tax.transaction" | UnknownEnumStringValue
   posted_at: number
   reference: string
   reversal?:
@@ -12911,7 +13869,7 @@ export type t_tax_transaction = {
     | (t_tax_product_resource_tax_transaction_shipping_cost | null)
     | undefined
   tax_date: number
-  type: "reversal" | "transaction"
+  type: "reversal" | "transaction" | UnknownEnumStringValue
 }
 
 export type t_tax_transaction_line_item = {
@@ -12924,28 +13882,28 @@ export type t_tax_transaction_line_item = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "tax.transaction_line_item"
+  object: "tax.transaction_line_item" | UnknownEnumStringValue
   product?: (string | null) | undefined
   quantity: number
   reference: string
   reversal?:
     | (t_tax_product_resource_tax_transaction_line_item_resource_reversal | null)
     | undefined
-  tax_behavior: "exclusive" | "inclusive"
+  tax_behavior: "exclusive" | "inclusive" | UnknownEnumStringValue
   tax_code: string
-  type: "reversal" | "transaction"
+  type: "reversal" | "transaction" | UnknownEnumStringValue
 }
 
 export type t_tax_code = {
   description: string
   id: string
   name: string
-  object: "tax_code"
+  object: "tax_code" | UnknownEnumStringValue
 }
 
 export type t_tax_deducted_at_source = {
   id: string
-  object: "tax_deducted_at_source"
+  object: "tax_deducted_at_source" | UnknownEnumStringValue
   period_end: number
   period_start: number
   tax_deduction_account_number: string
@@ -12955,7 +13913,7 @@ export type t_tax_i_ds_owner = {
   account?: (string | t_account) | undefined
   application?: (string | t_application) | undefined
   customer?: (string | t_customer) | undefined
-  type: "account" | "application" | "customer" | "self"
+  type: "account" | "application" | "customer" | "self" | UnknownEnumStringValue
 }
 
 export type t_tax_id = {
@@ -12964,7 +13922,7 @@ export type t_tax_id = {
   customer?: (string | t_customer | null) | undefined
   id: string
   livemode: boolean
-  object: "tax_id"
+  object: "tax_id" | UnknownEnumStringValue
   owner?: (t_tax_i_ds_owner | null) | undefined
   type:
     | "ad_nrt"
@@ -13068,12 +14026,18 @@ export type t_tax_id = {
     | "za_vat"
     | "zm_tin"
     | "zw_tin"
+    | UnknownEnumStringValue
   value: string
   verification?: (t_tax_id_verification | null) | undefined
 }
 
 export type t_tax_id_verification = {
-  status: "pending" | "unavailable" | "unverified" | "verified"
+  status:
+    | "pending"
+    | "unavailable"
+    | "unverified"
+    | "verified"
+    | UnknownEnumStringValue
   verified_address?: (string | null) | undefined
   verified_name?: (string | null) | undefined
 }
@@ -13240,26 +14204,31 @@ export type t_tax_product_registrations_resource_country_options_canada = {
   province_standard?:
     | t_tax_product_registrations_resource_country_options_ca_province_standard
     | undefined
-  type: "province_standard" | "simplified" | "standard"
+  type: "province_standard" | "simplified" | "standard" | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_default = {
-  type: "standard"
+  type: "standard" | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_eu_standard = {
-  place_of_supply_scheme: "small_seller" | "standard"
+  place_of_supply_scheme: "small_seller" | "standard" | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_europe = {
   standard?:
     | t_tax_product_registrations_resource_country_options_eu_standard
     | undefined
-  type: "ioss" | "oss_non_union" | "oss_union" | "standard"
+  type:
+    | "ioss"
+    | "oss_non_union"
+    | "oss_union"
+    | "standard"
+    | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_simplified = {
-  type: "simplified"
+  type: "simplified" | UnknownEnumStringValue
 }
 
 export type t_tax_product_registrations_resource_country_options_united_states =
@@ -13280,6 +14249,7 @@ export type t_tax_product_registrations_resource_country_options_united_states =
       | "state_communications_tax"
       | "state_retail_delivery_fee"
       | "state_sales_tax"
+      | UnknownEnumStringValue
   }
 
 export type t_tax_product_registrations_resource_country_options_us_local_amusement_tax =
@@ -13306,14 +14276,21 @@ export type t_tax_product_registrations_resource_country_options_us_state_sales_
       | "local_use_tax"
       | "simplified_sellers_use_tax"
       | "single_local_use_tax"
+      | UnknownEnumStringValue
   }
 
 export type t_tax_product_resource_customer_details = {
   address?: (t_tax_product_resource_postal_address | null) | undefined
-  address_source?: ("billing" | "shipping" | null) | undefined
+  address_source?:
+    | ("billing" | "shipping" | UnknownEnumStringValue | null)
+    | undefined
   ip_address?: (string | null) | undefined
   tax_ids: t_tax_product_resource_customer_details_resource_tax_id[]
-  taxability_override: "customer_exempt" | "none" | "reverse_charge"
+  taxability_override:
+    | "customer_exempt"
+    | "none"
+    | "reverse_charge"
+    | UnknownEnumStringValue
 }
 
 export type t_tax_product_resource_customer_details_resource_tax_id = {
@@ -13419,20 +14396,27 @@ export type t_tax_product_resource_customer_details_resource_tax_id = {
     | "za_vat"
     | "zm_tin"
     | "zw_tin"
+    | UnknownEnumStringValue
   value: string
 }
 
 export type t_tax_product_resource_jurisdiction = {
   country: string
   display_name: string
-  level: "city" | "country" | "county" | "district" | "state"
+  level:
+    | "city"
+    | "country"
+    | "county"
+    | "district"
+    | "state"
+    | UnknownEnumStringValue
   state?: (string | null) | undefined
 }
 
 export type t_tax_product_resource_line_item_tax_breakdown = {
   amount: number
   jurisdiction: t_tax_product_resource_jurisdiction
-  sourcing: "destination" | "origin"
+  sourcing: "destination" | "origin" | UnknownEnumStringValue
   tax_rate_details?:
     | (t_tax_product_resource_line_item_tax_rate_details | null)
     | undefined
@@ -13452,6 +14436,7 @@ export type t_tax_product_resource_line_item_tax_breakdown = {
     | "standard_rated"
     | "taxable_basis_reduced"
     | "zero_rated"
+    | UnknownEnumStringValue
   taxable_amount: number
 }
 
@@ -13473,6 +14458,7 @@ export type t_tax_product_resource_line_item_tax_rate_details = {
     | "sales_tax"
     | "service_tax"
     | "vat"
+    | UnknownEnumStringValue
 }
 
 export type t_tax_product_resource_postal_address = {
@@ -13508,6 +14494,7 @@ export type t_tax_product_resource_tax_breakdown = {
     | "standard_rated"
     | "taxable_basis_reduced"
     | "zero_rated"
+    | UnknownEnumStringValue
   taxable_amount: number
 }
 
@@ -13515,7 +14502,7 @@ export type t_tax_product_resource_tax_calculation_shipping_cost = {
   amount: number
   amount_tax: number
   shipping_rate?: string | undefined
-  tax_behavior: "exclusive" | "inclusive"
+  tax_behavior: "exclusive" | "inclusive" | UnknownEnumStringValue
   tax_breakdown?: t_tax_product_resource_line_item_tax_breakdown[] | undefined
   tax_code: string
 }
@@ -13524,7 +14511,9 @@ export type t_tax_product_resource_tax_rate_details = {
   country?: (string | null) | undefined
   flat_amount?: (t_tax_rate_flat_amount | null) | undefined
   percentage_decimal: string
-  rate_type?: ("flat_amount" | "percentage" | null) | undefined
+  rate_type?:
+    | ("flat_amount" | "percentage" | UnknownEnumStringValue | null)
+    | undefined
   state?: (string | null) | undefined
   tax_type?:
     | (
@@ -13542,6 +14531,7 @@ export type t_tax_product_resource_tax_rate_details = {
         | "sales_tax"
         | "service_tax"
         | "vat"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -13549,7 +14539,13 @@ export type t_tax_product_resource_tax_rate_details = {
 
 export type t_tax_product_resource_tax_settings_defaults = {
   tax_behavior?:
-    | ("exclusive" | "inclusive" | "inferred_by_currency" | null)
+    | (
+        | "exclusive"
+        | "inclusive"
+        | "inferred_by_currency"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   tax_code?: (string | null) | undefined
 }
@@ -13588,7 +14584,7 @@ export type t_tax_product_resource_tax_transaction_shipping_cost = {
   amount: number
   amount_tax: number
   shipping_rate?: string | undefined
-  tax_behavior: "exclusive" | "inclusive"
+  tax_behavior: "exclusive" | "inclusive" | UnknownEnumStringValue
   tax_code: string
 }
 
@@ -13604,7 +14600,16 @@ export type t_tax_rate = {
   inclusive: boolean
   jurisdiction?: (string | null) | undefined
   jurisdiction_level?:
-    | ("city" | "country" | "county" | "district" | "multiple" | "state" | null)
+    | (
+        | "city"
+        | "country"
+        | "county"
+        | "district"
+        | "multiple"
+        | "state"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   livemode: boolean
   metadata?:
@@ -13612,9 +14617,11 @@ export type t_tax_rate = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "tax_rate"
+  object: "tax_rate" | UnknownEnumStringValue
   percentage: number
-  rate_type?: ("flat_amount" | "percentage" | null) | undefined
+  rate_type?:
+    | ("flat_amount" | "percentage" | UnknownEnumStringValue | null)
+    | undefined
   state?: (string | null) | undefined
   tax_type?:
     | (
@@ -13632,6 +14639,7 @@ export type t_tax_rate = {
         | "sales_tax"
         | "service_tax"
         | "vat"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -13650,7 +14658,7 @@ export type t_terminal_configuration = {
   is_account_default?: (boolean | null) | undefined
   livemode: boolean
   name?: (string | null) | undefined
-  object: "terminal.configuration"
+  object: "terminal.configuration" | UnknownEnumStringValue
   offline?:
     | t_terminal_configuration_configuration_resource_offline_config
     | undefined
@@ -13668,7 +14676,7 @@ export type t_terminal_configuration = {
 
 export type t_terminal_connection_token = {
   location?: string | undefined
-  object: "terminal.connection_token"
+  object: "terminal.connection_token" | UnknownEnumStringValue
   secret: string
 }
 
@@ -13681,7 +14689,7 @@ export type t_terminal_location = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "terminal.location"
+  object: "terminal.location" | UnknownEnumStringValue
 }
 
 export type t_terminal_reader = {
@@ -13696,6 +14704,7 @@ export type t_terminal_reader = {
     | "stripe_m2"
     | "stripe_s700"
     | "verifone_P400"
+    | UnknownEnumStringValue
   id: string
   ip_address?: (string | null) | undefined
   label: string
@@ -13704,9 +14713,9 @@ export type t_terminal_reader = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "terminal.reader"
+  object: "terminal.reader" | UnknownEnumStringValue
   serial_number: string
-  status?: ("offline" | "online" | null) | undefined
+  status?: ("offline" | "online" | UnknownEnumStringValue | null) | undefined
 }
 
 export type t_terminal_configuration_configuration_resource_currency_specific_config =
@@ -13832,12 +14841,13 @@ export type t_terminal_reader_reader_resource_reader_action = {
   set_reader_display?:
     | t_terminal_reader_reader_resource_set_reader_display_action
     | undefined
-  status: "failed" | "in_progress" | "succeeded"
+  status: "failed" | "in_progress" | "succeeded" | UnknownEnumStringValue
   type:
     | "process_payment_intent"
     | "process_setup_intent"
     | "refund_payment"
     | "set_reader_display"
+    | UnknownEnumStringValue
 }
 
 export type t_terminal_reader_reader_resource_refund_payment_action = {
@@ -13849,7 +14859,14 @@ export type t_terminal_reader_reader_resource_refund_payment_action = {
       }
     | undefined
   payment_intent?: (string | t_payment_intent) | undefined
-  reason?: ("duplicate" | "fraudulent" | "requested_by_customer") | undefined
+  reason?:
+    | (
+        | "duplicate"
+        | "fraudulent"
+        | "requested_by_customer"
+        | UnknownEnumStringValue
+      )
+    | undefined
   refund?: (string | t_refund) | undefined
   refund_application_fee?: boolean | undefined
   refund_payment_config?:
@@ -13864,7 +14881,7 @@ export type t_terminal_reader_reader_resource_refund_payment_config = {
 
 export type t_terminal_reader_reader_resource_set_reader_display_action = {
   cart?: (t_terminal_reader_reader_resource_cart | null) | undefined
-  type: "cart"
+  type: "cart" | UnknownEnumStringValue
 }
 
 export type t_terminal_reader_reader_resource_tipping_config = {
@@ -13878,15 +14895,17 @@ export type t_test_helpers_test_clock = {
   id: string
   livemode: boolean
   name?: (string | null) | undefined
-  object: "test_helpers.test_clock"
-  status: "advancing" | "internal_failure" | "ready"
+  object: "test_helpers.test_clock" | UnknownEnumStringValue
+  status: "advancing" | "internal_failure" | "ready" | UnknownEnumStringValue
   status_details: t_billing_clocks_resource_status_details_status_details
 }
 
 export type t_three_d_secure_details = {
-  authentication_flow?: ("challenge" | "frictionless" | null) | undefined
+  authentication_flow?:
+    | ("challenge" | "frictionless" | UnknownEnumStringValue | null)
+    | undefined
   electronic_commerce_indicator?:
-    | ("01" | "02" | "05" | "06" | "07" | null)
+    | ("01" | "02" | "05" | "06" | "07" | UnknownEnumStringValue | null)
     | undefined
   result?:
     | (
@@ -13896,6 +14915,7 @@ export type t_three_d_secure_details = {
         | "failed"
         | "not_supported"
         | "processing_error"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -13908,19 +14928,26 @@ export type t_three_d_secure_details = {
         | "network_not_supported"
         | "protocol_error"
         | "rejected"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   transaction_id?: (string | null) | undefined
-  version?: ("1.0.2" | "2.1.0" | "2.2.0" | null) | undefined
+  version?:
+    | ("1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_three_d_secure_details_charge = {
-  authentication_flow?: ("challenge" | "frictionless" | null) | undefined
-  electronic_commerce_indicator?:
-    | ("01" | "02" | "05" | "06" | "07" | null)
+  authentication_flow?:
+    | ("challenge" | "frictionless" | UnknownEnumStringValue | null)
     | undefined
-  exemption_indicator?: ("low_risk" | "none" | null) | undefined
+  electronic_commerce_indicator?:
+    | ("01" | "02" | "05" | "06" | "07" | UnknownEnumStringValue | null)
+    | undefined
+  exemption_indicator?:
+    | ("low_risk" | "none" | UnknownEnumStringValue | null)
+    | undefined
   exemption_indicator_applied?: boolean | undefined
   result?:
     | (
@@ -13930,6 +14957,7 @@ export type t_three_d_secure_details_charge = {
         | "failed"
         | "not_supported"
         | "processing_error"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -13942,11 +14970,14 @@ export type t_three_d_secure_details_charge = {
         | "network_not_supported"
         | "protocol_error"
         | "rejected"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
   transaction_id?: (string | null) | undefined
-  version?: ("1.0.2" | "2.1.0" | "2.2.0" | null) | undefined
+  version?:
+    | ("1.0.2" | "2.1.0" | "2.2.0" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_three_d_secure_usage = {
@@ -13955,14 +14986,14 @@ export type t_three_d_secure_usage = {
 
 export type t_thresholds_resource_usage_alert_filter = {
   customer?: (string | t_customer | null) | undefined
-  type: "customer"
+  type: "customer" | UnknownEnumStringValue
 }
 
 export type t_thresholds_resource_usage_threshold_config = {
   filters?: (t_thresholds_resource_usage_alert_filter[] | null) | undefined
   gte: number
   meter: string | t_billing_meter
-  recurrence: "one_time"
+  recurrence: "one_time" | UnknownEnumStringValue
 }
 
 export type t_token = {
@@ -13972,7 +15003,7 @@ export type t_token = {
   created: number
   id: string
   livemode: boolean
-  object: "token"
+  object: "token" | UnknownEnumStringValue
   type: string
   used: boolean
 }
@@ -13995,10 +15026,16 @@ export type t_topup = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "topup"
+  object: "topup" | UnknownEnumStringValue
   source?: (t_source | null) | undefined
   statement_descriptor?: (string | null) | undefined
-  status: "canceled" | "failed" | "pending" | "reversed" | "succeeded"
+  status:
+    | "canceled"
+    | "failed"
+    | "pending"
+    | "reversed"
+    | "succeeded"
+    | UnknownEnumStringValue
   transfer_group?: (string | null) | undefined
 }
 
@@ -14016,11 +15053,11 @@ export type t_transfer = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "transfer"
+  object: "transfer" | UnknownEnumStringValue
   reversals: {
     data: t_transfer_reversal[]
     has_more: boolean
-    object: "list"
+    object: "list" | UnknownEnumStringValue
     url: string
   }
   reversed: boolean
@@ -14046,7 +15083,7 @@ export type t_transfer_reversal = {
         [key: string]: string | undefined
       } | null)
     | undefined
-  object: "transfer_reversal"
+  object: "transfer_reversal" | UnknownEnumStringValue
   source_refund?: (string | t_refund | null) | undefined
   transfer: string | t_transfer
 }
@@ -14060,12 +15097,12 @@ export type t_transfer_schedule = {
 
 export type t_transform_quantity = {
   divide_by: number
-  round: "down" | "up"
+  round: "down" | "up" | UnknownEnumStringValue
 }
 
 export type t_transform_usage = {
   divide_by: number
-  round: "down" | "up"
+  round: "down" | "up" | UnknownEnumStringValue
 }
 
 export type t_treasury_credit_reversal = {
@@ -14079,10 +15116,10 @@ export type t_treasury_credit_reversal = {
   metadata: {
     [key: string]: string | undefined
   }
-  network: "ach" | "stripe"
-  object: "treasury.credit_reversal"
+  network: "ach" | "stripe" | UnknownEnumStringValue
+  object: "treasury.credit_reversal" | UnknownEnumStringValue
   received_credit: string
-  status: "canceled" | "posted" | "processing"
+  status: "canceled" | "posted" | "processing" | UnknownEnumStringValue
   status_transitions: t_treasury_received_credits_resource_status_transitions
   transaction?: (string | t_treasury_transaction | null) | undefined
 }
@@ -14101,10 +15138,10 @@ export type t_treasury_debit_reversal = {
   metadata: {
     [key: string]: string | undefined
   }
-  network: "ach" | "card"
-  object: "treasury.debit_reversal"
+  network: "ach" | "card" | UnknownEnumStringValue
+  object: "treasury.debit_reversal" | UnknownEnumStringValue
   received_debit: string
-  status: "failed" | "processing" | "succeeded"
+  status: "failed" | "processing" | "succeeded" | UnknownEnumStringValue
   status_transitions: t_treasury_received_debits_resource_status_transitions
   transaction?: (string | t_treasury_transaction | null) | undefined
 }
@@ -14123,6 +15160,7 @@ export type t_treasury_financial_account = {
         | "outbound_transfers.ach"
         | "outbound_transfers.us_domestic_wire"
         | "remote_deposit_capture"
+        | UnknownEnumStringValue
       )[]
     | undefined
   balance: t_treasury_financial_accounts_resource_balance
@@ -14139,7 +15177,7 @@ export type t_treasury_financial_account = {
       } | null)
     | undefined
   nickname?: (string | null) | undefined
-  object: "treasury.financial_account"
+  object: "treasury.financial_account" | UnknownEnumStringValue
   pending_features?:
     | (
         | "card_issuing"
@@ -14153,6 +15191,7 @@ export type t_treasury_financial_account = {
         | "outbound_transfers.ach"
         | "outbound_transfers.us_domestic_wire"
         | "remote_deposit_capture"
+        | UnknownEnumStringValue
       )[]
     | undefined
   platform_restrictions?:
@@ -14171,9 +15210,10 @@ export type t_treasury_financial_account = {
         | "outbound_transfers.ach"
         | "outbound_transfers.us_domestic_wire"
         | "remote_deposit_capture"
+        | UnknownEnumStringValue
       )[]
     | undefined
-  status: "closed" | "open"
+  status: "closed" | "open" | UnknownEnumStringValue
   status_details: t_treasury_financial_accounts_resource_status_details
   supported_currencies: string[]
 }
@@ -14194,7 +15234,7 @@ export type t_treasury_financial_account_features = {
   intra_stripe_flows?:
     | t_treasury_financial_accounts_resource_toggle_settings
     | undefined
-  object: "treasury.financial_account_features"
+  object: "treasury.financial_account_features" | UnknownEnumStringValue
   outbound_payments?:
     | t_treasury_financial_accounts_resource_outbound_payments
     | undefined
@@ -14220,12 +15260,17 @@ export type t_treasury_inbound_transfer = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "treasury.inbound_transfer"
+  object: "treasury.inbound_transfer" | UnknownEnumStringValue
   origin_payment_method?: (string | null) | undefined
   origin_payment_method_details?: (t_inbound_transfers | null) | undefined
   returned?: (boolean | null) | undefined
   statement_descriptor: string
-  status: "canceled" | "failed" | "processing" | "succeeded"
+  status:
+    | "canceled"
+    | "failed"
+    | "processing"
+    | "succeeded"
+    | UnknownEnumStringValue
   status_transitions: t_treasury_inbound_transfers_resource_inbound_transfer_resource_status_transitions
   transaction?: (string | t_treasury_transaction | null) | undefined
 }
@@ -14252,12 +15297,18 @@ export type t_treasury_outbound_payment = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "treasury.outbound_payment"
+  object: "treasury.outbound_payment" | UnknownEnumStringValue
   returned_details?:
     | (t_treasury_outbound_payments_resource_returned_status | null)
     | undefined
   statement_descriptor: string
-  status: "canceled" | "failed" | "posted" | "processing" | "returned"
+  status:
+    | "canceled"
+    | "failed"
+    | "posted"
+    | "processing"
+    | "returned"
+    | UnknownEnumStringValue
   status_transitions: t_treasury_outbound_payments_resource_outbound_payment_resource_status_transitions
   tracking_details?:
     | (t_treasury_outbound_payments_resource_outbound_payment_resource_tracking_details | null)
@@ -14281,12 +15332,18 @@ export type t_treasury_outbound_transfer = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "treasury.outbound_transfer"
+  object: "treasury.outbound_transfer" | UnknownEnumStringValue
   returned_details?:
     | (t_treasury_outbound_transfers_resource_returned_details | null)
     | undefined
   statement_descriptor: string
-  status: "canceled" | "failed" | "posted" | "processing" | "returned"
+  status:
+    | "canceled"
+    | "failed"
+    | "posted"
+    | "processing"
+    | "returned"
+    | UnknownEnumStringValue
   status_transitions: t_treasury_outbound_transfers_resource_status_transitions
   tracking_details?:
     | (t_treasury_outbound_transfers_resource_outbound_transfer_resource_tracking_details | null)
@@ -14305,6 +15362,7 @@ export type t_treasury_received_credit = {
         | "account_frozen"
         | "international_transaction"
         | "other"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -14314,12 +15372,17 @@ export type t_treasury_received_credit = {
   initiating_payment_method_details: t_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details
   linked_flows: t_treasury_received_credits_resource_linked_flows
   livemode: boolean
-  network: "ach" | "card" | "stripe" | "us_domestic_wire"
-  object: "treasury.received_credit"
+  network:
+    | "ach"
+    | "card"
+    | "stripe"
+    | "us_domestic_wire"
+    | UnknownEnumStringValue
+  object: "treasury.received_credit" | UnknownEnumStringValue
   reversal_details?:
     | (t_treasury_received_credits_resource_reversal_details | null)
     | undefined
-  status: "failed" | "succeeded"
+  status: "failed" | "succeeded" | UnknownEnumStringValue
   transaction?: (string | t_treasury_transaction | null) | undefined
 }
 
@@ -14335,6 +15398,7 @@ export type t_treasury_received_debit = {
         | "insufficient_funds"
         | "international_transaction"
         | "other"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -14346,12 +15410,12 @@ export type t_treasury_received_debit = {
     | undefined
   linked_flows: t_treasury_received_debits_resource_linked_flows
   livemode: boolean
-  network: "ach" | "card" | "stripe"
-  object: "treasury.received_debit"
+  network: "ach" | "card" | "stripe" | UnknownEnumStringValue
+  object: "treasury.received_debit" | UnknownEnumStringValue
   reversal_details?:
     | (t_treasury_received_debits_resource_reversal_details | null)
     | undefined
-  status: "failed" | "succeeded"
+  status: "failed" | "succeeded" | UnknownEnumStringValue
   transaction?: (string | t_treasury_transaction | null) | undefined
 }
 
@@ -14365,7 +15429,7 @@ export type t_treasury_transaction = {
     | ({
         data: t_treasury_transaction_entry[]
         has_more: boolean
-        object: "list"
+        object: "list" | UnknownEnumStringValue
         url: string
       } | null)
     | undefined
@@ -14384,10 +15448,11 @@ export type t_treasury_transaction = {
     | "outbound_transfer"
     | "received_credit"
     | "received_debit"
+    | UnknownEnumStringValue
   id: string
   livemode: boolean
-  object: "treasury.transaction"
-  status: "open" | "posted" | "void"
+  object: "treasury.transaction" | UnknownEnumStringValue
+  status: "open" | "posted" | "void" | UnknownEnumStringValue
   status_transitions: t_treasury_transactions_resource_abstract_transaction_resource_status_transitions
 }
 
@@ -14411,9 +15476,10 @@ export type t_treasury_transaction_entry = {
     | "outbound_transfer"
     | "received_credit"
     | "received_debit"
+    | UnknownEnumStringValue
   id: string
   livemode: boolean
-  object: "treasury.transaction_entry"
+  object: "treasury.transaction_entry" | UnknownEnumStringValue
   transaction: string | t_treasury_transaction
   type:
     | "credit_reversal"
@@ -14436,6 +15502,7 @@ export type t_treasury_transaction_entry = {
     | "outbound_transfer_return"
     | "received_credit"
     | "received_debit"
+    | UnknownEnumStringValue
 }
 
 export type t_treasury_financial_accounts_resource_aba_record = {
@@ -14448,7 +15515,7 @@ export type t_treasury_financial_accounts_resource_aba_record = {
 
 export type t_treasury_financial_accounts_resource_aba_toggle_settings = {
   requested: boolean
-  status: "active" | "pending" | "restricted"
+  status: "active" | "pending" | "restricted" | UnknownEnumStringValue
   status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
 }
 
@@ -14465,13 +15532,20 @@ export type t_treasury_financial_accounts_resource_balance = {
 }
 
 export type t_treasury_financial_accounts_resource_closed_status_details = {
-  reasons: ("account_rejected" | "closed_by_platform" | "other")[]
+  reasons: (
+    | "account_rejected"
+    | "closed_by_platform"
+    | "other"
+    | UnknownEnumStringValue
+  )[]
 }
 
 export type t_treasury_financial_accounts_resource_financial_address = {
   aba?: t_treasury_financial_accounts_resource_aba_record | undefined
-  supported_networks?: ("ach" | "us_domestic_wire")[] | undefined
-  type: "aba"
+  supported_networks?:
+    | ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
+    | undefined
+  type: "aba" | UnknownEnumStringValue
 }
 
 export type t_treasury_financial_accounts_resource_financial_addresses_features =
@@ -14482,7 +15556,7 @@ export type t_treasury_financial_accounts_resource_financial_addresses_features 
 export type t_treasury_financial_accounts_resource_inbound_ach_toggle_settings =
   {
     requested: boolean
-    status: "active" | "pending" | "restricted"
+    status: "active" | "pending" | "restricted" | UnknownEnumStringValue
     status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
   }
 
@@ -14495,7 +15569,7 @@ export type t_treasury_financial_accounts_resource_inbound_transfers = {
 export type t_treasury_financial_accounts_resource_outbound_ach_toggle_settings =
   {
     requested: boolean
-    status: "active" | "pending" | "restricted"
+    status: "active" | "pending" | "restricted" | UnknownEnumStringValue
     status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
   }
 
@@ -14518,8 +15592,12 @@ export type t_treasury_financial_accounts_resource_outbound_transfers = {
 }
 
 export type t_treasury_financial_accounts_resource_platform_restrictions = {
-  inbound_flows?: ("restricted" | "unrestricted" | null) | undefined
-  outbound_flows?: ("restricted" | "unrestricted" | null) | undefined
+  inbound_flows?:
+    | ("restricted" | "unrestricted" | UnknownEnumStringValue | null)
+    | undefined
+  outbound_flows?:
+    | ("restricted" | "unrestricted" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_treasury_financial_accounts_resource_status_details = {
@@ -14530,7 +15608,7 @@ export type t_treasury_financial_accounts_resource_status_details = {
 
 export type t_treasury_financial_accounts_resource_toggle_settings = {
   requested: boolean
-  status: "active" | "pending" | "restricted"
+  status: "active" | "pending" | "restricted" | UnknownEnumStringValue
   status_details: t_treasury_financial_accounts_resource_toggles_setting_status_details[]
 }
 
@@ -14546,10 +15624,19 @@ export type t_treasury_financial_accounts_resource_toggles_setting_status_detail
       | "requirements_pending_verification"
       | "restricted_by_platform"
       | "restricted_other"
+      | UnknownEnumStringValue
     resolution?:
-      | ("contact_stripe" | "provide_information" | "remove_restriction" | null)
+      | (
+          | "contact_stripe"
+          | "provide_information"
+          | "remove_restriction"
+          | UnknownEnumStringValue
+          | null
+        )
       | undefined
-    restriction?: ("inbound_flows" | "outbound_flows") | undefined
+    restriction?:
+      | ("inbound_flows" | "outbound_flows" | UnknownEnumStringValue)
+      | undefined
   }
 
 export type t_treasury_inbound_transfers_resource_failure_details = {
@@ -14567,6 +15654,7 @@ export type t_treasury_inbound_transfers_resource_failure_details = {
     | "invalid_currency"
     | "no_account"
     | "other"
+    | UnknownEnumStringValue
 }
 
 export type t_treasury_inbound_transfers_resource_inbound_transfer_resource_linked_flows =
@@ -14602,7 +15690,7 @@ export type t_treasury_outbound_payments_resource_outbound_payment_resource_stat
 export type t_treasury_outbound_payments_resource_outbound_payment_resource_tracking_details =
   {
     ach?: t_treasury_outbound_payments_resource_ach_tracking_details | undefined
-    type: "ach" | "us_domestic_wire"
+    type: "ach" | "us_domestic_wire" | UnknownEnumStringValue
     us_domestic_wire?:
       | t_treasury_outbound_payments_resource_us_domestic_wire_tracking_details
       | undefined
@@ -14620,6 +15708,7 @@ export type t_treasury_outbound_payments_resource_returned_status = {
     | "invalid_currency"
     | "no_account"
     | "other"
+    | UnknownEnumStringValue
   transaction: string | t_treasury_transaction
 }
 
@@ -14639,7 +15728,7 @@ export type t_treasury_outbound_transfers_resource_outbound_transfer_resource_tr
     ach?:
       | t_treasury_outbound_transfers_resource_ach_tracking_details
       | undefined
-    type: "ach" | "us_domestic_wire"
+    type: "ach" | "us_domestic_wire" | UnknownEnumStringValue
     us_domestic_wire?:
       | t_treasury_outbound_transfers_resource_us_domestic_wire_tracking_details
       | undefined
@@ -14657,6 +15746,7 @@ export type t_treasury_outbound_transfers_resource_returned_details = {
     | "invalid_currency"
     | "no_account"
     | "other"
+    | UnknownEnumStringValue
   transaction: string | t_treasury_transaction
 }
 
@@ -14694,6 +15784,7 @@ export type t_treasury_received_credits_resource_reversal_details = {
         | "network_restricted"
         | "other"
         | "source_flow_restricted"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -14710,6 +15801,7 @@ export type t_treasury_received_credits_resource_source_flows_details = {
     | "outbound_payment"
     | "outbound_transfer"
     | "payout"
+    | UnknownEnumStringValue
 }
 
 export type t_treasury_received_credits_resource_status_transitions = {
@@ -14737,6 +15829,7 @@ export type t_treasury_received_debits_resource_reversal_details = {
         | "network_restricted"
         | "other"
         | "source_flow_restricted"
+        | UnknownEnumStringValue
         | null
       )
     | undefined
@@ -14754,7 +15847,7 @@ export type t_treasury_shared_resource_billing_details = {
 
 export type t_treasury_shared_resource_initiating_payment_method_details_initiating_payment_method_details =
   {
-    balance?: "payments" | undefined
+    balance?: ("payments" | UnknownEnumStringValue) | undefined
     billing_details: t_treasury_shared_resource_billing_details
     financial_account?:
       | t_received_payment_method_details_financial_account
@@ -14766,6 +15859,7 @@ export type t_treasury_shared_resource_initiating_payment_method_details_initiat
       | "issuing_card"
       | "stripe"
       | "us_bank_account"
+      | UnknownEnumStringValue
     us_bank_account?:
       | t_treasury_shared_resource_initiating_payment_method_details_us_bank_account
       | undefined
@@ -14809,17 +15903,18 @@ export type t_treasury_transactions_resource_flow_details = {
     | "outbound_transfer"
     | "received_credit"
     | "received_debit"
+    | UnknownEnumStringValue
 }
 
 export type t_us_bank_account_networks = {
   preferred?: (string | null) | undefined
-  supported: ("ach" | "us_domestic_wire")[]
+  supported: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
 }
 
 export type t_usage_record = {
   id: string
   livemode: boolean
-  object: "usage_record"
+  object: "usage_record" | UnknownEnumStringValue
   quantity: number
   subscription_item: string
   timestamp: number
@@ -14829,14 +15924,14 @@ export type t_usage_record_summary = {
   id: string
   invoice?: (string | null) | undefined
   livemode: boolean
-  object: "usage_record_summary"
+  object: "usage_record_summary" | UnknownEnumStringValue
   period: t_period
   subscription_item: string
   total_usage: number
 }
 
 export type t_verification_session_redaction = {
-  status: "processing" | "redacted"
+  status: "processing" | "redacted" | UnknownEnumStringValue
 }
 
 export type t_webhook_endpoint = {
@@ -14850,7 +15945,7 @@ export type t_webhook_endpoint = {
   metadata: {
     [key: string]: string | undefined
   }
-  object: "webhook_endpoint"
+  object: "webhook_endpoint" | UnknownEnumStringValue
   secret?: string | undefined
   status: string
   url: string

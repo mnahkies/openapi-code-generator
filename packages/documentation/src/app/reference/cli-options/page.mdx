@@ -83,7 +83,7 @@ As environment variable `OPENAPI_ENABLE_RUNTIME_RESPONSE_VALIDATION`
 
 Controls whether to validate response bodies using the chosen runtime schema library.
 
-Default `false`
+Default: `false`
 
 <Callout type="warning" emoji="⚠️">
   Note: this is currently always `true` for server templates, and only applies to the client library templates.
@@ -112,7 +112,7 @@ of named `$ref`'s.
 
 See [extract-inline-schemas guide](../guides/concepts/extract-inline-schemas) for details of how this works.
 
-Default `false`
+Default: `false`
 
 #### `--allow-unused-imports`
 As environment variable `OPENAPI_ALLOW_UNUSED_IMPORTS`
@@ -120,7 +120,18 @@ As environment variable `OPENAPI_ALLOW_UNUSED_IMPORTS`
 Allow unused imports to be emitted in generated code. Offered as an escape hatch if any bugs
 in the unused-import elimination occur.
 
-Default `false`
+Default: `false`
+
+#### `--enum-extensibility <value>`
+As environment variable `OPENAPI_ENUM_EXTENSIBILITY`
+
+Allows overriding the global enum extensibility setting to be either:
+- `open`, meaning unknown `enum` values will be accepted and require handling
+- `closed`, meaning unknown `enum` values will be rejected at runtime
+
+See [enums](../guides/concepts/enums) for more information.
+
+Default: `open` is used for client templates, and `closed` for server templates.
 
 #### `--ts-allow-any`
 As environment variable `OPENAPI_TS_ALLOW_ANY`

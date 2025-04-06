@@ -1,9 +1,12 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it, jest} from "@jest/globals"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
 import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
+
+import typecheck from "../../test/typescript-compiler-worker.test-utils"
+import {CompilationUnit} from "./compilation-units"
 
 describe.each(testVersions)(
   "%s - typescript/common/type-builder",
@@ -12,9 +15,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/SimpleObject")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_SimpleObject} from './unit-test.types'
+        "import { t_SimpleObject } from "./unit-test.types"
 
-        const x: t_SimpleObject"
+        declare const x: t_SimpleObject"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -41,9 +44,9 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_OptionalProperties} from './unit-test.types'
+        "import { t_OptionalProperties } from "./unit-test.types"
 
-        const x: t_OptionalProperties"
+        declare const x: t_OptionalProperties"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -57,9 +60,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/ObjectWithRefs")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_ObjectWithRefs} from './unit-test.types'
+        "import { t_ObjectWithRefs } from "./unit-test.types"
 
-        const x: t_ObjectWithRefs"
+        declare const x: t_ObjectWithRefs"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -86,9 +89,9 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_NamedNullableStringEnum} from './unit-test.types'
+        "import { t_NamedNullableStringEnum } from "./unit-test.types"
 
-        const x: t_NamedNullableStringEnum"
+        declare const x: t_NamedNullableStringEnum"
       `)
 
       expect(types).toMatchInlineSnapshot(
@@ -100,9 +103,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/OneOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_OneOf} from './unit-test.types'
+        "import { t_OneOf } from "./unit-test.types"
 
-        const x: t_OneOf"
+        declare const x: t_OneOf"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -119,9 +122,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/AnyOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_AnyOf} from './unit-test.types'
+        "import { t_AnyOf } from "./unit-test.types"
 
-        const x: t_AnyOf"
+        declare const x: t_AnyOf"
       `)
 
       expect(types).toMatchInlineSnapshot(
@@ -135,9 +138,9 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_AnyOfNullableString} from './unit-test.types'
+        "import { t_AnyOfNullableString } from "./unit-test.types"
 
-        const x: t_AnyOfNullableString"
+        declare const x: t_AnyOfNullableString"
       `)
 
       expect(types).toMatchInlineSnapshot(
@@ -149,9 +152,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/AllOf")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_AllOf} from './unit-test.types'
+        "import { t_AllOf } from "./unit-test.types"
 
-        const x: t_AllOf"
+        declare const x: t_AllOf"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -170,9 +173,9 @@ describe.each(testVersions)(
       const {code, types} = await getActual("components/schemas/Recursive")
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_Recursive} from './unit-test.types'
+        "import { t_Recursive } from "./unit-test.types"
 
-        const x: t_Recursive"
+        declare const x: t_Recursive"
       `)
 
       expect(types).toMatchInlineSnapshot(`
@@ -188,14 +191,13 @@ describe.each(testVersions)(
       )
 
       expect(code).toMatchInlineSnapshot(`
-        "import {t_AdditionalPropertiesSchema} from './unit-test.types'
+        "import { t_AdditionalPropertiesSchema } from "./unit-test.types"
 
-        const x: t_AdditionalPropertiesSchema"
+        declare const x: t_AdditionalPropertiesSchema"
       `)
 
       expect(types).toMatchInlineSnapshot(`
         "export type t_AdditionalPropertiesSchema = {
-          name?: string
           [key: string]: t_NamedNullableStringEnum | undefined
         }
 
@@ -211,10 +213,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesBool} from './unit-test.types'
+          "import { t_AdditionalPropertiesBool } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesBool"
-              `)
+          declare const x: t_AdditionalPropertiesBool"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
                   "export type t_AdditionalPropertiesBool = {
@@ -230,10 +232,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
+          "import { t_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesUnknownEmptySchema"
-              `)
+          declare const x: t_AdditionalPropertiesUnknownEmptySchema"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
                   "export type t_AdditionalPropertiesUnknownEmptySchema = {
@@ -249,10 +251,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
+          "import { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
-              `)
+          declare const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
                   "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
@@ -272,10 +274,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesMixed} from './unit-test.types'
+          "import { t_AdditionalPropertiesMixed } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesMixed"
-              `)
+          declare const x: t_AdditionalPropertiesMixed"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
                   "export type t_AdditionalPropertiesMixed = {
@@ -293,10 +295,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AnyJsonValue} from './unit-test.types'
+          "import { t_AnyJsonValue } from "./unit-test.types"
 
-                  const x: t_AnyJsonValue"
-              `)
+          declare const x: t_AnyJsonValue"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
                   "export type EmptyObject = { [key: string]: never }
@@ -322,10 +324,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesBool} from './unit-test.types'
+          "import { t_AdditionalPropertiesBool } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesBool"
-              `)
+          declare const x: t_AdditionalPropertiesBool"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesBool = {
@@ -341,10 +343,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesUnknownEmptySchema} from './unit-test.types'
+          "import { t_AdditionalPropertiesUnknownEmptySchema } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesUnknownEmptySchema"
-              `)
+          declare const x: t_AdditionalPropertiesUnknownEmptySchema"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesUnknownEmptySchema = {
@@ -360,10 +362,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesUnknownEmptyObjectSchema} from './unit-test.types'
+          "import { t_AdditionalPropertiesUnknownEmptyObjectSchema } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
-              `)
+          declare const x: t_AdditionalPropertiesUnknownEmptyObjectSchema"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesUnknownEmptyObjectSchema = {
@@ -383,10 +385,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AdditionalPropertiesMixed} from './unit-test.types'
+          "import { t_AdditionalPropertiesMixed } from "./unit-test.types"
 
-                  const x: t_AdditionalPropertiesMixed"
-              `)
+          declare const x: t_AdditionalPropertiesMixed"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
           "export type t_AdditionalPropertiesMixed = {
@@ -404,10 +406,10 @@ describe.each(testVersions)(
         )
 
         expect(code).toMatchInlineSnapshot(`
-                  "import {t_AnyJsonValue} from './unit-test.types'
+          "import { t_AnyJsonValue } from "./unit-test.types"
 
-                  const x: t_AnyJsonValue"
-              `)
+          declare const x: t_AnyJsonValue"
+        `)
 
         expect(types).toMatchInlineSnapshot(`
           "export type EmptyObject = { [key: string]: never }
@@ -451,19 +453,48 @@ describe.each(testVersions)(
 
       const type = builder.withImports(imports).schemaObjectToType(schema)
 
+      const usage = new CompilationUnit(
+        "./unit-test.code.ts",
+        imports,
+        `declare const x: ${type}`,
+      )
+      const types = builder.toCompilationUnit()
+
+      await typecheck([
+        {
+          filename: usage.filename,
+          content: usage.getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+        },
+        {
+          filename: types.filename,
+          content: types.getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+        },
+      ])
+
       return {
         code: (
           await formatter.format(
-            "./unit-test.code.ts",
-            `
-          ${imports.toString()}
-
-          const x: ${type}
-        `,
+            usage.filename,
+            usage.getRawFileContent({
+              allowUnusedImports: false,
+              includeHeader: false,
+            }),
           )
         ).result.trim(),
         types: (
-          await formatter.format("unit-test.types.ts", builder.toString())
+          await formatter.format(
+            types.filename,
+            types.getRawFileContent({
+              allowUnusedImports: false,
+              includeHeader: false,
+            }),
+          )
         ).result.trim(),
       }
     }

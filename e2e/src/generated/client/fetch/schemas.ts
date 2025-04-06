@@ -2,7 +2,21 @@
 /* tslint:disable */
 /* eslint-disable */
 
+import { UnknownEnumNumberValue, UnknownEnumStringValue } from "./models"
 import { z } from "zod"
+
+export const s_Enumerations = z.object({
+  colors: z.union([
+    z.enum(["red", "green", "blue"]),
+    z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+  ]),
+  starRatings: z.union([
+    z.literal(1),
+    z.literal(2),
+    z.literal(3),
+    z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
+  ]),
+})
 
 export const s_RandomNumber = z.object({
   result: z.coerce.number().optional(),

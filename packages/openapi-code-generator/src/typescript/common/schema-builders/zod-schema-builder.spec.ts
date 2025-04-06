@@ -298,10 +298,7 @@ describe.each(testVersions)(
             .enum(["", "one", "two", "three"])
             .nullable()
 
-          export const s_AdditionalPropertiesSchema = z.intersection(
-            z.object({ name: z.string().optional() }),
-            z.record(s_NamedNullableStringEnum),
-          )"
+          export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)"
         `)
       })
 
@@ -346,10 +343,11 @@ describe.each(testVersions)(
         )
       })
 
-      it("supports enum number", async () => {
+      it("supports closed number enums", async () => {
         const {code, execute} = await getActualFromModel({
           ...base,
           enum: [200, 301, 404],
+          "x-enum-extensibility": "closed",
         })
 
         expect(code).toMatchInlineSnapshot(
@@ -360,6 +358,29 @@ describe.each(testVersions)(
           "Invalid literal value, expected 404",
         )
         await expect(execute(404)).resolves.toBe(404)
+      })
+
+      it("supports open number enums", async () => {
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: [200, 301, 404],
+          "x-enum-extensibility": "open",
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z.union([
+            z.literal(200),
+            z.literal(301),
+            z.literal(404),
+            z.number().transform((it) => it as typeof it & UnknownEnumNumberValue),
+          ])"
+        `)
+
+        await expect(execute(123)).resolves.toBe(123)
+        await expect(execute(404)).resolves.toBe(404)
+        await expect(execute("not a number")).rejects.toThrow(
+          "Expected number, received string",
+        )
       })
 
       it("supports minimum", async () => {
@@ -540,6 +561,51 @@ describe.each(testVersions)(
 
         await expect(execute("a string")).resolves.toBe("a string")
         await expect(execute(123)).rejects.toThrow(
+          "Expected string, received number",
+        )
+      })
+
+      it("supports closed string enums", async () => {
+        const enumValues = ["red", "blue", "green"]
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: enumValues,
+          "x-enum-extensibility": "closed",
+        })
+
+        expect(code).toMatchInlineSnapshot(
+          `"const x = z.enum(["red", "blue", "green"])"`,
+        )
+
+        for (const value of enumValues) {
+          await expect(execute(value)).resolves.toBe(value)
+        }
+
+        await expect(execute("orange")).rejects.toThrow(
+          "Invalid enum value. Expected 'red' | 'blue' | 'green', received 'orange'",
+        )
+      })
+
+      it("supports open string enums", async () => {
+        const enumValues = ["red", "blue", "green"]
+        const {code, execute} = await getActualFromModel({
+          ...base,
+          enum: enumValues,
+          "x-enum-extensibility": "open",
+        })
+
+        expect(code).toMatchInlineSnapshot(`
+          "const x = z.union([
+            z.enum(["red", "blue", "green"]),
+            z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+          ])"
+        `)
+
+        for (const value of enumValues) {
+          await expect(execute(value)).resolves.toBe(value)
+        }
+        await expect(execute("orange")).resolves.toBe("orange")
+        await expect(execute(404)).rejects.toThrow(
           "Expected string, received number",
         )
       })
