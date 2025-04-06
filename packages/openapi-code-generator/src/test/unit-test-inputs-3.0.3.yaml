@@ -168,9 +168,6 @@ components:
 
     AdditionalPropertiesSchema:
       type: object
-      properties:
-        name:
-          type: string
       additionalProperties:
         $ref: "#/components/schemas/NamedNullableStringEnum"
 

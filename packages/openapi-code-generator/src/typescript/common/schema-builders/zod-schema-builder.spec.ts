@@ -298,10 +298,7 @@ describe.each(testVersions)(
             .enum(["", "one", "two", "three"])
             .nullable()
 
-          export const s_AdditionalPropertiesSchema = z.intersection(
-            z.object({ name: z.string().optional() }),
-            z.record(s_NamedNullableStringEnum),
-          )"
+          export const s_AdditionalPropertiesSchema = z.record(s_NamedNullableStringEnum)"
         `)
       })
 
