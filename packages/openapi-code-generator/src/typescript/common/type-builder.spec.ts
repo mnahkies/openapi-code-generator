@@ -5,24 +5,12 @@ import {ImportBuilder} from "./import-builder"
 import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
 
-import {
-  startWorkerPool,
-  stopWorkerPool,
-  typecheckInWorker,
-} from "../../test/typescript-compiler-worker-pool.test-utils"
+import typecheck from "../../test/typescript-compiler-worker.test-utils"
 import {CompilationUnit} from "./compilation-units"
 
 describe.each(testVersions)(
   "%s - typescript/common/type-builder",
   (version) => {
-    beforeAll(() => {
-      startWorkerPool()
-    })
-
-    afterAll(() => {
-      stopWorkerPool()
-    })
-
     it("can build a type for a simple object correctly", async () => {
       const {code, types} = await getActual("components/schemas/SimpleObject")
 
@@ -472,7 +460,7 @@ describe.each(testVersions)(
       )
       const types = builder.toCompilationUnit()
 
-      await typecheckInWorker([
+      await typecheck([
         {
           filename: usage.filename,
           content: usage.getRawFileContent({
