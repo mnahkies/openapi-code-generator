@@ -1,16 +1,28 @@
-import {describe, expect, it} from "@jest/globals"
+import {describe, expect, it, jest} from "@jest/globals"
 import type {CompilerOptions} from "../../core/loaders/tsconfig.loader"
 import {testVersions, unitTestInput} from "../../test/input.test-utils"
 import {ImportBuilder} from "./import-builder"
 import {TypeBuilder, type TypeBuilderConfig} from "./type-builder"
 import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
 
-import {typecheck} from "../../test/typescript.test-utils"
+import {
+  startWorkerPool,
+  stopWorkerPool,
+  typecheckInWorker,
+} from "../../test/typescript-compiler-worker-pool.test-utils"
 import {CompilationUnit} from "./compilation-units"
 
 describe.each(testVersions)(
   "%s - typescript/common/type-builder",
   (version) => {
+    beforeAll(() => {
+      startWorkerPool()
+    })
+
+    afterAll(() => {
+      stopWorkerPool()
+    })
+
     it("can build a type for a simple object correctly", async () => {
       const {code, types} = await getActual("components/schemas/SimpleObject")
 
@@ -460,7 +472,22 @@ describe.each(testVersions)(
       )
       const types = builder.toCompilationUnit()
 
-      await typecheck([usage, builder.toCompilationUnit()])
+      await typecheckInWorker([
+        {
+          filename: usage.filename,
+          content: usage.getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+        },
+        {
+          filename: types.filename,
+          content: types.getRawFileContent({
+            allowUnusedImports: false,
+            includeHeader: false,
+          }),
+        },
+      ])
 
       return {
         code: (
