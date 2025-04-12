@@ -76,11 +76,16 @@ This works because a "branded type" creates a distinct type that TypeScript trac
 of arbitrary strings at compile time, while still allowing unknown values to pass through parsing safely at runtime.
 
 ```typescript
-export const s_unknown_enum_value = z.unknown().brand("unknown enum value")
-export type UnknownEnumValue = z.infer<typeof s_unknown_enum_value>
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
 
-export type t_Fruit = "Apple" | "Banana" | "Orange" | UnknownEnumValue
-export const s_Fruit = z.union([z.enum(["Apple", "Banana", "Orange"]), s_unknown_enum_value])
+
+export type t_Fruit = "Apple" | "Banana" | "Orange" | UnknownEnumStringValue
+export const s_Fruit = z.union([
+  z.enum(["Apple", "Banana", "Orange"]),
+  z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+])
 ```
 
 This prevents invalid/random values being referenced in the code, whilst also allowing us to make exhaustiveness checks.
@@ -101,7 +106,7 @@ function processFruit(result: t_Fruit): void {
       break
     default: {
       // This checks that we have exhaustively handled the known values
-      const _ = result satisfies UnknownEnumValue
+      const _ = result satisfies UnknownEnumStringValue
       console.warn(`unsupported ${result}, skipping`)
     }
   }
