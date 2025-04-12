@@ -15,14 +15,15 @@ const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
       const result = Math.random() * (max - min) + min
 
       if (!forbidden.has(result)) {
-        return respond.with200().body({
+        const response = {
           result,
           params: {
             min,
             max,
             forbidden: Array.from(forbidden),
           },
-        })
+        }
+        return respond.with200().body(response)
       }
     }
 

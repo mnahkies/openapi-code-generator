@@ -154,10 +154,11 @@ describe("e2e - typescript-axios client", () => {
         status: 400,
         response: expect.objectContaining({
           data: {
-            cause: {
-              message: "Request validation failed parsing request header",
-            },
             message: "Request validation failed parsing request header",
+            phase: "request_validation",
+            cause: {
+              message: expect.stringMatching("Expected number, received nan"),
+            },
           },
         }),
       })

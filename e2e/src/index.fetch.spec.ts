@@ -173,10 +173,11 @@ describe("e2e - typescript-fetch client", () => {
       const body = await res.json()
 
       expect(body).toEqual({
-        cause: {
-          message: "Request validation failed parsing request header",
-        },
         message: "Request validation failed parsing request header",
+        phase: "request_validation",
+        cause: {
+          message: expect.stringMatching("Expected number, received nan"),
+        },
       })
     })
   })
@@ -184,8 +185,6 @@ describe("e2e - typescript-fetch client", () => {
   describe("GET /validation/numbers/random-number", () => {
     it("returns a random number", async () => {
       const res = await client.getValidationNumbersRandomNumber()
-      expect(res.status).toBe(200)
-
       const body = await res.json()
 
       expect(body).toEqual({
@@ -196,6 +195,7 @@ describe("e2e - typescript-fetch client", () => {
           forbidden: [],
         },
       })
+      expect(res.status).toBe(200)
     })
 
     it("handles a query param array of 1 element", async () => {
