@@ -89,10 +89,10 @@ describe.each(testVersions)(
           .try(
             joi
               .object()
-              .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .keys({ strs: joi.array().items(joi.string()).required() })
               .options({ stripUnknown: true })
               .required(),
-            joi.array().items(joi.string().required()).required(),
+            joi.array().items(joi.string()).required(),
             joi.string().required(),
           )
           .required()
@@ -136,10 +136,10 @@ describe.each(testVersions)(
           .try(
             joi
               .object()
-              .keys({ strs: joi.array().items(joi.string().required()).required() })
+              .keys({ strs: joi.array().items(joi.string()).required() })
               .options({ stripUnknown: true })
               .required(),
-            joi.array().items(joi.string().required()).required(),
+            joi.array().items(joi.string()).required(),
             joi.string().required(),
           )
           .required()
@@ -858,9 +858,10 @@ describe.each(testVersions)(
         const {code, execute} = await getActualFromModel({...base})
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.array().items(joi.string().required()).required()"',
+          `"const x = joi.array().items(joi.string()).required()"`,
         )
 
+        await expect(execute([])).resolves.toStrictEqual([])
         await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
           "foo",
           "bar",
@@ -875,7 +876,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.array().items(joi.string().required()).unique().required()"',
+          `"const x = joi.array().items(joi.string()).unique().required()"`,
         )
 
         await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
@@ -894,7 +895,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.array().items(joi.string().required()).min(2).required()"',
+          `"const x = joi.array().items(joi.string()).min(2).required()"`,
         )
 
         await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
@@ -913,7 +914,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          '"const x = joi.array().items(joi.string().required()).max(2).required()"',
+          `"const x = joi.array().items(joi.string()).max(2).required()"`,
         )
 
         await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
@@ -934,19 +935,13 @@ describe.each(testVersions)(
           uniqueItems: true,
         })
 
-        expect(code).toMatchInlineSnapshot(`
-          "const x = joi
-            .array()
-            .items(joi.number().required())
-            .unique()
-            .min(1)
-            .max(3)
-            .required()"
-        `)
+        expect(code).toMatchInlineSnapshot(
+          `"const x = joi.array().items(joi.number()).unique().min(1).max(3).required()"`,
+        )
 
         await expect(execute([1, 2])).resolves.toStrictEqual([1, 2])
         await expect(execute([])).rejects.toThrow(
-          '"value" does not contain 1 required value(s)',
+          '"value" must contain at least 1 items',
         )
         await expect(execute([1, 2, 3, 4])).rejects.toThrow(
           '"value" must contain less than or equal to 3 items',
@@ -963,7 +958,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = joi.array().items(joi.string().required()).default(["example"])"`,
+          `"const x = joi.array().items(joi.string()).default(["example"])"`,
         )
 
         await expect(execute(undefined)).resolves.toStrictEqual(["example"])
@@ -976,7 +971,7 @@ describe.each(testVersions)(
         })
 
         expect(code).toMatchInlineSnapshot(
-          `"const x = joi.array().items(joi.string().required()).default([])"`,
+          `"const x = joi.array().items(joi.string()).default([])"`,
         )
 
         await expect(execute(undefined)).resolves.toStrictEqual([])
@@ -1321,7 +1316,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any()).required())
+            .items(joi.object().pattern(joi.any(), joi.any()))
             .required()"
         `)
 
@@ -1426,7 +1421,7 @@ describe.each(testVersions)(
         expect(code).toMatchInlineSnapshot(`
           "const x = joi
             .array()
-            .items(joi.object().pattern(joi.any(), joi.any()).required())
+            .items(joi.object().pattern(joi.any(), joi.any()))
             .required()"
         `)
 

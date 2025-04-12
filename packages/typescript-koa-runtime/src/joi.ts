@@ -1,11 +1,8 @@
 import type {Schema as JoiSchema} from "joi"
 import {KoaRuntimeError, type RequestInputType} from "./errors"
 
-export type Params<Params, Query, Body> = {
-  params: Params
-  query: Query
-  body: Body
-}
+/** @deprecated: update & re-generate to import from @nahkies/typescript-koa-runtime/server directly */
+export type {Params} from "./server"
 
 // Note: joi types don't appear to have an equivalent of z.infer,
 //       hence any seems about as good as we can do here.

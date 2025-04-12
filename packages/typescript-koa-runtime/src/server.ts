@@ -93,6 +93,13 @@ export type ServerConfig = {
   port?: number | ListenOptions
 }
 
+export type Params<Params, Query, Body, Header> = {
+  params: Params
+  query: Query
+  body: Body
+  headers: Header
+}
+
 /**
  * Starts a Koa server and listens on `port` or a randomly allocated port if none provided.
  * Enables CORS and body parsing by default. It's recommended to customize the CORS options

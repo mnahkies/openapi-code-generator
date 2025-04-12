@@ -11,17 +11,20 @@ function createRouter() {
     try {
       await next()
     } catch (err) {
-      if (KoaRuntimeError.isKoaError(err)) {
-        ctx.status = 400
-        ctx.body = {
-          message: err.message,
-          cause: {
-            message: err.message,
-          },
-        }
-      } else {
-        throw err
-      }
+      ctx.status = KoaRuntimeError.isKoaError(err) ? 400 : 500
+      ctx.body =
+        err instanceof Error
+          ? {
+              message: err.message,
+              phase: KoaRuntimeError.isKoaError(err) ? err.phase : undefined,
+              cause:
+                err.cause instanceof Error
+                  ? {
+                      message: err.cause.message,
+                    }
+                  : undefined,
+            }
+          : {message: "non error thrown", value: err}
     }
   })
 

@@ -1521,13 +1521,13 @@ import {
 import {
   KoaRuntimeResponder,
   KoaRuntimeResponse,
+  Params,
   Response,
   ServerConfig,
   StatusCode,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
-  Params,
   parseRequestInput,
   responseValidationFactory,
 } from "@nahkies/typescript-koa-runtime/zod"
