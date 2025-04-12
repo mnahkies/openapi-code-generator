@@ -840,6 +840,7 @@ describe.each(testVersions)(
 
         expect(code).toMatchInlineSnapshot('"const x = z.array(z.string())"')
 
+        await expect(execute([])).resolves.toStrictEqual([])
         await expect(execute(["foo", "bar"])).resolves.toStrictEqual([
           "foo",
           "bar",

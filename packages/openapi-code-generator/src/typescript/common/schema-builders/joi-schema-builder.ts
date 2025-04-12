@@ -6,6 +6,7 @@ import type {
   IRModelBase,
   IRModelNumeric,
   IRModelString,
+  MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {getSchemaNameFromRef} from "../../../core/openapi-utils"
 import {hasSingleElement, isDefined} from "../../../core/utils"
@@ -123,11 +124,17 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     //       { value: [ 1 ] }
     //       > custom.maybeArray().array().items(custom.string()).validate([1,2])
     //       Uncaught TypeError: custom.maybeArray(...).array is not a function
-    return `{
-      validate(it: unknown, opts: any) {
-        const transformation = ${transformation.toString()}
-        return ${schema}.validate(transformation(it), opts)}
-      }`
+    return [
+      joi,
+      "any()",
+      `custom((it, helpers) => {
+      const transformation = ${transformation.toString()}
+      const result = ${schema}.validate(transformation(it))
+      return result.error ? helpers.error("any.invalid", {message: result.error.message}) : result.value
+    })`,
+    ]
+      .filter(isDefined)
+      .join(".")
   }
 
   protected nullable(schema: string): string {
@@ -194,6 +201,10 @@ export class JoiBuilder extends AbstractSchemaBuilder<
     ]
       .filter(isDefined)
       .join(".")
+  }
+
+  protected arrayItems(model: MaybeIRModel): string {
+    return this.fromModel(model, false)
   }
 
   protected number(model: IRModelNumeric) {
@@ -284,6 +295,6 @@ export class JoiBuilder extends AbstractSchemaBuilder<
   }
 
   public void(): string {
-    return [joi, "any()", "valid(undefined)"].filter(isDefined).join(".")
+    return [joi, "any()", "forbidden()"].filter(isDefined).join(".")
   }
 }

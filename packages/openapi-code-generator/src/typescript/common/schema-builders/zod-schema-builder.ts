@@ -6,6 +6,7 @@ import type {
   IRModelBase,
   IRModelNumeric,
   IRModelString,
+  MaybeIRModel,
 } from "../../../core/openapi-types-normalized"
 import {
   getSchemaNameFromRef,
@@ -195,6 +196,10 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     ]
       .filter(isDefined)
       .join(".")
+  }
+
+  protected arrayItems(model: MaybeIRModel): string {
+    return this.fromModel(model, true)
   }
 
   protected number(model: IRModelNumeric) {

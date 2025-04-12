@@ -78,16 +78,17 @@ export class ServerRouterBuilder implements ICompilable {
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
       .add(
-        "startServer",
-        "ServerConfig",
-        "Response",
-        "KoaRuntimeResponse",
         "KoaRuntimeResponder",
+        "KoaRuntimeResponse",
+        "Params",
+        "Response",
+        "ServerConfig",
+        "StatusCode",
         "StatusCode2xx",
         "StatusCode3xx",
         "StatusCode4xx",
         "StatusCode5xx",
-        "StatusCode",
+        "startServer",
       )
 
     this.imports
@@ -100,11 +101,11 @@ export class ServerRouterBuilder implements ICompilable {
     if (schemaBuilder instanceof ZodBuilder) {
       imports
         .from("@nahkies/typescript-koa-runtime/zod")
-        .add("parseRequestInput", "Params", "responseValidationFactory")
+        .add("parseRequestInput", "responseValidationFactory")
     } else if (schemaBuilder instanceof JoiBuilder) {
       imports
         .from("@nahkies/typescript-koa-runtime/joi")
-        .add("parseRequestInput", "Params", "responseValidationFactory")
+        .add("parseRequestInput", "responseValidationFactory")
     }
   }
 
