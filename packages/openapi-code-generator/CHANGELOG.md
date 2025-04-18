@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.0...v0.19.1) (2025-04-18)
+
+### Bug Fixes
+
+- revert typespec ([#313](https://github.com/mnahkies/openapi-code-generator/issues/313)) ([b457c34](https://github.com/mnahkies/openapi-code-generator/commit/b457c34c1d2903c518416bdad24d6e25e830ad77))
+
 # [0.19.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.18.0...v0.19.0) (2025-04-18)
 
 ### Bug Fixes
