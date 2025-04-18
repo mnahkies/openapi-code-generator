@@ -43,6 +43,8 @@ import {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_campaign_state,
+  t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
@@ -119,7 +121,6 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
-  t_copilot_usage_metrics,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -176,6 +177,7 @@ import {
   t_issue_event,
   t_issue_event_for_issue,
   t_issue_search_result_item,
+  t_issue_type,
   t_job,
   t_key,
   t_key_simple,
@@ -203,6 +205,7 @@ import {
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
@@ -211,6 +214,7 @@ import {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_type,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -1163,7 +1167,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       enterprise: string
       requestBody: {
         advanced_security?:
-          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | (
+              | "enabled"
+              | "disabled"
+              | "code_security"
+              | "secret_protection"
+              | UnknownEnumStringValue
+            )
           | undefined
         code_scanning_default_setup?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -1284,7 +1294,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       configurationId: number
       requestBody: {
         advanced_security?:
-          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | (
+              | "enabled"
+              | "disabled"
+              | "code_security"
+              | "secret_protection"
+              | UnknownEnumStringValue
+            )
           | undefined
         code_scanning_default_setup?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -4652,6 +4668,153 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async campaignsListOrgCampaigns(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: t_campaign_state
+      sort?:
+        | "created"
+        | "updated"
+        | "ends_at"
+        | "published"
+        | UnknownEnumStringValue
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_campaign_summary[]>> {
+    const url = `/orgs/${p["org"]}/campaigns`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      state: p["state"],
+      sort: p["sort"],
+    })
+
+    return this._request({
+      url: url + query,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async campaignsCreateCampaign(
+    p: {
+      org: string
+      requestBody: {
+        code_scanning_alerts: {
+          alert_numbers: number[]
+          repository_id: number
+        }[]
+        contact_link?: (string | null) | undefined
+        description: string
+        ends_at: string
+        generate_issues?: boolean | undefined
+        managers?: string[] | undefined
+        name: string
+        team_managers?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_campaign_summary>> {
+    const url = `/orgs/${p["org"]}/campaigns`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async campaignsGetCampaignSummary(
+    p: {
+      org: string
+      campaignNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_campaign_summary>> {
+    const url = `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async campaignsUpdateCampaign(
+    p: {
+      org: string
+      campaignNumber: number
+      requestBody: {
+        contact_link?: (string | null) | undefined
+        description?: string | undefined
+        ends_at?: string | undefined
+        managers?: string[] | undefined
+        name?: string | undefined
+        state?: t_campaign_state | undefined
+        team_managers?: string[] | undefined
+      }
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_campaign_summary>> {
+    const url = `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PATCH",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async campaignsDeleteCampaign(
+    p: {
+      org: string
+      campaignNumber: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async codeScanningListAlertsForOrg(
     p: {
       org: string
@@ -4727,7 +4890,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       org: string
       requestBody: {
         advanced_security?:
-          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | (
+              | "enabled"
+              | "disabled"
+              | "code_security"
+              | "secret_protection"
+              | UnknownEnumStringValue
+            )
           | undefined
         code_scanning_default_setup?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -4888,7 +5057,13 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       configurationId: number
       requestBody: {
         advanced_security?:
-          | ("enabled" | "disabled" | UnknownEnumStringValue)
+          | (
+              | "enabled"
+              | "disabled"
+              | "code_security"
+              | "secret_protection"
+              | UnknownEnumStringValue
+            )
           | undefined
         code_scanning_default_setup?:
           | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
@@ -5628,35 +5803,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     opts: AxiosRequestConfig = {},
   ): Promise<AxiosResponse<t_copilot_usage_metrics_day[]>> {
     const url = `/orgs/${p["org"]}/copilot/metrics`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
-  async copilotUsageMetricsForOrg(
-    p: {
-      org: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
-    const url = `/orgs/${p["org"]}/copilot/usage`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
@@ -6811,6 +6957,96 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
+  async orgsListIssueTypes(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_type[]>> {
+    const url = `/orgs/${p["org"]}/issue-types`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "GET",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsCreateIssueType(
+    p: {
+      org: string
+      requestBody: t_organization_create_issue_type
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_type>> {
+    const url = `/orgs/${p["org"]}/issue-types`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "POST",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsUpdateIssueType(
+    p: {
+      org: string
+      issueTypeId: number
+      requestBody: t_organization_update_issue_type
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<t_issue_type>> {
+    const url = `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._request({
+      url: url,
+      method: "PUT",
+      data: body,
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
+  async orgsDeleteIssueType(
+    p: {
+      org: string
+      issueTypeId: number
+    },
+    timeout?: number,
+    opts: AxiosRequestConfig = {},
+  ): Promise<AxiosResponse<void>> {
+    const url = `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._request({
+      url: url,
+      method: "DELETE",
+      ...(timeout ? { timeout } : {}),
+      ...opts,
+      headers,
+    })
+  }
+
   async issuesListForOrg(
     p: {
       org: string
@@ -6824,6 +7060,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         | UnknownEnumStringValue
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
+      type?: string
       sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
@@ -6839,6 +7076,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
+      type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -9231,36 +9469,6 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
     })
   }
 
-  async copilotUsageMetricsForTeam(
-    p: {
-      org: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: AxiosRequestConfig = {},
-  ): Promise<AxiosResponse<t_copilot_usage_metrics[]>> {
-    const url = `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._request({
-      url: url + query,
-      method: "GET",
-      ...(timeout ? { timeout } : {}),
-      ...opts,
-      headers,
-    })
-  }
-
   async teamsList(
     p: {
       org: string
@@ -10777,6 +10985,11 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
         security_and_analysis?:
           | ({
               advanced_security?:
+                | {
+                    status?: string | undefined
+                  }
+                | undefined
+              code_security?:
                 | {
                     status?: string | undefined
                   }
@@ -18402,6 +18615,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       milestone?: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
       assignee?: string
+      type?: string
       creator?: string
       mentioned?: string
       labels?: string
@@ -18420,6 +18634,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
       milestone: p["milestone"],
       state: p["state"],
       assignee: p["assignee"],
+      type: p["type"],
       creator: p["creator"],
       mentioned: p["mentioned"],
       labels: p["labels"],
@@ -18460,6 +18675,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
           | undefined
         milestone?: (string | number | null) | undefined
         title: string | number
+        type?: (string | null) | undefined
       }
     },
     timeout?: number,
@@ -18780,6 +18996,7 @@ export class GitHubV3RestApi extends AbstractAxiosClient {
             )
           | undefined
         title?: (string | number | null) | undefined
+        type?: (string | null) | undefined
       }
     },
     timeout?: number,

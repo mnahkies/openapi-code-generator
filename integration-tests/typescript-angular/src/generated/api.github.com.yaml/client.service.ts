@@ -44,6 +44,8 @@ import {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_campaign_state,
+  t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
@@ -120,7 +122,6 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
-  t_copilot_usage_metrics,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -177,6 +178,7 @@ import {
   t_issue_event,
   t_issue_event_for_issue,
   t_issue_search_result_item,
+  t_issue_type,
   t_job,
   t_key,
   t_key_simple,
@@ -204,6 +206,7 @@ import {
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
@@ -212,6 +215,7 @@ import {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_type,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -1210,7 +1214,12 @@ export class GitHubV3RestApiService {
   codeSecurityCreateConfigurationForEnterprise(p: {
     enterprise: string
     requestBody: {
-      advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+      advanced_security?:
+        | "enabled"
+        | "disabled"
+        | "code_security"
+        | "secret_protection"
+        | UnknownEnumStringValue
       code_scanning_default_setup?:
         | "enabled"
         | "disabled"
@@ -1349,7 +1358,12 @@ export class GitHubV3RestApiService {
     enterprise: string
     configurationId: number
     requestBody: {
-      advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+      advanced_security?:
+        | "enabled"
+        | "disabled"
+        | "code_security"
+        | "secret_protection"
+        | UnknownEnumStringValue
       code_scanning_default_setup?:
         | "enabled"
         | "disabled"
@@ -4647,6 +4661,179 @@ export class GitHubV3RestApiService {
     )
   }
 
+  campaignsListOrgCampaigns(p: {
+    org: string
+    page?: number
+    perPage?: number
+    direction?: "asc" | "desc" | UnknownEnumStringValue
+    state?: t_campaign_state
+    sort?:
+      | "created"
+      | "updated"
+      | "ends_at"
+      | "published"
+      | UnknownEnumStringValue
+  }): Observable<
+    | (HttpResponse<t_campaign_summary[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const params = this._queryParams({
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      state: p["state"],
+      sort: p["sort"],
+    })
+
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/campaigns`,
+      {
+        params,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  campaignsCreateCampaign(p: {
+    org: string
+    requestBody: {
+      code_scanning_alerts: {
+        alert_numbers: number[]
+        repository_id: number
+      }[]
+      contact_link?: string | null
+      description: string
+      ends_at: string
+      generate_issues?: boolean
+      managers?: string[]
+      name: string
+      team_managers?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_campaign_summary> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<void> & { status: 429 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/campaigns`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  campaignsGetCampaignSummary(p: {
+    org: string
+    campaignNumber: number
+  }): Observable<
+    | (HttpResponse<t_campaign_summary> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath +
+        `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  campaignsUpdateCampaign(p: {
+    org: string
+    campaignNumber: number
+    requestBody: {
+      contact_link?: string | null
+      description?: string
+      ends_at?: string
+      managers?: string[]
+      name?: string
+      state?: t_campaign_state
+      team_managers?: string[]
+    }
+  }): Observable<
+    | (HttpResponse<t_campaign_summary> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 400 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_basic_error> & { status: 422 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PATCH",
+      this.config.basePath +
+        `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  campaignsDeleteCampaign(p: {
+    org: string
+    campaignNumber: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<{
+        code?: string
+        documentation_url?: string
+        message?: string
+      }> & { status: 503 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   codeScanningListAlertsForOrg(p: {
     org: string
     toolName?: t_code_scanning_analysis_tool_name
@@ -4728,7 +4915,12 @@ export class GitHubV3RestApiService {
   codeSecurityCreateConfiguration(p: {
     org: string
     requestBody: {
-      advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+      advanced_security?:
+        | "enabled"
+        | "disabled"
+        | "code_security"
+        | "secret_protection"
+        | UnknownEnumStringValue
       code_scanning_default_setup?:
         | "enabled"
         | "disabled"
@@ -4906,7 +5098,12 @@ export class GitHubV3RestApiService {
     org: string
     configurationId: number
     requestBody: {
-      advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+      advanced_security?:
+        | "enabled"
+        | "disabled"
+        | "code_security"
+        | "secret_protection"
+        | UnknownEnumStringValue
       code_scanning_default_setup?:
         | "enabled"
         | "disabled"
@@ -5685,38 +5882,6 @@ export class GitHubV3RestApiService {
     return this.httpClient.request<any>(
       "GET",
       this.config.basePath + `/orgs/${p["org"]}/copilot/metrics`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
-  copilotUsageMetricsForOrg(p: {
-    org: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath + `/orgs/${p["org"]}/copilot/usage`,
       {
         params,
         observe: "response",
@@ -6830,6 +6995,93 @@ export class GitHubV3RestApiService {
     )
   }
 
+  orgsListIssueTypes(p: {
+    org: string
+  }): Observable<
+    | (HttpResponse<t_issue_type[]> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "GET",
+      this.config.basePath + `/orgs/${p["org"]}/issue-types`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsCreateIssueType(p: {
+    org: string
+    requestBody: t_organization_create_issue_type
+  }): Observable<
+    | (HttpResponse<t_issue_type> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "POST",
+      this.config.basePath + `/orgs/${p["org"]}/issue-types`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsUpdateIssueType(p: {
+    org: string
+    issueTypeId: number
+    requestBody: t_organization_update_issue_type
+  }): Observable<
+    | (HttpResponse<t_issue_type> & { status: 200 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    const headers = this._headers({ "Content-Type": "application/json" })
+    const body = p["requestBody"]
+
+    return this.httpClient.request<any>(
+      "PUT",
+      this.config.basePath +
+        `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`,
+      {
+        headers,
+        body,
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
+  orgsDeleteIssueType(p: {
+    org: string
+    issueTypeId: number
+  }): Observable<
+    | (HttpResponse<void> & { status: 204 })
+    | (HttpResponse<t_basic_error> & { status: 404 })
+    | (HttpResponse<t_validation_error_simple> & { status: 422 })
+    | HttpResponse<unknown>
+  > {
+    return this.httpClient.request<any>(
+      "DELETE",
+      this.config.basePath +
+        `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`,
+      {
+        observe: "response",
+        reportProgress: false,
+      },
+    )
+  }
+
   issuesListForOrg(p: {
     org: string
     filter?:
@@ -6842,6 +7094,7 @@ export class GitHubV3RestApiService {
       | UnknownEnumStringValue
     state?: "open" | "closed" | "all" | UnknownEnumStringValue
     labels?: string
+    type?: string
     sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
     direction?: "asc" | "desc" | UnknownEnumStringValue
     since?: string
@@ -6856,6 +7109,7 @@ export class GitHubV3RestApiService {
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
+      type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -9237,40 +9491,6 @@ export class GitHubV3RestApiService {
     )
   }
 
-  copilotUsageMetricsForTeam(p: {
-    org: string
-    teamSlug: string
-    since?: string
-    until?: string
-    page?: number
-    perPage?: number
-  }): Observable<
-    | (HttpResponse<t_copilot_usage_metrics[]> & { status: 200 })
-    | (HttpResponse<t_basic_error> & { status: 401 })
-    | (HttpResponse<t_basic_error> & { status: 403 })
-    | (HttpResponse<t_basic_error> & { status: 404 })
-    | (HttpResponse<t_basic_error> & { status: 500 })
-    | HttpResponse<unknown>
-  > {
-    const params = this._queryParams({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this.httpClient.request<any>(
-      "GET",
-      this.config.basePath +
-        `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`,
-      {
-        params,
-        observe: "response",
-        reportProgress: false,
-      },
-    )
-  }
-
   teamsList(p: {
     org: string
     perPage?: number
@@ -10806,6 +11026,9 @@ export class GitHubV3RestApiService {
       private?: boolean
       security_and_analysis?: {
         advanced_security?: {
+          status?: string
+        }
+        code_security?: {
           status?: string
         }
         secret_scanning?: {
@@ -17459,7 +17682,7 @@ export class GitHubV3RestApiService {
   }): Observable<
     | (HttpResponse<void> & { status: 204 })
     | (HttpResponse<t_basic_error> & { status: 409 })
-    | (HttpResponse<t_validation_error> & { status: 422 })
+    | (HttpResponse<void> & { status: 422 })
     | HttpResponse<unknown>
   > {
     return this.httpClient.request<any>(
@@ -18257,6 +18480,7 @@ export class GitHubV3RestApiService {
     milestone?: string
     state?: "open" | "closed" | "all" | UnknownEnumStringValue
     assignee?: string
+    type?: string
     creator?: string
     mentioned?: string
     labels?: string
@@ -18276,6 +18500,7 @@ export class GitHubV3RestApiService {
       milestone: p["milestone"],
       state: p["state"],
       assignee: p["assignee"],
+      type: p["type"],
       creator: p["creator"],
       mentioned: p["mentioned"],
       labels: p["labels"],
@@ -18315,6 +18540,7 @@ export class GitHubV3RestApiService {
       )[]
       milestone?: string | number | null
       title: string | number
+      type?: string | null
     }
   }): Observable<
     | (HttpResponse<t_issue> & { status: 201 })
@@ -18638,6 +18864,7 @@ export class GitHubV3RestApiService {
         | UnknownEnumStringValue
         | null
       title?: string | number | null
+      type?: string | null
     }
   }): Observable<
     | (HttpResponse<t_issue> & { status: 200 })

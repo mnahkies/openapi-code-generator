@@ -59,10 +59,10 @@
     "@types/koa__router": "^12.0.4",
     "jest": "^30.0.0-alpha.6",
     "joi": "^17.13.3",
-    "koa": "^2.16.0",
+    "koa": "^2.16.1",
     "koa-body": "^6.0.1",
-    "typescript": "~5.8.2",
-    "zod": "^3.24.2"
+    "typescript": "~5.8.3",
+    "zod": "^3.24.3"
   },
   "files": [
     "src",

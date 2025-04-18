@@ -674,6 +674,28 @@ export type t_branch_with_protection = {
   required_approving_review_count?: number
 }
 
+export type t_campaign_state = "open" | "closed" | UnknownEnumStringValue
+
+export type t_campaign_summary = {
+  alert_stats?: {
+    closed_count: number
+    in_progress_count: number
+    open_count: number
+  }
+  closed_at?: string | null
+  contact_link: string | null
+  created_at: string
+  description: string
+  ends_at: string
+  managers: t_simple_user[]
+  name?: string
+  number: number
+  published_at?: string
+  state: t_campaign_state
+  team_managers?: t_team[]
+  updated_at: string
+}
+
 export type t_check_annotation = {
   annotation_level: string | null
   blob_href: string
@@ -1249,6 +1271,7 @@ export type t_code_scanning_variant_analysis_language =
   | "javascript"
   | "python"
   | "ruby"
+  | "rust"
   | "swift"
   | UnknownEnumStringValue
 
@@ -1303,7 +1326,12 @@ export type t_code_search_result_item = {
 }
 
 export type t_code_security_configuration = {
-  advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
+    | UnknownEnumStringValue
   code_scanning_default_setup?:
     | "enabled"
     | "disabled"
@@ -2051,7 +2079,7 @@ export type t_copilot_organization_seat_breakdown = {
 }
 
 export type t_copilot_seat_details = {
-  assignee: t_simple_user
+  assignee?: t_nullable_simple_user
   assigning_team?: t_team | t_enterprise_team | null
   created_at: string
   last_activity_at?: string | null
@@ -2060,30 +2088,6 @@ export type t_copilot_seat_details = {
   pending_cancellation_date?: string | null
   plan_type?: "business" | "enterprise" | "unknown" | UnknownEnumStringValue
   updated_at?: string
-}
-
-export type t_copilot_usage_metrics = {
-  breakdown:
-    | {
-        acceptances_count?: number
-        active_users?: number
-        editor?: string
-        language?: string
-        lines_accepted?: number
-        lines_suggested?: number
-        suggestions_count?: number
-        [key: string]: unknown | undefined
-      }[]
-    | null
-  day: string
-  total_acceptances_count?: number
-  total_active_chat_users?: number
-  total_active_users?: number
-  total_chat_acceptances?: number
-  total_chat_turns?: number
-  total_lines_accepted?: number
-  total_lines_suggested?: number
-  total_suggestions_count?: number
 }
 
 export type t_copilot_usage_metrics_day = {
@@ -2136,6 +2140,11 @@ export type t_custom_property_set_payload = {
     | "multi_select"
     | "true_false"
     | UnknownEnumStringValue
+  values_editable_by?:
+    | "org_actors"
+    | "org_and_repo_actors"
+    | UnknownEnumStringValue
+    | null
 }
 
 export type t_custom_property_value = {
@@ -3012,15 +3021,15 @@ export type t_git_tag = {
 export type t_git_tree = {
   sha: string
   tree: {
-    mode?: string
-    path?: string
-    sha?: string
+    mode: string
+    path: string
+    sha: string
     size?: number
-    type?: string
+    type: string
     url?: string
   }[]
   truncated: boolean
-  url: string
+  url?: string
 }
 
 export type t_gitignore_template = {
@@ -3387,6 +3396,7 @@ export type t_issue = {
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -3533,10 +3543,32 @@ export type t_issue_search_result_item = {
   text_matches?: t_search_result_text_matches
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
 }
+
+export type t_issue_type = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | UnknownEnumStringValue
+    | null
+  created_at?: string
+  description: string | null
+  id: number
+  is_enabled?: boolean
+  name: string
+  node_id: string
+  updated_at?: string
+} | null
 
 export type t_job = {
   check_run_url: string
@@ -4133,6 +4165,7 @@ export type t_nullable_issue = {
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -4555,6 +4588,23 @@ export type t_organization_actions_variable = {
   visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
+export type t_organization_create_issue_type = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | UnknownEnumStringValue
+    | null
+  description?: string | null
+  is_enabled: boolean
+  name: string
+}
+
 export type t_organization_dependabot_secret = {
   created_at: string
   name: string
@@ -4760,6 +4810,23 @@ export type t_organization_simple = {
   public_members_url: string
   repos_url: string
   url: string
+}
+
+export type t_organization_update_issue_type = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | UnknownEnumStringValue
+    | null
+  description?: string | null
+  is_enabled: boolean
+  name: string
 }
 
 export type t_package = {
@@ -6084,30 +6151,10 @@ export type t_repository_rule =
   | t_repository_rule_committer_email_pattern
   | t_repository_rule_branch_name_pattern
   | t_repository_rule_tag_name_pattern
-  | {
-      parameters?: {
-        restricted_file_paths: string[]
-      }
-      type: "file_path_restriction" | UnknownEnumStringValue
-    }
-  | {
-      parameters?: {
-        max_file_path_length: number
-      }
-      type: "max_file_path_length" | UnknownEnumStringValue
-    }
-  | {
-      parameters?: {
-        restricted_file_extensions: string[]
-      }
-      type: "file_extension_restriction" | UnknownEnumStringValue
-    }
-  | {
-      parameters?: {
-        max_file_size: number
-      }
-      type: "max_file_size" | UnknownEnumStringValue
-    }
+  | t_repository_rule_file_path_restriction
+  | t_repository_rule_max_file_path_length
+  | t_repository_rule_file_extension_restriction
+  | t_repository_rule_max_file_size
   | t_repository_rule_workflows
   | t_repository_rule_code_scanning
 
@@ -6203,6 +6250,11 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_committer_email_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_branch_name_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_tag_name_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_file_path_restriction & t_repository_rule_ruleset_info)
+  | (t_repository_rule_max_file_path_length & t_repository_rule_ruleset_info)
+  | (t_repository_rule_file_extension_restriction &
+      t_repository_rule_ruleset_info)
+  | (t_repository_rule_max_file_size & t_repository_rule_ruleset_info)
   | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
   | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
@@ -6211,6 +6263,34 @@ export type t_repository_rule_enforcement =
   | "active"
   | "evaluate"
   | UnknownEnumStringValue
+
+export type t_repository_rule_file_extension_restriction = {
+  parameters?: {
+    restricted_file_extensions: string[]
+  }
+  type: "file_extension_restriction" | UnknownEnumStringValue
+}
+
+export type t_repository_rule_file_path_restriction = {
+  parameters?: {
+    restricted_file_paths: string[]
+  }
+  type: "file_path_restriction" | UnknownEnumStringValue
+}
+
+export type t_repository_rule_max_file_path_length = {
+  parameters?: {
+    max_file_path_length: number
+  }
+  type: "max_file_path_length" | UnknownEnumStringValue
+}
+
+export type t_repository_rule_max_file_size = {
+  parameters?: {
+    max_file_size: number
+  }
+  type: "max_file_size" | UnknownEnumStringValue
+}
 
 export type t_repository_rule_merge_queue = {
   parameters?: {
@@ -6260,7 +6340,13 @@ export type t_repository_rule_params_workflow_file_reference = {
 
 export type t_repository_rule_pull_request = {
   parameters?: {
-    allowed_merge_methods?: string[]
+    allowed_merge_methods?: (
+      | "merge"
+      | "squash"
+      | "rebase"
+      | UnknownEnumStringValue
+    )[]
+    automatic_copilot_code_review_enabled?: boolean
     dismiss_stale_reviews_on_push: boolean
     require_code_owner_review: boolean
     require_last_push_approval: boolean
@@ -6890,6 +6976,9 @@ export type t_security_advisory_epss = {
 
 export type t_security_and_analysis = {
   advanced_security?: {
+    status?: "enabled" | "disabled" | UnknownEnumStringValue
+  }
+  code_security?: {
     status?: "enabled" | "disabled" | UnknownEnumStringValue
   }
   dependabot_security_updates?: {

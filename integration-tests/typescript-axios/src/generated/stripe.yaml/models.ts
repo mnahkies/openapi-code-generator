@@ -116,6 +116,9 @@ export type t_account_capabilities = {
   bank_transfer_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
+  billie_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
   blik_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
@@ -191,6 +194,9 @@ export type t_account_capabilities = {
   naver_pay_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
+  nz_bank_account_becs_debit_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
   oxxo_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
@@ -213,6 +219,9 @@ export type t_account_capabilities = {
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
   samsung_pay_payments?:
+    | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
+    | undefined
+  satispay_payments?:
     | ("active" | "inactive" | "pending" | UnknownEnumStringValue)
     | undefined
   sepa_bank_transfer_payments?:
@@ -363,6 +372,9 @@ export type t_account_group_membership = {
 
 export type t_account_invoices_settings = {
   default_account_tax_ids?: ((string | t_tax_id)[] | null) | undefined
+  hosted_payment_method_save?:
+    | ("always" | "never" | "offer" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_account_link = {
@@ -427,6 +439,7 @@ export type t_account_requirements_alternative = {
 
 export type t_account_requirements_error = {
   code:
+    | "information_missing"
     | "invalid_address_city_state_postal_code"
     | "invalid_address_highway_contract_box"
     | "invalid_address_private_mailbox"
@@ -439,6 +452,7 @@ export type t_account_requirements_error = {
     | "invalid_product_description_length"
     | "invalid_product_description_url_match"
     | "invalid_representative_country"
+    | "invalid_signator"
     | "invalid_statement_descriptor_business_mismatch"
     | "invalid_statement_descriptor_denylisted"
     | "invalid_statement_descriptor_length"
@@ -499,6 +513,7 @@ export type t_account_requirements_error = {
     | "verification_document_type_not_supported"
     | "verification_extraneous_directors"
     | "verification_failed_address_match"
+    | "verification_failed_authorizer_authority"
     | "verification_failed_business_iec_number"
     | "verification_failed_document_match"
     | "verification_failed_id_number_match"
@@ -513,6 +528,7 @@ export type t_account_requirements_error = {
     | "verification_missing_directors"
     | "verification_missing_executives"
     | "verification_missing_owners"
+    | "verification_rejected_ownership_exemption_reason"
     | "verification_requires_additional_memorandum_of_associations"
     | "verification_requires_additional_proof_of_registration"
     | "verification_supportability"
@@ -812,6 +828,8 @@ export type t_balance_transaction = {
     | "refund_failure"
     | "reserve_transaction"
     | "reserved_funds"
+    | "stripe_balance_payment_debit"
+    | "stripe_balance_payment_debit_reversal"
     | "stripe_fee"
     | "stripe_fx_fee"
     | "tax_fee"
@@ -1036,6 +1054,135 @@ export type t_billing_meter_event_summary = {
   start_time: number
 }
 
+export type t_billing_bill_resource_invoice_item_parents_invoice_item_parent = {
+  subscription_details?:
+    | (t_billing_bill_resource_invoice_item_parents_invoice_item_subscription_parent | null)
+    | undefined
+  type: "subscription_details" | UnknownEnumStringValue
+}
+
+export type t_billing_bill_resource_invoice_item_parents_invoice_item_subscription_parent =
+  {
+    subscription: string
+    subscription_item?: string | undefined
+  }
+
+export type t_billing_bill_resource_invoicing_lines_common_credited_items = {
+  invoice: string
+  invoice_line_items: string[]
+}
+
+export type t_billing_bill_resource_invoicing_lines_common_proration_details = {
+  credited_items?:
+    | (t_billing_bill_resource_invoicing_lines_common_credited_items | null)
+    | undefined
+}
+
+export type t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_invoice_item_parent =
+  {
+    invoice_item: string
+    proration: boolean
+    proration_details?:
+      | (t_billing_bill_resource_invoicing_lines_common_proration_details | null)
+      | undefined
+    subscription?: (string | null) | undefined
+  }
+
+export type t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_parent =
+  {
+    invoice_item_details?:
+      | (t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_invoice_item_parent | null)
+      | undefined
+    subscription_item_details?:
+      | (t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_subscription_item_parent | null)
+      | undefined
+    type:
+      | "invoice_item_details"
+      | "subscription_item_details"
+      | UnknownEnumStringValue
+  }
+
+export type t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_subscription_item_parent =
+  {
+    invoice_item?: (string | null) | undefined
+    proration: boolean
+    proration_details?:
+      | (t_billing_bill_resource_invoicing_lines_common_proration_details | null)
+      | undefined
+    subscription: string
+    subscription_item: string
+  }
+
+export type t_billing_bill_resource_invoicing_parents_invoice_parent = {
+  quote_details?:
+    | (t_billing_bill_resource_invoicing_parents_invoice_quote_parent | null)
+    | undefined
+  subscription_details?:
+    | (t_billing_bill_resource_invoicing_parents_invoice_subscription_parent | null)
+    | undefined
+  type: "quote_details" | "subscription_details" | UnknownEnumStringValue
+}
+
+export type t_billing_bill_resource_invoicing_parents_invoice_quote_parent = {
+  quote: string
+}
+
+export type t_billing_bill_resource_invoicing_parents_invoice_subscription_parent =
+  {
+    metadata?:
+      | ({
+          [key: string]: string | undefined
+        } | null)
+      | undefined
+    subscription: string | t_subscription
+    subscription_proration_date?: number | undefined
+  }
+
+export type t_billing_bill_resource_invoicing_pricing_pricing = {
+  price_details?:
+    | t_billing_bill_resource_invoicing_pricing_pricing_price_details
+    | undefined
+  type: "price_details" | UnknownEnumStringValue
+  unit_amount_decimal?: (string | null) | undefined
+}
+
+export type t_billing_bill_resource_invoicing_pricing_pricing_price_details = {
+  price: string
+  product: string
+}
+
+export type t_billing_bill_resource_invoicing_taxes_tax = {
+  amount: number
+  tax_behavior: "exclusive" | "inclusive" | UnknownEnumStringValue
+  tax_rate_details?:
+    | (t_billing_bill_resource_invoicing_taxes_tax_rate_details | null)
+    | undefined
+  taxability_reason:
+    | "customer_exempt"
+    | "not_available"
+    | "not_collecting"
+    | "not_subject_to_tax"
+    | "not_supported"
+    | "portion_product_exempt"
+    | "portion_reduced_rated"
+    | "portion_standard_rated"
+    | "product_exempt"
+    | "product_exempt_holiday"
+    | "proportionally_rated"
+    | "reduced_rated"
+    | "reverse_charge"
+    | "standard_rated"
+    | "taxable_basis_reduced"
+    | "zero_rated"
+    | UnknownEnumStringValue
+  taxable_amount?: (number | null) | undefined
+  type: "tax_rate_details" | UnknownEnumStringValue
+}
+
+export type t_billing_bill_resource_invoicing_taxes_tax_rate_details = {
+  tax_rate: string
+}
+
 export type t_billing_clocks_resource_status_details_advancing_status_details =
   {
     target_frozen_time: number
@@ -1114,7 +1261,7 @@ export type t_billing_details = {
 }
 
 export type t_billing_meter_resource_aggregation_settings = {
-  formula: "count" | "sum" | UnknownEnumStringValue
+  formula: "count" | "last" | "sum" | UnknownEnumStringValue
 }
 
 export type t_billing_meter_resource_billing_meter_event_adjustment_cancel = {
@@ -1359,7 +1506,6 @@ export type t_charge = {
   failure_message?: (string | null) | undefined
   fraud_details?: (t_charge_fraud_details | null) | undefined
   id: string
-  invoice?: (string | t_invoice | null) | undefined
   livemode: boolean
   metadata: {
     [key: string]: string | undefined
@@ -1371,6 +1517,9 @@ export type t_charge = {
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_method?: (string | null) | undefined
   payment_method_details?: (t_payment_method_details | null) | undefined
+  presentment_details?:
+    | t_payment_flows_payment_intent_presentment_details
+    | undefined
   radar_options?: t_radar_radar_options | undefined
   receipt_email?: (string | null) | undefined
   receipt_number?: (string | null) | undefined
@@ -1535,6 +1684,9 @@ export type t_checkout_session = {
     | undefined
   mode: "payment" | "setup" | "subscription" | UnknownEnumStringValue
   object: "checkout.session" | UnknownEnumStringValue
+  optional_items?:
+    | (t_payment_pages_checkout_session_optional_item[] | null)
+    | undefined
   payment_intent?: (string | t_payment_intent | null) | undefined
   payment_link?: (string | t_payment_link | null) | undefined
   payment_method_collection?:
@@ -1552,8 +1704,14 @@ export type t_checkout_session = {
     | "paid"
     | "unpaid"
     | UnknownEnumStringValue
+  permissions?:
+    | (t_payment_pages_checkout_session_permissions | null)
+    | undefined
   phone_number_collection?:
     | t_payment_pages_checkout_session_phone_number_collection
+    | undefined
+  presentment_details?:
+    | t_payment_flows_payment_intent_presentment_details
     | undefined
   recovered_from?: (string | null) | undefined
   redirect_on_completion?:
@@ -1570,7 +1728,6 @@ export type t_checkout_session = {
   shipping_cost?:
     | (t_payment_pages_checkout_session_shipping_cost | null)
     | undefined
-  shipping_details?: (t_shipping | null) | undefined
   shipping_options: t_payment_pages_checkout_session_shipping_option[]
   status?:
     | ("complete" | "expired" | "open" | UnknownEnumStringValue | null)
@@ -1594,7 +1751,9 @@ export type t_checkout_session = {
   total_details?:
     | (t_payment_pages_checkout_session_total_details | null)
     | undefined
-  ui_mode?: ("embedded" | "hosted" | UnknownEnumStringValue | null) | undefined
+  ui_mode?:
+    | ("custom" | "embedded" | "hosted" | UnknownEnumStringValue | null)
+    | undefined
   url?: (string | null) | undefined
 }
 
@@ -2090,6 +2249,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   au_becs_debit?: t_payment_method_au_becs_debit | undefined
   bacs_debit?: t_payment_method_bacs_debit | undefined
   bancontact?: t_payment_method_bancontact | undefined
+  billie?: t_payment_method_billie | undefined
   billing_details: t_billing_details
   blik?: t_payment_method_blik | undefined
   boleto?: t_payment_method_boleto | undefined
@@ -2112,6 +2272,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   mobilepay?: t_payment_method_mobilepay | undefined
   multibanco?: t_payment_method_multibanco | undefined
   naver_pay?: t_payment_method_naver_pay | undefined
+  nz_bank_account?: t_payment_method_nz_bank_account | undefined
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
   pay_by_bank?: t_payment_method_pay_by_bank | undefined
@@ -2122,6 +2283,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
   promptpay?: t_payment_method_promptpay | undefined
   revolut_pay?: t_payment_method_revolut_pay | undefined
   samsung_pay?: t_payment_method_samsung_pay | undefined
+  satispay?: t_payment_method_satispay | undefined
   sepa_debit?: t_payment_method_sepa_debit | undefined
   sofort?: t_payment_method_sofort | undefined
   swish?: t_payment_method_swish | undefined
@@ -2136,6 +2298,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "au_becs_debit"
     | "bacs_debit"
     | "bancontact"
+    | "billie"
     | "blik"
     | "boleto"
     | "card"
@@ -2156,6 +2319,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "mobilepay"
     | "multibanco"
     | "naver_pay"
+    | "nz_bank_account"
     | "oxxo"
     | "p24"
     | "pay_by_bank"
@@ -2166,6 +2330,7 @@ export type t_confirmation_tokens_resource_payment_method_preview = {
     | "promptpay"
     | "revolut_pay"
     | "samsung_pay"
+    | "satispay"
     | "sepa_debit"
     | "sofort"
     | "swish"
@@ -2411,21 +2576,22 @@ export type t_credit_note = {
         | null
       )
     | undefined
-  refund?: (string | t_refund | null) | undefined
+  refunds: t_credit_note_refund[]
   shipping_cost?: (t_invoices_resource_shipping_cost | null) | undefined
   status: "issued" | "void" | UnknownEnumStringValue
   subtotal: number
   subtotal_excluding_tax?: (number | null) | undefined
-  tax_amounts: t_credit_note_tax_amount[]
   total: number
   total_excluding_tax?: (number | null) | undefined
+  total_taxes?:
+    | (t_billing_bill_resource_invoicing_taxes_tax[] | null)
+    | undefined
   type: "post_payment" | "pre_payment" | UnknownEnumStringValue
   voided_at?: (number | null) | undefined
 }
 
 export type t_credit_note_line_item = {
   amount: number
-  amount_excluding_tax?: (number | null) | undefined
   description?: (string | null) | undefined
   discount_amount: number
   discount_amounts: t_discounts_resource_discount_amount[]
@@ -2435,40 +2601,16 @@ export type t_credit_note_line_item = {
   object: "credit_note_line_item" | UnknownEnumStringValue
   pretax_credit_amounts: t_credit_notes_pretax_credit_amount[]
   quantity?: (number | null) | undefined
-  tax_amounts: t_credit_note_tax_amount[]
   tax_rates: t_tax_rate[]
+  taxes?: (t_billing_bill_resource_invoicing_taxes_tax[] | null) | undefined
   type: "custom_line_item" | "invoice_line_item" | UnknownEnumStringValue
   unit_amount?: (number | null) | undefined
   unit_amount_decimal?: (string | null) | undefined
-  unit_amount_excluding_tax?: (string | null) | undefined
 }
 
-export type t_credit_note_tax_amount = {
-  amount: number
-  inclusive: boolean
-  tax_rate: string | t_tax_rate
-  taxability_reason?:
-    | (
-        | "customer_exempt"
-        | "not_collecting"
-        | "not_subject_to_tax"
-        | "not_supported"
-        | "portion_product_exempt"
-        | "portion_reduced_rated"
-        | "portion_standard_rated"
-        | "product_exempt"
-        | "product_exempt_holiday"
-        | "proportionally_rated"
-        | "reduced_rated"
-        | "reverse_charge"
-        | "standard_rated"
-        | "taxable_basis_reduced"
-        | "zero_rated"
-        | UnknownEnumStringValue
-        | null
-      )
-    | undefined
-  taxable_amount?: (number | null) | undefined
+export type t_credit_note_refund = {
+  amount_refunded: number
+  refund: string | t_refund
 }
 
 export type t_credit_notes_pretax_credit_amount = {
@@ -2664,6 +2806,7 @@ export type t_customer_balance_resource_cash_balance_transaction_resource_unappl
 
 export type t_customer_balance_transaction = {
   amount: number
+  checkout_session?: (string | t_checkout_session | null) | undefined
   created: number
   credit_note?: (string | t_credit_note | null) | undefined
   currency: string
@@ -2682,6 +2825,8 @@ export type t_customer_balance_transaction = {
   type:
     | "adjustment"
     | "applied_to_invoice"
+    | "checkout_session_subscription_payment"
+    | "checkout_session_subscription_payment_canceled"
     | "credit_note"
     | "initial"
     | "invoice_overpaid"
@@ -3926,16 +4071,16 @@ export type t_invoice = {
     | ((string | t_tax_id | t_deleted_tax_id)[] | null)
     | undefined
   amount_due: number
+  amount_overpaid: number
   amount_paid: number
   amount_remaining: number
   amount_shipping: number
   application?:
     | (string | t_application | t_deleted_application | null)
     | undefined
-  application_fee_amount?: (number | null) | undefined
   attempt_count: number
   attempted: boolean
-  auto_advance?: boolean | undefined
+  auto_advance: boolean
   automatic_tax: t_automatic_tax
   automatically_finalizes_at?: (number | null) | undefined
   billing_reason?:
@@ -3953,15 +4098,17 @@ export type t_invoice = {
         | null
       )
     | undefined
-  charge?: (string | t_charge | null) | undefined
   collection_method:
     | "charge_automatically"
     | "send_invoice"
     | UnknownEnumStringValue
+  confirmation_secret?:
+    | (t_invoices_resource_confirmation_secret | null)
+    | undefined
   created: number
   currency: string
   custom_fields?: (t_invoice_setting_custom_field[] | null) | undefined
-  customer?: (string | t_customer | t_deleted_customer | null) | undefined
+  customer: string | t_customer | t_deleted_customer
   customer_address?: (t_address | null) | undefined
   customer_email?: (string | null) | undefined
   customer_name?: (string | null) | undefined
@@ -3977,7 +4124,6 @@ export type t_invoice = {
     | undefined
   default_tax_rates: t_tax_rate[]
   description?: (string | null) | undefined
-  discount?: (t_discount | null) | undefined
   discounts: (string | t_discount | t_deleted_discount)[]
   due_date?: (number | null) | undefined
   effective_at?: (number | null) | undefined
@@ -3985,7 +4131,7 @@ export type t_invoice = {
   footer?: (string | null) | undefined
   from_invoice?: (t_invoices_resource_from_invoice | null) | undefined
   hosted_invoice_url?: (string | null) | undefined
-  id?: string | undefined
+  id: string
   invoice_pdf?: (string | null) | undefined
   issuer: t_connect_account_reference
   last_finalization_error?: (t_api_errors | null) | undefined
@@ -4006,15 +4152,22 @@ export type t_invoice = {
   number?: (string | null) | undefined
   object: "invoice" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
-  paid: boolean
-  paid_out_of_band: boolean
-  payment_intent?: (string | t_payment_intent | null) | undefined
+  parent?:
+    | (t_billing_bill_resource_invoicing_parents_invoice_parent | null)
+    | undefined
   payment_settings: t_invoices_payment_settings
+  payments?:
+    | {
+        data: t_invoice_payment[]
+        has_more: boolean
+        object: "list" | UnknownEnumStringValue
+        url: string
+      }
+    | undefined
   period_end: number
   period_start: number
   post_payment_credit_notes_amount: number
   pre_payment_credit_notes_amount: number
-  quote?: (string | t_quote | null) | undefined
   receipt_number?: (string | null) | undefined
   rendering?: (t_invoices_resource_invoice_rendering | null) | undefined
   shipping_cost?: (t_invoices_resource_shipping_cost | null) | undefined
@@ -4033,12 +4186,8 @@ export type t_invoice = {
       )
     | undefined
   status_transitions: t_invoices_resource_status_transitions
-  subscription?: (string | t_subscription | null) | undefined
-  subscription_details?: (t_subscription_details_data | null) | undefined
-  subscription_proration_date?: number | undefined
   subtotal: number
   subtotal_excluding_tax?: (number | null) | undefined
-  tax?: (number | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
   threshold_reason?: t_invoice_threshold_reason | undefined
   total: number
@@ -4049,8 +4198,9 @@ export type t_invoice = {
   total_pretax_credit_amounts?:
     | (t_invoices_resource_pretax_credit_amount[] | null)
     | undefined
-  total_tax_amounts: t_invoice_tax_amount[]
-  transfer_data?: (t_invoice_transfer_data | null) | undefined
+  total_taxes?:
+    | (t_billing_bill_resource_invoicing_taxes_tax[] | null)
+    | undefined
   webhooks_delivered_at?: (number | null) | undefined
 }
 
@@ -4074,6 +4224,21 @@ export type t_invoice_mandate_options_card = {
     | ("fixed" | "maximum" | UnknownEnumStringValue | null)
     | undefined
   description?: (string | null) | undefined
+}
+
+export type t_invoice_payment = {
+  amount_paid?: (number | null) | undefined
+  amount_requested: number
+  created: number
+  currency: string
+  id: string
+  invoice: string | t_invoice | t_deleted_invoice
+  is_default: boolean
+  livemode: boolean
+  object: "invoice_payment" | UnknownEnumStringValue
+  payment: t_invoices_payments_invoice_payment_associated_payment
+  status: string
+  status_transitions: t_invoices_payments_invoice_payment_status_transitions
 }
 
 export type t_invoice_payment_method_options_acss_debit = {
@@ -4233,42 +4398,9 @@ export type t_invoice_setting_subscription_schedule_setting = {
   issuer: t_connect_account_reference
 }
 
-export type t_invoice_tax_amount = {
-  amount: number
-  inclusive: boolean
-  tax_rate: string | t_tax_rate
-  taxability_reason?:
-    | (
-        | "customer_exempt"
-        | "not_collecting"
-        | "not_subject_to_tax"
-        | "not_supported"
-        | "portion_product_exempt"
-        | "portion_reduced_rated"
-        | "portion_standard_rated"
-        | "product_exempt"
-        | "product_exempt_holiday"
-        | "proportionally_rated"
-        | "reduced_rated"
-        | "reverse_charge"
-        | "standard_rated"
-        | "taxable_basis_reduced"
-        | "zero_rated"
-        | UnknownEnumStringValue
-        | null
-      )
-    | undefined
-  taxable_amount?: (number | null) | undefined
-}
-
 export type t_invoice_threshold_reason = {
   amount_gte?: (number | null) | undefined
   item_reasons: t_invoice_item_threshold_reason[]
-}
-
-export type t_invoice_transfer_data = {
-  amount?: (number | null) | undefined
-  destination: string | t_account
 }
 
 export type t_invoiceitem = {
@@ -4288,16 +4420,17 @@ export type t_invoiceitem = {
       } | null)
     | undefined
   object: "invoiceitem" | UnknownEnumStringValue
+  parent?:
+    | (t_billing_bill_resource_invoice_item_parents_invoice_item_parent | null)
+    | undefined
   period: t_invoice_line_item_period
-  price?: (t_price | null) | undefined
+  pricing?:
+    | (t_billing_bill_resource_invoicing_pricing_pricing | null)
+    | undefined
   proration: boolean
   quantity: number
-  subscription?: (string | t_subscription | null) | undefined
-  subscription_item?: string | undefined
   tax_rates?: (t_tax_rate[] | null) | undefined
   test_clock?: (string | t_test_helpers_test_clock | null) | undefined
-  unit_amount?: (number | null) | undefined
-  unit_amount_decimal?: (string | null) | undefined
 }
 
 export type t_invoices_payment_method_options = {
@@ -4340,11 +4473,13 @@ export type t_invoices_payment_settings = {
             | "ideal"
             | "jp_credit_transfer"
             | "kakao_pay"
+            | "klarna"
             | "konbini"
             | "kr_card"
             | "link"
             | "multibanco"
             | "naver_pay"
+            | "nz_bank_account"
             | "p24"
             | "payco"
             | "paynow"
@@ -4362,6 +4497,22 @@ export type t_invoices_payment_settings = {
         | null
       )
     | undefined
+}
+
+export type t_invoices_payments_invoice_payment_associated_payment = {
+  charge?: (string | t_charge) | undefined
+  payment_intent?: (string | t_payment_intent) | undefined
+  type: "charge" | "payment_intent" | UnknownEnumStringValue
+}
+
+export type t_invoices_payments_invoice_payment_status_transitions = {
+  canceled_at?: (number | null) | undefined
+  paid_at?: (number | null) | undefined
+}
+
+export type t_invoices_resource_confirmation_secret = {
+  client_secret: string
+  type: string
 }
 
 export type t_invoices_resource_from_invoice = {
@@ -4483,17 +4634,6 @@ export type t_invoices_resource_invoice_tax_id = {
   value?: (string | null) | undefined
 }
 
-export type t_invoices_resource_line_items_credited_items = {
-  invoice: string
-  invoice_line_items: string[]
-}
-
-export type t_invoices_resource_line_items_proration_details = {
-  credited_items?:
-    | (t_invoices_resource_line_items_credited_items | null)
-    | undefined
-}
-
 export type t_invoices_resource_pretax_credit_amount = {
   amount: number
   credit_balance_transaction?:
@@ -4551,7 +4691,7 @@ export type t_issuing_authorization = {
   object: "issuing.authorization" | UnknownEnumStringValue
   pending_request?: (t_issuing_authorization_pending_request | null) | undefined
   request_history: t_issuing_authorization_request[]
-  status: "closed" | "pending" | "reversed" | UnknownEnumStringValue
+  status: "closed" | "expired" | "pending" | "reversed" | UnknownEnumStringValue
   token?: (string | t_issuing_token | null) | undefined
   transactions: t_issuing_transaction[]
   treasury?: (t_issuing_authorization_treasury | null) | undefined
@@ -4711,20 +4851,20 @@ export type t_issuing_settlement = {
   created: number
   currency: string
   id: string
-  interchange_fees: number
+  interchange_fees_amount: number
   livemode: boolean
   metadata: {
     [key: string]: string | undefined
   }
-  net_total: number
+  net_total_amount: number
   network: "maestro" | "visa" | UnknownEnumStringValue
-  network_fees: number
+  network_fees_amount: number
   network_settlement_identifier: string
   object: "issuing.settlement" | UnknownEnumStringValue
   settlement_service: string
   status: "complete" | "pending" | UnknownEnumStringValue
+  transaction_amount: number
   transaction_count: number
-  transaction_volume: number
 }
 
 export type t_issuing_token = {
@@ -4956,6 +5096,7 @@ export type t_issuing_authorization_request = {
     | "cardholder_verification_required"
     | "insecure_authorization_method"
     | "insufficient_funds"
+    | "network_fallback"
     | "not_allowed"
     | "pin_blocked"
     | "spending_controls"
@@ -7504,7 +7645,6 @@ export type t_legal_entity_ubo_declaration = {
 
 export type t_line_item = {
   amount: number
-  amount_excluding_tax?: (number | null) | undefined
   currency: string
   description?: (string | null) | undefined
   discount_amounts?: (t_discounts_resource_discount_amount[] | null) | undefined
@@ -7512,28 +7652,24 @@ export type t_line_item = {
   discounts: (string | t_discount)[]
   id: string
   invoice?: (string | null) | undefined
-  invoice_item?: (string | t_invoiceitem) | undefined
   livemode: boolean
   metadata: {
     [key: string]: string | undefined
   }
   object: "line_item" | UnknownEnumStringValue
+  parent?:
+    | (t_billing_bill_resource_invoicing_lines_parents_invoice_line_item_parent | null)
+    | undefined
   period: t_invoice_line_item_period
   pretax_credit_amounts?:
     | (t_invoices_resource_pretax_credit_amount[] | null)
     | undefined
-  price?: (t_price | null) | undefined
-  proration: boolean
-  proration_details?:
-    | (t_invoices_resource_line_items_proration_details | null)
+  pricing?:
+    | (t_billing_bill_resource_invoicing_pricing_pricing | null)
     | undefined
   quantity?: (number | null) | undefined
   subscription?: (string | t_subscription | null) | undefined
-  subscription_item?: (string | t_subscription_item) | undefined
-  tax_amounts: t_invoice_tax_amount[]
-  tax_rates: t_tax_rate[]
-  type: "invoiceitem" | "subscription" | UnknownEnumStringValue
-  unit_amount_excluding_tax?: (string | null) | undefined
+  taxes?: (t_billing_bill_resource_invoicing_taxes_tax[] | null) | undefined
 }
 
 export type t_line_items_discount_amount = {
@@ -7661,6 +7797,10 @@ export type t_mandate_link = EmptyObject
 
 export type t_mandate_multi_use = EmptyObject
 
+export type t_mandate_naver_pay = EmptyObject
+
+export type t_mandate_nz_bank_account = EmptyObject
+
 export type t_mandate_payment_method_details = {
   acss_debit?: t_mandate_acss_debit | undefined
   amazon_pay?: t_mandate_amazon_pay | undefined
@@ -7671,6 +7811,8 @@ export type t_mandate_payment_method_details = {
   kakao_pay?: t_mandate_kakao_pay | undefined
   kr_card?: t_mandate_kr_card | undefined
   link?: t_mandate_link | undefined
+  naver_pay?: t_mandate_naver_pay | undefined
+  nz_bank_account?: t_mandate_nz_bank_account | undefined
   paypal?: t_mandate_paypal | undefined
   revolut_pay?: t_mandate_revolut_pay | undefined
   sepa_debit?: t_mandate_sepa_debit | undefined
@@ -7817,6 +7959,11 @@ export type t_payment_flows_installment_options = {
   plan?: t_payment_method_details_card_installments_plan | undefined
 }
 
+export type t_payment_flows_payment_intent_presentment_details = {
+  presentment_amount: number
+  presentment_currency: string
+}
+
 export type t_payment_flows_private_payment_methods_alipay = EmptyObject
 
 export type t_payment_flows_private_payment_methods_alipay_details = {
@@ -7873,6 +8020,9 @@ export type t_payment_flows_private_payment_methods_klarna_dob = {
 export type t_payment_flows_private_payment_methods_naver_pay_payment_method_options =
   {
     capture_method?: ("manual" | UnknownEnumStringValue) | undefined
+    setup_future_usage?:
+      | ("none" | "off_session" | UnknownEnumStringValue)
+      | undefined
   }
 
 export type t_payment_flows_private_payment_methods_payco_payment_method_options =
@@ -7910,6 +8060,7 @@ export type t_payment_intent = {
         | "abandoned"
         | "automatic"
         | "duplicate"
+        | "expired"
         | "failed_invoice"
         | "fraudulent"
         | "requested_by_customer"
@@ -7930,7 +8081,6 @@ export type t_payment_intent = {
   customer?: (string | t_customer | t_deleted_customer | null) | undefined
   description?: (string | null) | undefined
   id: string
-  invoice?: (string | t_invoice | null) | undefined
   last_payment_error?: (t_api_errors | null) | undefined
   latest_charge?: (string | t_charge | null) | undefined
   livemode: boolean
@@ -7950,6 +8100,9 @@ export type t_payment_intent = {
     | (t_payment_intent_payment_method_options | null)
     | undefined
   payment_method_types: string[]
+  presentment_details?:
+    | t_payment_flows_payment_intent_presentment_details
+    | undefined
   processing?: (t_payment_intent_processing | null) | undefined
   receipt_email?: (string | null) | undefined
   review?: (string | t_review | null) | undefined
@@ -8371,6 +8524,12 @@ export type t_payment_intent_payment_method_options = {
         | t_payment_intent_type_specific_payment_method_options_client
       )
     | undefined
+  nz_bank_account?:
+    | (
+        | t_payment_intent_payment_method_options_nz_bank_account
+        | t_payment_intent_type_specific_payment_method_options_client
+      )
+    | undefined
   oxxo?:
     | (
         | t_payment_method_options_oxxo
@@ -8595,6 +8754,13 @@ export type t_payment_intent_payment_method_options_mobilepay = {
   setup_future_usage?: ("none" | UnknownEnumStringValue) | undefined
 }
 
+export type t_payment_intent_payment_method_options_nz_bank_account = {
+  setup_future_usage?:
+    | ("none" | "off_session" | "on_session" | UnknownEnumStringValue)
+    | undefined
+  target_date?: string | undefined
+}
+
 export type t_payment_intent_payment_method_options_sepa_debit = {
   mandate_options?:
     | t_payment_intent_payment_method_options_mandate_options_sepa_debit
@@ -8690,6 +8856,7 @@ export type t_payment_link = {
   }
   object: "payment_link" | UnknownEnumStringValue
   on_behalf_of?: (string | t_account | null) | undefined
+  optional_items?: (t_payment_links_resource_optional_item[] | null) | undefined
   payment_intent_data?:
     | (t_payment_links_resource_payment_intent_data | null)
     | undefined
@@ -8704,6 +8871,7 @@ export type t_payment_link = {
             | "au_becs_debit"
             | "bacs_debit"
             | "bancontact"
+            | "billie"
             | "blik"
             | "boleto"
             | "card"
@@ -8725,6 +8893,7 @@ export type t_payment_link = {
             | "paypal"
             | "pix"
             | "promptpay"
+            | "satispay"
             | "sepa_debit"
             | "sofort"
             | "swish"
@@ -8805,6 +8974,7 @@ export type t_payment_links_resource_custom_fields = {
 }
 
 export type t_payment_links_resource_custom_fields_dropdown = {
+  default_value?: (string | null) | undefined
   options: t_payment_links_resource_custom_fields_dropdown_option[]
 }
 
@@ -8819,11 +8989,13 @@ export type t_payment_links_resource_custom_fields_label = {
 }
 
 export type t_payment_links_resource_custom_fields_numeric = {
+  default_value?: (string | null) | undefined
   maximum_length?: (number | null) | undefined
   minimum_length?: (number | null) | undefined
 }
 
 export type t_payment_links_resource_custom_fields_text = {
+  default_value?: (string | null) | undefined
   maximum_length?: (number | null) | undefined
   minimum_length?: (number | null) | undefined
 }
@@ -8866,6 +9038,20 @@ export type t_payment_links_resource_invoice_settings = {
   rendering_options?:
     | (t_invoice_setting_checkout_rendering_options | null)
     | undefined
+}
+
+export type t_payment_links_resource_optional_item = {
+  adjustable_quantity?:
+    | (t_payment_links_resource_optional_item_adjustable_quantity | null)
+    | undefined
+  price: string
+  quantity: number
+}
+
+export type t_payment_links_resource_optional_item_adjustable_quantity = {
+  enabled: boolean
+  maximum?: (number | null) | undefined
+  minimum?: (number | null) | undefined
 }
 
 export type t_payment_links_resource_payment_intent_data = {
@@ -9190,6 +9376,7 @@ export type t_payment_method = {
   au_becs_debit?: t_payment_method_au_becs_debit | undefined
   bacs_debit?: t_payment_method_bacs_debit | undefined
   bancontact?: t_payment_method_bancontact | undefined
+  billie?: t_payment_method_billie | undefined
   billing_details: t_billing_details
   blik?: t_payment_method_blik | undefined
   boleto?: t_payment_method_boleto | undefined
@@ -9220,6 +9407,7 @@ export type t_payment_method = {
   mobilepay?: t_payment_method_mobilepay | undefined
   multibanco?: t_payment_method_multibanco | undefined
   naver_pay?: t_payment_method_naver_pay | undefined
+  nz_bank_account?: t_payment_method_nz_bank_account | undefined
   object: "payment_method" | UnknownEnumStringValue
   oxxo?: t_payment_method_oxxo | undefined
   p24?: t_payment_method_p24 | undefined
@@ -9232,6 +9420,7 @@ export type t_payment_method = {
   radar_options?: t_radar_radar_options | undefined
   revolut_pay?: t_payment_method_revolut_pay | undefined
   samsung_pay?: t_payment_method_samsung_pay | undefined
+  satispay?: t_payment_method_satispay | undefined
   sepa_debit?: t_payment_method_sepa_debit | undefined
   sofort?: t_payment_method_sofort | undefined
   swish?: t_payment_method_swish | undefined
@@ -9246,6 +9435,7 @@ export type t_payment_method = {
     | "au_becs_debit"
     | "bacs_debit"
     | "bancontact"
+    | "billie"
     | "blik"
     | "boleto"
     | "card"
@@ -9266,6 +9456,7 @@ export type t_payment_method = {
     | "mobilepay"
     | "multibanco"
     | "naver_pay"
+    | "nz_bank_account"
     | "oxxo"
     | "p24"
     | "pay_by_bank"
@@ -9276,6 +9467,7 @@ export type t_payment_method = {
     | "promptpay"
     | "revolut_pay"
     | "samsung_pay"
+    | "satispay"
     | "sepa_debit"
     | "sofort"
     | "swish"
@@ -9318,6 +9510,8 @@ export type t_payment_method_bacs_debit = {
 }
 
 export type t_payment_method_bancontact = EmptyObject
+
+export type t_payment_method_billie = EmptyObject
 
 export type t_payment_method_blik = EmptyObject
 
@@ -9492,6 +9686,9 @@ export type t_payment_method_configuration = {
   bancontact?:
     | t_payment_method_config_resource_payment_method_properties
     | undefined
+  billie?:
+    | t_payment_method_config_resource_payment_method_properties
+    | undefined
   blik?: t_payment_method_config_resource_payment_method_properties | undefined
   boleto?:
     | t_payment_method_config_resource_payment_method_properties
@@ -9536,6 +9733,9 @@ export type t_payment_method_configuration = {
     | t_payment_method_config_resource_payment_method_properties
     | undefined
   name: string
+  nz_bank_account?:
+    | t_payment_method_config_resource_payment_method_properties
+    | undefined
   object: "payment_method_configuration" | UnknownEnumStringValue
   oxxo?: t_payment_method_config_resource_payment_method_properties | undefined
   p24?: t_payment_method_config_resource_payment_method_properties | undefined
@@ -9553,6 +9753,9 @@ export type t_payment_method_configuration = {
     | t_payment_method_config_resource_payment_method_properties
     | undefined
   revolut_pay?:
+    | t_payment_method_config_resource_payment_method_properties
+    | undefined
+  satispay?:
     | t_payment_method_config_resource_payment_method_properties
     | undefined
   sepa_debit?:
@@ -9586,6 +9789,7 @@ export type t_payment_method_details = {
   au_becs_debit?: t_payment_method_details_au_becs_debit | undefined
   bacs_debit?: t_payment_method_details_bacs_debit | undefined
   bancontact?: t_payment_method_details_bancontact | undefined
+  billie?: t_payment_method_details_billie | undefined
   blik?: t_payment_method_details_blik | undefined
   boleto?: t_payment_method_details_boleto | undefined
   card?: t_payment_method_details_card | undefined
@@ -9606,6 +9810,7 @@ export type t_payment_method_details = {
   mobilepay?: t_payment_method_details_mobilepay | undefined
   multibanco?: t_payment_method_details_multibanco | undefined
   naver_pay?: t_payment_method_details_naver_pay | undefined
+  nz_bank_account?: t_payment_method_details_nz_bank_account | undefined
   oxxo?: t_payment_method_details_oxxo | undefined
   p24?: t_payment_method_details_p24 | undefined
   pay_by_bank?: t_payment_method_details_pay_by_bank | undefined
@@ -9616,6 +9821,7 @@ export type t_payment_method_details = {
   promptpay?: t_payment_method_details_promptpay | undefined
   revolut_pay?: t_payment_method_details_revolut_pay | undefined
   samsung_pay?: t_payment_method_details_samsung_pay | undefined
+  satispay?: t_payment_method_details_satispay | undefined
   sepa_debit?: t_payment_method_details_sepa_debit | undefined
   sofort?: t_payment_method_details_sofort | undefined
   stripe_account?: t_payment_method_details_stripe_account | undefined
@@ -9696,6 +9902,8 @@ export type t_payment_method_details_bancontact = {
     | undefined
   verified_name?: (string | null) | undefined
 }
+
+export type t_payment_method_details_billie = EmptyObject
 
 export type t_payment_method_details_blik = {
   buyer_id?: (string | null) | undefined
@@ -10127,6 +10335,15 @@ export type t_payment_method_details_naver_pay = {
   buyer_id?: (string | null) | undefined
 }
 
+export type t_payment_method_details_nz_bank_account = {
+  account_holder_name?: (string | null) | undefined
+  bank_code: string
+  bank_name: string
+  branch_code: string
+  last4: string
+  suffix?: (string | null) | undefined
+}
+
 export type t_payment_method_details_oxxo = {
   number?: (string | null) | undefined
 }
@@ -10211,6 +10428,8 @@ export type t_payment_method_details_revolut_pay = {
 export type t_payment_method_details_samsung_pay = {
   buyer_id?: (string | null) | undefined
 }
+
+export type t_payment_method_details_satispay = EmptyObject
 
 export type t_payment_method_details_sepa_debit = {
   bank_code?: (string | null) | undefined
@@ -10495,7 +10714,17 @@ export type t_payment_method_mobilepay = EmptyObject
 export type t_payment_method_multibanco = EmptyObject
 
 export type t_payment_method_naver_pay = {
+  buyer_id?: (string | null) | undefined
   funding: "card" | "points" | UnknownEnumStringValue
+}
+
+export type t_payment_method_nz_bank_account = {
+  account_holder_name?: (string | null) | undefined
+  bank_code: string
+  bank_name: string
+  branch_code: string
+  last4: string
+  suffix?: (string | null) | undefined
 }
 
 export type t_payment_method_options_affirm = {
@@ -10809,6 +11038,8 @@ export type t_payment_method_revolut_pay = EmptyObject
 
 export type t_payment_method_samsung_pay = EmptyObject
 
+export type t_payment_method_satispay = EmptyObject
+
 export type t_payment_method_sepa_debit = {
   bank_code?: (string | null) | undefined
   branch_code?: (string | null) | undefined
@@ -10916,8 +11147,15 @@ export type t_payment_pages_checkout_session_automatic_tax = {
     | undefined
 }
 
+export type t_payment_pages_checkout_session_checkout_address_details = {
+  address: t_address
+  name: string
+}
+
 export type t_payment_pages_checkout_session_collected_information = {
-  shipping_details?: (t_shipping | null) | undefined
+  shipping_details?:
+    | (t_payment_pages_checkout_session_checkout_address_details | null)
+    | undefined
 }
 
 export type t_payment_pages_checkout_session_consent = {
@@ -11042,8 +11280,29 @@ export type t_payment_pages_checkout_session_invoice_settings = {
     | undefined
 }
 
+export type t_payment_pages_checkout_session_optional_item = {
+  adjustable_quantity?:
+    | (t_payment_pages_checkout_session_optional_item_adjustable_quantity | null)
+    | undefined
+  price: string
+  quantity: number
+}
+
+export type t_payment_pages_checkout_session_optional_item_adjustable_quantity =
+  {
+    enabled: boolean
+    maximum?: (number | null) | undefined
+    minimum?: (number | null) | undefined
+  }
+
 export type t_payment_pages_checkout_session_payment_method_reuse_agreement = {
   position: "auto" | "hidden" | UnknownEnumStringValue
+}
+
+export type t_payment_pages_checkout_session_permissions = {
+  update_shipping_details?:
+    | ("client_only" | "server_only" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_payment_pages_checkout_session_phone_number_collection = {
@@ -11528,11 +11787,6 @@ export type t_paypal_seller_protection = {
     | UnknownEnumStringValue
 }
 
-export type t_period = {
-  end?: (number | null) | undefined
-  start?: (number | null) | undefined
-}
-
 export type t_person = {
   account: string
   additional_tos_acceptances?: t_person_additional_tos_acceptances | undefined
@@ -11614,16 +11868,6 @@ export type t_person_requirements = {
 
 export type t_plan = {
   active: boolean
-  aggregate_usage?:
-    | (
-        | "last_during_period"
-        | "last_ever"
-        | "max"
-        | "sum"
-        | UnknownEnumStringValue
-        | null
-      )
-    | undefined
   amount?: (number | null) | undefined
   amount_decimal?: (string | null) | undefined
   billing_scheme: "per_unit" | "tiered" | UnknownEnumStringValue
@@ -12167,16 +12411,6 @@ export type t_received_payment_method_details_financial_account = {
 }
 
 export type t_recurring = {
-  aggregate_usage?:
-    | (
-        | "last_during_period"
-        | "last_ever"
-        | "max"
-        | "sum"
-        | UnknownEnumStringValue
-        | null
-      )
-    | undefined
   interval: "day" | "month" | "week" | "year" | UnknownEnumStringValue
   interval_count: number
   meter?: (string | null) | undefined
@@ -12203,6 +12437,9 @@ export type t_refund = {
   next_action?: t_refund_next_action | undefined
   object: "refund" | UnknownEnumStringValue
   payment_intent?: (string | t_payment_intent | null) | undefined
+  presentment_details?:
+    | t_payment_flows_payment_intent_presentment_details
+    | undefined
   reason?:
     | (
         | "duplicate"
@@ -12240,6 +12477,7 @@ export type t_refund_destination_details = {
   klarna?: t_destination_details_unimplemented | undefined
   multibanco?: t_refund_destination_details_multibanco | undefined
   mx_bank_transfer?: t_refund_destination_details_mx_bank_transfer | undefined
+  nz_bank_transfer?: t_destination_details_unimplemented | undefined
   p24?: t_refund_destination_details_p24 | undefined
   paynow?: t_destination_details_unimplemented | undefined
   paypal?: t_destination_details_unimplemented | undefined
@@ -12367,6 +12605,7 @@ export type t_review = {
   closed_reason?:
     | (
         | "approved"
+        | "canceled"
         | "disputed"
         | "redacted"
         | "refunded"
@@ -12468,6 +12707,10 @@ export type t_setup_attempt_payment_method_details = {
   klarna?: t_setup_attempt_payment_method_details_klarna | undefined
   kr_card?: t_setup_attempt_payment_method_details_kr_card | undefined
   link?: t_setup_attempt_payment_method_details_link | undefined
+  naver_pay?: t_setup_attempt_payment_method_details_naver_pay | undefined
+  nz_bank_account?:
+    | t_setup_attempt_payment_method_details_nz_bank_account
+    | undefined
   paypal?: t_setup_attempt_payment_method_details_paypal | undefined
   revolut_pay?: t_setup_attempt_payment_method_details_revolut_pay | undefined
   sepa_debit?: t_setup_attempt_payment_method_details_sepa_debit | undefined
@@ -12597,6 +12840,12 @@ export type t_setup_attempt_payment_method_details_klarna = EmptyObject
 export type t_setup_attempt_payment_method_details_kr_card = EmptyObject
 
 export type t_setup_attempt_payment_method_details_link = EmptyObject
+
+export type t_setup_attempt_payment_method_details_naver_pay = {
+  buyer_id?: string | undefined
+}
+
+export type t_setup_attempt_payment_method_details_nz_bank_account = EmptyObject
 
 export type t_setup_attempt_payment_method_details_paypal = EmptyObject
 
@@ -12939,6 +13188,15 @@ export type t_shipping_rate_fixed_amount = {
         [key: string]: t_shipping_rate_currency_option | undefined
       }
     | undefined
+}
+
+export type t_sigma_sigma_api_query = {
+  created: number
+  id: string
+  livemode: boolean
+  name: string
+  object: "sigma.sigma_api_query" | UnknownEnumStringValue
+  sql: string
 }
 
 export type t_sigma_scheduled_query_run_error = {
@@ -13385,9 +13643,8 @@ export type t_subscription = {
   billing_cycle_anchor_config?:
     | (t_subscriptions_resource_billing_cycle_anchor_config | null)
     | undefined
-  billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   cancel_at?: (number | null) | undefined
-  cancel_at_period_end: boolean
+  cancel_at_period_end?: (boolean | null) | undefined
   canceled_at?: (number | null) | undefined
   cancellation_details?: (t_cancellation_details | null) | undefined
   collection_method:
@@ -13396,8 +13653,6 @@ export type t_subscription = {
     | UnknownEnumStringValue
   created: number
   currency: string
-  current_period_end: number
-  current_period_start: number
   customer: string | t_customer | t_deleted_customer
   days_until_due?: (number | null) | undefined
   default_payment_method?: (string | t_payment_method | null) | undefined
@@ -13406,7 +13661,6 @@ export type t_subscription = {
     | undefined
   default_tax_rates?: (t_tax_rate[] | null) | undefined
   description?: (string | null) | undefined
-  discount?: (t_discount | null) | undefined
   discounts: (string | t_discount)[]
   ended_at?: (number | null) | undefined
   id: string
@@ -13465,24 +13719,10 @@ export type t_subscription_automatic_tax = {
   liability?: (t_connect_account_reference | null) | undefined
 }
 
-export type t_subscription_billing_thresholds = {
-  amount_gte?: (number | null) | undefined
-  reset_billing_cycle_anchor?: (boolean | null) | undefined
-}
-
-export type t_subscription_details_data = {
-  metadata?:
-    | ({
-        [key: string]: string | undefined
-      } | null)
-    | undefined
-}
-
 export type t_subscription_item = {
-  billing_thresholds?:
-    | (t_subscription_item_billing_thresholds | null)
-    | undefined
   created: number
+  current_period_end: number
+  current_period_start: number
   discounts: (string | t_discount)[]
   id: string
   metadata: {
@@ -13493,10 +13733,6 @@ export type t_subscription_item = {
   quantity?: number | undefined
   subscription: string
   tax_rates?: (t_tax_rate[] | null) | undefined
-}
-
-export type t_subscription_item_billing_thresholds = {
-  usage_gte?: (number | null) | undefined
 }
 
 export type t_subscription_payment_method_options_card = {
@@ -13571,9 +13807,6 @@ export type t_subscription_schedule_add_invoice_item = {
 }
 
 export type t_subscription_schedule_configuration_item = {
-  billing_thresholds?:
-    | (t_subscription_item_billing_thresholds | null)
-    | undefined
   discounts: t_discounts_resource_stackable_discount[]
   metadata?:
     | ({
@@ -13597,11 +13830,9 @@ export type t_subscription_schedule_phase_configuration = {
   billing_cycle_anchor?:
     | ("automatic" | "phase_start" | UnknownEnumStringValue | null)
     | undefined
-  billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   collection_method?:
     | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue | null)
     | undefined
-  coupon?: (string | t_coupon | t_deleted_coupon | null) | undefined
   currency: string
   default_payment_method?: (string | t_payment_method | null) | undefined
   default_tax_rates?: (t_tax_rate[] | null) | undefined
@@ -13634,7 +13865,6 @@ export type t_subscription_schedules_resource_default_settings = {
     | t_subscription_schedules_resource_default_settings_automatic_tax
     | undefined
   billing_cycle_anchor: "automatic" | "phase_start" | UnknownEnumStringValue
-  billing_thresholds?: (t_subscription_billing_thresholds | null) | undefined
   collection_method?:
     | ("charge_automatically" | "send_invoice" | UnknownEnumStringValue | null)
     | undefined
@@ -13714,11 +13944,13 @@ export type t_subscriptions_resource_payment_settings = {
             | "ideal"
             | "jp_credit_transfer"
             | "kakao_pay"
+            | "klarna"
             | "konbini"
             | "kr_card"
             | "link"
             | "multibanco"
             | "naver_pay"
+            | "nz_bank_account"
             | "p24"
             | "payco"
             | "paynow"
@@ -14043,14 +14275,18 @@ export type t_tax_id_verification = {
 }
 
 export type t_tax_product_registrations_resource_country_options = {
-  ae?: t_tax_product_registrations_resource_country_options_default | undefined
+  ae?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   al?: t_tax_product_registrations_resource_country_options_default | undefined
   am?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   ao?: t_tax_product_registrations_resource_country_options_default | undefined
   at?: t_tax_product_registrations_resource_country_options_europe | undefined
-  au?: t_tax_product_registrations_resource_country_options_default | undefined
+  au?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   ba?: t_tax_product_registrations_resource_country_options_default | undefined
   bb?: t_tax_product_registrations_resource_country_options_default | undefined
   be?: t_tax_product_registrations_resource_country_options_europe | undefined
@@ -14062,7 +14298,9 @@ export type t_tax_product_registrations_resource_country_options = {
     | undefined
   ca?: t_tax_product_registrations_resource_country_options_canada | undefined
   cd?: t_tax_product_registrations_resource_country_options_default | undefined
-  ch?: t_tax_product_registrations_resource_country_options_default | undefined
+  ch?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   cl?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
@@ -14086,7 +14324,9 @@ export type t_tax_product_registrations_resource_country_options = {
   es?: t_tax_product_registrations_resource_country_options_europe | undefined
   fi?: t_tax_product_registrations_resource_country_options_europe | undefined
   fr?: t_tax_product_registrations_resource_country_options_europe | undefined
-  gb?: t_tax_product_registrations_resource_country_options_default | undefined
+  gb?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   ge?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
@@ -14100,7 +14340,9 @@ export type t_tax_product_registrations_resource_country_options = {
   ie?: t_tax_product_registrations_resource_country_options_europe | undefined
   is?: t_tax_product_registrations_resource_country_options_default | undefined
   it?: t_tax_product_registrations_resource_country_options_europe | undefined
-  jp?: t_tax_product_registrations_resource_country_options_default | undefined
+  jp?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   ke?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
@@ -14136,11 +14378,15 @@ export type t_tax_product_registrations_resource_country_options = {
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   nl?: t_tax_product_registrations_resource_country_options_europe | undefined
-  no?: t_tax_product_registrations_resource_country_options_default | undefined
+  no?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   np?:
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
-  nz?: t_tax_product_registrations_resource_country_options_default | undefined
+  nz?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   om?: t_tax_product_registrations_resource_country_options_default | undefined
   pe?:
     | t_tax_product_registrations_resource_country_options_simplified
@@ -14156,7 +14402,9 @@ export type t_tax_product_registrations_resource_country_options = {
     | t_tax_product_registrations_resource_country_options_simplified
     | undefined
   se?: t_tax_product_registrations_resource_country_options_europe | undefined
-  sg?: t_tax_product_registrations_resource_country_options_default | undefined
+  sg?:
+    | t_tax_product_registrations_resource_country_options_default_inbound_goods
+    | undefined
   si?: t_tax_product_registrations_resource_country_options_europe | undefined
   sk?: t_tax_product_registrations_resource_country_options_europe | undefined
   sn?:
@@ -14210,6 +14458,11 @@ export type t_tax_product_registrations_resource_country_options_canada = {
 export type t_tax_product_registrations_resource_country_options_default = {
   type: "standard" | UnknownEnumStringValue
 }
+
+export type t_tax_product_registrations_resource_country_options_default_inbound_goods =
+  {
+    type: "standard" | UnknownEnumStringValue
+  }
 
 export type t_tax_product_registrations_resource_country_options_eu_standard = {
   place_of_supply_scheme: "small_seller" | "standard" | UnknownEnumStringValue
@@ -14672,6 +14925,7 @@ export type t_terminal_configuration = {
   verifone_p400?:
     | t_terminal_configuration_configuration_resource_device_type_specific_config
     | undefined
+  wifi?: t_terminal_configuration_configuration_resource_wifi_config | undefined
 }
 
 export type t_terminal_connection_token = {
@@ -14730,9 +14984,32 @@ export type t_terminal_configuration_configuration_resource_device_type_specific
     splashscreen?: (string | t_file) | undefined
   }
 
+export type t_terminal_configuration_configuration_resource_enterprise_peap_wifi =
+  {
+    ca_certificate_file?: string | undefined
+    password: string
+    ssid: string
+    username: string
+  }
+
+export type t_terminal_configuration_configuration_resource_enterprise_tls_wifi =
+  {
+    ca_certificate_file?: string | undefined
+    client_certificate_file: string
+    private_key_file: string
+    private_key_file_password?: string | undefined
+    ssid: string
+  }
+
 export type t_terminal_configuration_configuration_resource_offline_config = {
   enabled?: (boolean | null) | undefined
 }
+
+export type t_terminal_configuration_configuration_resource_personal_psk_wifi =
+  {
+    password: string
+    ssid: string
+  }
 
 export type t_terminal_configuration_configuration_resource_reboot_window = {
   end_hour: number
@@ -14788,6 +15065,23 @@ export type t_terminal_configuration_configuration_resource_tipping = {
   usd?:
     | t_terminal_configuration_configuration_resource_currency_specific_config
     | undefined
+}
+
+export type t_terminal_configuration_configuration_resource_wifi_config = {
+  enterprise_eap_peap?:
+    | t_terminal_configuration_configuration_resource_enterprise_peap_wifi
+    | undefined
+  enterprise_eap_tls?:
+    | t_terminal_configuration_configuration_resource_enterprise_tls_wifi
+    | undefined
+  personal_psk?:
+    | t_terminal_configuration_configuration_resource_personal_psk_wifi
+    | undefined
+  type:
+    | "enterprise_eap_peap"
+    | "enterprise_eap_tls"
+    | "personal_psk"
+    | UnknownEnumStringValue
 }
 
 export type t_terminal_reader_reader_resource_cart = {
@@ -15909,25 +16203,6 @@ export type t_treasury_transactions_resource_flow_details = {
 export type t_us_bank_account_networks = {
   preferred?: (string | null) | undefined
   supported: ("ach" | "us_domestic_wire" | UnknownEnumStringValue)[]
-}
-
-export type t_usage_record = {
-  id: string
-  livemode: boolean
-  object: "usage_record" | UnknownEnumStringValue
-  quantity: number
-  subscription_item: string
-  timestamp: number
-}
-
-export type t_usage_record_summary = {
-  id: string
-  invoice?: (string | null) | undefined
-  livemode: boolean
-  object: "usage_record_summary" | UnknownEnumStringValue
-  period: t_period
-  subscription_item: string
-  total_usage: number
 }
 
 export type t_verification_session_redaction = {

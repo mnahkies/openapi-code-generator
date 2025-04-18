@@ -44,6 +44,8 @@ import {
   t_branch_restriction_policy,
   t_branch_short,
   t_branch_with_protection,
+  t_campaign_state,
+  t_campaign_summary,
   t_check_annotation,
   t_check_automated_security_fixes,
   t_check_run,
@@ -120,7 +122,6 @@ import {
   t_contributor_activity,
   t_copilot_organization_details,
   t_copilot_seat_details,
-  t_copilot_usage_metrics,
   t_copilot_usage_metrics_day,
   t_custom_deployment_rule_app,
   t_custom_property,
@@ -177,6 +178,7 @@ import {
   t_issue_event,
   t_issue_event_for_issue,
   t_issue_search_result_item,
+  t_issue_type,
   t_job,
   t_key,
   t_key_simple,
@@ -204,6 +206,7 @@ import {
   t_org_ruleset_conditions,
   t_organization_actions_secret,
   t_organization_actions_variable,
+  t_organization_create_issue_type,
   t_organization_dependabot_secret,
   t_organization_full,
   t_organization_invitation,
@@ -212,6 +215,7 @@ import {
   t_organization_role,
   t_organization_secret_scanning_alert,
   t_organization_simple,
+  t_organization_update_issue_type,
   t_package,
   t_package_version,
   t_packages_billing_usage,
@@ -1071,7 +1075,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       enterprise: string
       requestBody: {
-        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        advanced_security?:
+          | "enabled"
+          | "disabled"
+          | "code_security"
+          | "secret_protection"
+          | UnknownEnumStringValue
         code_scanning_default_setup?:
           | "enabled"
           | "disabled"
@@ -1207,7 +1216,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       enterprise: string
       configurationId: number
       requestBody: {
-        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        advanced_security?:
+          | "enabled"
+          | "disabled"
+          | "code_security"
+          | "secret_protection"
+          | UnknownEnumStringValue
         code_scanning_default_setup?:
           | "enabled"
           | "disabled"
@@ -4364,6 +4378,193 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
   }
 
+  async campaignsListOrgCampaigns(
+    p: {
+      org: string
+      page?: number
+      perPage?: number
+      direction?: "asc" | "desc" | UnknownEnumStringValue
+      state?: t_campaign_state
+      sort?:
+        | "created"
+        | "updated"
+        | "ends_at"
+        | "published"
+        | UnknownEnumStringValue
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_campaign_summary[]>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/campaigns`
+    const headers = this._headers({}, opts.headers)
+    const query = this._query({
+      page: p["page"],
+      per_page: p["perPage"],
+      direction: p["direction"],
+      state: p["state"],
+      sort: p["sort"],
+    })
+
+    return this._fetch(
+      url + query,
+      { method: "GET", ...opts, headers },
+      timeout,
+    )
+  }
+
+  async campaignsCreateCampaign(
+    p: {
+      org: string
+      requestBody: {
+        code_scanning_alerts: {
+          alert_numbers: number[]
+          repository_id: number
+        }[]
+        contact_link?: string | null
+        description: string
+        ends_at: string
+        generate_issues?: boolean
+        managers?: string[]
+        name: string
+        team_managers?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_campaign_summary>
+    | Res<400, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_basic_error>
+    | Res<429, void>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/campaigns`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async campaignsGetCampaignSummary(
+    p: {
+      org: string
+      campaignNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_campaign_summary>
+    | Res<404, t_basic_error>
+    | Res<422, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async campaignsUpdateCampaign(
+    p: {
+      org: string
+      campaignNumber: number
+      requestBody: {
+        contact_link?: string | null
+        description?: string
+        ends_at?: string
+        managers?: string[]
+        name?: string
+        state?: t_campaign_state
+        team_managers?: string[]
+      }
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_campaign_summary>
+    | Res<400, t_basic_error>
+    | Res<404, t_basic_error>
+    | Res<422, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(
+      url,
+      { method: "PATCH", body, ...opts, headers },
+      timeout,
+    )
+  }
+
+  async campaignsDeleteCampaign(
+    p: {
+      org: string
+      campaignNumber: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<404, t_basic_error>
+    | Res<
+        503,
+        {
+          code?: string
+          documentation_url?: string
+          message?: string
+        }
+      >
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/campaigns/${p["campaignNumber"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async codeScanningListAlertsForOrg(
     p: {
       org: string
@@ -4449,7 +4650,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     p: {
       org: string
       requestBody: {
-        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        advanced_security?:
+          | "enabled"
+          | "disabled"
+          | "code_security"
+          | "secret_protection"
+          | UnknownEnumStringValue
         code_scanning_default_setup?:
           | "enabled"
           | "disabled"
@@ -4624,7 +4830,12 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       org: string
       configurationId: number
       requestBody: {
-        advanced_security?: "enabled" | "disabled" | UnknownEnumStringValue
+        advanced_security?:
+          | "enabled"
+          | "disabled"
+          | "code_security"
+          | "secret_protection"
+          | UnknownEnumStringValue
         code_scanning_default_setup?:
           | "enabled"
           | "disabled"
@@ -5402,39 +5613,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     | Res<500, t_basic_error>
   > {
     const url = this.basePath + `/orgs/${p["org"]}/copilot/metrics`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
-  }
-
-  async copilotUsageMetricsForOrg(
-    p: {
-      org: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics[]>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url = this.basePath + `/orgs/${p["org"]}/copilot/usage`
     const headers = this._headers({}, opts.headers)
     const query = this._query({
       since: p["since"],
@@ -6484,6 +6662,84 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
+  async orgsListIssueTypes(
+    p: {
+      org: string
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<Res<200, t_issue_type[]> | Res<404, t_basic_error>> {
+    const url = this.basePath + `/orgs/${p["org"]}/issue-types`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "GET", ...opts, headers }, timeout)
+  }
+
+  async orgsCreateIssueType(
+    p: {
+      org: string
+      requestBody: t_organization_create_issue_type
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_type>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url = this.basePath + `/orgs/${p["org"]}/issue-types`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "POST", body, ...opts, headers }, timeout)
+  }
+
+  async orgsUpdateIssueType(
+    p: {
+      org: string
+      issueTypeId: number
+      requestBody: t_organization_update_issue_type
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<200, t_issue_type>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`
+    const headers = this._headers(
+      { "Content-Type": "application/json" },
+      opts.headers,
+    )
+    const body = JSON.stringify(p.requestBody)
+
+    return this._fetch(url, { method: "PUT", body, ...opts, headers }, timeout)
+  }
+
+  async orgsDeleteIssueType(
+    p: {
+      org: string
+      issueTypeId: number
+    },
+    timeout?: number,
+    opts: RequestInit = {},
+  ): Promise<
+    | Res<204, void>
+    | Res<404, t_basic_error>
+    | Res<422, t_validation_error_simple>
+  > {
+    const url =
+      this.basePath + `/orgs/${p["org"]}/issue-types/${p["issueTypeId"]}`
+    const headers = this._headers({}, opts.headers)
+
+    return this._fetch(url, { method: "DELETE", ...opts, headers }, timeout)
+  }
+
   async issuesListForOrg(
     p: {
       org: string
@@ -6497,6 +6753,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         | UnknownEnumStringValue
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
       labels?: string
+      type?: string
       sort?: "created" | "updated" | "comments" | UnknownEnumStringValue
       direction?: "asc" | "desc" | UnknownEnumStringValue
       since?: string
@@ -6512,6 +6769,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       filter: p["filter"],
       state: p["state"],
       labels: p["labels"],
+      type: p["type"],
       sort: p["sort"],
       direction: p["direction"],
       since: p["since"],
@@ -8809,41 +9067,6 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     )
   }
 
-  async copilotUsageMetricsForTeam(
-    p: {
-      org: string
-      teamSlug: string
-      since?: string
-      until?: string
-      page?: number
-      perPage?: number
-    },
-    timeout?: number,
-    opts: RequestInit = {},
-  ): Promise<
-    | Res<200, t_copilot_usage_metrics[]>
-    | Res<401, t_basic_error>
-    | Res<403, t_basic_error>
-    | Res<404, t_basic_error>
-    | Res<500, t_basic_error>
-  > {
-    const url =
-      this.basePath + `/orgs/${p["org"]}/team/${p["teamSlug"]}/copilot/usage`
-    const headers = this._headers({}, opts.headers)
-    const query = this._query({
-      since: p["since"],
-      until: p["until"],
-      page: p["page"],
-      per_page: p["perPage"],
-    })
-
-    return this._fetch(
-      url + query,
-      { method: "GET", ...opts, headers },
-      timeout,
-    )
-  }
-
   async teamsList(
     p: {
       org: string
@@ -10324,6 +10547,9 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         private?: boolean
         security_and_analysis?: {
           advanced_security?: {
+            status?: string
+          }
+          code_security?: {
             status?: string
           }
           secret_scanning?: {
@@ -16833,9 +17059,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
     },
     timeout?: number,
     opts: RequestInit = {},
-  ): Promise<
-    Res<204, void> | Res<409, t_basic_error> | Res<422, t_validation_error>
-  > {
+  ): Promise<Res<204, void> | Res<409, t_basic_error> | Res<422, void>> {
     const url =
       this.basePath + `/repos/${p["owner"]}/${p["repo"]}/git/refs/${p["ref"]}`
     const headers = this._headers({}, opts.headers)
@@ -17584,6 +17808,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       milestone?: string
       state?: "open" | "closed" | "all" | UnknownEnumStringValue
       assignee?: string
+      type?: string
       creator?: string
       mentioned?: string
       labels?: string
@@ -17607,6 +17832,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
       milestone: p["milestone"],
       state: p["state"],
       assignee: p["assignee"],
+      type: p["type"],
       creator: p["creator"],
       mentioned: p["mentioned"],
       labels: p["labels"],
@@ -17643,6 +17869,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
         )[]
         milestone?: string | number | null
         title: string | number
+        type?: string | null
       }
     },
     timeout?: number,
@@ -17955,6 +18182,7 @@ export class GitHubV3RestApi extends AbstractFetchClient {
           | UnknownEnumStringValue
           | null
         title?: string | number | null
+        type?: string | null
       }
     },
     timeout?: number,
