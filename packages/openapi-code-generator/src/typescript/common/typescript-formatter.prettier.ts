@@ -1,13 +1,19 @@
 import type {IFormatter} from "../../core/interfaces"
 import {logger} from "../../core/logger"
-const prettier = require("prettier/standalone")
-const plugins = [
-  require("prettier/plugins/estree"),
-  require("prettier/plugins/typescript"),
-]
 
 export class TypescriptFormatterPrettier implements IFormatter {
-  private constructor() {}
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  prettier: any
+  // biome-ignore lint/suspicious/noExplicitAny: <explanation>
+  plugins: any[]
+
+  private constructor() {
+    this.prettier = require("prettier/standalone")
+    this.plugins = [
+      require("prettier/plugins/estree"),
+      require("prettier/plugins/typescript"),
+    ]
+  }
 
   async format(
     filename: string,
@@ -19,11 +25,11 @@ export class TypescriptFormatterPrettier implements IFormatter {
       .join("\n")
 
     try {
-      const formatted = await prettier.format(trimmed, {
+      const formatted = await this.prettier.format(trimmed, {
         semi: false,
         arrowParens: "always",
         parser: "typescript",
-        plugins,
+        plugins: this.plugins,
       })
 
       return {result: formatted}
