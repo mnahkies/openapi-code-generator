@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.18.0...v0.19.0) (2025-04-18)
+
+### Bug Fixes
+
+- joi array query params ([#309](https://github.com/mnahkies/openapi-code-generator/issues/309)) ([aba104e](https://github.com/mnahkies/openapi-code-generator/commit/aba104e484f463b180a9939d00ccddb55c1848aa))
+
 # [0.18.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.17.0...v0.18.0) (2024-12-22)
 
 - fix(joi)!: switch from @hapi/joi to joi (#284) ([6693e1d](https://github.com/mnahkies/openapi-code-generator/commit/6693e1de7b635bf99b3b41a1f41f66932697d416)), closes [#284](https://github.com/mnahkies/openapi-code-generator/issues/284)

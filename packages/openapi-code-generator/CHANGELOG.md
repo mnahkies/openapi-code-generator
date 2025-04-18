@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+# [0.19.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.18.0...v0.19.0) (2025-04-18)
+
+### Bug Fixes
+
+- joi array query params ([#309](https://github.com/mnahkies/openapi-code-generator/issues/309)) ([aba104e](https://github.com/mnahkies/openapi-code-generator/commit/aba104e484f463b180a9939d00ccddb55c1848aa))
+- paths to openapi specifications ([#307](https://github.com/mnahkies/openapi-code-generator/issues/307)) ([0a0f623](https://github.com/mnahkies/openapi-code-generator/commit/0a0f62300179ce9f4096f1433742788ba27be8a5))
+- typescript is a production dependency ([#299](https://github.com/mnahkies/openapi-code-generator/issues/299)) ([c7a0cbd](https://github.com/mnahkies/openapi-code-generator/commit/c7a0cbd4203df9692311dc76ad3394efba0a074c)), closes [/github.com/mnahkies/openapi-code-generator/blob/d0d73fa8feeaa1e8883f9825598fba022f9a77a1/packages/openapi-code-generator/src/core/loaders/tsconfig.loader.ts#L25](https://github.com//github.com/mnahkies/openapi-code-generator/blob/d0d73fa8feeaa1e8883f9825598fba022f9a77a1/packages/openapi-code-generator/src/core/loaders/tsconfig.loader.ts/issues/L25)
+
+### Features
+
+- add an interactive playground to the documentation site ([#216](https://github.com/mnahkies/openapi-code-generator/issues/216)) ([d0d73fa](https://github.com/mnahkies/openapi-code-generator/commit/d0d73fa8feeaa1e8883f9825598fba022f9a77a1))
+
 # [0.18.0](https://github.com/mnahkies/openapi-code-generator/compare/v0.17.0...v0.18.0) (2024-12-22)
 
 ### Bug Fixes
