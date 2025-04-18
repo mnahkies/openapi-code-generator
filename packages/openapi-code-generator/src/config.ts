@@ -22,6 +22,7 @@ export type Config = {
   allowUnusedImports: boolean
   groupingStrategy: "none" | "first-slug" | "first-tag"
   filenameConvention: IdentifierConvention
+  enumExtensibility: "" | "open" | "closed"
   tsAllowAny: boolean
   tsServerImplementationMethod: ServerImplementationMethod
   tsCompilerOptions: CompilerOptions
@@ -63,6 +64,7 @@ export const configSchema = z.object({
     "kebab-case",
     "snake-case",
   ]),
+  enumExtensibility: z.enum(["", "open", "closed"]),
   tsAllowAny: z.boolean(),
   tsServerImplementationMethod: tsServerImplementationSchema,
   tsCompilerOptions: tsconfigSchema.shape.compilerOptions,

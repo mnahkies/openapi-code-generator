@@ -1,8 +1,13 @@
 import {
   type GetResponsesEmpty,
   type GetValidationNumbersRandomNumber,
+  type PostValidationEnums,
   createRouter,
 } from "../generated/routes/validation"
+
+const postValidationEnums: PostValidationEnums = async ({body}, respond) => {
+  return respond.with200().body(body)
+}
 
 const getValidationNumbersRandomNumber: GetValidationNumbersRandomNumber =
   async ({query}, respond) => {
@@ -36,6 +41,7 @@ const getResponsesEmpty: GetResponsesEmpty = async (_, respond) => {
 
 export function createValidationRouter() {
   return createRouter({
+    postValidationEnums,
     getValidationNumbersRandomNumber,
     getResponsesEmpty,
   })

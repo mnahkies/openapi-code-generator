@@ -1,4 +1,3 @@
-import {ServerVariable} from "./openapi-types"
 import type {HttpMethod} from "./utils"
 
 export interface IRRef {
@@ -38,6 +37,8 @@ export interface IRModelNumeric extends IRModelBase {
   maximum?: number | undefined
   minimum?: number | undefined
   multipleOf?: number | undefined
+
+  "x-enum-extensibility"?: "open" | "closed" | undefined
 }
 
 export type IRModelStringFormat =
@@ -55,6 +56,8 @@ export interface IRModelString extends IRModelBase {
   maxLength?: number | undefined
   minLength?: number | undefined
   pattern?: string | undefined
+
+  "x-enum-extensibility"?: "open" | "closed" | undefined
 }
 
 export interface IRModelBoolean extends IRModelBase {

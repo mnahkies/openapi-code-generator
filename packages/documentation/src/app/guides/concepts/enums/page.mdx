@@ -1,0 +1,147 @@
+---
+title: Enums
+---
+
+# Enumerated Types
+
+OpenAPI allows us to define enumeration types, allowing us to narrow primitives like `string` from being any
+`string`, to a limited set of possible values. For example:
+
+```yaml
+type: string
+enum:
+  - Apple
+  - Banana
+  - Orange
+```
+
+Defines an enumerated value that can be one of `Apple`, `Banana`, `Orange`
+
+This is great for documenting the domain of valid values, but can cause problems with safely evolving your API over
+time, as adding a new value to the enum may become a breaking API change.
+
+The rest of this page explores how the code generator mitigates this issue, and how you can customise the behavior
+if your needs are different.
+
+## Open vs Closed enumerations
+
+We can consider an `enum` "open" if the parsing of it can allow for new/unknown values, and "closed" if new values
+should constitute a parsing error.
+
+The OpenAPI and JSON Schema specifications don't explicitly distinguish between open and closed enums.
+By default, they assume enums are closed—meaning only listed values are valid. This poses an issue for safely evolving
+your API surface as your needs change without it being a breaking change.
+
+If you have exact control over all your API clients you could mitigate this by first updating the clients to support
+the new value, then updating the server to produce it.
+
+However, in most real world cases this is either difficult, or not possible. A good example is native mobile applications,
+as there is generally a long tail of outdated app versions in the wild, and as a developer you have little control over
+when your users update their apps.
+
+To prevent this issue, ideally:
+- Our servers will use closed enums, and therefore only ever accept/return valid enum values
+- Our clients will use open enums, and gracefully handle unrecognized enum values
+_(likely by ignoring them, or the entity that contains them)_
+
+## Code generation of enums
+
+With that in mind, the generator takes a conservative approach for servers (closed enums) and a forward-compatible
+approach for clients (open enums).
+
+Using the previous example, lets explore how this gets generated.
+```yaml
+type: string
+enum:
+  - Apple
+  - Banana
+  - Orange
+```
+
+### Server code (closed enum)
+For server templates, we just generate the exact `enum` values, meaning that an error will be raised both
+if a client sends us an unknown value, or the server attempts to respond with one.
+
+```typescript
+export type t_Fruit = "Apple" | "Banana" | "Orange"
+export const s_Fruit = z.enum(["Apple", "Banana", "Orange"])
+```
+
+### Client code (open enum)
+
+For the client templates, we use a technique called "branded types" to include the `string` / `number` type in our union
+types, in such a way that typescript knows we __could__ receive any value, but won't let us accidentally assign an unknown value.
+
+This works because a "branded type" creates a distinct type that TypeScript tracks separately, preventing accidental assignment
+of arbitrary strings at compile time, while still allowing unknown values to pass through parsing safely at runtime.
+
+```typescript
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
+
+
+export type t_Fruit = "Apple" | "Banana" | "Orange" | UnknownEnumStringValue
+export const s_Fruit = z.union([
+  z.enum(["Apple", "Banana", "Orange"]),
+  z.string().transform((it) => it as typeof it & UnknownEnumStringValue),
+])
+```
+
+This prevents invalid/random values being referenced in the code, whilst also allowing us to make exhaustiveness checks.
+
+![Example exhaustiveness error message](/enum-exhaustiveness-check.png)
+
+```typescript
+function processFruit(result: t_Fruit): void {
+  switch (result) {
+    case "Apple":
+      console.log("bite into apple")
+      break
+    case "Banana":
+      console.log("slip over banana")
+      break
+    case "Orange":
+      console.log("juice orange")
+      break
+    default: {
+      // This checks that we have exhaustively handled the known values
+      const _ = result satisfies UnknownEnumStringValue
+      console.warn(`unsupported ${result}, skipping`)
+    }
+  }
+}
+```
+
+Whilst technically `t_Fruit` can be any string value at runtime, you still won't be able to assign random values
+to it, as the branded type will not allow you.
+
+![Example rejecting unknown enum value](/enum-reject-unknown.png)
+
+This is interesting as it means that our server can start returning new enumerated values, before the clients have been
+updated to explicitly handle them, and it nudges developers to handle the unknown case gracefully.
+
+## Customizing the behavior
+There are two ways you can customize this behavior
+
+- Global CLI option `--enum-extensibility <value>`
+- Per schema extension property `x-enum-extensibility: <value>`, overriding the global configuration
+
+Where `<value>` is either `open` or `closed`.
+
+Example:
+```yaml
+type: string
+x-enum-extensibility: closed
+enum:
+  - Dog
+  - Cat
+```
+
+## Union types vs Enum types
+
+Currently all `enum` handling for our `typescript` templates use [union types](https://www.typescriptlang.org/docs/handbook/2/everyday-types.html#union-types),
+rather than actual [enum](https://www.typescriptlang.org/docs/handbook/enums.html) statements.
+
+This is mostly a stylistic choice, based on the authors personal preferences and subjective opinions of ergonomics. It's
+possible that an option to output "real" enums may be added in the future.

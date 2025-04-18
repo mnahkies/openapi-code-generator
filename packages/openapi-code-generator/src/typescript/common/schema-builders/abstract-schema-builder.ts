@@ -31,7 +31,7 @@ export abstract class AbstractSchemaBuilder<
 {
   private readonly graph: DependencyGraph
 
-  private readonly schemaBuilderImports = new ImportBuilder()
+  protected readonly schemaBuilderImports = new ImportBuilder()
 
   protected constructor(
     public readonly filename: string,
@@ -100,9 +100,7 @@ export abstract class AbstractSchemaBuilder<
           .map((name) => {
             const $ref = this.referenced[name]
             if ($ref) {
-              return buildExport(
-                this.schemaFromRef($ref, this.schemaBuilderImports),
-              )
+              return buildExport(this.schemaFromRef($ref))
             }
 
             const staticSchemaName = this.referencedStaticSchemas.has(name)
@@ -142,10 +140,7 @@ export abstract class AbstractSchemaBuilder<
 
   protected abstract importHelpers(importBuilder: ImportBuilder): void
 
-  protected abstract schemaFromRef(
-    reference: Reference,
-    schemaBuilderImports: ImportBuilder,
-  ): ExportDefinition
+  protected abstract schemaFromRef(reference: Reference): ExportDefinition
 
   fromParameters(parameters: IRParameter[]): string {
     const model: IRModelObject = {

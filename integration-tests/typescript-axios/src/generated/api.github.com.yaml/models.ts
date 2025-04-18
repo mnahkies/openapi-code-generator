@@ -4,6 +4,10 @@
 
 export type EmptyObject = { [key: string]: never }
 
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
+
 export type t_actions_billing_usage = {
   included_minutes: number
   minutes_used_breakdown: {
@@ -53,7 +57,10 @@ export type t_actions_cache_usage_org_enterprise = {
 
 export type t_actions_can_approve_pull_request_reviews = boolean
 
-export type t_actions_default_workflow_permissions = "read" | "write"
+export type t_actions_default_workflow_permissions =
+  | "read"
+  | "write"
+  | UnknownEnumStringValue
 
 export type t_actions_enabled = boolean
 
@@ -73,7 +80,13 @@ export type t_actions_hosted_runner = {
   public_ip_enabled: boolean
   public_ips?: t_public_ip[] | undefined
   runner_group_id?: number | undefined
-  status: "Ready" | "Provisioning" | "Shutdown" | "Deleting" | "Stuck"
+  status:
+    | "Ready"
+    | "Provisioning"
+    | "Shutdown"
+    | "Deleting"
+    | "Stuck"
+    | UnknownEnumStringValue
 }
 
 export type t_actions_hosted_runner_image = {
@@ -81,7 +94,7 @@ export type t_actions_hosted_runner_image = {
   id: string
   platform: string
   size_gb: number
-  source: "github" | "partner" | "custom"
+  source: "github" | "partner" | "custom" | UnknownEnumStringValue
 }
 
 export type t_actions_hosted_runner_limits = {
@@ -143,7 +156,7 @@ export type t_actions_variable = {
 }
 
 export type t_actions_workflow_access_to_repository = {
-  access_level: "none" | "user" | "organization"
+  access_level: "none" | "user" | "organization" | UnknownEnumStringValue
 }
 
 export type t_activity = {
@@ -154,6 +167,7 @@ export type t_activity = {
     | "branch_creation"
     | "pr_merge"
     | "merge_queue_merge"
+    | UnknownEnumStringValue
   actor: t_nullable_simple_user
   after: string
   before: string
@@ -212,7 +226,11 @@ export type t_alert_updated_at = string
 
 export type t_alert_url = string
 
-export type t_allowed_actions = "all" | "local_only" | "selected"
+export type t_allowed_actions =
+  | "all"
+  | "local_only"
+  | "selected"
+  | UnknownEnumStringValue
 
 export type t_api_insights_route_stats = {
   api_route?: string | undefined
@@ -304,54 +322,84 @@ export type t_api_overview = {
 }
 
 export type t_app_permissions = {
-  actions?: ("read" | "write") | undefined
-  administration?: ("read" | "write") | undefined
-  checks?: ("read" | "write") | undefined
-  codespaces?: ("read" | "write") | undefined
-  contents?: ("read" | "write") | undefined
-  dependabot_secrets?: ("read" | "write") | undefined
-  deployments?: ("read" | "write") | undefined
-  email_addresses?: ("read" | "write") | undefined
-  environments?: ("read" | "write") | undefined
-  followers?: ("read" | "write") | undefined
-  git_ssh_keys?: ("read" | "write") | undefined
-  gpg_keys?: ("read" | "write") | undefined
-  interaction_limits?: ("read" | "write") | undefined
-  issues?: ("read" | "write") | undefined
-  members?: ("read" | "write") | undefined
-  metadata?: ("read" | "write") | undefined
-  organization_administration?: ("read" | "write") | undefined
-  organization_announcement_banners?: ("read" | "write") | undefined
-  organization_copilot_seat_management?: "write" | undefined
-  organization_custom_org_roles?: ("read" | "write") | undefined
-  organization_custom_properties?: ("read" | "write" | "admin") | undefined
-  organization_custom_roles?: ("read" | "write") | undefined
-  organization_events?: "read" | undefined
-  organization_hooks?: ("read" | "write") | undefined
-  organization_packages?: ("read" | "write") | undefined
-  organization_personal_access_token_requests?: ("read" | "write") | undefined
-  organization_personal_access_tokens?: ("read" | "write") | undefined
-  organization_plan?: "read" | undefined
-  organization_projects?: ("read" | "write" | "admin") | undefined
-  organization_secrets?: ("read" | "write") | undefined
-  organization_self_hosted_runners?: ("read" | "write") | undefined
-  organization_user_blocking?: ("read" | "write") | undefined
-  packages?: ("read" | "write") | undefined
-  pages?: ("read" | "write") | undefined
-  profile?: "write" | undefined
-  pull_requests?: ("read" | "write") | undefined
-  repository_custom_properties?: ("read" | "write") | undefined
-  repository_hooks?: ("read" | "write") | undefined
-  repository_projects?: ("read" | "write" | "admin") | undefined
-  secret_scanning_alerts?: ("read" | "write") | undefined
-  secrets?: ("read" | "write") | undefined
-  security_events?: ("read" | "write") | undefined
-  single_file?: ("read" | "write") | undefined
-  starring?: ("read" | "write") | undefined
-  statuses?: ("read" | "write") | undefined
-  team_discussions?: ("read" | "write") | undefined
-  vulnerability_alerts?: ("read" | "write") | undefined
-  workflows?: "write" | undefined
+  actions?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  administration?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  checks?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  codespaces?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  contents?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  dependabot_secrets?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  deployments?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  email_addresses?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  environments?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  followers?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  git_ssh_keys?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  gpg_keys?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  interaction_limits?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  issues?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  members?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  metadata?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  organization_administration?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_announcement_banners?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_copilot_seat_management?:
+    | ("write" | UnknownEnumStringValue)
+    | undefined
+  organization_custom_org_roles?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_custom_properties?:
+    | ("read" | "write" | "admin" | UnknownEnumStringValue)
+    | undefined
+  organization_custom_roles?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_events?: ("read" | UnknownEnumStringValue) | undefined
+  organization_hooks?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  organization_packages?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_personal_access_token_requests?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_personal_access_tokens?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_plan?: ("read" | UnknownEnumStringValue) | undefined
+  organization_projects?:
+    | ("read" | "write" | "admin" | UnknownEnumStringValue)
+    | undefined
+  organization_secrets?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  organization_self_hosted_runners?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  organization_user_blocking?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  packages?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  pages?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  profile?: ("write" | UnknownEnumStringValue) | undefined
+  pull_requests?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  repository_custom_properties?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  repository_hooks?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  repository_projects?:
+    | ("read" | "write" | "admin" | UnknownEnumStringValue)
+    | undefined
+  secret_scanning_alerts?:
+    | ("read" | "write" | UnknownEnumStringValue)
+    | undefined
+  secrets?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  security_events?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  single_file?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  starring?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  statuses?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  team_discussions?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  vulnerability_alerts?: ("read" | "write" | UnknownEnumStringValue) | undefined
+  workflows?: ("write" | UnknownEnumStringValue) | undefined
 }
 
 export type t_artifact = {
@@ -395,7 +443,9 @@ export type t_authentication_token = {
   expires_at: string
   permissions?: EmptyObject | undefined
   repositories?: t_repository[] | undefined
-  repository_selection?: ("all" | "selected") | undefined
+  repository_selection?:
+    | ("all" | "selected" | UnknownEnumStringValue)
+    | undefined
   single_file?: (string | null) | undefined
   token: string
 }
@@ -409,6 +459,7 @@ export type t_author_association =
   | "MEMBER"
   | "NONE"
   | "OWNER"
+  | UnknownEnumStringValue
 
 export type t_authorization = {
   app: {
@@ -436,7 +487,7 @@ export type t_auto_merge = {
   commit_message: string
   commit_title: string
   enabled_by: t_simple_user
-  merge_method: "merge" | "squash" | "rebase"
+  merge_method: "merge" | "squash" | "rebase" | UnknownEnumStringValue
 } | null
 
 export type t_autolink = {
@@ -717,6 +768,7 @@ export type t_check_run = {
     | "skipped"
     | "timed_out"
     | "action_required"
+    | UnknownEnumStringValue
     | null
   deployment?: t_deployment_simple | undefined
   details_url: string | null
@@ -742,6 +794,7 @@ export type t_check_run = {
     | "waiting"
     | "requested"
     | "pending"
+    | UnknownEnumStringValue
   url: string
 }
 
@@ -760,6 +813,7 @@ export type t_check_suite = {
     | "action_required"
     | "startup_failure"
     | "stale"
+    | UnknownEnumStringValue
     | null
   created_at: string | null
   head_branch: string | null
@@ -779,6 +833,7 @@ export type t_check_suite = {
     | "waiting"
     | "requested"
     | "pending"
+    | UnknownEnumStringValue
     | null
   updated_at: string | null
   url: string | null
@@ -834,7 +889,7 @@ export type t_classroom_assignment = {
   students_are_repo_admins: boolean
   submitted: number
   title: string
-  type: "individual" | "group"
+  type: "individual" | "group" | UnknownEnumStringValue
 }
 
 export type t_classroom_assignment_grade = {
@@ -898,6 +953,7 @@ export type t_code_scanning_alert_classification =
   | "generated"
   | "test"
   | "library"
+  | UnknownEnumStringValue
   | null
 
 export type t_code_scanning_alert_create_request = boolean
@@ -908,6 +964,7 @@ export type t_code_scanning_alert_dismissed_reason =
   | "false positive"
   | "won't fix"
   | "used in tests"
+  | UnknownEnumStringValue
   | null
 
 export type t_code_scanning_alert_environment = string
@@ -964,9 +1021,11 @@ export type t_code_scanning_alert_rule = {
   id?: (string | null) | undefined
   name?: string | undefined
   security_severity_level?:
-    | ("low" | "medium" | "high" | "critical" | null)
+    | ("low" | "medium" | "high" | "critical" | UnknownEnumStringValue | null)
     | undefined
-  severity?: ("none" | "note" | "warning" | "error" | null) | undefined
+  severity?:
+    | ("none" | "note" | "warning" | "error" | UnknownEnumStringValue | null)
+    | undefined
   tags?: (string[] | null) | undefined
 }
 
@@ -978,13 +1037,18 @@ export type t_code_scanning_alert_rule_summary = {
   id?: (string | null) | undefined
   name?: string | undefined
   security_severity_level?:
-    | ("low" | "medium" | "high" | "critical" | null)
+    | ("low" | "medium" | "high" | "critical" | UnknownEnumStringValue | null)
     | undefined
-  severity?: ("none" | "note" | "warning" | "error" | null) | undefined
+  severity?:
+    | ("none" | "note" | "warning" | "error" | UnknownEnumStringValue | null)
+    | undefined
   tags?: (string[] | null) | undefined
 }
 
-export type t_code_scanning_alert_set_state = "open" | "dismissed"
+export type t_code_scanning_alert_set_state =
+  | "open"
+  | "dismissed"
+  | UnknownEnumStringValue
 
 export type t_code_scanning_alert_severity =
   | "critical"
@@ -994,14 +1058,21 @@ export type t_code_scanning_alert_severity =
   | "warning"
   | "note"
   | "error"
+  | UnknownEnumStringValue
 
-export type t_code_scanning_alert_state = "open" | "dismissed" | "fixed" | null
+export type t_code_scanning_alert_state =
+  | "open"
+  | "dismissed"
+  | "fixed"
+  | UnknownEnumStringValue
+  | null
 
 export type t_code_scanning_alert_state_query =
   | "open"
   | "closed"
   | "dismissed"
   | "fixed"
+  | UnknownEnumStringValue
 
 export type t_code_scanning_analysis = {
   analysis_key: t_code_scanning_analysis_analysis_key
@@ -1079,6 +1150,7 @@ export type t_code_scanning_autofix_status =
   | "error"
   | "success"
   | "outdated"
+  | UnknownEnumStringValue
 
 export type t_code_scanning_codeql_database = {
   commit_oid?: (string | null) | undefined
@@ -1107,19 +1179,24 @@ export type t_code_scanning_default_setup = {
         | "ruby"
         | "typescript"
         | "swift"
+        | UnknownEnumStringValue
       )[]
     | undefined
-  query_suite?: ("default" | "extended") | undefined
+  query_suite?: ("default" | "extended" | UnknownEnumStringValue) | undefined
   runner_label?: (string | null) | undefined
-  runner_type?: ("standard" | "labeled" | null) | undefined
-  schedule?: ("weekly" | null) | undefined
-  state?: ("configured" | "not-configured") | undefined
+  runner_type?:
+    | ("standard" | "labeled" | UnknownEnumStringValue | null)
+    | undefined
+  schedule?: ("weekly" | UnknownEnumStringValue | null) | undefined
+  state?: ("configured" | "not-configured" | UnknownEnumStringValue) | undefined
   updated_at?: (string | null) | undefined
 }
 
 export type t_code_scanning_default_setup_options = {
   runner_label?: (string | null) | undefined
-  runner_type?: ("standard" | "labeled" | "not_set") | undefined
+  runner_type?:
+    | ("standard" | "labeled" | "not_set" | UnknownEnumStringValue)
+    | undefined
 } | null
 
 export type t_code_scanning_default_setup_update = {
@@ -1134,12 +1211,13 @@ export type t_code_scanning_default_setup_update = {
         | "python"
         | "ruby"
         | "swift"
+        | UnknownEnumStringValue
       )[]
     | undefined
-  query_suite?: ("default" | "extended") | undefined
+  query_suite?: ("default" | "extended" | UnknownEnumStringValue) | undefined
   runner_label?: (string | null) | undefined
-  runner_type?: ("standard" | "labeled") | undefined
-  state?: ("configured" | "not-configured") | undefined
+  runner_type?: ("standard" | "labeled" | UnknownEnumStringValue) | undefined
+  state?: ("configured" | "not-configured" | UnknownEnumStringValue) | undefined
 }
 
 export type t_code_scanning_default_setup_update_response = {
@@ -1179,7 +1257,9 @@ export type t_code_scanning_sarifs_receipt = {
 export type t_code_scanning_sarifs_status = {
   readonly analyses_url?: (string | null) | undefined
   readonly errors?: (string[] | null) | undefined
-  processing_status?: ("pending" | "complete" | "failed") | undefined
+  processing_status?:
+    | ("pending" | "complete" | "failed" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_code_scanning_variant_analysis = {
@@ -1189,7 +1269,12 @@ export type t_code_scanning_variant_analysis = {
   controller_repo: t_simple_repository
   created_at?: string | undefined
   failure_reason?:
-    | ("no_repos_queried" | "actions_workflow_run_failed" | "internal_error")
+    | (
+        | "no_repos_queried"
+        | "actions_workflow_run_failed"
+        | "internal_error"
+        | UnknownEnumStringValue
+      )
     | undefined
   id: number
   query_language: t_code_scanning_variant_analysis_language
@@ -1214,7 +1299,12 @@ export type t_code_scanning_variant_analysis = {
         over_limit_repos: t_code_scanning_variant_analysis_skipped_repo_group
       }
     | undefined
-  status: "in_progress" | "succeeded" | "failed" | "cancelled"
+  status:
+    | "in_progress"
+    | "succeeded"
+    | "failed"
+    | "cancelled"
+    | UnknownEnumStringValue
   updated_at?: string | undefined
 }
 
@@ -1227,6 +1317,7 @@ export type t_code_scanning_variant_analysis_language =
   | "python"
   | "ruby"
   | "swift"
+  | UnknownEnumStringValue
 
 export type t_code_scanning_variant_analysis_repo_task = {
   analysis_status: t_code_scanning_variant_analysis_status
@@ -1260,6 +1351,7 @@ export type t_code_scanning_variant_analysis_status =
   | "failed"
   | "canceled"
   | "timed_out"
+  | UnknownEnumStringValue
 
 export type t_code_search_result_item = {
   file_size?: number | undefined
@@ -1278,23 +1370,35 @@ export type t_code_search_result_item = {
 }
 
 export type t_code_security_configuration = {
-  advanced_security?: ("enabled" | "disabled") | undefined
-  code_scanning_default_setup?: ("enabled" | "disabled" | "not_set") | undefined
+  advanced_security?:
+    | ("enabled" | "disabled" | UnknownEnumStringValue)
+    | undefined
+  code_scanning_default_setup?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
   code_scanning_default_setup_options?:
     | ({
         runner_label?: (string | null) | undefined
-        runner_type?: ("standard" | "labeled" | "not_set" | null) | undefined
+        runner_type?:
+          | ("standard" | "labeled" | "not_set" | UnknownEnumStringValue | null)
+          | undefined
       } | null)
     | undefined
   code_scanning_delegated_alert_dismissal?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   created_at?: string | undefined
-  dependabot_alerts?: ("enabled" | "disabled" | "not_set") | undefined
-  dependabot_security_updates?: ("enabled" | "disabled" | "not_set") | undefined
-  dependency_graph?: ("enabled" | "disabled" | "not_set") | undefined
+  dependabot_alerts?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
+  dependabot_security_updates?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
+  dependency_graph?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
   dependency_graph_autosubmit_action?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   dependency_graph_autosubmit_action_options?:
     | {
@@ -1302,43 +1406,47 @@ export type t_code_security_configuration = {
       }
     | undefined
   description?: string | undefined
-  enforcement?: ("enforced" | "unenforced") | undefined
+  enforcement?: ("enforced" | "unenforced" | UnknownEnumStringValue) | undefined
   html_url?: string | undefined
   id?: number | undefined
   name?: string | undefined
   private_vulnerability_reporting?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
-  secret_scanning?: ("enabled" | "disabled" | "not_set") | undefined
+  secret_scanning?:
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
+    | undefined
   secret_scanning_delegated_alert_dismissal?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_delegated_bypass?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_delegated_bypass_options?:
     | {
         reviewers?:
           | {
               reviewer_id: number
-              reviewer_type: "TEAM" | "ROLE"
+              reviewer_type: "TEAM" | "ROLE" | UnknownEnumStringValue
             }[]
           | undefined
       }
     | undefined
   secret_scanning_generic_secrets?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_non_provider_patterns?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_push_protection?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
   secret_scanning_validity_checks?:
-    | ("enabled" | "disabled" | "not_set")
+    | ("enabled" | "disabled" | "not_set" | UnknownEnumStringValue)
     | undefined
-  target_type?: ("global" | "organization" | "enterprise") | undefined
+  target_type?:
+    | ("global" | "organization" | "enterprise" | UnknownEnumStringValue)
+    | undefined
   updated_at?: string | undefined
   url?: string | undefined
 }
@@ -1355,6 +1463,7 @@ export type t_code_security_configuration_for_repository = {
         | "failed"
         | "updating"
         | "removed_by_enterprise"
+        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -1371,6 +1480,7 @@ export type t_code_security_configuration_repositories = {
         | "failed"
         | "updating"
         | "removed_by_enterprise"
+        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -1410,7 +1520,12 @@ export type t_codespace = {
   idle_timeout_notice?: (string | null) | undefined
   last_known_stop_notice?: (string | null) | undefined
   last_used_at: string
-  location: "EastUs" | "SouthEastAsia" | "WestEurope" | "WestUs2"
+  location:
+    | "EastUs"
+    | "SouthEastAsia"
+    | "WestEurope"
+    | "WestUs2"
+    | UnknownEnumStringValue
   machine: t_nullable_codespace_machine
   machines_url: string
   name: string
@@ -1448,6 +1563,7 @@ export type t_codespace = {
     | "Exporting"
     | "Updating"
     | "Rebuilding"
+    | UnknownEnumStringValue
   stop_url: string
   updated_at: string
   url: string
@@ -1470,7 +1586,12 @@ export type t_codespace_machine = {
   memory_in_bytes: number
   name: string
   operating_system: string
-  prebuild_availability: "none" | "ready" | "in_progress" | null
+  prebuild_availability:
+    | "none"
+    | "ready"
+    | "in_progress"
+    | UnknownEnumStringValue
+    | null
   storage_in_bytes: number
 }
 
@@ -1491,7 +1612,12 @@ export type t_codespace_with_full_repository = {
   idle_timeout_minutes: number | null
   idle_timeout_notice?: (string | null) | undefined
   last_used_at: string
-  location: "EastUs" | "SouthEastAsia" | "WestEurope" | "WestUs2"
+  location:
+    | "EastUs"
+    | "SouthEastAsia"
+    | "WestEurope"
+    | "WestUs2"
+    | UnknownEnumStringValue
   machine: t_nullable_codespace_machine
   machines_url: string
   name: string
@@ -1529,6 +1655,7 @@ export type t_codespace_with_full_repository = {
     | "Exporting"
     | "Updating"
     | "Rebuilding"
+    | UnknownEnumStringValue
   stop_url: string
   updated_at: string
   url: string
@@ -1540,7 +1667,7 @@ export type t_codespaces_org_secret = {
   name: string
   selected_repositories_url?: string | undefined
   updated_at: string
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_codespaces_permissions_check_for_devcontainer = {
@@ -1561,7 +1688,7 @@ export type t_codespaces_secret = {
   name: string
   selected_repositories_url: string
   updated_at: string
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_codespaces_user_public_key = {
@@ -1688,7 +1815,7 @@ export type t_commit_comparison = {
   merge_base_commit: t_commit
   patch_url: string
   permalink_url: string
-  status: "diverged" | "ahead" | "behind" | "identical"
+  status: "diverged" | "ahead" | "behind" | "identical" | UnknownEnumStringValue
   total_commits: number
   url: string
 }
@@ -1758,7 +1885,7 @@ export type t_content_directory = {
   path: string
   sha: string
   size: number
-  type: "dir" | "file" | "submodule" | "symlink"
+  type: "dir" | "file" | "submodule" | "symlink" | UnknownEnumStringValue
   url: string
 }[]
 
@@ -1779,7 +1906,7 @@ export type t_content_file = {
   size: number
   submodule_git_url?: string | undefined
   target?: string | undefined
-  type: "file"
+  type: "file" | UnknownEnumStringValue
   url: string
 }
 
@@ -1797,7 +1924,7 @@ export type t_content_submodule = {
   sha: string
   size: number
   submodule_git_url: string
-  type: "submodule"
+  type: "submodule" | UnknownEnumStringValue
   url: string
 }
 
@@ -1815,7 +1942,7 @@ export type t_content_symlink = {
   sha: string
   size: number
   target: string
-  type: "symlink"
+  type: "symlink" | UnknownEnumStringValue
   url: string
 }
 
@@ -1977,17 +2104,28 @@ export type t_copilot_ide_code_completions = {
 } | null
 
 export type t_copilot_organization_details = {
-  cli?: ("enabled" | "disabled" | "unconfigured") | undefined
-  ide_chat?: ("enabled" | "disabled" | "unconfigured") | undefined
-  plan_type?: ("business" | "enterprise") | undefined
-  platform_chat?: ("enabled" | "disabled" | "unconfigured") | undefined
-  public_code_suggestions: "allow" | "block" | "unconfigured"
+  cli?:
+    | ("enabled" | "disabled" | "unconfigured" | UnknownEnumStringValue)
+    | undefined
+  ide_chat?:
+    | ("enabled" | "disabled" | "unconfigured" | UnknownEnumStringValue)
+    | undefined
+  plan_type?: ("business" | "enterprise" | UnknownEnumStringValue) | undefined
+  platform_chat?:
+    | ("enabled" | "disabled" | "unconfigured" | UnknownEnumStringValue)
+    | undefined
+  public_code_suggestions:
+    | "allow"
+    | "block"
+    | "unconfigured"
+    | UnknownEnumStringValue
   seat_breakdown: t_copilot_organization_seat_breakdown
   seat_management_setting:
     | "assign_all"
     | "assign_selected"
     | "disabled"
     | "unconfigured"
+    | UnknownEnumStringValue
   [key: string]: unknown | undefined
 }
 
@@ -2008,7 +2146,9 @@ export type t_copilot_seat_details = {
   last_activity_editor?: (string | null) | undefined
   organization?: t_nullable_organization_simple | undefined
   pending_cancellation_date?: (string | null) | undefined
-  plan_type?: ("business" | "enterprise" | "unknown") | undefined
+  plan_type?:
+    | ("business" | "enterprise" | "unknown" | UnknownEnumStringValue)
+    | undefined
   updated_at?: string | undefined
 }
 
@@ -2060,10 +2200,19 @@ export type t_custom_property = {
   description?: (string | null) | undefined
   property_name: string
   required?: boolean | undefined
-  source_type?: ("organization" | "enterprise") | undefined
+  source_type?:
+    | ("organization" | "enterprise" | UnknownEnumStringValue)
+    | undefined
   url?: string | undefined
-  value_type: "string" | "single_select" | "multi_select" | "true_false"
-  values_editable_by?: ("org_actors" | "org_and_repo_actors" | null) | undefined
+  value_type:
+    | "string"
+    | "single_select"
+    | "multi_select"
+    | "true_false"
+    | UnknownEnumStringValue
+  values_editable_by?:
+    | ("org_actors" | "org_and_repo_actors" | UnknownEnumStringValue | null)
+    | undefined
 }
 
 export type t_custom_property_set_payload = {
@@ -2071,7 +2220,12 @@ export type t_custom_property_set_payload = {
   default_value?: (string | string[] | null) | undefined
   description?: (string | null) | undefined
   required?: boolean | undefined
-  value_type: "string" | "single_select" | "multi_select" | "true_false"
+  value_type:
+    | "string"
+    | "single_select"
+    | "multi_select"
+    | "true_false"
+    | UnknownEnumStringValue
 }
 
 export type t_custom_property_value = {
@@ -2116,9 +2270,11 @@ export type t_dependabot_alert = {
     readonly manifest_path?: string | undefined
     package?: t_dependabot_alert_package | undefined
     readonly relationship?:
-      | ("unknown" | "direct" | "transitive" | null)
+      | ("unknown" | "direct" | "transitive" | UnknownEnumStringValue | null)
       | undefined
-    readonly scope?: ("development" | "runtime" | null) | undefined
+    readonly scope?:
+      | ("development" | "runtime" | UnknownEnumStringValue | null)
+      | undefined
   }
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
@@ -2129,13 +2285,19 @@ export type t_dependabot_alert = {
     | "no_bandwidth"
     | "not_used"
     | "tolerable_risk"
+    | UnknownEnumStringValue
     | null
   fixed_at: t_alert_fixed_at
   html_url: t_alert_html_url
   number: t_alert_number
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state: "auto_dismissed" | "dismissed" | "fixed" | "open"
+  readonly state:
+    | "auto_dismissed"
+    | "dismissed"
+    | "fixed"
+    | "open"
+    | UnknownEnumStringValue
   updated_at: t_alert_updated_at
   url: t_alert_url
 }
@@ -2160,14 +2322,19 @@ export type t_dependabot_alert_security_advisory = {
   epss?: t_security_advisory_epss | undefined
   readonly ghsa_id: string
   readonly identifiers: {
-    readonly type: "CVE" | "GHSA"
+    readonly type: "CVE" | "GHSA" | UnknownEnumStringValue
     readonly value: string
   }[]
   readonly published_at: string
   readonly references: {
     readonly url: string
   }[]
-  readonly severity: "low" | "medium" | "high" | "critical"
+  readonly severity:
+    | "low"
+    | "medium"
+    | "high"
+    | "critical"
+    | UnknownEnumStringValue
   readonly summary: string
   readonly updated_at: string
   readonly vulnerabilities: t_dependabot_alert_security_vulnerability[]
@@ -2179,7 +2346,12 @@ export type t_dependabot_alert_security_vulnerability = {
     readonly identifier: string
   } | null
   package: t_dependabot_alert_package
-  readonly severity: "low" | "medium" | "high" | "critical"
+  readonly severity:
+    | "low"
+    | "medium"
+    | "high"
+    | "critical"
+    | UnknownEnumStringValue
   readonly vulnerable_version_range: string
 }
 
@@ -2190,9 +2362,11 @@ export type t_dependabot_alert_with_repository = {
     readonly manifest_path?: string | undefined
     package?: t_dependabot_alert_package | undefined
     readonly relationship?:
-      | ("unknown" | "direct" | "transitive" | null)
+      | ("unknown" | "direct" | "transitive" | UnknownEnumStringValue | null)
       | undefined
-    readonly scope?: ("development" | "runtime" | null) | undefined
+    readonly scope?:
+      | ("development" | "runtime" | UnknownEnumStringValue | null)
+      | undefined
   }
   dismissed_at: t_alert_dismissed_at
   dismissed_by: t_nullable_simple_user
@@ -2203,6 +2377,7 @@ export type t_dependabot_alert_with_repository = {
     | "no_bandwidth"
     | "not_used"
     | "tolerable_risk"
+    | UnknownEnumStringValue
     | null
   fixed_at: t_alert_fixed_at
   html_url: t_alert_html_url
@@ -2210,7 +2385,12 @@ export type t_dependabot_alert_with_repository = {
   repository: t_simple_repository
   security_advisory: t_dependabot_alert_security_advisory
   security_vulnerability: t_dependabot_alert_security_vulnerability
-  readonly state: "auto_dismissed" | "dismissed" | "fixed" | "open"
+  readonly state:
+    | "auto_dismissed"
+    | "dismissed"
+    | "fixed"
+    | "open"
+    | UnknownEnumStringValue
   updated_at: t_alert_updated_at
   url: t_alert_url
 }
@@ -2230,18 +2410,18 @@ export type t_dependency = {
   dependencies?: string[] | undefined
   metadata?: t_metadata | undefined
   package_url?: string | undefined
-  relationship?: ("direct" | "indirect") | undefined
-  scope?: ("runtime" | "development") | undefined
+  relationship?: ("direct" | "indirect" | UnknownEnumStringValue) | undefined
+  scope?: ("runtime" | "development" | UnknownEnumStringValue) | undefined
 }
 
 export type t_dependency_graph_diff = {
-  change_type: "added" | "removed"
+  change_type: "added" | "removed" | UnknownEnumStringValue
   ecosystem: string
   license: string | null
   manifest: string
   name: string
   package_url: string | null
-  scope: "unknown" | "runtime" | "development"
+  scope: "unknown" | "runtime" | "development" | UnknownEnumStringValue
   source_repository_url: string | null
   version: string
   vulnerabilities: {
@@ -2334,7 +2514,7 @@ export type t_deployment_branch_policy = {
   id?: number | undefined
   name?: string | undefined
   node_id?: string | undefined
-  type?: ("branch" | "tag") | undefined
+  type?: ("branch" | "tag" | UnknownEnumStringValue) | undefined
 }
 
 export type t_deployment_branch_policy_name_pattern = {
@@ -2343,7 +2523,7 @@ export type t_deployment_branch_policy_name_pattern = {
 
 export type t_deployment_branch_policy_name_pattern_with_type = {
   name: string
-  type?: ("branch" | "tag") | undefined
+  type?: ("branch" | "tag" | UnknownEnumStringValue) | undefined
 }
 
 export type t_deployment_branch_policy_settings = {
@@ -2358,7 +2538,10 @@ export type t_deployment_protection_rule = {
   node_id: string
 }
 
-export type t_deployment_reviewer_type = "User" | "Team"
+export type t_deployment_reviewer_type =
+  | "User"
+  | "Team"
+  | UnknownEnumStringValue
 
 export type t_deployment_simple = {
   created_at: string
@@ -2397,6 +2580,7 @@ export type t_deployment_status = {
     | "success"
     | "queued"
     | "in_progress"
+    | UnknownEnumStringValue
   target_url: string
   updated_at: string
   url: string
@@ -2421,6 +2605,7 @@ export type t_diff_entry = {
     | "copied"
     | "changed"
     | "unchanged"
+    | UnknownEnumStringValue
 }
 
 export type t_email = {
@@ -2432,7 +2617,11 @@ export type t_email = {
 
 export type t_empty_object = EmptyObject
 
-export type t_enabled_repositories = "all" | "none" | "selected"
+export type t_enabled_repositories =
+  | "all"
+  | "none"
+  | "selected"
+  | UnknownEnumStringValue
 
 export type t_enterprise = {
   avatar_url: string
@@ -2510,7 +2699,7 @@ export type t_environment_approvals = {
     updated_at?: string | undefined
     url?: string | undefined
   }[]
-  state: "approved" | "rejected" | "pending"
+  state: "approved" | "rejected" | "pending" | UnknownEnumStringValue
   user: t_simple_user
 }
 
@@ -2695,8 +2884,12 @@ export type t_full_repository = {
   languages_url: string
   license: t_nullable_license_simple
   master_branch?: string | undefined
-  merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-  merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+  merge_commit_message?:
+    | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+    | undefined
+  merge_commit_title?:
+    | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+    | undefined
   merges_url: string
   milestones_url: string
   mirror_url: string | null
@@ -2726,9 +2919,11 @@ export type t_full_repository = {
   size: number
   source?: t_repository | undefined
   squash_merge_commit_message?:
-    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
     | undefined
-  squash_merge_commit_title?: ("PR_TITLE" | "COMMIT_OR_PR_TITLE") | undefined
+  squash_merge_commit_title?:
+    | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
+    | undefined
   ssh_url: string
   stargazers_count: number
   stargazers_url: string
@@ -2983,7 +3178,7 @@ export type t_global_advisory = {
   readonly html_url: string
   readonly identifiers:
     | {
-        type: "CVE" | "GHSA"
+        type: "CVE" | "GHSA" | UnknownEnumStringValue
         value: string
       }[]
     | null
@@ -2991,10 +3186,16 @@ export type t_global_advisory = {
   readonly published_at: string
   references: string[] | null
   readonly repository_advisory_url: string | null
-  severity: "critical" | "high" | "medium" | "low" | "unknown"
+  severity:
+    | "critical"
+    | "high"
+    | "medium"
+    | "low"
+    | "unknown"
+    | UnknownEnumStringValue
   source_code_location: string | null
   summary: string
-  readonly type: "reviewed" | "unreviewed" | "malware"
+  readonly type: "reviewed" | "unreviewed" | "malware" | UnknownEnumStringValue
   readonly updated_at: string
   readonly url: string
   vulnerabilities: t_vulnerability[] | null
@@ -3154,6 +3355,7 @@ export type t_import = {
     | "detection_found_multiple"
     | "detection_found_nothing"
     | "detection_needs_auth"
+    | UnknownEnumStringValue
   status_text?: (string | null) | undefined
   svc_root?: string | undefined
   svn_root?: string | undefined
@@ -3177,7 +3379,7 @@ export type t_installation = {
   id: number
   permissions: t_app_permissions
   repositories_url: string
-  repository_selection: "all" | "selected"
+  repository_selection: "all" | "selected" | UnknownEnumStringValue
   single_file_name: string | null
   single_file_paths?: string[] | undefined
   suspended_at: string | null
@@ -3192,7 +3394,9 @@ export type t_installation_token = {
   has_multiple_single_files?: boolean | undefined
   permissions?: t_app_permissions | undefined
   repositories?: t_repository[] | undefined
-  repository_selection?: ("all" | "selected") | undefined
+  repository_selection?:
+    | ("all" | "selected" | UnknownEnumStringValue)
+    | undefined
   single_file?: string | undefined
   single_file_paths?: string[] | undefined
   token: string
@@ -3239,11 +3443,13 @@ export type t_interaction_expiry =
   | "one_week"
   | "one_month"
   | "six_months"
+  | UnknownEnumStringValue
 
 export type t_interaction_group =
   | "existing_users"
   | "contributors_only"
   | "collaborators_only"
+  | UnknownEnumStringValue
 
 export type t_interaction_limit = {
   expiry?: t_interaction_expiry | undefined
@@ -3304,7 +3510,9 @@ export type t_issue = {
   repository?: t_repository | undefined
   repository_url: string
   state: string
-  state_reason?: ("completed" | "reopened" | "not_planned" | null) | undefined
+  state_reason?:
+    | ("completed" | "reopened" | "not_planned" | UnknownEnumStringValue | null)
+    | undefined
   sub_issues_summary?: t_sub_issues_summary | undefined
   timeline_url?: string | undefined
   title: string
@@ -3474,6 +3682,7 @@ export type t_job = {
     | "skipped"
     | "timed_out"
     | "action_required"
+    | UnknownEnumStringValue
     | null
   created_at: string
   head_branch: string | null
@@ -3498,6 +3707,7 @@ export type t_job = {
     | "waiting"
     | "requested"
     | "pending"
+    | UnknownEnumStringValue
   steps?:
     | {
         completed_at?: (string | null) | undefined
@@ -3505,7 +3715,7 @@ export type t_job = {
         name: string
         number: number
         started_at?: (string | null) | undefined
-        status: "queued" | "in_progress" | "completed"
+        status: "queued" | "in_progress" | "completed" | UnknownEnumStringValue
       }[]
     | undefined
   url: string
@@ -3670,7 +3880,7 @@ export type t_marketplace_listing_plan = {
   monthly_price_in_cents: number
   name: string
   number: number
-  price_model: "FREE" | "FLAT_RATE" | "PER_UNIT"
+  price_model: "FREE" | "FLAT_RATE" | "PER_UNIT" | UnknownEnumStringValue
   state: string
   unit_name: string | null
   url: string
@@ -3707,7 +3917,9 @@ export type t_marketplace_purchase = {
 
 export type t_merged_upstream = {
   base_branch?: string | undefined
-  merge_type?: ("merge" | "fast-forward" | "none") | undefined
+  merge_type?:
+    | ("merge" | "fast-forward" | "none" | UnknownEnumStringValue)
+    | undefined
   message?: string | undefined
 }
 
@@ -3749,7 +3961,7 @@ export type t_milestone = {
   node_id: string
   number: number
   open_issues: number
-  state: "open" | "closed"
+  state: "open" | "closed" | UnknownEnumStringValue
   title: string
   updated_at: string
   url: string
@@ -3899,7 +4111,9 @@ export type t_moved_column_in_project_issue_event = {
 }
 
 export type t_network_configuration = {
-  compute_service?: ("none" | "actions" | "codespaces") | undefined
+  compute_service?:
+    | ("none" | "actions" | "codespaces" | UnknownEnumStringValue)
+    | undefined
   created_on: string | null
   id: string
   name: string
@@ -3918,7 +4132,7 @@ export type t_nullable_actions_hosted_runner_pool_image = {
   display_name: string
   id: string
   size_gb: number
-  source: "github" | "partner" | "custom"
+  source: "github" | "partner" | "custom" | UnknownEnumStringValue
 } | null
 
 export type t_nullable_alert_updated_at = string | null
@@ -3936,7 +4150,12 @@ export type t_nullable_codespace_machine = {
   memory_in_bytes: number
   name: string
   operating_system: string
-  prebuild_availability: "none" | "ready" | "in_progress" | null
+  prebuild_availability:
+    | "none"
+    | "ready"
+    | "in_progress"
+    | UnknownEnumStringValue
+    | null
   storage_in_bytes: number
 } | null
 
@@ -4060,7 +4279,9 @@ export type t_nullable_issue = {
   repository?: t_repository | undefined
   repository_url: string
   state: string
-  state_reason?: ("completed" | "reopened" | "not_planned" | null) | undefined
+  state_reason?:
+    | ("completed" | "reopened" | "not_planned" | UnknownEnumStringValue | null)
+    | undefined
   sub_issues_summary?: t_sub_issues_summary | undefined
   timeline_url?: string | undefined
   title: string
@@ -4091,7 +4312,7 @@ export type t_nullable_milestone = {
   node_id: string
   number: number
   open_issues: number
-  state: "open" | "closed"
+  state: "open" | "closed" | UnknownEnumStringValue
   title: string
   updated_at: string
   url: string
@@ -4275,8 +4496,12 @@ export type t_nullable_repository = {
   languages_url: string
   license: t_nullable_license_simple
   master_branch?: string | undefined
-  merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-  merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+  merge_commit_message?:
+    | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+    | undefined
+  merge_commit_title?:
+    | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+    | undefined
   merges_url: string
   milestones_url: string
   mirror_url: string | null
@@ -4301,9 +4526,11 @@ export type t_nullable_repository = {
   releases_url: string
   size: number
   squash_merge_commit_message?:
-    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
     | undefined
-  squash_merge_commit_title?: ("PR_TITLE" | "COMMIT_OR_PR_TITLE") | undefined
+  squash_merge_commit_title?:
+    | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
+    | undefined
   ssh_url: string
   stargazers_count: number
   stargazers_url: string
@@ -4331,7 +4558,7 @@ export type t_nullable_scoped_installation = {
   has_multiple_single_files?: boolean | undefined
   permissions: t_app_permissions
   repositories_url: string
-  repository_selection: "all" | "selected"
+  repository_selection: "all" | "selected" | UnknownEnumStringValue
   single_file_name: string | null
   single_file_paths?: string[] | undefined
 } | null
@@ -4428,8 +4655,8 @@ export type t_org_membership = {
         can_create_repository: boolean
       }
     | undefined
-  role: "admin" | "member" | "billing_manager"
-  state: "active" | "pending"
+  role: "admin" | "member" | "billing_manager" | UnknownEnumStringValue
+  state: "active" | "pending" | UnknownEnumStringValue
   url: string
   user: t_nullable_simple_user
 }
@@ -4437,20 +4664,20 @@ export type t_org_membership = {
 export type t_org_private_registry_configuration = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | UnknownEnumStringValue
   updated_at: string
   username?: (string | null) | undefined
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_org_private_registry_configuration_with_selected_repositories = {
   created_at: string
   name: string
-  registry_type: "maven_repository"
+  registry_type: "maven_repository" | UnknownEnumStringValue
   selected_repository_ids?: number[] | undefined
   updated_at: string
   username?: string | undefined
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_org_repo_custom_property_values = {
@@ -4473,7 +4700,7 @@ export type t_organization_actions_secret = {
   name: string
   selected_repositories_url?: string | undefined
   updated_at: string
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_organization_actions_variable = {
@@ -4482,7 +4709,7 @@ export type t_organization_actions_variable = {
   selected_repositories_url?: string | undefined
   updated_at: string
   value: string
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_organization_dependabot_secret = {
@@ -4490,7 +4717,7 @@ export type t_organization_dependabot_secret = {
   name: string
   selected_repositories_url?: string | undefined
   updated_at: string
-  visibility: "all" | "private" | "selected"
+  visibility: "all" | "private" | "selected" | UnknownEnumStringValue
 }
 
 export type t_organization_full = {
@@ -4601,7 +4828,7 @@ export type t_organization_programmatic_access_grant = {
       | undefined
   }
   repositories_url: string
-  repository_selection: "none" | "all" | "subset"
+  repository_selection: "none" | "all" | "subset" | UnknownEnumStringValue
   token_expired: boolean
   token_expires_at: string | null
   token_id: number
@@ -4632,7 +4859,7 @@ export type t_organization_programmatic_access_grant_request = {
   }
   reason: string | null
   repositories_url: string
-  repository_selection: "none" | "all" | "subset"
+  repository_selection: "none" | "all" | "subset" | UnknownEnumStringValue
   token_expired: boolean
   token_expires_at: string | null
   token_id: number
@@ -4642,7 +4869,15 @@ export type t_organization_programmatic_access_grant_request = {
 
 export type t_organization_role = {
   base_role?:
-    | ("read" | "triage" | "write" | "maintain" | "admin" | null)
+    | (
+        | "read"
+        | "triage"
+        | "write"
+        | "maintain"
+        | "admin"
+        | UnknownEnumStringValue
+        | null
+      )
     | undefined
   created_at: string
   description?: (string | null) | undefined
@@ -4650,7 +4885,15 @@ export type t_organization_role = {
   name: string
   organization: t_nullable_simple_user
   permissions: string[]
-  source?: ("Organization" | "Enterprise" | "Predefined" | null) | undefined
+  source?:
+    | (
+        | "Organization"
+        | "Enterprise"
+        | "Predefined"
+        | UnknownEnumStringValue
+        | null
+      )
+    | undefined
   updated_at: string
 }
 
@@ -4680,7 +4923,9 @@ export type t_organization_secret_scanning_alert = {
   state?: t_secret_scanning_alert_state | undefined
   updated_at?: t_nullable_alert_updated_at | undefined
   url?: t_alert_url | undefined
-  validity?: ("active" | "inactive" | "unknown") | undefined
+  validity?:
+    | ("active" | "inactive" | "unknown" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_organization_simple = {
@@ -4704,12 +4949,19 @@ export type t_package = {
   id: number
   name: string
   owner?: t_nullable_simple_user | undefined
-  package_type: "npm" | "maven" | "rubygems" | "docker" | "nuget" | "container"
+  package_type:
+    | "npm"
+    | "maven"
+    | "rubygems"
+    | "docker"
+    | "nuget"
+    | "container"
+    | UnknownEnumStringValue
   repository?: t_nullable_minimal_repository | undefined
   updated_at: string
   url: string
   version_count: number
-  visibility: "private" | "public"
+  visibility: "private" | "public" | UnknownEnumStringValue
 }
 
 export type t_package_version = {
@@ -4738,6 +4990,7 @@ export type t_package_version = {
           | "docker"
           | "nuget"
           | "container"
+          | UnknownEnumStringValue
       }
     | undefined
   name: string
@@ -4753,7 +5006,9 @@ export type t_packages_billing_usage = {
 }
 
 export type t_page = {
-  build_type?: ("legacy" | "workflow" | null) | undefined
+  build_type?:
+    | ("legacy" | "workflow" | UnknownEnumStringValue | null)
+    | undefined
   cname: string | null
   custom_404: boolean
   html_url?: string | undefined
@@ -4761,11 +5016,11 @@ export type t_page = {
   https_enforced?: boolean | undefined
   pending_domain_unverified_at?: (string | null) | undefined
   protected_domain_state?:
-    | ("pending" | "verified" | "unverified" | null)
+    | ("pending" | "verified" | "unverified" | UnknownEnumStringValue | null)
     | undefined
   public: boolean
   source?: t_pages_source_hash | undefined
-  status: "built" | "building" | "errored" | null
+  status: "built" | "building" | "errored" | UnknownEnumStringValue | null
   url: string
 }
 
@@ -4808,6 +5063,7 @@ export type t_pages_deployment_status = {
         | "deployment_attempt_error"
         | "deployment_lost"
         | "succeed"
+        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -4896,6 +5152,7 @@ export type t_pages_https_certificate = {
     | "bad_authz"
     | "destroy_pending"
     | "dns_changed"
+    | UnknownEnumStringValue
 }
 
 export type t_pages_source_hash = {
@@ -5001,7 +5258,9 @@ export type t_private_vulnerability_report_create = {
   cvss_vector_string?: (string | null) | undefined
   cwe_ids?: (string[] | null) | undefined
   description: string
-  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
+  severity?:
+    | ("critical" | "high" | "medium" | "low" | UnknownEnumStringValue | null)
+    | undefined
   start_private_fork?: boolean | undefined
   summary: string
   vulnerabilities?:
@@ -5030,7 +5289,9 @@ export type t_project = {
   name: string
   node_id: string
   number: number
-  organization_permission?: ("read" | "write" | "admin" | "none") | undefined
+  organization_permission?:
+    | ("read" | "write" | "admin" | "none" | UnknownEnumStringValue)
+    | undefined
   owner_url: string
   private?: boolean | undefined
   state: string
@@ -5319,7 +5580,7 @@ export type t_pull_request = {
   review_comment_url: string
   review_comments: number
   review_comments_url: string
-  state: "open" | "closed"
+  state: "open" | "closed" | UnknownEnumStringValue
   statuses_url: string
   title: string
   updated_at: string
@@ -5413,10 +5674,10 @@ export type t_pull_request_review_comment = {
   pull_request_review_id: number | null
   pull_request_url: string
   reactions?: t_reaction_rollup | undefined
-  side?: ("LEFT" | "RIGHT") | undefined
+  side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue) | undefined
   start_line?: (number | null) | undefined
-  start_side?: ("LEFT" | "RIGHT" | null) | undefined
-  subject_type?: ("line" | "file") | undefined
+  start_side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue | null) | undefined
+  subject_type?: ("line" | "file" | UnknownEnumStringValue) | undefined
   updated_at: string
   url: string
   user: t_simple_user
@@ -5529,6 +5790,7 @@ export type t_reaction = {
     | "hooray"
     | "rocket"
     | "eyes"
+    | UnknownEnumStringValue
   created_at: string
   id: number
   node_id: string
@@ -5596,7 +5858,7 @@ export type t_release_asset = {
   name: string
   node_id: string
   size: number
-  state: "uploaded" | "open"
+  state: "uploaded" | "open" | UnknownEnumStringValue
   updated_at: string
   uploader: t_nullable_simple_user
   url: string
@@ -5808,8 +6070,12 @@ export type t_repository = {
   languages_url: string
   license: t_nullable_license_simple
   master_branch?: string | undefined
-  merge_commit_message?: ("PR_BODY" | "PR_TITLE" | "BLANK") | undefined
-  merge_commit_title?: ("PR_TITLE" | "MERGE_MESSAGE") | undefined
+  merge_commit_message?:
+    | ("PR_BODY" | "PR_TITLE" | "BLANK" | UnknownEnumStringValue)
+    | undefined
+  merge_commit_title?:
+    | ("PR_TITLE" | "MERGE_MESSAGE" | UnknownEnumStringValue)
+    | undefined
   merges_url: string
   milestones_url: string
   mirror_url: string | null
@@ -5834,9 +6100,11 @@ export type t_repository = {
   releases_url: string
   size: number
   squash_merge_commit_message?:
-    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK")
+    | ("PR_BODY" | "COMMIT_MESSAGES" | "BLANK" | UnknownEnumStringValue)
     | undefined
-  squash_merge_commit_title?: ("PR_TITLE" | "COMMIT_OR_PR_TITLE") | undefined
+  squash_merge_commit_title?:
+    | ("PR_TITLE" | "COMMIT_OR_PR_TITLE" | UnknownEnumStringValue)
+    | undefined
   ssh_url: string
   stargazers_count: number
   stargazers_url: string
@@ -5889,14 +6157,26 @@ export type t_repository_advisory = {
   readonly ghsa_id: string
   readonly html_url: string
   readonly identifiers: {
-    type: "CVE" | "GHSA"
+    type: "CVE" | "GHSA" | UnknownEnumStringValue
     value: string
   }[]
   readonly private_fork: t_simple_repository | null
   readonly published_at: string | null
   readonly publisher: t_simple_user | null
-  severity: "critical" | "high" | "medium" | "low" | null
-  state: "published" | "closed" | "withdrawn" | "draft" | "triage"
+  severity:
+    | "critical"
+    | "high"
+    | "medium"
+    | "low"
+    | UnknownEnumStringValue
+    | null
+  state:
+    | "published"
+    | "closed"
+    | "withdrawn"
+    | "draft"
+    | "triage"
+    | UnknownEnumStringValue
   readonly submission: {
     readonly accepted: boolean
   } | null
@@ -5921,7 +6201,9 @@ export type t_repository_advisory_create = {
   cvss_vector_string?: (string | null) | undefined
   cwe_ids?: (string[] | null) | undefined
   description: string
-  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
+  severity?:
+    | ("critical" | "high" | "medium" | "low" | UnknownEnumStringValue | null)
+    | undefined
   start_private_fork?: boolean | undefined
   summary: string
   vulnerabilities: {
@@ -5936,7 +6218,7 @@ export type t_repository_advisory_create = {
 }
 
 export type t_repository_advisory_credit = {
-  state: "accepted" | "declined" | "pending"
+  state: "accepted" | "declined" | "pending" | UnknownEnumStringValue
   type: t_security_advisory_credit_types
   user: t_simple_user
 }
@@ -5957,8 +6239,12 @@ export type t_repository_advisory_update = {
   cvss_vector_string?: (string | null) | undefined
   cwe_ids?: (string[] | null) | undefined
   description?: string | undefined
-  severity?: ("critical" | "high" | "medium" | "low" | null) | undefined
-  state?: ("published" | "closed" | "draft") | undefined
+  severity?:
+    | ("critical" | "high" | "medium" | "low" | UnknownEnumStringValue | null)
+    | undefined
+  state?:
+    | ("published" | "closed" | "draft" | UnknownEnumStringValue)
+    | undefined
   summary?: string | undefined
   vulnerabilities?:
     | {
@@ -5997,7 +6283,13 @@ export type t_repository_invitation = {
   invitee: t_nullable_simple_user
   inviter: t_nullable_simple_user
   node_id: string
-  permissions: "read" | "write" | "admin" | "triage" | "maintain"
+  permissions:
+    | "read"
+    | "write"
+    | "admin"
+    | "triage"
+    | "maintain"
+    | UnknownEnumStringValue
   repository: t_minimal_repository
   url: string
 }
@@ -6024,7 +6316,7 @@ export type t_repository_rule =
             restricted_file_paths: string[]
           }
         | undefined
-      type: "file_path_restriction"
+      type: "file_path_restriction" | UnknownEnumStringValue
     }
   | {
       parameters?:
@@ -6032,7 +6324,7 @@ export type t_repository_rule =
             max_file_path_length: number
           }
         | undefined
-      type: "max_file_path_length"
+      type: "max_file_path_length" | UnknownEnumStringValue
     }
   | {
       parameters?:
@@ -6040,7 +6332,7 @@ export type t_repository_rule =
             restricted_file_extensions: string[]
           }
         | undefined
-      type: "file_extension_restriction"
+      type: "file_extension_restriction" | UnknownEnumStringValue
     }
   | {
       parameters?:
@@ -6048,7 +6340,7 @@ export type t_repository_rule =
             max_file_size: number
           }
         | undefined
-      type: "max_file_size"
+      type: "max_file_size" | UnknownEnumStringValue
     }
   | t_repository_rule_workflows
   | t_repository_rule_code_scanning
@@ -6058,11 +6350,16 @@ export type t_repository_rule_branch_name_pattern = {
     | {
         name?: string | undefined
         negate?: boolean | undefined
-        operator: "starts_with" | "ends_with" | "contains" | "regex"
+        operator:
+          | "starts_with"
+          | "ends_with"
+          | "contains"
+          | "regex"
+          | UnknownEnumStringValue
         pattern: string
       }
     | undefined
-  type: "branch_name_pattern"
+  type: "branch_name_pattern" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_code_scanning = {
@@ -6071,7 +6368,7 @@ export type t_repository_rule_code_scanning = {
         code_scanning_tools: t_repository_rule_params_code_scanning_tool[]
       }
     | undefined
-  type: "code_scanning"
+  type: "code_scanning" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_commit_author_email_pattern = {
@@ -6079,11 +6376,16 @@ export type t_repository_rule_commit_author_email_pattern = {
     | {
         name?: string | undefined
         negate?: boolean | undefined
-        operator: "starts_with" | "ends_with" | "contains" | "regex"
+        operator:
+          | "starts_with"
+          | "ends_with"
+          | "contains"
+          | "regex"
+          | UnknownEnumStringValue
         pattern: string
       }
     | undefined
-  type: "commit_author_email_pattern"
+  type: "commit_author_email_pattern" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_commit_message_pattern = {
@@ -6091,11 +6393,16 @@ export type t_repository_rule_commit_message_pattern = {
     | {
         name?: string | undefined
         negate?: boolean | undefined
-        operator: "starts_with" | "ends_with" | "contains" | "regex"
+        operator:
+          | "starts_with"
+          | "ends_with"
+          | "contains"
+          | "regex"
+          | UnknownEnumStringValue
         pattern: string
       }
     | undefined
-  type: "commit_message_pattern"
+  type: "commit_message_pattern" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_committer_email_pattern = {
@@ -6103,19 +6410,24 @@ export type t_repository_rule_committer_email_pattern = {
     | {
         name?: string | undefined
         negate?: boolean | undefined
-        operator: "starts_with" | "ends_with" | "contains" | "regex"
+        operator:
+          | "starts_with"
+          | "ends_with"
+          | "contains"
+          | "regex"
+          | UnknownEnumStringValue
         pattern: string
       }
     | undefined
-  type: "committer_email_pattern"
+  type: "committer_email_pattern" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_creation = {
-  type: "creation"
+  type: "creation" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_deletion = {
-  type: "deletion"
+  type: "deletion" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_detailed =
@@ -6138,35 +6450,45 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
   | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
-export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
+export type t_repository_rule_enforcement =
+  | "disabled"
+  | "active"
+  | "evaluate"
+  | UnknownEnumStringValue
 
 export type t_repository_rule_merge_queue = {
   parameters?:
     | {
         check_response_timeout_minutes: number
-        grouping_strategy: "ALLGREEN" | "HEADGREEN"
+        grouping_strategy: "ALLGREEN" | "HEADGREEN" | UnknownEnumStringValue
         max_entries_to_build: number
         max_entries_to_merge: number
-        merge_method: "MERGE" | "SQUASH" | "REBASE"
+        merge_method: "MERGE" | "SQUASH" | "REBASE" | UnknownEnumStringValue
         min_entries_to_merge: number
         min_entries_to_merge_wait_minutes: number
       }
     | undefined
-  type: "merge_queue"
+  type: "merge_queue" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_non_fast_forward = {
-  type: "non_fast_forward"
+  type: "non_fast_forward" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_params_code_scanning_tool = {
-  alerts_threshold: "none" | "errors" | "errors_and_warnings" | "all"
+  alerts_threshold:
+    | "none"
+    | "errors"
+    | "errors_and_warnings"
+    | "all"
+    | UnknownEnumStringValue
   security_alerts_threshold:
     | "none"
     | "critical"
     | "high_or_higher"
     | "medium_or_higher"
     | "all"
+    | UnknownEnumStringValue
   tool: string
 }
 
@@ -6193,7 +6515,7 @@ export type t_repository_rule_pull_request = {
         required_review_thread_resolution: boolean
       }
     | undefined
-  type: "pull_request"
+  type: "pull_request" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_required_deployments = {
@@ -6202,15 +6524,15 @@ export type t_repository_rule_required_deployments = {
         required_deployment_environments: string[]
       }
     | undefined
-  type: "required_deployments"
+  type: "required_deployments" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_required_linear_history = {
-  type: "required_linear_history"
+  type: "required_linear_history" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_required_signatures = {
-  type: "required_signatures"
+  type: "required_signatures" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_required_status_checks = {
@@ -6221,13 +6543,15 @@ export type t_repository_rule_required_status_checks = {
         strict_required_status_checks_policy: boolean
       }
     | undefined
-  type: "required_status_checks"
+  type: "required_status_checks" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_ruleset_info = {
   ruleset_id?: number | undefined
   ruleset_source?: string | undefined
-  ruleset_source_type?: ("Repository" | "Organization") | undefined
+  ruleset_source_type?:
+    | ("Repository" | "Organization" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_repository_rule_tag_name_pattern = {
@@ -6235,11 +6559,16 @@ export type t_repository_rule_tag_name_pattern = {
     | {
         name?: string | undefined
         negate?: boolean | undefined
-        operator: "starts_with" | "ends_with" | "contains" | "regex"
+        operator:
+          | "starts_with"
+          | "ends_with"
+          | "contains"
+          | "regex"
+          | UnknownEnumStringValue
         pattern: string
       }
     | undefined
-  type: "tag_name_pattern"
+  type: "tag_name_pattern" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_update = {
@@ -6248,7 +6577,7 @@ export type t_repository_rule_update = {
         update_allows_fetch_and_merge: boolean
       }
     | undefined
-  type: "update"
+  type: "update" | UnknownEnumStringValue
 }
 
 export type t_repository_rule_violation_error = {
@@ -6280,7 +6609,7 @@ export type t_repository_rule_workflows = {
         workflows: t_repository_rule_params_workflow_file_reference[]
       }
     | undefined
-  type: "workflows"
+  type: "workflows" | UnknownEnumStringValue
 }
 
 export type t_repository_ruleset = {
@@ -6304,7 +6633,7 @@ export type t_repository_ruleset = {
     | undefined
   created_at?: string | undefined
   current_user_can_bypass?:
-    | ("always" | "pull_requests_only" | "never")
+    | ("always" | "pull_requests_only" | "never" | UnknownEnumStringValue)
     | undefined
   enforcement: t_repository_rule_enforcement
   id: number
@@ -6312,8 +6641,12 @@ export type t_repository_ruleset = {
   node_id?: string | undefined
   rules?: t_repository_rule[] | undefined
   source: string
-  source_type?: ("Repository" | "Organization" | "Enterprise") | undefined
-  target?: ("branch" | "tag" | "push" | "repository") | undefined
+  source_type?:
+    | ("Repository" | "Organization" | "Enterprise" | UnknownEnumStringValue)
+    | undefined
+  target?:
+    | ("branch" | "tag" | "push" | "repository" | UnknownEnumStringValue)
+    | undefined
   updated_at?: string | undefined
 }
 
@@ -6325,7 +6658,8 @@ export type t_repository_ruleset_bypass_actor = {
     | "RepositoryRole"
     | "Team"
     | "DeployKey"
-  bypass_mode?: ("always" | "pull_request") | undefined
+    | UnknownEnumStringValue
+  bypass_mode?: ("always" | "pull_request" | UnknownEnumStringValue) | undefined
 }
 
 export type t_repository_ruleset_conditions = {
@@ -6354,7 +6688,7 @@ export type t_repository_ruleset_conditions_repository_name_target = {
 export type t_repository_ruleset_conditions_repository_property_spec = {
   name: string
   property_values: string[]
-  source?: ("custom" | "system") | undefined
+  source?: ("custom" | "system" | UnknownEnumStringValue) | undefined
 }
 
 export type t_repository_ruleset_conditions_repository_property_target = {
@@ -6404,9 +6738,9 @@ export type t_review_comment = {
   pull_request_review_id: number | null
   pull_request_url: string
   reactions?: t_reaction_rollup | undefined
-  side?: ("LEFT" | "RIGHT") | undefined
+  side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue) | undefined
   start_line?: (number | null) | undefined
-  start_side?: ("LEFT" | "RIGHT" | null) | undefined
+  start_side?: ("LEFT" | "RIGHT" | UnknownEnumStringValue | null) | undefined
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -6420,7 +6754,7 @@ export type t_review_custom_gates_comment_required = {
 export type t_review_custom_gates_state_required = {
   comment?: string | undefined
   environment_name: string
-  state: "approved" | "rejected"
+  state: "approved" | "rejected" | UnknownEnumStringValue
 }
 
 export type t_review_dismissed_issue_event = {
@@ -6512,18 +6846,22 @@ export type t_rule_suite = {
   actor_name?: (string | null) | undefined
   after_sha?: string | undefined
   before_sha?: string | undefined
-  evaluation_result?: ("pass" | "fail" | "bypass" | null) | undefined
+  evaluation_result?:
+    | ("pass" | "fail" | "bypass" | UnknownEnumStringValue | null)
+    | undefined
   id?: number | undefined
   pushed_at?: string | undefined
   ref?: string | undefined
   repository_id?: number | undefined
   repository_name?: string | undefined
-  result?: ("pass" | "fail" | "bypass") | undefined
+  result?: ("pass" | "fail" | "bypass" | UnknownEnumStringValue) | undefined
   rule_evaluations?:
     | {
         details?: (string | null) | undefined
-        enforcement?: ("active" | "evaluate" | "deleted ruleset") | undefined
-        result?: ("pass" | "fail") | undefined
+        enforcement?:
+          | ("active" | "evaluate" | "deleted ruleset" | UnknownEnumStringValue)
+          | undefined
+        result?: ("pass" | "fail" | UnknownEnumStringValue) | undefined
         rule_source?:
           | {
               id?: (number | null) | undefined
@@ -6541,13 +6879,15 @@ export type t_rule_suites = {
   actor_name?: string | undefined
   after_sha?: string | undefined
   before_sha?: string | undefined
-  evaluation_result?: ("pass" | "fail" | "bypass") | undefined
+  evaluation_result?:
+    | ("pass" | "fail" | "bypass" | UnknownEnumStringValue)
+    | undefined
   id?: number | undefined
   pushed_at?: string | undefined
   ref?: string | undefined
   repository_id?: number | undefined
   repository_name?: string | undefined
-  result?: ("pass" | "fail" | "bypass") | undefined
+  result?: ("pass" | "fail" | "bypass" | UnknownEnumStringValue) | undefined
 }[]
 
 export type t_ruleset_version = {
@@ -6603,7 +6943,7 @@ export type t_runner_groups_org = {
 export type t_runner_label = {
   id?: number | undefined
   name: string
-  type?: ("read-only" | "custom") | undefined
+  type?: ("read-only" | "custom" | UnknownEnumStringValue) | undefined
 }
 
 export type t_scim_error = {
@@ -6653,7 +6993,9 @@ export type t_secret_scanning_alert = {
   state?: t_secret_scanning_alert_state | undefined
   updated_at?: t_nullable_alert_updated_at | undefined
   url?: t_alert_url | undefined
-  validity?: ("active" | "inactive" | "unknown") | undefined
+  validity?:
+    | ("active" | "inactive" | "unknown" | UnknownEnumStringValue)
+    | undefined
 }
 
 export type t_secret_scanning_alert_resolution =
@@ -6661,11 +7003,15 @@ export type t_secret_scanning_alert_resolution =
   | "wont_fix"
   | "revoked"
   | "used_in_tests"
+  | UnknownEnumStringValue
   | null
 
 export type t_secret_scanning_alert_resolution_comment = string | null
 
-export type t_secret_scanning_alert_state = "open" | "resolved"
+export type t_secret_scanning_alert_state =
+  | "open"
+  | "resolved"
+  | UnknownEnumStringValue
 
 export type t_secret_scanning_location = {
   details?:
@@ -6700,6 +7046,7 @@ export type t_secret_scanning_location = {
         | "pull_request_comment"
         | "pull_request_review"
         | "pull_request_review_comment"
+        | UnknownEnumStringValue
       )
     | undefined
 }
@@ -6784,6 +7131,7 @@ export type t_secret_scanning_push_protection_bypass_reason =
   | "false_positive"
   | "used_in_tests"
   | "will_fix_later"
+  | UnknownEnumStringValue
 
 export type t_secret_scanning_scan = {
   completed_at?: (string | null) | undefined
@@ -6815,6 +7163,7 @@ export type t_security_advisory_credit_types =
   | "tool"
   | "sponsor"
   | "other"
+  | UnknownEnumStringValue
 
 export type t_security_advisory_ecosystems =
   | "rubygems"
@@ -6830,6 +7179,7 @@ export type t_security_advisory_ecosystems =
   | "pub"
   | "other"
   | "swift"
+  | UnknownEnumStringValue
 
 export type t_security_advisory_epss = {
   percentage?: number | undefined
@@ -6839,32 +7189,32 @@ export type t_security_advisory_epss = {
 export type t_security_and_analysis = {
   advanced_security?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
   dependabot_security_updates?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
   secret_scanning?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
   secret_scanning_ai_detection?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
   secret_scanning_non_provider_patterns?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
   secret_scanning_push_protection?:
     | {
-        status?: ("enabled" | "disabled") | undefined
+        status?: ("enabled" | "disabled" | UnknownEnumStringValue) | undefined
       }
     | undefined
 } | null
@@ -6918,7 +7268,7 @@ export type t_simple_classroom_assignment = {
   students_are_repo_admins: boolean
   submitted: number
   title: string
-  type: "individual" | "group"
+  type: "individual" | "group" | UnknownEnumStringValue
 }
 
 export type t_simple_classroom_organization = {
@@ -7230,12 +7580,16 @@ export type t_team_full = {
   name: string
   node_id: string
   notification_setting?:
-    | ("notifications_enabled" | "notifications_disabled")
+    | (
+        | "notifications_enabled"
+        | "notifications_disabled"
+        | UnknownEnumStringValue
+      )
     | undefined
   organization: t_team_organization
   parent?: t_nullable_team_simple | undefined
   permission: string
-  privacy?: ("closed" | "secret") | undefined
+  privacy?: ("closed" | "secret" | UnknownEnumStringValue) | undefined
   repos_count: number
   repositories_url: string
   slug: string
@@ -7244,8 +7598,8 @@ export type t_team_full = {
 }
 
 export type t_team_membership = {
-  role: "member" | "maintainer"
-  state: "active" | "pending"
+  role: "member" | "maintainer" | UnknownEnumStringValue
+  state: "active" | "pending" | UnknownEnumStringValue
   url: string
 }
 
@@ -7433,7 +7787,9 @@ export type t_team_repository = {
 }
 
 export type t_team_role_assignment = {
-  assignment?: ("direct" | "indirect" | "mixed") | undefined
+  assignment?:
+    | ("direct" | "indirect" | "mixed" | UnknownEnumStringValue)
+    | undefined
   description: string | null
   html_url: string
   id: number
@@ -7752,7 +8108,9 @@ export type t_user_marketplace_purchase = {
 }
 
 export type t_user_role_assignment = {
-  assignment?: ("direct" | "indirect" | "mixed") | undefined
+  assignment?:
+    | ("direct" | "indirect" | "mixed" | UnknownEnumStringValue)
+    | undefined
   avatar_url: string
   email?: (string | null) | undefined
   events_url: string
@@ -7893,6 +8251,7 @@ export type t_workflow = {
     | "disabled_fork"
     | "disabled_inactivity"
     | "disabled_manually"
+    | UnknownEnumStringValue
   updated_at: string
   url: string
 }

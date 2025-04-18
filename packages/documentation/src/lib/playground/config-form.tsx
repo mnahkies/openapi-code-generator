@@ -17,6 +17,7 @@ const schema = configSchema.pick({
   groupingStrategy: true,
   tsAllowAny: true,
   tsServerImplementationMethod: true,
+  enumExtensibility: true,
 })
 
 type Inputs = z.infer<typeof schema>
@@ -36,6 +37,7 @@ export const ConfigForm: React.FC<{
       groupingStrategy: config.groupingStrategy,
       tsAllowAny: config.tsAllowAny,
       tsServerImplementationMethod: config.tsServerImplementationMethod,
+      enumExtensibility: config.enumExtensibility,
     } as const,
   })
 
@@ -92,6 +94,12 @@ export const ConfigForm: React.FC<{
         control={control}
         label={"--grouping-strategy"}
         values={schema.shape.groupingStrategy.options}
+      />
+      <ControlledSelect
+        name={"enumExtensibility"}
+        control={control}
+        label={"--enum-extensibility"}
+        values={schema.shape.enumExtensibility.options}
       />
     </div>
   )

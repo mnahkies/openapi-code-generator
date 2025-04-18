@@ -68,10 +68,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     return `${schema}.parse(${value})`
   }
 
-  protected schemaFromRef(
-    reference: Reference,
-    schemaBuilderImports: ImportBuilder,
-  ): ExportDefinition {
+  protected schemaFromRef(reference: Reference): ExportDefinition {
     const name = getSchemaNameFromRef(reference)
     const schemaObject = this.input.schema(reference)
 
@@ -82,7 +79,7 @@ export class ZodBuilder extends AbstractSchemaBuilder<
     // todo: bit hacky, but it will work for now.
     if (value.includes("z.lazy(")) {
       type = getTypeNameFromRef(reference)
-      schemaBuilderImports.addSingle(type, "./models")
+      this.schemaBuilderImports.addSingle(type, "./models")
     }
 
     return {
@@ -205,11 +202,33 @@ export class ZodBuilder extends AbstractSchemaBuilder<
   protected number(model: IRModelNumeric) {
     if (model.enum) {
       // TODO: replace with enum after https://github.com/colinhacks/zod/issues/2686
-      return [
-        this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
-      ]
-        .filter(isDefined)
-        .join(".")
+
+      if (model["x-enum-extensibility"] === "open") {
+        this.schemaBuilderImports.addSingle(
+          "UnknownEnumNumberValue",
+          "./models",
+        )
+        return [
+          this.union([
+            ...model.enum.map((it) => [zod, `literal(${it})`].join(".")),
+            "z.number().transform(it => it as (typeof it & UnknownEnumNumberValue))",
+          ]),
+        ]
+          .filter(isDefined)
+          .join(".")
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return [
+          this.union(model.enum.map((it) => [zod, `literal(${it})`].join("."))),
+        ]
+          .filter(isDefined)
+          .join(".")
+      }
+
+      throw new Error(
+        `enum specified, but x-enum-extensibility is '${model["x-enum-extensibility"]}'`,
+      )
     }
 
     return [
@@ -235,7 +254,24 @@ export class ZodBuilder extends AbstractSchemaBuilder<
 
   protected string(model: IRModelString) {
     if (model.enum) {
-      return this.stringEnum(model)
+      if (model["x-enum-extensibility"] === "open") {
+        this.schemaBuilderImports.addSingle(
+          "UnknownEnumStringValue",
+          "./models",
+        )
+        return this.union([
+          this.stringEnum(model),
+          "z.string().transform(it => it as (typeof it & UnknownEnumStringValue))",
+        ])
+      }
+
+      if (model["x-enum-extensibility"] === "closed") {
+        return this.stringEnum(model)
+      }
+
+      throw new Error(
+        `enum specified, but x-enum-extensibility is '${model["x-enum-extensibility"]}'`,
+      )
     }
 
     return [

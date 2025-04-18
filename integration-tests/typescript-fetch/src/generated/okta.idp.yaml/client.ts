@@ -4,6 +4,7 @@
 
 import {
   EmptyObject,
+  UnknownEnumStringValue,
   t_AppAuthenticatorEnrollment,
   t_AppAuthenticatorEnrollmentRequest,
   t_Authenticator,
@@ -298,7 +299,7 @@ export class MyAccountManagement extends AbstractFetchClient {
         profile: {
           email: string
         }
-        role?: "PRIMARY" | "SECONDARY"
+        role?: "PRIMARY" | "SECONDARY" | UnknownEnumStringValue
         sendEmail?: boolean
         state?: string
       }
@@ -366,13 +367,13 @@ export class MyAccountManagement extends AbstractFetchClient {
           _links: {
             poll: {
               hints: {
-                allow: "GET"[]
+                allow: ("GET" | UnknownEnumStringValue)[]
               }
               href: string
             }
             verify: {
               hints: {
-                allow: "POST"[]
+                allow: ("POST" | UnknownEnumStringValue)[]
               }
               href: string
             }
@@ -382,7 +383,7 @@ export class MyAccountManagement extends AbstractFetchClient {
           profile: {
             email: string
           }
-          status: "VERIFIED" | "UNVERIFIED"
+          status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
         }
       >
     | Res<401, t_Error>
@@ -413,13 +414,25 @@ export class MyAccountManagement extends AbstractFetchClient {
           _links: {
             poll: {
               hints: {
-                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+                allow: (
+                  | "DELETE"
+                  | "GET"
+                  | "POST"
+                  | "PUT"
+                  | UnknownEnumStringValue
+                )[]
               }
               href: string
             }
             verify: {
               hints: {
-                allow: ("DELETE" | "GET" | "POST" | "PUT")[]
+                allow: (
+                  | "DELETE"
+                  | "GET"
+                  | "POST"
+                  | "PUT"
+                  | UnknownEnumStringValue
+                )[]
               }
               href: string
             }
@@ -429,7 +442,7 @@ export class MyAccountManagement extends AbstractFetchClient {
           profile: {
             email: string
           }
-          status: "VERIFIED" | "UNVERIFIED"
+          status: "VERIFIED" | "UNVERIFIED" | UnknownEnumStringValue
         }
       >
     | Res<401, t_Error>
@@ -573,7 +586,7 @@ export class MyAccountManagement extends AbstractFetchClient {
   async createPhone(
     p: {
       requestBody: {
-        method?: "SMS" | "CALL"
+        method?: "SMS" | "CALL" | UnknownEnumStringValue
         profile: {
           phoneNumber?: string
         }
@@ -632,7 +645,7 @@ export class MyAccountManagement extends AbstractFetchClient {
     p: {
       id: string
       requestBody: {
-        method: "SMS" | "CALL"
+        method: "SMS" | "CALL" | UnknownEnumStringValue
         retry?: boolean
       }
     },
@@ -645,7 +658,7 @@ export class MyAccountManagement extends AbstractFetchClient {
           _links?: {
             verify?: {
               hints: {
-                allow: "GET"[]
+                allow: ("GET" | UnknownEnumStringValue)[]
               }
               href: string
             }

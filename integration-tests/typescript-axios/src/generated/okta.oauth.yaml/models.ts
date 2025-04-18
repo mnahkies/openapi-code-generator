@@ -2,6 +2,10 @@
 /* tslint:disable */
 /* eslint-disable */
 
+export type UnknownEnumStringValue = string & {
+  _brand: "unknown enum string value"
+}
+
 export type t_AcrValue =
   | "phr"
   | "phrh"
@@ -9,6 +13,7 @@ export type t_AcrValue =
   | "urn:okta:loa:1fa:pwd"
   | "urn:okta:loa:2fa:any"
   | "urn:okta:loa:2fa:any:ifpossible"
+  | UnknownEnumStringValue
 
 export type t_AmrValue =
   | "duo"
@@ -26,8 +31,14 @@ export type t_AmrValue =
   | "symantec"
   | "tel"
   | "yubikey"
+  | UnknownEnumStringValue
 
-export type t_ApplicationType = "browser" | "native" | "service" | "web"
+export type t_ApplicationType =
+  | "browser"
+  | "native"
+  | "service"
+  | "web"
+  | UnknownEnumStringValue
 
 export type t_AuthorizeWithPost = {
   acr_values?: (t_AcrValue & string) | undefined
@@ -68,7 +79,11 @@ export type t_BackchannelAuthorizeResponse = {
   interval?: number | undefined
 }
 
-export type t_BindingMethod = "none" | "prompt" | "transfer"
+export type t_BindingMethod =
+  | "none"
+  | "prompt"
+  | "transfer"
+  | UnknownEnumStringValue
 
 export type t_ChallengeRequest = {
   challenge_types_supported?: t_ChallengeType[] | undefined
@@ -89,8 +104,9 @@ export type t_ChallengeResponse = {
 export type t_ChallengeType =
   | "http://auth0.com/oauth/grant-type/mfa-oob"
   | "http://auth0.com/oauth/grant-type/mfa-otp"
+  | UnknownEnumStringValue
 
-export type t_Channel = "push" | "sms" | "voice"
+export type t_Channel = "push" | "sms" | "voice" | UnknownEnumStringValue
 
 export type t_Claim = string
 
@@ -121,7 +137,7 @@ export type t_Client = {
   tos_uri?: (string | null) | undefined
 }
 
-export type t_CodeChallengeMethod = "S256"
+export type t_CodeChallengeMethod = "S256" | UnknownEnumStringValue
 
 export type t_DeviceAuthorizeRequest = {
   client_id?: string | undefined
@@ -143,6 +159,7 @@ export type t_EndpointAuthMethod =
   | "client_secret_post"
   | "none"
   | "private_key_jwt"
+  | UnknownEnumStringValue
 
 export type t_Error = {
   errorCauses?:
@@ -176,6 +193,7 @@ export type t_GrantType =
   | "urn:okta:params:oauth:grant-type:oob"
   | "http://auth0.com/oauth/grant-type/mfa-otp"
   | "http://auth0.com/oauth/grant-type/mfa-oob"
+  | UnknownEnumStringValue
 
 export type t_IntrospectionRequest = {
   token?: string | undefined
@@ -208,11 +226,11 @@ export type t_JsonWebKey = {
   use?: t_JsonWebKeyUse | undefined
 }
 
-export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE"
+export type t_JsonWebKeyStatus = "ACTIVE" | "INACTIVE" | UnknownEnumStringValue
 
-export type t_JsonWebKeyType = "EC" | "RSA"
+export type t_JsonWebKeyType = "EC" | "RSA" | UnknownEnumStringValue
 
-export type t_JsonWebKeyUse = "enc" | "sig"
+export type t_JsonWebKeyUse = "enc" | "sig" | UnknownEnumStringValue
 
 export type t_LogoutWithPost = {
   id_token_hint: string
@@ -239,7 +257,15 @@ export type t_OAuthMetadata = {
   code_challenge_methods_supported?: t_CodeChallengeMethod[] | undefined
   device_authorization_endpoint?: string | undefined
   dpop_signing_alg_values_supported?:
-    | ("ES256" | "ES384" | "ES512" | "RS256" | "RS384" | "RS512")[]
+    | (
+        | "ES256"
+        | "ES384"
+        | "ES512"
+        | "RS256"
+        | "RS384"
+        | "RS512"
+        | UnknownEnumStringValue
+      )[]
     | undefined
   end_session_endpoint?: string | undefined
   grant_types_supported?: t_GrantType[] | undefined
@@ -315,14 +341,21 @@ export type t_Prompt =
   | "login"
   | "login consent"
   | "none"
+  | UnknownEnumStringValue
 
 export type t_ResponseMode =
   | "form_post"
   | "fragment"
   | "okta_post_message"
   | "query"
+  | UnknownEnumStringValue
 
-export type t_ResponseType = "code" | "id_token" | "none" | "token"
+export type t_ResponseType =
+  | "code"
+  | "id_token"
+  | "none"
+  | "token"
+  | UnknownEnumStringValue
 
 export type t_ResponseTypesSupported =
   | "code"
@@ -332,6 +365,7 @@ export type t_ResponseTypesSupported =
   | "id_token"
   | "id_token token"
   | "token"
+  | UnknownEnumStringValue
 
 export type t_RevokeRequest = {
   token: string
@@ -350,10 +384,11 @@ export type t_SigningAlgorithm =
   | "RS256"
   | "RS384"
   | "RS512"
+  | UnknownEnumStringValue
 
-export type t_SubjectType = "pairwise" | "public"
+export type t_SubjectType = "pairwise" | "public" | UnknownEnumStringValue
 
-export type t_TokenDeliveryMode = "poll"
+export type t_TokenDeliveryMode = "poll" | UnknownEnumStringValue
 
 export type t_TokenRequest = {
   grant_type?: t_GrantType | undefined
@@ -370,7 +405,7 @@ export type t_TokenResponse = {
   token_type?: t_TokenResponseTokenType | undefined
 }
 
-export type t_TokenResponseTokenType = "Bearer" | "N_A"
+export type t_TokenResponseTokenType = "Bearer" | "N_A" | UnknownEnumStringValue
 
 export type t_TokenType =
   | "urn:ietf:params:oauth:token-type:access_token"
@@ -381,17 +416,20 @@ export type t_TokenType =
   | "urn:ietf:params:oauth:token-type:saml2"
   | "urn:okta:oauth:token-type:web_sso_token"
   | "urn:x-oath:params:oauth:token-type:device-secret"
+  | UnknownEnumStringValue
 
 export type t_TokenTypeHintIntrospect =
   | "access_token"
   | "device_secret"
   | "id_token"
   | "refresh_token"
+  | UnknownEnumStringValue
 
 export type t_TokenTypeHintRevoke =
   | "access_token"
   | "device_secret"
   | "refresh_token"
+  | UnknownEnumStringValue
 
 export type t_UserInfo = {
   sub?: string | undefined
@@ -399,6 +437,6 @@ export type t_UserInfo = {
 }
 
 export type t_sub_id = {
-  format?: "opaque" | undefined
+  format?: ("opaque" | UnknownEnumStringValue) | undefined
   id?: string | undefined
 }

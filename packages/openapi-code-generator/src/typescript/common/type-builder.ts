@@ -19,6 +19,12 @@ import {buildExport} from "./typescript-common"
 
 const staticTypes = {
   EmptyObject: "export type EmptyObject = { [key: string]: never }",
+  // TODO: results in  TS4023: Exported variable '<schema>' has or is using name '_brand' from external module "<path>" but cannot be named.
+  // Brand: "export const _brand = Symbol.for('brand')",
+  UnknownEnumStringValue:
+    "export type UnknownEnumStringValue = (string & {_brand: 'unknown enum string value'})",
+  UnknownEnumNumberValue:
+    "export type UnknownEnumNumberValue = (number & {_brand: 'unknown enum number value'})",
 }
 
 type StaticType = keyof typeof staticTypes
@@ -158,15 +164,30 @@ export class TypeBuilder implements ICompilable {
         }
 
         case "string": {
-          result.push(
-            ...(schemaObject.enum?.map(quotedStringLiteral) ?? ["string"]),
-          )
+          if (schemaObject.enum) {
+            result.push(...schemaObject.enum.map(quotedStringLiteral))
+
+            if (schemaObject["x-enum-extensibility"] === "open") {
+              result.push(this.addStaticType("UnknownEnumStringValue"))
+            }
+          } else {
+            result.push("string")
+          }
           break
         }
 
         case "number": {
           // todo: support bigint as string, https://github.com/mnahkies/openapi-code-generator/issues/51
-          result.push(...(schemaObject.enum?.map(coerceToString) ?? ["number"]))
+
+          if (schemaObject.enum) {
+            result.push(...schemaObject.enum.map(coerceToString))
+
+            if (schemaObject["x-enum-extensibility"] === "open") {
+              result.push(this.addStaticType("UnknownEnumNumberValue"))
+            }
+          } else {
+            result.push("number")
+          }
           break
         }
 
