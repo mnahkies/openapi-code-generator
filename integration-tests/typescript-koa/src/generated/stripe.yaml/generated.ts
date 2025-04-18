@@ -357,6 +357,11 @@ import {
   t_GetIdentityVerificationSessionsSessionBodySchema,
   t_GetIdentityVerificationSessionsSessionParamSchema,
   t_GetIdentityVerificationSessionsSessionQuerySchema,
+  t_GetInvoicePaymentsBodySchema,
+  t_GetInvoicePaymentsInvoicePaymentBodySchema,
+  t_GetInvoicePaymentsInvoicePaymentParamSchema,
+  t_GetInvoicePaymentsInvoicePaymentQuerySchema,
+  t_GetInvoicePaymentsQuerySchema,
   t_GetInvoiceRenderingTemplatesBodySchema,
   t_GetInvoiceRenderingTemplatesQuerySchema,
   t_GetInvoiceRenderingTemplatesTemplateBodySchema,
@@ -377,10 +382,6 @@ import {
   t_GetInvoicesQuerySchema,
   t_GetInvoicesSearchBodySchema,
   t_GetInvoicesSearchQuerySchema,
-  t_GetInvoicesUpcomingBodySchema,
-  t_GetInvoicesUpcomingLinesBodySchema,
-  t_GetInvoicesUpcomingLinesQuerySchema,
-  t_GetInvoicesUpcomingQuerySchema,
   t_GetIssuingAuthorizationsAuthorizationBodySchema,
   t_GetIssuingAuthorizationsAuthorizationParamSchema,
   t_GetIssuingAuthorizationsAuthorizationQuerySchema,
@@ -586,9 +587,6 @@ import {
   t_GetSubscriptionItemsItemParamSchema,
   t_GetSubscriptionItemsItemQuerySchema,
   t_GetSubscriptionItemsQuerySchema,
-  t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema,
-  t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema,
-  t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema,
   t_GetSubscriptionSchedulesBodySchema,
   t_GetSubscriptionSchedulesQuerySchema,
   t_GetSubscriptionSchedulesScheduleBodySchema,
@@ -870,6 +868,8 @@ import {
   t_PostEntitlementsFeaturesIdBodySchema,
   t_PostEntitlementsFeaturesIdParamSchema,
   t_PostEphemeralKeysBodySchema,
+  t_PostExternalAccountsIdBodySchema,
+  t_PostExternalAccountsIdParamSchema,
   t_PostFileLinksBodySchema,
   t_PostFileLinksLinkBodySchema,
   t_PostFileLinksLinkParamSchema,
@@ -1038,6 +1038,8 @@ import {
   t_PostShippingRatesBodySchema,
   t_PostShippingRatesShippingRateTokenBodySchema,
   t_PostShippingRatesShippingRateTokenParamSchema,
+  t_PostSigmaSavedQueriesIdBodySchema,
+  t_PostSigmaSavedQueriesIdParamSchema,
   t_PostSourcesBodySchema,
   t_PostSourcesSourceBodySchema,
   t_PostSourcesSourceParamSchema,
@@ -1046,8 +1048,6 @@ import {
   t_PostSubscriptionItemsBodySchema,
   t_PostSubscriptionItemsItemBodySchema,
   t_PostSubscriptionItemsItemParamSchema,
-  t_PostSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
-  t_PostSubscriptionItemsSubscriptionItemUsageRecordsParamSchema,
   t_PostSubscriptionSchedulesBodySchema,
   t_PostSubscriptionSchedulesScheduleBodySchema,
   t_PostSubscriptionSchedulesScheduleCancelBodySchema,
@@ -1274,6 +1274,7 @@ import {
   t_identity_verification_report,
   t_identity_verification_session,
   t_invoice,
+  t_invoice_payment,
   t_invoice_rendering_template,
   t_invoiceitem,
   t_issuing_authorization,
@@ -1314,6 +1315,7 @@ import {
   t_setup_attempt,
   t_setup_intent,
   t_shipping_rate,
+  t_sigma_sigma_api_query,
   t_source,
   t_source_mandate_notification,
   t_source_transaction,
@@ -1349,8 +1351,6 @@ import {
   t_treasury_received_debit,
   t_treasury_transaction,
   t_treasury_transaction_entry,
-  t_usage_record,
-  t_usage_record_summary,
   t_webhook_endpoint,
 } from "./models"
 import {
@@ -1434,6 +1434,7 @@ import {
   s_identity_verification_report,
   s_identity_verification_session,
   s_invoice,
+  s_invoice_payment,
   s_invoice_rendering_template,
   s_invoiceitem,
   s_issuing_authorization,
@@ -1474,6 +1475,7 @@ import {
   s_setup_attempt,
   s_setup_intent,
   s_shipping_rate,
+  s_sigma_sigma_api_query,
   s_source,
   s_source_mandate_notification,
   s_source_transaction,
@@ -1509,8 +1511,6 @@ import {
   s_treasury_received_debit,
   s_treasury_transaction,
   s_treasury_transaction_entry,
-  s_usage_record,
-  s_usage_record_summary,
   s_webhook_endpoint,
 } from "./schemas"
 import KoaRouter, { RouterContext } from "@koa/router"
@@ -5836,6 +5836,26 @@ export type GetExchangeRatesRateId = (
   | Response<StatusCode, t_error>
 >
 
+export type PostExternalAccountsIdResponder = {
+  with200(): KoaRuntimeResponse<t_external_account>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostExternalAccountsId = (
+  params: Params<
+    t_PostExternalAccountsIdParamSchema,
+    void,
+    t_PostExternalAccountsIdBodySchema | undefined,
+    void
+  >,
+  respond: PostExternalAccountsIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_external_account>
+  | Response<StatusCode, t_error>
+>
+
 export type GetFileLinksResponder = {
   with200(): KoaRuntimeResponse<{
     data: t_file_link[]
@@ -6505,6 +6525,59 @@ export type PostIdentityVerificationSessionsSessionRedact = (
   | Response<StatusCode, t_error>
 >
 
+export type GetInvoicePaymentsResponder = {
+  with200(): KoaRuntimeResponse<{
+    data: t_invoice_payment[]
+    has_more: boolean
+    object: "list"
+    url: string
+  }>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetInvoicePayments = (
+  params: Params<
+    void,
+    t_GetInvoicePaymentsQuerySchema,
+    t_GetInvoicePaymentsBodySchema | undefined,
+    void
+  >,
+  respond: GetInvoicePaymentsResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<
+      200,
+      {
+        data: t_invoice_payment[]
+        has_more: boolean
+        object: "list"
+        url: string
+      }
+    >
+  | Response<StatusCode, t_error>
+>
+
+export type GetInvoicePaymentsInvoicePaymentResponder = {
+  with200(): KoaRuntimeResponse<t_invoice_payment>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type GetInvoicePaymentsInvoicePayment = (
+  params: Params<
+    t_GetInvoicePaymentsInvoicePaymentParamSchema,
+    t_GetInvoicePaymentsInvoicePaymentQuerySchema,
+    t_GetInvoicePaymentsInvoicePaymentBodySchema | undefined,
+    void
+  >,
+  respond: GetInvoicePaymentsInvoicePaymentResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_invoice_payment>
+  | Response<StatusCode, t_error>
+>
+
 export type GetInvoiceRenderingTemplatesResponder = {
   with200(): KoaRuntimeResponse<{
     data: t_invoice_rendering_template[]
@@ -6805,59 +6878,6 @@ export type GetInvoicesSearch = (
         next_page?: string | null
         object: "search_result"
         total_count?: number
-        url: string
-      }
-    >
-  | Response<StatusCode, t_error>
->
-
-export type GetInvoicesUpcomingResponder = {
-  with200(): KoaRuntimeResponse<t_invoice>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
-} & KoaRuntimeResponder
-
-export type GetInvoicesUpcoming = (
-  params: Params<
-    void,
-    t_GetInvoicesUpcomingQuerySchema,
-    t_GetInvoicesUpcomingBodySchema | undefined,
-    void
-  >,
-  respond: GetInvoicesUpcomingResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_invoice>
-  | Response<StatusCode, t_error>
->
-
-export type GetInvoicesUpcomingLinesResponder = {
-  with200(): KoaRuntimeResponse<{
-    data: t_line_item[]
-    has_more: boolean
-    object: "list"
-    url: string
-  }>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
-} & KoaRuntimeResponder
-
-export type GetInvoicesUpcomingLines = (
-  params: Params<
-    void,
-    t_GetInvoicesUpcomingLinesQuerySchema,
-    t_GetInvoicesUpcomingLinesBodySchema | undefined,
-    void
-  >,
-  respond: GetInvoicesUpcomingLinesResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<
-      200,
-      {
-        data: t_line_item[]
-        has_more: boolean
-        object: "list"
         url: string
       }
     >
@@ -10485,6 +10505,26 @@ export type PostShippingRatesShippingRateToken = (
   | Response<StatusCode, t_error>
 >
 
+export type PostSigmaSavedQueriesIdResponder = {
+  with200(): KoaRuntimeResponse<t_sigma_sigma_api_query>
+  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
+} & KoaRuntimeResponder
+
+export type PostSigmaSavedQueriesId = (
+  params: Params<
+    t_PostSigmaSavedQueriesIdParamSchema,
+    void,
+    t_PostSigmaSavedQueriesIdBodySchema | undefined,
+    void
+  >,
+  respond: PostSigmaSavedQueriesIdResponder,
+  ctx: RouterContext,
+) => Promise<
+  | KoaRuntimeResponse<unknown>
+  | Response<200, t_sigma_sigma_api_query>
+  | Response<StatusCode, t_error>
+>
+
 export type GetSigmaScheduledQueryRunsResponder = {
   with200(): KoaRuntimeResponse<{
     data: t_scheduled_query_run[]
@@ -10792,61 +10832,6 @@ export type PostSubscriptionItemsItem = (
 ) => Promise<
   | KoaRuntimeResponse<unknown>
   | Response<200, t_subscription_item>
-  | Response<StatusCode, t_error>
->
-
-export type GetSubscriptionItemsSubscriptionItemUsageRecordSummariesResponder =
-  {
-    with200(): KoaRuntimeResponse<{
-      data: t_usage_record_summary[]
-      has_more: boolean
-      object: "list"
-      url: string
-    }>
-    withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
-  } & KoaRuntimeResponder
-
-export type GetSubscriptionItemsSubscriptionItemUsageRecordSummaries = (
-  params: Params<
-    t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema,
-    t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema,
-    | t_GetSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema
-    | undefined,
-    void
-  >,
-  respond: GetSubscriptionItemsSubscriptionItemUsageRecordSummariesResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<
-      200,
-      {
-        data: t_usage_record_summary[]
-        has_more: boolean
-        object: "list"
-        url: string
-      }
-    >
-  | Response<StatusCode, t_error>
->
-
-export type PostSubscriptionItemsSubscriptionItemUsageRecordsResponder = {
-  with200(): KoaRuntimeResponse<t_usage_record>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_error>
-} & KoaRuntimeResponder
-
-export type PostSubscriptionItemsSubscriptionItemUsageRecords = (
-  params: Params<
-    t_PostSubscriptionItemsSubscriptionItemUsageRecordsParamSchema,
-    void,
-    t_PostSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
-    void
-  >,
-  respond: PostSubscriptionItemsSubscriptionItemUsageRecordsResponder,
-  ctx: RouterContext,
-) => Promise<
-  | KoaRuntimeResponse<unknown>
-  | Response<200, t_usage_record>
   | Response<StatusCode, t_error>
 >
 
@@ -14397,6 +14382,7 @@ export type Implementation = {
   getEventsId: GetEventsId
   getExchangeRates: GetExchangeRates
   getExchangeRatesRateId: GetExchangeRatesRateId
+  postExternalAccountsId: PostExternalAccountsId
   getFileLinks: GetFileLinks
   postFileLinks: PostFileLinks
   getFileLinksLink: GetFileLinksLink
@@ -14426,6 +14412,8 @@ export type Implementation = {
   postIdentityVerificationSessionsSession: PostIdentityVerificationSessionsSession
   postIdentityVerificationSessionsSessionCancel: PostIdentityVerificationSessionsSessionCancel
   postIdentityVerificationSessionsSessionRedact: PostIdentityVerificationSessionsSessionRedact
+  getInvoicePayments: GetInvoicePayments
+  getInvoicePaymentsInvoicePayment: GetInvoicePaymentsInvoicePayment
   getInvoiceRenderingTemplates: GetInvoiceRenderingTemplates
   getInvoiceRenderingTemplatesTemplate: GetInvoiceRenderingTemplatesTemplate
   postInvoiceRenderingTemplatesTemplateArchive: PostInvoiceRenderingTemplatesTemplateArchive
@@ -14439,8 +14427,6 @@ export type Implementation = {
   postInvoices: PostInvoices
   postInvoicesCreatePreview: PostInvoicesCreatePreview
   getInvoicesSearch: GetInvoicesSearch
-  getInvoicesUpcoming: GetInvoicesUpcoming
-  getInvoicesUpcomingLines: GetInvoicesUpcomingLines
   deleteInvoicesInvoice: DeleteInvoicesInvoice
   getInvoicesInvoice: GetInvoicesInvoice
   postInvoicesInvoice: PostInvoicesInvoice
@@ -14601,6 +14587,7 @@ export type Implementation = {
   postShippingRates: PostShippingRates
   getShippingRatesShippingRateToken: GetShippingRatesShippingRateToken
   postShippingRatesShippingRateToken: PostShippingRatesShippingRateToken
+  postSigmaSavedQueriesId: PostSigmaSavedQueriesId
   getSigmaScheduledQueryRuns: GetSigmaScheduledQueryRuns
   getSigmaScheduledQueryRunsScheduledQueryRun: GetSigmaScheduledQueryRunsScheduledQueryRun
   postSources: PostSources
@@ -14615,8 +14602,6 @@ export type Implementation = {
   deleteSubscriptionItemsItem: DeleteSubscriptionItemsItem
   getSubscriptionItemsItem: GetSubscriptionItemsItem
   postSubscriptionItemsItem: PostSubscriptionItemsItem
-  getSubscriptionItemsSubscriptionItemUsageRecordSummaries: GetSubscriptionItemsSubscriptionItemUsageRecordSummaries
-  postSubscriptionItemsSubscriptionItemUsageRecords: PostSubscriptionItemsSubscriptionItemUsageRecords
   getSubscriptionSchedules: GetSubscriptionSchedules
   postSubscriptionSchedules: PostSubscriptionSchedules
   getSubscriptionSchedulesSchedule: GetSubscriptionSchedulesSchedule
@@ -15286,6 +15271,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          billie_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           blik_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -15361,6 +15349,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          nz_bank_account_becs_debit_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           oxxo_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -15383,6 +15374,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           samsung_pay_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          satispay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_bank_transfer_payments: z
@@ -15730,6 +15724,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 .optional(),
             })
             .optional(),
+          invoices: z
+            .object({
+              hosted_payment_method_save: z
+                .enum(["always", "never", "offer"])
+                .optional(),
+            })
+            .optional(),
           payments: z
             .object({
               statement_descriptor: z.string().max(22).optional(),
@@ -16033,6 +16034,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           bank_transfer_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          billie_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           blik_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -16108,6 +16112,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
+          nz_bank_account_becs_debit_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
           oxxo_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
@@ -16130,6 +16137,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           samsung_pay_payments: z
+            .object({ requested: PermissiveBoolean.optional() })
+            .optional(),
+          satispay_payments: z
             .object({ requested: PermissiveBoolean.optional() })
             .optional(),
           sepa_bank_transfer_payments: z
@@ -16466,6 +16476,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .object({
               default_account_tax_ids: z
                 .union([z.array(z.string().max(5000)), z.enum([""])])
+                .optional(),
+              hosted_payment_method_save: z
+                .enum(["always", "never", "offer"])
                 .optional(),
             })
             .optional(),
@@ -21498,7 +21511,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
         type: z.enum(["by_id"]),
       })
       .optional(),
-    default_aggregation: z.object({ formula: z.enum(["count", "sum"]) }),
+    default_aggregation: z.object({
+      formula: z.enum(["count", "last", "sum"]),
+    }),
     display_name: z.string().max(250),
     event_name: z.string().max(100),
     event_time_window: z.enum(["day", "hour"]).optional(),
@@ -24081,6 +24096,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       metadata: z.record(z.string()).optional(),
       mode: z.enum(["payment", "setup", "subscription"]).optional(),
+      optional_items: z
+        .array(
+          z.object({
+            adjustable_quantity: z
+              .object({
+                enabled: PermissiveBoolean,
+                maximum: z.coerce.number().optional(),
+                minimum: z.coerce.number().optional(),
+              })
+              .optional(),
+            price: z.string().max(5000),
+            quantity: z.coerce.number(),
+          }),
+        )
+        .optional(),
       payment_intent_data: z
         .object({
           application_fee_amount: z.coerce.number().optional(),
@@ -24468,6 +24498,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "card",
@@ -24496,6 +24527,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -24505,6 +24537,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "zip",
           ]),
         )
+        .optional(),
+      permissions: z
+        .object({
+          update_shipping_details: z
+            .enum(["client_only", "server_only"])
+            .optional(),
+        })
         .optional(),
       phone_number_collection: z
         .object({ enabled: PermissiveBoolean })
@@ -24886,7 +24925,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           required: z.enum(["if_supported", "never"]).optional(),
         })
         .optional(),
-      ui_mode: z.enum(["embedded", "hosted"]).optional(),
+      ui_mode: z.enum(["custom", "embedded", "hosted"]).optional(),
     })
     .optional()
 
@@ -25032,6 +25071,71 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       expand: z.array(z.string().max(5000)).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      shipping_options: z
+        .union([
+          z.array(
+            z.object({
+              shipping_rate: z.string().max(5000).optional(),
+              shipping_rate_data: z
+                .object({
+                  delivery_estimate: z
+                    .object({
+                      maximum: z
+                        .object({
+                          unit: z.enum([
+                            "business_day",
+                            "day",
+                            "hour",
+                            "month",
+                            "week",
+                          ]),
+                          value: z.coerce.number(),
+                        })
+                        .optional(),
+                      minimum: z
+                        .object({
+                          unit: z.enum([
+                            "business_day",
+                            "day",
+                            "hour",
+                            "month",
+                            "week",
+                          ]),
+                          value: z.coerce.number(),
+                        })
+                        .optional(),
+                    })
+                    .optional(),
+                  display_name: z.string().max(100),
+                  fixed_amount: z
+                    .object({
+                      amount: z.coerce.number(),
+                      currency: z.string(),
+                      currency_options: z
+                        .record(
+                          z.object({
+                            amount: z.coerce.number(),
+                            tax_behavior: z
+                              .enum(["exclusive", "inclusive", "unspecified"])
+                              .optional(),
+                          }),
+                        )
+                        .optional(),
+                    })
+                    .optional(),
+                  metadata: z.record(z.string()).optional(),
+                  tax_behavior: z
+                    .enum(["exclusive", "inclusive", "unspecified"])
+                    .optional(),
+                  tax_code: z.string().optional(),
+                  type: z.enum(["fixed_amount"]).optional(),
+                })
+                .optional(),
+            }),
+          ),
+          z.enum([""]),
+        ])
+        .optional(),
     })
     .optional()
 
@@ -26549,8 +26653,15 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
+    refunds: z
+      .array(
+        z.object({
+          amount_refunded: z.coerce.number().optional(),
+          refund: z.string().optional(),
+        }),
+      )
+      .optional(),
     shipping_cost: z
       .object({ shipping_rate: z.string().max(5000).optional() })
       .optional(),
@@ -26653,8 +26764,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
+    refunds: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(
+          z.object({
+            amount_refunded: z.coerce.number().optional(),
+            refund: z.string().optional(),
+          }),
+        ),
+      )
+      .optional(),
     shipping_cost: z
       .object({ shipping_rate: z.string().max(5000).optional() })
       .optional(),
@@ -26769,8 +26890,18 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "product_unsatisfactory",
       ])
       .optional(),
-    refund: z.string().optional(),
     refund_amount: z.coerce.number().optional(),
+    refunds: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(
+          z.object({
+            amount_refunded: z.coerce.number().optional(),
+            refund: z.string().optional(),
+          }),
+        ),
+      )
+      .optional(),
     shipping_cost: z
       .object({ shipping_rate: z.string().max(5000).optional() })
       .optional(),
@@ -27311,7 +27442,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      coupon: z.string().max(5000).optional(),
       description: z.string().max(5000).optional(),
       email: z.string().max(512).optional(),
       expand: z.array(z.string().max(5000)).optional(),
@@ -27350,7 +27480,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       payment_method: z.string().max(5000).optional(),
       phone: z.string().max(20).optional(),
       preferred_locales: z.array(z.string().max(5000)).optional(),
-      promotion_code: z.string().max(5000).optional(),
       shipping: z
         .union([
           z.object({
@@ -27808,7 +27937,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      coupon: z.string().max(5000).optional(),
       default_alipay_account: z.string().max(500).optional(),
       default_bank_account: z.string().max(500).optional(),
       default_card: z.string().max(500).optional(),
@@ -27850,7 +27978,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       next_invoice_sequence: z.coerce.number().optional(),
       phone: z.string().max(20).optional(),
       preferred_locales: z.array(z.string().max(5000)).optional(),
-      promotion_code: z.string().max(5000).optional(),
       shipping: z
         .union([
           z.object({
@@ -29706,6 +29833,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
+        "billie",
         "blik",
         "boleto",
         "card",
@@ -29724,6 +29852,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "mobilepay",
         "multibanco",
         "naver_pay",
+        "nz_bank_account",
         "oxxo",
         "p24",
         "pay_by_bank",
@@ -29734,6 +29863,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "promptpay",
         "revolut_pay",
         "samsung_pay",
+        "satispay",
         "sepa_debit",
         "sofort",
         "swish",
@@ -30535,21 +30665,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       backdate_start_date: z.coerce.number().optional(),
       billing_cycle_anchor: z.coerce.number().optional(),
-      billing_thresholds: z
-        .union([
-          z.object({
-            amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-          }),
-          z.enum([""]),
-        ])
-        .optional(),
       cancel_at: z.coerce.number().optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.string().max(5000).optional(),
       currency: z.string().optional(),
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.string().max(5000).optional(),
@@ -30586,9 +30706,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       items: z
         .array(
           z.object({
-            billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-              .optional(),
             discounts: z
               .union([
                 z.array(
@@ -30778,11 +30895,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ideal",
                   "jp_credit_transfer",
                   "kakao_pay",
+                  "klarna",
                   "konbini",
                   "kr_card",
                   "link",
                   "multibanco",
                   "naver_pay",
+                  "nz_bank_account",
                   "p24",
                   "payco",
                   "paynow",
@@ -30814,7 +30933,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      promotion_code: z.string().max(5000).optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -31099,15 +31217,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-      billing_thresholds: z
-        .union([
-          z.object({
-            amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-          }),
-          z.enum([""]),
-        ])
-        .optional(),
       cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
@@ -31131,7 +31240,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.string().max(5000).optional(),
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.string().max(5000).optional(),
       default_source: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -31167,9 +31275,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       items: z
         .array(
           z.object({
-            billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-              .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
             discounts: z
@@ -31371,11 +31476,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ideal",
                   "jp_credit_transfer",
                   "kakao_pay",
+                  "klarna",
                   "konbini",
                   "kr_card",
                   "link",
                   "multibanco",
                   "naver_pay",
+                  "nz_bank_account",
                   "p24",
                   "payco",
                   "paynow",
@@ -31407,7 +31514,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      promotion_code: z.string().max(5000).optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -33277,6 +33383,86 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = getExchangeRatesRateIdResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postExternalAccountsIdParamSchema = z.object({ id: z.string() })
+
+  const postExternalAccountsIdBodySchema = z
+    .object({
+      account_holder_name: z.string().max(5000).optional(),
+      account_holder_type: z.enum(["", "company", "individual"]).optional(),
+      account_type: z.enum(["checking", "futsu", "savings", "toza"]).optional(),
+      address_city: z.string().max(5000).optional(),
+      address_country: z.string().max(5000).optional(),
+      address_line1: z.string().max(5000).optional(),
+      address_line2: z.string().max(5000).optional(),
+      address_state: z.string().max(5000).optional(),
+      address_zip: z.string().max(5000).optional(),
+      default_for_currency: PermissiveBoolean.optional(),
+      documents: z
+        .object({
+          bank_account_ownership_verification: z
+            .object({ files: z.array(z.string().max(500)).optional() })
+            .optional(),
+        })
+        .optional(),
+      exp_month: z.string().max(5000).optional(),
+      exp_year: z.string().max(5000).optional(),
+      expand: z.array(z.string().max(5000)).optional(),
+      metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
+      name: z.string().max(5000).optional(),
+    })
+    .optional()
+
+  const postExternalAccountsIdResponseValidator = responseValidationFactory(
+    [["200", s_external_account]],
+    s_error,
+  )
+
+  router.post(
+    "postExternalAccountsId",
+    "/v1/external_accounts/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postExternalAccountsIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postExternalAccountsIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_external_account>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postExternalAccountsId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postExternalAccountsIdResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -35528,6 +35714,162 @@ export function createRouter(implementation: Implementation): KoaRouter {
     },
   )
 
+  const getInvoicePaymentsQuerySchema = z.object({
+    ending_before: z.string().max(5000).optional(),
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+    invoice: z.string().max(5000).optional(),
+    limit: z.coerce.number().optional(),
+    payment: z
+      .object({
+        payment_intent: z.string().max(5000).optional(),
+        type: z.enum(["payment_intent"]),
+      })
+      .optional(),
+    starting_after: z.string().max(5000).optional(),
+    status: z.enum(["canceled", "open", "paid"]).optional(),
+  })
+
+  const getInvoicePaymentsBodySchema = z.object({}).optional()
+
+  const getInvoicePaymentsResponseValidator = responseValidationFactory(
+    [
+      [
+        "200",
+        z.object({
+          data: z.array(z.lazy(() => s_invoice_payment)),
+          has_more: PermissiveBoolean,
+          object: z.enum(["list"]),
+          url: z.string().max(5000),
+        }),
+      ],
+    ],
+    s_error,
+  )
+
+  router.get(
+    "getInvoicePayments",
+    "/v1/invoice_payments",
+    async (ctx, next) => {
+      const input = {
+        params: undefined,
+        query: parseRequestInput(
+          getInvoicePaymentsQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getInvoicePaymentsBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<{
+            data: t_invoice_payment[]
+            has_more: boolean
+            object: "list"
+            url: string
+          }>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getInvoicePayments(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getInvoicePaymentsResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const getInvoicePaymentsInvoicePaymentParamSchema = z.object({
+    invoice_payment: z.string().max(5000),
+  })
+
+  const getInvoicePaymentsInvoicePaymentQuerySchema = z.object({
+    expand: z
+      .preprocess(
+        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
+        z.array(z.string().max(5000)),
+      )
+      .optional(),
+  })
+
+  const getInvoicePaymentsInvoicePaymentBodySchema = z.object({}).optional()
+
+  const getInvoicePaymentsInvoicePaymentResponseValidator =
+    responseValidationFactory([["200", s_invoice_payment]], s_error)
+
+  router.get(
+    "getInvoicePaymentsInvoicePayment",
+    "/v1/invoice_payments/:invoice_payment",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          getInvoicePaymentsInvoicePaymentParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: parseRequestInput(
+          getInvoicePaymentsInvoicePaymentQuerySchema,
+          ctx.query,
+          RequestInputType.QueryString,
+        ),
+        body: parseRequestInput(
+          getInvoicePaymentsInvoicePaymentBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_invoice_payment>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .getInvoicePaymentsInvoicePayment(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = getInvoicePaymentsInvoicePaymentResponseValidator(status, body)
+      ctx.status = status
+      return next()
+    },
+  )
+
   const getInvoiceRenderingTemplatesQuerySchema = z.object({
     ending_before: z.string().max(5000).optional(),
     expand: z
@@ -35917,7 +36259,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     period: z
       .object({ end: z.coerce.number(), start: z.coerce.number() })
       .optional(),
-    price: z.string().max(5000).optional(),
     price_data: z
       .object({
         currency: z.string(),
@@ -35929,12 +36270,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
         unit_amount_decimal: z.string().optional(),
       })
       .optional(),
+    pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
     quantity: z.coerce.number().optional(),
     subscription: z.string().max(5000).optional(),
     tax_behavior: z.enum(["exclusive", "inclusive", "unspecified"]).optional(),
     tax_code: z.union([z.string(), z.enum([""])]).optional(),
     tax_rates: z.array(z.string().max(5000)).optional(),
-    unit_amount: z.coerce.number().optional(),
     unit_amount_decimal: z.string().optional(),
   })
 
@@ -36132,7 +36473,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       period: z
         .object({ end: z.coerce.number(), start: z.coerce.number() })
         .optional(),
-      price: z.string().max(5000).optional(),
       price_data: z
         .object({
           currency: z.string(),
@@ -36144,6 +36484,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
+      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
       quantity: z.coerce.number().optional(),
       tax_behavior: z
         .enum(["exclusive", "inclusive", "unspecified"])
@@ -36152,7 +36493,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       tax_rates: z
         .union([z.array(z.string().max(5000)), z.enum([""])])
         .optional(),
-      unit_amount: z.coerce.number().optional(),
       unit_amount_decimal: z.string().optional(),
     })
     .optional()
@@ -36514,11 +36854,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ideal",
                   "jp_credit_transfer",
                   "kakao_pay",
+                  "klarna",
                   "konbini",
                   "kr_card",
                   "link",
                   "multibanco",
                   "naver_pay",
+                  "nz_bank_account",
                   "p24",
                   "payco",
                   "paynow",
@@ -36694,7 +37036,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
-      coupon: z.string().max(5000).optional(),
       currency: z.string().optional(),
       customer: z.string().max(5000).optional(),
       customer_details: z
@@ -36969,19 +37310,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 billing_cycle_anchor: z
                   .enum(["automatic", "phase_start"])
                   .optional(),
-                billing_thresholds: z
-                  .union([
-                    z.object({
-                      amount_gte: z.coerce.number().optional(),
-                      reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                    }),
-                    z.enum([""]),
-                  ])
-                  .optional(),
                 collection_method: z
                   .enum(["charge_automatically", "send_invoice"])
                   .optional(),
-                coupon: z.string().max(5000).optional(),
                 default_payment_method: z.string().max(5000).optional(),
                 default_tax_rates: z
                   .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -37020,12 +37351,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   .optional(),
                 items: z.array(
                   z.object({
-                    billing_thresholds: z
-                      .union([
-                        z.object({ usage_gte: z.coerce.number() }),
-                        z.enum([""]),
-                      ])
-                      .optional(),
                     discounts: z
                       .union([
                         z.array(
@@ -37103,12 +37428,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
           items: z
             .array(
               z.object({
-                billing_thresholds: z
-                  .union([
-                    z.object({ usage_gte: z.coerce.number() }),
-                    z.enum([""]),
-                  ])
-                  .optional(),
                 clear_usage: PermissiveBoolean.optional(),
                 deleted: PermissiveBoolean.optional(),
                 discounts: z
@@ -37288,1240 +37607,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ctx.status = status
     return next()
   })
-
-  const getInvoicesUpcomingQuerySchema = z.object({
-    automatic_tax: z
-      .object({
-        enabled: PermissiveBoolean,
-        liability: z
-          .object({
-            account: z.string().optional(),
-            type: z.enum(["account", "self"]),
-          })
-          .optional(),
-      })
-      .optional(),
-    coupon: z.string().max(5000).optional(),
-    currency: z.string().optional(),
-    customer: z.string().max(5000).optional(),
-    customer_details: z
-      .object({
-        address: z
-          .union([
-            z.object({
-              city: z.string().max(5000).optional(),
-              country: z.string().max(5000).optional(),
-              line1: z.string().max(5000).optional(),
-              line2: z.string().max(5000).optional(),
-              postal_code: z.string().max(5000).optional(),
-              state: z.string().max(5000).optional(),
-            }),
-            z.enum([""]),
-          ])
-          .optional(),
-        shipping: z
-          .union([
-            z.object({
-              address: z.object({
-                city: z.string().max(5000).optional(),
-                country: z.string().max(5000).optional(),
-                line1: z.string().max(5000).optional(),
-                line2: z.string().max(5000).optional(),
-                postal_code: z.string().max(5000).optional(),
-                state: z.string().max(5000).optional(),
-              }),
-              name: z.string().max(5000),
-              phone: z.string().max(5000).optional(),
-            }),
-            z.enum([""]),
-          ])
-          .optional(),
-        tax: z
-          .object({
-            ip_address: z.union([z.string(), z.enum([""])]).optional(),
-          })
-          .optional(),
-        tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
-        tax_ids: z
-          .array(
-            z.object({
-              type: z.enum([
-                "ad_nrt",
-                "ae_trn",
-                "al_tin",
-                "am_tin",
-                "ao_tin",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "ba_tin",
-                "bb_tin",
-                "bg_uic",
-                "bh_vat",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "bs_tin",
-                "by_tin",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "cd_nif",
-                "ch_uid",
-                "ch_vat",
-                "cl_tin",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "de_stn",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "eu_oss_vat",
-                "eu_vat",
-                "gb_vat",
-                "ge_vat",
-                "gn_nif",
-                "hk_br",
-                "hr_oib",
-                "hu_tin",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kh_tin",
-                "kr_brn",
-                "kz_bin",
-                "li_uid",
-                "li_vat",
-                "ma_vat",
-                "md_vat",
-                "me_pib",
-                "mk_vat",
-                "mr_nif",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "ng_tin",
-                "no_vat",
-                "no_voec",
-                "np_pan",
-                "nz_gst",
-                "om_vat",
-                "pe_ruc",
-                "ph_tin",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sn_ninea",
-                "sr_fin",
-                "sv_nit",
-                "th_vat",
-                "tj_tin",
-                "tr_tin",
-                "tw_vat",
-                "tz_vat",
-                "ua_vat",
-                "ug_tin",
-                "us_ein",
-                "uy_ruc",
-                "uz_tin",
-                "uz_vat",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-                "zm_tin",
-                "zw_tin",
-              ]),
-              value: z.string(),
-            }),
-          )
-          .optional(),
-      })
-      .optional(),
-    discounts: z
-      .union([
-        z.array(
-          z.object({
-            coupon: z.string().max(5000).optional(),
-            discount: z.string().max(5000).optional(),
-            promotion_code: z.string().max(5000).optional(),
-          }),
-        ),
-        z.enum([""]),
-      ])
-      .optional(),
-    expand: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(z.string().max(5000)),
-      )
-      .optional(),
-    invoice_items: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(
-          z.object({
-            amount: z.coerce.number().optional(),
-            currency: z.string().optional(),
-            description: z.string().max(5000).optional(),
-            discountable: PermissiveBoolean.optional(),
-            discounts: z
-              .union([
-                z.array(
-                  z.object({
-                    coupon: z.string().max(5000).optional(),
-                    discount: z.string().max(5000).optional(),
-                    promotion_code: z.string().max(5000).optional(),
-                  }),
-                ),
-                z.enum([""]),
-              ])
-              .optional(),
-            invoiceitem: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-            period: z
-              .object({ end: z.coerce.number(), start: z.coerce.number() })
-              .optional(),
-            price: z.string().max(5000).optional(),
-            price_data: z
-              .object({
-                currency: z.string(),
-                product: z.string().max(5000),
-                tax_behavior: z
-                  .enum(["exclusive", "inclusive", "unspecified"])
-                  .optional(),
-                unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.string().optional(),
-              })
-              .optional(),
-            quantity: z.coerce.number().optional(),
-            tax_behavior: z
-              .enum(["exclusive", "inclusive", "unspecified"])
-              .optional(),
-            tax_code: z.union([z.string(), z.enum([""])]).optional(),
-            tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
-              .optional(),
-            unit_amount: z.coerce.number().optional(),
-            unit_amount_decimal: z.string().optional(),
-          }),
-        ),
-      )
-      .optional(),
-    issuer: z
-      .object({
-        account: z.string().optional(),
-        type: z.enum(["account", "self"]),
-      })
-      .optional(),
-    on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
-    preview_mode: z.enum(["next", "recurring"]).optional(),
-    schedule: z.string().max(5000).optional(),
-    schedule_details: z
-      .object({
-        end_behavior: z.enum(["cancel", "release"]).optional(),
-        phases: z
-          .array(
-            z.object({
-              add_invoice_items: z
-                .array(
-                  z.object({
-                    discounts: z
-                      .array(
-                        z.object({
-                          coupon: z.string().max(5000).optional(),
-                          discount: z.string().max(5000).optional(),
-                          promotion_code: z.string().max(5000).optional(),
-                        }),
-                      )
-                      .optional(),
-                    price: z.string().max(5000).optional(),
-                    price_data: z
-                      .object({
-                        currency: z.string(),
-                        product: z.string().max(5000),
-                        tax_behavior: z
-                          .enum(["exclusive", "inclusive", "unspecified"])
-                          .optional(),
-                        unit_amount: z.coerce.number().optional(),
-                        unit_amount_decimal: z.string().optional(),
-                      })
-                      .optional(),
-                    quantity: z.coerce.number().optional(),
-                    tax_rates: z
-                      .union([z.array(z.string().max(5000)), z.enum([""])])
-                      .optional(),
-                  }),
-                )
-                .optional(),
-              application_fee_percent: z.coerce.number().optional(),
-              automatic_tax: z
-                .object({
-                  enabled: PermissiveBoolean,
-                  liability: z
-                    .object({
-                      account: z.string().optional(),
-                      type: z.enum(["account", "self"]),
-                    })
-                    .optional(),
-                })
-                .optional(),
-              billing_cycle_anchor: z
-                .enum(["automatic", "phase_start"])
-                .optional(),
-              billing_thresholds: z
-                .union([
-                  z.object({
-                    amount_gte: z.coerce.number().optional(),
-                    reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                  }),
-                  z.enum([""]),
-                ])
-                .optional(),
-              collection_method: z
-                .enum(["charge_automatically", "send_invoice"])
-                .optional(),
-              coupon: z.string().max(5000).optional(),
-              default_payment_method: z.string().max(5000).optional(),
-              default_tax_rates: z
-                .union([z.array(z.string().max(5000)), z.enum([""])])
-                .optional(),
-              description: z
-                .union([z.string().max(500), z.enum([""])])
-                .optional(),
-              discounts: z
-                .union([
-                  z.array(
-                    z.object({
-                      coupon: z.string().max(5000).optional(),
-                      discount: z.string().max(5000).optional(),
-                      promotion_code: z.string().max(5000).optional(),
-                    }),
-                  ),
-                  z.enum([""]),
-                ])
-                .optional(),
-              end_date: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-              invoice_settings: z
-                .object({
-                  account_tax_ids: z
-                    .union([z.array(z.string().max(5000)), z.enum([""])])
-                    .optional(),
-                  days_until_due: z.coerce.number().optional(),
-                  issuer: z
-                    .object({
-                      account: z.string().optional(),
-                      type: z.enum(["account", "self"]),
-                    })
-                    .optional(),
-                })
-                .optional(),
-              items: z.array(
-                z.object({
-                  billing_thresholds: z
-                    .union([
-                      z.object({ usage_gte: z.coerce.number() }),
-                      z.enum([""]),
-                    ])
-                    .optional(),
-                  discounts: z
-                    .union([
-                      z.array(
-                        z.object({
-                          coupon: z.string().max(5000).optional(),
-                          discount: z.string().max(5000).optional(),
-                          promotion_code: z.string().max(5000).optional(),
-                        }),
-                      ),
-                      z.enum([""]),
-                    ])
-                    .optional(),
-                  metadata: z.record(z.string()).optional(),
-                  price: z.string().max(5000).optional(),
-                  price_data: z
-                    .object({
-                      currency: z.string(),
-                      product: z.string().max(5000),
-                      recurring: z.object({
-                        interval: z.enum(["day", "month", "week", "year"]),
-                        interval_count: z.coerce.number().optional(),
-                      }),
-                      tax_behavior: z
-                        .enum(["exclusive", "inclusive", "unspecified"])
-                        .optional(),
-                      unit_amount: z.coerce.number().optional(),
-                      unit_amount_decimal: z.string().optional(),
-                    })
-                    .optional(),
-                  quantity: z.coerce.number().optional(),
-                  tax_rates: z
-                    .union([z.array(z.string().max(5000)), z.enum([""])])
-                    .optional(),
-                }),
-              ),
-              iterations: z.coerce.number().optional(),
-              metadata: z.record(z.string()).optional(),
-              on_behalf_of: z.string().optional(),
-              proration_behavior: z
-                .enum(["always_invoice", "create_prorations", "none"])
-                .optional(),
-              start_date: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-              transfer_data: z
-                .object({
-                  amount_percent: z.coerce.number().optional(),
-                  destination: z.string(),
-                })
-                .optional(),
-              trial: PermissiveBoolean.optional(),
-              trial_end: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-            }),
-          )
-          .optional(),
-        proration_behavior: z
-          .enum(["always_invoice", "create_prorations", "none"])
-          .optional(),
-      })
-      .optional(),
-    subscription: z.string().max(5000).optional(),
-    subscription_billing_cycle_anchor: z
-      .union([z.enum(["now", "unchanged"]), z.coerce.number()])
-      .optional(),
-    subscription_cancel_at: z
-      .union([z.coerce.number(), z.enum([""])])
-      .optional(),
-    subscription_cancel_at_period_end: PermissiveBoolean.optional(),
-    subscription_cancel_now: PermissiveBoolean.optional(),
-    subscription_default_tax_rates: z
-      .union([z.array(z.string().max(5000)), z.enum([""])])
-      .optional(),
-    subscription_details: z
-      .object({
-        billing_cycle_anchor: z
-          .union([z.enum(["now", "unchanged"]), z.coerce.number()])
-          .optional(),
-        cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-        cancel_at_period_end: PermissiveBoolean.optional(),
-        cancel_now: PermissiveBoolean.optional(),
-        default_tax_rates: z
-          .union([z.array(z.string().max(5000)), z.enum([""])])
-          .optional(),
-        items: z
-          .array(
-            z.object({
-              billing_thresholds: z
-                .union([
-                  z.object({ usage_gte: z.coerce.number() }),
-                  z.enum([""]),
-                ])
-                .optional(),
-              clear_usage: PermissiveBoolean.optional(),
-              deleted: PermissiveBoolean.optional(),
-              discounts: z
-                .union([
-                  z.array(
-                    z.object({
-                      coupon: z.string().max(5000).optional(),
-                      discount: z.string().max(5000).optional(),
-                      promotion_code: z.string().max(5000).optional(),
-                    }),
-                  ),
-                  z.enum([""]),
-                ])
-                .optional(),
-              id: z.string().max(5000).optional(),
-              metadata: z
-                .union([z.record(z.string()), z.enum([""])])
-                .optional(),
-              price: z.string().max(5000).optional(),
-              price_data: z
-                .object({
-                  currency: z.string(),
-                  product: z.string().max(5000),
-                  recurring: z.object({
-                    interval: z.enum(["day", "month", "week", "year"]),
-                    interval_count: z.coerce.number().optional(),
-                  }),
-                  tax_behavior: z
-                    .enum(["exclusive", "inclusive", "unspecified"])
-                    .optional(),
-                  unit_amount: z.coerce.number().optional(),
-                  unit_amount_decimal: z.string().optional(),
-                })
-                .optional(),
-              quantity: z.coerce.number().optional(),
-              tax_rates: z
-                .union([z.array(z.string().max(5000)), z.enum([""])])
-                .optional(),
-            }),
-          )
-          .optional(),
-        proration_behavior: z
-          .enum(["always_invoice", "create_prorations", "none"])
-          .optional(),
-        proration_date: z.coerce.number().optional(),
-        resume_at: z.enum(["now"]).optional(),
-        start_date: z.coerce.number().optional(),
-        trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-      })
-      .optional(),
-    subscription_items: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(
-          z.object({
-            billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-              .optional(),
-            clear_usage: PermissiveBoolean.optional(),
-            deleted: PermissiveBoolean.optional(),
-            discounts: z
-              .union([
-                z.array(
-                  z.object({
-                    coupon: z.string().max(5000).optional(),
-                    discount: z.string().max(5000).optional(),
-                    promotion_code: z.string().max(5000).optional(),
-                  }),
-                ),
-                z.enum([""]),
-              ])
-              .optional(),
-            id: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-            price: z.string().max(5000).optional(),
-            price_data: z
-              .object({
-                currency: z.string(),
-                product: z.string().max(5000),
-                recurring: z.object({
-                  interval: z.enum(["day", "month", "week", "year"]),
-                  interval_count: z.coerce.number().optional(),
-                }),
-                tax_behavior: z
-                  .enum(["exclusive", "inclusive", "unspecified"])
-                  .optional(),
-                unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.string().optional(),
-              })
-              .optional(),
-            quantity: z.coerce.number().optional(),
-            tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
-              .optional(),
-          }),
-        ),
-      )
-      .optional(),
-    subscription_proration_behavior: z
-      .enum(["always_invoice", "create_prorations", "none"])
-      .optional(),
-    subscription_proration_date: z.coerce.number().optional(),
-    subscription_resume_at: z.enum(["now"]).optional(),
-    subscription_start_date: z.coerce.number().optional(),
-    subscription_trial_end: z
-      .union([z.enum(["now"]), z.coerce.number()])
-      .optional(),
-  })
-
-  const getInvoicesUpcomingBodySchema = z.object({}).optional()
-
-  const getInvoicesUpcomingResponseValidator = responseValidationFactory(
-    [["200", s_invoice]],
-    s_error,
-  )
-
-  router.get(
-    "getInvoicesUpcoming",
-    "/v1/invoices/upcoming",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getInvoicesUpcomingQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: parseRequestInput(
-          getInvoicesUpcomingBodySchema,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_invoice>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .getInvoicesUpcoming(input, responder, ctx)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getInvoicesUpcomingResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const getInvoicesUpcomingLinesQuerySchema = z.object({
-    automatic_tax: z
-      .object({
-        enabled: PermissiveBoolean,
-        liability: z
-          .object({
-            account: z.string().optional(),
-            type: z.enum(["account", "self"]),
-          })
-          .optional(),
-      })
-      .optional(),
-    coupon: z.string().max(5000).optional(),
-    currency: z.string().optional(),
-    customer: z.string().max(5000).optional(),
-    customer_details: z
-      .object({
-        address: z
-          .union([
-            z.object({
-              city: z.string().max(5000).optional(),
-              country: z.string().max(5000).optional(),
-              line1: z.string().max(5000).optional(),
-              line2: z.string().max(5000).optional(),
-              postal_code: z.string().max(5000).optional(),
-              state: z.string().max(5000).optional(),
-            }),
-            z.enum([""]),
-          ])
-          .optional(),
-        shipping: z
-          .union([
-            z.object({
-              address: z.object({
-                city: z.string().max(5000).optional(),
-                country: z.string().max(5000).optional(),
-                line1: z.string().max(5000).optional(),
-                line2: z.string().max(5000).optional(),
-                postal_code: z.string().max(5000).optional(),
-                state: z.string().max(5000).optional(),
-              }),
-              name: z.string().max(5000),
-              phone: z.string().max(5000).optional(),
-            }),
-            z.enum([""]),
-          ])
-          .optional(),
-        tax: z
-          .object({
-            ip_address: z.union([z.string(), z.enum([""])]).optional(),
-          })
-          .optional(),
-        tax_exempt: z.enum(["", "exempt", "none", "reverse"]).optional(),
-        tax_ids: z
-          .array(
-            z.object({
-              type: z.enum([
-                "ad_nrt",
-                "ae_trn",
-                "al_tin",
-                "am_tin",
-                "ao_tin",
-                "ar_cuit",
-                "au_abn",
-                "au_arn",
-                "ba_tin",
-                "bb_tin",
-                "bg_uic",
-                "bh_vat",
-                "bo_tin",
-                "br_cnpj",
-                "br_cpf",
-                "bs_tin",
-                "by_tin",
-                "ca_bn",
-                "ca_gst_hst",
-                "ca_pst_bc",
-                "ca_pst_mb",
-                "ca_pst_sk",
-                "ca_qst",
-                "cd_nif",
-                "ch_uid",
-                "ch_vat",
-                "cl_tin",
-                "cn_tin",
-                "co_nit",
-                "cr_tin",
-                "de_stn",
-                "do_rcn",
-                "ec_ruc",
-                "eg_tin",
-                "es_cif",
-                "eu_oss_vat",
-                "eu_vat",
-                "gb_vat",
-                "ge_vat",
-                "gn_nif",
-                "hk_br",
-                "hr_oib",
-                "hu_tin",
-                "id_npwp",
-                "il_vat",
-                "in_gst",
-                "is_vat",
-                "jp_cn",
-                "jp_rn",
-                "jp_trn",
-                "ke_pin",
-                "kh_tin",
-                "kr_brn",
-                "kz_bin",
-                "li_uid",
-                "li_vat",
-                "ma_vat",
-                "md_vat",
-                "me_pib",
-                "mk_vat",
-                "mr_nif",
-                "mx_rfc",
-                "my_frp",
-                "my_itn",
-                "my_sst",
-                "ng_tin",
-                "no_vat",
-                "no_voec",
-                "np_pan",
-                "nz_gst",
-                "om_vat",
-                "pe_ruc",
-                "ph_tin",
-                "ro_tin",
-                "rs_pib",
-                "ru_inn",
-                "ru_kpp",
-                "sa_vat",
-                "sg_gst",
-                "sg_uen",
-                "si_tin",
-                "sn_ninea",
-                "sr_fin",
-                "sv_nit",
-                "th_vat",
-                "tj_tin",
-                "tr_tin",
-                "tw_vat",
-                "tz_vat",
-                "ua_vat",
-                "ug_tin",
-                "us_ein",
-                "uy_ruc",
-                "uz_tin",
-                "uz_vat",
-                "ve_rif",
-                "vn_tin",
-                "za_vat",
-                "zm_tin",
-                "zw_tin",
-              ]),
-              value: z.string(),
-            }),
-          )
-          .optional(),
-      })
-      .optional(),
-    discounts: z
-      .union([
-        z.array(
-          z.object({
-            coupon: z.string().max(5000).optional(),
-            discount: z.string().max(5000).optional(),
-            promotion_code: z.string().max(5000).optional(),
-          }),
-        ),
-        z.enum([""]),
-      ])
-      .optional(),
-    ending_before: z.string().max(5000).optional(),
-    expand: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(z.string().max(5000)),
-      )
-      .optional(),
-    invoice_items: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(
-          z.object({
-            amount: z.coerce.number().optional(),
-            currency: z.string().optional(),
-            description: z.string().max(5000).optional(),
-            discountable: PermissiveBoolean.optional(),
-            discounts: z
-              .union([
-                z.array(
-                  z.object({
-                    coupon: z.string().max(5000).optional(),
-                    discount: z.string().max(5000).optional(),
-                    promotion_code: z.string().max(5000).optional(),
-                  }),
-                ),
-                z.enum([""]),
-              ])
-              .optional(),
-            invoiceitem: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-            period: z
-              .object({ end: z.coerce.number(), start: z.coerce.number() })
-              .optional(),
-            price: z.string().max(5000).optional(),
-            price_data: z
-              .object({
-                currency: z.string(),
-                product: z.string().max(5000),
-                tax_behavior: z
-                  .enum(["exclusive", "inclusive", "unspecified"])
-                  .optional(),
-                unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.string().optional(),
-              })
-              .optional(),
-            quantity: z.coerce.number().optional(),
-            tax_behavior: z
-              .enum(["exclusive", "inclusive", "unspecified"])
-              .optional(),
-            tax_code: z.union([z.string(), z.enum([""])]).optional(),
-            tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
-              .optional(),
-            unit_amount: z.coerce.number().optional(),
-            unit_amount_decimal: z.string().optional(),
-          }),
-        ),
-      )
-      .optional(),
-    issuer: z
-      .object({
-        account: z.string().optional(),
-        type: z.enum(["account", "self"]),
-      })
-      .optional(),
-    limit: z.coerce.number().optional(),
-    on_behalf_of: z.union([z.string(), z.enum([""])]).optional(),
-    preview_mode: z.enum(["next", "recurring"]).optional(),
-    schedule: z.string().max(5000).optional(),
-    schedule_details: z
-      .object({
-        end_behavior: z.enum(["cancel", "release"]).optional(),
-        phases: z
-          .array(
-            z.object({
-              add_invoice_items: z
-                .array(
-                  z.object({
-                    discounts: z
-                      .array(
-                        z.object({
-                          coupon: z.string().max(5000).optional(),
-                          discount: z.string().max(5000).optional(),
-                          promotion_code: z.string().max(5000).optional(),
-                        }),
-                      )
-                      .optional(),
-                    price: z.string().max(5000).optional(),
-                    price_data: z
-                      .object({
-                        currency: z.string(),
-                        product: z.string().max(5000),
-                        tax_behavior: z
-                          .enum(["exclusive", "inclusive", "unspecified"])
-                          .optional(),
-                        unit_amount: z.coerce.number().optional(),
-                        unit_amount_decimal: z.string().optional(),
-                      })
-                      .optional(),
-                    quantity: z.coerce.number().optional(),
-                    tax_rates: z
-                      .union([z.array(z.string().max(5000)), z.enum([""])])
-                      .optional(),
-                  }),
-                )
-                .optional(),
-              application_fee_percent: z.coerce.number().optional(),
-              automatic_tax: z
-                .object({
-                  enabled: PermissiveBoolean,
-                  liability: z
-                    .object({
-                      account: z.string().optional(),
-                      type: z.enum(["account", "self"]),
-                    })
-                    .optional(),
-                })
-                .optional(),
-              billing_cycle_anchor: z
-                .enum(["automatic", "phase_start"])
-                .optional(),
-              billing_thresholds: z
-                .union([
-                  z.object({
-                    amount_gte: z.coerce.number().optional(),
-                    reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                  }),
-                  z.enum([""]),
-                ])
-                .optional(),
-              collection_method: z
-                .enum(["charge_automatically", "send_invoice"])
-                .optional(),
-              coupon: z.string().max(5000).optional(),
-              default_payment_method: z.string().max(5000).optional(),
-              default_tax_rates: z
-                .union([z.array(z.string().max(5000)), z.enum([""])])
-                .optional(),
-              description: z
-                .union([z.string().max(500), z.enum([""])])
-                .optional(),
-              discounts: z
-                .union([
-                  z.array(
-                    z.object({
-                      coupon: z.string().max(5000).optional(),
-                      discount: z.string().max(5000).optional(),
-                      promotion_code: z.string().max(5000).optional(),
-                    }),
-                  ),
-                  z.enum([""]),
-                ])
-                .optional(),
-              end_date: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-              invoice_settings: z
-                .object({
-                  account_tax_ids: z
-                    .union([z.array(z.string().max(5000)), z.enum([""])])
-                    .optional(),
-                  days_until_due: z.coerce.number().optional(),
-                  issuer: z
-                    .object({
-                      account: z.string().optional(),
-                      type: z.enum(["account", "self"]),
-                    })
-                    .optional(),
-                })
-                .optional(),
-              items: z.array(
-                z.object({
-                  billing_thresholds: z
-                    .union([
-                      z.object({ usage_gte: z.coerce.number() }),
-                      z.enum([""]),
-                    ])
-                    .optional(),
-                  discounts: z
-                    .union([
-                      z.array(
-                        z.object({
-                          coupon: z.string().max(5000).optional(),
-                          discount: z.string().max(5000).optional(),
-                          promotion_code: z.string().max(5000).optional(),
-                        }),
-                      ),
-                      z.enum([""]),
-                    ])
-                    .optional(),
-                  metadata: z.record(z.string()).optional(),
-                  price: z.string().max(5000).optional(),
-                  price_data: z
-                    .object({
-                      currency: z.string(),
-                      product: z.string().max(5000),
-                      recurring: z.object({
-                        interval: z.enum(["day", "month", "week", "year"]),
-                        interval_count: z.coerce.number().optional(),
-                      }),
-                      tax_behavior: z
-                        .enum(["exclusive", "inclusive", "unspecified"])
-                        .optional(),
-                      unit_amount: z.coerce.number().optional(),
-                      unit_amount_decimal: z.string().optional(),
-                    })
-                    .optional(),
-                  quantity: z.coerce.number().optional(),
-                  tax_rates: z
-                    .union([z.array(z.string().max(5000)), z.enum([""])])
-                    .optional(),
-                }),
-              ),
-              iterations: z.coerce.number().optional(),
-              metadata: z.record(z.string()).optional(),
-              on_behalf_of: z.string().optional(),
-              proration_behavior: z
-                .enum(["always_invoice", "create_prorations", "none"])
-                .optional(),
-              start_date: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-              transfer_data: z
-                .object({
-                  amount_percent: z.coerce.number().optional(),
-                  destination: z.string(),
-                })
-                .optional(),
-              trial: PermissiveBoolean.optional(),
-              trial_end: z
-                .union([z.coerce.number(), z.enum(["now"])])
-                .optional(),
-            }),
-          )
-          .optional(),
-        proration_behavior: z
-          .enum(["always_invoice", "create_prorations", "none"])
-          .optional(),
-      })
-      .optional(),
-    starting_after: z.string().max(5000).optional(),
-    subscription: z.string().max(5000).optional(),
-    subscription_billing_cycle_anchor: z
-      .union([z.enum(["now", "unchanged"]), z.coerce.number()])
-      .optional(),
-    subscription_cancel_at: z
-      .union([z.coerce.number(), z.enum([""])])
-      .optional(),
-    subscription_cancel_at_period_end: PermissiveBoolean.optional(),
-    subscription_cancel_now: PermissiveBoolean.optional(),
-    subscription_default_tax_rates: z
-      .union([z.array(z.string().max(5000)), z.enum([""])])
-      .optional(),
-    subscription_details: z
-      .object({
-        billing_cycle_anchor: z
-          .union([z.enum(["now", "unchanged"]), z.coerce.number()])
-          .optional(),
-        cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
-        cancel_at_period_end: PermissiveBoolean.optional(),
-        cancel_now: PermissiveBoolean.optional(),
-        default_tax_rates: z
-          .union([z.array(z.string().max(5000)), z.enum([""])])
-          .optional(),
-        items: z
-          .array(
-            z.object({
-              billing_thresholds: z
-                .union([
-                  z.object({ usage_gte: z.coerce.number() }),
-                  z.enum([""]),
-                ])
-                .optional(),
-              clear_usage: PermissiveBoolean.optional(),
-              deleted: PermissiveBoolean.optional(),
-              discounts: z
-                .union([
-                  z.array(
-                    z.object({
-                      coupon: z.string().max(5000).optional(),
-                      discount: z.string().max(5000).optional(),
-                      promotion_code: z.string().max(5000).optional(),
-                    }),
-                  ),
-                  z.enum([""]),
-                ])
-                .optional(),
-              id: z.string().max(5000).optional(),
-              metadata: z
-                .union([z.record(z.string()), z.enum([""])])
-                .optional(),
-              price: z.string().max(5000).optional(),
-              price_data: z
-                .object({
-                  currency: z.string(),
-                  product: z.string().max(5000),
-                  recurring: z.object({
-                    interval: z.enum(["day", "month", "week", "year"]),
-                    interval_count: z.coerce.number().optional(),
-                  }),
-                  tax_behavior: z
-                    .enum(["exclusive", "inclusive", "unspecified"])
-                    .optional(),
-                  unit_amount: z.coerce.number().optional(),
-                  unit_amount_decimal: z.string().optional(),
-                })
-                .optional(),
-              quantity: z.coerce.number().optional(),
-              tax_rates: z
-                .union([z.array(z.string().max(5000)), z.enum([""])])
-                .optional(),
-            }),
-          )
-          .optional(),
-        proration_behavior: z
-          .enum(["always_invoice", "create_prorations", "none"])
-          .optional(),
-        proration_date: z.coerce.number().optional(),
-        resume_at: z.enum(["now"]).optional(),
-        start_date: z.coerce.number().optional(),
-        trial_end: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-      })
-      .optional(),
-    subscription_items: z
-      .preprocess(
-        (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-        z.array(
-          z.object({
-            billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-              .optional(),
-            clear_usage: PermissiveBoolean.optional(),
-            deleted: PermissiveBoolean.optional(),
-            discounts: z
-              .union([
-                z.array(
-                  z.object({
-                    coupon: z.string().max(5000).optional(),
-                    discount: z.string().max(5000).optional(),
-                    promotion_code: z.string().max(5000).optional(),
-                  }),
-                ),
-                z.enum([""]),
-              ])
-              .optional(),
-            id: z.string().max(5000).optional(),
-            metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-            price: z.string().max(5000).optional(),
-            price_data: z
-              .object({
-                currency: z.string(),
-                product: z.string().max(5000),
-                recurring: z.object({
-                  interval: z.enum(["day", "month", "week", "year"]),
-                  interval_count: z.coerce.number().optional(),
-                }),
-                tax_behavior: z
-                  .enum(["exclusive", "inclusive", "unspecified"])
-                  .optional(),
-                unit_amount: z.coerce.number().optional(),
-                unit_amount_decimal: z.string().optional(),
-              })
-              .optional(),
-            quantity: z.coerce.number().optional(),
-            tax_rates: z
-              .union([z.array(z.string().max(5000)), z.enum([""])])
-              .optional(),
-          }),
-        ),
-      )
-      .optional(),
-    subscription_proration_behavior: z
-      .enum(["always_invoice", "create_prorations", "none"])
-      .optional(),
-    subscription_proration_date: z.coerce.number().optional(),
-    subscription_resume_at: z.enum(["now"]).optional(),
-    subscription_start_date: z.coerce.number().optional(),
-    subscription_trial_end: z
-      .union([z.enum(["now"]), z.coerce.number()])
-      .optional(),
-  })
-
-  const getInvoicesUpcomingLinesBodySchema = z.object({}).optional()
-
-  const getInvoicesUpcomingLinesResponseValidator = responseValidationFactory(
-    [
-      [
-        "200",
-        z.object({
-          data: z.array(z.lazy(() => s_line_item)),
-          has_more: PermissiveBoolean,
-          object: z.enum(["list"]),
-          url: z.string().max(5000),
-        }),
-      ],
-    ],
-    s_error,
-  )
-
-  router.get(
-    "getInvoicesUpcomingLines",
-    "/v1/invoices/upcoming/lines",
-    async (ctx, next) => {
-      const input = {
-        params: undefined,
-        query: parseRequestInput(
-          getInvoicesUpcomingLinesQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: parseRequestInput(
-          getInvoicesUpcomingLinesBodySchema,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_line_item[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .getInvoicesUpcomingLines(input, responder, ctx)
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body = getInvoicesUpcomingLinesResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
 
   const deleteInvoicesInvoiceParamSchema = z.object({
     invoice: z.string().max(5000),
@@ -38853,11 +37938,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ideal",
                   "jp_credit_transfer",
                   "kakao_pay",
+                  "klarna",
                   "konbini",
                   "kr_card",
                   "link",
                   "multibanco",
                   "naver_pay",
+                  "nz_bank_account",
                   "p24",
                   "payco",
                   "paynow",
@@ -39064,7 +38151,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         period: z
           .object({ end: z.coerce.number(), start: z.coerce.number() })
           .optional(),
-        price: z.string().max(5000).optional(),
         price_data: z
           .object({
             currency: z.string(),
@@ -39085,6 +38171,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
+        pricing: z
+          .object({ price: z.string().max(5000).optional() })
+          .optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -39097,6 +38186,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   display_name: z.string().max(100),
                   inclusive: PermissiveBoolean,
                   jurisdiction: z.string().max(200).optional(),
+                  jurisdiction_level: z
+                    .enum([
+                      "city",
+                      "country",
+                      "county",
+                      "district",
+                      "multiple",
+                      "state",
+                    ])
+                    .optional(),
                   percentage: z.coerce.number(),
                   state: z.string().max(5000).optional(),
                   tax_type: z
@@ -39118,6 +38217,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     ])
                     .optional(),
                 }),
+                taxability_reason: z
+                  .enum([
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                  ])
+                  .optional(),
                 taxable_amount: z.coerce.number(),
               }),
             ),
@@ -39355,7 +38473,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       period: z
         .object({ end: z.coerce.number(), start: z.coerce.number() })
         .optional(),
-      price: z.string().max(5000).optional(),
       price_data: z
         .object({
           currency: z.string(),
@@ -39376,6 +38493,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           unit_amount_decimal: z.string().optional(),
         })
         .optional(),
+      pricing: z.object({ price: z.string().max(5000).optional() }).optional(),
       quantity: z.coerce.number().optional(),
       tax_amounts: z
         .union([
@@ -39388,6 +38506,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 display_name: z.string().max(100),
                 inclusive: PermissiveBoolean,
                 jurisdiction: z.string().max(200).optional(),
+                jurisdiction_level: z
+                  .enum([
+                    "city",
+                    "country",
+                    "county",
+                    "district",
+                    "multiple",
+                    "state",
+                  ])
+                  .optional(),
                 percentage: z.coerce.number(),
                 state: z.string().max(5000).optional(),
                 tax_type: z
@@ -39409,6 +38537,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   ])
                   .optional(),
               }),
+              taxability_reason: z
+                .enum([
+                  "customer_exempt",
+                  "not_collecting",
+                  "not_subject_to_tax",
+                  "not_supported",
+                  "portion_product_exempt",
+                  "portion_reduced_rated",
+                  "portion_standard_rated",
+                  "product_exempt",
+                  "product_exempt_holiday",
+                  "proportionally_rated",
+                  "reduced_rated",
+                  "reverse_charge",
+                  "standard_rated",
+                  "taxable_basis_reduced",
+                  "zero_rated",
+                ])
+                .optional(),
               taxable_amount: z.coerce.number(),
             }),
           ),
@@ -39752,7 +38899,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         period: z
           .object({ end: z.coerce.number(), start: z.coerce.number() })
           .optional(),
-        price: z.string().max(5000).optional(),
         price_data: z
           .object({
             currency: z.string(),
@@ -39773,6 +38919,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             unit_amount_decimal: z.string().optional(),
           })
           .optional(),
+        pricing: z
+          .object({ price: z.string().max(5000).optional() })
+          .optional(),
         quantity: z.coerce.number().optional(),
         tax_amounts: z
           .union([
@@ -39785,6 +38934,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   display_name: z.string().max(100),
                   inclusive: PermissiveBoolean,
                   jurisdiction: z.string().max(200).optional(),
+                  jurisdiction_level: z
+                    .enum([
+                      "city",
+                      "country",
+                      "county",
+                      "district",
+                      "multiple",
+                      "state",
+                    ])
+                    .optional(),
                   percentage: z.coerce.number(),
                   state: z.string().max(5000).optional(),
                   tax_type: z
@@ -39806,6 +38965,25 @@ export function createRouter(implementation: Implementation): KoaRouter {
                     ])
                     .optional(),
                 }),
+                taxability_reason: z
+                  .enum([
+                    "customer_exempt",
+                    "not_collecting",
+                    "not_subject_to_tax",
+                    "not_supported",
+                    "portion_product_exempt",
+                    "portion_reduced_rated",
+                    "portion_standard_rated",
+                    "product_exempt",
+                    "product_exempt_holiday",
+                    "proportionally_rated",
+                    "reduced_rated",
+                    "reverse_charge",
+                    "standard_rated",
+                    "taxable_basis_reduced",
+                    "zero_rated",
+                  ])
+                  .optional(),
                 taxable_amount: z.coerce.number(),
               }),
             ),
@@ -39950,7 +39128,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     limit: z.coerce.number().optional(),
     starting_after: z.string().max(5000).optional(),
-    status: z.enum(["closed", "pending", "reversed"]).optional(),
+    status: z.enum(["closed", "expired", "pending", "reversed"]).optional(),
   })
 
   const getIssuingAuthorizationsBodySchema = z.object({}).optional()
@@ -47257,6 +46435,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           })
           .optional(),
         bancontact: z.object({}).optional(),
+        billie: z.object({}).optional(),
         billing_details: z
           .object({
             address: z
@@ -47393,6 +46572,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
         naver_pay: z
           .object({ funding: z.enum(["card", "points"]).optional() })
           .optional(),
+        nz_bank_account: z
+          .object({
+            account_holder_name: z.string().max(5000).optional(),
+            account_number: z.string().max(5000),
+            bank_code: z.string().max(5000),
+            branch_code: z.string().max(5000),
+            reference: z.string().max(128).optional(),
+            suffix: z.string().max(5000),
+          })
+          .optional(),
         oxxo: z.object({}).optional(),
         p24: z
           .object({
@@ -47439,6 +46628,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         revolut_pay: z.object({}).optional(),
         samsung_pay: z.object({}).optional(),
+        satispay: z.object({}).optional(),
         sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
         sofort: z
           .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -47455,6 +46645,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
+          "billie",
           "blik",
           "boleto",
           "cashapp",
@@ -47472,6 +46663,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "mobilepay",
           "multibanco",
           "naver_pay",
+          "nz_bank_account",
           "oxxo",
           "p24",
           "pay_by_bank",
@@ -47482,6 +46674,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "promptpay",
           "revolut_pay",
           "samsung_pay",
+          "satispay",
           "sepa_debit",
           "sofort",
           "swish",
@@ -47973,7 +47166,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .optional(),
         naver_pay: z
           .union([
-            z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+            z.object({
+              capture_method: z.enum(["", "manual"]).optional(),
+              setup_future_usage: z
+                .enum(["", "none", "off_session"])
+                .optional(),
+            }),
+            z.enum([""]),
+          ])
+          .optional(),
+        nz_bank_account: z
+          .union([
+            z.object({
+              setup_future_usage: z
+                .enum(["", "none", "off_session", "on_session"])
+                .optional(),
+              target_date: z.string().max(5000).optional(),
+            }),
             z.enum([""]),
           ])
           .optional(),
@@ -48183,7 +47392,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           .union([
             z.object({
               app_id: z.string().max(5000).optional(),
-              client: z.enum(["android", "ios", "web"]),
+              client: z.enum(["android", "ios", "web"]).optional(),
               setup_future_usage: z.enum(["none"]).optional(),
             }),
             z.enum([""]),
@@ -48481,6 +47690,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -48617,6 +47827,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -48663,6 +47883,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -48679,6 +47900,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -48696,6 +47918,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -48706,6 +47929,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -49205,7 +48429,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           naver_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
+                setup_future_usage: z
+                  .enum(["", "none", "off_session"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          nz_bank_account: z
+            .union([
+              z.object({
+                setup_future_usage: z
+                  .enum(["", "none", "off_session", "on_session"])
+                  .optional(),
+                target_date: z.string().max(5000).optional(),
+              }),
               z.enum([""]),
             ])
             .optional(),
@@ -49417,7 +48657,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 app_id: z.string().max(5000).optional(),
-                client: z.enum(["android", "ios", "web"]),
+                client: z.enum(["android", "ios", "web"]).optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
               z.enum([""]),
@@ -49782,6 +49022,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -49918,6 +49159,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -49964,6 +49215,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -49980,6 +49232,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -49997,6 +49250,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -50007,6 +49261,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -50506,7 +49761,23 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           naver_pay: z
             .union([
-              z.object({ capture_method: z.enum(["", "manual"]).optional() }),
+              z.object({
+                capture_method: z.enum(["", "manual"]).optional(),
+                setup_future_usage: z
+                  .enum(["", "none", "off_session"])
+                  .optional(),
+              }),
+              z.enum([""]),
+            ])
+            .optional(),
+          nz_bank_account: z
+            .union([
+              z.object({
+                setup_future_usage: z
+                  .enum(["", "none", "off_session", "on_session"])
+                  .optional(),
+                target_date: z.string().max(5000).optional(),
+              }),
               z.enum([""]),
             ])
             .optional(),
@@ -50718,7 +49989,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .union([
               z.object({
                 app_id: z.string().max(5000).optional(),
-                client: z.enum(["android", "ios", "web"]),
+                client: z.enum(["android", "ios", "web"]).optional(),
                 setup_future_usage: z.enum(["none"]).optional(),
               }),
               z.enum([""]),
@@ -51062,6 +50333,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.object({
           dropdown: z
             .object({
+              default_value: z.string().max(100).optional(),
               options: z.array(
                 z.object({
                   label: z.string().max(100),
@@ -51077,6 +50349,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           }),
           numeric: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -51084,6 +50357,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           optional: PermissiveBoolean.optional(),
           text: z
             .object({
+              default_value: z.string().max(255).optional(),
               maximum_length: z.coerce.number().optional(),
               minimum_length: z.coerce.number().optional(),
             })
@@ -51168,6 +50442,21 @@ export function createRouter(implementation: Implementation): KoaRouter {
     ),
     metadata: z.record(z.string()).optional(),
     on_behalf_of: z.string().optional(),
+    optional_items: z
+      .array(
+        z.object({
+          adjustable_quantity: z
+            .object({
+              enabled: PermissiveBoolean,
+              maximum: z.coerce.number().optional(),
+              minimum: z.coerce.number().optional(),
+            })
+            .optional(),
+          price: z.string().max(5000),
+          quantity: z.coerce.number(),
+        }),
+      )
+      .optional(),
     payment_intent_data: z
       .object({
         capture_method: z
@@ -51192,6 +50481,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
+          "billie",
           "blik",
           "boleto",
           "card",
@@ -51213,6 +50503,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "paypal",
           "pix",
           "promptpay",
+          "satispay",
           "sepa_debit",
           "sofort",
           "swish",
@@ -51668,6 +50959,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             z.object({
               dropdown: z
                 .object({
+                  default_value: z.string().max(100).optional(),
                   options: z.array(
                     z.object({
                       label: z.string().max(100),
@@ -51683,6 +50975,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               }),
               numeric: z
                 .object({
+                  default_value: z.string().max(255).optional(),
                   maximum_length: z.coerce.number().optional(),
                   minimum_length: z.coerce.number().optional(),
                 })
@@ -51690,6 +50983,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               optional: PermissiveBoolean.optional(),
               text: z
                 .object({
+                  default_value: z.string().max(255).optional(),
                   maximum_length: z.coerce.number().optional(),
                   minimum_length: z.coerce.number().optional(),
                 })
@@ -51806,6 +51100,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "au_becs_debit",
               "bacs_debit",
               "bancontact",
+              "billie",
               "blik",
               "boleto",
               "card",
@@ -51827,6 +51122,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
               "paypal",
               "pix",
               "promptpay",
+              "satispay",
               "sepa_debit",
               "sofort",
               "swish",
@@ -52448,6 +51744,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      billie: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       blik: z
         .object({
           display_preference: z
@@ -52576,6 +51879,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       name: z.string().max(100).optional(),
+      nz_bank_account: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       oxxo: z
         .object({
           display_preference: z
@@ -52620,6 +51930,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       revolut_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      satispay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -52886,6 +52203,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
         })
         .optional(),
+      billie: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       blik: z
         .object({
           display_preference: z
@@ -53014,6 +52338,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       name: z.string().max(100).optional(),
+      nz_bank_account: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
       oxxo: z
         .object({
           display_preference: z
@@ -53057,6 +52388,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       revolut_pay: z
+        .object({
+          display_preference: z
+            .object({ preference: z.enum(["none", "off", "on"]).optional() })
+            .optional(),
+        })
+        .optional(),
+      satispay: z
         .object({
           display_preference: z
             .object({ preference: z.enum(["none", "off", "on"]).optional() })
@@ -53530,6 +52868,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "au_becs_debit",
         "bacs_debit",
         "bancontact",
+        "billie",
         "blik",
         "boleto",
         "card",
@@ -53548,6 +52887,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "mobilepay",
         "multibanco",
         "naver_pay",
+        "nz_bank_account",
         "oxxo",
         "p24",
         "pay_by_bank",
@@ -53558,6 +52898,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "promptpay",
         "revolut_pay",
         "samsung_pay",
+        "satispay",
         "sepa_debit",
         "sofort",
         "swish",
@@ -53661,6 +53002,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       bancontact: z.object({}).optional(),
+      billie: z.object({}).optional(),
       billing_details: z
         .object({
           address: z
@@ -53817,6 +53159,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
       naver_pay: z
         .object({ funding: z.enum(["card", "points"]).optional() })
         .optional(),
+      nz_bank_account: z
+        .object({
+          account_holder_name: z.string().max(5000).optional(),
+          account_number: z.string().max(5000),
+          bank_code: z.string().max(5000),
+          branch_code: z.string().max(5000),
+          reference: z.string().max(128).optional(),
+          suffix: z.string().max(5000),
+        })
+        .optional(),
       oxxo: z.object({}).optional(),
       p24: z
         .object({
@@ -53864,6 +53216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .optional(),
       revolut_pay: z.object({}).optional(),
       samsung_pay: z.object({}).optional(),
+      satispay: z.object({}).optional(),
       sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
       sofort: z
         .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -53881,6 +53234,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "au_becs_debit",
           "bacs_debit",
           "bancontact",
+          "billie",
           "blik",
           "boleto",
           "card",
@@ -53899,6 +53253,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "mobilepay",
           "multibanco",
           "naver_pay",
+          "nz_bank_account",
           "oxxo",
           "p24",
           "pay_by_bank",
@@ -53909,6 +53264,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
           "promptpay",
           "revolut_pay",
           "samsung_pay",
+          "satispay",
           "sepa_debit",
           "sofort",
           "swish",
@@ -54090,9 +53446,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       expand: z.array(z.string().max(5000)).optional(),
       link: z.object({}).optional(),
       metadata: z.union([z.record(z.string()), z.enum([""])]).optional(),
-      naver_pay: z
-        .object({ funding: z.enum(["card", "points"]).optional() })
-        .optional(),
       pay_by_bank: z.object({}).optional(),
       us_bank_account: z
         .object({
@@ -54762,9 +54115,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postPlansBodySchema = z.object({
     active: PermissiveBoolean.optional(),
-    aggregate_usage: z
-      .enum(["last_during_period", "last_ever", "max", "sum"])
-      .optional(),
     amount: z.coerce.number().optional(),
     amount_decimal: z.string().optional(),
     billing_scheme: z.enum(["per_unit", "tiered"]).optional(),
@@ -55191,9 +54541,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       .optional(),
     recurring: z
       .object({
-        aggregate_usage: z
-          .enum(["last_during_period", "last_ever", "max", "sum"])
-          .optional(),
         interval: z.enum(["day", "month", "week", "year"]),
         interval_count: z.coerce.number().optional(),
         meter: z.string().max(5000).optional(),
@@ -60081,6 +59428,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -60217,6 +59565,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -60263,6 +59621,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -60279,6 +59638,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -60296,6 +59656,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -60306,6 +59667,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -60661,6 +60023,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -60797,6 +60160,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -60843,6 +60216,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -60859,6 +60233,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -60876,6 +60251,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -60886,6 +60262,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -61257,6 +60634,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -61393,6 +60771,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -61439,6 +60827,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -61455,6 +60844,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -61472,6 +60862,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -61482,6 +60873,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -62108,6 +61500,69 @@ export function createRouter(implementation: Implementation): KoaRouter {
         status,
         body,
       )
+      ctx.status = status
+      return next()
+    },
+  )
+
+  const postSigmaSavedQueriesIdParamSchema = z.object({
+    id: z.string().max(5000),
+  })
+
+  const postSigmaSavedQueriesIdBodySchema = z
+    .object({
+      expand: z.array(z.string().max(5000)).optional(),
+      name: z.string().max(5000).optional(),
+      sql: z.string().max(100000).optional(),
+    })
+    .optional()
+
+  const postSigmaSavedQueriesIdResponseValidator = responseValidationFactory(
+    [["200", s_sigma_sigma_api_query]],
+    s_error,
+  )
+
+  router.post(
+    "postSigmaSavedQueriesId",
+    "/v1/sigma/saved_queries/:id",
+    async (ctx, next) => {
+      const input = {
+        params: parseRequestInput(
+          postSigmaSavedQueriesIdParamSchema,
+          ctx.params,
+          RequestInputType.RouteParam,
+        ),
+        query: undefined,
+        body: parseRequestInput(
+          postSigmaSavedQueriesIdBodySchema,
+          Reflect.get(ctx.request, "body"),
+          RequestInputType.RequestBody,
+        ),
+        headers: undefined,
+      }
+
+      const responder = {
+        with200() {
+          return new KoaRuntimeResponse<t_sigma_sigma_api_query>(200)
+        },
+        withDefault(status: StatusCode) {
+          return new KoaRuntimeResponse<t_error>(status)
+        },
+        withStatus(status: StatusCode) {
+          return new KoaRuntimeResponse(status)
+        },
+      }
+
+      const response = await implementation
+        .postSigmaSavedQueriesId(input, responder, ctx)
+        .catch((err) => {
+          throw KoaRuntimeError.HandlerError(err)
+        })
+
+      const { status, body } =
+        response instanceof KoaRuntimeResponse ? response.unpack() : response
+
+      ctx.body = postSigmaSavedQueriesIdResponseValidator(status, body)
       ctx.status = status
       return next()
     },
@@ -63025,9 +62480,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
   )
 
   const postSubscriptionItemsBodySchema = z.object({
-    billing_thresholds: z
-      .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-      .optional(),
     discounts: z
       .union([
         z.array(
@@ -63263,9 +62715,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
 
   const postSubscriptionItemsItemBodySchema = z
     .object({
-      billing_thresholds: z
-        .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-        .optional(),
       discounts: z
         .union([
           z.array(
@@ -63362,173 +62811,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
       ctx.body = postSubscriptionItemsItemResponseValidator(status, body)
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema =
-    z.object({ subscription_item: z.string() })
-
-  const getSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema =
-    z.object({
-      ending_before: z.string().max(5000).optional(),
-      expand: z
-        .preprocess(
-          (it: unknown) => (Array.isArray(it) || it === undefined ? it : [it]),
-          z.array(z.string().max(5000)),
-        )
-        .optional(),
-      limit: z.coerce.number().optional(),
-      starting_after: z.string().max(5000).optional(),
-    })
-
-  const getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema = z
-    .object({})
-    .optional()
-
-  const getSubscriptionItemsSubscriptionItemUsageRecordSummariesResponseValidator =
-    responseValidationFactory(
-      [
-        [
-          "200",
-          z.object({
-            data: z.array(s_usage_record_summary),
-            has_more: PermissiveBoolean,
-            object: z.enum(["list"]),
-            url: z.string().max(5000),
-          }),
-        ],
-      ],
-      s_error,
-    )
-
-  router.get(
-    "getSubscriptionItemsSubscriptionItemUsageRecordSummaries",
-    "/v1/subscription_items/:subscription_item/usage_record_summaries",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          getSubscriptionItemsSubscriptionItemUsageRecordSummariesParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: parseRequestInput(
-          getSubscriptionItemsSubscriptionItemUsageRecordSummariesQuerySchema,
-          ctx.query,
-          RequestInputType.QueryString,
-        ),
-        body: parseRequestInput(
-          getSubscriptionItemsSubscriptionItemUsageRecordSummariesBodySchema,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<{
-            data: t_usage_record_summary[]
-            has_more: boolean
-            object: "list"
-            url: string
-          }>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .getSubscriptionItemsSubscriptionItemUsageRecordSummaries(
-          input,
-          responder,
-          ctx,
-        )
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body =
-        getSubscriptionItemsSubscriptionItemUsageRecordSummariesResponseValidator(
-          status,
-          body,
-        )
-      ctx.status = status
-      return next()
-    },
-  )
-
-  const postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema = z.object(
-    { subscription_item: z.string() },
-  )
-
-  const postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema = z.object({
-    action: z.enum(["increment", "set"]).optional(),
-    expand: z.array(z.string().max(5000)).optional(),
-    quantity: z.coerce.number(),
-    timestamp: z.union([z.enum(["now"]), z.coerce.number()]).optional(),
-  })
-
-  const postSubscriptionItemsSubscriptionItemUsageRecordsResponseValidator =
-    responseValidationFactory([["200", s_usage_record]], s_error)
-
-  router.post(
-    "postSubscriptionItemsSubscriptionItemUsageRecords",
-    "/v1/subscription_items/:subscription_item/usage_records",
-    async (ctx, next) => {
-      const input = {
-        params: parseRequestInput(
-          postSubscriptionItemsSubscriptionItemUsageRecordsParamSchema,
-          ctx.params,
-          RequestInputType.RouteParam,
-        ),
-        query: undefined,
-        body: parseRequestInput(
-          postSubscriptionItemsSubscriptionItemUsageRecordsBodySchema,
-          Reflect.get(ctx.request, "body"),
-          RequestInputType.RequestBody,
-        ),
-        headers: undefined,
-      }
-
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_usage_record>(200)
-        },
-        withDefault(status: StatusCode) {
-          return new KoaRuntimeResponse<t_error>(status)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
-      const response = await implementation
-        .postSubscriptionItemsSubscriptionItemUsageRecords(
-          input,
-          responder,
-          ctx,
-        )
-        .catch((err) => {
-          throw KoaRuntimeError.HandlerError(err)
-        })
-
-      const { status, body } =
-        response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-      ctx.body =
-        postSubscriptionItemsSubscriptionItemUsageRecordsResponseValidator(
-          status,
-          body,
-        )
       ctx.status = status
       return next()
     },
@@ -63681,15 +62963,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-          billing_thresholds: z
-            .union([
-              z.object({
-                amount_gte: z.coerce.number().optional(),
-                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-              }),
-              z.enum([""]),
-            ])
-            .optional(),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -63774,19 +63047,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
-            billing_thresholds: z
-              .union([
-                z.object({
-                  amount_gte: z.coerce.number().optional(),
-                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                }),
-                z.enum([""]),
-              ])
-              .optional(),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
-            coupon: z.string().max(5000).optional(),
             currency: z.string().optional(),
             default_payment_method: z.string().max(5000).optional(),
             default_tax_rates: z
@@ -63824,12 +63087,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
             items: z.array(
               z.object({
-                billing_thresholds: z
-                  .union([
-                    z.object({ usage_gte: z.coerce.number() }),
-                    z.enum([""]),
-                  ])
-                  .optional(),
                 discounts: z
                   .union([
                     z.array(
@@ -64022,15 +63279,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           billing_cycle_anchor: z.enum(["automatic", "phase_start"]).optional(),
-          billing_thresholds: z
-            .union([
-              z.object({
-                amount_gte: z.coerce.number().optional(),
-                reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-              }),
-              z.enum([""]),
-            ])
-            .optional(),
           collection_method: z
             .enum(["charge_automatically", "send_invoice"])
             .optional(),
@@ -64114,19 +63362,9 @@ export function createRouter(implementation: Implementation): KoaRouter {
             billing_cycle_anchor: z
               .enum(["automatic", "phase_start"])
               .optional(),
-            billing_thresholds: z
-              .union([
-                z.object({
-                  amount_gte: z.coerce.number().optional(),
-                  reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-                }),
-                z.enum([""]),
-              ])
-              .optional(),
             collection_method: z
               .enum(["charge_automatically", "send_invoice"])
               .optional(),
-            coupon: z.string().max(5000).optional(),
             default_payment_method: z.string().max(5000).optional(),
             default_tax_rates: z
               .union([z.array(z.string().max(5000)), z.enum([""])])
@@ -64163,12 +63401,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
               .optional(),
             items: z.array(
               z.object({
-                billing_thresholds: z
-                  .union([
-                    z.object({ usage_gte: z.coerce.number() }),
-                    z.enum([""]),
-                  ])
-                  .optional(),
                 discounts: z
                   .union([
                     z.array(
@@ -64596,21 +63828,11 @@ export function createRouter(implementation: Implementation): KoaRouter {
         second: z.coerce.number().optional(),
       })
       .optional(),
-    billing_thresholds: z
-      .union([
-        z.object({
-          amount_gte: z.coerce.number().optional(),
-          reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-        }),
-        z.enum([""]),
-      ])
-      .optional(),
     cancel_at: z.coerce.number().optional(),
     cancel_at_period_end: PermissiveBoolean.optional(),
     collection_method: z
       .enum(["charge_automatically", "send_invoice"])
       .optional(),
-    coupon: z.string().max(5000).optional(),
     currency: z.string().optional(),
     customer: z.string().max(5000),
     days_until_due: z.coerce.number().optional(),
@@ -64649,9 +63871,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     items: z
       .array(
         z.object({
-          billing_thresholds: z
-            .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-            .optional(),
           discounts: z
             .union([
               z.array(
@@ -64842,11 +64061,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                 "ideal",
                 "jp_credit_transfer",
                 "kakao_pay",
+                "klarna",
                 "konbini",
                 "kr_card",
                 "link",
                 "multibanco",
                 "naver_pay",
+                "nz_bank_account",
                 "p24",
                 "payco",
                 "paynow",
@@ -64878,7 +64099,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         z.enum([""]),
       ])
       .optional(),
-    promotion_code: z.string().max(5000).optional(),
     proration_behavior: z
       .enum(["always_invoice", "create_prorations", "none"])
       .optional(),
@@ -65234,15 +64454,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
         })
         .optional(),
       billing_cycle_anchor: z.enum(["now", "unchanged"]).optional(),
-      billing_thresholds: z
-        .union([
-          z.object({
-            amount_gte: z.coerce.number().optional(),
-            reset_billing_cycle_anchor: PermissiveBoolean.optional(),
-          }),
-          z.enum([""]),
-        ])
-        .optional(),
       cancel_at: z.union([z.coerce.number(), z.enum([""])]).optional(),
       cancel_at_period_end: PermissiveBoolean.optional(),
       cancellation_details: z
@@ -65266,7 +64477,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       collection_method: z
         .enum(["charge_automatically", "send_invoice"])
         .optional(),
-      coupon: z.string().max(5000).optional(),
       days_until_due: z.coerce.number().optional(),
       default_payment_method: z.string().max(5000).optional(),
       default_source: z.union([z.string().max(5000), z.enum([""])]).optional(),
@@ -65303,9 +64513,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
       items: z
         .array(
           z.object({
-            billing_thresholds: z
-              .union([z.object({ usage_gte: z.coerce.number() }), z.enum([""])])
-              .optional(),
             clear_usage: PermissiveBoolean.optional(),
             deleted: PermissiveBoolean.optional(),
             discounts: z
@@ -65508,11 +64715,13 @@ export function createRouter(implementation: Implementation): KoaRouter {
                   "ideal",
                   "jp_credit_transfer",
                   "kakao_pay",
+                  "klarna",
                   "konbini",
                   "kr_card",
                   "link",
                   "multibanco",
                   "naver_pay",
+                  "nz_bank_account",
                   "p24",
                   "payco",
                   "paynow",
@@ -65544,7 +64753,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
           z.enum([""]),
         ])
         .optional(),
-      promotion_code: z.string().max(5000).optional(),
       proration_behavior: z
         .enum(["always_invoice", "create_prorations", "none"])
         .optional(),
@@ -68234,6 +67442,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
           splashscreen: z.union([z.string(), z.enum([""])]).optional(),
         })
         .optional(),
+      wifi: z
+        .union([
+          z.object({
+            enterprise_eap_peap: z
+              .object({
+                ca_certificate_file: z.string().optional(),
+                password: z.string().max(5000),
+                ssid: z.string().max(5000),
+                username: z.string().max(5000),
+              })
+              .optional(),
+            enterprise_eap_tls: z
+              .object({
+                ca_certificate_file: z.string().optional(),
+                client_certificate_file: z.string(),
+                private_key_file: z.string(),
+                private_key_file_password: z.string().max(5000).optional(),
+                ssid: z.string().max(5000),
+              })
+              .optional(),
+            personal_psk: z
+              .object({
+                password: z.string().max(63),
+                ssid: z.string().max(5000),
+              })
+              .optional(),
+            type: z.enum([
+              "enterprise_eap_peap",
+              "enterprise_eap_tls",
+              "personal_psk",
+            ]),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
     })
     .optional()
 
@@ -68592,6 +67835,41 @@ export function createRouter(implementation: Implementation): KoaRouter {
         .union([
           z.object({
             splashscreen: z.union([z.string(), z.enum([""])]).optional(),
+          }),
+          z.enum([""]),
+        ])
+        .optional(),
+      wifi: z
+        .union([
+          z.object({
+            enterprise_eap_peap: z
+              .object({
+                ca_certificate_file: z.string().optional(),
+                password: z.string().max(5000),
+                ssid: z.string().max(5000),
+                username: z.string().max(5000),
+              })
+              .optional(),
+            enterprise_eap_tls: z
+              .object({
+                ca_certificate_file: z.string().optional(),
+                client_certificate_file: z.string(),
+                private_key_file: z.string(),
+                private_key_file_password: z.string().max(5000).optional(),
+                ssid: z.string().max(5000),
+              })
+              .optional(),
+            personal_psk: z
+              .object({
+                password: z.string().max(63),
+                ssid: z.string().max(5000),
+              })
+              .optional(),
+            type: z.enum([
+              "enterprise_eap_peap",
+              "enterprise_eap_tls",
+              "personal_psk",
+            ]),
           }),
           z.enum([""]),
         ])
@@ -69798,6 +69076,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             })
             .optional(),
           bancontact: z.object({}).optional(),
+          billie: z.object({}).optional(),
           billing_details: z
             .object({
               address: z
@@ -69934,6 +69213,16 @@ export function createRouter(implementation: Implementation): KoaRouter {
           naver_pay: z
             .object({ funding: z.enum(["card", "points"]).optional() })
             .optional(),
+          nz_bank_account: z
+            .object({
+              account_holder_name: z.string().max(5000).optional(),
+              account_number: z.string().max(5000),
+              bank_code: z.string().max(5000),
+              branch_code: z.string().max(5000),
+              reference: z.string().max(128).optional(),
+              suffix: z.string().max(5000),
+            })
+            .optional(),
           oxxo: z.object({}).optional(),
           p24: z
             .object({
@@ -69980,6 +69269,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             .optional(),
           revolut_pay: z.object({}).optional(),
           samsung_pay: z.object({}).optional(),
+          satispay: z.object({}).optional(),
           sepa_debit: z.object({ iban: z.string().max(5000) }).optional(),
           sofort: z
             .object({ country: z.enum(["AT", "BE", "DE", "ES", "IT", "NL"]) })
@@ -69996,6 +69286,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "au_becs_debit",
             "bacs_debit",
             "bancontact",
+            "billie",
             "blik",
             "boleto",
             "cashapp",
@@ -70013,6 +69304,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "mobilepay",
             "multibanco",
             "naver_pay",
+            "nz_bank_account",
             "oxxo",
             "p24",
             "pay_by_bank",
@@ -70023,6 +69315,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "promptpay",
             "revolut_pay",
             "samsung_pay",
+            "satispay",
             "sepa_debit",
             "sofort",
             "swish",
@@ -71768,11 +71061,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     clearing_date: z.coerce.number(),
     currency: z.string(),
     expand: z.array(z.string().max(5000)).optional(),
-    interchange_fees: z.coerce.number().optional(),
-    net_total: z.coerce.number(),
+    interchange_fees_amount: z.coerce.number().optional(),
+    net_total_amount: z.coerce.number(),
+    network: z.enum(["maestro", "visa"]).optional(),
     network_settlement_identifier: z.string().max(5000).optional(),
+    transaction_amount: z.coerce.number().optional(),
     transaction_count: z.coerce.number().optional(),
-    transaction_volume: z.coerce.number().optional(),
   })
 
   const postTestHelpersIssuingSettlementsResponseValidator =
@@ -78500,6 +77794,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "2024-12-18.acacia",
         "2025-01-27.acacia",
         "2025-02-24.acacia",
+        "2025-03-01.dashboard",
+        "2025-03-31.basil",
       ])
       .optional(),
     connect: PermissiveBoolean.optional(),
@@ -78596,6 +77892,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
         "invoice.finalized",
         "invoice.marked_uncollectible",
         "invoice.overdue",
+        "invoice.overpaid",
         "invoice.paid",
         "invoice.payment_action_required",
         "invoice.payment_failed",
@@ -79032,6 +78329,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
             "invoice.finalized",
             "invoice.marked_uncollectible",
             "invoice.overdue",
+            "invoice.overpaid",
             "invoice.paid",
             "invoice.payment_action_required",
             "invoice.payment_failed",

@@ -640,6 +640,28 @@ export type t_branch_with_protection = {
   required_approving_review_count?: number
 }
 
+export type t_campaign_state = "open" | "closed"
+
+export type t_campaign_summary = {
+  alert_stats?: {
+    closed_count: number
+    in_progress_count: number
+    open_count: number
+  }
+  closed_at?: string | null
+  contact_link: string | null
+  created_at: string
+  description: string
+  ends_at: string
+  managers: t_simple_user[]
+  name?: string
+  number: number
+  published_at?: string
+  state: t_campaign_state
+  team_managers?: t_team[]
+  updated_at: string
+}
+
 export type t_check_annotation = {
   annotation_level: string | null
   blob_href: string
@@ -1143,6 +1165,7 @@ export type t_code_scanning_variant_analysis_language =
   | "javascript"
   | "python"
   | "ruby"
+  | "rust"
   | "swift"
 
 export type t_code_scanning_variant_analysis_repo_task = {
@@ -1195,7 +1218,11 @@ export type t_code_search_result_item = {
 }
 
 export type t_code_security_configuration = {
-  advanced_security?: "enabled" | "disabled"
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: {
     runner_label?: string | null
@@ -1858,7 +1885,7 @@ export type t_copilot_organization_seat_breakdown = {
 }
 
 export type t_copilot_seat_details = {
-  assignee: t_simple_user
+  assignee?: t_nullable_simple_user
   assigning_team?: t_team | t_enterprise_team | null
   created_at: string
   last_activity_at?: string | null
@@ -1867,30 +1894,6 @@ export type t_copilot_seat_details = {
   pending_cancellation_date?: string | null
   plan_type?: "business" | "enterprise" | "unknown"
   updated_at?: string
-}
-
-export type t_copilot_usage_metrics = {
-  breakdown:
-    | {
-        acceptances_count?: number
-        active_users?: number
-        editor?: string
-        language?: string
-        lines_accepted?: number
-        lines_suggested?: number
-        suggestions_count?: number
-        [key: string]: unknown | undefined
-      }[]
-    | null
-  day: string
-  total_acceptances_count?: number
-  total_active_chat_users?: number
-  total_active_users?: number
-  total_chat_acceptances?: number
-  total_chat_turns?: number
-  total_lines_accepted?: number
-  total_lines_suggested?: number
-  total_suggestions_count?: number
 }
 
 export type t_copilot_usage_metrics_day = {
@@ -2736,15 +2739,15 @@ export type t_git_tag = {
 export type t_git_tree = {
   sha: string
   tree: {
-    mode?: string
-    path?: string
-    sha?: string
+    mode: string
+    path: string
+    sha: string
     size?: number
-    type?: string
+    type: string
     url?: string
   }[]
   truncated: boolean
-  url: string
+  url?: string
 }
 
 export type t_gitignore_template = {
@@ -3092,6 +3095,7 @@ export type t_issue = {
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -3238,10 +3242,31 @@ export type t_issue_search_result_item = {
   text_matches?: t_search_result_text_matches
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
 }
+
+export type t_issue_type = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | null
+  created_at?: string
+  description: string | null
+  id: number
+  is_enabled?: boolean
+  name: string
+  node_id: string
+  updated_at?: string
+} | null
 
 export type t_job = {
   check_run_url: string
@@ -3826,6 +3851,7 @@ export type t_nullable_issue = {
   sub_issues_summary?: t_sub_issues_summary
   timeline_url?: string
   title: string
+  type?: t_issue_type
   updated_at: string
   url: string
   user: t_nullable_simple_user
@@ -5614,30 +5640,10 @@ export type t_repository_rule =
   | t_repository_rule_committer_email_pattern
   | t_repository_rule_branch_name_pattern
   | t_repository_rule_tag_name_pattern
-  | {
-      parameters?: {
-        restricted_file_paths: string[]
-      }
-      type: "file_path_restriction"
-    }
-  | {
-      parameters?: {
-        max_file_path_length: number
-      }
-      type: "max_file_path_length"
-    }
-  | {
-      parameters?: {
-        restricted_file_extensions: string[]
-      }
-      type: "file_extension_restriction"
-    }
-  | {
-      parameters?: {
-        max_file_size: number
-      }
-      type: "max_file_size"
-    }
+  | t_repository_rule_file_path_restriction
+  | t_repository_rule_max_file_path_length
+  | t_repository_rule_file_extension_restriction
+  | t_repository_rule_max_file_size
   | t_repository_rule_workflows
   | t_repository_rule_code_scanning
 
@@ -5713,10 +5719,43 @@ export type t_repository_rule_detailed =
   | (t_repository_rule_committer_email_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_branch_name_pattern & t_repository_rule_ruleset_info)
   | (t_repository_rule_tag_name_pattern & t_repository_rule_ruleset_info)
+  | (t_repository_rule_file_path_restriction & t_repository_rule_ruleset_info)
+  | (t_repository_rule_max_file_path_length & t_repository_rule_ruleset_info)
+  | (t_repository_rule_file_extension_restriction &
+      t_repository_rule_ruleset_info)
+  | (t_repository_rule_max_file_size & t_repository_rule_ruleset_info)
   | (t_repository_rule_workflows & t_repository_rule_ruleset_info)
   | (t_repository_rule_code_scanning & t_repository_rule_ruleset_info)
 
 export type t_repository_rule_enforcement = "disabled" | "active" | "evaluate"
+
+export type t_repository_rule_file_extension_restriction = {
+  parameters?: {
+    restricted_file_extensions: string[]
+  }
+  type: "file_extension_restriction"
+}
+
+export type t_repository_rule_file_path_restriction = {
+  parameters?: {
+    restricted_file_paths: string[]
+  }
+  type: "file_path_restriction"
+}
+
+export type t_repository_rule_max_file_path_length = {
+  parameters?: {
+    max_file_path_length: number
+  }
+  type: "max_file_path_length"
+}
+
+export type t_repository_rule_max_file_size = {
+  parameters?: {
+    max_file_size: number
+  }
+  type: "max_file_size"
+}
 
 export type t_repository_rule_merge_queue = {
   parameters?: {
@@ -5760,7 +5799,8 @@ export type t_repository_rule_params_workflow_file_reference = {
 
 export type t_repository_rule_pull_request = {
   parameters?: {
-    allowed_merge_methods?: string[]
+    allowed_merge_methods?: ("merge" | "squash" | "rebase")[]
+    automatic_copilot_code_review_enabled?: boolean
     dismiss_stale_reviews_on_push: boolean
     require_code_owner_review: boolean
     require_last_push_approval: boolean
@@ -6364,6 +6404,9 @@ export type t_security_advisory_epss = {
 
 export type t_security_and_analysis = {
   advanced_security?: {
+    status?: "enabled" | "disabled"
+  }
+  code_security?: {
     status?: "enabled" | "disabled"
   }
   dependabot_security_updates?: {
@@ -9274,6 +9317,61 @@ export type t_BillingGetSharedStorageBillingUserParamSchema = {
   username: string
 }
 
+export type t_CampaignsCreateCampaignBodySchema = {
+  code_scanning_alerts: {
+    alert_numbers: number[]
+    repository_id: number
+  }[]
+  contact_link?: string | null
+  description: string
+  ends_at: string
+  generate_issues?: boolean
+  managers?: string[]
+  name: string
+  team_managers?: string[]
+}
+
+export type t_CampaignsCreateCampaignParamSchema = {
+  org: string
+}
+
+export type t_CampaignsDeleteCampaignParamSchema = {
+  campaign_number: number
+  org: string
+}
+
+export type t_CampaignsGetCampaignSummaryParamSchema = {
+  campaign_number: number
+  org: string
+}
+
+export type t_CampaignsListOrgCampaignsParamSchema = {
+  org: string
+}
+
+export type t_CampaignsListOrgCampaignsQuerySchema = {
+  direction?: "asc" | "desc"
+  page?: number
+  per_page?: number
+  sort?: "created" | "updated" | "ends_at" | "published"
+  state?: t_campaign_state
+}
+
+export type t_CampaignsUpdateCampaignBodySchema = {
+  contact_link?: string | null
+  description?: string
+  ends_at?: string
+  managers?: string[]
+  name?: string
+  state?: t_campaign_state
+  team_managers?: string[]
+}
+
+export type t_CampaignsUpdateCampaignParamSchema = {
+  campaign_number: number
+  org: string
+}
+
 export type t_ChecksCreateBodySchema =
   | {
       status: EmptyObject
@@ -9715,7 +9813,11 @@ export type t_CodeSecurityAttachEnterpriseConfigurationParamSchema = {
 }
 
 export type t_CodeSecurityCreateConfigurationBodySchema = {
-  advanced_security?: "enabled" | "disabled"
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
@@ -9750,7 +9852,11 @@ export type t_CodeSecurityCreateConfigurationParamSchema = {
 }
 
 export type t_CodeSecurityCreateConfigurationForEnterpriseBodySchema = {
-  advanced_security?: "enabled" | "disabled"
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
@@ -9884,7 +9990,11 @@ export type t_CodeSecuritySetConfigurationAsDefaultForEnterpriseParamSchema = {
 }
 
 export type t_CodeSecurityUpdateConfigurationBodySchema = {
-  advanced_security?: "enabled" | "disabled"
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
@@ -9920,7 +10030,11 @@ export type t_CodeSecurityUpdateConfigurationParamSchema = {
 }
 
 export type t_CodeSecurityUpdateEnterpriseConfigurationBodySchema = {
-  advanced_security?: "enabled" | "disabled"
+  advanced_security?:
+    | "enabled"
+    | "disabled"
+    | "code_security"
+    | "secret_protection"
   code_scanning_default_setup?: "enabled" | "disabled" | "not_set"
   code_scanning_default_setup_options?: t_code_scanning_default_setup_options
   code_scanning_delegated_alert_dismissal?: "enabled" | "disabled" | "not_set"
@@ -10410,29 +10524,6 @@ export type t_CopilotListCopilotSeatsParamSchema = {
 export type t_CopilotListCopilotSeatsQuerySchema = {
   page?: number
   per_page?: number
-}
-
-export type t_CopilotUsageMetricsForOrgParamSchema = {
-  org: string
-}
-
-export type t_CopilotUsageMetricsForOrgQuerySchema = {
-  page?: number
-  per_page?: number
-  since?: string
-  until?: string
-}
-
-export type t_CopilotUsageMetricsForTeamParamSchema = {
-  org: string
-  team_slug: string
-}
-
-export type t_CopilotUsageMetricsForTeamQuerySchema = {
-  page?: number
-  per_page?: number
-  since?: string
-  until?: string
 }
 
 export type t_DependabotAddSelectedRepoToOrgSecretParamSchema = {
@@ -11098,6 +11189,7 @@ export type t_IssuesCreateBodySchema = {
   )[]
   milestone?: string | number | null
   title: string | number
+  type?: string | null
 }
 
 export type t_IssuesCreateParamSchema = {
@@ -11292,6 +11384,7 @@ export type t_IssuesListForOrgQuerySchema = {
   since?: string
   sort?: "created" | "updated" | "comments"
   state?: "open" | "closed" | "all"
+  type?: string
 }
 
 export type t_IssuesListForRepoParamSchema = {
@@ -11311,6 +11404,7 @@ export type t_IssuesListForRepoQuerySchema = {
   since?: string
   sort?: "created" | "updated" | "comments"
   state?: "open" | "closed" | "all"
+  type?: string
 }
 
 export type t_IssuesListLabelsForMilestoneParamSchema = {
@@ -11468,6 +11562,7 @@ export type t_IssuesUpdateBodySchema = {
   state?: "open" | "closed"
   state_reason?: "completed" | "not_planned" | "reopened" | null
   title?: string | number | null
+  type?: string | null
 }
 
 export type t_IssuesUpdateParamSchema = {
@@ -11793,6 +11888,26 @@ export type t_OrgsCreateInvitationParamSchema = {
   org: string
 }
 
+export type t_OrgsCreateIssueTypeBodySchema = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | null
+  description?: string | null
+  is_enabled: boolean
+  name: string
+}
+
+export type t_OrgsCreateIssueTypeParamSchema = {
+  org: string
+}
+
 export type t_OrgsCreateOrUpdateCustomPropertiesBodySchema = {
   properties: t_custom_property[]
 }
@@ -11816,6 +11931,7 @@ export type t_OrgsCreateOrUpdateCustomPropertyBodySchema = {
   description?: string | null
   required?: boolean
   value_type: "string" | "single_select" | "multi_select" | "true_false"
+  values_editable_by?: "org_actors" | "org_and_repo_actors" | null
 }
 
 export type t_OrgsCreateOrUpdateCustomPropertyParamSchema = {
@@ -11842,6 +11958,11 @@ export type t_OrgsCreateWebhookParamSchema = {
 }
 
 export type t_OrgsDeleteParamSchema = {
+  org: string
+}
+
+export type t_OrgsDeleteIssueTypeParamSchema = {
+  issue_type_id: number
   org: string
 }
 
@@ -12002,6 +12123,10 @@ export type t_OrgsListInvitationTeamsParamSchema = {
 export type t_OrgsListInvitationTeamsQuerySchema = {
   page?: number
   per_page?: number
+}
+
+export type t_OrgsListIssueTypesParamSchema = {
+  org: string
 }
 
 export type t_OrgsListMembersParamSchema = {
@@ -12293,6 +12418,27 @@ export type t_OrgsUpdateBodySchema = {
 }
 
 export type t_OrgsUpdateParamSchema = {
+  org: string
+}
+
+export type t_OrgsUpdateIssueTypeBodySchema = {
+  color?:
+    | "gray"
+    | "blue"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | null
+  description?: string | null
+  is_enabled: boolean
+  name: string
+}
+
+export type t_OrgsUpdateIssueTypeParamSchema = {
+  issue_type_id: number
   org: string
 }
 
@@ -15146,6 +15292,9 @@ export type t_ReposUpdateBodySchema = {
   private?: boolean
   security_and_analysis?: {
     advanced_security?: {
+      status?: string
+    }
+    code_security?: {
       status?: string
     }
     secret_scanning?: {
