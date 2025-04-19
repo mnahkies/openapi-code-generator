@@ -11,6 +11,7 @@
   "files": {
     "ignore": [
       "integration-tests/**/generated/*",
+      "integration-tests/typescript-nextjs/src/app/**/*",
       "integration-tests-definitions/**/*",
       "e2e/src/generated/**/*",
       "schemas/*.json",
@@ -42,6 +43,7 @@
       "packages/openapi-code-generator/src/core/schemas/openapi-3.0-specification-validator.js",
       "packages/openapi-code-generator/src/core/schemas/openapi-3.1-specification-validator.js",
       "integration-tests/**/generated/*",
+      "integration-tests/typescript-nextjs/src/app/**/*",
       "integration-tests-definitions/**/*",
       "e2e/src/generated/**/*",
       "schemas/*.json",
