@@ -3,6 +3,12 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [0.19.2](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.1...v0.19.2) (2025-04-19)
+
+### Bug Fixes
+
+- dynamically require prettier ([#314](https://github.com/mnahkies/openapi-code-generator/issues/314)) ([4005711](https://github.com/mnahkies/openapi-code-generator/commit/4005711790d8d4f3c83296ed844dda17a188117a))
+
 ## [0.19.1](https://github.com/mnahkies/openapi-code-generator/compare/v0.19.0...v0.19.1) (2025-04-18)
 
 ### Bug Fixes
