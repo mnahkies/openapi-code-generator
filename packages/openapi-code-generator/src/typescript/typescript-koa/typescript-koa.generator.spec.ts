@@ -5,7 +5,7 @@ import {ImportBuilder} from "../common/import-builder"
 import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
 import {TypeBuilder} from "../common/type-builder"
 import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome"
-import {ServerRouterBuilder} from "./typescript-koa.generator"
+import {KoaServerRouterBuilder} from "./typescript-koa.generator"
 
 describe("typescript/typescript-koa", () => {
   describe("ServerRouterBuilder#implementationExport", () => {
@@ -65,7 +65,7 @@ describe("typescript/typescript-koa", () => {
         "zod",
         {allowAny: true},
       )
-      const serverRouterBuilder = new ServerRouterBuilder(
+      const serverRouterBuilder = new KoaServerRouterBuilder(
         "unit-test.ts",
         "unit-test",
         input,

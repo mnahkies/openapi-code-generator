@@ -6,7 +6,7 @@ import {CompilationUnit, type ICompilable} from "./compilation-units"
 import type {ImportBuilder} from "./import-builder"
 import type {SchemaBuilder} from "./schema-builders/schema-builder"
 import type {TypeBuilder} from "./type-builder"
-import {quotedStringLiteral, union} from "./type-utils"
+import {union} from "./type-utils"
 
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []

@@ -1,22 +1,12 @@
 // biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
 import path from "path"
 import type {Input} from "../../core/input"
-import type {
-  IRModelObject,
-  IROperation,
-  IRParameter,
-} from "../../core/openapi-types-normalized"
-import {
-  identifier,
-  isDefined,
-  normalizeFilename,
-  titleCase,
-  upperFirst,
-} from "../../core/utils"
+import {isDefined, normalizeFilename, titleCase} from "../../core/utils"
 import type {
   OpenapiTypescriptGeneratorConfig,
   ServerImplementationMethod,
 } from "../../templates.types"
+import {AbstractServerRouterBuilder} from "../common/abstract-server-router-builder"
 import {CompilationUnit, type ICompilable} from "../common/compilation-units"
 import {ImportBuilder} from "../common/import-builder"
 import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
@@ -25,40 +15,23 @@ import {
   schemaBuilderFactory,
 } from "../common/schema-builders/schema-builder"
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
+import type {ServerOperationBuilder} from "../common/server-operation-builder"
 import {TypeBuilder} from "../common/type-builder"
 import {intersect, object} from "../common/type-utils"
-import {
-  buildExport,
-  requestBodyAsParameter,
-  statusStringToType,
-} from "../common/typescript-common"
+import {buildExport} from "../common/typescript-common"
 
-function reduceParamsToOpenApiSchema(parameters: IRParameter[]): IRModelObject {
-  return parameters.reduce(
-    (model, parameter) => {
-      model.properties[parameter.name] = parameter.schema
-
-      if (parameter.required) {
-        model.required.push(parameter.name)
-      }
-
-      return model
-    },
-    {
-      type: "object",
-      properties: {},
-      required: [],
-      oneOf: [],
-      allOf: [],
-      anyOf: [],
-      additionalProperties: false,
-      nullable: false,
-      readOnly: false,
-    } as IRModelObject,
-  )
+export type ServerSymbols = {
+  implPropName: string
+  typeName: string
+  responderName: string
+  paramSchema: string
+  querySchema: string
+  requestBodySchema: string
+  requestHeaderSchema: string
+  responseBodyValidator: string
 }
 
-export class ServerRouterBuilder implements ICompilable {
+export class KoaServerRouterBuilder extends AbstractServerRouterBuilder {
   private readonly statements: string[] = []
   private readonly operationTypes: {
     operationId: string
@@ -66,14 +39,18 @@ export class ServerRouterBuilder implements ICompilable {
   }[] = []
 
   constructor(
-    public readonly filename: string,
-    private readonly name: string,
-    private readonly input: Input,
-    private readonly imports: ImportBuilder,
-    public readonly types: TypeBuilder,
-    public readonly schemaBuilder: SchemaBuilder,
+    filename: string,
+    name: string,
+    input: Input,
+    imports: ImportBuilder,
+    types: TypeBuilder,
+    schemaBuilder: SchemaBuilder,
     private readonly implementationMethod: ServerImplementationMethod,
   ) {
+    super(filename, name, input, imports, types, schemaBuilder)
+  }
+
+  protected buildImports(): void {
     // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
@@ -98,180 +75,59 @@ export class ServerRouterBuilder implements ICompilable {
     this.imports.addModule("KoaRouter", "@koa/router")
     this.imports.from("@koa/router").add("RouterContext")
 
-    if (schemaBuilder instanceof ZodBuilder) {
-      imports
+    if (this.schemaBuilder instanceof ZodBuilder) {
+      this.imports
         .from("@nahkies/typescript-koa-runtime/zod")
         .add("parseRequestInput", "responseValidationFactory")
-    } else if (schemaBuilder instanceof JoiBuilder) {
-      imports
+    } else if (this.schemaBuilder instanceof JoiBuilder) {
+      this.imports
         .from("@nahkies/typescript-koa-runtime/joi")
         .add("parseRequestInput", "responseValidationFactory")
     }
   }
 
-  add(operation: IROperation): void {
-    const symbols = this.operationSymbolNames(operation.operationId)
-    const types = this.types
-    const schemaBuilder = this.schemaBuilder
+  private addParameterSchemaStatement(symbolName: string, schema: string) {
+    this.statements.push(`const ${symbolName} = ${schema}`)
+  }
 
-    const pathParams = operation.parameters.filter((it) => it.in === "path")
-    const paramSchema = pathParams.length
-      ? schemaBuilder.fromParameters(pathParams)
-      : undefined
-    let pathParamsType = "void"
+  protected buildOperation(builder: ServerOperationBuilder): void {
+    const symbols = this.operationSymbolNames(builder.operationId)
+    const params = builder.parameters(symbols)
 
-    const queryParams = operation.parameters.filter((it) => it.in === "query")
-    const querySchema = queryParams.length
-      ? schemaBuilder.fromParameters(queryParams)
-      : undefined
-    let queryParamsType = "void"
-
-    const headerParams = operation.parameters
-      .filter((it) => it.in === "header")
-      .map((it) => ({...it, name: it.name.toLowerCase()}))
-    const headerSchema = headerParams.length
-      ? schemaBuilder.fromParameters(headerParams)
-      : undefined
-
-    let headerParamsType = "void"
-
-    const {requestBodyParameter} = requestBodyAsParameter(operation)
-    const bodyParamIsRequired = Boolean(requestBodyParameter?.required)
-    const bodyParamSchema = requestBodyParameter
-      ? schemaBuilder.fromModel(
-          requestBodyParameter.schema,
-          requestBodyParameter.required,
-          true,
-        )
-      : undefined
-    let bodyParamsType = "void"
-
-    if (paramSchema) {
-      pathParamsType = types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          operation.operationId,
-          upperFirst(symbols.paramSchema),
-          reduceParamsToOpenApiSchema(pathParams),
-        ),
+    if (params.path.schema) {
+      this.addParameterSchemaStatement(symbols.paramSchema, params.path.schema)
+    }
+    if (params.query.schema) {
+      this.addParameterSchemaStatement(symbols.querySchema, params.query.schema)
+    }
+    if (params.header.schema) {
+      this.addParameterSchemaStatement(
+        symbols.requestHeaderSchema,
+        params.header.schema,
       )
-      this.statements.push(
-        `const ${symbols.paramSchema} = ${paramSchema.toString()}`,
+    }
+    if (params.body.schema) {
+      this.addParameterSchemaStatement(
+        symbols.requestBodySchema,
+        params.body.schema,
       )
     }
 
-    if (querySchema) {
-      queryParamsType = types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          operation.operationId,
-          upperFirst(symbols.querySchema),
-          reduceParamsToOpenApiSchema(queryParams),
-        ),
-      )
-      this.statements.push(
-        `const ${symbols.querySchema} = ${querySchema.toString()}`,
-      )
-    }
-
-    if (headerSchema) {
-      headerParamsType = types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          operation.operationId,
-          upperFirst(symbols.requestHeaderSchema),
-          reduceParamsToOpenApiSchema(headerParams),
-        ),
-      )
-      this.statements.push(
-        `const ${symbols.requestHeaderSchema} = ${headerSchema.toString()}`,
-      )
-    }
-
-    if (bodyParamSchema && requestBodyParameter) {
-      bodyParamsType = types.schemaObjectToType(
-        this.input.loader.addVirtualType(
-          operation.operationId,
-          upperFirst(symbols.requestBodySchema),
-          this.input.schema(requestBodyParameter.schema),
-        ),
-      )
-      this.statements.push(
-        `const ${symbols.requestBodySchema} = ${bodyParamSchema}`,
-      )
-    }
-
-    const responseSchemas = Object.entries(operation.responses ?? {}).reduce(
-      (acc, [status, response]) => {
-        const content = Object.values(response.content ?? {}).pop()
-
-        if (status === "default") {
-          acc.defaultResponse = {
-            schema: content
-              ? schemaBuilder.fromModel(content.schema, true, true)
-              : schemaBuilder.void(),
-            type: content ? types.schemaObjectToType(content.schema) : "void",
-          }
-        } else {
-          acc.specific.push({
-            statusString: status,
-            statusType: statusStringToType(status),
-            type: content ? types.schemaObjectToType(content.schema) : "void",
-            schema: content
-              ? schemaBuilder.fromModel(content.schema, true, true)
-              : schemaBuilder.void(),
-            isWildCard: /^\d[xX]{2}$/.test(status),
-          })
-        }
-
-        return acc
-      },
-      {specific: [], defaultResponse: undefined} as {
-        specific: {
-          statusString: string
-          statusType: string
-          schema: string
-          type: string
-          isWildCard: boolean
-        }[]
-        defaultResponse?:
-          | {
-              type: string
-              schema: string
-            }
-          | undefined
-      },
-    )
+    const responseSchemas = builder.responseSchemas()
+    const responder = builder.responder()
 
     this.operationTypes.push({
-      operationId: operation.operationId,
+      operationId: builder.operationId,
       statements: [
         buildExport({
           name: symbols.responderName,
-          value: intersect(
-            object([
-              ...responseSchemas.specific.map((it) =>
-                it.isWildCard
-                  ? `with${it.statusType}(status: ${it.statusType}): KoaRuntimeResponse<${it.type}>`
-                  : `with${it.statusType}(): KoaRuntimeResponse<${it.type}>`,
-              ),
-              responseSchemas.defaultResponse &&
-                `withDefault(status: StatusCode): KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>`,
-            ]),
-            "KoaRuntimeResponder",
-          ),
+          value: responder.type,
           kind: "type",
         }),
         buildExport({
           name: symbols.typeName,
           value: `(
-                    params: Params<
-                      ${pathParamsType},
-                      ${queryParamsType},
-                      ${
-                        bodyParamsType +
-                        (bodyParamsType === "void" || bodyParamIsRequired
-                          ? ""
-                          : " | undefined")
-                      },
-                      ${headerParamsType}>,
+                    params: ${params.type},
                     respond: ${symbols.responderName},
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
@@ -288,74 +144,31 @@ export class ServerRouterBuilder implements ICompilable {
       ],
     })
 
-    this.statements.push(
-      [
-        `const ${symbols.responseBodyValidator} = responseValidationFactory([${responseSchemas.specific.map(
-          (it) => `["${it.statusString}", ${it.schema}]`,
-        )}
-      ], ${responseSchemas.defaultResponse?.schema})`,
-        "",
-        `router.${operation.method.toLowerCase()}('${
-          symbols.implPropName
-        }','${route(operation.route)}',`,
-        `async (ctx, next) => {
+    this.statements.push(`
+const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
-       const input = {
-        params: ${
-          paramSchema
-            ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)`
-            : "undefined"
-        },
-        query: ${
-          querySchema
-            ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)`
-            : "undefined"
-        },
-        body: ${
-          bodyParamSchema
-            ? `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)`
-            : "undefined"
-        },
-        headers: ${
-          headerSchema
-            ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)`
-            : "undefined"
-        }
-       }
+router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builder.route)}', async (ctx, next) => {
+   const input = {
+    params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
+    query: ${params.query.schema ? `parseRequestInput(${symbols.querySchema}, ctx.query, RequestInputType.QueryString)` : "undefined"},
+    body: ${params.body.schema ? `parseRequestInput(${symbols.requestBodySchema}, Reflect.get(ctx.request, "body"), RequestInputType.RequestBody)` : "undefined"},
+    headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
+   }
 
-      const responder = {${[
-        ...responseSchemas.specific.map((it) =>
-          it.isWildCard
-            ? `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
-            : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`,
-        ),
-        responseSchemas.defaultResponse &&
-          `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${responseSchemas.defaultResponse.type}>(status) }`,
-        "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
-      ]
-        .filter(Boolean)
-        .join(",\n")}}
+   const responder = ${responder.implementation}
 
-      const response = await implementation.${symbols.implPropName}(input, responder, ctx)
-        .catch(err => { throw KoaRuntimeError.HandlerError(err) })
+   const response = await implementation.${symbols.implPropName}(input, responder, ctx)
+    .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
+   const { status, body } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      const {
-        status,
-        body,
-      } = response instanceof KoaRuntimeResponse ? response.unpack() : response
-
-        ctx.body = ${symbols.responseBodyValidator}(status, body)
-        ctx.status = status
-        return next();
-      })`,
-      ]
-        .filter(isDefined)
-        .join("\n"),
-    )
+   ctx.body = ${symbols.responseBodyValidator}(status, body)
+   ctx.status = status
+   return next();
+})`)
   }
 
-  private operationSymbolNames(operationId: string) {
+  private operationSymbolNames(operationId: string): ServerSymbols {
     return {
       implPropName: operationId,
       typeName: titleCase(operationId),
@@ -405,14 +218,12 @@ export class ServerRouterBuilder implements ICompilable {
     }
   }
 
-  toString(): string {
-    const moduleName = titleCase(this.name)
-
+  protected buildRouter(routerName: string): string {
+    const moduleName = titleCase(routerName)
     const implementationExportName = `${moduleName}Implementation`
     const createRouterExportName = `create${moduleName}Router`
 
-    const routes = this.statements
-    const code = `
+    return `
 ${this.operationTypes.flatMap((it) => it.statements).join("\n\n")}
 
 ${this.implementationExport(implementationExportName)}
@@ -420,7 +231,7 @@ ${this.implementationExport(implementationExportName)}
 export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
   const router = new KoaRouter()
 
-  ${routes.join("\n\n")}
+  ${this.statements.join("\n\n")}
 
   return router
 }
@@ -433,15 +244,10 @@ export ${this.implementationMethod === "type" || this.implementationMethod === "
 `
 }
 `
-    return code
-  }
-
-  toCompilationUnit(): CompilationUnit {
-    return new CompilationUnit(this.filename, this.imports, this.toString())
   }
 }
 
-export class ServerBuilder implements ICompilable {
+export class KoaServerBuilder implements ICompilable {
   constructor(
     public readonly filename: string,
     private readonly name: string,
@@ -511,7 +317,7 @@ export async function generateTypescriptKoa(
     {allowAny},
   )
 
-  const server = new ServerBuilder(
+  const server = new KoaServerBuilder(
     "index.ts",
     input.name(),
     input,
@@ -526,7 +332,7 @@ export async function generateTypescriptKoa(
       )
       const imports = new ImportBuilder({filename})
 
-      const routerBuilder = new ServerRouterBuilder(
+      const routerBuilder = new KoaServerRouterBuilder(
         filename,
         group.name,
         input,
