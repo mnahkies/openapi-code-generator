@@ -17,28 +17,26 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
   ServerConfig,
   StatusCode,
+  b,
   startServer,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-export type FindPetsResponder = {
-  with200(): KoaRuntimeResponse<t_Pet[]>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_Error>
-} & KoaRuntimeResponder
+const findPets = b((r) => ({
+  with200: r.with200<t_Pet[]>(z.array(s_Pet)),
+  withDefault: r.withDefault<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
 
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void, void>,
-  respond: FindPetsResponder,
+  respond: (typeof findPets)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -46,14 +44,15 @@ export type FindPets = (
   | Response<StatusCode, t_Error>
 >
 
-export type AddPetResponder = {
-  with200(): KoaRuntimeResponse<t_Pet>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_Error>
-} & KoaRuntimeResponder
+const addPet = b((r) => ({
+  with200: r.with200<t_Pet>(s_Pet),
+  withDefault: r.withDefault<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
 
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema, void>,
-  respond: AddPetResponder,
+  respond: (typeof addPet)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -61,14 +60,15 @@ export type AddPet = (
   | Response<StatusCode, t_Error>
 >
 
-export type FindPetByIdResponder = {
-  with200(): KoaRuntimeResponse<t_Pet>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_Error>
-} & KoaRuntimeResponder
+const findPetById = b((r) => ({
+  with200: r.with200<t_Pet>(s_Pet),
+  withDefault: r.withDefault<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
 
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void, void>,
-  respond: FindPetByIdResponder,
+  respond: (typeof findPetById)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -76,14 +76,15 @@ export type FindPetById = (
   | Response<StatusCode, t_Error>
 >
 
-export type DeletePetResponder = {
-  with204(): KoaRuntimeResponse<void>
-  withDefault(status: StatusCode): KoaRuntimeResponse<t_Error>
-} & KoaRuntimeResponder
+const deletePet = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  withDefault: r.withDefault<t_Error>(s_Error),
+  withStatus: r.withStatus,
+}))
 
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void, void>,
-  respond: DeletePetResponder,
+  respond: (typeof deletePet)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -111,11 +112,6 @@ export function createRouter(implementation: Implementation): KoaRouter {
     limit: z.coerce.number().optional(),
   })
 
-  const findPetsResponseValidator = responseValidationFactory(
-    [["200", z.array(s_Pet)]],
-    s_Error,
-  )
-
   router.get("findPets", "/pets", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -128,20 +124,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       headers: undefined,
     }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_Pet[]>(200)
-      },
-      withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<t_Error>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .findPets(input, responder, ctx)
+      .findPets(input, findPets.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -149,17 +133,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = findPetsResponseValidator(status, body)
+    ctx.body = findPets.validator(status, body)
     ctx.status = status
     return next()
   })
 
   const addPetBodySchema = s_NewPet
-
-  const addPetResponseValidator = responseValidationFactory(
-    [["200", s_Pet]],
-    s_Error,
-  )
 
   router.post("addPet", "/pets", async (ctx, next) => {
     const input = {
@@ -173,20 +152,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       headers: undefined,
     }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_Pet>(200)
-      },
-      withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<t_Error>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .addPet(input, responder, ctx)
+      .addPet(input, addPet.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -194,17 +161,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = addPetResponseValidator(status, body)
+    ctx.body = addPet.validator(status, body)
     ctx.status = status
     return next()
   })
 
   const findPetByIdParamSchema = z.object({ id: z.coerce.number() })
-
-  const findPetByIdResponseValidator = responseValidationFactory(
-    [["200", s_Pet]],
-    s_Error,
-  )
 
   router.get("findPetById", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -218,20 +180,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       headers: undefined,
     }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_Pet>(200)
-      },
-      withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<t_Error>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .findPetById(input, responder, ctx)
+      .findPetById(input, findPetById.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -239,17 +189,12 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = findPetByIdResponseValidator(status, body)
+    ctx.body = findPetById.validator(status, body)
     ctx.status = status
     return next()
   })
 
   const deletePetParamSchema = z.object({ id: z.coerce.number() })
-
-  const deletePetResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
-    s_Error,
-  )
 
   router.delete("deletePet", "/pets/:id", async (ctx, next) => {
     const input = {
@@ -263,20 +208,8 @@ export function createRouter(implementation: Implementation): KoaRouter {
       headers: undefined,
     }
 
-    const responder = {
-      with204() {
-        return new KoaRuntimeResponse<void>(204)
-      },
-      withDefault(status: StatusCode) {
-        return new KoaRuntimeResponse<t_Error>(status)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .deletePet(input, responder, ctx)
+      .deletePet(input, deletePet.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -284,7 +217,7 @@ export function createRouter(implementation: Implementation): KoaRouter {
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = deletePetResponseValidator(status, body)
+    ctx.body = deletePet.validator(status, body)
     ctx.status = status
     return next()
   })

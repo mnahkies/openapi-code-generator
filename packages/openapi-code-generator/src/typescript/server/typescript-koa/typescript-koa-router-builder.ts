@@ -48,6 +48,7 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
         "StatusCode4xx",
         "StatusCode5xx",
         "startServer",
+        "b",
       )
 
     this.imports
@@ -97,16 +98,12 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     this.operationTypes.push({
       operationId: builder.operationId,
       statements: [
-        buildExport({
-          name: symbols.responderName,
-          value: responder.type,
-          kind: "type",
-        }),
+        `const ${symbols.implPropName} = ${responder.implementation}`,
         buildExport({
           name: symbols.implTypeName,
           value: `(
                     params: ${params.type},
-                    respond: ${symbols.responderName},
+                    respond: typeof ${symbols.implPropName}['responder'],
                     ctx: RouterContext
                   ) => Promise<KoaRuntimeResponse<unknown> | ${[
                     ...responseSchemas.specific.map(
@@ -123,8 +120,6 @@ export class KoaRouterBuilder extends AbstractRouterBuilder {
     })
 
     statements.push(`
-const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
-
 router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builder.route)}', async (ctx, next) => {
    const input = {
     params: ${params.path.schema ? `parseRequestInput(${symbols.paramSchema}, ctx.params, RequestInputType.RouteParam)` : "undefined"},
@@ -133,14 +128,12 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
     headers: ${params.header.schema ? `parseRequestInput(${symbols.requestHeaderSchema}, Reflect.get(ctx.request, "headers"), RequestInputType.RequestHeader)` : "undefined"}
    }
 
-   const responder = ${responder.implementation}
-
-   const response = await implementation.${symbols.implPropName}(input, responder, ctx)
+   const response = await implementation.${symbols.implPropName}(input, ${symbols.implPropName}.responder, ctx)
     .catch(err => { throw KoaRuntimeError.HandlerError(err) })
 
    const { status, body } = response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-   ctx.body = ${symbols.responseBodyValidator}(status, body)
+   ctx.body = ${symbols.implPropName}.validator(status, body)
    ctx.status = status
    return next();
 })`)
@@ -152,7 +145,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
     return {
       implPropName: operationId,
       implTypeName: titleCase(operationId),
-      responderName: `${titleCase(operationId)}Responder`,
+      responderName: `${operationId}Responder`,
       paramSchema: `${operationId}ParamSchema`,
       querySchema: `${operationId}QuerySchema`,
       requestBodySchema: `${operationId}BodySchema`,

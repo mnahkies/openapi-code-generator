@@ -15,21 +15,18 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
-  StatusCode,
+  b,
 } from "@nahkies/typescript-koa-runtime/server"
-import {
-  parseRequestInput,
-  responseValidationFactory,
-} from "@nahkies/typescript-koa-runtime/zod"
+import { parseRequestInput } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-export type GetValidationNumbersRandomNumberResponder = {
-  with200(): KoaRuntimeResponse<t_RandomNumber>
-} & KoaRuntimeResponder
+const getValidationNumbersRandomNumber = b((r) => ({
+  with200: r.with200<t_RandomNumber>(s_RandomNumber),
+  withStatus: r.withStatus,
+}))
 
 export type GetValidationNumbersRandomNumber = (
   params: Params<
@@ -38,27 +35,29 @@ export type GetValidationNumbersRandomNumber = (
     void,
     void
   >,
-  respond: GetValidationNumbersRandomNumberResponder,
+  respond: (typeof getValidationNumbersRandomNumber)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
 
-export type PostValidationEnumsResponder = {
-  with200(): KoaRuntimeResponse<t_Enumerations>
-} & KoaRuntimeResponder
+const postValidationEnums = b((r) => ({
+  with200: r.with200<t_Enumerations>(s_Enumerations),
+  withStatus: r.withStatus,
+}))
 
 export type PostValidationEnums = (
   params: Params<void, void, t_PostValidationEnumsBodySchema, void>,
-  respond: PostValidationEnumsResponder,
+  respond: (typeof postValidationEnums)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_Enumerations>>
 
-export type GetResponsesEmptyResponder = {
-  with204(): KoaRuntimeResponse<void>
-} & KoaRuntimeResponder
+const getResponsesEmpty = b((r) => ({
+  with204: r.with204<void>(z.undefined()),
+  withStatus: r.withStatus,
+}))
 
 export type GetResponsesEmpty = (
   params: Params<void, void, void, void>,
-  respond: GetResponsesEmptyResponder,
+  respond: (typeof getResponsesEmpty)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
@@ -84,9 +83,6 @@ export function createValidationRouter(
       .optional(),
   })
 
-  const getValidationNumbersRandomNumberResponseValidator =
-    responseValidationFactory([["200", s_RandomNumber]], undefined)
-
   router.get(
     "getValidationNumbersRandomNumber",
     "/validation/numbers/random-number",
@@ -102,17 +98,12 @@ export function createValidationRouter(
         headers: undefined,
       }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_RandomNumber>(200)
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
       const response = await implementation
-        .getValidationNumbersRandomNumber(input, responder, ctx)
+        .getValidationNumbersRandomNumber(
+          input,
+          getValidationNumbersRandomNumber.responder,
+          ctx,
+        )
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -120,18 +111,13 @@ export function createValidationRouter(
       const { status, body } =
         response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-      ctx.body = getValidationNumbersRandomNumberResponseValidator(status, body)
+      ctx.body = getValidationNumbersRandomNumber.validator(status, body)
       ctx.status = status
       return next()
     },
   )
 
   const postValidationEnumsBodySchema = s_Enumerations
-
-  const postValidationEnumsResponseValidator = responseValidationFactory(
-    [["200", s_Enumerations]],
-    undefined,
-  )
 
   router.post("postValidationEnums", "/validation/enums", async (ctx, next) => {
     const input = {
@@ -145,17 +131,8 @@ export function createValidationRouter(
       headers: undefined,
     }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_Enumerations>(200)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .postValidationEnums(input, responder, ctx)
+      .postValidationEnums(input, postValidationEnums.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -163,15 +140,10 @@ export function createValidationRouter(
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = postValidationEnumsResponseValidator(status, body)
+    ctx.body = postValidationEnums.validator(status, body)
     ctx.status = status
     return next()
   })
-
-  const getResponsesEmptyResponseValidator = responseValidationFactory(
-    [["204", z.undefined()]],
-    undefined,
-  )
 
   router.get("getResponsesEmpty", "/responses/empty", async (ctx, next) => {
     const input = {
@@ -181,17 +153,8 @@ export function createValidationRouter(
       headers: undefined,
     }
 
-    const responder = {
-      with204() {
-        return new KoaRuntimeResponse<void>(204)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .getResponsesEmpty(input, responder, ctx)
+      .getResponsesEmpty(input, getResponsesEmpty.responder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
@@ -199,7 +162,7 @@ export function createValidationRouter(
     const { status, body } =
       response instanceof KoaRuntimeResponse ? response.unpack() : response
 
-    ctx.body = getResponsesEmptyResponseValidator(status, body)
+    ctx.body = getResponsesEmpty.validator(status, body)
     ctx.status = status
     return next()
   })

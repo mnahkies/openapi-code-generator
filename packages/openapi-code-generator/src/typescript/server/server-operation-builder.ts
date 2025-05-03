@@ -114,42 +114,20 @@ export class ServerOperationBuilder {
     return {type, path, query, header, body}
   }
 
-  responseValidator(): string {
+  responder(): {implementation: string} {
     const {specific, defaultResponse} = this.responseSchemas()
 
-    const pairs = specific.map((it) => `["${it.statusString}", ${it.schema}]`)
-
-    return `responseValidationFactory([${pairs}], ${defaultResponse?.schema})`
-  }
-
-  responder(): {implementation: string; type: string} {
-    const {specific, defaultResponse} = this.responseSchemas()
-    // TODO: figure out what to do about the KoaRuntimeResponse class
-    const type = intersect(
-      object([
-        ...specific.map((it) =>
-          it.isWildCard
-            ? `with${it.statusType}(status: ${it.statusType}): KoaRuntimeResponse<${it.type}>`
-            : `with${it.statusType}(): KoaRuntimeResponse<${it.type}>`,
-        ),
-        defaultResponse &&
-          `withDefault(status: StatusCode): KoaRuntimeResponse<${defaultResponse.type}>`,
-      ]),
-      "KoaRuntimeResponder",
-    )
-
-    const implementation = object([
-      ...specific.map((it) =>
-        it.isWildCard
-          ? `with${it.statusType}(status: ${it.statusType}) {return new KoaRuntimeResponse<${it.type}>(status) }`
-          : `with${it.statusType}() {return new KoaRuntimeResponse<${it.type}>(${it.statusType}) }`,
+    const implementation = `b(r => (${object([
+      ...specific.map(
+        (it) =>
+          `with${it.statusType}: r.with${it.statusType}<${it.type}>(${it.schema})`,
       ),
       defaultResponse &&
-        `withDefault(status: StatusCode) { return new KoaRuntimeResponse<${defaultResponse.type}>(status) }`,
-      "withStatus(status: StatusCode) { return new KoaRuntimeResponse(status)}",
-    ])
+        `withDefault: r.withDefault<${defaultResponse.type}>(${defaultResponse.schema})`,
+      "withStatus: r.withStatus",
+    ])}))`
 
-    return {implementation, type}
+    return {implementation}
   }
 
   private pathParameters(schemaSymbolName: string): Parameters["path"] {
