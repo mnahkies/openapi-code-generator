@@ -73,7 +73,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -95,9 +94,6 @@ const createAppAuthenticatorEnrollment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreateAppAuthenticatorEnrollmentResponder =
-  (typeof createAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
-
 export type CreateAppAuthenticatorEnrollment = (
   params: Params<
     void,
@@ -105,7 +101,7 @@ export type CreateAppAuthenticatorEnrollment = (
     t_CreateAppAuthenticatorEnrollmentBodySchema,
     void
   >,
-  respond: CreateAppAuthenticatorEnrollmentResponder,
+  respond: (typeof createAppAuthenticatorEnrollment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -123,10 +119,6 @@ const verifyAppAuthenticatorPushNotificationChallenge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type VerifyAppAuthenticatorPushNotificationChallengeResponder =
-  (typeof verifyAppAuthenticatorPushNotificationChallenge)["responder"] &
-    KoaRuntimeResponder
-
 export type VerifyAppAuthenticatorPushNotificationChallenge = (
   params: Params<
     t_VerifyAppAuthenticatorPushNotificationChallengeParamSchema,
@@ -134,7 +126,7 @@ export type VerifyAppAuthenticatorPushNotificationChallenge = (
     t_VerifyAppAuthenticatorPushNotificationChallengeBodySchema,
     void
   >,
-  respond: VerifyAppAuthenticatorPushNotificationChallengeResponder,
+  respond: (typeof verifyAppAuthenticatorPushNotificationChallenge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -153,9 +145,6 @@ const updateAppAuthenticatorEnrollment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UpdateAppAuthenticatorEnrollmentResponder =
-  (typeof updateAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
-
 export type UpdateAppAuthenticatorEnrollment = (
   params: Params<
     t_UpdateAppAuthenticatorEnrollmentParamSchema,
@@ -163,7 +152,7 @@ export type UpdateAppAuthenticatorEnrollment = (
     t_UpdateAppAuthenticatorEnrollmentBodySchema,
     void
   >,
-  respond: UpdateAppAuthenticatorEnrollmentResponder,
+  respond: (typeof updateAppAuthenticatorEnrollment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -181,9 +170,6 @@ const deleteAppAuthenticatorEnrollment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAppAuthenticatorEnrollmentResponder =
-  (typeof deleteAppAuthenticatorEnrollment)["responder"] & KoaRuntimeResponder
-
 export type DeleteAppAuthenticatorEnrollment = (
   params: Params<
     t_DeleteAppAuthenticatorEnrollmentParamSchema,
@@ -191,7 +177,7 @@ export type DeleteAppAuthenticatorEnrollment = (
     void,
     void
   >,
-  respond: DeleteAppAuthenticatorEnrollmentResponder,
+  respond: (typeof deleteAppAuthenticatorEnrollment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -209,10 +195,6 @@ const listAppAuthenticatorPendingPushNotificationChallenges = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListAppAuthenticatorPendingPushNotificationChallengesResponder =
-  (typeof listAppAuthenticatorPendingPushNotificationChallenges)["responder"] &
-    KoaRuntimeResponder
-
 export type ListAppAuthenticatorPendingPushNotificationChallenges = (
   params: Params<
     t_ListAppAuthenticatorPendingPushNotificationChallengesParamSchema,
@@ -220,7 +202,7 @@ export type ListAppAuthenticatorPendingPushNotificationChallenges = (
     void,
     void
   >,
-  respond: ListAppAuthenticatorPendingPushNotificationChallengesResponder,
+  respond: (typeof listAppAuthenticatorPendingPushNotificationChallenges)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -235,12 +217,9 @@ const listAuthenticators = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListAuthenticatorsResponder = (typeof listAuthenticators)["responder"] &
-  KoaRuntimeResponder
-
 export type ListAuthenticators = (
   params: Params<void, t_ListAuthenticatorsQuerySchema, void, void>,
-  respond: ListAuthenticatorsResponder,
+  respond: (typeof listAuthenticators)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -257,9 +236,6 @@ const getAuthenticator = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAuthenticatorResponder = (typeof getAuthenticator)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAuthenticator = (
   params: Params<
     t_GetAuthenticatorParamSchema,
@@ -267,7 +243,7 @@ export type GetAuthenticator = (
     void,
     void
   >,
-  respond: GetAuthenticatorResponder,
+  respond: (typeof getAuthenticator)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -287,12 +263,9 @@ const listEnrollments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListEnrollmentsResponder = (typeof listEnrollments)["responder"] &
-  KoaRuntimeResponder
-
 export type ListEnrollments = (
   params: Params<t_ListEnrollmentsParamSchema, void, void, void>,
-  respond: ListEnrollmentsResponder,
+  respond: (typeof listEnrollments)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -310,12 +283,9 @@ const getEnrollment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEnrollmentResponder = (typeof getEnrollment)["responder"] &
-  KoaRuntimeResponder
-
 export type GetEnrollment = (
   params: Params<t_GetEnrollmentParamSchema, void, void, void>,
-  respond: GetEnrollmentResponder,
+  respond: (typeof getEnrollment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -333,9 +303,6 @@ const updateEnrollment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UpdateEnrollmentResponder = (typeof updateEnrollment)["responder"] &
-  KoaRuntimeResponder
-
 export type UpdateEnrollment = (
   params: Params<
     t_UpdateEnrollmentParamSchema,
@@ -343,7 +310,7 @@ export type UpdateEnrollment = (
     t_UpdateEnrollmentBodySchema,
     void
   >,
-  respond: UpdateEnrollmentResponder,
+  respond: (typeof updateEnrollment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -359,12 +326,9 @@ const listEmails = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListEmailsResponder = (typeof listEmails)["responder"] &
-  KoaRuntimeResponder
-
 export type ListEmails = (
   params: Params<void, void, void, void>,
-  respond: ListEmailsResponder,
+  respond: (typeof listEmails)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -381,12 +345,9 @@ const createEmail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreateEmailResponder = (typeof createEmail)["responder"] &
-  KoaRuntimeResponder
-
 export type CreateEmail = (
   params: Params<void, void, t_CreateEmailBodySchema, void>,
-  respond: CreateEmailResponder,
+  respond: (typeof createEmail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -403,11 +364,9 @@ const getEmail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEmailResponder = (typeof getEmail)["responder"] & KoaRuntimeResponder
-
 export type GetEmail = (
   params: Params<t_GetEmailParamSchema, void, void, void>,
-  respond: GetEmailResponder,
+  respond: (typeof getEmail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_Email> | Response<401, t_Error>
@@ -421,12 +380,9 @@ const deleteEmail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteEmailResponder = (typeof deleteEmail)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteEmail = (
   params: Params<t_DeleteEmailParamSchema, void, void, void>,
-  respond: DeleteEmailResponder,
+  respond: (typeof deleteEmail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -482,9 +438,6 @@ const sendEmailChallenge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type SendEmailChallengeResponder = (typeof sendEmailChallenge)["responder"] &
-  KoaRuntimeResponder
-
 export type SendEmailChallenge = (
   params: Params<
     t_SendEmailChallengeParamSchema,
@@ -492,7 +445,7 @@ export type SendEmailChallenge = (
     t_SendEmailChallengeBodySchema,
     void
   >,
-  respond: SendEmailChallengeResponder,
+  respond: (typeof sendEmailChallenge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -575,12 +528,9 @@ const pollChallengeForEmailMagicLink = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PollChallengeForEmailMagicLinkResponder =
-  (typeof pollChallengeForEmailMagicLink)["responder"] & KoaRuntimeResponder
-
 export type PollChallengeForEmailMagicLink = (
   params: Params<t_PollChallengeForEmailMagicLinkParamSchema, void, void, void>,
-  respond: PollChallengeForEmailMagicLinkResponder,
+  respond: (typeof pollChallengeForEmailMagicLink)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -621,9 +571,6 @@ const verifyEmailOtp = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type VerifyEmailOtpResponder = (typeof verifyEmailOtp)["responder"] &
-  KoaRuntimeResponder
-
 export type VerifyEmailOtp = (
   params: Params<
     t_VerifyEmailOtpParamSchema,
@@ -631,7 +578,7 @@ export type VerifyEmailOtp = (
     t_VerifyEmailOtpBodySchema,
     void
   >,
-  respond: VerifyEmailOtpResponder,
+  respond: (typeof verifyEmailOtp)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -647,12 +594,9 @@ const listOktaApplications = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListOktaApplicationsResponder =
-  (typeof listOktaApplications)["responder"] & KoaRuntimeResponder
-
 export type ListOktaApplications = (
   params: Params<void, void, void, void>,
-  respond: ListOktaApplicationsResponder,
+  respond: (typeof listOktaApplications)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -666,12 +610,9 @@ const getOrganization = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetOrganizationResponder = (typeof getOrganization)["responder"] &
-  KoaRuntimeResponder
-
 export type GetOrganization = (
   params: Params<void, void, void, void>,
-  respond: GetOrganizationResponder,
+  respond: (typeof getOrganization)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -685,12 +626,9 @@ const getPassword = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPasswordResponder = (typeof getPassword)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPassword = (
   params: Params<void, void, void, void>,
-  respond: GetPasswordResponder,
+  respond: (typeof getPassword)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -706,12 +644,9 @@ const createPassword = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreatePasswordResponder = (typeof createPassword)["responder"] &
-  KoaRuntimeResponder
-
 export type CreatePassword = (
   params: Params<void, void, t_CreatePasswordBodySchema, void>,
-  respond: CreatePasswordResponder,
+  respond: (typeof createPassword)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -729,12 +664,9 @@ const replacePassword = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ReplacePasswordResponder = (typeof replacePassword)["responder"] &
-  KoaRuntimeResponder
-
 export type ReplacePassword = (
   params: Params<void, void, t_ReplacePasswordBodySchema, void>,
-  respond: ReplacePasswordResponder,
+  respond: (typeof replacePassword)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -751,12 +683,9 @@ const deletePassword = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeletePasswordResponder = (typeof deletePassword)["responder"] &
-  KoaRuntimeResponder
-
 export type DeletePassword = (
   params: Params<void, void, void, void>,
-  respond: DeletePasswordResponder,
+  respond: (typeof deletePassword)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -771,12 +700,9 @@ const listPhones = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListPhonesResponder = (typeof listPhones)["responder"] &
-  KoaRuntimeResponder
-
 export type ListPhones = (
   params: Params<void, void, void, void>,
-  respond: ListPhonesResponder,
+  respond: (typeof listPhones)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -794,12 +720,9 @@ const createPhone = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreatePhoneResponder = (typeof createPhone)["responder"] &
-  KoaRuntimeResponder
-
 export type CreatePhone = (
   params: Params<void, void, t_CreatePhoneBodySchema, void>,
-  respond: CreatePhoneResponder,
+  respond: (typeof createPhone)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -818,11 +741,9 @@ const getPhone = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPhoneResponder = (typeof getPhone)["responder"] & KoaRuntimeResponder
-
 export type GetPhone = (
   params: Params<t_GetPhoneParamSchema, void, void, void>,
-  respond: GetPhoneResponder,
+  respond: (typeof getPhone)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -839,12 +760,9 @@ const deletePhone = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeletePhoneResponder = (typeof deletePhone)["responder"] &
-  KoaRuntimeResponder
-
 export type DeletePhone = (
   params: Params<t_DeletePhoneParamSchema, void, void, void>,
-  respond: DeletePhoneResponder,
+  respond: (typeof deletePhone)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -886,9 +804,6 @@ const sendPhoneChallenge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type SendPhoneChallengeResponder = (typeof sendPhoneChallenge)["responder"] &
-  KoaRuntimeResponder
-
 export type SendPhoneChallenge = (
   params: Params<
     t_SendPhoneChallengeParamSchema,
@@ -896,7 +811,7 @@ export type SendPhoneChallenge = (
     t_SendPhoneChallengeBodySchema,
     void
   >,
-  respond: SendPhoneChallengeResponder,
+  respond: (typeof sendPhoneChallenge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -930,9 +845,6 @@ const verifyPhoneChallenge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type VerifyPhoneChallengeResponder =
-  (typeof verifyPhoneChallenge)["responder"] & KoaRuntimeResponder
-
 export type VerifyPhoneChallenge = (
   params: Params<
     t_VerifyPhoneChallengeParamSchema,
@@ -940,7 +852,7 @@ export type VerifyPhoneChallenge = (
     t_VerifyPhoneChallengeBodySchema,
     void
   >,
-  respond: VerifyPhoneChallengeResponder,
+  respond: (typeof verifyPhoneChallenge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -958,12 +870,9 @@ const getProfile = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProfileResponder = (typeof getProfile)["responder"] &
-  KoaRuntimeResponder
-
 export type GetProfile = (
   params: Params<void, void, void, void>,
-  respond: GetProfileResponder,
+  respond: (typeof getProfile)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -978,12 +887,9 @@ const replaceProfile = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ReplaceProfileResponder = (typeof replaceProfile)["responder"] &
-  KoaRuntimeResponder
-
 export type ReplaceProfile = (
   params: Params<void, void, t_ReplaceProfileBodySchema, void>,
-  respond: ReplaceProfileResponder,
+  respond: (typeof replaceProfile)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -998,12 +904,9 @@ const getProfileSchema = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProfileSchemaResponder = (typeof getProfileSchema)["responder"] &
-  KoaRuntimeResponder
-
 export type GetProfileSchema = (
   params: Params<void, void, void, void>,
-  respond: GetProfileSchemaResponder,
+  respond: (typeof getProfileSchema)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, t_Schema> | Response<401, t_Error>
@@ -1016,12 +919,9 @@ const deleteSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteSessionsResponder = (typeof deleteSessions)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteSessions = (
   params: Params<void, void, void, void>,
-  respond: DeleteSessionsResponder,
+  respond: (typeof deleteSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

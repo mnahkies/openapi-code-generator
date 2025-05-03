@@ -17,7 +17,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -33,12 +32,9 @@ const getHeadersUndeclared = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetHeadersUndeclaredResponder =
-  (typeof getHeadersUndeclared)["responder"] & KoaRuntimeResponder
-
 export type GetHeadersUndeclared = (
   params: Params<void, void, void, void>,
-  respond: GetHeadersUndeclaredResponder,
+  respond: (typeof getHeadersUndeclared)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -52,12 +48,9 @@ const getHeadersRequest = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetHeadersRequestResponder = (typeof getHeadersRequest)["responder"] &
-  KoaRuntimeResponder
-
 export type GetHeadersRequest = (
   params: Params<void, void, void, t_GetHeadersRequestHeaderSchema>,
-  respond: GetHeadersRequestResponder,
+  respond: (typeof getHeadersRequest)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

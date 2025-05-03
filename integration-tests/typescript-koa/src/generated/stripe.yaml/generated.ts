@@ -1519,7 +1519,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -1537,9 +1536,6 @@ const getAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountResponder = (typeof getAccount)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAccount = (
   params: Params<
     void,
@@ -1547,7 +1543,7 @@ export type GetAccount = (
     t_GetAccountBodySchema | undefined,
     void
   >,
-  respond: GetAccountResponder,
+  respond: (typeof getAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1561,12 +1557,9 @@ const postAccountLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountLinksResponder = (typeof postAccountLinks)["responder"] &
-  KoaRuntimeResponder
-
 export type PostAccountLinks = (
   params: Params<void, void, t_PostAccountLinksBodySchema, void>,
-  respond: PostAccountLinksResponder,
+  respond: (typeof postAccountLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1580,12 +1573,9 @@ const postAccountSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountSessionsResponder = (typeof postAccountSessions)["responder"] &
-  KoaRuntimeResponder
-
 export type PostAccountSessions = (
   params: Params<void, void, t_PostAccountSessionsBodySchema, void>,
-  respond: PostAccountSessionsResponder,
+  respond: (typeof postAccountSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1611,9 +1601,6 @@ const getAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsResponder = (typeof getAccounts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAccounts = (
   params: Params<
     void,
@@ -1621,7 +1608,7 @@ export type GetAccounts = (
     t_GetAccountsBodySchema | undefined,
     void
   >,
-  respond: GetAccountsResponder,
+  respond: (typeof getAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1643,12 +1630,9 @@ const postAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsResponder = (typeof postAccounts)["responder"] &
-  KoaRuntimeResponder
-
 export type PostAccounts = (
   params: Params<void, void, t_PostAccountsBodySchema | undefined, void>,
-  respond: PostAccountsResponder,
+  respond: (typeof postAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1662,9 +1646,6 @@ const deleteAccountsAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAccountsAccountResponder =
-  (typeof deleteAccountsAccount)["responder"] & KoaRuntimeResponder
-
 export type DeleteAccountsAccount = (
   params: Params<
     t_DeleteAccountsAccountParamSchema,
@@ -1672,7 +1653,7 @@ export type DeleteAccountsAccount = (
     t_DeleteAccountsAccountBodySchema | undefined,
     void
   >,
-  respond: DeleteAccountsAccountResponder,
+  respond: (typeof deleteAccountsAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1686,9 +1667,6 @@ const getAccountsAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountResponder = (typeof getAccountsAccount)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAccountsAccount = (
   params: Params<
     t_GetAccountsAccountParamSchema,
@@ -1696,7 +1674,7 @@ export type GetAccountsAccount = (
     t_GetAccountsAccountBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountResponder,
+  respond: (typeof getAccountsAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1710,9 +1688,6 @@ const postAccountsAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountResponder = (typeof postAccountsAccount)["responder"] &
-  KoaRuntimeResponder
-
 export type PostAccountsAccount = (
   params: Params<
     t_PostAccountsAccountParamSchema,
@@ -1720,7 +1695,7 @@ export type PostAccountsAccount = (
     t_PostAccountsAccountBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountResponder,
+  respond: (typeof postAccountsAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1734,9 +1709,6 @@ const postAccountsAccountBankAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountBankAccountsResponder =
-  (typeof postAccountsAccountBankAccounts)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountBankAccounts = (
   params: Params<
     t_PostAccountsAccountBankAccountsParamSchema,
@@ -1744,7 +1716,7 @@ export type PostAccountsAccountBankAccounts = (
     t_PostAccountsAccountBankAccountsBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountBankAccountsResponder,
+  respond: (typeof postAccountsAccountBankAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1758,10 +1730,6 @@ const deleteAccountsAccountBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAccountsAccountBankAccountsIdResponder =
-  (typeof deleteAccountsAccountBankAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteAccountsAccountBankAccountsId = (
   params: Params<
     t_DeleteAccountsAccountBankAccountsIdParamSchema,
@@ -1769,7 +1737,7 @@ export type DeleteAccountsAccountBankAccountsId = (
     t_DeleteAccountsAccountBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteAccountsAccountBankAccountsIdResponder,
+  respond: (typeof deleteAccountsAccountBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1783,9 +1751,6 @@ const getAccountsAccountBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountBankAccountsIdResponder =
-  (typeof getAccountsAccountBankAccountsId)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountBankAccountsId = (
   params: Params<
     t_GetAccountsAccountBankAccountsIdParamSchema,
@@ -1793,7 +1758,7 @@ export type GetAccountsAccountBankAccountsId = (
     t_GetAccountsAccountBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountBankAccountsIdResponder,
+  respond: (typeof getAccountsAccountBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1807,9 +1772,6 @@ const postAccountsAccountBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountBankAccountsIdResponder =
-  (typeof postAccountsAccountBankAccountsId)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountBankAccountsId = (
   params: Params<
     t_PostAccountsAccountBankAccountsIdParamSchema,
@@ -1817,7 +1779,7 @@ export type PostAccountsAccountBankAccountsId = (
     t_PostAccountsAccountBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountBankAccountsIdResponder,
+  respond: (typeof postAccountsAccountBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1843,9 +1805,6 @@ const getAccountsAccountCapabilities = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountCapabilitiesResponder =
-  (typeof getAccountsAccountCapabilities)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountCapabilities = (
   params: Params<
     t_GetAccountsAccountCapabilitiesParamSchema,
@@ -1853,7 +1812,7 @@ export type GetAccountsAccountCapabilities = (
     t_GetAccountsAccountCapabilitiesBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountCapabilitiesResponder,
+  respond: (typeof getAccountsAccountCapabilities)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1875,10 +1834,6 @@ const getAccountsAccountCapabilitiesCapability = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountCapabilitiesCapabilityResponder =
-  (typeof getAccountsAccountCapabilitiesCapability)["responder"] &
-    KoaRuntimeResponder
-
 export type GetAccountsAccountCapabilitiesCapability = (
   params: Params<
     t_GetAccountsAccountCapabilitiesCapabilityParamSchema,
@@ -1886,7 +1841,7 @@ export type GetAccountsAccountCapabilitiesCapability = (
     t_GetAccountsAccountCapabilitiesCapabilityBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountCapabilitiesCapabilityResponder,
+  respond: (typeof getAccountsAccountCapabilitiesCapability)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1900,10 +1855,6 @@ const postAccountsAccountCapabilitiesCapability = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountCapabilitiesCapabilityResponder =
-  (typeof postAccountsAccountCapabilitiesCapability)["responder"] &
-    KoaRuntimeResponder
-
 export type PostAccountsAccountCapabilitiesCapability = (
   params: Params<
     t_PostAccountsAccountCapabilitiesCapabilityParamSchema,
@@ -1911,7 +1862,7 @@ export type PostAccountsAccountCapabilitiesCapability = (
     t_PostAccountsAccountCapabilitiesCapabilityBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountCapabilitiesCapabilityResponder,
+  respond: (typeof postAccountsAccountCapabilitiesCapability)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1939,9 +1890,6 @@ const getAccountsAccountExternalAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountExternalAccountsResponder =
-  (typeof getAccountsAccountExternalAccounts)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountExternalAccounts = (
   params: Params<
     t_GetAccountsAccountExternalAccountsParamSchema,
@@ -1949,7 +1897,7 @@ export type GetAccountsAccountExternalAccounts = (
     t_GetAccountsAccountExternalAccountsBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountExternalAccountsResponder,
+  respond: (typeof getAccountsAccountExternalAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1971,10 +1919,6 @@ const postAccountsAccountExternalAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountExternalAccountsResponder =
-  (typeof postAccountsAccountExternalAccounts)["responder"] &
-    KoaRuntimeResponder
-
 export type PostAccountsAccountExternalAccounts = (
   params: Params<
     t_PostAccountsAccountExternalAccountsParamSchema,
@@ -1982,7 +1926,7 @@ export type PostAccountsAccountExternalAccounts = (
     t_PostAccountsAccountExternalAccountsBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountExternalAccountsResponder,
+  respond: (typeof postAccountsAccountExternalAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1996,10 +1940,6 @@ const deleteAccountsAccountExternalAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAccountsAccountExternalAccountsIdResponder =
-  (typeof deleteAccountsAccountExternalAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteAccountsAccountExternalAccountsId = (
   params: Params<
     t_DeleteAccountsAccountExternalAccountsIdParamSchema,
@@ -2007,7 +1947,7 @@ export type DeleteAccountsAccountExternalAccountsId = (
     t_DeleteAccountsAccountExternalAccountsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteAccountsAccountExternalAccountsIdResponder,
+  respond: (typeof deleteAccountsAccountExternalAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2021,10 +1961,6 @@ const getAccountsAccountExternalAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountExternalAccountsIdResponder =
-  (typeof getAccountsAccountExternalAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type GetAccountsAccountExternalAccountsId = (
   params: Params<
     t_GetAccountsAccountExternalAccountsIdParamSchema,
@@ -2032,7 +1968,7 @@ export type GetAccountsAccountExternalAccountsId = (
     t_GetAccountsAccountExternalAccountsIdBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountExternalAccountsIdResponder,
+  respond: (typeof getAccountsAccountExternalAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2046,10 +1982,6 @@ const postAccountsAccountExternalAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountExternalAccountsIdResponder =
-  (typeof postAccountsAccountExternalAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type PostAccountsAccountExternalAccountsId = (
   params: Params<
     t_PostAccountsAccountExternalAccountsIdParamSchema,
@@ -2057,7 +1989,7 @@ export type PostAccountsAccountExternalAccountsId = (
     t_PostAccountsAccountExternalAccountsIdBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountExternalAccountsIdResponder,
+  respond: (typeof postAccountsAccountExternalAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2071,9 +2003,6 @@ const postAccountsAccountLoginLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountLoginLinksResponder =
-  (typeof postAccountsAccountLoginLinks)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountLoginLinks = (
   params: Params<
     t_PostAccountsAccountLoginLinksParamSchema,
@@ -2081,7 +2010,7 @@ export type PostAccountsAccountLoginLinks = (
     t_PostAccountsAccountLoginLinksBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountLoginLinksResponder,
+  respond: (typeof postAccountsAccountLoginLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2107,9 +2036,6 @@ const getAccountsAccountPeople = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountPeopleResponder =
-  (typeof getAccountsAccountPeople)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountPeople = (
   params: Params<
     t_GetAccountsAccountPeopleParamSchema,
@@ -2117,7 +2043,7 @@ export type GetAccountsAccountPeople = (
     t_GetAccountsAccountPeopleBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountPeopleResponder,
+  respond: (typeof getAccountsAccountPeople)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2139,9 +2065,6 @@ const postAccountsAccountPeople = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountPeopleResponder =
-  (typeof postAccountsAccountPeople)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountPeople = (
   params: Params<
     t_PostAccountsAccountPeopleParamSchema,
@@ -2149,7 +2072,7 @@ export type PostAccountsAccountPeople = (
     t_PostAccountsAccountPeopleBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountPeopleResponder,
+  respond: (typeof postAccountsAccountPeople)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2163,9 +2086,6 @@ const deleteAccountsAccountPeoplePerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAccountsAccountPeoplePersonResponder =
-  (typeof deleteAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
-
 export type DeleteAccountsAccountPeoplePerson = (
   params: Params<
     t_DeleteAccountsAccountPeoplePersonParamSchema,
@@ -2173,7 +2093,7 @@ export type DeleteAccountsAccountPeoplePerson = (
     t_DeleteAccountsAccountPeoplePersonBodySchema | undefined,
     void
   >,
-  respond: DeleteAccountsAccountPeoplePersonResponder,
+  respond: (typeof deleteAccountsAccountPeoplePerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2187,9 +2107,6 @@ const getAccountsAccountPeoplePerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountPeoplePersonResponder =
-  (typeof getAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountPeoplePerson = (
   params: Params<
     t_GetAccountsAccountPeoplePersonParamSchema,
@@ -2197,7 +2114,7 @@ export type GetAccountsAccountPeoplePerson = (
     t_GetAccountsAccountPeoplePersonBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountPeoplePersonResponder,
+  respond: (typeof getAccountsAccountPeoplePerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2211,9 +2128,6 @@ const postAccountsAccountPeoplePerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountPeoplePersonResponder =
-  (typeof postAccountsAccountPeoplePerson)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountPeoplePerson = (
   params: Params<
     t_PostAccountsAccountPeoplePersonParamSchema,
@@ -2221,7 +2135,7 @@ export type PostAccountsAccountPeoplePerson = (
     t_PostAccountsAccountPeoplePersonBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountPeoplePersonResponder,
+  respond: (typeof postAccountsAccountPeoplePerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2247,9 +2161,6 @@ const getAccountsAccountPersons = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountPersonsResponder =
-  (typeof getAccountsAccountPersons)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountPersons = (
   params: Params<
     t_GetAccountsAccountPersonsParamSchema,
@@ -2257,7 +2168,7 @@ export type GetAccountsAccountPersons = (
     t_GetAccountsAccountPersonsBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountPersonsResponder,
+  respond: (typeof getAccountsAccountPersons)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2279,9 +2190,6 @@ const postAccountsAccountPersons = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountPersonsResponder =
-  (typeof postAccountsAccountPersons)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountPersons = (
   params: Params<
     t_PostAccountsAccountPersonsParamSchema,
@@ -2289,7 +2197,7 @@ export type PostAccountsAccountPersons = (
     t_PostAccountsAccountPersonsBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountPersonsResponder,
+  respond: (typeof postAccountsAccountPersons)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2303,9 +2211,6 @@ const deleteAccountsAccountPersonsPerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteAccountsAccountPersonsPersonResponder =
-  (typeof deleteAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
-
 export type DeleteAccountsAccountPersonsPerson = (
   params: Params<
     t_DeleteAccountsAccountPersonsPersonParamSchema,
@@ -2313,7 +2218,7 @@ export type DeleteAccountsAccountPersonsPerson = (
     t_DeleteAccountsAccountPersonsPersonBodySchema | undefined,
     void
   >,
-  respond: DeleteAccountsAccountPersonsPersonResponder,
+  respond: (typeof deleteAccountsAccountPersonsPerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2327,9 +2232,6 @@ const getAccountsAccountPersonsPerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAccountsAccountPersonsPersonResponder =
-  (typeof getAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
-
 export type GetAccountsAccountPersonsPerson = (
   params: Params<
     t_GetAccountsAccountPersonsPersonParamSchema,
@@ -2337,7 +2239,7 @@ export type GetAccountsAccountPersonsPerson = (
     t_GetAccountsAccountPersonsPersonBodySchema | undefined,
     void
   >,
-  respond: GetAccountsAccountPersonsPersonResponder,
+  respond: (typeof getAccountsAccountPersonsPerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2351,9 +2253,6 @@ const postAccountsAccountPersonsPerson = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountPersonsPersonResponder =
-  (typeof postAccountsAccountPersonsPerson)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountPersonsPerson = (
   params: Params<
     t_PostAccountsAccountPersonsPersonParamSchema,
@@ -2361,7 +2260,7 @@ export type PostAccountsAccountPersonsPerson = (
     t_PostAccountsAccountPersonsPersonBodySchema | undefined,
     void
   >,
-  respond: PostAccountsAccountPersonsPersonResponder,
+  respond: (typeof postAccountsAccountPersonsPerson)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2375,9 +2274,6 @@ const postAccountsAccountReject = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAccountsAccountRejectResponder =
-  (typeof postAccountsAccountReject)["responder"] & KoaRuntimeResponder
-
 export type PostAccountsAccountReject = (
   params: Params<
     t_PostAccountsAccountRejectParamSchema,
@@ -2385,7 +2281,7 @@ export type PostAccountsAccountReject = (
     t_PostAccountsAccountRejectBodySchema,
     void
   >,
-  respond: PostAccountsAccountRejectResponder,
+  respond: (typeof postAccountsAccountReject)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2411,9 +2307,6 @@ const getApplePayDomains = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplePayDomainsResponder = (typeof getApplePayDomains)["responder"] &
-  KoaRuntimeResponder
-
 export type GetApplePayDomains = (
   params: Params<
     void,
@@ -2421,7 +2314,7 @@ export type GetApplePayDomains = (
     t_GetApplePayDomainsBodySchema | undefined,
     void
   >,
-  respond: GetApplePayDomainsResponder,
+  respond: (typeof getApplePayDomains)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2443,12 +2336,9 @@ const postApplePayDomains = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostApplePayDomainsResponder = (typeof postApplePayDomains)["responder"] &
-  KoaRuntimeResponder
-
 export type PostApplePayDomains = (
   params: Params<void, void, t_PostApplePayDomainsBodySchema, void>,
-  respond: PostApplePayDomainsResponder,
+  respond: (typeof postApplePayDomains)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2462,9 +2352,6 @@ const deleteApplePayDomainsDomain = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteApplePayDomainsDomainResponder =
-  (typeof deleteApplePayDomainsDomain)["responder"] & KoaRuntimeResponder
-
 export type DeleteApplePayDomainsDomain = (
   params: Params<
     t_DeleteApplePayDomainsDomainParamSchema,
@@ -2472,7 +2359,7 @@ export type DeleteApplePayDomainsDomain = (
     t_DeleteApplePayDomainsDomainBodySchema | undefined,
     void
   >,
-  respond: DeleteApplePayDomainsDomainResponder,
+  respond: (typeof deleteApplePayDomainsDomain)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2486,9 +2373,6 @@ const getApplePayDomainsDomain = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplePayDomainsDomainResponder =
-  (typeof getApplePayDomainsDomain)["responder"] & KoaRuntimeResponder
-
 export type GetApplePayDomainsDomain = (
   params: Params<
     t_GetApplePayDomainsDomainParamSchema,
@@ -2496,7 +2380,7 @@ export type GetApplePayDomainsDomain = (
     t_GetApplePayDomainsDomainBodySchema | undefined,
     void
   >,
-  respond: GetApplePayDomainsDomainResponder,
+  respond: (typeof getApplePayDomainsDomain)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2522,9 +2406,6 @@ const getApplicationFees = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplicationFeesResponder = (typeof getApplicationFees)["responder"] &
-  KoaRuntimeResponder
-
 export type GetApplicationFees = (
   params: Params<
     void,
@@ -2532,7 +2413,7 @@ export type GetApplicationFees = (
     t_GetApplicationFeesBodySchema | undefined,
     void
   >,
-  respond: GetApplicationFeesResponder,
+  respond: (typeof getApplicationFees)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2554,9 +2435,6 @@ const getApplicationFeesFeeRefundsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplicationFeesFeeRefundsIdResponder =
-  (typeof getApplicationFeesFeeRefundsId)["responder"] & KoaRuntimeResponder
-
 export type GetApplicationFeesFeeRefundsId = (
   params: Params<
     t_GetApplicationFeesFeeRefundsIdParamSchema,
@@ -2564,7 +2442,7 @@ export type GetApplicationFeesFeeRefundsId = (
     t_GetApplicationFeesFeeRefundsIdBodySchema | undefined,
     void
   >,
-  respond: GetApplicationFeesFeeRefundsIdResponder,
+  respond: (typeof getApplicationFeesFeeRefundsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2578,9 +2456,6 @@ const postApplicationFeesFeeRefundsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostApplicationFeesFeeRefundsIdResponder =
-  (typeof postApplicationFeesFeeRefundsId)["responder"] & KoaRuntimeResponder
-
 export type PostApplicationFeesFeeRefundsId = (
   params: Params<
     t_PostApplicationFeesFeeRefundsIdParamSchema,
@@ -2588,7 +2463,7 @@ export type PostApplicationFeesFeeRefundsId = (
     t_PostApplicationFeesFeeRefundsIdBodySchema | undefined,
     void
   >,
-  respond: PostApplicationFeesFeeRefundsIdResponder,
+  respond: (typeof postApplicationFeesFeeRefundsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2602,9 +2477,6 @@ const getApplicationFeesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplicationFeesIdResponder =
-  (typeof getApplicationFeesId)["responder"] & KoaRuntimeResponder
-
 export type GetApplicationFeesId = (
   params: Params<
     t_GetApplicationFeesIdParamSchema,
@@ -2612,7 +2484,7 @@ export type GetApplicationFeesId = (
     t_GetApplicationFeesIdBodySchema | undefined,
     void
   >,
-  respond: GetApplicationFeesIdResponder,
+  respond: (typeof getApplicationFeesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2626,9 +2498,6 @@ const postApplicationFeesIdRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostApplicationFeesIdRefundResponder =
-  (typeof postApplicationFeesIdRefund)["responder"] & KoaRuntimeResponder
-
 export type PostApplicationFeesIdRefund = (
   params: Params<
     t_PostApplicationFeesIdRefundParamSchema,
@@ -2636,7 +2505,7 @@ export type PostApplicationFeesIdRefund = (
     t_PostApplicationFeesIdRefundBodySchema | undefined,
     void
   >,
-  respond: PostApplicationFeesIdRefundResponder,
+  respond: (typeof postApplicationFeesIdRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2662,9 +2531,6 @@ const getApplicationFeesIdRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetApplicationFeesIdRefundsResponder =
-  (typeof getApplicationFeesIdRefunds)["responder"] & KoaRuntimeResponder
-
 export type GetApplicationFeesIdRefunds = (
   params: Params<
     t_GetApplicationFeesIdRefundsParamSchema,
@@ -2672,7 +2538,7 @@ export type GetApplicationFeesIdRefunds = (
     t_GetApplicationFeesIdRefundsBodySchema | undefined,
     void
   >,
-  respond: GetApplicationFeesIdRefundsResponder,
+  respond: (typeof getApplicationFeesIdRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2694,9 +2560,6 @@ const postApplicationFeesIdRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostApplicationFeesIdRefundsResponder =
-  (typeof postApplicationFeesIdRefunds)["responder"] & KoaRuntimeResponder
-
 export type PostApplicationFeesIdRefunds = (
   params: Params<
     t_PostApplicationFeesIdRefundsParamSchema,
@@ -2704,7 +2567,7 @@ export type PostApplicationFeesIdRefunds = (
     t_PostApplicationFeesIdRefundsBodySchema | undefined,
     void
   >,
-  respond: PostApplicationFeesIdRefundsResponder,
+  respond: (typeof postApplicationFeesIdRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2730,9 +2593,6 @@ const getAppsSecrets = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAppsSecretsResponder = (typeof getAppsSecrets)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAppsSecrets = (
   params: Params<
     void,
@@ -2740,7 +2600,7 @@ export type GetAppsSecrets = (
     t_GetAppsSecretsBodySchema | undefined,
     void
   >,
-  respond: GetAppsSecretsResponder,
+  respond: (typeof getAppsSecrets)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2762,12 +2622,9 @@ const postAppsSecrets = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAppsSecretsResponder = (typeof postAppsSecrets)["responder"] &
-  KoaRuntimeResponder
-
 export type PostAppsSecrets = (
   params: Params<void, void, t_PostAppsSecretsBodySchema, void>,
-  respond: PostAppsSecretsResponder,
+  respond: (typeof postAppsSecrets)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2781,12 +2638,9 @@ const postAppsSecretsDelete = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostAppsSecretsDeleteResponder =
-  (typeof postAppsSecretsDelete)["responder"] & KoaRuntimeResponder
-
 export type PostAppsSecretsDelete = (
   params: Params<void, void, t_PostAppsSecretsDeleteBodySchema, void>,
-  respond: PostAppsSecretsDeleteResponder,
+  respond: (typeof postAppsSecretsDelete)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2800,9 +2654,6 @@ const getAppsSecretsFind = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetAppsSecretsFindResponder = (typeof getAppsSecretsFind)["responder"] &
-  KoaRuntimeResponder
-
 export type GetAppsSecretsFind = (
   params: Params<
     void,
@@ -2810,7 +2661,7 @@ export type GetAppsSecretsFind = (
     t_GetAppsSecretsFindBodySchema | undefined,
     void
   >,
-  respond: GetAppsSecretsFindResponder,
+  respond: (typeof getAppsSecretsFind)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2824,9 +2675,6 @@ const getBalance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBalanceResponder = (typeof getBalance)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBalance = (
   params: Params<
     void,
@@ -2834,7 +2682,7 @@ export type GetBalance = (
     t_GetBalanceBodySchema | undefined,
     void
   >,
-  respond: GetBalanceResponder,
+  respond: (typeof getBalance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2860,9 +2708,6 @@ const getBalanceHistory = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBalanceHistoryResponder = (typeof getBalanceHistory)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBalanceHistory = (
   params: Params<
     void,
@@ -2870,7 +2715,7 @@ export type GetBalanceHistory = (
     t_GetBalanceHistoryBodySchema | undefined,
     void
   >,
-  respond: GetBalanceHistoryResponder,
+  respond: (typeof getBalanceHistory)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2892,9 +2737,6 @@ const getBalanceHistoryId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBalanceHistoryIdResponder = (typeof getBalanceHistoryId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBalanceHistoryId = (
   params: Params<
     t_GetBalanceHistoryIdParamSchema,
@@ -2902,7 +2744,7 @@ export type GetBalanceHistoryId = (
     t_GetBalanceHistoryIdBodySchema | undefined,
     void
   >,
-  respond: GetBalanceHistoryIdResponder,
+  respond: (typeof getBalanceHistoryId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2928,9 +2770,6 @@ const getBalanceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBalanceTransactionsResponder =
-  (typeof getBalanceTransactions)["responder"] & KoaRuntimeResponder
-
 export type GetBalanceTransactions = (
   params: Params<
     void,
@@ -2938,7 +2777,7 @@ export type GetBalanceTransactions = (
     t_GetBalanceTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetBalanceTransactionsResponder,
+  respond: (typeof getBalanceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2960,9 +2799,6 @@ const getBalanceTransactionsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBalanceTransactionsIdResponder =
-  (typeof getBalanceTransactionsId)["responder"] & KoaRuntimeResponder
-
 export type GetBalanceTransactionsId = (
   params: Params<
     t_GetBalanceTransactionsIdParamSchema,
@@ -2970,7 +2806,7 @@ export type GetBalanceTransactionsId = (
     t_GetBalanceTransactionsIdBodySchema | undefined,
     void
   >,
-  respond: GetBalanceTransactionsIdResponder,
+  respond: (typeof getBalanceTransactionsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -2996,9 +2832,6 @@ const getBillingAlerts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingAlertsResponder = (typeof getBillingAlerts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBillingAlerts = (
   params: Params<
     void,
@@ -3006,7 +2839,7 @@ export type GetBillingAlerts = (
     t_GetBillingAlertsBodySchema | undefined,
     void
   >,
-  respond: GetBillingAlertsResponder,
+  respond: (typeof getBillingAlerts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3028,12 +2861,9 @@ const postBillingAlerts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingAlertsResponder = (typeof postBillingAlerts)["responder"] &
-  KoaRuntimeResponder
-
 export type PostBillingAlerts = (
   params: Params<void, void, t_PostBillingAlertsBodySchema, void>,
-  respond: PostBillingAlertsResponder,
+  respond: (typeof postBillingAlerts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3047,9 +2877,6 @@ const getBillingAlertsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingAlertsIdResponder = (typeof getBillingAlertsId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBillingAlertsId = (
   params: Params<
     t_GetBillingAlertsIdParamSchema,
@@ -3057,7 +2884,7 @@ export type GetBillingAlertsId = (
     t_GetBillingAlertsIdBodySchema | undefined,
     void
   >,
-  respond: GetBillingAlertsIdResponder,
+  respond: (typeof getBillingAlertsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3071,9 +2898,6 @@ const postBillingAlertsIdActivate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingAlertsIdActivateResponder =
-  (typeof postBillingAlertsIdActivate)["responder"] & KoaRuntimeResponder
-
 export type PostBillingAlertsIdActivate = (
   params: Params<
     t_PostBillingAlertsIdActivateParamSchema,
@@ -3081,7 +2905,7 @@ export type PostBillingAlertsIdActivate = (
     t_PostBillingAlertsIdActivateBodySchema | undefined,
     void
   >,
-  respond: PostBillingAlertsIdActivateResponder,
+  respond: (typeof postBillingAlertsIdActivate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3095,9 +2919,6 @@ const postBillingAlertsIdArchive = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingAlertsIdArchiveResponder =
-  (typeof postBillingAlertsIdArchive)["responder"] & KoaRuntimeResponder
-
 export type PostBillingAlertsIdArchive = (
   params: Params<
     t_PostBillingAlertsIdArchiveParamSchema,
@@ -3105,7 +2926,7 @@ export type PostBillingAlertsIdArchive = (
     t_PostBillingAlertsIdArchiveBodySchema | undefined,
     void
   >,
-  respond: PostBillingAlertsIdArchiveResponder,
+  respond: (typeof postBillingAlertsIdArchive)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3119,9 +2940,6 @@ const postBillingAlertsIdDeactivate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingAlertsIdDeactivateResponder =
-  (typeof postBillingAlertsIdDeactivate)["responder"] & KoaRuntimeResponder
-
 export type PostBillingAlertsIdDeactivate = (
   params: Params<
     t_PostBillingAlertsIdDeactivateParamSchema,
@@ -3129,7 +2947,7 @@ export type PostBillingAlertsIdDeactivate = (
     t_PostBillingAlertsIdDeactivateBodySchema | undefined,
     void
   >,
-  respond: PostBillingAlertsIdDeactivateResponder,
+  respond: (typeof postBillingAlertsIdDeactivate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3145,9 +2963,6 @@ const getBillingCreditBalanceSummary = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingCreditBalanceSummaryResponder =
-  (typeof getBillingCreditBalanceSummary)["responder"] & KoaRuntimeResponder
-
 export type GetBillingCreditBalanceSummary = (
   params: Params<
     void,
@@ -3155,7 +2970,7 @@ export type GetBillingCreditBalanceSummary = (
     t_GetBillingCreditBalanceSummaryBodySchema | undefined,
     void
   >,
-  respond: GetBillingCreditBalanceSummaryResponder,
+  respond: (typeof getBillingCreditBalanceSummary)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3181,10 +2996,6 @@ const getBillingCreditBalanceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingCreditBalanceTransactionsResponder =
-  (typeof getBillingCreditBalanceTransactions)["responder"] &
-    KoaRuntimeResponder
-
 export type GetBillingCreditBalanceTransactions = (
   params: Params<
     void,
@@ -3192,7 +3003,7 @@ export type GetBillingCreditBalanceTransactions = (
     t_GetBillingCreditBalanceTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetBillingCreditBalanceTransactionsResponder,
+  respond: (typeof getBillingCreditBalanceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3216,10 +3027,6 @@ const getBillingCreditBalanceTransactionsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingCreditBalanceTransactionsIdResponder =
-  (typeof getBillingCreditBalanceTransactionsId)["responder"] &
-    KoaRuntimeResponder
-
 export type GetBillingCreditBalanceTransactionsId = (
   params: Params<
     t_GetBillingCreditBalanceTransactionsIdParamSchema,
@@ -3227,7 +3034,7 @@ export type GetBillingCreditBalanceTransactionsId = (
     t_GetBillingCreditBalanceTransactionsIdBodySchema | undefined,
     void
   >,
-  respond: GetBillingCreditBalanceTransactionsIdResponder,
+  respond: (typeof getBillingCreditBalanceTransactionsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3253,9 +3060,6 @@ const getBillingCreditGrants = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingCreditGrantsResponder =
-  (typeof getBillingCreditGrants)["responder"] & KoaRuntimeResponder
-
 export type GetBillingCreditGrants = (
   params: Params<
     void,
@@ -3263,7 +3067,7 @@ export type GetBillingCreditGrants = (
     t_GetBillingCreditGrantsBodySchema | undefined,
     void
   >,
-  respond: GetBillingCreditGrantsResponder,
+  respond: (typeof getBillingCreditGrants)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3285,12 +3089,9 @@ const postBillingCreditGrants = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingCreditGrantsResponder =
-  (typeof postBillingCreditGrants)["responder"] & KoaRuntimeResponder
-
 export type PostBillingCreditGrants = (
   params: Params<void, void, t_PostBillingCreditGrantsBodySchema, void>,
-  respond: PostBillingCreditGrantsResponder,
+  respond: (typeof postBillingCreditGrants)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3304,9 +3105,6 @@ const getBillingCreditGrantsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingCreditGrantsIdResponder =
-  (typeof getBillingCreditGrantsId)["responder"] & KoaRuntimeResponder
-
 export type GetBillingCreditGrantsId = (
   params: Params<
     t_GetBillingCreditGrantsIdParamSchema,
@@ -3314,7 +3112,7 @@ export type GetBillingCreditGrantsId = (
     t_GetBillingCreditGrantsIdBodySchema | undefined,
     void
   >,
-  respond: GetBillingCreditGrantsIdResponder,
+  respond: (typeof getBillingCreditGrantsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3328,9 +3126,6 @@ const postBillingCreditGrantsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingCreditGrantsIdResponder =
-  (typeof postBillingCreditGrantsId)["responder"] & KoaRuntimeResponder
-
 export type PostBillingCreditGrantsId = (
   params: Params<
     t_PostBillingCreditGrantsIdParamSchema,
@@ -3338,7 +3133,7 @@ export type PostBillingCreditGrantsId = (
     t_PostBillingCreditGrantsIdBodySchema | undefined,
     void
   >,
-  respond: PostBillingCreditGrantsIdResponder,
+  respond: (typeof postBillingCreditGrantsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3352,9 +3147,6 @@ const postBillingCreditGrantsIdExpire = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingCreditGrantsIdExpireResponder =
-  (typeof postBillingCreditGrantsIdExpire)["responder"] & KoaRuntimeResponder
-
 export type PostBillingCreditGrantsIdExpire = (
   params: Params<
     t_PostBillingCreditGrantsIdExpireParamSchema,
@@ -3362,7 +3154,7 @@ export type PostBillingCreditGrantsIdExpire = (
     t_PostBillingCreditGrantsIdExpireBodySchema | undefined,
     void
   >,
-  respond: PostBillingCreditGrantsIdExpireResponder,
+  respond: (typeof postBillingCreditGrantsIdExpire)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3376,9 +3168,6 @@ const postBillingCreditGrantsIdVoid = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingCreditGrantsIdVoidResponder =
-  (typeof postBillingCreditGrantsIdVoid)["responder"] & KoaRuntimeResponder
-
 export type PostBillingCreditGrantsIdVoid = (
   params: Params<
     t_PostBillingCreditGrantsIdVoidParamSchema,
@@ -3386,7 +3175,7 @@ export type PostBillingCreditGrantsIdVoid = (
     t_PostBillingCreditGrantsIdVoidBodySchema | undefined,
     void
   >,
-  respond: PostBillingCreditGrantsIdVoidResponder,
+  respond: (typeof postBillingCreditGrantsIdVoid)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3402,9 +3191,6 @@ const postBillingMeterEventAdjustments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMeterEventAdjustmentsResponder =
-  (typeof postBillingMeterEventAdjustments)["responder"] & KoaRuntimeResponder
-
 export type PostBillingMeterEventAdjustments = (
   params: Params<
     void,
@@ -3412,7 +3198,7 @@ export type PostBillingMeterEventAdjustments = (
     t_PostBillingMeterEventAdjustmentsBodySchema,
     void
   >,
-  respond: PostBillingMeterEventAdjustmentsResponder,
+  respond: (typeof postBillingMeterEventAdjustments)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3426,12 +3212,9 @@ const postBillingMeterEvents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMeterEventsResponder =
-  (typeof postBillingMeterEvents)["responder"] & KoaRuntimeResponder
-
 export type PostBillingMeterEvents = (
   params: Params<void, void, t_PostBillingMeterEventsBodySchema, void>,
-  respond: PostBillingMeterEventsResponder,
+  respond: (typeof postBillingMeterEvents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3457,9 +3240,6 @@ const getBillingMeters = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingMetersResponder = (typeof getBillingMeters)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBillingMeters = (
   params: Params<
     void,
@@ -3467,7 +3247,7 @@ export type GetBillingMeters = (
     t_GetBillingMetersBodySchema | undefined,
     void
   >,
-  respond: GetBillingMetersResponder,
+  respond: (typeof getBillingMeters)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3489,12 +3269,9 @@ const postBillingMeters = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMetersResponder = (typeof postBillingMeters)["responder"] &
-  KoaRuntimeResponder
-
 export type PostBillingMeters = (
   params: Params<void, void, t_PostBillingMetersBodySchema, void>,
-  respond: PostBillingMetersResponder,
+  respond: (typeof postBillingMeters)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3508,9 +3285,6 @@ const getBillingMetersId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingMetersIdResponder = (typeof getBillingMetersId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetBillingMetersId = (
   params: Params<
     t_GetBillingMetersIdParamSchema,
@@ -3518,7 +3292,7 @@ export type GetBillingMetersId = (
     t_GetBillingMetersIdBodySchema | undefined,
     void
   >,
-  respond: GetBillingMetersIdResponder,
+  respond: (typeof getBillingMetersId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3532,9 +3306,6 @@ const postBillingMetersId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMetersIdResponder = (typeof postBillingMetersId)["responder"] &
-  KoaRuntimeResponder
-
 export type PostBillingMetersId = (
   params: Params<
     t_PostBillingMetersIdParamSchema,
@@ -3542,7 +3313,7 @@ export type PostBillingMetersId = (
     t_PostBillingMetersIdBodySchema | undefined,
     void
   >,
-  respond: PostBillingMetersIdResponder,
+  respond: (typeof postBillingMetersId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3556,9 +3327,6 @@ const postBillingMetersIdDeactivate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMetersIdDeactivateResponder =
-  (typeof postBillingMetersIdDeactivate)["responder"] & KoaRuntimeResponder
-
 export type PostBillingMetersIdDeactivate = (
   params: Params<
     t_PostBillingMetersIdDeactivateParamSchema,
@@ -3566,7 +3334,7 @@ export type PostBillingMetersIdDeactivate = (
     t_PostBillingMetersIdDeactivateBodySchema | undefined,
     void
   >,
-  respond: PostBillingMetersIdDeactivateResponder,
+  respond: (typeof postBillingMetersIdDeactivate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3595,9 +3363,6 @@ const getBillingMetersIdEventSummaries = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingMetersIdEventSummariesResponder =
-  (typeof getBillingMetersIdEventSummaries)["responder"] & KoaRuntimeResponder
-
 export type GetBillingMetersIdEventSummaries = (
   params: Params<
     t_GetBillingMetersIdEventSummariesParamSchema,
@@ -3605,7 +3370,7 @@ export type GetBillingMetersIdEventSummaries = (
     t_GetBillingMetersIdEventSummariesBodySchema | undefined,
     void
   >,
-  respond: GetBillingMetersIdEventSummariesResponder,
+  respond: (typeof getBillingMetersIdEventSummaries)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3627,9 +3392,6 @@ const postBillingMetersIdReactivate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingMetersIdReactivateResponder =
-  (typeof postBillingMetersIdReactivate)["responder"] & KoaRuntimeResponder
-
 export type PostBillingMetersIdReactivate = (
   params: Params<
     t_PostBillingMetersIdReactivateParamSchema,
@@ -3637,7 +3399,7 @@ export type PostBillingMetersIdReactivate = (
     t_PostBillingMetersIdReactivateBodySchema | undefined,
     void
   >,
-  respond: PostBillingMetersIdReactivateResponder,
+  respond: (typeof postBillingMetersIdReactivate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3666,9 +3428,6 @@ const getBillingPortalConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingPortalConfigurationsResponder =
-  (typeof getBillingPortalConfigurations)["responder"] & KoaRuntimeResponder
-
 export type GetBillingPortalConfigurations = (
   params: Params<
     void,
@@ -3676,7 +3435,7 @@ export type GetBillingPortalConfigurations = (
     t_GetBillingPortalConfigurationsBodySchema | undefined,
     void
   >,
-  respond: GetBillingPortalConfigurationsResponder,
+  respond: (typeof getBillingPortalConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3700,12 +3459,9 @@ const postBillingPortalConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingPortalConfigurationsResponder =
-  (typeof postBillingPortalConfigurations)["responder"] & KoaRuntimeResponder
-
 export type PostBillingPortalConfigurations = (
   params: Params<void, void, t_PostBillingPortalConfigurationsBodySchema, void>,
-  respond: PostBillingPortalConfigurationsResponder,
+  respond: (typeof postBillingPortalConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3721,10 +3477,6 @@ const getBillingPortalConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetBillingPortalConfigurationsConfigurationResponder =
-  (typeof getBillingPortalConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type GetBillingPortalConfigurationsConfiguration = (
   params: Params<
     t_GetBillingPortalConfigurationsConfigurationParamSchema,
@@ -3732,7 +3484,7 @@ export type GetBillingPortalConfigurationsConfiguration = (
     t_GetBillingPortalConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: GetBillingPortalConfigurationsConfigurationResponder,
+  respond: (typeof getBillingPortalConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3748,10 +3500,6 @@ const postBillingPortalConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingPortalConfigurationsConfigurationResponder =
-  (typeof postBillingPortalConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type PostBillingPortalConfigurationsConfiguration = (
   params: Params<
     t_PostBillingPortalConfigurationsConfigurationParamSchema,
@@ -3759,7 +3507,7 @@ export type PostBillingPortalConfigurationsConfiguration = (
     t_PostBillingPortalConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: PostBillingPortalConfigurationsConfigurationResponder,
+  respond: (typeof postBillingPortalConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3773,12 +3521,9 @@ const postBillingPortalSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostBillingPortalSessionsResponder =
-  (typeof postBillingPortalSessions)["responder"] & KoaRuntimeResponder
-
 export type PostBillingPortalSessions = (
   params: Params<void, void, t_PostBillingPortalSessionsBodySchema, void>,
-  respond: PostBillingPortalSessionsResponder,
+  respond: (typeof postBillingPortalSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3804,9 +3549,6 @@ const getCharges = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesResponder = (typeof getCharges)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCharges = (
   params: Params<
     void,
@@ -3814,7 +3556,7 @@ export type GetCharges = (
     t_GetChargesBodySchema | undefined,
     void
   >,
-  respond: GetChargesResponder,
+  respond: (typeof getCharges)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3836,12 +3578,9 @@ const postCharges = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesResponder = (typeof postCharges)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCharges = (
   params: Params<void, void, t_PostChargesBodySchema | undefined, void>,
-  respond: PostChargesResponder,
+  respond: (typeof postCharges)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3871,9 +3610,6 @@ const getChargesSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesSearchResponder = (typeof getChargesSearch)["responder"] &
-  KoaRuntimeResponder
-
 export type GetChargesSearch = (
   params: Params<
     void,
@@ -3881,7 +3617,7 @@ export type GetChargesSearch = (
     t_GetChargesSearchBodySchema | undefined,
     void
   >,
-  respond: GetChargesSearchResponder,
+  respond: (typeof getChargesSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3905,9 +3641,6 @@ const getChargesCharge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesChargeResponder = (typeof getChargesCharge)["responder"] &
-  KoaRuntimeResponder
-
 export type GetChargesCharge = (
   params: Params<
     t_GetChargesChargeParamSchema,
@@ -3915,7 +3648,7 @@ export type GetChargesCharge = (
     t_GetChargesChargeBodySchema | undefined,
     void
   >,
-  respond: GetChargesChargeResponder,
+  respond: (typeof getChargesCharge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3929,9 +3662,6 @@ const postChargesCharge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeResponder = (typeof postChargesCharge)["responder"] &
-  KoaRuntimeResponder
-
 export type PostChargesCharge = (
   params: Params<
     t_PostChargesChargeParamSchema,
@@ -3939,7 +3669,7 @@ export type PostChargesCharge = (
     t_PostChargesChargeBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeResponder,
+  respond: (typeof postChargesCharge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3953,9 +3683,6 @@ const postChargesChargeCapture = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeCaptureResponder =
-  (typeof postChargesChargeCapture)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeCapture = (
   params: Params<
     t_PostChargesChargeCaptureParamSchema,
@@ -3963,7 +3690,7 @@ export type PostChargesChargeCapture = (
     t_PostChargesChargeCaptureBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeCaptureResponder,
+  respond: (typeof postChargesChargeCapture)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -3977,9 +3704,6 @@ const getChargesChargeDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesChargeDisputeResponder =
-  (typeof getChargesChargeDispute)["responder"] & KoaRuntimeResponder
-
 export type GetChargesChargeDispute = (
   params: Params<
     t_GetChargesChargeDisputeParamSchema,
@@ -3987,7 +3711,7 @@ export type GetChargesChargeDispute = (
     t_GetChargesChargeDisputeBodySchema | undefined,
     void
   >,
-  respond: GetChargesChargeDisputeResponder,
+  respond: (typeof getChargesChargeDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4001,9 +3725,6 @@ const postChargesChargeDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeDisputeResponder =
-  (typeof postChargesChargeDispute)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeDispute = (
   params: Params<
     t_PostChargesChargeDisputeParamSchema,
@@ -4011,7 +3732,7 @@ export type PostChargesChargeDispute = (
     t_PostChargesChargeDisputeBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeDisputeResponder,
+  respond: (typeof postChargesChargeDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4025,9 +3746,6 @@ const postChargesChargeDisputeClose = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeDisputeCloseResponder =
-  (typeof postChargesChargeDisputeClose)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeDisputeClose = (
   params: Params<
     t_PostChargesChargeDisputeCloseParamSchema,
@@ -4035,7 +3753,7 @@ export type PostChargesChargeDisputeClose = (
     t_PostChargesChargeDisputeCloseBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeDisputeCloseResponder,
+  respond: (typeof postChargesChargeDisputeClose)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4049,9 +3767,6 @@ const postChargesChargeRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeRefundResponder =
-  (typeof postChargesChargeRefund)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeRefund = (
   params: Params<
     t_PostChargesChargeRefundParamSchema,
@@ -4059,7 +3774,7 @@ export type PostChargesChargeRefund = (
     t_PostChargesChargeRefundBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeRefundResponder,
+  respond: (typeof postChargesChargeRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4085,9 +3800,6 @@ const getChargesChargeRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesChargeRefundsResponder =
-  (typeof getChargesChargeRefunds)["responder"] & KoaRuntimeResponder
-
 export type GetChargesChargeRefunds = (
   params: Params<
     t_GetChargesChargeRefundsParamSchema,
@@ -4095,7 +3807,7 @@ export type GetChargesChargeRefunds = (
     t_GetChargesChargeRefundsBodySchema | undefined,
     void
   >,
-  respond: GetChargesChargeRefundsResponder,
+  respond: (typeof getChargesChargeRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4117,9 +3829,6 @@ const postChargesChargeRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeRefundsResponder =
-  (typeof postChargesChargeRefunds)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeRefunds = (
   params: Params<
     t_PostChargesChargeRefundsParamSchema,
@@ -4127,7 +3836,7 @@ export type PostChargesChargeRefunds = (
     t_PostChargesChargeRefundsBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeRefundsResponder,
+  respond: (typeof postChargesChargeRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4141,9 +3850,6 @@ const getChargesChargeRefundsRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetChargesChargeRefundsRefundResponder =
-  (typeof getChargesChargeRefundsRefund)["responder"] & KoaRuntimeResponder
-
 export type GetChargesChargeRefundsRefund = (
   params: Params<
     t_GetChargesChargeRefundsRefundParamSchema,
@@ -4151,7 +3857,7 @@ export type GetChargesChargeRefundsRefund = (
     t_GetChargesChargeRefundsRefundBodySchema | undefined,
     void
   >,
-  respond: GetChargesChargeRefundsRefundResponder,
+  respond: (typeof getChargesChargeRefundsRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4165,9 +3871,6 @@ const postChargesChargeRefundsRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostChargesChargeRefundsRefundResponder =
-  (typeof postChargesChargeRefundsRefund)["responder"] & KoaRuntimeResponder
-
 export type PostChargesChargeRefundsRefund = (
   params: Params<
     t_PostChargesChargeRefundsRefundParamSchema,
@@ -4175,7 +3878,7 @@ export type PostChargesChargeRefundsRefund = (
     t_PostChargesChargeRefundsRefundBodySchema | undefined,
     void
   >,
-  respond: PostChargesChargeRefundsRefundResponder,
+  respond: (typeof postChargesChargeRefundsRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4201,9 +3904,6 @@ const getCheckoutSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCheckoutSessionsResponder = (typeof getCheckoutSessions)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCheckoutSessions = (
   params: Params<
     void,
@@ -4211,7 +3911,7 @@ export type GetCheckoutSessions = (
     t_GetCheckoutSessionsBodySchema | undefined,
     void
   >,
-  respond: GetCheckoutSessionsResponder,
+  respond: (typeof getCheckoutSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4233,9 +3933,6 @@ const postCheckoutSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCheckoutSessionsResponder =
-  (typeof postCheckoutSessions)["responder"] & KoaRuntimeResponder
-
 export type PostCheckoutSessions = (
   params: Params<
     void,
@@ -4243,7 +3940,7 @@ export type PostCheckoutSessions = (
     t_PostCheckoutSessionsBodySchema | undefined,
     void
   >,
-  respond: PostCheckoutSessionsResponder,
+  respond: (typeof postCheckoutSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4257,9 +3954,6 @@ const getCheckoutSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCheckoutSessionsSessionResponder =
-  (typeof getCheckoutSessionsSession)["responder"] & KoaRuntimeResponder
-
 export type GetCheckoutSessionsSession = (
   params: Params<
     t_GetCheckoutSessionsSessionParamSchema,
@@ -4267,7 +3961,7 @@ export type GetCheckoutSessionsSession = (
     t_GetCheckoutSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: GetCheckoutSessionsSessionResponder,
+  respond: (typeof getCheckoutSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4281,9 +3975,6 @@ const postCheckoutSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCheckoutSessionsSessionResponder =
-  (typeof postCheckoutSessionsSession)["responder"] & KoaRuntimeResponder
-
 export type PostCheckoutSessionsSession = (
   params: Params<
     t_PostCheckoutSessionsSessionParamSchema,
@@ -4291,7 +3982,7 @@ export type PostCheckoutSessionsSession = (
     t_PostCheckoutSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: PostCheckoutSessionsSessionResponder,
+  respond: (typeof postCheckoutSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4305,9 +3996,6 @@ const postCheckoutSessionsSessionExpire = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCheckoutSessionsSessionExpireResponder =
-  (typeof postCheckoutSessionsSessionExpire)["responder"] & KoaRuntimeResponder
-
 export type PostCheckoutSessionsSessionExpire = (
   params: Params<
     t_PostCheckoutSessionsSessionExpireParamSchema,
@@ -4315,7 +4003,7 @@ export type PostCheckoutSessionsSessionExpire = (
     t_PostCheckoutSessionsSessionExpireBodySchema | undefined,
     void
   >,
-  respond: PostCheckoutSessionsSessionExpireResponder,
+  respond: (typeof postCheckoutSessionsSessionExpire)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4341,10 +4029,6 @@ const getCheckoutSessionsSessionLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCheckoutSessionsSessionLineItemsResponder =
-  (typeof getCheckoutSessionsSessionLineItems)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCheckoutSessionsSessionLineItems = (
   params: Params<
     t_GetCheckoutSessionsSessionLineItemsParamSchema,
@@ -4352,7 +4036,7 @@ export type GetCheckoutSessionsSessionLineItems = (
     t_GetCheckoutSessionsSessionLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetCheckoutSessionsSessionLineItemsResponder,
+  respond: (typeof getCheckoutSessionsSessionLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4386,9 +4070,6 @@ const getClimateOrders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateOrdersResponder = (typeof getClimateOrders)["responder"] &
-  KoaRuntimeResponder
-
 export type GetClimateOrders = (
   params: Params<
     void,
@@ -4396,7 +4077,7 @@ export type GetClimateOrders = (
     t_GetClimateOrdersBodySchema | undefined,
     void
   >,
-  respond: GetClimateOrdersResponder,
+  respond: (typeof getClimateOrders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4418,12 +4099,9 @@ const postClimateOrders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostClimateOrdersResponder = (typeof postClimateOrders)["responder"] &
-  KoaRuntimeResponder
-
 export type PostClimateOrders = (
   params: Params<void, void, t_PostClimateOrdersBodySchema, void>,
-  respond: PostClimateOrdersResponder,
+  respond: (typeof postClimateOrders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4437,9 +4115,6 @@ const getClimateOrdersOrder = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateOrdersOrderResponder =
-  (typeof getClimateOrdersOrder)["responder"] & KoaRuntimeResponder
-
 export type GetClimateOrdersOrder = (
   params: Params<
     t_GetClimateOrdersOrderParamSchema,
@@ -4447,7 +4122,7 @@ export type GetClimateOrdersOrder = (
     t_GetClimateOrdersOrderBodySchema | undefined,
     void
   >,
-  respond: GetClimateOrdersOrderResponder,
+  respond: (typeof getClimateOrdersOrder)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4461,9 +4136,6 @@ const postClimateOrdersOrder = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostClimateOrdersOrderResponder =
-  (typeof postClimateOrdersOrder)["responder"] & KoaRuntimeResponder
-
 export type PostClimateOrdersOrder = (
   params: Params<
     t_PostClimateOrdersOrderParamSchema,
@@ -4471,7 +4143,7 @@ export type PostClimateOrdersOrder = (
     t_PostClimateOrdersOrderBodySchema | undefined,
     void
   >,
-  respond: PostClimateOrdersOrderResponder,
+  respond: (typeof postClimateOrdersOrder)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4485,9 +4157,6 @@ const postClimateOrdersOrderCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostClimateOrdersOrderCancelResponder =
-  (typeof postClimateOrdersOrderCancel)["responder"] & KoaRuntimeResponder
-
 export type PostClimateOrdersOrderCancel = (
   params: Params<
     t_PostClimateOrdersOrderCancelParamSchema,
@@ -4495,7 +4164,7 @@ export type PostClimateOrdersOrderCancel = (
     t_PostClimateOrdersOrderCancelBodySchema | undefined,
     void
   >,
-  respond: PostClimateOrdersOrderCancelResponder,
+  respond: (typeof postClimateOrdersOrderCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4521,9 +4190,6 @@ const getClimateProducts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateProductsResponder = (typeof getClimateProducts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetClimateProducts = (
   params: Params<
     void,
@@ -4531,7 +4197,7 @@ export type GetClimateProducts = (
     t_GetClimateProductsBodySchema | undefined,
     void
   >,
-  respond: GetClimateProductsResponder,
+  respond: (typeof getClimateProducts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4553,9 +4219,6 @@ const getClimateProductsProduct = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateProductsProductResponder =
-  (typeof getClimateProductsProduct)["responder"] & KoaRuntimeResponder
-
 export type GetClimateProductsProduct = (
   params: Params<
     t_GetClimateProductsProductParamSchema,
@@ -4563,7 +4226,7 @@ export type GetClimateProductsProduct = (
     t_GetClimateProductsProductBodySchema | undefined,
     void
   >,
-  respond: GetClimateProductsProductResponder,
+  respond: (typeof getClimateProductsProduct)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4589,9 +4252,6 @@ const getClimateSuppliers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateSuppliersResponder = (typeof getClimateSuppliers)["responder"] &
-  KoaRuntimeResponder
-
 export type GetClimateSuppliers = (
   params: Params<
     void,
@@ -4599,7 +4259,7 @@ export type GetClimateSuppliers = (
     t_GetClimateSuppliersBodySchema | undefined,
     void
   >,
-  respond: GetClimateSuppliersResponder,
+  respond: (typeof getClimateSuppliers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4621,9 +4281,6 @@ const getClimateSuppliersSupplier = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClimateSuppliersSupplierResponder =
-  (typeof getClimateSuppliersSupplier)["responder"] & KoaRuntimeResponder
-
 export type GetClimateSuppliersSupplier = (
   params: Params<
     t_GetClimateSuppliersSupplierParamSchema,
@@ -4631,7 +4288,7 @@ export type GetClimateSuppliersSupplier = (
     t_GetClimateSuppliersSupplierBodySchema | undefined,
     void
   >,
-  respond: GetClimateSuppliersSupplierResponder,
+  respond: (typeof getClimateSuppliersSupplier)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4645,10 +4302,6 @@ const getConfirmationTokensConfirmationToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetConfirmationTokensConfirmationTokenResponder =
-  (typeof getConfirmationTokensConfirmationToken)["responder"] &
-    KoaRuntimeResponder
-
 export type GetConfirmationTokensConfirmationToken = (
   params: Params<
     t_GetConfirmationTokensConfirmationTokenParamSchema,
@@ -4656,7 +4309,7 @@ export type GetConfirmationTokensConfirmationToken = (
     t_GetConfirmationTokensConfirmationTokenBodySchema | undefined,
     void
   >,
-  respond: GetConfirmationTokensConfirmationTokenResponder,
+  respond: (typeof getConfirmationTokensConfirmationToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4682,9 +4335,6 @@ const getCountrySpecs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCountrySpecsResponder = (typeof getCountrySpecs)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCountrySpecs = (
   params: Params<
     void,
@@ -4692,7 +4342,7 @@ export type GetCountrySpecs = (
     t_GetCountrySpecsBodySchema | undefined,
     void
   >,
-  respond: GetCountrySpecsResponder,
+  respond: (typeof getCountrySpecs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4714,9 +4364,6 @@ const getCountrySpecsCountry = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCountrySpecsCountryResponder =
-  (typeof getCountrySpecsCountry)["responder"] & KoaRuntimeResponder
-
 export type GetCountrySpecsCountry = (
   params: Params<
     t_GetCountrySpecsCountryParamSchema,
@@ -4724,7 +4371,7 @@ export type GetCountrySpecsCountry = (
     t_GetCountrySpecsCountryBodySchema | undefined,
     void
   >,
-  respond: GetCountrySpecsCountryResponder,
+  respond: (typeof getCountrySpecsCountry)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4750,9 +4397,6 @@ const getCoupons = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCouponsResponder = (typeof getCoupons)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCoupons = (
   params: Params<
     void,
@@ -4760,7 +4404,7 @@ export type GetCoupons = (
     t_GetCouponsBodySchema | undefined,
     void
   >,
-  respond: GetCouponsResponder,
+  respond: (typeof getCoupons)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4782,12 +4426,9 @@ const postCoupons = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCouponsResponder = (typeof postCoupons)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCoupons = (
   params: Params<void, void, t_PostCouponsBodySchema | undefined, void>,
-  respond: PostCouponsResponder,
+  respond: (typeof postCoupons)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4801,9 +4442,6 @@ const deleteCouponsCoupon = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCouponsCouponResponder = (typeof deleteCouponsCoupon)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteCouponsCoupon = (
   params: Params<
     t_DeleteCouponsCouponParamSchema,
@@ -4811,7 +4449,7 @@ export type DeleteCouponsCoupon = (
     t_DeleteCouponsCouponBodySchema | undefined,
     void
   >,
-  respond: DeleteCouponsCouponResponder,
+  respond: (typeof deleteCouponsCoupon)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4825,9 +4463,6 @@ const getCouponsCoupon = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCouponsCouponResponder = (typeof getCouponsCoupon)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCouponsCoupon = (
   params: Params<
     t_GetCouponsCouponParamSchema,
@@ -4835,7 +4470,7 @@ export type GetCouponsCoupon = (
     t_GetCouponsCouponBodySchema | undefined,
     void
   >,
-  respond: GetCouponsCouponResponder,
+  respond: (typeof getCouponsCoupon)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4849,9 +4484,6 @@ const postCouponsCoupon = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCouponsCouponResponder = (typeof postCouponsCoupon)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCouponsCoupon = (
   params: Params<
     t_PostCouponsCouponParamSchema,
@@ -4859,7 +4491,7 @@ export type PostCouponsCoupon = (
     t_PostCouponsCouponBodySchema | undefined,
     void
   >,
-  respond: PostCouponsCouponResponder,
+  respond: (typeof postCouponsCoupon)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4885,9 +4517,6 @@ const getCreditNotes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCreditNotesResponder = (typeof getCreditNotes)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCreditNotes = (
   params: Params<
     void,
@@ -4895,7 +4524,7 @@ export type GetCreditNotes = (
     t_GetCreditNotesBodySchema | undefined,
     void
   >,
-  respond: GetCreditNotesResponder,
+  respond: (typeof getCreditNotes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4917,12 +4546,9 @@ const postCreditNotes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCreditNotesResponder = (typeof postCreditNotes)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCreditNotes = (
   params: Params<void, void, t_PostCreditNotesBodySchema, void>,
-  respond: PostCreditNotesResponder,
+  respond: (typeof postCreditNotes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4936,9 +4562,6 @@ const getCreditNotesPreview = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCreditNotesPreviewResponder =
-  (typeof getCreditNotesPreview)["responder"] & KoaRuntimeResponder
-
 export type GetCreditNotesPreview = (
   params: Params<
     void,
@@ -4946,7 +4569,7 @@ export type GetCreditNotesPreview = (
     t_GetCreditNotesPreviewBodySchema | undefined,
     void
   >,
-  respond: GetCreditNotesPreviewResponder,
+  respond: (typeof getCreditNotesPreview)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -4972,9 +4595,6 @@ const getCreditNotesPreviewLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCreditNotesPreviewLinesResponder =
-  (typeof getCreditNotesPreviewLines)["responder"] & KoaRuntimeResponder
-
 export type GetCreditNotesPreviewLines = (
   params: Params<
     void,
@@ -4982,7 +4602,7 @@ export type GetCreditNotesPreviewLines = (
     t_GetCreditNotesPreviewLinesBodySchema | undefined,
     void
   >,
-  respond: GetCreditNotesPreviewLinesResponder,
+  respond: (typeof getCreditNotesPreviewLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5016,9 +4636,6 @@ const getCreditNotesCreditNoteLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCreditNotesCreditNoteLinesResponder =
-  (typeof getCreditNotesCreditNoteLines)["responder"] & KoaRuntimeResponder
-
 export type GetCreditNotesCreditNoteLines = (
   params: Params<
     t_GetCreditNotesCreditNoteLinesParamSchema,
@@ -5026,7 +4643,7 @@ export type GetCreditNotesCreditNoteLines = (
     t_GetCreditNotesCreditNoteLinesBodySchema | undefined,
     void
   >,
-  respond: GetCreditNotesCreditNoteLinesResponder,
+  respond: (typeof getCreditNotesCreditNoteLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5048,9 +4665,6 @@ const getCreditNotesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCreditNotesIdResponder = (typeof getCreditNotesId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCreditNotesId = (
   params: Params<
     t_GetCreditNotesIdParamSchema,
@@ -5058,7 +4672,7 @@ export type GetCreditNotesId = (
     t_GetCreditNotesIdBodySchema | undefined,
     void
   >,
-  respond: GetCreditNotesIdResponder,
+  respond: (typeof getCreditNotesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5072,9 +4686,6 @@ const postCreditNotesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCreditNotesIdResponder = (typeof postCreditNotesId)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCreditNotesId = (
   params: Params<
     t_PostCreditNotesIdParamSchema,
@@ -5082,7 +4693,7 @@ export type PostCreditNotesId = (
     t_PostCreditNotesIdBodySchema | undefined,
     void
   >,
-  respond: PostCreditNotesIdResponder,
+  respond: (typeof postCreditNotesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5096,9 +4707,6 @@ const postCreditNotesIdVoid = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCreditNotesIdVoidResponder =
-  (typeof postCreditNotesIdVoid)["responder"] & KoaRuntimeResponder
-
 export type PostCreditNotesIdVoid = (
   params: Params<
     t_PostCreditNotesIdVoidParamSchema,
@@ -5106,7 +4714,7 @@ export type PostCreditNotesIdVoid = (
     t_PostCreditNotesIdVoidBodySchema | undefined,
     void
   >,
-  respond: PostCreditNotesIdVoidResponder,
+  respond: (typeof postCreditNotesIdVoid)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5120,12 +4728,9 @@ const postCustomerSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomerSessionsResponder =
-  (typeof postCustomerSessions)["responder"] & KoaRuntimeResponder
-
 export type PostCustomerSessions = (
   params: Params<void, void, t_PostCustomerSessionsBodySchema, void>,
-  respond: PostCustomerSessionsResponder,
+  respond: (typeof postCustomerSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5151,9 +4756,6 @@ const getCustomers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersResponder = (typeof getCustomers)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCustomers = (
   params: Params<
     void,
@@ -5161,7 +4763,7 @@ export type GetCustomers = (
     t_GetCustomersBodySchema | undefined,
     void
   >,
-  respond: GetCustomersResponder,
+  respond: (typeof getCustomers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5183,12 +4785,9 @@ const postCustomers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersResponder = (typeof postCustomers)["responder"] &
-  KoaRuntimeResponder
-
 export type PostCustomers = (
   params: Params<void, void, t_PostCustomersBodySchema | undefined, void>,
-  respond: PostCustomersResponder,
+  respond: (typeof postCustomers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5218,9 +4817,6 @@ const getCustomersSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersSearchResponder = (typeof getCustomersSearch)["responder"] &
-  KoaRuntimeResponder
-
 export type GetCustomersSearch = (
   params: Params<
     void,
@@ -5228,7 +4824,7 @@ export type GetCustomersSearch = (
     t_GetCustomersSearchBodySchema | undefined,
     void
   >,
-  respond: GetCustomersSearchResponder,
+  respond: (typeof getCustomersSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5252,9 +4848,6 @@ const deleteCustomersCustomer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerResponder =
-  (typeof deleteCustomersCustomer)["responder"] & KoaRuntimeResponder
-
 export type DeleteCustomersCustomer = (
   params: Params<
     t_DeleteCustomersCustomerParamSchema,
@@ -5262,7 +4855,7 @@ export type DeleteCustomersCustomer = (
     t_DeleteCustomersCustomerBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerResponder,
+  respond: (typeof deleteCustomersCustomer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5278,9 +4871,6 @@ const getCustomersCustomer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerResponder =
-  (typeof getCustomersCustomer)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomer = (
   params: Params<
     t_GetCustomersCustomerParamSchema,
@@ -5288,7 +4878,7 @@ export type GetCustomersCustomer = (
     t_GetCustomersCustomerBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerResponder,
+  respond: (typeof getCustomersCustomer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5302,9 +4892,6 @@ const postCustomersCustomer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerResponder =
-  (typeof postCustomersCustomer)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomer = (
   params: Params<
     t_PostCustomersCustomerParamSchema,
@@ -5312,7 +4899,7 @@ export type PostCustomersCustomer = (
     t_PostCustomersCustomerBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerResponder,
+  respond: (typeof postCustomersCustomer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5338,10 +4925,6 @@ const getCustomersCustomerBalanceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerBalanceTransactionsResponder =
-  (typeof getCustomersCustomerBalanceTransactions)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsParamSchema,
@@ -5349,7 +4932,7 @@ export type GetCustomersCustomerBalanceTransactions = (
     t_GetCustomersCustomerBalanceTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerBalanceTransactionsResponder,
+  respond: (typeof getCustomersCustomerBalanceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5373,10 +4956,6 @@ const postCustomersCustomerBalanceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerBalanceTransactionsResponder =
-  (typeof postCustomersCustomerBalanceTransactions)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerBalanceTransactions = (
   params: Params<
     t_PostCustomersCustomerBalanceTransactionsParamSchema,
@@ -5384,7 +4963,7 @@ export type PostCustomersCustomerBalanceTransactions = (
     t_PostCustomersCustomerBalanceTransactionsBodySchema,
     void
   >,
-  respond: PostCustomersCustomerBalanceTransactionsResponder,
+  respond: (typeof postCustomersCustomerBalanceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5400,10 +4979,6 @@ const getCustomersCustomerBalanceTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerBalanceTransactionsTransactionResponder =
-  (typeof getCustomersCustomerBalanceTransactionsTransaction)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerBalanceTransactionsTransactionParamSchema,
@@ -5411,7 +4986,7 @@ export type GetCustomersCustomerBalanceTransactionsTransaction = (
     t_GetCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerBalanceTransactionsTransactionResponder,
+  respond: (typeof getCustomersCustomerBalanceTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5427,10 +5002,6 @@ const postCustomersCustomerBalanceTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerBalanceTransactionsTransactionResponder =
-  (typeof postCustomersCustomerBalanceTransactionsTransaction)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerBalanceTransactionsTransaction = (
   params: Params<
     t_PostCustomersCustomerBalanceTransactionsTransactionParamSchema,
@@ -5438,7 +5009,7 @@ export type PostCustomersCustomerBalanceTransactionsTransaction = (
     t_PostCustomersCustomerBalanceTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerBalanceTransactionsTransactionResponder,
+  respond: (typeof postCustomersCustomerBalanceTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5464,9 +5035,6 @@ const getCustomersCustomerBankAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerBankAccountsResponder =
-  (typeof getCustomersCustomerBankAccounts)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerBankAccounts = (
   params: Params<
     t_GetCustomersCustomerBankAccountsParamSchema,
@@ -5474,7 +5042,7 @@ export type GetCustomersCustomerBankAccounts = (
     t_GetCustomersCustomerBankAccountsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerBankAccountsResponder,
+  respond: (typeof getCustomersCustomerBankAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5496,9 +5064,6 @@ const postCustomersCustomerBankAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerBankAccountsResponder =
-  (typeof postCustomersCustomerBankAccounts)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerBankAccounts = (
   params: Params<
     t_PostCustomersCustomerBankAccountsParamSchema,
@@ -5506,7 +5071,7 @@ export type PostCustomersCustomerBankAccounts = (
     t_PostCustomersCustomerBankAccountsBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerBankAccountsResponder,
+  respond: (typeof postCustomersCustomerBankAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5522,10 +5087,6 @@ const deleteCustomersCustomerBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerBankAccountsIdResponder =
-  (typeof deleteCustomersCustomerBankAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteCustomersCustomerBankAccountsId = (
   params: Params<
     t_DeleteCustomersCustomerBankAccountsIdParamSchema,
@@ -5533,7 +5094,7 @@ export type DeleteCustomersCustomerBankAccountsId = (
     t_DeleteCustomersCustomerBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerBankAccountsIdResponder,
+  respond: (typeof deleteCustomersCustomerBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5547,9 +5108,6 @@ const getCustomersCustomerBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerBankAccountsIdResponder =
-  (typeof getCustomersCustomerBankAccountsId)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerBankAccountsId = (
   params: Params<
     t_GetCustomersCustomerBankAccountsIdParamSchema,
@@ -5557,7 +5115,7 @@ export type GetCustomersCustomerBankAccountsId = (
     t_GetCustomersCustomerBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerBankAccountsIdResponder,
+  respond: (typeof getCustomersCustomerBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5573,10 +5131,6 @@ const postCustomersCustomerBankAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerBankAccountsIdResponder =
-  (typeof postCustomersCustomerBankAccountsId)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerBankAccountsId = (
   params: Params<
     t_PostCustomersCustomerBankAccountsIdParamSchema,
@@ -5584,7 +5138,7 @@ export type PostCustomersCustomerBankAccountsId = (
     t_PostCustomersCustomerBankAccountsIdBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerBankAccountsIdResponder,
+  respond: (typeof postCustomersCustomerBankAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5598,10 +5152,6 @@ const postCustomersCustomerBankAccountsIdVerify = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerBankAccountsIdVerifyResponder =
-  (typeof postCustomersCustomerBankAccountsIdVerify)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerBankAccountsIdVerify = (
   params: Params<
     t_PostCustomersCustomerBankAccountsIdVerifyParamSchema,
@@ -5609,7 +5159,7 @@ export type PostCustomersCustomerBankAccountsIdVerify = (
     t_PostCustomersCustomerBankAccountsIdVerifyBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerBankAccountsIdVerifyResponder,
+  respond: (typeof postCustomersCustomerBankAccountsIdVerify)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5635,9 +5185,6 @@ const getCustomersCustomerCards = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerCardsResponder =
-  (typeof getCustomersCustomerCards)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerCards = (
   params: Params<
     t_GetCustomersCustomerCardsParamSchema,
@@ -5645,7 +5192,7 @@ export type GetCustomersCustomerCards = (
     t_GetCustomersCustomerCardsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerCardsResponder,
+  respond: (typeof getCustomersCustomerCards)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5667,9 +5214,6 @@ const postCustomersCustomerCards = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerCardsResponder =
-  (typeof postCustomersCustomerCards)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerCards = (
   params: Params<
     t_PostCustomersCustomerCardsParamSchema,
@@ -5677,7 +5221,7 @@ export type PostCustomersCustomerCards = (
     t_PostCustomersCustomerCardsBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerCardsResponder,
+  respond: (typeof postCustomersCustomerCards)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5693,9 +5237,6 @@ const deleteCustomersCustomerCardsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerCardsIdResponder =
-  (typeof deleteCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
-
 export type DeleteCustomersCustomerCardsId = (
   params: Params<
     t_DeleteCustomersCustomerCardsIdParamSchema,
@@ -5703,7 +5244,7 @@ export type DeleteCustomersCustomerCardsId = (
     t_DeleteCustomersCustomerCardsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerCardsIdResponder,
+  respond: (typeof deleteCustomersCustomerCardsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5717,9 +5258,6 @@ const getCustomersCustomerCardsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerCardsIdResponder =
-  (typeof getCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerCardsId = (
   params: Params<
     t_GetCustomersCustomerCardsIdParamSchema,
@@ -5727,7 +5265,7 @@ export type GetCustomersCustomerCardsId = (
     t_GetCustomersCustomerCardsIdBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerCardsIdResponder,
+  respond: (typeof getCustomersCustomerCardsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5743,9 +5281,6 @@ const postCustomersCustomerCardsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerCardsIdResponder =
-  (typeof postCustomersCustomerCardsId)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerCardsId = (
   params: Params<
     t_PostCustomersCustomerCardsIdParamSchema,
@@ -5753,7 +5288,7 @@ export type PostCustomersCustomerCardsId = (
     t_PostCustomersCustomerCardsIdBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerCardsIdResponder,
+  respond: (typeof postCustomersCustomerCardsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5767,9 +5302,6 @@ const getCustomersCustomerCashBalance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerCashBalanceResponder =
-  (typeof getCustomersCustomerCashBalance)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerCashBalance = (
   params: Params<
     t_GetCustomersCustomerCashBalanceParamSchema,
@@ -5777,7 +5309,7 @@ export type GetCustomersCustomerCashBalance = (
     t_GetCustomersCustomerCashBalanceBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerCashBalanceResponder,
+  respond: (typeof getCustomersCustomerCashBalance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5791,9 +5323,6 @@ const postCustomersCustomerCashBalance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerCashBalanceResponder =
-  (typeof postCustomersCustomerCashBalance)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerCashBalance = (
   params: Params<
     t_PostCustomersCustomerCashBalanceParamSchema,
@@ -5801,7 +5330,7 @@ export type PostCustomersCustomerCashBalance = (
     t_PostCustomersCustomerCashBalanceBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerCashBalanceResponder,
+  respond: (typeof postCustomersCustomerCashBalance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5827,10 +5356,6 @@ const getCustomersCustomerCashBalanceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerCashBalanceTransactionsResponder =
-  (typeof getCustomersCustomerCashBalanceTransactions)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerCashBalanceTransactions = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsParamSchema,
@@ -5838,7 +5363,7 @@ export type GetCustomersCustomerCashBalanceTransactions = (
     t_GetCustomersCustomerCashBalanceTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerCashBalanceTransactionsResponder,
+  respond: (typeof getCustomersCustomerCashBalanceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5862,10 +5387,6 @@ const getCustomersCustomerCashBalanceTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerCashBalanceTransactionsTransactionResponder =
-  (typeof getCustomersCustomerCashBalanceTransactionsTransaction)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
   params: Params<
     t_GetCustomersCustomerCashBalanceTransactionsTransactionParamSchema,
@@ -5874,7 +5395,7 @@ export type GetCustomersCustomerCashBalanceTransactionsTransaction = (
     | undefined,
     void
   >,
-  respond: GetCustomersCustomerCashBalanceTransactionsTransactionResponder,
+  respond: (typeof getCustomersCustomerCashBalanceTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5888,9 +5409,6 @@ const deleteCustomersCustomerDiscount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerDiscountResponder =
-  (typeof deleteCustomersCustomerDiscount)["responder"] & KoaRuntimeResponder
-
 export type DeleteCustomersCustomerDiscount = (
   params: Params<
     t_DeleteCustomersCustomerDiscountParamSchema,
@@ -5898,7 +5416,7 @@ export type DeleteCustomersCustomerDiscount = (
     t_DeleteCustomersCustomerDiscountBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerDiscountResponder,
+  respond: (typeof deleteCustomersCustomerDiscount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5912,9 +5430,6 @@ const getCustomersCustomerDiscount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerDiscountResponder =
-  (typeof getCustomersCustomerDiscount)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerDiscount = (
   params: Params<
     t_GetCustomersCustomerDiscountParamSchema,
@@ -5922,7 +5437,7 @@ export type GetCustomersCustomerDiscount = (
     t_GetCustomersCustomerDiscountBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerDiscountResponder,
+  respond: (typeof getCustomersCustomerDiscount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5936,10 +5451,6 @@ const postCustomersCustomerFundingInstructions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerFundingInstructionsResponder =
-  (typeof postCustomersCustomerFundingInstructions)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerFundingInstructions = (
   params: Params<
     t_PostCustomersCustomerFundingInstructionsParamSchema,
@@ -5947,7 +5458,7 @@ export type PostCustomersCustomerFundingInstructions = (
     t_PostCustomersCustomerFundingInstructionsBodySchema,
     void
   >,
-  respond: PostCustomersCustomerFundingInstructionsResponder,
+  respond: (typeof postCustomersCustomerFundingInstructions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -5973,9 +5484,6 @@ const getCustomersCustomerPaymentMethods = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerPaymentMethodsResponder =
-  (typeof getCustomersCustomerPaymentMethods)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerPaymentMethods = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsParamSchema,
@@ -5983,7 +5491,7 @@ export type GetCustomersCustomerPaymentMethods = (
     t_GetCustomersCustomerPaymentMethodsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerPaymentMethodsResponder,
+  respond: (typeof getCustomersCustomerPaymentMethods)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6005,10 +5513,6 @@ const getCustomersCustomerPaymentMethodsPaymentMethod = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerPaymentMethodsPaymentMethodResponder =
-  (typeof getCustomersCustomerPaymentMethodsPaymentMethod)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetCustomersCustomerPaymentMethodsPaymentMethodParamSchema,
@@ -6016,7 +5520,7 @@ export type GetCustomersCustomerPaymentMethodsPaymentMethod = (
     t_GetCustomersCustomerPaymentMethodsPaymentMethodBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerPaymentMethodsPaymentMethodResponder,
+  respond: (typeof getCustomersCustomerPaymentMethodsPaymentMethod)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6044,9 +5548,6 @@ const getCustomersCustomerSources = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerSourcesResponder =
-  (typeof getCustomersCustomerSources)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerSources = (
   params: Params<
     t_GetCustomersCustomerSourcesParamSchema,
@@ -6054,7 +5555,7 @@ export type GetCustomersCustomerSources = (
     t_GetCustomersCustomerSourcesBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerSourcesResponder,
+  respond: (typeof getCustomersCustomerSources)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6076,9 +5577,6 @@ const postCustomersCustomerSources = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerSourcesResponder =
-  (typeof postCustomersCustomerSources)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerSources = (
   params: Params<
     t_PostCustomersCustomerSourcesParamSchema,
@@ -6086,7 +5584,7 @@ export type PostCustomersCustomerSources = (
     t_PostCustomersCustomerSourcesBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerSourcesResponder,
+  respond: (typeof postCustomersCustomerSources)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6102,9 +5600,6 @@ const deleteCustomersCustomerSourcesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerSourcesIdResponder =
-  (typeof deleteCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
-
 export type DeleteCustomersCustomerSourcesId = (
   params: Params<
     t_DeleteCustomersCustomerSourcesIdParamSchema,
@@ -6112,7 +5607,7 @@ export type DeleteCustomersCustomerSourcesId = (
     t_DeleteCustomersCustomerSourcesIdBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerSourcesIdResponder,
+  respond: (typeof deleteCustomersCustomerSourcesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6126,9 +5621,6 @@ const getCustomersCustomerSourcesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerSourcesIdResponder =
-  (typeof getCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerSourcesId = (
   params: Params<
     t_GetCustomersCustomerSourcesIdParamSchema,
@@ -6136,7 +5628,7 @@ export type GetCustomersCustomerSourcesId = (
     t_GetCustomersCustomerSourcesIdBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerSourcesIdResponder,
+  respond: (typeof getCustomersCustomerSourcesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6152,9 +5644,6 @@ const postCustomersCustomerSourcesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerSourcesIdResponder =
-  (typeof postCustomersCustomerSourcesId)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerSourcesId = (
   params: Params<
     t_PostCustomersCustomerSourcesIdParamSchema,
@@ -6162,7 +5651,7 @@ export type PostCustomersCustomerSourcesId = (
     t_PostCustomersCustomerSourcesIdBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerSourcesIdResponder,
+  respond: (typeof postCustomersCustomerSourcesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6176,10 +5665,6 @@ const postCustomersCustomerSourcesIdVerify = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerSourcesIdVerifyResponder =
-  (typeof postCustomersCustomerSourcesIdVerify)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerSourcesIdVerify = (
   params: Params<
     t_PostCustomersCustomerSourcesIdVerifyParamSchema,
@@ -6187,7 +5672,7 @@ export type PostCustomersCustomerSourcesIdVerify = (
     t_PostCustomersCustomerSourcesIdVerifyBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerSourcesIdVerifyResponder,
+  respond: (typeof postCustomersCustomerSourcesIdVerify)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6213,9 +5698,6 @@ const getCustomersCustomerSubscriptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerSubscriptionsResponder =
-  (typeof getCustomersCustomerSubscriptions)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerSubscriptions = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsParamSchema,
@@ -6223,7 +5705,7 @@ export type GetCustomersCustomerSubscriptions = (
     t_GetCustomersCustomerSubscriptionsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerSubscriptionsResponder,
+  respond: (typeof getCustomersCustomerSubscriptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6245,9 +5727,6 @@ const postCustomersCustomerSubscriptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerSubscriptionsResponder =
-  (typeof postCustomersCustomerSubscriptions)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerSubscriptions = (
   params: Params<
     t_PostCustomersCustomerSubscriptionsParamSchema,
@@ -6255,7 +5734,7 @@ export type PostCustomersCustomerSubscriptions = (
     t_PostCustomersCustomerSubscriptionsBodySchema | undefined,
     void
   >,
-  respond: PostCustomersCustomerSubscriptionsResponder,
+  respond: (typeof postCustomersCustomerSubscriptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6269,10 +5748,6 @@ const deleteCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -6281,7 +5756,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6295,10 +5770,6 @@ const getCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  (typeof getCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -6307,7 +5778,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined,
     void
   >,
-  respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof getCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6321,10 +5792,6 @@ const postCustomersCustomerSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder =
-  (typeof postCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_PostCustomersCustomerSubscriptionsSubscriptionExposedIdParamSchema,
@@ -6333,7 +5800,7 @@ export type PostCustomersCustomerSubscriptionsSubscriptionExposedId = (
     | undefined,
     void
   >,
-  respond: PostCustomersCustomerSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof postCustomersCustomerSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6349,10 +5816,6 @@ const deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = b(
   }),
 )
 
-type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
   (
     params: Params<
@@ -6362,7 +5825,7 @@ export type DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount =
       | undefined,
       void
     >,
-    respond: DeleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
+    respond: (typeof deleteCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -6378,10 +5841,6 @@ const getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = b(
   }),
 )
 
-type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder =
-  (typeof getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
-    KoaRuntimeResponder
-
 export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountParamSchema,
@@ -6390,7 +5849,7 @@ export type GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount = (
     | undefined,
     void
   >,
-  respond: GetCustomersCustomerSubscriptionsSubscriptionExposedIdDiscountResponder,
+  respond: (typeof getCustomersCustomerSubscriptionsSubscriptionExposedIdDiscount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6416,9 +5875,6 @@ const getCustomersCustomerTaxIds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerTaxIdsResponder =
-  (typeof getCustomersCustomerTaxIds)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerTaxIds = (
   params: Params<
     t_GetCustomersCustomerTaxIdsParamSchema,
@@ -6426,7 +5882,7 @@ export type GetCustomersCustomerTaxIds = (
     t_GetCustomersCustomerTaxIdsBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerTaxIdsResponder,
+  respond: (typeof getCustomersCustomerTaxIds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6448,9 +5904,6 @@ const postCustomersCustomerTaxIds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostCustomersCustomerTaxIdsResponder =
-  (typeof postCustomersCustomerTaxIds)["responder"] & KoaRuntimeResponder
-
 export type PostCustomersCustomerTaxIds = (
   params: Params<
     t_PostCustomersCustomerTaxIdsParamSchema,
@@ -6458,7 +5911,7 @@ export type PostCustomersCustomerTaxIds = (
     t_PostCustomersCustomerTaxIdsBodySchema,
     void
   >,
-  respond: PostCustomersCustomerTaxIdsResponder,
+  respond: (typeof postCustomersCustomerTaxIds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6472,9 +5925,6 @@ const deleteCustomersCustomerTaxIdsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteCustomersCustomerTaxIdsIdResponder =
-  (typeof deleteCustomersCustomerTaxIdsId)["responder"] & KoaRuntimeResponder
-
 export type DeleteCustomersCustomerTaxIdsId = (
   params: Params<
     t_DeleteCustomersCustomerTaxIdsIdParamSchema,
@@ -6482,7 +5932,7 @@ export type DeleteCustomersCustomerTaxIdsId = (
     t_DeleteCustomersCustomerTaxIdsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteCustomersCustomerTaxIdsIdResponder,
+  respond: (typeof deleteCustomersCustomerTaxIdsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6496,9 +5946,6 @@ const getCustomersCustomerTaxIdsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetCustomersCustomerTaxIdsIdResponder =
-  (typeof getCustomersCustomerTaxIdsId)["responder"] & KoaRuntimeResponder
-
 export type GetCustomersCustomerTaxIdsId = (
   params: Params<
     t_GetCustomersCustomerTaxIdsIdParamSchema,
@@ -6506,7 +5953,7 @@ export type GetCustomersCustomerTaxIdsId = (
     t_GetCustomersCustomerTaxIdsIdBodySchema | undefined,
     void
   >,
-  respond: GetCustomersCustomerTaxIdsIdResponder,
+  respond: (typeof getCustomersCustomerTaxIdsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6532,9 +5979,6 @@ const getDisputes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetDisputesResponder = (typeof getDisputes)["responder"] &
-  KoaRuntimeResponder
-
 export type GetDisputes = (
   params: Params<
     void,
@@ -6542,7 +5986,7 @@ export type GetDisputes = (
     t_GetDisputesBodySchema | undefined,
     void
   >,
-  respond: GetDisputesResponder,
+  respond: (typeof getDisputes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6564,9 +6008,6 @@ const getDisputesDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetDisputesDisputeResponder = (typeof getDisputesDispute)["responder"] &
-  KoaRuntimeResponder
-
 export type GetDisputesDispute = (
   params: Params<
     t_GetDisputesDisputeParamSchema,
@@ -6574,7 +6015,7 @@ export type GetDisputesDispute = (
     t_GetDisputesDisputeBodySchema | undefined,
     void
   >,
-  respond: GetDisputesDisputeResponder,
+  respond: (typeof getDisputesDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6588,9 +6029,6 @@ const postDisputesDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostDisputesDisputeResponder = (typeof postDisputesDispute)["responder"] &
-  KoaRuntimeResponder
-
 export type PostDisputesDispute = (
   params: Params<
     t_PostDisputesDisputeParamSchema,
@@ -6598,7 +6036,7 @@ export type PostDisputesDispute = (
     t_PostDisputesDisputeBodySchema | undefined,
     void
   >,
-  respond: PostDisputesDisputeResponder,
+  respond: (typeof postDisputesDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6612,9 +6050,6 @@ const postDisputesDisputeClose = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostDisputesDisputeCloseResponder =
-  (typeof postDisputesDisputeClose)["responder"] & KoaRuntimeResponder
-
 export type PostDisputesDisputeClose = (
   params: Params<
     t_PostDisputesDisputeCloseParamSchema,
@@ -6622,7 +6057,7 @@ export type PostDisputesDisputeClose = (
     t_PostDisputesDisputeCloseBodySchema | undefined,
     void
   >,
-  respond: PostDisputesDisputeCloseResponder,
+  respond: (typeof postDisputesDisputeClose)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6648,9 +6083,6 @@ const getEntitlementsActiveEntitlements = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEntitlementsActiveEntitlementsResponder =
-  (typeof getEntitlementsActiveEntitlements)["responder"] & KoaRuntimeResponder
-
 export type GetEntitlementsActiveEntitlements = (
   params: Params<
     void,
@@ -6658,7 +6090,7 @@ export type GetEntitlementsActiveEntitlements = (
     t_GetEntitlementsActiveEntitlementsBodySchema | undefined,
     void
   >,
-  respond: GetEntitlementsActiveEntitlementsResponder,
+  respond: (typeof getEntitlementsActiveEntitlements)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6682,10 +6114,6 @@ const getEntitlementsActiveEntitlementsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEntitlementsActiveEntitlementsIdResponder =
-  (typeof getEntitlementsActiveEntitlementsId)["responder"] &
-    KoaRuntimeResponder
-
 export type GetEntitlementsActiveEntitlementsId = (
   params: Params<
     t_GetEntitlementsActiveEntitlementsIdParamSchema,
@@ -6693,7 +6121,7 @@ export type GetEntitlementsActiveEntitlementsId = (
     t_GetEntitlementsActiveEntitlementsIdBodySchema | undefined,
     void
   >,
-  respond: GetEntitlementsActiveEntitlementsIdResponder,
+  respond: (typeof getEntitlementsActiveEntitlementsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6719,9 +6147,6 @@ const getEntitlementsFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEntitlementsFeaturesResponder =
-  (typeof getEntitlementsFeatures)["responder"] & KoaRuntimeResponder
-
 export type GetEntitlementsFeatures = (
   params: Params<
     void,
@@ -6729,7 +6154,7 @@ export type GetEntitlementsFeatures = (
     t_GetEntitlementsFeaturesBodySchema | undefined,
     void
   >,
-  respond: GetEntitlementsFeaturesResponder,
+  respond: (typeof getEntitlementsFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6751,12 +6176,9 @@ const postEntitlementsFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostEntitlementsFeaturesResponder =
-  (typeof postEntitlementsFeatures)["responder"] & KoaRuntimeResponder
-
 export type PostEntitlementsFeatures = (
   params: Params<void, void, t_PostEntitlementsFeaturesBodySchema, void>,
-  respond: PostEntitlementsFeaturesResponder,
+  respond: (typeof postEntitlementsFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6770,9 +6192,6 @@ const getEntitlementsFeaturesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEntitlementsFeaturesIdResponder =
-  (typeof getEntitlementsFeaturesId)["responder"] & KoaRuntimeResponder
-
 export type GetEntitlementsFeaturesId = (
   params: Params<
     t_GetEntitlementsFeaturesIdParamSchema,
@@ -6780,7 +6199,7 @@ export type GetEntitlementsFeaturesId = (
     t_GetEntitlementsFeaturesIdBodySchema | undefined,
     void
   >,
-  respond: GetEntitlementsFeaturesIdResponder,
+  respond: (typeof getEntitlementsFeaturesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6794,9 +6213,6 @@ const postEntitlementsFeaturesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostEntitlementsFeaturesIdResponder =
-  (typeof postEntitlementsFeaturesId)["responder"] & KoaRuntimeResponder
-
 export type PostEntitlementsFeaturesId = (
   params: Params<
     t_PostEntitlementsFeaturesIdParamSchema,
@@ -6804,7 +6220,7 @@ export type PostEntitlementsFeaturesId = (
     t_PostEntitlementsFeaturesIdBodySchema | undefined,
     void
   >,
-  respond: PostEntitlementsFeaturesIdResponder,
+  respond: (typeof postEntitlementsFeaturesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6818,12 +6234,9 @@ const postEphemeralKeys = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostEphemeralKeysResponder = (typeof postEphemeralKeys)["responder"] &
-  KoaRuntimeResponder
-
 export type PostEphemeralKeys = (
   params: Params<void, void, t_PostEphemeralKeysBodySchema | undefined, void>,
-  respond: PostEphemeralKeysResponder,
+  respond: (typeof postEphemeralKeys)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6837,9 +6250,6 @@ const deleteEphemeralKeysKey = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteEphemeralKeysKeyResponder =
-  (typeof deleteEphemeralKeysKey)["responder"] & KoaRuntimeResponder
-
 export type DeleteEphemeralKeysKey = (
   params: Params<
     t_DeleteEphemeralKeysKeyParamSchema,
@@ -6847,7 +6257,7 @@ export type DeleteEphemeralKeysKey = (
     t_DeleteEphemeralKeysKeyBodySchema | undefined,
     void
   >,
-  respond: DeleteEphemeralKeysKeyResponder,
+  respond: (typeof deleteEphemeralKeysKey)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6873,8 +6283,6 @@ const getEvents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEventsResponder = (typeof getEvents)["responder"] & KoaRuntimeResponder
-
 export type GetEvents = (
   params: Params<
     void,
@@ -6882,7 +6290,7 @@ export type GetEvents = (
     t_GetEventsBodySchema | undefined,
     void
   >,
-  respond: GetEventsResponder,
+  respond: (typeof getEvents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6904,9 +6312,6 @@ const getEventsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetEventsIdResponder = (typeof getEventsId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetEventsId = (
   params: Params<
     t_GetEventsIdParamSchema,
@@ -6914,7 +6319,7 @@ export type GetEventsId = (
     t_GetEventsIdBodySchema | undefined,
     void
   >,
-  respond: GetEventsIdResponder,
+  respond: (typeof getEventsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6940,9 +6345,6 @@ const getExchangeRates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetExchangeRatesResponder = (typeof getExchangeRates)["responder"] &
-  KoaRuntimeResponder
-
 export type GetExchangeRates = (
   params: Params<
     void,
@@ -6950,7 +6352,7 @@ export type GetExchangeRates = (
     t_GetExchangeRatesBodySchema | undefined,
     void
   >,
-  respond: GetExchangeRatesResponder,
+  respond: (typeof getExchangeRates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6972,9 +6374,6 @@ const getExchangeRatesRateId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetExchangeRatesRateIdResponder =
-  (typeof getExchangeRatesRateId)["responder"] & KoaRuntimeResponder
-
 export type GetExchangeRatesRateId = (
   params: Params<
     t_GetExchangeRatesRateIdParamSchema,
@@ -6982,7 +6381,7 @@ export type GetExchangeRatesRateId = (
     t_GetExchangeRatesRateIdBodySchema | undefined,
     void
   >,
-  respond: GetExchangeRatesRateIdResponder,
+  respond: (typeof getExchangeRatesRateId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -6996,9 +6395,6 @@ const postExternalAccountsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostExternalAccountsIdResponder =
-  (typeof postExternalAccountsId)["responder"] & KoaRuntimeResponder
-
 export type PostExternalAccountsId = (
   params: Params<
     t_PostExternalAccountsIdParamSchema,
@@ -7006,7 +6402,7 @@ export type PostExternalAccountsId = (
     t_PostExternalAccountsIdBodySchema | undefined,
     void
   >,
-  respond: PostExternalAccountsIdResponder,
+  respond: (typeof postExternalAccountsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7032,9 +6428,6 @@ const getFileLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFileLinksResponder = (typeof getFileLinks)["responder"] &
-  KoaRuntimeResponder
-
 export type GetFileLinks = (
   params: Params<
     void,
@@ -7042,7 +6435,7 @@ export type GetFileLinks = (
     t_GetFileLinksBodySchema | undefined,
     void
   >,
-  respond: GetFileLinksResponder,
+  respond: (typeof getFileLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7064,12 +6457,9 @@ const postFileLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFileLinksResponder = (typeof postFileLinks)["responder"] &
-  KoaRuntimeResponder
-
 export type PostFileLinks = (
   params: Params<void, void, t_PostFileLinksBodySchema, void>,
-  respond: PostFileLinksResponder,
+  respond: (typeof postFileLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7083,9 +6473,6 @@ const getFileLinksLink = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFileLinksLinkResponder = (typeof getFileLinksLink)["responder"] &
-  KoaRuntimeResponder
-
 export type GetFileLinksLink = (
   params: Params<
     t_GetFileLinksLinkParamSchema,
@@ -7093,7 +6480,7 @@ export type GetFileLinksLink = (
     t_GetFileLinksLinkBodySchema | undefined,
     void
   >,
-  respond: GetFileLinksLinkResponder,
+  respond: (typeof getFileLinksLink)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7107,9 +6494,6 @@ const postFileLinksLink = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFileLinksLinkResponder = (typeof postFileLinksLink)["responder"] &
-  KoaRuntimeResponder
-
 export type PostFileLinksLink = (
   params: Params<
     t_PostFileLinksLinkParamSchema,
@@ -7117,7 +6501,7 @@ export type PostFileLinksLink = (
     t_PostFileLinksLinkBodySchema | undefined,
     void
   >,
-  respond: PostFileLinksLinkResponder,
+  respond: (typeof postFileLinksLink)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7143,8 +6527,6 @@ const getFiles = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFilesResponder = (typeof getFiles)["responder"] & KoaRuntimeResponder
-
 export type GetFiles = (
   params: Params<
     void,
@@ -7152,7 +6534,7 @@ export type GetFiles = (
     t_GetFilesBodySchema | undefined,
     void
   >,
-  respond: GetFilesResponder,
+  respond: (typeof getFiles)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7174,11 +6556,9 @@ const postFiles = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFilesResponder = (typeof postFiles)["responder"] & KoaRuntimeResponder
-
 export type PostFiles = (
   params: Params<void, void, t_PostFilesBodySchema, void>,
-  respond: PostFilesResponder,
+  respond: (typeof postFiles)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7192,9 +6572,6 @@ const getFilesFile = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFilesFileResponder = (typeof getFilesFile)["responder"] &
-  KoaRuntimeResponder
-
 export type GetFilesFile = (
   params: Params<
     t_GetFilesFileParamSchema,
@@ -7202,7 +6579,7 @@ export type GetFilesFile = (
     t_GetFilesFileBodySchema | undefined,
     void
   >,
-  respond: GetFilesFileResponder,
+  respond: (typeof getFilesFile)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7231,9 +6608,6 @@ const getFinancialConnectionsAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsAccountsResponder =
-  (typeof getFinancialConnectionsAccounts)["responder"] & KoaRuntimeResponder
-
 export type GetFinancialConnectionsAccounts = (
   params: Params<
     void,
@@ -7241,7 +6615,7 @@ export type GetFinancialConnectionsAccounts = (
     t_GetFinancialConnectionsAccountsBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsAccountsResponder,
+  respond: (typeof getFinancialConnectionsAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7265,10 +6639,6 @@ const getFinancialConnectionsAccountsAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsAccountsAccountResponder =
-  (typeof getFinancialConnectionsAccountsAccount)["responder"] &
-    KoaRuntimeResponder
-
 export type GetFinancialConnectionsAccountsAccount = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountParamSchema,
@@ -7276,7 +6646,7 @@ export type GetFinancialConnectionsAccountsAccount = (
     t_GetFinancialConnectionsAccountsAccountBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsAccountsAccountResponder,
+  respond: (typeof getFinancialConnectionsAccountsAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7292,10 +6662,6 @@ const postFinancialConnectionsAccountsAccountDisconnect = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFinancialConnectionsAccountsAccountDisconnectResponder =
-  (typeof postFinancialConnectionsAccountsAccountDisconnect)["responder"] &
-    KoaRuntimeResponder
-
 export type PostFinancialConnectionsAccountsAccountDisconnect = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountDisconnectParamSchema,
@@ -7303,7 +6669,7 @@ export type PostFinancialConnectionsAccountsAccountDisconnect = (
     t_PostFinancialConnectionsAccountsAccountDisconnectBodySchema | undefined,
     void
   >,
-  respond: PostFinancialConnectionsAccountsAccountDisconnectResponder,
+  respond: (typeof postFinancialConnectionsAccountsAccountDisconnect)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7329,10 +6695,6 @@ const getFinancialConnectionsAccountsAccountOwners = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsAccountsAccountOwnersResponder =
-  (typeof getFinancialConnectionsAccountsAccountOwners)["responder"] &
-    KoaRuntimeResponder
-
 export type GetFinancialConnectionsAccountsAccountOwners = (
   params: Params<
     t_GetFinancialConnectionsAccountsAccountOwnersParamSchema,
@@ -7340,7 +6702,7 @@ export type GetFinancialConnectionsAccountsAccountOwners = (
     t_GetFinancialConnectionsAccountsAccountOwnersBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsAccountsAccountOwnersResponder,
+  respond: (typeof getFinancialConnectionsAccountsAccountOwners)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7364,10 +6726,6 @@ const postFinancialConnectionsAccountsAccountRefresh = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFinancialConnectionsAccountsAccountRefreshResponder =
-  (typeof postFinancialConnectionsAccountsAccountRefresh)["responder"] &
-    KoaRuntimeResponder
-
 export type PostFinancialConnectionsAccountsAccountRefresh = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountRefreshParamSchema,
@@ -7375,7 +6733,7 @@ export type PostFinancialConnectionsAccountsAccountRefresh = (
     t_PostFinancialConnectionsAccountsAccountRefreshBodySchema,
     void
   >,
-  respond: PostFinancialConnectionsAccountsAccountRefreshResponder,
+  respond: (typeof postFinancialConnectionsAccountsAccountRefresh)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7391,10 +6749,6 @@ const postFinancialConnectionsAccountsAccountSubscribe = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFinancialConnectionsAccountsAccountSubscribeResponder =
-  (typeof postFinancialConnectionsAccountsAccountSubscribe)["responder"] &
-    KoaRuntimeResponder
-
 export type PostFinancialConnectionsAccountsAccountSubscribe = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountSubscribeParamSchema,
@@ -7402,7 +6756,7 @@ export type PostFinancialConnectionsAccountsAccountSubscribe = (
     t_PostFinancialConnectionsAccountsAccountSubscribeBodySchema,
     void
   >,
-  respond: PostFinancialConnectionsAccountsAccountSubscribeResponder,
+  respond: (typeof postFinancialConnectionsAccountsAccountSubscribe)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7418,10 +6772,6 @@ const postFinancialConnectionsAccountsAccountUnsubscribe = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFinancialConnectionsAccountsAccountUnsubscribeResponder =
-  (typeof postFinancialConnectionsAccountsAccountUnsubscribe)["responder"] &
-    KoaRuntimeResponder
-
 export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
   params: Params<
     t_PostFinancialConnectionsAccountsAccountUnsubscribeParamSchema,
@@ -7429,7 +6779,7 @@ export type PostFinancialConnectionsAccountsAccountUnsubscribe = (
     t_PostFinancialConnectionsAccountsAccountUnsubscribeBodySchema,
     void
   >,
-  respond: PostFinancialConnectionsAccountsAccountUnsubscribeResponder,
+  respond: (typeof postFinancialConnectionsAccountsAccountUnsubscribe)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7445,9 +6795,6 @@ const postFinancialConnectionsSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostFinancialConnectionsSessionsResponder =
-  (typeof postFinancialConnectionsSessions)["responder"] & KoaRuntimeResponder
-
 export type PostFinancialConnectionsSessions = (
   params: Params<
     void,
@@ -7455,7 +6802,7 @@ export type PostFinancialConnectionsSessions = (
     t_PostFinancialConnectionsSessionsBodySchema,
     void
   >,
-  respond: PostFinancialConnectionsSessionsResponder,
+  respond: (typeof postFinancialConnectionsSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7471,10 +6818,6 @@ const getFinancialConnectionsSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsSessionsSessionResponder =
-  (typeof getFinancialConnectionsSessionsSession)["responder"] &
-    KoaRuntimeResponder
-
 export type GetFinancialConnectionsSessionsSession = (
   params: Params<
     t_GetFinancialConnectionsSessionsSessionParamSchema,
@@ -7482,7 +6825,7 @@ export type GetFinancialConnectionsSessionsSession = (
     t_GetFinancialConnectionsSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsSessionsSessionResponder,
+  respond: (typeof getFinancialConnectionsSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7511,10 +6854,6 @@ const getFinancialConnectionsTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsTransactionsResponder =
-  (typeof getFinancialConnectionsTransactions)["responder"] &
-    KoaRuntimeResponder
-
 export type GetFinancialConnectionsTransactions = (
   params: Params<
     void,
@@ -7522,7 +6861,7 @@ export type GetFinancialConnectionsTransactions = (
     t_GetFinancialConnectionsTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsTransactionsResponder,
+  respond: (typeof getFinancialConnectionsTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7546,10 +6885,6 @@ const getFinancialConnectionsTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetFinancialConnectionsTransactionsTransactionResponder =
-  (typeof getFinancialConnectionsTransactionsTransaction)["responder"] &
-    KoaRuntimeResponder
-
 export type GetFinancialConnectionsTransactionsTransaction = (
   params: Params<
     t_GetFinancialConnectionsTransactionsTransactionParamSchema,
@@ -7557,7 +6892,7 @@ export type GetFinancialConnectionsTransactionsTransaction = (
     t_GetFinancialConnectionsTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: GetFinancialConnectionsTransactionsTransactionResponder,
+  respond: (typeof getFinancialConnectionsTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7583,9 +6918,6 @@ const getForwardingRequests = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetForwardingRequestsResponder =
-  (typeof getForwardingRequests)["responder"] & KoaRuntimeResponder
-
 export type GetForwardingRequests = (
   params: Params<
     void,
@@ -7593,7 +6925,7 @@ export type GetForwardingRequests = (
     t_GetForwardingRequestsBodySchema | undefined,
     void
   >,
-  respond: GetForwardingRequestsResponder,
+  respond: (typeof getForwardingRequests)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7615,12 +6947,9 @@ const postForwardingRequests = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostForwardingRequestsResponder =
-  (typeof postForwardingRequests)["responder"] & KoaRuntimeResponder
-
 export type PostForwardingRequests = (
   params: Params<void, void, t_PostForwardingRequestsBodySchema, void>,
-  respond: PostForwardingRequestsResponder,
+  respond: (typeof postForwardingRequests)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7634,9 +6963,6 @@ const getForwardingRequestsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetForwardingRequestsIdResponder =
-  (typeof getForwardingRequestsId)["responder"] & KoaRuntimeResponder
-
 export type GetForwardingRequestsId = (
   params: Params<
     t_GetForwardingRequestsIdParamSchema,
@@ -7644,7 +6970,7 @@ export type GetForwardingRequestsId = (
     t_GetForwardingRequestsIdBodySchema | undefined,
     void
   >,
-  respond: GetForwardingRequestsIdResponder,
+  respond: (typeof getForwardingRequestsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7673,9 +6999,6 @@ const getIdentityVerificationReports = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIdentityVerificationReportsResponder =
-  (typeof getIdentityVerificationReports)["responder"] & KoaRuntimeResponder
-
 export type GetIdentityVerificationReports = (
   params: Params<
     void,
@@ -7683,7 +7006,7 @@ export type GetIdentityVerificationReports = (
     t_GetIdentityVerificationReportsBodySchema | undefined,
     void
   >,
-  respond: GetIdentityVerificationReportsResponder,
+  respond: (typeof getIdentityVerificationReports)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7707,10 +7030,6 @@ const getIdentityVerificationReportsReport = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIdentityVerificationReportsReportResponder =
-  (typeof getIdentityVerificationReportsReport)["responder"] &
-    KoaRuntimeResponder
-
 export type GetIdentityVerificationReportsReport = (
   params: Params<
     t_GetIdentityVerificationReportsReportParamSchema,
@@ -7718,7 +7037,7 @@ export type GetIdentityVerificationReportsReport = (
     t_GetIdentityVerificationReportsReportBodySchema | undefined,
     void
   >,
-  respond: GetIdentityVerificationReportsReportResponder,
+  respond: (typeof getIdentityVerificationReportsReport)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7747,9 +7066,6 @@ const getIdentityVerificationSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIdentityVerificationSessionsResponder =
-  (typeof getIdentityVerificationSessions)["responder"] & KoaRuntimeResponder
-
 export type GetIdentityVerificationSessions = (
   params: Params<
     void,
@@ -7757,7 +7073,7 @@ export type GetIdentityVerificationSessions = (
     t_GetIdentityVerificationSessionsBodySchema | undefined,
     void
   >,
-  respond: GetIdentityVerificationSessionsResponder,
+  respond: (typeof getIdentityVerificationSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7781,9 +7097,6 @@ const postIdentityVerificationSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIdentityVerificationSessionsResponder =
-  (typeof postIdentityVerificationSessions)["responder"] & KoaRuntimeResponder
-
 export type PostIdentityVerificationSessions = (
   params: Params<
     void,
@@ -7791,7 +7104,7 @@ export type PostIdentityVerificationSessions = (
     t_PostIdentityVerificationSessionsBodySchema | undefined,
     void
   >,
-  respond: PostIdentityVerificationSessionsResponder,
+  respond: (typeof postIdentityVerificationSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7807,10 +7120,6 @@ const getIdentityVerificationSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIdentityVerificationSessionsSessionResponder =
-  (typeof getIdentityVerificationSessionsSession)["responder"] &
-    KoaRuntimeResponder
-
 export type GetIdentityVerificationSessionsSession = (
   params: Params<
     t_GetIdentityVerificationSessionsSessionParamSchema,
@@ -7818,7 +7127,7 @@ export type GetIdentityVerificationSessionsSession = (
     t_GetIdentityVerificationSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: GetIdentityVerificationSessionsSessionResponder,
+  respond: (typeof getIdentityVerificationSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7834,10 +7143,6 @@ const postIdentityVerificationSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIdentityVerificationSessionsSessionResponder =
-  (typeof postIdentityVerificationSessionsSession)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIdentityVerificationSessionsSession = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionParamSchema,
@@ -7845,7 +7150,7 @@ export type PostIdentityVerificationSessionsSession = (
     t_PostIdentityVerificationSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: PostIdentityVerificationSessionsSessionResponder,
+  respond: (typeof postIdentityVerificationSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7861,10 +7166,6 @@ const postIdentityVerificationSessionsSessionCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIdentityVerificationSessionsSessionCancelResponder =
-  (typeof postIdentityVerificationSessionsSessionCancel)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIdentityVerificationSessionsSessionCancel = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionCancelParamSchema,
@@ -7872,7 +7173,7 @@ export type PostIdentityVerificationSessionsSessionCancel = (
     t_PostIdentityVerificationSessionsSessionCancelBodySchema | undefined,
     void
   >,
-  respond: PostIdentityVerificationSessionsSessionCancelResponder,
+  respond: (typeof postIdentityVerificationSessionsSessionCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7888,10 +7189,6 @@ const postIdentityVerificationSessionsSessionRedact = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIdentityVerificationSessionsSessionRedactResponder =
-  (typeof postIdentityVerificationSessionsSessionRedact)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIdentityVerificationSessionsSessionRedact = (
   params: Params<
     t_PostIdentityVerificationSessionsSessionRedactParamSchema,
@@ -7899,7 +7196,7 @@ export type PostIdentityVerificationSessionsSessionRedact = (
     t_PostIdentityVerificationSessionsSessionRedactBodySchema | undefined,
     void
   >,
-  respond: PostIdentityVerificationSessionsSessionRedactResponder,
+  respond: (typeof postIdentityVerificationSessionsSessionRedact)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7925,9 +7222,6 @@ const getInvoicePayments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicePaymentsResponder = (typeof getInvoicePayments)["responder"] &
-  KoaRuntimeResponder
-
 export type GetInvoicePayments = (
   params: Params<
     void,
@@ -7935,7 +7229,7 @@ export type GetInvoicePayments = (
     t_GetInvoicePaymentsBodySchema | undefined,
     void
   >,
-  respond: GetInvoicePaymentsResponder,
+  respond: (typeof getInvoicePayments)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7957,9 +7251,6 @@ const getInvoicePaymentsInvoicePayment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicePaymentsInvoicePaymentResponder =
-  (typeof getInvoicePaymentsInvoicePayment)["responder"] & KoaRuntimeResponder
-
 export type GetInvoicePaymentsInvoicePayment = (
   params: Params<
     t_GetInvoicePaymentsInvoicePaymentParamSchema,
@@ -7967,7 +7258,7 @@ export type GetInvoicePaymentsInvoicePayment = (
     t_GetInvoicePaymentsInvoicePaymentBodySchema | undefined,
     void
   >,
-  respond: GetInvoicePaymentsInvoicePaymentResponder,
+  respond: (typeof getInvoicePaymentsInvoicePayment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -7993,9 +7284,6 @@ const getInvoiceRenderingTemplates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoiceRenderingTemplatesResponder =
-  (typeof getInvoiceRenderingTemplates)["responder"] & KoaRuntimeResponder
-
 export type GetInvoiceRenderingTemplates = (
   params: Params<
     void,
@@ -8003,7 +7291,7 @@ export type GetInvoiceRenderingTemplates = (
     t_GetInvoiceRenderingTemplatesBodySchema | undefined,
     void
   >,
-  respond: GetInvoiceRenderingTemplatesResponder,
+  respond: (typeof getInvoiceRenderingTemplates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8027,10 +7315,6 @@ const getInvoiceRenderingTemplatesTemplate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoiceRenderingTemplatesTemplateResponder =
-  (typeof getInvoiceRenderingTemplatesTemplate)["responder"] &
-    KoaRuntimeResponder
-
 export type GetInvoiceRenderingTemplatesTemplate = (
   params: Params<
     t_GetInvoiceRenderingTemplatesTemplateParamSchema,
@@ -8038,7 +7322,7 @@ export type GetInvoiceRenderingTemplatesTemplate = (
     t_GetInvoiceRenderingTemplatesTemplateBodySchema | undefined,
     void
   >,
-  respond: GetInvoiceRenderingTemplatesTemplateResponder,
+  respond: (typeof getInvoiceRenderingTemplatesTemplate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8054,10 +7338,6 @@ const postInvoiceRenderingTemplatesTemplateArchive = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoiceRenderingTemplatesTemplateArchiveResponder =
-  (typeof postInvoiceRenderingTemplatesTemplateArchive)["responder"] &
-    KoaRuntimeResponder
-
 export type PostInvoiceRenderingTemplatesTemplateArchive = (
   params: Params<
     t_PostInvoiceRenderingTemplatesTemplateArchiveParamSchema,
@@ -8065,7 +7345,7 @@ export type PostInvoiceRenderingTemplatesTemplateArchive = (
     t_PostInvoiceRenderingTemplatesTemplateArchiveBodySchema | undefined,
     void
   >,
-  respond: PostInvoiceRenderingTemplatesTemplateArchiveResponder,
+  respond: (typeof postInvoiceRenderingTemplatesTemplateArchive)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8081,10 +7361,6 @@ const postInvoiceRenderingTemplatesTemplateUnarchive = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoiceRenderingTemplatesTemplateUnarchiveResponder =
-  (typeof postInvoiceRenderingTemplatesTemplateUnarchive)["responder"] &
-    KoaRuntimeResponder
-
 export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
   params: Params<
     t_PostInvoiceRenderingTemplatesTemplateUnarchiveParamSchema,
@@ -8092,7 +7368,7 @@ export type PostInvoiceRenderingTemplatesTemplateUnarchive = (
     t_PostInvoiceRenderingTemplatesTemplateUnarchiveBodySchema | undefined,
     void
   >,
-  respond: PostInvoiceRenderingTemplatesTemplateUnarchiveResponder,
+  respond: (typeof postInvoiceRenderingTemplatesTemplateUnarchive)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8118,9 +7394,6 @@ const getInvoiceitems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoiceitemsResponder = (typeof getInvoiceitems)["responder"] &
-  KoaRuntimeResponder
-
 export type GetInvoiceitems = (
   params: Params<
     void,
@@ -8128,7 +7401,7 @@ export type GetInvoiceitems = (
     t_GetInvoiceitemsBodySchema | undefined,
     void
   >,
-  respond: GetInvoiceitemsResponder,
+  respond: (typeof getInvoiceitems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8150,12 +7423,9 @@ const postInvoiceitems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoiceitemsResponder = (typeof postInvoiceitems)["responder"] &
-  KoaRuntimeResponder
-
 export type PostInvoiceitems = (
   params: Params<void, void, t_PostInvoiceitemsBodySchema, void>,
-  respond: PostInvoiceitemsResponder,
+  respond: (typeof postInvoiceitems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8169,9 +7439,6 @@ const deleteInvoiceitemsInvoiceitem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteInvoiceitemsInvoiceitemResponder =
-  (typeof deleteInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
-
 export type DeleteInvoiceitemsInvoiceitem = (
   params: Params<
     t_DeleteInvoiceitemsInvoiceitemParamSchema,
@@ -8179,7 +7446,7 @@ export type DeleteInvoiceitemsInvoiceitem = (
     t_DeleteInvoiceitemsInvoiceitemBodySchema | undefined,
     void
   >,
-  respond: DeleteInvoiceitemsInvoiceitemResponder,
+  respond: (typeof deleteInvoiceitemsInvoiceitem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8193,9 +7460,6 @@ const getInvoiceitemsInvoiceitem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoiceitemsInvoiceitemResponder =
-  (typeof getInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
-
 export type GetInvoiceitemsInvoiceitem = (
   params: Params<
     t_GetInvoiceitemsInvoiceitemParamSchema,
@@ -8203,7 +7467,7 @@ export type GetInvoiceitemsInvoiceitem = (
     t_GetInvoiceitemsInvoiceitemBodySchema | undefined,
     void
   >,
-  respond: GetInvoiceitemsInvoiceitemResponder,
+  respond: (typeof getInvoiceitemsInvoiceitem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8217,9 +7481,6 @@ const postInvoiceitemsInvoiceitem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoiceitemsInvoiceitemResponder =
-  (typeof postInvoiceitemsInvoiceitem)["responder"] & KoaRuntimeResponder
-
 export type PostInvoiceitemsInvoiceitem = (
   params: Params<
     t_PostInvoiceitemsInvoiceitemParamSchema,
@@ -8227,7 +7488,7 @@ export type PostInvoiceitemsInvoiceitem = (
     t_PostInvoiceitemsInvoiceitemBodySchema | undefined,
     void
   >,
-  respond: PostInvoiceitemsInvoiceitemResponder,
+  respond: (typeof postInvoiceitemsInvoiceitem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8253,9 +7514,6 @@ const getInvoices = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicesResponder = (typeof getInvoices)["responder"] &
-  KoaRuntimeResponder
-
 export type GetInvoices = (
   params: Params<
     void,
@@ -8263,7 +7521,7 @@ export type GetInvoices = (
     t_GetInvoicesBodySchema | undefined,
     void
   >,
-  respond: GetInvoicesResponder,
+  respond: (typeof getInvoices)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8285,12 +7543,9 @@ const postInvoices = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesResponder = (typeof postInvoices)["responder"] &
-  KoaRuntimeResponder
-
 export type PostInvoices = (
   params: Params<void, void, t_PostInvoicesBodySchema | undefined, void>,
-  respond: PostInvoicesResponder,
+  respond: (typeof postInvoices)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8304,9 +7559,6 @@ const postInvoicesCreatePreview = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesCreatePreviewResponder =
-  (typeof postInvoicesCreatePreview)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesCreatePreview = (
   params: Params<
     void,
@@ -8314,7 +7566,7 @@ export type PostInvoicesCreatePreview = (
     t_PostInvoicesCreatePreviewBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesCreatePreviewResponder,
+  respond: (typeof postInvoicesCreatePreview)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8344,9 +7596,6 @@ const getInvoicesSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicesSearchResponder = (typeof getInvoicesSearch)["responder"] &
-  KoaRuntimeResponder
-
 export type GetInvoicesSearch = (
   params: Params<
     void,
@@ -8354,7 +7603,7 @@ export type GetInvoicesSearch = (
     t_GetInvoicesSearchBodySchema | undefined,
     void
   >,
-  respond: GetInvoicesSearchResponder,
+  respond: (typeof getInvoicesSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8378,9 +7627,6 @@ const deleteInvoicesInvoice = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteInvoicesInvoiceResponder =
-  (typeof deleteInvoicesInvoice)["responder"] & KoaRuntimeResponder
-
 export type DeleteInvoicesInvoice = (
   params: Params<
     t_DeleteInvoicesInvoiceParamSchema,
@@ -8388,7 +7634,7 @@ export type DeleteInvoicesInvoice = (
     t_DeleteInvoicesInvoiceBodySchema | undefined,
     void
   >,
-  respond: DeleteInvoicesInvoiceResponder,
+  respond: (typeof deleteInvoicesInvoice)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8402,9 +7648,6 @@ const getInvoicesInvoice = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicesInvoiceResponder = (typeof getInvoicesInvoice)["responder"] &
-  KoaRuntimeResponder
-
 export type GetInvoicesInvoice = (
   params: Params<
     t_GetInvoicesInvoiceParamSchema,
@@ -8412,7 +7655,7 @@ export type GetInvoicesInvoice = (
     t_GetInvoicesInvoiceBodySchema | undefined,
     void
   >,
-  respond: GetInvoicesInvoiceResponder,
+  respond: (typeof getInvoicesInvoice)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8426,9 +7669,6 @@ const postInvoicesInvoice = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceResponder = (typeof postInvoicesInvoice)["responder"] &
-  KoaRuntimeResponder
-
 export type PostInvoicesInvoice = (
   params: Params<
     t_PostInvoicesInvoiceParamSchema,
@@ -8436,7 +7676,7 @@ export type PostInvoicesInvoice = (
     t_PostInvoicesInvoiceBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceResponder,
+  respond: (typeof postInvoicesInvoice)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8450,9 +7690,6 @@ const postInvoicesInvoiceAddLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceAddLinesResponder =
-  (typeof postInvoicesInvoiceAddLines)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceAddLines = (
   params: Params<
     t_PostInvoicesInvoiceAddLinesParamSchema,
@@ -8460,7 +7697,7 @@ export type PostInvoicesInvoiceAddLines = (
     t_PostInvoicesInvoiceAddLinesBodySchema,
     void
   >,
-  respond: PostInvoicesInvoiceAddLinesResponder,
+  respond: (typeof postInvoicesInvoiceAddLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8474,9 +7711,6 @@ const postInvoicesInvoiceFinalize = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceFinalizeResponder =
-  (typeof postInvoicesInvoiceFinalize)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceFinalize = (
   params: Params<
     t_PostInvoicesInvoiceFinalizeParamSchema,
@@ -8484,7 +7718,7 @@ export type PostInvoicesInvoiceFinalize = (
     t_PostInvoicesInvoiceFinalizeBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceFinalizeResponder,
+  respond: (typeof postInvoicesInvoiceFinalize)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8510,9 +7744,6 @@ const getInvoicesInvoiceLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetInvoicesInvoiceLinesResponder =
-  (typeof getInvoicesInvoiceLines)["responder"] & KoaRuntimeResponder
-
 export type GetInvoicesInvoiceLines = (
   params: Params<
     t_GetInvoicesInvoiceLinesParamSchema,
@@ -8520,7 +7751,7 @@ export type GetInvoicesInvoiceLines = (
     t_GetInvoicesInvoiceLinesBodySchema | undefined,
     void
   >,
-  respond: GetInvoicesInvoiceLinesResponder,
+  respond: (typeof getInvoicesInvoiceLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8542,9 +7773,6 @@ const postInvoicesInvoiceLinesLineItemId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceLinesLineItemIdResponder =
-  (typeof postInvoicesInvoiceLinesLineItemId)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceLinesLineItemId = (
   params: Params<
     t_PostInvoicesInvoiceLinesLineItemIdParamSchema,
@@ -8552,7 +7780,7 @@ export type PostInvoicesInvoiceLinesLineItemId = (
     t_PostInvoicesInvoiceLinesLineItemIdBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceLinesLineItemIdResponder,
+  respond: (typeof postInvoicesInvoiceLinesLineItemId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8566,10 +7794,6 @@ const postInvoicesInvoiceMarkUncollectible = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceMarkUncollectibleResponder =
-  (typeof postInvoicesInvoiceMarkUncollectible)["responder"] &
-    KoaRuntimeResponder
-
 export type PostInvoicesInvoiceMarkUncollectible = (
   params: Params<
     t_PostInvoicesInvoiceMarkUncollectibleParamSchema,
@@ -8577,7 +7801,7 @@ export type PostInvoicesInvoiceMarkUncollectible = (
     t_PostInvoicesInvoiceMarkUncollectibleBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceMarkUncollectibleResponder,
+  respond: (typeof postInvoicesInvoiceMarkUncollectible)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8591,9 +7815,6 @@ const postInvoicesInvoicePay = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoicePayResponder =
-  (typeof postInvoicesInvoicePay)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoicePay = (
   params: Params<
     t_PostInvoicesInvoicePayParamSchema,
@@ -8601,7 +7822,7 @@ export type PostInvoicesInvoicePay = (
     t_PostInvoicesInvoicePayBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoicePayResponder,
+  respond: (typeof postInvoicesInvoicePay)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8615,9 +7836,6 @@ const postInvoicesInvoiceRemoveLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceRemoveLinesResponder =
-  (typeof postInvoicesInvoiceRemoveLines)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceRemoveLines = (
   params: Params<
     t_PostInvoicesInvoiceRemoveLinesParamSchema,
@@ -8625,7 +7843,7 @@ export type PostInvoicesInvoiceRemoveLines = (
     t_PostInvoicesInvoiceRemoveLinesBodySchema,
     void
   >,
-  respond: PostInvoicesInvoiceRemoveLinesResponder,
+  respond: (typeof postInvoicesInvoiceRemoveLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8639,9 +7857,6 @@ const postInvoicesInvoiceSend = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceSendResponder =
-  (typeof postInvoicesInvoiceSend)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceSend = (
   params: Params<
     t_PostInvoicesInvoiceSendParamSchema,
@@ -8649,7 +7864,7 @@ export type PostInvoicesInvoiceSend = (
     t_PostInvoicesInvoiceSendBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceSendResponder,
+  respond: (typeof postInvoicesInvoiceSend)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8663,9 +7878,6 @@ const postInvoicesInvoiceUpdateLines = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceUpdateLinesResponder =
-  (typeof postInvoicesInvoiceUpdateLines)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceUpdateLines = (
   params: Params<
     t_PostInvoicesInvoiceUpdateLinesParamSchema,
@@ -8673,7 +7885,7 @@ export type PostInvoicesInvoiceUpdateLines = (
     t_PostInvoicesInvoiceUpdateLinesBodySchema,
     void
   >,
-  respond: PostInvoicesInvoiceUpdateLinesResponder,
+  respond: (typeof postInvoicesInvoiceUpdateLines)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8687,9 +7899,6 @@ const postInvoicesInvoiceVoid = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostInvoicesInvoiceVoidResponder =
-  (typeof postInvoicesInvoiceVoid)["responder"] & KoaRuntimeResponder
-
 export type PostInvoicesInvoiceVoid = (
   params: Params<
     t_PostInvoicesInvoiceVoidParamSchema,
@@ -8697,7 +7906,7 @@ export type PostInvoicesInvoiceVoid = (
     t_PostInvoicesInvoiceVoidBodySchema | undefined,
     void
   >,
-  respond: PostInvoicesInvoiceVoidResponder,
+  respond: (typeof postInvoicesInvoiceVoid)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8726,9 +7935,6 @@ const getIssuingAuthorizations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingAuthorizationsResponder =
-  (typeof getIssuingAuthorizations)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingAuthorizations = (
   params: Params<
     void,
@@ -8736,7 +7942,7 @@ export type GetIssuingAuthorizations = (
     t_GetIssuingAuthorizationsBodySchema | undefined,
     void
   >,
-  respond: GetIssuingAuthorizationsResponder,
+  respond: (typeof getIssuingAuthorizations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8758,10 +7964,6 @@ const getIssuingAuthorizationsAuthorization = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingAuthorizationsAuthorizationResponder =
-  (typeof getIssuingAuthorizationsAuthorization)["responder"] &
-    KoaRuntimeResponder
-
 export type GetIssuingAuthorizationsAuthorization = (
   params: Params<
     t_GetIssuingAuthorizationsAuthorizationParamSchema,
@@ -8769,7 +7971,7 @@ export type GetIssuingAuthorizationsAuthorization = (
     t_GetIssuingAuthorizationsAuthorizationBodySchema | undefined,
     void
   >,
-  respond: GetIssuingAuthorizationsAuthorizationResponder,
+  respond: (typeof getIssuingAuthorizationsAuthorization)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8783,10 +7985,6 @@ const postIssuingAuthorizationsAuthorization = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingAuthorizationsAuthorizationResponder =
-  (typeof postIssuingAuthorizationsAuthorization)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIssuingAuthorizationsAuthorization = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationParamSchema,
@@ -8794,7 +7992,7 @@ export type PostIssuingAuthorizationsAuthorization = (
     t_PostIssuingAuthorizationsAuthorizationBodySchema | undefined,
     void
   >,
-  respond: PostIssuingAuthorizationsAuthorizationResponder,
+  respond: (typeof postIssuingAuthorizationsAuthorization)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8808,10 +8006,6 @@ const postIssuingAuthorizationsAuthorizationApprove = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingAuthorizationsAuthorizationApproveResponder =
-  (typeof postIssuingAuthorizationsAuthorizationApprove)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIssuingAuthorizationsAuthorizationApprove = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationApproveParamSchema,
@@ -8819,7 +8013,7 @@ export type PostIssuingAuthorizationsAuthorizationApprove = (
     t_PostIssuingAuthorizationsAuthorizationApproveBodySchema | undefined,
     void
   >,
-  respond: PostIssuingAuthorizationsAuthorizationApproveResponder,
+  respond: (typeof postIssuingAuthorizationsAuthorizationApprove)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8833,10 +8027,6 @@ const postIssuingAuthorizationsAuthorizationDecline = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingAuthorizationsAuthorizationDeclineResponder =
-  (typeof postIssuingAuthorizationsAuthorizationDecline)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIssuingAuthorizationsAuthorizationDecline = (
   params: Params<
     t_PostIssuingAuthorizationsAuthorizationDeclineParamSchema,
@@ -8844,7 +8034,7 @@ export type PostIssuingAuthorizationsAuthorizationDecline = (
     t_PostIssuingAuthorizationsAuthorizationDeclineBodySchema | undefined,
     void
   >,
-  respond: PostIssuingAuthorizationsAuthorizationDeclineResponder,
+  respond: (typeof postIssuingAuthorizationsAuthorizationDecline)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8870,9 +8060,6 @@ const getIssuingCardholders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingCardholdersResponder =
-  (typeof getIssuingCardholders)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingCardholders = (
   params: Params<
     void,
@@ -8880,7 +8067,7 @@ export type GetIssuingCardholders = (
     t_GetIssuingCardholdersBodySchema | undefined,
     void
   >,
-  respond: GetIssuingCardholdersResponder,
+  respond: (typeof getIssuingCardholders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8902,12 +8089,9 @@ const postIssuingCardholders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingCardholdersResponder =
-  (typeof postIssuingCardholders)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingCardholders = (
   params: Params<void, void, t_PostIssuingCardholdersBodySchema, void>,
-  respond: PostIssuingCardholdersResponder,
+  respond: (typeof postIssuingCardholders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8921,9 +8105,6 @@ const getIssuingCardholdersCardholder = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingCardholdersCardholderResponder =
-  (typeof getIssuingCardholdersCardholder)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingCardholdersCardholder = (
   params: Params<
     t_GetIssuingCardholdersCardholderParamSchema,
@@ -8931,7 +8112,7 @@ export type GetIssuingCardholdersCardholder = (
     t_GetIssuingCardholdersCardholderBodySchema | undefined,
     void
   >,
-  respond: GetIssuingCardholdersCardholderResponder,
+  respond: (typeof getIssuingCardholdersCardholder)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8945,9 +8126,6 @@ const postIssuingCardholdersCardholder = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingCardholdersCardholderResponder =
-  (typeof postIssuingCardholdersCardholder)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingCardholdersCardholder = (
   params: Params<
     t_PostIssuingCardholdersCardholderParamSchema,
@@ -8955,7 +8133,7 @@ export type PostIssuingCardholdersCardholder = (
     t_PostIssuingCardholdersCardholderBodySchema | undefined,
     void
   >,
-  respond: PostIssuingCardholdersCardholderResponder,
+  respond: (typeof postIssuingCardholdersCardholder)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -8981,9 +8159,6 @@ const getIssuingCards = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingCardsResponder = (typeof getIssuingCards)["responder"] &
-  KoaRuntimeResponder
-
 export type GetIssuingCards = (
   params: Params<
     void,
@@ -8991,7 +8166,7 @@ export type GetIssuingCards = (
     t_GetIssuingCardsBodySchema | undefined,
     void
   >,
-  respond: GetIssuingCardsResponder,
+  respond: (typeof getIssuingCards)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9013,12 +8188,9 @@ const postIssuingCards = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingCardsResponder = (typeof postIssuingCards)["responder"] &
-  KoaRuntimeResponder
-
 export type PostIssuingCards = (
   params: Params<void, void, t_PostIssuingCardsBodySchema, void>,
-  respond: PostIssuingCardsResponder,
+  respond: (typeof postIssuingCards)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9032,9 +8204,6 @@ const getIssuingCardsCard = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingCardsCardResponder = (typeof getIssuingCardsCard)["responder"] &
-  KoaRuntimeResponder
-
 export type GetIssuingCardsCard = (
   params: Params<
     t_GetIssuingCardsCardParamSchema,
@@ -9042,7 +8211,7 @@ export type GetIssuingCardsCard = (
     t_GetIssuingCardsCardBodySchema | undefined,
     void
   >,
-  respond: GetIssuingCardsCardResponder,
+  respond: (typeof getIssuingCardsCard)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9056,9 +8225,6 @@ const postIssuingCardsCard = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingCardsCardResponder =
-  (typeof postIssuingCardsCard)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingCardsCard = (
   params: Params<
     t_PostIssuingCardsCardParamSchema,
@@ -9066,7 +8232,7 @@ export type PostIssuingCardsCard = (
     t_PostIssuingCardsCardBodySchema | undefined,
     void
   >,
-  respond: PostIssuingCardsCardResponder,
+  respond: (typeof postIssuingCardsCard)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9092,9 +8258,6 @@ const getIssuingDisputes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingDisputesResponder = (typeof getIssuingDisputes)["responder"] &
-  KoaRuntimeResponder
-
 export type GetIssuingDisputes = (
   params: Params<
     void,
@@ -9102,7 +8265,7 @@ export type GetIssuingDisputes = (
     t_GetIssuingDisputesBodySchema | undefined,
     void
   >,
-  respond: GetIssuingDisputesResponder,
+  respond: (typeof getIssuingDisputes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9124,12 +8287,9 @@ const postIssuingDisputes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingDisputesResponder = (typeof postIssuingDisputes)["responder"] &
-  KoaRuntimeResponder
-
 export type PostIssuingDisputes = (
   params: Params<void, void, t_PostIssuingDisputesBodySchema | undefined, void>,
-  respond: PostIssuingDisputesResponder,
+  respond: (typeof postIssuingDisputes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9143,9 +8303,6 @@ const getIssuingDisputesDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingDisputesDisputeResponder =
-  (typeof getIssuingDisputesDispute)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingDisputesDispute = (
   params: Params<
     t_GetIssuingDisputesDisputeParamSchema,
@@ -9153,7 +8310,7 @@ export type GetIssuingDisputesDispute = (
     t_GetIssuingDisputesDisputeBodySchema | undefined,
     void
   >,
-  respond: GetIssuingDisputesDisputeResponder,
+  respond: (typeof getIssuingDisputesDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9167,9 +8324,6 @@ const postIssuingDisputesDispute = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingDisputesDisputeResponder =
-  (typeof postIssuingDisputesDispute)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingDisputesDispute = (
   params: Params<
     t_PostIssuingDisputesDisputeParamSchema,
@@ -9177,7 +8331,7 @@ export type PostIssuingDisputesDispute = (
     t_PostIssuingDisputesDisputeBodySchema | undefined,
     void
   >,
-  respond: PostIssuingDisputesDisputeResponder,
+  respond: (typeof postIssuingDisputesDispute)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9191,9 +8345,6 @@ const postIssuingDisputesDisputeSubmit = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingDisputesDisputeSubmitResponder =
-  (typeof postIssuingDisputesDisputeSubmit)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingDisputesDisputeSubmit = (
   params: Params<
     t_PostIssuingDisputesDisputeSubmitParamSchema,
@@ -9201,7 +8352,7 @@ export type PostIssuingDisputesDisputeSubmit = (
     t_PostIssuingDisputesDisputeSubmitBodySchema | undefined,
     void
   >,
-  respond: PostIssuingDisputesDisputeSubmitResponder,
+  respond: (typeof postIssuingDisputesDisputeSubmit)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9230,9 +8381,6 @@ const getIssuingPersonalizationDesigns = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingPersonalizationDesignsResponder =
-  (typeof getIssuingPersonalizationDesigns)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingPersonalizationDesigns = (
   params: Params<
     void,
@@ -9240,7 +8388,7 @@ export type GetIssuingPersonalizationDesigns = (
     t_GetIssuingPersonalizationDesignsBodySchema | undefined,
     void
   >,
-  respond: GetIssuingPersonalizationDesignsResponder,
+  respond: (typeof getIssuingPersonalizationDesigns)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9264,9 +8412,6 @@ const postIssuingPersonalizationDesigns = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingPersonalizationDesignsResponder =
-  (typeof postIssuingPersonalizationDesigns)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingPersonalizationDesigns = (
   params: Params<
     void,
@@ -9274,7 +8419,7 @@ export type PostIssuingPersonalizationDesigns = (
     t_PostIssuingPersonalizationDesignsBodySchema,
     void
   >,
-  respond: PostIssuingPersonalizationDesignsResponder,
+  respond: (typeof postIssuingPersonalizationDesigns)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9290,10 +8435,6 @@ const getIssuingPersonalizationDesignsPersonalizationDesign = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingPersonalizationDesignsPersonalizationDesignResponder =
-  (typeof getIssuingPersonalizationDesignsPersonalizationDesign)["responder"] &
-    KoaRuntimeResponder
-
 export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
     t_GetIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
@@ -9302,7 +8443,7 @@ export type GetIssuingPersonalizationDesignsPersonalizationDesign = (
     | undefined,
     void
   >,
-  respond: GetIssuingPersonalizationDesignsPersonalizationDesignResponder,
+  respond: (typeof getIssuingPersonalizationDesignsPersonalizationDesign)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9318,10 +8459,6 @@ const postIssuingPersonalizationDesignsPersonalizationDesign = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingPersonalizationDesignsPersonalizationDesignResponder =
-  (typeof postIssuingPersonalizationDesignsPersonalizationDesign)["responder"] &
-    KoaRuntimeResponder
-
 export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
   params: Params<
     t_PostIssuingPersonalizationDesignsPersonalizationDesignParamSchema,
@@ -9330,7 +8467,7 @@ export type PostIssuingPersonalizationDesignsPersonalizationDesign = (
     | undefined,
     void
   >,
-  respond: PostIssuingPersonalizationDesignsPersonalizationDesignResponder,
+  respond: (typeof postIssuingPersonalizationDesignsPersonalizationDesign)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9359,9 +8496,6 @@ const getIssuingPhysicalBundles = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingPhysicalBundlesResponder =
-  (typeof getIssuingPhysicalBundles)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingPhysicalBundles = (
   params: Params<
     void,
@@ -9369,7 +8503,7 @@ export type GetIssuingPhysicalBundles = (
     t_GetIssuingPhysicalBundlesBodySchema | undefined,
     void
   >,
-  respond: GetIssuingPhysicalBundlesResponder,
+  respond: (typeof getIssuingPhysicalBundles)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9391,10 +8525,6 @@ const getIssuingPhysicalBundlesPhysicalBundle = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingPhysicalBundlesPhysicalBundleResponder =
-  (typeof getIssuingPhysicalBundlesPhysicalBundle)["responder"] &
-    KoaRuntimeResponder
-
 export type GetIssuingPhysicalBundlesPhysicalBundle = (
   params: Params<
     t_GetIssuingPhysicalBundlesPhysicalBundleParamSchema,
@@ -9402,7 +8532,7 @@ export type GetIssuingPhysicalBundlesPhysicalBundle = (
     t_GetIssuingPhysicalBundlesPhysicalBundleBodySchema | undefined,
     void
   >,
-  respond: GetIssuingPhysicalBundlesPhysicalBundleResponder,
+  respond: (typeof getIssuingPhysicalBundlesPhysicalBundle)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9416,9 +8546,6 @@ const getIssuingSettlementsSettlement = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingSettlementsSettlementResponder =
-  (typeof getIssuingSettlementsSettlement)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingSettlementsSettlement = (
   params: Params<
     t_GetIssuingSettlementsSettlementParamSchema,
@@ -9426,7 +8553,7 @@ export type GetIssuingSettlementsSettlement = (
     t_GetIssuingSettlementsSettlementBodySchema | undefined,
     void
   >,
-  respond: GetIssuingSettlementsSettlementResponder,
+  respond: (typeof getIssuingSettlementsSettlement)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9440,9 +8567,6 @@ const postIssuingSettlementsSettlement = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingSettlementsSettlementResponder =
-  (typeof postIssuingSettlementsSettlement)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingSettlementsSettlement = (
   params: Params<
     t_PostIssuingSettlementsSettlementParamSchema,
@@ -9450,7 +8574,7 @@ export type PostIssuingSettlementsSettlement = (
     t_PostIssuingSettlementsSettlementBodySchema | undefined,
     void
   >,
-  respond: PostIssuingSettlementsSettlementResponder,
+  respond: (typeof postIssuingSettlementsSettlement)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9476,9 +8600,6 @@ const getIssuingTokens = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingTokensResponder = (typeof getIssuingTokens)["responder"] &
-  KoaRuntimeResponder
-
 export type GetIssuingTokens = (
   params: Params<
     void,
@@ -9486,7 +8607,7 @@ export type GetIssuingTokens = (
     t_GetIssuingTokensBodySchema | undefined,
     void
   >,
-  respond: GetIssuingTokensResponder,
+  respond: (typeof getIssuingTokens)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9508,9 +8629,6 @@ const getIssuingTokensToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingTokensTokenResponder =
-  (typeof getIssuingTokensToken)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingTokensToken = (
   params: Params<
     t_GetIssuingTokensTokenParamSchema,
@@ -9518,7 +8636,7 @@ export type GetIssuingTokensToken = (
     t_GetIssuingTokensTokenBodySchema | undefined,
     void
   >,
-  respond: GetIssuingTokensTokenResponder,
+  respond: (typeof getIssuingTokensToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9532,9 +8650,6 @@ const postIssuingTokensToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingTokensTokenResponder =
-  (typeof postIssuingTokensToken)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingTokensToken = (
   params: Params<
     t_PostIssuingTokensTokenParamSchema,
@@ -9542,7 +8657,7 @@ export type PostIssuingTokensToken = (
     t_PostIssuingTokensTokenBodySchema,
     void
   >,
-  respond: PostIssuingTokensTokenResponder,
+  respond: (typeof postIssuingTokensToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9568,9 +8683,6 @@ const getIssuingTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingTransactionsResponder =
-  (typeof getIssuingTransactions)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingTransactions = (
   params: Params<
     void,
@@ -9578,7 +8690,7 @@ export type GetIssuingTransactions = (
     t_GetIssuingTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetIssuingTransactionsResponder,
+  respond: (typeof getIssuingTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9600,9 +8712,6 @@ const getIssuingTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetIssuingTransactionsTransactionResponder =
-  (typeof getIssuingTransactionsTransaction)["responder"] & KoaRuntimeResponder
-
 export type GetIssuingTransactionsTransaction = (
   params: Params<
     t_GetIssuingTransactionsTransactionParamSchema,
@@ -9610,7 +8719,7 @@ export type GetIssuingTransactionsTransaction = (
     t_GetIssuingTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: GetIssuingTransactionsTransactionResponder,
+  respond: (typeof getIssuingTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9624,9 +8733,6 @@ const postIssuingTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostIssuingTransactionsTransactionResponder =
-  (typeof postIssuingTransactionsTransaction)["responder"] & KoaRuntimeResponder
-
 export type PostIssuingTransactionsTransaction = (
   params: Params<
     t_PostIssuingTransactionsTransactionParamSchema,
@@ -9634,7 +8740,7 @@ export type PostIssuingTransactionsTransaction = (
     t_PostIssuingTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: PostIssuingTransactionsTransactionResponder,
+  respond: (typeof postIssuingTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9650,12 +8756,9 @@ const postLinkAccountSessions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostLinkAccountSessionsResponder =
-  (typeof postLinkAccountSessions)["responder"] & KoaRuntimeResponder
-
 export type PostLinkAccountSessions = (
   params: Params<void, void, t_PostLinkAccountSessionsBodySchema, void>,
-  respond: PostLinkAccountSessionsResponder,
+  respond: (typeof postLinkAccountSessions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9671,9 +8774,6 @@ const getLinkAccountSessionsSession = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetLinkAccountSessionsSessionResponder =
-  (typeof getLinkAccountSessionsSession)["responder"] & KoaRuntimeResponder
-
 export type GetLinkAccountSessionsSession = (
   params: Params<
     t_GetLinkAccountSessionsSessionParamSchema,
@@ -9681,7 +8781,7 @@ export type GetLinkAccountSessionsSession = (
     t_GetLinkAccountSessionsSessionBodySchema | undefined,
     void
   >,
-  respond: GetLinkAccountSessionsSessionResponder,
+  respond: (typeof getLinkAccountSessionsSession)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9710,9 +8810,6 @@ const getLinkedAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetLinkedAccountsResponder = (typeof getLinkedAccounts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetLinkedAccounts = (
   params: Params<
     void,
@@ -9720,7 +8817,7 @@ export type GetLinkedAccounts = (
     t_GetLinkedAccountsBodySchema | undefined,
     void
   >,
-  respond: GetLinkedAccountsResponder,
+  respond: (typeof getLinkedAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9744,9 +8841,6 @@ const getLinkedAccountsAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetLinkedAccountsAccountResponder =
-  (typeof getLinkedAccountsAccount)["responder"] & KoaRuntimeResponder
-
 export type GetLinkedAccountsAccount = (
   params: Params<
     t_GetLinkedAccountsAccountParamSchema,
@@ -9754,7 +8848,7 @@ export type GetLinkedAccountsAccount = (
     t_GetLinkedAccountsAccountBodySchema | undefined,
     void
   >,
-  respond: GetLinkedAccountsAccountResponder,
+  respond: (typeof getLinkedAccountsAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9770,10 +8864,6 @@ const postLinkedAccountsAccountDisconnect = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostLinkedAccountsAccountDisconnectResponder =
-  (typeof postLinkedAccountsAccountDisconnect)["responder"] &
-    KoaRuntimeResponder
-
 export type PostLinkedAccountsAccountDisconnect = (
   params: Params<
     t_PostLinkedAccountsAccountDisconnectParamSchema,
@@ -9781,7 +8871,7 @@ export type PostLinkedAccountsAccountDisconnect = (
     t_PostLinkedAccountsAccountDisconnectBodySchema | undefined,
     void
   >,
-  respond: PostLinkedAccountsAccountDisconnectResponder,
+  respond: (typeof postLinkedAccountsAccountDisconnect)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9807,9 +8897,6 @@ const getLinkedAccountsAccountOwners = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetLinkedAccountsAccountOwnersResponder =
-  (typeof getLinkedAccountsAccountOwners)["responder"] & KoaRuntimeResponder
-
 export type GetLinkedAccountsAccountOwners = (
   params: Params<
     t_GetLinkedAccountsAccountOwnersParamSchema,
@@ -9817,7 +8904,7 @@ export type GetLinkedAccountsAccountOwners = (
     t_GetLinkedAccountsAccountOwnersBodySchema | undefined,
     void
   >,
-  respond: GetLinkedAccountsAccountOwnersResponder,
+  respond: (typeof getLinkedAccountsAccountOwners)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9841,9 +8928,6 @@ const postLinkedAccountsAccountRefresh = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostLinkedAccountsAccountRefreshResponder =
-  (typeof postLinkedAccountsAccountRefresh)["responder"] & KoaRuntimeResponder
-
 export type PostLinkedAccountsAccountRefresh = (
   params: Params<
     t_PostLinkedAccountsAccountRefreshParamSchema,
@@ -9851,7 +8935,7 @@ export type PostLinkedAccountsAccountRefresh = (
     t_PostLinkedAccountsAccountRefreshBodySchema,
     void
   >,
-  respond: PostLinkedAccountsAccountRefreshResponder,
+  respond: (typeof postLinkedAccountsAccountRefresh)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9865,9 +8949,6 @@ const getMandatesMandate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetMandatesMandateResponder = (typeof getMandatesMandate)["responder"] &
-  KoaRuntimeResponder
-
 export type GetMandatesMandate = (
   params: Params<
     t_GetMandatesMandateParamSchema,
@@ -9875,7 +8956,7 @@ export type GetMandatesMandate = (
     t_GetMandatesMandateBodySchema | undefined,
     void
   >,
-  respond: GetMandatesMandateResponder,
+  respond: (typeof getMandatesMandate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9901,9 +8982,6 @@ const getPaymentIntents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentIntentsResponder = (typeof getPaymentIntents)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPaymentIntents = (
   params: Params<
     void,
@@ -9911,7 +8989,7 @@ export type GetPaymentIntents = (
     t_GetPaymentIntentsBodySchema | undefined,
     void
   >,
-  respond: GetPaymentIntentsResponder,
+  respond: (typeof getPaymentIntents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9933,12 +9011,9 @@ const postPaymentIntents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsResponder = (typeof postPaymentIntents)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPaymentIntents = (
   params: Params<void, void, t_PostPaymentIntentsBodySchema, void>,
-  respond: PostPaymentIntentsResponder,
+  respond: (typeof postPaymentIntents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -9968,9 +9043,6 @@ const getPaymentIntentsSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentIntentsSearchResponder =
-  (typeof getPaymentIntentsSearch)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentIntentsSearch = (
   params: Params<
     void,
@@ -9978,7 +9050,7 @@ export type GetPaymentIntentsSearch = (
     t_GetPaymentIntentsSearchBodySchema | undefined,
     void
   >,
-  respond: GetPaymentIntentsSearchResponder,
+  respond: (typeof getPaymentIntentsSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10002,9 +9074,6 @@ const getPaymentIntentsIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentIntentsIntentResponder =
-  (typeof getPaymentIntentsIntent)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentIntentsIntent = (
   params: Params<
     t_GetPaymentIntentsIntentParamSchema,
@@ -10012,7 +9081,7 @@ export type GetPaymentIntentsIntent = (
     t_GetPaymentIntentsIntentBodySchema | undefined,
     void
   >,
-  respond: GetPaymentIntentsIntentResponder,
+  respond: (typeof getPaymentIntentsIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10026,9 +9095,6 @@ const postPaymentIntentsIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentResponder =
-  (typeof postPaymentIntentsIntent)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentIntentsIntent = (
   params: Params<
     t_PostPaymentIntentsIntentParamSchema,
@@ -10036,7 +9102,7 @@ export type PostPaymentIntentsIntent = (
     t_PostPaymentIntentsIntentBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentResponder,
+  respond: (typeof postPaymentIntentsIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10050,10 +9116,6 @@ const postPaymentIntentsIntentApplyCustomerBalance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentApplyCustomerBalanceResponder =
-  (typeof postPaymentIntentsIntentApplyCustomerBalance)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentApplyCustomerBalance = (
   params: Params<
     t_PostPaymentIntentsIntentApplyCustomerBalanceParamSchema,
@@ -10061,7 +9123,7 @@ export type PostPaymentIntentsIntentApplyCustomerBalance = (
     t_PostPaymentIntentsIntentApplyCustomerBalanceBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentApplyCustomerBalanceResponder,
+  respond: (typeof postPaymentIntentsIntentApplyCustomerBalance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10075,9 +9137,6 @@ const postPaymentIntentsIntentCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentCancelResponder =
-  (typeof postPaymentIntentsIntentCancel)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentCancel = (
   params: Params<
     t_PostPaymentIntentsIntentCancelParamSchema,
@@ -10085,7 +9144,7 @@ export type PostPaymentIntentsIntentCancel = (
     t_PostPaymentIntentsIntentCancelBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentCancelResponder,
+  respond: (typeof postPaymentIntentsIntentCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10099,9 +9158,6 @@ const postPaymentIntentsIntentCapture = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentCaptureResponder =
-  (typeof postPaymentIntentsIntentCapture)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentCapture = (
   params: Params<
     t_PostPaymentIntentsIntentCaptureParamSchema,
@@ -10109,7 +9165,7 @@ export type PostPaymentIntentsIntentCapture = (
     t_PostPaymentIntentsIntentCaptureBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentCaptureResponder,
+  respond: (typeof postPaymentIntentsIntentCapture)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10123,9 +9179,6 @@ const postPaymentIntentsIntentConfirm = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentConfirmResponder =
-  (typeof postPaymentIntentsIntentConfirm)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentConfirm = (
   params: Params<
     t_PostPaymentIntentsIntentConfirmParamSchema,
@@ -10133,7 +9186,7 @@ export type PostPaymentIntentsIntentConfirm = (
     t_PostPaymentIntentsIntentConfirmBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentConfirmResponder,
+  respond: (typeof postPaymentIntentsIntentConfirm)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10147,10 +9200,6 @@ const postPaymentIntentsIntentIncrementAuthorization = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentIncrementAuthorizationResponder =
-  (typeof postPaymentIntentsIntentIncrementAuthorization)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentIncrementAuthorization = (
   params: Params<
     t_PostPaymentIntentsIntentIncrementAuthorizationParamSchema,
@@ -10158,7 +9207,7 @@ export type PostPaymentIntentsIntentIncrementAuthorization = (
     t_PostPaymentIntentsIntentIncrementAuthorizationBodySchema,
     void
   >,
-  respond: PostPaymentIntentsIntentIncrementAuthorizationResponder,
+  respond: (typeof postPaymentIntentsIntentIncrementAuthorization)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10172,10 +9221,6 @@ const postPaymentIntentsIntentVerifyMicrodeposits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentIntentsIntentVerifyMicrodepositsResponder =
-  (typeof postPaymentIntentsIntentVerifyMicrodeposits)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentIntentsIntentVerifyMicrodeposits = (
   params: Params<
     t_PostPaymentIntentsIntentVerifyMicrodepositsParamSchema,
@@ -10183,7 +9228,7 @@ export type PostPaymentIntentsIntentVerifyMicrodeposits = (
     t_PostPaymentIntentsIntentVerifyMicrodepositsBodySchema | undefined,
     void
   >,
-  respond: PostPaymentIntentsIntentVerifyMicrodepositsResponder,
+  respond: (typeof postPaymentIntentsIntentVerifyMicrodeposits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10209,9 +9254,6 @@ const getPaymentLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentLinksResponder = (typeof getPaymentLinks)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPaymentLinks = (
   params: Params<
     void,
@@ -10219,7 +9261,7 @@ export type GetPaymentLinks = (
     t_GetPaymentLinksBodySchema | undefined,
     void
   >,
-  respond: GetPaymentLinksResponder,
+  respond: (typeof getPaymentLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10241,12 +9283,9 @@ const postPaymentLinks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentLinksResponder = (typeof postPaymentLinks)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPaymentLinks = (
   params: Params<void, void, t_PostPaymentLinksBodySchema, void>,
-  respond: PostPaymentLinksResponder,
+  respond: (typeof postPaymentLinks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10260,9 +9299,6 @@ const getPaymentLinksPaymentLink = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentLinksPaymentLinkResponder =
-  (typeof getPaymentLinksPaymentLink)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentLinksPaymentLink = (
   params: Params<
     t_GetPaymentLinksPaymentLinkParamSchema,
@@ -10270,7 +9306,7 @@ export type GetPaymentLinksPaymentLink = (
     t_GetPaymentLinksPaymentLinkBodySchema | undefined,
     void
   >,
-  respond: GetPaymentLinksPaymentLinkResponder,
+  respond: (typeof getPaymentLinksPaymentLink)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10284,9 +9320,6 @@ const postPaymentLinksPaymentLink = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentLinksPaymentLinkResponder =
-  (typeof postPaymentLinksPaymentLink)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentLinksPaymentLink = (
   params: Params<
     t_PostPaymentLinksPaymentLinkParamSchema,
@@ -10294,7 +9327,7 @@ export type PostPaymentLinksPaymentLink = (
     t_PostPaymentLinksPaymentLinkBodySchema | undefined,
     void
   >,
-  respond: PostPaymentLinksPaymentLinkResponder,
+  respond: (typeof postPaymentLinksPaymentLink)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10320,10 +9353,6 @@ const getPaymentLinksPaymentLinkLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentLinksPaymentLinkLineItemsResponder =
-  (typeof getPaymentLinksPaymentLinkLineItems)["responder"] &
-    KoaRuntimeResponder
-
 export type GetPaymentLinksPaymentLinkLineItems = (
   params: Params<
     t_GetPaymentLinksPaymentLinkLineItemsParamSchema,
@@ -10331,7 +9360,7 @@ export type GetPaymentLinksPaymentLinkLineItems = (
     t_GetPaymentLinksPaymentLinkLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetPaymentLinksPaymentLinkLineItemsResponder,
+  respond: (typeof getPaymentLinksPaymentLinkLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10368,9 +9397,6 @@ const getPaymentMethodConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodConfigurationsResponder =
-  (typeof getPaymentMethodConfigurations)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentMethodConfigurations = (
   params: Params<
     void,
@@ -10378,7 +9404,7 @@ export type GetPaymentMethodConfigurations = (
     t_GetPaymentMethodConfigurationsBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodConfigurationsResponder,
+  respond: (typeof getPaymentMethodConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10402,9 +9428,6 @@ const postPaymentMethodConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodConfigurationsResponder =
-  (typeof postPaymentMethodConfigurations)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentMethodConfigurations = (
   params: Params<
     void,
@@ -10412,7 +9435,7 @@ export type PostPaymentMethodConfigurations = (
     t_PostPaymentMethodConfigurationsBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodConfigurationsResponder,
+  respond: (typeof postPaymentMethodConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10428,10 +9451,6 @@ const getPaymentMethodConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodConfigurationsConfigurationResponder =
-  (typeof getPaymentMethodConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type GetPaymentMethodConfigurationsConfiguration = (
   params: Params<
     t_GetPaymentMethodConfigurationsConfigurationParamSchema,
@@ -10439,7 +9458,7 @@ export type GetPaymentMethodConfigurationsConfiguration = (
     t_GetPaymentMethodConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodConfigurationsConfigurationResponder,
+  respond: (typeof getPaymentMethodConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10455,10 +9474,6 @@ const postPaymentMethodConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodConfigurationsConfigurationResponder =
-  (typeof postPaymentMethodConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentMethodConfigurationsConfiguration = (
   params: Params<
     t_PostPaymentMethodConfigurationsConfigurationParamSchema,
@@ -10466,7 +9481,7 @@ export type PostPaymentMethodConfigurationsConfiguration = (
     t_PostPaymentMethodConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodConfigurationsConfigurationResponder,
+  respond: (typeof postPaymentMethodConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10495,9 +9510,6 @@ const getPaymentMethodDomains = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodDomainsResponder =
-  (typeof getPaymentMethodDomains)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentMethodDomains = (
   params: Params<
     void,
@@ -10505,7 +9517,7 @@ export type GetPaymentMethodDomains = (
     t_GetPaymentMethodDomainsBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodDomainsResponder,
+  respond: (typeof getPaymentMethodDomains)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10527,12 +9539,9 @@ const postPaymentMethodDomains = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodDomainsResponder =
-  (typeof postPaymentMethodDomains)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentMethodDomains = (
   params: Params<void, void, t_PostPaymentMethodDomainsBodySchema, void>,
-  respond: PostPaymentMethodDomainsResponder,
+  respond: (typeof postPaymentMethodDomains)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10546,10 +9555,6 @@ const getPaymentMethodDomainsPaymentMethodDomain = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodDomainsPaymentMethodDomainResponder =
-  (typeof getPaymentMethodDomainsPaymentMethodDomain)["responder"] &
-    KoaRuntimeResponder
-
 export type GetPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
     t_GetPaymentMethodDomainsPaymentMethodDomainParamSchema,
@@ -10557,7 +9562,7 @@ export type GetPaymentMethodDomainsPaymentMethodDomain = (
     t_GetPaymentMethodDomainsPaymentMethodDomainBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodDomainsPaymentMethodDomainResponder,
+  respond: (typeof getPaymentMethodDomainsPaymentMethodDomain)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10571,10 +9576,6 @@ const postPaymentMethodDomainsPaymentMethodDomain = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodDomainsPaymentMethodDomainResponder =
-  (typeof postPaymentMethodDomainsPaymentMethodDomain)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentMethodDomainsPaymentMethodDomain = (
   params: Params<
     t_PostPaymentMethodDomainsPaymentMethodDomainParamSchema,
@@ -10582,7 +9583,7 @@ export type PostPaymentMethodDomainsPaymentMethodDomain = (
     t_PostPaymentMethodDomainsPaymentMethodDomainBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodDomainsPaymentMethodDomainResponder,
+  respond: (typeof postPaymentMethodDomainsPaymentMethodDomain)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10596,10 +9597,6 @@ const postPaymentMethodDomainsPaymentMethodDomainValidate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodDomainsPaymentMethodDomainValidateResponder =
-  (typeof postPaymentMethodDomainsPaymentMethodDomainValidate)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
   params: Params<
     t_PostPaymentMethodDomainsPaymentMethodDomainValidateParamSchema,
@@ -10607,7 +9604,7 @@ export type PostPaymentMethodDomainsPaymentMethodDomainValidate = (
     t_PostPaymentMethodDomainsPaymentMethodDomainValidateBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodDomainsPaymentMethodDomainValidateResponder,
+  respond: (typeof postPaymentMethodDomainsPaymentMethodDomainValidate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10633,9 +9630,6 @@ const getPaymentMethods = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodsResponder = (typeof getPaymentMethods)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPaymentMethods = (
   params: Params<
     void,
@@ -10643,7 +9637,7 @@ export type GetPaymentMethods = (
     t_GetPaymentMethodsBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodsResponder,
+  respond: (typeof getPaymentMethods)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10665,12 +9659,9 @@ const postPaymentMethods = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodsResponder = (typeof postPaymentMethods)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPaymentMethods = (
   params: Params<void, void, t_PostPaymentMethodsBodySchema | undefined, void>,
-  respond: PostPaymentMethodsResponder,
+  respond: (typeof postPaymentMethods)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10684,9 +9675,6 @@ const getPaymentMethodsPaymentMethod = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPaymentMethodsPaymentMethodResponder =
-  (typeof getPaymentMethodsPaymentMethod)["responder"] & KoaRuntimeResponder
-
 export type GetPaymentMethodsPaymentMethod = (
   params: Params<
     t_GetPaymentMethodsPaymentMethodParamSchema,
@@ -10694,7 +9682,7 @@ export type GetPaymentMethodsPaymentMethod = (
     t_GetPaymentMethodsPaymentMethodBodySchema | undefined,
     void
   >,
-  respond: GetPaymentMethodsPaymentMethodResponder,
+  respond: (typeof getPaymentMethodsPaymentMethod)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10708,9 +9696,6 @@ const postPaymentMethodsPaymentMethod = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodsPaymentMethodResponder =
-  (typeof postPaymentMethodsPaymentMethod)["responder"] & KoaRuntimeResponder
-
 export type PostPaymentMethodsPaymentMethod = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodParamSchema,
@@ -10718,7 +9703,7 @@ export type PostPaymentMethodsPaymentMethod = (
     t_PostPaymentMethodsPaymentMethodBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodsPaymentMethodResponder,
+  respond: (typeof postPaymentMethodsPaymentMethod)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10732,10 +9717,6 @@ const postPaymentMethodsPaymentMethodAttach = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodsPaymentMethodAttachResponder =
-  (typeof postPaymentMethodsPaymentMethodAttach)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentMethodsPaymentMethodAttach = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodAttachParamSchema,
@@ -10743,7 +9724,7 @@ export type PostPaymentMethodsPaymentMethodAttach = (
     t_PostPaymentMethodsPaymentMethodAttachBodySchema,
     void
   >,
-  respond: PostPaymentMethodsPaymentMethodAttachResponder,
+  respond: (typeof postPaymentMethodsPaymentMethodAttach)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10757,10 +9738,6 @@ const postPaymentMethodsPaymentMethodDetach = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPaymentMethodsPaymentMethodDetachResponder =
-  (typeof postPaymentMethodsPaymentMethodDetach)["responder"] &
-    KoaRuntimeResponder
-
 export type PostPaymentMethodsPaymentMethodDetach = (
   params: Params<
     t_PostPaymentMethodsPaymentMethodDetachParamSchema,
@@ -10768,7 +9745,7 @@ export type PostPaymentMethodsPaymentMethodDetach = (
     t_PostPaymentMethodsPaymentMethodDetachBodySchema | undefined,
     void
   >,
-  respond: PostPaymentMethodsPaymentMethodDetachResponder,
+  respond: (typeof postPaymentMethodsPaymentMethodDetach)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10794,9 +9771,6 @@ const getPayouts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPayoutsResponder = (typeof getPayouts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPayouts = (
   params: Params<
     void,
@@ -10804,7 +9778,7 @@ export type GetPayouts = (
     t_GetPayoutsBodySchema | undefined,
     void
   >,
-  respond: GetPayoutsResponder,
+  respond: (typeof getPayouts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10826,12 +9800,9 @@ const postPayouts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPayoutsResponder = (typeof postPayouts)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPayouts = (
   params: Params<void, void, t_PostPayoutsBodySchema, void>,
-  respond: PostPayoutsResponder,
+  respond: (typeof postPayouts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10845,9 +9816,6 @@ const getPayoutsPayout = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPayoutsPayoutResponder = (typeof getPayoutsPayout)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPayoutsPayout = (
   params: Params<
     t_GetPayoutsPayoutParamSchema,
@@ -10855,7 +9823,7 @@ export type GetPayoutsPayout = (
     t_GetPayoutsPayoutBodySchema | undefined,
     void
   >,
-  respond: GetPayoutsPayoutResponder,
+  respond: (typeof getPayoutsPayout)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10869,9 +9837,6 @@ const postPayoutsPayout = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPayoutsPayoutResponder = (typeof postPayoutsPayout)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPayoutsPayout = (
   params: Params<
     t_PostPayoutsPayoutParamSchema,
@@ -10879,7 +9844,7 @@ export type PostPayoutsPayout = (
     t_PostPayoutsPayoutBodySchema | undefined,
     void
   >,
-  respond: PostPayoutsPayoutResponder,
+  respond: (typeof postPayoutsPayout)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10893,9 +9858,6 @@ const postPayoutsPayoutCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPayoutsPayoutCancelResponder =
-  (typeof postPayoutsPayoutCancel)["responder"] & KoaRuntimeResponder
-
 export type PostPayoutsPayoutCancel = (
   params: Params<
     t_PostPayoutsPayoutCancelParamSchema,
@@ -10903,7 +9865,7 @@ export type PostPayoutsPayoutCancel = (
     t_PostPayoutsPayoutCancelBodySchema | undefined,
     void
   >,
-  respond: PostPayoutsPayoutCancelResponder,
+  respond: (typeof postPayoutsPayoutCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10917,9 +9879,6 @@ const postPayoutsPayoutReverse = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPayoutsPayoutReverseResponder =
-  (typeof postPayoutsPayoutReverse)["responder"] & KoaRuntimeResponder
-
 export type PostPayoutsPayoutReverse = (
   params: Params<
     t_PostPayoutsPayoutReverseParamSchema,
@@ -10927,7 +9886,7 @@ export type PostPayoutsPayoutReverse = (
     t_PostPayoutsPayoutReverseBodySchema | undefined,
     void
   >,
-  respond: PostPayoutsPayoutReverseResponder,
+  respond: (typeof postPayoutsPayoutReverse)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10953,8 +9912,6 @@ const getPlans = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPlansResponder = (typeof getPlans)["responder"] & KoaRuntimeResponder
-
 export type GetPlans = (
   params: Params<
     void,
@@ -10962,7 +9919,7 @@ export type GetPlans = (
     t_GetPlansBodySchema | undefined,
     void
   >,
-  respond: GetPlansResponder,
+  respond: (typeof getPlans)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -10984,11 +9941,9 @@ const postPlans = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPlansResponder = (typeof postPlans)["responder"] & KoaRuntimeResponder
-
 export type PostPlans = (
   params: Params<void, void, t_PostPlansBodySchema, void>,
-  respond: PostPlansResponder,
+  respond: (typeof postPlans)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11002,9 +9957,6 @@ const deletePlansPlan = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeletePlansPlanResponder = (typeof deletePlansPlan)["responder"] &
-  KoaRuntimeResponder
-
 export type DeletePlansPlan = (
   params: Params<
     t_DeletePlansPlanParamSchema,
@@ -11012,7 +9964,7 @@ export type DeletePlansPlan = (
     t_DeletePlansPlanBodySchema | undefined,
     void
   >,
-  respond: DeletePlansPlanResponder,
+  respond: (typeof deletePlansPlan)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11026,9 +9978,6 @@ const getPlansPlan = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPlansPlanResponder = (typeof getPlansPlan)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPlansPlan = (
   params: Params<
     t_GetPlansPlanParamSchema,
@@ -11036,7 +9985,7 @@ export type GetPlansPlan = (
     t_GetPlansPlanBodySchema | undefined,
     void
   >,
-  respond: GetPlansPlanResponder,
+  respond: (typeof getPlansPlan)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11050,9 +9999,6 @@ const postPlansPlan = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPlansPlanResponder = (typeof postPlansPlan)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPlansPlan = (
   params: Params<
     t_PostPlansPlanParamSchema,
@@ -11060,7 +10006,7 @@ export type PostPlansPlan = (
     t_PostPlansPlanBodySchema | undefined,
     void
   >,
-  respond: PostPlansPlanResponder,
+  respond: (typeof postPlansPlan)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11086,8 +10032,6 @@ const getPrices = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPricesResponder = (typeof getPrices)["responder"] & KoaRuntimeResponder
-
 export type GetPrices = (
   params: Params<
     void,
@@ -11095,7 +10039,7 @@ export type GetPrices = (
     t_GetPricesBodySchema | undefined,
     void
   >,
-  respond: GetPricesResponder,
+  respond: (typeof getPrices)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11117,12 +10061,9 @@ const postPrices = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPricesResponder = (typeof postPrices)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPrices = (
   params: Params<void, void, t_PostPricesBodySchema, void>,
-  respond: PostPricesResponder,
+  respond: (typeof postPrices)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11152,9 +10093,6 @@ const getPricesSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPricesSearchResponder = (typeof getPricesSearch)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPricesSearch = (
   params: Params<
     void,
@@ -11162,7 +10100,7 @@ export type GetPricesSearch = (
     t_GetPricesSearchBodySchema | undefined,
     void
   >,
-  respond: GetPricesSearchResponder,
+  respond: (typeof getPricesSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11186,9 +10124,6 @@ const getPricesPrice = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPricesPriceResponder = (typeof getPricesPrice)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPricesPrice = (
   params: Params<
     t_GetPricesPriceParamSchema,
@@ -11196,7 +10131,7 @@ export type GetPricesPrice = (
     t_GetPricesPriceBodySchema | undefined,
     void
   >,
-  respond: GetPricesPriceResponder,
+  respond: (typeof getPricesPrice)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11210,9 +10145,6 @@ const postPricesPrice = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPricesPriceResponder = (typeof postPricesPrice)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPricesPrice = (
   params: Params<
     t_PostPricesPriceParamSchema,
@@ -11220,7 +10152,7 @@ export type PostPricesPrice = (
     t_PostPricesPriceBodySchema | undefined,
     void
   >,
-  respond: PostPricesPriceResponder,
+  respond: (typeof postPricesPrice)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11246,9 +10178,6 @@ const getProducts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProductsResponder = (typeof getProducts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetProducts = (
   params: Params<
     void,
@@ -11256,7 +10185,7 @@ export type GetProducts = (
     t_GetProductsBodySchema | undefined,
     void
   >,
-  respond: GetProductsResponder,
+  respond: (typeof getProducts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11278,12 +10207,9 @@ const postProducts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostProductsResponder = (typeof postProducts)["responder"] &
-  KoaRuntimeResponder
-
 export type PostProducts = (
   params: Params<void, void, t_PostProductsBodySchema, void>,
-  respond: PostProductsResponder,
+  respond: (typeof postProducts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11313,9 +10239,6 @@ const getProductsSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProductsSearchResponder = (typeof getProductsSearch)["responder"] &
-  KoaRuntimeResponder
-
 export type GetProductsSearch = (
   params: Params<
     void,
@@ -11323,7 +10246,7 @@ export type GetProductsSearch = (
     t_GetProductsSearchBodySchema | undefined,
     void
   >,
-  respond: GetProductsSearchResponder,
+  respond: (typeof getProductsSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11347,9 +10270,6 @@ const deleteProductsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteProductsIdResponder = (typeof deleteProductsId)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteProductsId = (
   params: Params<
     t_DeleteProductsIdParamSchema,
@@ -11357,7 +10277,7 @@ export type DeleteProductsId = (
     t_DeleteProductsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteProductsIdResponder,
+  respond: (typeof deleteProductsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11371,9 +10291,6 @@ const getProductsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProductsIdResponder = (typeof getProductsId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetProductsId = (
   params: Params<
     t_GetProductsIdParamSchema,
@@ -11381,7 +10298,7 @@ export type GetProductsId = (
     t_GetProductsIdBodySchema | undefined,
     void
   >,
-  respond: GetProductsIdResponder,
+  respond: (typeof getProductsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11395,9 +10312,6 @@ const postProductsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostProductsIdResponder = (typeof postProductsId)["responder"] &
-  KoaRuntimeResponder
-
 export type PostProductsId = (
   params: Params<
     t_PostProductsIdParamSchema,
@@ -11405,7 +10319,7 @@ export type PostProductsId = (
     t_PostProductsIdBodySchema | undefined,
     void
   >,
-  respond: PostProductsIdResponder,
+  respond: (typeof postProductsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11431,9 +10345,6 @@ const getProductsProductFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProductsProductFeaturesResponder =
-  (typeof getProductsProductFeatures)["responder"] & KoaRuntimeResponder
-
 export type GetProductsProductFeatures = (
   params: Params<
     t_GetProductsProductFeaturesParamSchema,
@@ -11441,7 +10352,7 @@ export type GetProductsProductFeatures = (
     t_GetProductsProductFeaturesBodySchema | undefined,
     void
   >,
-  respond: GetProductsProductFeaturesResponder,
+  respond: (typeof getProductsProductFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11463,9 +10374,6 @@ const postProductsProductFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostProductsProductFeaturesResponder =
-  (typeof postProductsProductFeatures)["responder"] & KoaRuntimeResponder
-
 export type PostProductsProductFeatures = (
   params: Params<
     t_PostProductsProductFeaturesParamSchema,
@@ -11473,7 +10381,7 @@ export type PostProductsProductFeatures = (
     t_PostProductsProductFeaturesBodySchema,
     void
   >,
-  respond: PostProductsProductFeaturesResponder,
+  respond: (typeof postProductsProductFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11487,9 +10395,6 @@ const deleteProductsProductFeaturesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteProductsProductFeaturesIdResponder =
-  (typeof deleteProductsProductFeaturesId)["responder"] & KoaRuntimeResponder
-
 export type DeleteProductsProductFeaturesId = (
   params: Params<
     t_DeleteProductsProductFeaturesIdParamSchema,
@@ -11497,7 +10402,7 @@ export type DeleteProductsProductFeaturesId = (
     t_DeleteProductsProductFeaturesIdBodySchema | undefined,
     void
   >,
-  respond: DeleteProductsProductFeaturesIdResponder,
+  respond: (typeof deleteProductsProductFeaturesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11511,9 +10416,6 @@ const getProductsProductFeaturesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetProductsProductFeaturesIdResponder =
-  (typeof getProductsProductFeaturesId)["responder"] & KoaRuntimeResponder
-
 export type GetProductsProductFeaturesId = (
   params: Params<
     t_GetProductsProductFeaturesIdParamSchema,
@@ -11521,7 +10423,7 @@ export type GetProductsProductFeaturesId = (
     t_GetProductsProductFeaturesIdBodySchema | undefined,
     void
   >,
-  respond: GetProductsProductFeaturesIdResponder,
+  respond: (typeof getProductsProductFeaturesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11547,9 +10449,6 @@ const getPromotionCodes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPromotionCodesResponder = (typeof getPromotionCodes)["responder"] &
-  KoaRuntimeResponder
-
 export type GetPromotionCodes = (
   params: Params<
     void,
@@ -11557,7 +10456,7 @@ export type GetPromotionCodes = (
     t_GetPromotionCodesBodySchema | undefined,
     void
   >,
-  respond: GetPromotionCodesResponder,
+  respond: (typeof getPromotionCodes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11579,12 +10478,9 @@ const postPromotionCodes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPromotionCodesResponder = (typeof postPromotionCodes)["responder"] &
-  KoaRuntimeResponder
-
 export type PostPromotionCodes = (
   params: Params<void, void, t_PostPromotionCodesBodySchema, void>,
-  respond: PostPromotionCodesResponder,
+  respond: (typeof postPromotionCodes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11598,9 +10494,6 @@ const getPromotionCodesPromotionCode = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetPromotionCodesPromotionCodeResponder =
-  (typeof getPromotionCodesPromotionCode)["responder"] & KoaRuntimeResponder
-
 export type GetPromotionCodesPromotionCode = (
   params: Params<
     t_GetPromotionCodesPromotionCodeParamSchema,
@@ -11608,7 +10501,7 @@ export type GetPromotionCodesPromotionCode = (
     t_GetPromotionCodesPromotionCodeBodySchema | undefined,
     void
   >,
-  respond: GetPromotionCodesPromotionCodeResponder,
+  respond: (typeof getPromotionCodesPromotionCode)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11622,9 +10515,6 @@ const postPromotionCodesPromotionCode = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostPromotionCodesPromotionCodeResponder =
-  (typeof postPromotionCodesPromotionCode)["responder"] & KoaRuntimeResponder
-
 export type PostPromotionCodesPromotionCode = (
   params: Params<
     t_PostPromotionCodesPromotionCodeParamSchema,
@@ -11632,7 +10522,7 @@ export type PostPromotionCodesPromotionCode = (
     t_PostPromotionCodesPromotionCodeBodySchema | undefined,
     void
   >,
-  respond: PostPromotionCodesPromotionCodeResponder,
+  respond: (typeof postPromotionCodesPromotionCode)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11658,8 +10548,6 @@ const getQuotes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetQuotesResponder = (typeof getQuotes)["responder"] & KoaRuntimeResponder
-
 export type GetQuotes = (
   params: Params<
     void,
@@ -11667,7 +10555,7 @@ export type GetQuotes = (
     t_GetQuotesBodySchema | undefined,
     void
   >,
-  respond: GetQuotesResponder,
+  respond: (typeof getQuotes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11689,12 +10577,9 @@ const postQuotes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostQuotesResponder = (typeof postQuotes)["responder"] &
-  KoaRuntimeResponder
-
 export type PostQuotes = (
   params: Params<void, void, t_PostQuotesBodySchema | undefined, void>,
-  respond: PostQuotesResponder,
+  respond: (typeof postQuotes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11708,9 +10593,6 @@ const getQuotesQuote = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetQuotesQuoteResponder = (typeof getQuotesQuote)["responder"] &
-  KoaRuntimeResponder
-
 export type GetQuotesQuote = (
   params: Params<
     t_GetQuotesQuoteParamSchema,
@@ -11718,7 +10600,7 @@ export type GetQuotesQuote = (
     t_GetQuotesQuoteBodySchema | undefined,
     void
   >,
-  respond: GetQuotesQuoteResponder,
+  respond: (typeof getQuotesQuote)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11732,9 +10614,6 @@ const postQuotesQuote = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostQuotesQuoteResponder = (typeof postQuotesQuote)["responder"] &
-  KoaRuntimeResponder
-
 export type PostQuotesQuote = (
   params: Params<
     t_PostQuotesQuoteParamSchema,
@@ -11742,7 +10621,7 @@ export type PostQuotesQuote = (
     t_PostQuotesQuoteBodySchema | undefined,
     void
   >,
-  respond: PostQuotesQuoteResponder,
+  respond: (typeof postQuotesQuote)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11756,9 +10635,6 @@ const postQuotesQuoteAccept = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostQuotesQuoteAcceptResponder =
-  (typeof postQuotesQuoteAccept)["responder"] & KoaRuntimeResponder
-
 export type PostQuotesQuoteAccept = (
   params: Params<
     t_PostQuotesQuoteAcceptParamSchema,
@@ -11766,7 +10642,7 @@ export type PostQuotesQuoteAccept = (
     t_PostQuotesQuoteAcceptBodySchema | undefined,
     void
   >,
-  respond: PostQuotesQuoteAcceptResponder,
+  respond: (typeof postQuotesQuoteAccept)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11780,9 +10656,6 @@ const postQuotesQuoteCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostQuotesQuoteCancelResponder =
-  (typeof postQuotesQuoteCancel)["responder"] & KoaRuntimeResponder
-
 export type PostQuotesQuoteCancel = (
   params: Params<
     t_PostQuotesQuoteCancelParamSchema,
@@ -11790,7 +10663,7 @@ export type PostQuotesQuoteCancel = (
     t_PostQuotesQuoteCancelBodySchema | undefined,
     void
   >,
-  respond: PostQuotesQuoteCancelResponder,
+  respond: (typeof postQuotesQuoteCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11816,10 +10689,6 @@ const getQuotesQuoteComputedUpfrontLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetQuotesQuoteComputedUpfrontLineItemsResponder =
-  (typeof getQuotesQuoteComputedUpfrontLineItems)["responder"] &
-    KoaRuntimeResponder
-
 export type GetQuotesQuoteComputedUpfrontLineItems = (
   params: Params<
     t_GetQuotesQuoteComputedUpfrontLineItemsParamSchema,
@@ -11827,7 +10696,7 @@ export type GetQuotesQuoteComputedUpfrontLineItems = (
     t_GetQuotesQuoteComputedUpfrontLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetQuotesQuoteComputedUpfrontLineItemsResponder,
+  respond: (typeof getQuotesQuoteComputedUpfrontLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11849,9 +10718,6 @@ const postQuotesQuoteFinalize = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostQuotesQuoteFinalizeResponder =
-  (typeof postQuotesQuoteFinalize)["responder"] & KoaRuntimeResponder
-
 export type PostQuotesQuoteFinalize = (
   params: Params<
     t_PostQuotesQuoteFinalizeParamSchema,
@@ -11859,7 +10725,7 @@ export type PostQuotesQuoteFinalize = (
     t_PostQuotesQuoteFinalizeBodySchema | undefined,
     void
   >,
-  respond: PostQuotesQuoteFinalizeResponder,
+  respond: (typeof postQuotesQuoteFinalize)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11885,9 +10751,6 @@ const getQuotesQuoteLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetQuotesQuoteLineItemsResponder =
-  (typeof getQuotesQuoteLineItems)["responder"] & KoaRuntimeResponder
-
 export type GetQuotesQuoteLineItems = (
   params: Params<
     t_GetQuotesQuoteLineItemsParamSchema,
@@ -11895,7 +10758,7 @@ export type GetQuotesQuoteLineItems = (
     t_GetQuotesQuoteLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetQuotesQuoteLineItemsResponder,
+  respond: (typeof getQuotesQuoteLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11917,9 +10780,6 @@ const getQuotesQuotePdf = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetQuotesQuotePdfResponder = (typeof getQuotesQuotePdf)["responder"] &
-  KoaRuntimeResponder
-
 export type GetQuotesQuotePdf = (
   params: Params<
     t_GetQuotesQuotePdfParamSchema,
@@ -11927,7 +10787,7 @@ export type GetQuotesQuotePdf = (
     t_GetQuotesQuotePdfBodySchema | undefined,
     void
   >,
-  respond: GetQuotesQuotePdfResponder,
+  respond: (typeof getQuotesQuotePdf)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11956,9 +10816,6 @@ const getRadarEarlyFraudWarnings = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarEarlyFraudWarningsResponder =
-  (typeof getRadarEarlyFraudWarnings)["responder"] & KoaRuntimeResponder
-
 export type GetRadarEarlyFraudWarnings = (
   params: Params<
     void,
@@ -11966,7 +10823,7 @@ export type GetRadarEarlyFraudWarnings = (
     t_GetRadarEarlyFraudWarningsBodySchema | undefined,
     void
   >,
-  respond: GetRadarEarlyFraudWarningsResponder,
+  respond: (typeof getRadarEarlyFraudWarnings)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -11988,10 +10845,6 @@ const getRadarEarlyFraudWarningsEarlyFraudWarning = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarEarlyFraudWarningsEarlyFraudWarningResponder =
-  (typeof getRadarEarlyFraudWarningsEarlyFraudWarning)["responder"] &
-    KoaRuntimeResponder
-
 export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
   params: Params<
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningParamSchema,
@@ -11999,7 +10852,7 @@ export type GetRadarEarlyFraudWarningsEarlyFraudWarning = (
     t_GetRadarEarlyFraudWarningsEarlyFraudWarningBodySchema | undefined,
     void
   >,
-  respond: GetRadarEarlyFraudWarningsEarlyFraudWarningResponder,
+  respond: (typeof getRadarEarlyFraudWarningsEarlyFraudWarning)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12028,9 +10881,6 @@ const getRadarValueListItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarValueListItemsResponder =
-  (typeof getRadarValueListItems)["responder"] & KoaRuntimeResponder
-
 export type GetRadarValueListItems = (
   params: Params<
     void,
@@ -12038,7 +10888,7 @@ export type GetRadarValueListItems = (
     t_GetRadarValueListItemsBodySchema | undefined,
     void
   >,
-  respond: GetRadarValueListItemsResponder,
+  respond: (typeof getRadarValueListItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12060,12 +10910,9 @@ const postRadarValueListItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRadarValueListItemsResponder =
-  (typeof postRadarValueListItems)["responder"] & KoaRuntimeResponder
-
 export type PostRadarValueListItems = (
   params: Params<void, void, t_PostRadarValueListItemsBodySchema, void>,
-  respond: PostRadarValueListItemsResponder,
+  respond: (typeof postRadarValueListItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12081,9 +10928,6 @@ const deleteRadarValueListItemsItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteRadarValueListItemsItemResponder =
-  (typeof deleteRadarValueListItemsItem)["responder"] & KoaRuntimeResponder
-
 export type DeleteRadarValueListItemsItem = (
   params: Params<
     t_DeleteRadarValueListItemsItemParamSchema,
@@ -12091,7 +10935,7 @@ export type DeleteRadarValueListItemsItem = (
     t_DeleteRadarValueListItemsItemBodySchema | undefined,
     void
   >,
-  respond: DeleteRadarValueListItemsItemResponder,
+  respond: (typeof deleteRadarValueListItemsItem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12105,9 +10949,6 @@ const getRadarValueListItemsItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarValueListItemsItemResponder =
-  (typeof getRadarValueListItemsItem)["responder"] & KoaRuntimeResponder
-
 export type GetRadarValueListItemsItem = (
   params: Params<
     t_GetRadarValueListItemsItemParamSchema,
@@ -12115,7 +10956,7 @@ export type GetRadarValueListItemsItem = (
     t_GetRadarValueListItemsItemBodySchema | undefined,
     void
   >,
-  respond: GetRadarValueListItemsItemResponder,
+  respond: (typeof getRadarValueListItemsItem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12141,9 +10982,6 @@ const getRadarValueLists = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarValueListsResponder = (typeof getRadarValueLists)["responder"] &
-  KoaRuntimeResponder
-
 export type GetRadarValueLists = (
   params: Params<
     void,
@@ -12151,7 +10989,7 @@ export type GetRadarValueLists = (
     t_GetRadarValueListsBodySchema | undefined,
     void
   >,
-  respond: GetRadarValueListsResponder,
+  respond: (typeof getRadarValueLists)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12173,12 +11011,9 @@ const postRadarValueLists = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRadarValueListsResponder = (typeof postRadarValueLists)["responder"] &
-  KoaRuntimeResponder
-
 export type PostRadarValueLists = (
   params: Params<void, void, t_PostRadarValueListsBodySchema, void>,
-  respond: PostRadarValueListsResponder,
+  respond: (typeof postRadarValueLists)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12192,9 +11027,6 @@ const deleteRadarValueListsValueList = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteRadarValueListsValueListResponder =
-  (typeof deleteRadarValueListsValueList)["responder"] & KoaRuntimeResponder
-
 export type DeleteRadarValueListsValueList = (
   params: Params<
     t_DeleteRadarValueListsValueListParamSchema,
@@ -12202,7 +11034,7 @@ export type DeleteRadarValueListsValueList = (
     t_DeleteRadarValueListsValueListBodySchema | undefined,
     void
   >,
-  respond: DeleteRadarValueListsValueListResponder,
+  respond: (typeof deleteRadarValueListsValueList)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12216,9 +11048,6 @@ const getRadarValueListsValueList = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRadarValueListsValueListResponder =
-  (typeof getRadarValueListsValueList)["responder"] & KoaRuntimeResponder
-
 export type GetRadarValueListsValueList = (
   params: Params<
     t_GetRadarValueListsValueListParamSchema,
@@ -12226,7 +11055,7 @@ export type GetRadarValueListsValueList = (
     t_GetRadarValueListsValueListBodySchema | undefined,
     void
   >,
-  respond: GetRadarValueListsValueListResponder,
+  respond: (typeof getRadarValueListsValueList)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12240,9 +11069,6 @@ const postRadarValueListsValueList = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRadarValueListsValueListResponder =
-  (typeof postRadarValueListsValueList)["responder"] & KoaRuntimeResponder
-
 export type PostRadarValueListsValueList = (
   params: Params<
     t_PostRadarValueListsValueListParamSchema,
@@ -12250,7 +11076,7 @@ export type PostRadarValueListsValueList = (
     t_PostRadarValueListsValueListBodySchema | undefined,
     void
   >,
-  respond: PostRadarValueListsValueListResponder,
+  respond: (typeof postRadarValueListsValueList)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12276,9 +11102,6 @@ const getRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRefundsResponder = (typeof getRefunds)["responder"] &
-  KoaRuntimeResponder
-
 export type GetRefunds = (
   params: Params<
     void,
@@ -12286,7 +11109,7 @@ export type GetRefunds = (
     t_GetRefundsBodySchema | undefined,
     void
   >,
-  respond: GetRefundsResponder,
+  respond: (typeof getRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12308,12 +11131,9 @@ const postRefunds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRefundsResponder = (typeof postRefunds)["responder"] &
-  KoaRuntimeResponder
-
 export type PostRefunds = (
   params: Params<void, void, t_PostRefundsBodySchema | undefined, void>,
-  respond: PostRefundsResponder,
+  respond: (typeof postRefunds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12327,9 +11147,6 @@ const getRefundsRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetRefundsRefundResponder = (typeof getRefundsRefund)["responder"] &
-  KoaRuntimeResponder
-
 export type GetRefundsRefund = (
   params: Params<
     t_GetRefundsRefundParamSchema,
@@ -12337,7 +11154,7 @@ export type GetRefundsRefund = (
     t_GetRefundsRefundBodySchema | undefined,
     void
   >,
-  respond: GetRefundsRefundResponder,
+  respond: (typeof getRefundsRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12351,9 +11168,6 @@ const postRefundsRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRefundsRefundResponder = (typeof postRefundsRefund)["responder"] &
-  KoaRuntimeResponder
-
 export type PostRefundsRefund = (
   params: Params<
     t_PostRefundsRefundParamSchema,
@@ -12361,7 +11175,7 @@ export type PostRefundsRefund = (
     t_PostRefundsRefundBodySchema | undefined,
     void
   >,
-  respond: PostRefundsRefundResponder,
+  respond: (typeof postRefundsRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12375,9 +11189,6 @@ const postRefundsRefundCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostRefundsRefundCancelResponder =
-  (typeof postRefundsRefundCancel)["responder"] & KoaRuntimeResponder
-
 export type PostRefundsRefundCancel = (
   params: Params<
     t_PostRefundsRefundCancelParamSchema,
@@ -12385,7 +11196,7 @@ export type PostRefundsRefundCancel = (
     t_PostRefundsRefundCancelBodySchema | undefined,
     void
   >,
-  respond: PostRefundsRefundCancelResponder,
+  respond: (typeof postRefundsRefundCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12411,9 +11222,6 @@ const getReportingReportRuns = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReportingReportRunsResponder =
-  (typeof getReportingReportRuns)["responder"] & KoaRuntimeResponder
-
 export type GetReportingReportRuns = (
   params: Params<
     void,
@@ -12421,7 +11229,7 @@ export type GetReportingReportRuns = (
     t_GetReportingReportRunsBodySchema | undefined,
     void
   >,
-  respond: GetReportingReportRunsResponder,
+  respond: (typeof getReportingReportRuns)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12443,12 +11251,9 @@ const postReportingReportRuns = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostReportingReportRunsResponder =
-  (typeof postReportingReportRuns)["responder"] & KoaRuntimeResponder
-
 export type PostReportingReportRuns = (
   params: Params<void, void, t_PostReportingReportRunsBodySchema, void>,
-  respond: PostReportingReportRunsResponder,
+  respond: (typeof postReportingReportRuns)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12462,9 +11267,6 @@ const getReportingReportRunsReportRun = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReportingReportRunsReportRunResponder =
-  (typeof getReportingReportRunsReportRun)["responder"] & KoaRuntimeResponder
-
 export type GetReportingReportRunsReportRun = (
   params: Params<
     t_GetReportingReportRunsReportRunParamSchema,
@@ -12472,7 +11274,7 @@ export type GetReportingReportRunsReportRun = (
     t_GetReportingReportRunsReportRunBodySchema | undefined,
     void
   >,
-  respond: GetReportingReportRunsReportRunResponder,
+  respond: (typeof getReportingReportRunsReportRun)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12498,9 +11300,6 @@ const getReportingReportTypes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReportingReportTypesResponder =
-  (typeof getReportingReportTypes)["responder"] & KoaRuntimeResponder
-
 export type GetReportingReportTypes = (
   params: Params<
     void,
@@ -12508,7 +11307,7 @@ export type GetReportingReportTypes = (
     t_GetReportingReportTypesBodySchema | undefined,
     void
   >,
-  respond: GetReportingReportTypesResponder,
+  respond: (typeof getReportingReportTypes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12530,9 +11329,6 @@ const getReportingReportTypesReportType = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReportingReportTypesReportTypeResponder =
-  (typeof getReportingReportTypesReportType)["responder"] & KoaRuntimeResponder
-
 export type GetReportingReportTypesReportType = (
   params: Params<
     t_GetReportingReportTypesReportTypeParamSchema,
@@ -12540,7 +11336,7 @@ export type GetReportingReportTypesReportType = (
     t_GetReportingReportTypesReportTypeBodySchema | undefined,
     void
   >,
-  respond: GetReportingReportTypesReportTypeResponder,
+  respond: (typeof getReportingReportTypesReportType)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12566,9 +11362,6 @@ const getReviews = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReviewsResponder = (typeof getReviews)["responder"] &
-  KoaRuntimeResponder
-
 export type GetReviews = (
   params: Params<
     void,
@@ -12576,7 +11369,7 @@ export type GetReviews = (
     t_GetReviewsBodySchema | undefined,
     void
   >,
-  respond: GetReviewsResponder,
+  respond: (typeof getReviews)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12598,9 +11391,6 @@ const getReviewsReview = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetReviewsReviewResponder = (typeof getReviewsReview)["responder"] &
-  KoaRuntimeResponder
-
 export type GetReviewsReview = (
   params: Params<
     t_GetReviewsReviewParamSchema,
@@ -12608,7 +11398,7 @@ export type GetReviewsReview = (
     t_GetReviewsReviewBodySchema | undefined,
     void
   >,
-  respond: GetReviewsReviewResponder,
+  respond: (typeof getReviewsReview)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12622,9 +11412,6 @@ const postReviewsReviewApprove = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostReviewsReviewApproveResponder =
-  (typeof postReviewsReviewApprove)["responder"] & KoaRuntimeResponder
-
 export type PostReviewsReviewApprove = (
   params: Params<
     t_PostReviewsReviewApproveParamSchema,
@@ -12632,7 +11419,7 @@ export type PostReviewsReviewApprove = (
     t_PostReviewsReviewApproveBodySchema | undefined,
     void
   >,
-  respond: PostReviewsReviewApproveResponder,
+  respond: (typeof postReviewsReviewApprove)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12658,9 +11445,6 @@ const getSetupAttempts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSetupAttemptsResponder = (typeof getSetupAttempts)["responder"] &
-  KoaRuntimeResponder
-
 export type GetSetupAttempts = (
   params: Params<
     void,
@@ -12668,7 +11452,7 @@ export type GetSetupAttempts = (
     t_GetSetupAttemptsBodySchema | undefined,
     void
   >,
-  respond: GetSetupAttemptsResponder,
+  respond: (typeof getSetupAttempts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12702,9 +11486,6 @@ const getSetupIntents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSetupIntentsResponder = (typeof getSetupIntents)["responder"] &
-  KoaRuntimeResponder
-
 export type GetSetupIntents = (
   params: Params<
     void,
@@ -12712,7 +11493,7 @@ export type GetSetupIntents = (
     t_GetSetupIntentsBodySchema | undefined,
     void
   >,
-  respond: GetSetupIntentsResponder,
+  respond: (typeof getSetupIntents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12734,12 +11515,9 @@ const postSetupIntents = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSetupIntentsResponder = (typeof postSetupIntents)["responder"] &
-  KoaRuntimeResponder
-
 export type PostSetupIntents = (
   params: Params<void, void, t_PostSetupIntentsBodySchema | undefined, void>,
-  respond: PostSetupIntentsResponder,
+  respond: (typeof postSetupIntents)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12753,9 +11531,6 @@ const getSetupIntentsIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSetupIntentsIntentResponder =
-  (typeof getSetupIntentsIntent)["responder"] & KoaRuntimeResponder
-
 export type GetSetupIntentsIntent = (
   params: Params<
     t_GetSetupIntentsIntentParamSchema,
@@ -12763,7 +11538,7 @@ export type GetSetupIntentsIntent = (
     t_GetSetupIntentsIntentBodySchema | undefined,
     void
   >,
-  respond: GetSetupIntentsIntentResponder,
+  respond: (typeof getSetupIntentsIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12777,9 +11552,6 @@ const postSetupIntentsIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSetupIntentsIntentResponder =
-  (typeof postSetupIntentsIntent)["responder"] & KoaRuntimeResponder
-
 export type PostSetupIntentsIntent = (
   params: Params<
     t_PostSetupIntentsIntentParamSchema,
@@ -12787,7 +11559,7 @@ export type PostSetupIntentsIntent = (
     t_PostSetupIntentsIntentBodySchema | undefined,
     void
   >,
-  respond: PostSetupIntentsIntentResponder,
+  respond: (typeof postSetupIntentsIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12801,9 +11573,6 @@ const postSetupIntentsIntentCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSetupIntentsIntentCancelResponder =
-  (typeof postSetupIntentsIntentCancel)["responder"] & KoaRuntimeResponder
-
 export type PostSetupIntentsIntentCancel = (
   params: Params<
     t_PostSetupIntentsIntentCancelParamSchema,
@@ -12811,7 +11580,7 @@ export type PostSetupIntentsIntentCancel = (
     t_PostSetupIntentsIntentCancelBodySchema | undefined,
     void
   >,
-  respond: PostSetupIntentsIntentCancelResponder,
+  respond: (typeof postSetupIntentsIntentCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12825,9 +11594,6 @@ const postSetupIntentsIntentConfirm = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSetupIntentsIntentConfirmResponder =
-  (typeof postSetupIntentsIntentConfirm)["responder"] & KoaRuntimeResponder
-
 export type PostSetupIntentsIntentConfirm = (
   params: Params<
     t_PostSetupIntentsIntentConfirmParamSchema,
@@ -12835,7 +11601,7 @@ export type PostSetupIntentsIntentConfirm = (
     t_PostSetupIntentsIntentConfirmBodySchema | undefined,
     void
   >,
-  respond: PostSetupIntentsIntentConfirmResponder,
+  respond: (typeof postSetupIntentsIntentConfirm)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12849,10 +11615,6 @@ const postSetupIntentsIntentVerifyMicrodeposits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSetupIntentsIntentVerifyMicrodepositsResponder =
-  (typeof postSetupIntentsIntentVerifyMicrodeposits)["responder"] &
-    KoaRuntimeResponder
-
 export type PostSetupIntentsIntentVerifyMicrodeposits = (
   params: Params<
     t_PostSetupIntentsIntentVerifyMicrodepositsParamSchema,
@@ -12860,7 +11622,7 @@ export type PostSetupIntentsIntentVerifyMicrodeposits = (
     t_PostSetupIntentsIntentVerifyMicrodepositsBodySchema | undefined,
     void
   >,
-  respond: PostSetupIntentsIntentVerifyMicrodepositsResponder,
+  respond: (typeof postSetupIntentsIntentVerifyMicrodeposits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12886,9 +11648,6 @@ const getShippingRates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetShippingRatesResponder = (typeof getShippingRates)["responder"] &
-  KoaRuntimeResponder
-
 export type GetShippingRates = (
   params: Params<
     void,
@@ -12896,7 +11655,7 @@ export type GetShippingRates = (
     t_GetShippingRatesBodySchema | undefined,
     void
   >,
-  respond: GetShippingRatesResponder,
+  respond: (typeof getShippingRates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12918,12 +11677,9 @@ const postShippingRates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostShippingRatesResponder = (typeof postShippingRates)["responder"] &
-  KoaRuntimeResponder
-
 export type PostShippingRates = (
   params: Params<void, void, t_PostShippingRatesBodySchema, void>,
-  respond: PostShippingRatesResponder,
+  respond: (typeof postShippingRates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12937,9 +11693,6 @@ const getShippingRatesShippingRateToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetShippingRatesShippingRateTokenResponder =
-  (typeof getShippingRatesShippingRateToken)["responder"] & KoaRuntimeResponder
-
 export type GetShippingRatesShippingRateToken = (
   params: Params<
     t_GetShippingRatesShippingRateTokenParamSchema,
@@ -12947,7 +11700,7 @@ export type GetShippingRatesShippingRateToken = (
     t_GetShippingRatesShippingRateTokenBodySchema | undefined,
     void
   >,
-  respond: GetShippingRatesShippingRateTokenResponder,
+  respond: (typeof getShippingRatesShippingRateToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12961,9 +11714,6 @@ const postShippingRatesShippingRateToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostShippingRatesShippingRateTokenResponder =
-  (typeof postShippingRatesShippingRateToken)["responder"] & KoaRuntimeResponder
-
 export type PostShippingRatesShippingRateToken = (
   params: Params<
     t_PostShippingRatesShippingRateTokenParamSchema,
@@ -12971,7 +11721,7 @@ export type PostShippingRatesShippingRateToken = (
     t_PostShippingRatesShippingRateTokenBodySchema | undefined,
     void
   >,
-  respond: PostShippingRatesShippingRateTokenResponder,
+  respond: (typeof postShippingRatesShippingRateToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -12985,9 +11735,6 @@ const postSigmaSavedQueriesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSigmaSavedQueriesIdResponder =
-  (typeof postSigmaSavedQueriesId)["responder"] & KoaRuntimeResponder
-
 export type PostSigmaSavedQueriesId = (
   params: Params<
     t_PostSigmaSavedQueriesIdParamSchema,
@@ -12995,7 +11742,7 @@ export type PostSigmaSavedQueriesId = (
     t_PostSigmaSavedQueriesIdBodySchema | undefined,
     void
   >,
-  respond: PostSigmaSavedQueriesIdResponder,
+  respond: (typeof postSigmaSavedQueriesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13024,9 +11771,6 @@ const getSigmaScheduledQueryRuns = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSigmaScheduledQueryRunsResponder =
-  (typeof getSigmaScheduledQueryRuns)["responder"] & KoaRuntimeResponder
-
 export type GetSigmaScheduledQueryRuns = (
   params: Params<
     void,
@@ -13034,7 +11778,7 @@ export type GetSigmaScheduledQueryRuns = (
     t_GetSigmaScheduledQueryRunsBodySchema | undefined,
     void
   >,
-  respond: GetSigmaScheduledQueryRunsResponder,
+  respond: (typeof getSigmaScheduledQueryRuns)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13056,10 +11800,6 @@ const getSigmaScheduledQueryRunsScheduledQueryRun = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSigmaScheduledQueryRunsScheduledQueryRunResponder =
-  (typeof getSigmaScheduledQueryRunsScheduledQueryRun)["responder"] &
-    KoaRuntimeResponder
-
 export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
   params: Params<
     t_GetSigmaScheduledQueryRunsScheduledQueryRunParamSchema,
@@ -13067,7 +11807,7 @@ export type GetSigmaScheduledQueryRunsScheduledQueryRun = (
     t_GetSigmaScheduledQueryRunsScheduledQueryRunBodySchema | undefined,
     void
   >,
-  respond: GetSigmaScheduledQueryRunsScheduledQueryRunResponder,
+  respond: (typeof getSigmaScheduledQueryRunsScheduledQueryRun)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13081,12 +11821,9 @@ const postSources = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSourcesResponder = (typeof postSources)["responder"] &
-  KoaRuntimeResponder
-
 export type PostSources = (
   params: Params<void, void, t_PostSourcesBodySchema | undefined, void>,
-  respond: PostSourcesResponder,
+  respond: (typeof postSources)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13100,9 +11837,6 @@ const getSourcesSource = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSourcesSourceResponder = (typeof getSourcesSource)["responder"] &
-  KoaRuntimeResponder
-
 export type GetSourcesSource = (
   params: Params<
     t_GetSourcesSourceParamSchema,
@@ -13110,7 +11844,7 @@ export type GetSourcesSource = (
     t_GetSourcesSourceBodySchema | undefined,
     void
   >,
-  respond: GetSourcesSourceResponder,
+  respond: (typeof getSourcesSource)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13124,9 +11858,6 @@ const postSourcesSource = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSourcesSourceResponder = (typeof postSourcesSource)["responder"] &
-  KoaRuntimeResponder
-
 export type PostSourcesSource = (
   params: Params<
     t_PostSourcesSourceParamSchema,
@@ -13134,7 +11865,7 @@ export type PostSourcesSource = (
     t_PostSourcesSourceBodySchema | undefined,
     void
   >,
-  respond: PostSourcesSourceResponder,
+  respond: (typeof postSourcesSource)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13150,10 +11881,6 @@ const getSourcesSourceMandateNotificationsMandateNotification = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSourcesSourceMandateNotificationsMandateNotificationResponder =
-  (typeof getSourcesSourceMandateNotificationsMandateNotification)["responder"] &
-    KoaRuntimeResponder
-
 export type GetSourcesSourceMandateNotificationsMandateNotification = (
   params: Params<
     t_GetSourcesSourceMandateNotificationsMandateNotificationParamSchema,
@@ -13162,7 +11889,7 @@ export type GetSourcesSourceMandateNotificationsMandateNotification = (
     | undefined,
     void
   >,
-  respond: GetSourcesSourceMandateNotificationsMandateNotificationResponder,
+  respond: (typeof getSourcesSourceMandateNotificationsMandateNotification)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13188,9 +11915,6 @@ const getSourcesSourceSourceTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSourcesSourceSourceTransactionsResponder =
-  (typeof getSourcesSourceSourceTransactions)["responder"] & KoaRuntimeResponder
-
 export type GetSourcesSourceSourceTransactions = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsParamSchema,
@@ -13198,7 +11922,7 @@ export type GetSourcesSourceSourceTransactions = (
     t_GetSourcesSourceSourceTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetSourcesSourceSourceTransactionsResponder,
+  respond: (typeof getSourcesSourceSourceTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13220,10 +11944,6 @@ const getSourcesSourceSourceTransactionsSourceTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSourcesSourceSourceTransactionsSourceTransactionResponder =
-  (typeof getSourcesSourceSourceTransactionsSourceTransaction)["responder"] &
-    KoaRuntimeResponder
-
 export type GetSourcesSourceSourceTransactionsSourceTransaction = (
   params: Params<
     t_GetSourcesSourceSourceTransactionsSourceTransactionParamSchema,
@@ -13231,7 +11951,7 @@ export type GetSourcesSourceSourceTransactionsSourceTransaction = (
     t_GetSourcesSourceSourceTransactionsSourceTransactionBodySchema | undefined,
     void
   >,
-  respond: GetSourcesSourceSourceTransactionsSourceTransactionResponder,
+  respond: (typeof getSourcesSourceSourceTransactionsSourceTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13245,9 +11965,6 @@ const postSourcesSourceVerify = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSourcesSourceVerifyResponder =
-  (typeof postSourcesSourceVerify)["responder"] & KoaRuntimeResponder
-
 export type PostSourcesSourceVerify = (
   params: Params<
     t_PostSourcesSourceVerifyParamSchema,
@@ -13255,7 +11972,7 @@ export type PostSourcesSourceVerify = (
     t_PostSourcesSourceVerifyBodySchema,
     void
   >,
-  respond: PostSourcesSourceVerifyResponder,
+  respond: (typeof postSourcesSourceVerify)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13281,9 +11998,6 @@ const getSubscriptionItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionItemsResponder =
-  (typeof getSubscriptionItems)["responder"] & KoaRuntimeResponder
-
 export type GetSubscriptionItems = (
   params: Params<
     void,
@@ -13291,7 +12005,7 @@ export type GetSubscriptionItems = (
     t_GetSubscriptionItemsBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionItemsResponder,
+  respond: (typeof getSubscriptionItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13313,12 +12027,9 @@ const postSubscriptionItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionItemsResponder =
-  (typeof postSubscriptionItems)["responder"] & KoaRuntimeResponder
-
 export type PostSubscriptionItems = (
   params: Params<void, void, t_PostSubscriptionItemsBodySchema, void>,
-  respond: PostSubscriptionItemsResponder,
+  respond: (typeof postSubscriptionItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13332,9 +12043,6 @@ const deleteSubscriptionItemsItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteSubscriptionItemsItemResponder =
-  (typeof deleteSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
-
 export type DeleteSubscriptionItemsItem = (
   params: Params<
     t_DeleteSubscriptionItemsItemParamSchema,
@@ -13342,7 +12050,7 @@ export type DeleteSubscriptionItemsItem = (
     t_DeleteSubscriptionItemsItemBodySchema | undefined,
     void
   >,
-  respond: DeleteSubscriptionItemsItemResponder,
+  respond: (typeof deleteSubscriptionItemsItem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13356,9 +12064,6 @@ const getSubscriptionItemsItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionItemsItemResponder =
-  (typeof getSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
-
 export type GetSubscriptionItemsItem = (
   params: Params<
     t_GetSubscriptionItemsItemParamSchema,
@@ -13366,7 +12071,7 @@ export type GetSubscriptionItemsItem = (
     t_GetSubscriptionItemsItemBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionItemsItemResponder,
+  respond: (typeof getSubscriptionItemsItem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13380,9 +12085,6 @@ const postSubscriptionItemsItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionItemsItemResponder =
-  (typeof postSubscriptionItemsItem)["responder"] & KoaRuntimeResponder
-
 export type PostSubscriptionItemsItem = (
   params: Params<
     t_PostSubscriptionItemsItemParamSchema,
@@ -13390,7 +12092,7 @@ export type PostSubscriptionItemsItem = (
     t_PostSubscriptionItemsItemBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionItemsItemResponder,
+  respond: (typeof postSubscriptionItemsItem)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13419,9 +12121,6 @@ const getSubscriptionSchedules = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionSchedulesResponder =
-  (typeof getSubscriptionSchedules)["responder"] & KoaRuntimeResponder
-
 export type GetSubscriptionSchedules = (
   params: Params<
     void,
@@ -13429,7 +12128,7 @@ export type GetSubscriptionSchedules = (
     t_GetSubscriptionSchedulesBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionSchedulesResponder,
+  respond: (typeof getSubscriptionSchedules)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13451,9 +12150,6 @@ const postSubscriptionSchedules = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionSchedulesResponder =
-  (typeof postSubscriptionSchedules)["responder"] & KoaRuntimeResponder
-
 export type PostSubscriptionSchedules = (
   params: Params<
     void,
@@ -13461,7 +12157,7 @@ export type PostSubscriptionSchedules = (
     t_PostSubscriptionSchedulesBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionSchedulesResponder,
+  respond: (typeof postSubscriptionSchedules)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13475,9 +12171,6 @@ const getSubscriptionSchedulesSchedule = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionSchedulesScheduleResponder =
-  (typeof getSubscriptionSchedulesSchedule)["responder"] & KoaRuntimeResponder
-
 export type GetSubscriptionSchedulesSchedule = (
   params: Params<
     t_GetSubscriptionSchedulesScheduleParamSchema,
@@ -13485,7 +12178,7 @@ export type GetSubscriptionSchedulesSchedule = (
     t_GetSubscriptionSchedulesScheduleBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionSchedulesScheduleResponder,
+  respond: (typeof getSubscriptionSchedulesSchedule)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13499,9 +12192,6 @@ const postSubscriptionSchedulesSchedule = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionSchedulesScheduleResponder =
-  (typeof postSubscriptionSchedulesSchedule)["responder"] & KoaRuntimeResponder
-
 export type PostSubscriptionSchedulesSchedule = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleParamSchema,
@@ -13509,7 +12199,7 @@ export type PostSubscriptionSchedulesSchedule = (
     t_PostSubscriptionSchedulesScheduleBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionSchedulesScheduleResponder,
+  respond: (typeof postSubscriptionSchedulesSchedule)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13523,10 +12213,6 @@ const postSubscriptionSchedulesScheduleCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionSchedulesScheduleCancelResponder =
-  (typeof postSubscriptionSchedulesScheduleCancel)["responder"] &
-    KoaRuntimeResponder
-
 export type PostSubscriptionSchedulesScheduleCancel = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleCancelParamSchema,
@@ -13534,7 +12220,7 @@ export type PostSubscriptionSchedulesScheduleCancel = (
     t_PostSubscriptionSchedulesScheduleCancelBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionSchedulesScheduleCancelResponder,
+  respond: (typeof postSubscriptionSchedulesScheduleCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13548,10 +12234,6 @@ const postSubscriptionSchedulesScheduleRelease = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionSchedulesScheduleReleaseResponder =
-  (typeof postSubscriptionSchedulesScheduleRelease)["responder"] &
-    KoaRuntimeResponder
-
 export type PostSubscriptionSchedulesScheduleRelease = (
   params: Params<
     t_PostSubscriptionSchedulesScheduleReleaseParamSchema,
@@ -13559,7 +12241,7 @@ export type PostSubscriptionSchedulesScheduleRelease = (
     t_PostSubscriptionSchedulesScheduleReleaseBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionSchedulesScheduleReleaseResponder,
+  respond: (typeof postSubscriptionSchedulesScheduleRelease)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13585,9 +12267,6 @@ const getSubscriptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionsResponder = (typeof getSubscriptions)["responder"] &
-  KoaRuntimeResponder
-
 export type GetSubscriptions = (
   params: Params<
     void,
@@ -13595,7 +12274,7 @@ export type GetSubscriptions = (
     t_GetSubscriptionsBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionsResponder,
+  respond: (typeof getSubscriptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13617,12 +12296,9 @@ const postSubscriptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionsResponder = (typeof postSubscriptions)["responder"] &
-  KoaRuntimeResponder
-
 export type PostSubscriptions = (
   params: Params<void, void, t_PostSubscriptionsBodySchema, void>,
-  respond: PostSubscriptionsResponder,
+  respond: (typeof postSubscriptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13652,9 +12328,6 @@ const getSubscriptionsSearch = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionsSearchResponder =
-  (typeof getSubscriptionsSearch)["responder"] & KoaRuntimeResponder
-
 export type GetSubscriptionsSearch = (
   params: Params<
     void,
@@ -13662,7 +12335,7 @@ export type GetSubscriptionsSearch = (
     t_GetSubscriptionsSearchBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionsSearchResponder,
+  respond: (typeof getSubscriptionsSearch)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13686,10 +12359,6 @@ const deleteSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteSubscriptionsSubscriptionExposedIdResponder =
-  (typeof deleteSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_DeleteSubscriptionsSubscriptionExposedIdParamSchema,
@@ -13697,7 +12366,7 @@ export type DeleteSubscriptionsSubscriptionExposedId = (
     t_DeleteSubscriptionsSubscriptionExposedIdBodySchema | undefined,
     void
   >,
-  respond: DeleteSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof deleteSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13711,10 +12380,6 @@ const getSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetSubscriptionsSubscriptionExposedIdResponder =
-  (typeof getSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type GetSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_GetSubscriptionsSubscriptionExposedIdParamSchema,
@@ -13722,7 +12387,7 @@ export type GetSubscriptionsSubscriptionExposedId = (
     t_GetSubscriptionsSubscriptionExposedIdBodySchema | undefined,
     void
   >,
-  respond: GetSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof getSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13736,10 +12401,6 @@ const postSubscriptionsSubscriptionExposedId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionsSubscriptionExposedIdResponder =
-  (typeof postSubscriptionsSubscriptionExposedId)["responder"] &
-    KoaRuntimeResponder
-
 export type PostSubscriptionsSubscriptionExposedId = (
   params: Params<
     t_PostSubscriptionsSubscriptionExposedIdParamSchema,
@@ -13747,7 +12408,7 @@ export type PostSubscriptionsSubscriptionExposedId = (
     t_PostSubscriptionsSubscriptionExposedIdBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionsSubscriptionExposedIdResponder,
+  respond: (typeof postSubscriptionsSubscriptionExposedId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13761,10 +12422,6 @@ const deleteSubscriptionsSubscriptionExposedIdDiscount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteSubscriptionsSubscriptionExposedIdDiscountResponder =
-  (typeof deleteSubscriptionsSubscriptionExposedIdDiscount)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
   params: Params<
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountParamSchema,
@@ -13772,7 +12429,7 @@ export type DeleteSubscriptionsSubscriptionExposedIdDiscount = (
     t_DeleteSubscriptionsSubscriptionExposedIdDiscountBodySchema | undefined,
     void
   >,
-  respond: DeleteSubscriptionsSubscriptionExposedIdDiscountResponder,
+  respond: (typeof deleteSubscriptionsSubscriptionExposedIdDiscount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13786,10 +12443,6 @@ const postSubscriptionsSubscriptionResume = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostSubscriptionsSubscriptionResumeResponder =
-  (typeof postSubscriptionsSubscriptionResume)["responder"] &
-    KoaRuntimeResponder
-
 export type PostSubscriptionsSubscriptionResume = (
   params: Params<
     t_PostSubscriptionsSubscriptionResumeParamSchema,
@@ -13797,7 +12450,7 @@ export type PostSubscriptionsSubscriptionResume = (
     t_PostSubscriptionsSubscriptionResumeBodySchema | undefined,
     void
   >,
-  respond: PostSubscriptionsSubscriptionResumeResponder,
+  respond: (typeof postSubscriptionsSubscriptionResume)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13811,12 +12464,9 @@ const postTaxCalculations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxCalculationsResponder = (typeof postTaxCalculations)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTaxCalculations = (
   params: Params<void, void, t_PostTaxCalculationsBodySchema, void>,
-  respond: PostTaxCalculationsResponder,
+  respond: (typeof postTaxCalculations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13830,9 +12480,6 @@ const getTaxCalculationsCalculation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxCalculationsCalculationResponder =
-  (typeof getTaxCalculationsCalculation)["responder"] & KoaRuntimeResponder
-
 export type GetTaxCalculationsCalculation = (
   params: Params<
     t_GetTaxCalculationsCalculationParamSchema,
@@ -13840,7 +12487,7 @@ export type GetTaxCalculationsCalculation = (
     t_GetTaxCalculationsCalculationBodySchema | undefined,
     void
   >,
-  respond: GetTaxCalculationsCalculationResponder,
+  respond: (typeof getTaxCalculationsCalculation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13869,10 +12516,6 @@ const getTaxCalculationsCalculationLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxCalculationsCalculationLineItemsResponder =
-  (typeof getTaxCalculationsCalculationLineItems)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTaxCalculationsCalculationLineItems = (
   params: Params<
     t_GetTaxCalculationsCalculationLineItemsParamSchema,
@@ -13880,7 +12523,7 @@ export type GetTaxCalculationsCalculationLineItems = (
     t_GetTaxCalculationsCalculationLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetTaxCalculationsCalculationLineItemsResponder,
+  respond: (typeof getTaxCalculationsCalculationLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13914,9 +12557,6 @@ const getTaxRegistrations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxRegistrationsResponder = (typeof getTaxRegistrations)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxRegistrations = (
   params: Params<
     void,
@@ -13924,7 +12564,7 @@ export type GetTaxRegistrations = (
     t_GetTaxRegistrationsBodySchema | undefined,
     void
   >,
-  respond: GetTaxRegistrationsResponder,
+  respond: (typeof getTaxRegistrations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13946,12 +12586,9 @@ const postTaxRegistrations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxRegistrationsResponder =
-  (typeof postTaxRegistrations)["responder"] & KoaRuntimeResponder
-
 export type PostTaxRegistrations = (
   params: Params<void, void, t_PostTaxRegistrationsBodySchema, void>,
-  respond: PostTaxRegistrationsResponder,
+  respond: (typeof postTaxRegistrations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13965,9 +12602,6 @@ const getTaxRegistrationsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxRegistrationsIdResponder =
-  (typeof getTaxRegistrationsId)["responder"] & KoaRuntimeResponder
-
 export type GetTaxRegistrationsId = (
   params: Params<
     t_GetTaxRegistrationsIdParamSchema,
@@ -13975,7 +12609,7 @@ export type GetTaxRegistrationsId = (
     t_GetTaxRegistrationsIdBodySchema | undefined,
     void
   >,
-  respond: GetTaxRegistrationsIdResponder,
+  respond: (typeof getTaxRegistrationsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -13989,9 +12623,6 @@ const postTaxRegistrationsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxRegistrationsIdResponder =
-  (typeof postTaxRegistrationsId)["responder"] & KoaRuntimeResponder
-
 export type PostTaxRegistrationsId = (
   params: Params<
     t_PostTaxRegistrationsIdParamSchema,
@@ -13999,7 +12630,7 @@ export type PostTaxRegistrationsId = (
     t_PostTaxRegistrationsIdBodySchema | undefined,
     void
   >,
-  respond: PostTaxRegistrationsIdResponder,
+  respond: (typeof postTaxRegistrationsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14013,9 +12644,6 @@ const getTaxSettings = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxSettingsResponder = (typeof getTaxSettings)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxSettings = (
   params: Params<
     void,
@@ -14023,7 +12651,7 @@ export type GetTaxSettings = (
     t_GetTaxSettingsBodySchema | undefined,
     void
   >,
-  respond: GetTaxSettingsResponder,
+  respond: (typeof getTaxSettings)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14037,12 +12665,9 @@ const postTaxSettings = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxSettingsResponder = (typeof postTaxSettings)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTaxSettings = (
   params: Params<void, void, t_PostTaxSettingsBodySchema | undefined, void>,
-  respond: PostTaxSettingsResponder,
+  respond: (typeof postTaxSettings)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14056,10 +12681,6 @@ const postTaxTransactionsCreateFromCalculation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxTransactionsCreateFromCalculationResponder =
-  (typeof postTaxTransactionsCreateFromCalculation)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTaxTransactionsCreateFromCalculation = (
   params: Params<
     void,
@@ -14067,7 +12688,7 @@ export type PostTaxTransactionsCreateFromCalculation = (
     t_PostTaxTransactionsCreateFromCalculationBodySchema,
     void
   >,
-  respond: PostTaxTransactionsCreateFromCalculationResponder,
+  respond: (typeof postTaxTransactionsCreateFromCalculation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14081,9 +12702,6 @@ const postTaxTransactionsCreateReversal = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxTransactionsCreateReversalResponder =
-  (typeof postTaxTransactionsCreateReversal)["responder"] & KoaRuntimeResponder
-
 export type PostTaxTransactionsCreateReversal = (
   params: Params<
     void,
@@ -14091,7 +12709,7 @@ export type PostTaxTransactionsCreateReversal = (
     t_PostTaxTransactionsCreateReversalBodySchema,
     void
   >,
-  respond: PostTaxTransactionsCreateReversalResponder,
+  respond: (typeof postTaxTransactionsCreateReversal)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14105,9 +12723,6 @@ const getTaxTransactionsTransaction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxTransactionsTransactionResponder =
-  (typeof getTaxTransactionsTransaction)["responder"] & KoaRuntimeResponder
-
 export type GetTaxTransactionsTransaction = (
   params: Params<
     t_GetTaxTransactionsTransactionParamSchema,
@@ -14115,7 +12730,7 @@ export type GetTaxTransactionsTransaction = (
     t_GetTaxTransactionsTransactionBodySchema | undefined,
     void
   >,
-  respond: GetTaxTransactionsTransactionResponder,
+  respond: (typeof getTaxTransactionsTransaction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14144,10 +12759,6 @@ const getTaxTransactionsTransactionLineItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxTransactionsTransactionLineItemsResponder =
-  (typeof getTaxTransactionsTransactionLineItems)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTaxTransactionsTransactionLineItems = (
   params: Params<
     t_GetTaxTransactionsTransactionLineItemsParamSchema,
@@ -14155,7 +12766,7 @@ export type GetTaxTransactionsTransactionLineItems = (
     t_GetTaxTransactionsTransactionLineItemsBodySchema | undefined,
     void
   >,
-  respond: GetTaxTransactionsTransactionLineItemsResponder,
+  respond: (typeof getTaxTransactionsTransactionLineItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14189,9 +12800,6 @@ const getTaxCodes = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxCodesResponder = (typeof getTaxCodes)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxCodes = (
   params: Params<
     void,
@@ -14199,7 +12807,7 @@ export type GetTaxCodes = (
     t_GetTaxCodesBodySchema | undefined,
     void
   >,
-  respond: GetTaxCodesResponder,
+  respond: (typeof getTaxCodes)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14221,9 +12829,6 @@ const getTaxCodesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxCodesIdResponder = (typeof getTaxCodesId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxCodesId = (
   params: Params<
     t_GetTaxCodesIdParamSchema,
@@ -14231,7 +12836,7 @@ export type GetTaxCodesId = (
     t_GetTaxCodesIdBodySchema | undefined,
     void
   >,
-  respond: GetTaxCodesIdResponder,
+  respond: (typeof getTaxCodesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14257,8 +12862,6 @@ const getTaxIds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxIdsResponder = (typeof getTaxIds)["responder"] & KoaRuntimeResponder
-
 export type GetTaxIds = (
   params: Params<
     void,
@@ -14266,7 +12869,7 @@ export type GetTaxIds = (
     t_GetTaxIdsBodySchema | undefined,
     void
   >,
-  respond: GetTaxIdsResponder,
+  respond: (typeof getTaxIds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14288,12 +12891,9 @@ const postTaxIds = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxIdsResponder = (typeof postTaxIds)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTaxIds = (
   params: Params<void, void, t_PostTaxIdsBodySchema, void>,
-  respond: PostTaxIdsResponder,
+  respond: (typeof postTaxIds)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14307,9 +12907,6 @@ const deleteTaxIdsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTaxIdsIdResponder = (typeof deleteTaxIdsId)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteTaxIdsId = (
   params: Params<
     t_DeleteTaxIdsIdParamSchema,
@@ -14317,7 +12914,7 @@ export type DeleteTaxIdsId = (
     t_DeleteTaxIdsIdBodySchema | undefined,
     void
   >,
-  respond: DeleteTaxIdsIdResponder,
+  respond: (typeof deleteTaxIdsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14331,9 +12928,6 @@ const getTaxIdsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxIdsIdResponder = (typeof getTaxIdsId)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxIdsId = (
   params: Params<
     t_GetTaxIdsIdParamSchema,
@@ -14341,7 +12935,7 @@ export type GetTaxIdsId = (
     t_GetTaxIdsIdBodySchema | undefined,
     void
   >,
-  respond: GetTaxIdsIdResponder,
+  respond: (typeof getTaxIdsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14367,9 +12961,6 @@ const getTaxRates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxRatesResponder = (typeof getTaxRates)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxRates = (
   params: Params<
     void,
@@ -14377,7 +12968,7 @@ export type GetTaxRates = (
     t_GetTaxRatesBodySchema | undefined,
     void
   >,
-  respond: GetTaxRatesResponder,
+  respond: (typeof getTaxRates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14399,12 +12990,9 @@ const postTaxRates = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxRatesResponder = (typeof postTaxRates)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTaxRates = (
   params: Params<void, void, t_PostTaxRatesBodySchema, void>,
-  respond: PostTaxRatesResponder,
+  respond: (typeof postTaxRates)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14418,9 +13006,6 @@ const getTaxRatesTaxRate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTaxRatesTaxRateResponder = (typeof getTaxRatesTaxRate)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTaxRatesTaxRate = (
   params: Params<
     t_GetTaxRatesTaxRateParamSchema,
@@ -14428,7 +13013,7 @@ export type GetTaxRatesTaxRate = (
     t_GetTaxRatesTaxRateBodySchema | undefined,
     void
   >,
-  respond: GetTaxRatesTaxRateResponder,
+  respond: (typeof getTaxRatesTaxRate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14442,9 +13027,6 @@ const postTaxRatesTaxRate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTaxRatesTaxRateResponder = (typeof postTaxRatesTaxRate)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTaxRatesTaxRate = (
   params: Params<
     t_PostTaxRatesTaxRateParamSchema,
@@ -14452,7 +13034,7 @@ export type PostTaxRatesTaxRate = (
     t_PostTaxRatesTaxRateBodySchema | undefined,
     void
   >,
-  respond: PostTaxRatesTaxRateResponder,
+  respond: (typeof postTaxRatesTaxRate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14481,9 +13063,6 @@ const getTerminalConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalConfigurationsResponder =
-  (typeof getTerminalConfigurations)["responder"] & KoaRuntimeResponder
-
 export type GetTerminalConfigurations = (
   params: Params<
     void,
@@ -14491,7 +13070,7 @@ export type GetTerminalConfigurations = (
     t_GetTerminalConfigurationsBodySchema | undefined,
     void
   >,
-  respond: GetTerminalConfigurationsResponder,
+  respond: (typeof getTerminalConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14513,9 +13092,6 @@ const postTerminalConfigurations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalConfigurationsResponder =
-  (typeof postTerminalConfigurations)["responder"] & KoaRuntimeResponder
-
 export type PostTerminalConfigurations = (
   params: Params<
     void,
@@ -14523,7 +13099,7 @@ export type PostTerminalConfigurations = (
     t_PostTerminalConfigurationsBodySchema | undefined,
     void
   >,
-  respond: PostTerminalConfigurationsResponder,
+  respond: (typeof postTerminalConfigurations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14539,10 +13115,6 @@ const deleteTerminalConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTerminalConfigurationsConfigurationResponder =
-  (typeof deleteTerminalConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteTerminalConfigurationsConfiguration = (
   params: Params<
     t_DeleteTerminalConfigurationsConfigurationParamSchema,
@@ -14550,7 +13122,7 @@ export type DeleteTerminalConfigurationsConfiguration = (
     t_DeleteTerminalConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: DeleteTerminalConfigurationsConfigurationResponder,
+  respond: (typeof deleteTerminalConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14571,10 +13143,6 @@ const getTerminalConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalConfigurationsConfigurationResponder =
-  (typeof getTerminalConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTerminalConfigurationsConfiguration = (
   params: Params<
     t_GetTerminalConfigurationsConfigurationParamSchema,
@@ -14582,7 +13150,7 @@ export type GetTerminalConfigurationsConfiguration = (
     t_GetTerminalConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: GetTerminalConfigurationsConfigurationResponder,
+  respond: (typeof getTerminalConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14603,10 +13171,6 @@ const postTerminalConfigurationsConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalConfigurationsConfigurationResponder =
-  (typeof postTerminalConfigurationsConfiguration)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalConfigurationsConfiguration = (
   params: Params<
     t_PostTerminalConfigurationsConfigurationParamSchema,
@@ -14614,7 +13178,7 @@ export type PostTerminalConfigurationsConfiguration = (
     t_PostTerminalConfigurationsConfigurationBodySchema | undefined,
     void
   >,
-  respond: PostTerminalConfigurationsConfigurationResponder,
+  respond: (typeof postTerminalConfigurationsConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14628,9 +13192,6 @@ const postTerminalConnectionTokens = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalConnectionTokensResponder =
-  (typeof postTerminalConnectionTokens)["responder"] & KoaRuntimeResponder
-
 export type PostTerminalConnectionTokens = (
   params: Params<
     void,
@@ -14638,7 +13199,7 @@ export type PostTerminalConnectionTokens = (
     t_PostTerminalConnectionTokensBodySchema | undefined,
     void
   >,
-  respond: PostTerminalConnectionTokensResponder,
+  respond: (typeof postTerminalConnectionTokens)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14664,9 +13225,6 @@ const getTerminalLocations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalLocationsResponder =
-  (typeof getTerminalLocations)["responder"] & KoaRuntimeResponder
-
 export type GetTerminalLocations = (
   params: Params<
     void,
@@ -14674,7 +13232,7 @@ export type GetTerminalLocations = (
     t_GetTerminalLocationsBodySchema | undefined,
     void
   >,
-  respond: GetTerminalLocationsResponder,
+  respond: (typeof getTerminalLocations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14696,12 +13254,9 @@ const postTerminalLocations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalLocationsResponder =
-  (typeof postTerminalLocations)["responder"] & KoaRuntimeResponder
-
 export type PostTerminalLocations = (
   params: Params<void, void, t_PostTerminalLocationsBodySchema, void>,
-  respond: PostTerminalLocationsResponder,
+  respond: (typeof postTerminalLocations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14715,9 +13270,6 @@ const deleteTerminalLocationsLocation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTerminalLocationsLocationResponder =
-  (typeof deleteTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
-
 export type DeleteTerminalLocationsLocation = (
   params: Params<
     t_DeleteTerminalLocationsLocationParamSchema,
@@ -14725,7 +13277,7 @@ export type DeleteTerminalLocationsLocation = (
     t_DeleteTerminalLocationsLocationBodySchema | undefined,
     void
   >,
-  respond: DeleteTerminalLocationsLocationResponder,
+  respond: (typeof deleteTerminalLocationsLocation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14741,9 +13293,6 @@ const getTerminalLocationsLocation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalLocationsLocationResponder =
-  (typeof getTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
-
 export type GetTerminalLocationsLocation = (
   params: Params<
     t_GetTerminalLocationsLocationParamSchema,
@@ -14751,7 +13300,7 @@ export type GetTerminalLocationsLocation = (
     t_GetTerminalLocationsLocationBodySchema | undefined,
     void
   >,
-  respond: GetTerminalLocationsLocationResponder,
+  respond: (typeof getTerminalLocationsLocation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14767,9 +13316,6 @@ const postTerminalLocationsLocation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalLocationsLocationResponder =
-  (typeof postTerminalLocationsLocation)["responder"] & KoaRuntimeResponder
-
 export type PostTerminalLocationsLocation = (
   params: Params<
     t_PostTerminalLocationsLocationParamSchema,
@@ -14777,7 +13323,7 @@ export type PostTerminalLocationsLocation = (
     t_PostTerminalLocationsLocationBodySchema | undefined,
     void
   >,
-  respond: PostTerminalLocationsLocationResponder,
+  respond: (typeof postTerminalLocationsLocation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14803,9 +13349,6 @@ const getTerminalReaders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalReadersResponder = (typeof getTerminalReaders)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTerminalReaders = (
   params: Params<
     void,
@@ -14813,7 +13356,7 @@ export type GetTerminalReaders = (
     t_GetTerminalReadersBodySchema | undefined,
     void
   >,
-  respond: GetTerminalReadersResponder,
+  respond: (typeof getTerminalReaders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14835,12 +13378,9 @@ const postTerminalReaders = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersResponder = (typeof postTerminalReaders)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTerminalReaders = (
   params: Params<void, void, t_PostTerminalReadersBodySchema, void>,
-  respond: PostTerminalReadersResponder,
+  respond: (typeof postTerminalReaders)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14854,9 +13394,6 @@ const deleteTerminalReadersReader = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTerminalReadersReaderResponder =
-  (typeof deleteTerminalReadersReader)["responder"] & KoaRuntimeResponder
-
 export type DeleteTerminalReadersReader = (
   params: Params<
     t_DeleteTerminalReadersReaderParamSchema,
@@ -14864,7 +13401,7 @@ export type DeleteTerminalReadersReader = (
     t_DeleteTerminalReadersReaderBodySchema | undefined,
     void
   >,
-  respond: DeleteTerminalReadersReaderResponder,
+  respond: (typeof deleteTerminalReadersReader)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14880,9 +13417,6 @@ const getTerminalReadersReader = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTerminalReadersReaderResponder =
-  (typeof getTerminalReadersReader)["responder"] & KoaRuntimeResponder
-
 export type GetTerminalReadersReader = (
   params: Params<
     t_GetTerminalReadersReaderParamSchema,
@@ -14890,7 +13424,7 @@ export type GetTerminalReadersReader = (
     t_GetTerminalReadersReaderBodySchema | undefined,
     void
   >,
-  respond: GetTerminalReadersReaderResponder,
+  respond: (typeof getTerminalReadersReader)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14906,9 +13440,6 @@ const postTerminalReadersReader = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderResponder =
-  (typeof postTerminalReadersReader)["responder"] & KoaRuntimeResponder
-
 export type PostTerminalReadersReader = (
   params: Params<
     t_PostTerminalReadersReaderParamSchema,
@@ -14916,7 +13447,7 @@ export type PostTerminalReadersReader = (
     t_PostTerminalReadersReaderBodySchema | undefined,
     void
   >,
-  respond: PostTerminalReadersReaderResponder,
+  respond: (typeof postTerminalReadersReader)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14930,10 +13461,6 @@ const postTerminalReadersReaderCancelAction = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderCancelActionResponder =
-  (typeof postTerminalReadersReaderCancelAction)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalReadersReaderCancelAction = (
   params: Params<
     t_PostTerminalReadersReaderCancelActionParamSchema,
@@ -14941,7 +13468,7 @@ export type PostTerminalReadersReaderCancelAction = (
     t_PostTerminalReadersReaderCancelActionBodySchema | undefined,
     void
   >,
-  respond: PostTerminalReadersReaderCancelActionResponder,
+  respond: (typeof postTerminalReadersReaderCancelAction)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14955,10 +13482,6 @@ const postTerminalReadersReaderProcessPaymentIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderProcessPaymentIntentResponder =
-  (typeof postTerminalReadersReaderProcessPaymentIntent)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalReadersReaderProcessPaymentIntent = (
   params: Params<
     t_PostTerminalReadersReaderProcessPaymentIntentParamSchema,
@@ -14966,7 +13489,7 @@ export type PostTerminalReadersReaderProcessPaymentIntent = (
     t_PostTerminalReadersReaderProcessPaymentIntentBodySchema,
     void
   >,
-  respond: PostTerminalReadersReaderProcessPaymentIntentResponder,
+  respond: (typeof postTerminalReadersReaderProcessPaymentIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -14980,10 +13503,6 @@ const postTerminalReadersReaderProcessSetupIntent = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderProcessSetupIntentResponder =
-  (typeof postTerminalReadersReaderProcessSetupIntent)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalReadersReaderProcessSetupIntent = (
   params: Params<
     t_PostTerminalReadersReaderProcessSetupIntentParamSchema,
@@ -14991,7 +13510,7 @@ export type PostTerminalReadersReaderProcessSetupIntent = (
     t_PostTerminalReadersReaderProcessSetupIntentBodySchema,
     void
   >,
-  respond: PostTerminalReadersReaderProcessSetupIntentResponder,
+  respond: (typeof postTerminalReadersReaderProcessSetupIntent)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15005,10 +13524,6 @@ const postTerminalReadersReaderRefundPayment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderRefundPaymentResponder =
-  (typeof postTerminalReadersReaderRefundPayment)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalReadersReaderRefundPayment = (
   params: Params<
     t_PostTerminalReadersReaderRefundPaymentParamSchema,
@@ -15016,7 +13531,7 @@ export type PostTerminalReadersReaderRefundPayment = (
     t_PostTerminalReadersReaderRefundPaymentBodySchema | undefined,
     void
   >,
-  respond: PostTerminalReadersReaderRefundPaymentResponder,
+  respond: (typeof postTerminalReadersReaderRefundPayment)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15030,10 +13545,6 @@ const postTerminalReadersReaderSetReaderDisplay = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTerminalReadersReaderSetReaderDisplayResponder =
-  (typeof postTerminalReadersReaderSetReaderDisplay)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTerminalReadersReaderSetReaderDisplay = (
   params: Params<
     t_PostTerminalReadersReaderSetReaderDisplayParamSchema,
@@ -15041,7 +13552,7 @@ export type PostTerminalReadersReaderSetReaderDisplay = (
     t_PostTerminalReadersReaderSetReaderDisplayBodySchema,
     void
   >,
-  respond: PostTerminalReadersReaderSetReaderDisplayResponder,
+  respond: (typeof postTerminalReadersReaderSetReaderDisplay)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15055,9 +13566,6 @@ const postTestHelpersConfirmationTokens = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersConfirmationTokensResponder =
-  (typeof postTestHelpersConfirmationTokens)["responder"] & KoaRuntimeResponder
-
 export type PostTestHelpersConfirmationTokens = (
   params: Params<
     void,
@@ -15065,7 +13573,7 @@ export type PostTestHelpersConfirmationTokens = (
     t_PostTestHelpersConfirmationTokensBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersConfirmationTokensResponder,
+  respond: (typeof postTestHelpersConfirmationTokens)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15081,10 +13589,6 @@ const postTestHelpersCustomersCustomerFundCashBalance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersCustomersCustomerFundCashBalanceResponder =
-  (typeof postTestHelpersCustomersCustomerFundCashBalance)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersCustomersCustomerFundCashBalance = (
   params: Params<
     t_PostTestHelpersCustomersCustomerFundCashBalanceParamSchema,
@@ -15092,7 +13596,7 @@ export type PostTestHelpersCustomersCustomerFundCashBalance = (
     t_PostTestHelpersCustomersCustomerFundCashBalanceBodySchema,
     void
   >,
-  respond: PostTestHelpersCustomersCustomerFundCashBalanceResponder,
+  respond: (typeof postTestHelpersCustomersCustomerFundCashBalance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15106,10 +13610,6 @@ const postTestHelpersIssuingAuthorizations = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingAuthorizationsResponder =
-  (typeof postTestHelpersIssuingAuthorizations)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizations = (
   params: Params<
     void,
@@ -15117,7 +13617,7 @@ export type PostTestHelpersIssuingAuthorizations = (
     t_PostTestHelpersIssuingAuthorizationsBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizations)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15131,10 +13631,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationCapture = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationCapture)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationCaptureParamSchema,
@@ -15143,7 +13639,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationCapture = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsAuthorizationCaptureResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationCapture)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15157,10 +13653,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationExpire = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationExpire)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationExpireParamSchema,
@@ -15169,7 +13661,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationExpire = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsAuthorizationExpireResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationExpire)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15185,10 +13677,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = b(
   }),
 )
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountParamSchema,
@@ -15196,7 +13684,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount = (
     t_PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmountResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationFinalizeAmount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15211,10 +13699,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond =
     withStatus: r.withStatus,
   }))
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond =
   (
     params: Params<
@@ -15223,7 +13707,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesResp
       t_PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondBodySchema,
       void
     >,
-    respond: PostTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespondResponder,
+    respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationFraudChallengesRespond)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -15237,10 +13721,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationIncrement = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationIncrement)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementParamSchema,
@@ -15248,7 +13728,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationIncrement = (
     t_PostTestHelpersIssuingAuthorizationsAuthorizationIncrementBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsAuthorizationIncrementResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationIncrement)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15262,10 +13742,6 @@ const postTestHelpersIssuingAuthorizationsAuthorizationReverse = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder =
-  (typeof postTestHelpersIssuingAuthorizationsAuthorizationReverse)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
   params: Params<
     t_PostTestHelpersIssuingAuthorizationsAuthorizationReverseParamSchema,
@@ -15274,7 +13750,7 @@ export type PostTestHelpersIssuingAuthorizationsAuthorizationReverse = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingAuthorizationsAuthorizationReverseResponder,
+  respond: (typeof postTestHelpersIssuingAuthorizationsAuthorizationReverse)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15288,10 +13764,6 @@ const postTestHelpersIssuingCardsCardShippingDeliver = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingCardsCardShippingDeliverResponder =
-  (typeof postTestHelpersIssuingCardsCardShippingDeliver)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingCardsCardShippingDeliver = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingDeliverParamSchema,
@@ -15299,7 +13771,7 @@ export type PostTestHelpersIssuingCardsCardShippingDeliver = (
     t_PostTestHelpersIssuingCardsCardShippingDeliverBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingCardsCardShippingDeliverResponder,
+  respond: (typeof postTestHelpersIssuingCardsCardShippingDeliver)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15313,10 +13785,6 @@ const postTestHelpersIssuingCardsCardShippingFail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingCardsCardShippingFailResponder =
-  (typeof postTestHelpersIssuingCardsCardShippingFail)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingCardsCardShippingFail = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingFailParamSchema,
@@ -15324,7 +13792,7 @@ export type PostTestHelpersIssuingCardsCardShippingFail = (
     t_PostTestHelpersIssuingCardsCardShippingFailBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingCardsCardShippingFailResponder,
+  respond: (typeof postTestHelpersIssuingCardsCardShippingFail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15338,10 +13806,6 @@ const postTestHelpersIssuingCardsCardShippingReturn = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingCardsCardShippingReturnResponder =
-  (typeof postTestHelpersIssuingCardsCardShippingReturn)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingCardsCardShippingReturn = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingReturnParamSchema,
@@ -15349,7 +13813,7 @@ export type PostTestHelpersIssuingCardsCardShippingReturn = (
     t_PostTestHelpersIssuingCardsCardShippingReturnBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingCardsCardShippingReturnResponder,
+  respond: (typeof postTestHelpersIssuingCardsCardShippingReturn)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15363,10 +13827,6 @@ const postTestHelpersIssuingCardsCardShippingShip = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingCardsCardShippingShipResponder =
-  (typeof postTestHelpersIssuingCardsCardShippingShip)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingCardsCardShippingShip = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingShipParamSchema,
@@ -15374,7 +13834,7 @@ export type PostTestHelpersIssuingCardsCardShippingShip = (
     t_PostTestHelpersIssuingCardsCardShippingShipBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingCardsCardShippingShipResponder,
+  respond: (typeof postTestHelpersIssuingCardsCardShippingShip)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15388,10 +13848,6 @@ const postTestHelpersIssuingCardsCardShippingSubmit = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingCardsCardShippingSubmitResponder =
-  (typeof postTestHelpersIssuingCardsCardShippingSubmit)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingCardsCardShippingSubmit = (
   params: Params<
     t_PostTestHelpersIssuingCardsCardShippingSubmitParamSchema,
@@ -15399,7 +13855,7 @@ export type PostTestHelpersIssuingCardsCardShippingSubmit = (
     t_PostTestHelpersIssuingCardsCardShippingSubmitBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingCardsCardShippingSubmitResponder,
+  respond: (typeof postTestHelpersIssuingCardsCardShippingSubmit)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15416,10 +13872,6 @@ const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate 
     withStatus: r.withStatus,
   }))
 
-type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder =
-  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate =
   (
     params: Params<
@@ -15429,7 +13881,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignAct
       | undefined,
       void
     >,
-    respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivateResponder,
+    respond: (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignActivate)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -15446,10 +13898,6 @@ const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivat
     withStatus: r.withStatus,
   }))
 
-type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder =
-  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate =
   (
     params: Params<
@@ -15459,7 +13907,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDea
       | undefined,
       void
     >,
-    respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivateResponder,
+    respond: (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignDeactivate)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -15476,10 +13924,6 @@ const postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject =
     withStatus: r.withStatus,
   }))
 
-type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder =
-  (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject =
   (
     params: Params<
@@ -15488,7 +13932,7 @@ export type PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRej
       t_PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectBodySchema,
       void
     >,
-    respond: PostTestHelpersIssuingPersonalizationDesignsPersonalizationDesignRejectResponder,
+    respond: (typeof postTestHelpersIssuingPersonalizationDesignsPersonalizationDesignReject)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -15502,9 +13946,6 @@ const postTestHelpersIssuingSettlements = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingSettlementsResponder =
-  (typeof postTestHelpersIssuingSettlements)["responder"] & KoaRuntimeResponder
-
 export type PostTestHelpersIssuingSettlements = (
   params: Params<
     void,
@@ -15512,7 +13953,7 @@ export type PostTestHelpersIssuingSettlements = (
     t_PostTestHelpersIssuingSettlementsBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingSettlementsResponder,
+  respond: (typeof postTestHelpersIssuingSettlements)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15526,10 +13967,6 @@ const postTestHelpersIssuingSettlementsSettlementComplete = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingSettlementsSettlementCompleteResponder =
-  (typeof postTestHelpersIssuingSettlementsSettlementComplete)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingSettlementsSettlementComplete = (
   params: Params<
     t_PostTestHelpersIssuingSettlementsSettlementCompleteParamSchema,
@@ -15537,7 +13974,7 @@ export type PostTestHelpersIssuingSettlementsSettlementComplete = (
     t_PostTestHelpersIssuingSettlementsSettlementCompleteBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingSettlementsSettlementCompleteResponder,
+  respond: (typeof postTestHelpersIssuingSettlementsSettlementComplete)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15551,10 +13988,6 @@ const postTestHelpersIssuingTransactionsCreateForceCapture = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingTransactionsCreateForceCaptureResponder =
-  (typeof postTestHelpersIssuingTransactionsCreateForceCapture)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
   params: Params<
     void,
@@ -15562,7 +13995,7 @@ export type PostTestHelpersIssuingTransactionsCreateForceCapture = (
     t_PostTestHelpersIssuingTransactionsCreateForceCaptureBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingTransactionsCreateForceCaptureResponder,
+  respond: (typeof postTestHelpersIssuingTransactionsCreateForceCapture)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15576,10 +14009,6 @@ const postTestHelpersIssuingTransactionsCreateUnlinkedRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder =
-  (typeof postTestHelpersIssuingTransactionsCreateUnlinkedRefund)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
   params: Params<
     void,
@@ -15587,7 +14016,7 @@ export type PostTestHelpersIssuingTransactionsCreateUnlinkedRefund = (
     t_PostTestHelpersIssuingTransactionsCreateUnlinkedRefundBodySchema,
     void
   >,
-  respond: PostTestHelpersIssuingTransactionsCreateUnlinkedRefundResponder,
+  respond: (typeof postTestHelpersIssuingTransactionsCreateUnlinkedRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15601,10 +14030,6 @@ const postTestHelpersIssuingTransactionsTransactionRefund = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersIssuingTransactionsTransactionRefundResponder =
-  (typeof postTestHelpersIssuingTransactionsTransactionRefund)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersIssuingTransactionsTransactionRefund = (
   params: Params<
     t_PostTestHelpersIssuingTransactionsTransactionRefundParamSchema,
@@ -15612,7 +14037,7 @@ export type PostTestHelpersIssuingTransactionsTransactionRefund = (
     t_PostTestHelpersIssuingTransactionsTransactionRefundBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersIssuingTransactionsTransactionRefundResponder,
+  respond: (typeof postTestHelpersIssuingTransactionsTransactionRefund)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15626,9 +14051,6 @@ const postTestHelpersRefundsRefundExpire = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersRefundsRefundExpireResponder =
-  (typeof postTestHelpersRefundsRefundExpire)["responder"] & KoaRuntimeResponder
-
 export type PostTestHelpersRefundsRefundExpire = (
   params: Params<
     t_PostTestHelpersRefundsRefundExpireParamSchema,
@@ -15636,7 +14058,7 @@ export type PostTestHelpersRefundsRefundExpire = (
     t_PostTestHelpersRefundsRefundExpireBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersRefundsRefundExpireResponder,
+  respond: (typeof postTestHelpersRefundsRefundExpire)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15650,10 +14072,6 @@ const postTestHelpersTerminalReadersReaderPresentPaymentMethod = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder =
-  (typeof postTestHelpersTerminalReadersReaderPresentPaymentMethod)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
   params: Params<
     t_PostTestHelpersTerminalReadersReaderPresentPaymentMethodParamSchema,
@@ -15662,7 +14080,7 @@ export type PostTestHelpersTerminalReadersReaderPresentPaymentMethod = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersTerminalReadersReaderPresentPaymentMethodResponder,
+  respond: (typeof postTestHelpersTerminalReadersReaderPresentPaymentMethod)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15691,9 +14109,6 @@ const getTestHelpersTestClocks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTestHelpersTestClocksResponder =
-  (typeof getTestHelpersTestClocks)["responder"] & KoaRuntimeResponder
-
 export type GetTestHelpersTestClocks = (
   params: Params<
     void,
@@ -15701,7 +14116,7 @@ export type GetTestHelpersTestClocks = (
     t_GetTestHelpersTestClocksBodySchema | undefined,
     void
   >,
-  respond: GetTestHelpersTestClocksResponder,
+  respond: (typeof getTestHelpersTestClocks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15723,12 +14138,9 @@ const postTestHelpersTestClocks = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTestClocksResponder =
-  (typeof postTestHelpersTestClocks)["responder"] & KoaRuntimeResponder
-
 export type PostTestHelpersTestClocks = (
   params: Params<void, void, t_PostTestHelpersTestClocksBodySchema, void>,
-  respond: PostTestHelpersTestClocksResponder,
+  respond: (typeof postTestHelpersTestClocks)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15744,10 +14156,6 @@ const deleteTestHelpersTestClocksTestClock = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTestHelpersTestClocksTestClockResponder =
-  (typeof deleteTestHelpersTestClocksTestClock)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteTestHelpersTestClocksTestClock = (
   params: Params<
     t_DeleteTestHelpersTestClocksTestClockParamSchema,
@@ -15755,7 +14163,7 @@ export type DeleteTestHelpersTestClocksTestClock = (
     t_DeleteTestHelpersTestClocksTestClockBodySchema | undefined,
     void
   >,
-  respond: DeleteTestHelpersTestClocksTestClockResponder,
+  respond: (typeof deleteTestHelpersTestClocksTestClock)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15769,9 +14177,6 @@ const getTestHelpersTestClocksTestClock = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTestHelpersTestClocksTestClockResponder =
-  (typeof getTestHelpersTestClocksTestClock)["responder"] & KoaRuntimeResponder
-
 export type GetTestHelpersTestClocksTestClock = (
   params: Params<
     t_GetTestHelpersTestClocksTestClockParamSchema,
@@ -15779,7 +14184,7 @@ export type GetTestHelpersTestClocksTestClock = (
     t_GetTestHelpersTestClocksTestClockBodySchema | undefined,
     void
   >,
-  respond: GetTestHelpersTestClocksTestClockResponder,
+  respond: (typeof getTestHelpersTestClocksTestClock)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15793,10 +14198,6 @@ const postTestHelpersTestClocksTestClockAdvance = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTestClocksTestClockAdvanceResponder =
-  (typeof postTestHelpersTestClocksTestClockAdvance)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTestClocksTestClockAdvance = (
   params: Params<
     t_PostTestHelpersTestClocksTestClockAdvanceParamSchema,
@@ -15804,7 +14205,7 @@ export type PostTestHelpersTestClocksTestClockAdvance = (
     t_PostTestHelpersTestClocksTestClockAdvanceBodySchema,
     void
   >,
-  respond: PostTestHelpersTestClocksTestClockAdvanceResponder,
+  respond: (typeof postTestHelpersTestClocksTestClockAdvance)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15818,10 +14219,6 @@ const postTestHelpersTreasuryInboundTransfersIdFail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryInboundTransfersIdFailResponder =
-  (typeof postTestHelpersTreasuryInboundTransfersIdFail)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryInboundTransfersIdFail = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdFailParamSchema,
@@ -15829,7 +14226,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdFail = (
     t_PostTestHelpersTreasuryInboundTransfersIdFailBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryInboundTransfersIdFailResponder,
+  respond: (typeof postTestHelpersTreasuryInboundTransfersIdFail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15843,10 +14240,6 @@ const postTestHelpersTreasuryInboundTransfersIdReturn = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryInboundTransfersIdReturnResponder =
-  (typeof postTestHelpersTreasuryInboundTransfersIdReturn)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdReturnParamSchema,
@@ -15854,7 +14247,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdReturn = (
     t_PostTestHelpersTreasuryInboundTransfersIdReturnBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryInboundTransfersIdReturnResponder,
+  respond: (typeof postTestHelpersTreasuryInboundTransfersIdReturn)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15868,10 +14261,6 @@ const postTestHelpersTreasuryInboundTransfersIdSucceed = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryInboundTransfersIdSucceedResponder =
-  (typeof postTestHelpersTreasuryInboundTransfersIdSucceed)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
   params: Params<
     t_PostTestHelpersTreasuryInboundTransfersIdSucceedParamSchema,
@@ -15879,7 +14268,7 @@ export type PostTestHelpersTreasuryInboundTransfersIdSucceed = (
     t_PostTestHelpersTreasuryInboundTransfersIdSucceedBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryInboundTransfersIdSucceedResponder,
+  respond: (typeof postTestHelpersTreasuryInboundTransfersIdSucceed)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15893,10 +14282,6 @@ const postTestHelpersTreasuryOutboundPaymentsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundPaymentsIdResponder =
-  (typeof postTestHelpersTreasuryOutboundPaymentsId)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundPaymentsId = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdParamSchema,
@@ -15904,7 +14289,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsId = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdBodySchema,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundPaymentsIdResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundPaymentsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15918,10 +14303,6 @@ const postTestHelpersTreasuryOutboundPaymentsIdFail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundPaymentsIdFailResponder =
-  (typeof postTestHelpersTreasuryOutboundPaymentsIdFail)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdFailParamSchema,
@@ -15929,7 +14310,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdFail = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdFailBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundPaymentsIdFailResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundPaymentsIdFail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15943,10 +14324,6 @@ const postTestHelpersTreasuryOutboundPaymentsIdPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundPaymentsIdPostResponder =
-  (typeof postTestHelpersTreasuryOutboundPaymentsIdPost)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdPostParamSchema,
@@ -15954,7 +14331,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdPost = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdPostBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundPaymentsIdPostResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundPaymentsIdPost)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15968,10 +14345,6 @@ const postTestHelpersTreasuryOutboundPaymentsIdReturn = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder =
-  (typeof postTestHelpersTreasuryOutboundPaymentsIdReturn)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundPaymentsIdReturnParamSchema,
@@ -15979,7 +14352,7 @@ export type PostTestHelpersTreasuryOutboundPaymentsIdReturn = (
     t_PostTestHelpersTreasuryOutboundPaymentsIdReturnBodySchema | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundPaymentsIdReturnResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundPaymentsIdReturn)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -15995,10 +14368,6 @@ const postTestHelpersTreasuryOutboundTransfersOutboundTransfer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder =
-  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransfer)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferParamSchema,
@@ -16006,7 +14375,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransfer = (
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferBodySchema,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransfer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16022,10 +14391,6 @@ const postTestHelpersTreasuryOutboundTransfersOutboundTransferFail = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder =
-  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferFail)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailParamSchema,
@@ -16034,7 +14399,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferFail = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferFailResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferFail)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16050,10 +14415,6 @@ const postTestHelpersTreasuryOutboundTransfersOutboundTransferPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder =
-  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferPost)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostParamSchema,
@@ -16062,7 +14423,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferPost = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferPostResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferPost)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16080,10 +14441,6 @@ const postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = b(
   }),
 )
 
-type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder =
-  (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
   params: Params<
     t_PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnParamSchema,
@@ -16092,7 +14449,7 @@ export type PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturn = (
     | undefined,
     void
   >,
-  respond: PostTestHelpersTreasuryOutboundTransfersOutboundTransferReturnResponder,
+  respond: (typeof postTestHelpersTreasuryOutboundTransfersOutboundTransferReturn)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16106,10 +14463,6 @@ const postTestHelpersTreasuryReceivedCredits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryReceivedCreditsResponder =
-  (typeof postTestHelpersTreasuryReceivedCredits)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryReceivedCredits = (
   params: Params<
     void,
@@ -16117,7 +14470,7 @@ export type PostTestHelpersTreasuryReceivedCredits = (
     t_PostTestHelpersTreasuryReceivedCreditsBodySchema,
     void
   >,
-  respond: PostTestHelpersTreasuryReceivedCreditsResponder,
+  respond: (typeof postTestHelpersTreasuryReceivedCredits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16131,10 +14484,6 @@ const postTestHelpersTreasuryReceivedDebits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTestHelpersTreasuryReceivedDebitsResponder =
-  (typeof postTestHelpersTreasuryReceivedDebits)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTestHelpersTreasuryReceivedDebits = (
   params: Params<
     void,
@@ -16142,7 +14491,7 @@ export type PostTestHelpersTreasuryReceivedDebits = (
     t_PostTestHelpersTreasuryReceivedDebitsBodySchema,
     void
   >,
-  respond: PostTestHelpersTreasuryReceivedDebitsResponder,
+  respond: (typeof postTestHelpersTreasuryReceivedDebits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16156,12 +14505,9 @@ const postTokens = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTokensResponder = (typeof postTokens)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTokens = (
   params: Params<void, void, t_PostTokensBodySchema | undefined, void>,
-  respond: PostTokensResponder,
+  respond: (typeof postTokens)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16175,9 +14521,6 @@ const getTokensToken = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTokensTokenResponder = (typeof getTokensToken)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTokensToken = (
   params: Params<
     t_GetTokensTokenParamSchema,
@@ -16185,7 +14528,7 @@ export type GetTokensToken = (
     t_GetTokensTokenBodySchema | undefined,
     void
   >,
-  respond: GetTokensTokenResponder,
+  respond: (typeof getTokensToken)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16211,8 +14554,6 @@ const getTopups = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTopupsResponder = (typeof getTopups)["responder"] & KoaRuntimeResponder
-
 export type GetTopups = (
   params: Params<
     void,
@@ -16220,7 +14561,7 @@ export type GetTopups = (
     t_GetTopupsBodySchema | undefined,
     void
   >,
-  respond: GetTopupsResponder,
+  respond: (typeof getTopups)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16242,12 +14583,9 @@ const postTopups = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTopupsResponder = (typeof postTopups)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTopups = (
   params: Params<void, void, t_PostTopupsBodySchema, void>,
-  respond: PostTopupsResponder,
+  respond: (typeof postTopups)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16261,9 +14599,6 @@ const getTopupsTopup = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTopupsTopupResponder = (typeof getTopupsTopup)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTopupsTopup = (
   params: Params<
     t_GetTopupsTopupParamSchema,
@@ -16271,7 +14606,7 @@ export type GetTopupsTopup = (
     t_GetTopupsTopupBodySchema | undefined,
     void
   >,
-  respond: GetTopupsTopupResponder,
+  respond: (typeof getTopupsTopup)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16285,9 +14620,6 @@ const postTopupsTopup = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTopupsTopupResponder = (typeof postTopupsTopup)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTopupsTopup = (
   params: Params<
     t_PostTopupsTopupParamSchema,
@@ -16295,7 +14627,7 @@ export type PostTopupsTopup = (
     t_PostTopupsTopupBodySchema | undefined,
     void
   >,
-  respond: PostTopupsTopupResponder,
+  respond: (typeof postTopupsTopup)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16309,9 +14641,6 @@ const postTopupsTopupCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTopupsTopupCancelResponder =
-  (typeof postTopupsTopupCancel)["responder"] & KoaRuntimeResponder
-
 export type PostTopupsTopupCancel = (
   params: Params<
     t_PostTopupsTopupCancelParamSchema,
@@ -16319,7 +14648,7 @@ export type PostTopupsTopupCancel = (
     t_PostTopupsTopupCancelBodySchema | undefined,
     void
   >,
-  respond: PostTopupsTopupCancelResponder,
+  respond: (typeof postTopupsTopupCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16345,9 +14674,6 @@ const getTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTransfersResponder = (typeof getTransfers)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTransfers = (
   params: Params<
     void,
@@ -16355,7 +14681,7 @@ export type GetTransfers = (
     t_GetTransfersBodySchema | undefined,
     void
   >,
-  respond: GetTransfersResponder,
+  respond: (typeof getTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16377,12 +14703,9 @@ const postTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTransfersResponder = (typeof postTransfers)["responder"] &
-  KoaRuntimeResponder
-
 export type PostTransfers = (
   params: Params<void, void, t_PostTransfersBodySchema, void>,
-  respond: PostTransfersResponder,
+  respond: (typeof postTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16408,9 +14731,6 @@ const getTransfersIdReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTransfersIdReversalsResponder =
-  (typeof getTransfersIdReversals)["responder"] & KoaRuntimeResponder
-
 export type GetTransfersIdReversals = (
   params: Params<
     t_GetTransfersIdReversalsParamSchema,
@@ -16418,7 +14738,7 @@ export type GetTransfersIdReversals = (
     t_GetTransfersIdReversalsBodySchema | undefined,
     void
   >,
-  respond: GetTransfersIdReversalsResponder,
+  respond: (typeof getTransfersIdReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16440,9 +14760,6 @@ const postTransfersIdReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTransfersIdReversalsResponder =
-  (typeof postTransfersIdReversals)["responder"] & KoaRuntimeResponder
-
 export type PostTransfersIdReversals = (
   params: Params<
     t_PostTransfersIdReversalsParamSchema,
@@ -16450,7 +14767,7 @@ export type PostTransfersIdReversals = (
     t_PostTransfersIdReversalsBodySchema | undefined,
     void
   >,
-  respond: PostTransfersIdReversalsResponder,
+  respond: (typeof postTransfersIdReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16464,9 +14781,6 @@ const getTransfersTransfer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTransfersTransferResponder =
-  (typeof getTransfersTransfer)["responder"] & KoaRuntimeResponder
-
 export type GetTransfersTransfer = (
   params: Params<
     t_GetTransfersTransferParamSchema,
@@ -16474,7 +14788,7 @@ export type GetTransfersTransfer = (
     t_GetTransfersTransferBodySchema | undefined,
     void
   >,
-  respond: GetTransfersTransferResponder,
+  respond: (typeof getTransfersTransfer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16488,9 +14802,6 @@ const postTransfersTransfer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTransfersTransferResponder =
-  (typeof postTransfersTransfer)["responder"] & KoaRuntimeResponder
-
 export type PostTransfersTransfer = (
   params: Params<
     t_PostTransfersTransferParamSchema,
@@ -16498,7 +14809,7 @@ export type PostTransfersTransfer = (
     t_PostTransfersTransferBodySchema | undefined,
     void
   >,
-  respond: PostTransfersTransferResponder,
+  respond: (typeof postTransfersTransfer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16512,9 +14823,6 @@ const getTransfersTransferReversalsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTransfersTransferReversalsIdResponder =
-  (typeof getTransfersTransferReversalsId)["responder"] & KoaRuntimeResponder
-
 export type GetTransfersTransferReversalsId = (
   params: Params<
     t_GetTransfersTransferReversalsIdParamSchema,
@@ -16522,7 +14830,7 @@ export type GetTransfersTransferReversalsId = (
     t_GetTransfersTransferReversalsIdBodySchema | undefined,
     void
   >,
-  respond: GetTransfersTransferReversalsIdResponder,
+  respond: (typeof getTransfersTransferReversalsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16536,9 +14844,6 @@ const postTransfersTransferReversalsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTransfersTransferReversalsIdResponder =
-  (typeof postTransfersTransferReversalsId)["responder"] & KoaRuntimeResponder
-
 export type PostTransfersTransferReversalsId = (
   params: Params<
     t_PostTransfersTransferReversalsIdParamSchema,
@@ -16546,7 +14851,7 @@ export type PostTransfersTransferReversalsId = (
     t_PostTransfersTransferReversalsIdBodySchema | undefined,
     void
   >,
-  respond: PostTransfersTransferReversalsIdResponder,
+  respond: (typeof postTransfersTransferReversalsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16572,9 +14877,6 @@ const getTreasuryCreditReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryCreditReversalsResponder =
-  (typeof getTreasuryCreditReversals)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryCreditReversals = (
   params: Params<
     void,
@@ -16582,7 +14884,7 @@ export type GetTreasuryCreditReversals = (
     t_GetTreasuryCreditReversalsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryCreditReversalsResponder,
+  respond: (typeof getTreasuryCreditReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16604,12 +14906,9 @@ const postTreasuryCreditReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryCreditReversalsResponder =
-  (typeof postTreasuryCreditReversals)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryCreditReversals = (
   params: Params<void, void, t_PostTreasuryCreditReversalsBodySchema, void>,
-  respond: PostTreasuryCreditReversalsResponder,
+  respond: (typeof postTreasuryCreditReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16623,10 +14922,6 @@ const getTreasuryCreditReversalsCreditReversal = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryCreditReversalsCreditReversalResponder =
-  (typeof getTreasuryCreditReversalsCreditReversal)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTreasuryCreditReversalsCreditReversal = (
   params: Params<
     t_GetTreasuryCreditReversalsCreditReversalParamSchema,
@@ -16634,7 +14929,7 @@ export type GetTreasuryCreditReversalsCreditReversal = (
     t_GetTreasuryCreditReversalsCreditReversalBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryCreditReversalsCreditReversalResponder,
+  respond: (typeof getTreasuryCreditReversalsCreditReversal)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16660,9 +14955,6 @@ const getTreasuryDebitReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryDebitReversalsResponder =
-  (typeof getTreasuryDebitReversals)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryDebitReversals = (
   params: Params<
     void,
@@ -16670,7 +14962,7 @@ export type GetTreasuryDebitReversals = (
     t_GetTreasuryDebitReversalsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryDebitReversalsResponder,
+  respond: (typeof getTreasuryDebitReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16692,12 +14984,9 @@ const postTreasuryDebitReversals = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryDebitReversalsResponder =
-  (typeof postTreasuryDebitReversals)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryDebitReversals = (
   params: Params<void, void, t_PostTreasuryDebitReversalsBodySchema, void>,
-  respond: PostTreasuryDebitReversalsResponder,
+  respond: (typeof postTreasuryDebitReversals)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16711,10 +15000,6 @@ const getTreasuryDebitReversalsDebitReversal = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryDebitReversalsDebitReversalResponder =
-  (typeof getTreasuryDebitReversalsDebitReversal)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTreasuryDebitReversalsDebitReversal = (
   params: Params<
     t_GetTreasuryDebitReversalsDebitReversalParamSchema,
@@ -16722,7 +15007,7 @@ export type GetTreasuryDebitReversalsDebitReversal = (
     t_GetTreasuryDebitReversalsDebitReversalBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryDebitReversalsDebitReversalResponder,
+  respond: (typeof getTreasuryDebitReversalsDebitReversal)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16751,9 +15036,6 @@ const getTreasuryFinancialAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryFinancialAccountsResponder =
-  (typeof getTreasuryFinancialAccounts)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryFinancialAccounts = (
   params: Params<
     void,
@@ -16761,7 +15043,7 @@ export type GetTreasuryFinancialAccounts = (
     t_GetTreasuryFinancialAccountsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryFinancialAccountsResponder,
+  respond: (typeof getTreasuryFinancialAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16785,12 +15067,9 @@ const postTreasuryFinancialAccounts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryFinancialAccountsResponder =
-  (typeof postTreasuryFinancialAccounts)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryFinancialAccounts = (
   params: Params<void, void, t_PostTreasuryFinancialAccountsBodySchema, void>,
-  respond: PostTreasuryFinancialAccountsResponder,
+  respond: (typeof postTreasuryFinancialAccounts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16806,10 +15085,6 @@ const getTreasuryFinancialAccountsFinancialAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryFinancialAccountsFinancialAccountResponder =
-  (typeof getTreasuryFinancialAccountsFinancialAccount)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountParamSchema,
@@ -16817,7 +15092,7 @@ export type GetTreasuryFinancialAccountsFinancialAccount = (
     t_GetTreasuryFinancialAccountsFinancialAccountBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryFinancialAccountsFinancialAccountResponder,
+  respond: (typeof getTreasuryFinancialAccountsFinancialAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16833,10 +15108,6 @@ const postTreasuryFinancialAccountsFinancialAccount = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryFinancialAccountsFinancialAccountResponder =
-  (typeof postTreasuryFinancialAccountsFinancialAccount)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryFinancialAccountsFinancialAccount = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountParamSchema,
@@ -16844,7 +15115,7 @@ export type PostTreasuryFinancialAccountsFinancialAccount = (
     t_PostTreasuryFinancialAccountsFinancialAccountBodySchema | undefined,
     void
   >,
-  respond: PostTreasuryFinancialAccountsFinancialAccountResponder,
+  respond: (typeof postTreasuryFinancialAccountsFinancialAccount)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16860,10 +15131,6 @@ const postTreasuryFinancialAccountsFinancialAccountClose = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryFinancialAccountsFinancialAccountCloseResponder =
-  (typeof postTreasuryFinancialAccountsFinancialAccountClose)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryFinancialAccountsFinancialAccountClose = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountCloseParamSchema,
@@ -16871,7 +15138,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountClose = (
     t_PostTreasuryFinancialAccountsFinancialAccountCloseBodySchema | undefined,
     void
   >,
-  respond: PostTreasuryFinancialAccountsFinancialAccountCloseResponder,
+  respond: (typeof postTreasuryFinancialAccountsFinancialAccountClose)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16887,10 +15154,6 @@ const getTreasuryFinancialAccountsFinancialAccountFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder =
-  (typeof getTreasuryFinancialAccountsFinancialAccountFeatures)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
     t_GetTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
@@ -16899,7 +15162,7 @@ export type GetTreasuryFinancialAccountsFinancialAccountFeatures = (
     | undefined,
     void
   >,
-  respond: GetTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
+  respond: (typeof getTreasuryFinancialAccountsFinancialAccountFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16915,10 +15178,6 @@ const postTreasuryFinancialAccountsFinancialAccountFeatures = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder =
-  (typeof postTreasuryFinancialAccountsFinancialAccountFeatures)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
   params: Params<
     t_PostTreasuryFinancialAccountsFinancialAccountFeaturesParamSchema,
@@ -16927,7 +15186,7 @@ export type PostTreasuryFinancialAccountsFinancialAccountFeatures = (
     | undefined,
     void
   >,
-  respond: PostTreasuryFinancialAccountsFinancialAccountFeaturesResponder,
+  respond: (typeof postTreasuryFinancialAccountsFinancialAccountFeatures)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16953,9 +15212,6 @@ const getTreasuryInboundTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryInboundTransfersResponder =
-  (typeof getTreasuryInboundTransfers)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryInboundTransfers = (
   params: Params<
     void,
@@ -16963,7 +15219,7 @@ export type GetTreasuryInboundTransfers = (
     t_GetTreasuryInboundTransfersBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryInboundTransfersResponder,
+  respond: (typeof getTreasuryInboundTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -16985,12 +15241,9 @@ const postTreasuryInboundTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryInboundTransfersResponder =
-  (typeof postTreasuryInboundTransfers)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryInboundTransfers = (
   params: Params<void, void, t_PostTreasuryInboundTransfersBodySchema, void>,
-  respond: PostTreasuryInboundTransfersResponder,
+  respond: (typeof postTreasuryInboundTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17004,9 +15257,6 @@ const getTreasuryInboundTransfersId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryInboundTransfersIdResponder =
-  (typeof getTreasuryInboundTransfersId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryInboundTransfersId = (
   params: Params<
     t_GetTreasuryInboundTransfersIdParamSchema,
@@ -17014,7 +15264,7 @@ export type GetTreasuryInboundTransfersId = (
     t_GetTreasuryInboundTransfersIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryInboundTransfersIdResponder,
+  respond: (typeof getTreasuryInboundTransfersId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17028,10 +15278,6 @@ const postTreasuryInboundTransfersInboundTransferCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryInboundTransfersInboundTransferCancelResponder =
-  (typeof postTreasuryInboundTransfersInboundTransferCancel)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryInboundTransfersInboundTransferCancel = (
   params: Params<
     t_PostTreasuryInboundTransfersInboundTransferCancelParamSchema,
@@ -17039,7 +15285,7 @@ export type PostTreasuryInboundTransfersInboundTransferCancel = (
     t_PostTreasuryInboundTransfersInboundTransferCancelBodySchema | undefined,
     void
   >,
-  respond: PostTreasuryInboundTransfersInboundTransferCancelResponder,
+  respond: (typeof postTreasuryInboundTransfersInboundTransferCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17068,9 +15314,6 @@ const getTreasuryOutboundPayments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryOutboundPaymentsResponder =
-  (typeof getTreasuryOutboundPayments)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryOutboundPayments = (
   params: Params<
     void,
@@ -17078,7 +15321,7 @@ export type GetTreasuryOutboundPayments = (
     t_GetTreasuryOutboundPaymentsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryOutboundPaymentsResponder,
+  respond: (typeof getTreasuryOutboundPayments)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17100,12 +15343,9 @@ const postTreasuryOutboundPayments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryOutboundPaymentsResponder =
-  (typeof postTreasuryOutboundPayments)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryOutboundPayments = (
   params: Params<void, void, t_PostTreasuryOutboundPaymentsBodySchema, void>,
-  respond: PostTreasuryOutboundPaymentsResponder,
+  respond: (typeof postTreasuryOutboundPayments)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17119,9 +15359,6 @@ const getTreasuryOutboundPaymentsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryOutboundPaymentsIdResponder =
-  (typeof getTreasuryOutboundPaymentsId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryOutboundPaymentsId = (
   params: Params<
     t_GetTreasuryOutboundPaymentsIdParamSchema,
@@ -17129,7 +15366,7 @@ export type GetTreasuryOutboundPaymentsId = (
     t_GetTreasuryOutboundPaymentsIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryOutboundPaymentsIdResponder,
+  respond: (typeof getTreasuryOutboundPaymentsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17143,10 +15380,6 @@ const postTreasuryOutboundPaymentsIdCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryOutboundPaymentsIdCancelResponder =
-  (typeof postTreasuryOutboundPaymentsIdCancel)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryOutboundPaymentsIdCancel = (
   params: Params<
     t_PostTreasuryOutboundPaymentsIdCancelParamSchema,
@@ -17154,7 +15387,7 @@ export type PostTreasuryOutboundPaymentsIdCancel = (
     t_PostTreasuryOutboundPaymentsIdCancelBodySchema | undefined,
     void
   >,
-  respond: PostTreasuryOutboundPaymentsIdCancelResponder,
+  respond: (typeof postTreasuryOutboundPaymentsIdCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17180,9 +15413,6 @@ const getTreasuryOutboundTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryOutboundTransfersResponder =
-  (typeof getTreasuryOutboundTransfers)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryOutboundTransfers = (
   params: Params<
     void,
@@ -17190,7 +15420,7 @@ export type GetTreasuryOutboundTransfers = (
     t_GetTreasuryOutboundTransfersBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryOutboundTransfersResponder,
+  respond: (typeof getTreasuryOutboundTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17214,12 +15444,9 @@ const postTreasuryOutboundTransfers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryOutboundTransfersResponder =
-  (typeof postTreasuryOutboundTransfers)["responder"] & KoaRuntimeResponder
-
 export type PostTreasuryOutboundTransfers = (
   params: Params<void, void, t_PostTreasuryOutboundTransfersBodySchema, void>,
-  respond: PostTreasuryOutboundTransfersResponder,
+  respond: (typeof postTreasuryOutboundTransfers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17235,10 +15462,6 @@ const getTreasuryOutboundTransfersOutboundTransfer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryOutboundTransfersOutboundTransferResponder =
-  (typeof getTreasuryOutboundTransfersOutboundTransfer)["responder"] &
-    KoaRuntimeResponder
-
 export type GetTreasuryOutboundTransfersOutboundTransfer = (
   params: Params<
     t_GetTreasuryOutboundTransfersOutboundTransferParamSchema,
@@ -17246,7 +15469,7 @@ export type GetTreasuryOutboundTransfersOutboundTransfer = (
     t_GetTreasuryOutboundTransfersOutboundTransferBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryOutboundTransfersOutboundTransferResponder,
+  respond: (typeof getTreasuryOutboundTransfersOutboundTransfer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17262,10 +15485,6 @@ const postTreasuryOutboundTransfersOutboundTransferCancel = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostTreasuryOutboundTransfersOutboundTransferCancelResponder =
-  (typeof postTreasuryOutboundTransfersOutboundTransferCancel)["responder"] &
-    KoaRuntimeResponder
-
 export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
   params: Params<
     t_PostTreasuryOutboundTransfersOutboundTransferCancelParamSchema,
@@ -17273,7 +15492,7 @@ export type PostTreasuryOutboundTransfersOutboundTransferCancel = (
     t_PostTreasuryOutboundTransfersOutboundTransferCancelBodySchema | undefined,
     void
   >,
-  respond: PostTreasuryOutboundTransfersOutboundTransferCancelResponder,
+  respond: (typeof postTreasuryOutboundTransfersOutboundTransferCancel)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17299,9 +15518,6 @@ const getTreasuryReceivedCredits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryReceivedCreditsResponder =
-  (typeof getTreasuryReceivedCredits)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryReceivedCredits = (
   params: Params<
     void,
@@ -17309,7 +15525,7 @@ export type GetTreasuryReceivedCredits = (
     t_GetTreasuryReceivedCreditsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryReceivedCreditsResponder,
+  respond: (typeof getTreasuryReceivedCredits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17331,9 +15547,6 @@ const getTreasuryReceivedCreditsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryReceivedCreditsIdResponder =
-  (typeof getTreasuryReceivedCreditsId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryReceivedCreditsId = (
   params: Params<
     t_GetTreasuryReceivedCreditsIdParamSchema,
@@ -17341,7 +15554,7 @@ export type GetTreasuryReceivedCreditsId = (
     t_GetTreasuryReceivedCreditsIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryReceivedCreditsIdResponder,
+  respond: (typeof getTreasuryReceivedCreditsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17367,9 +15580,6 @@ const getTreasuryReceivedDebits = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryReceivedDebitsResponder =
-  (typeof getTreasuryReceivedDebits)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryReceivedDebits = (
   params: Params<
     void,
@@ -17377,7 +15587,7 @@ export type GetTreasuryReceivedDebits = (
     t_GetTreasuryReceivedDebitsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryReceivedDebitsResponder,
+  respond: (typeof getTreasuryReceivedDebits)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17399,9 +15609,6 @@ const getTreasuryReceivedDebitsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryReceivedDebitsIdResponder =
-  (typeof getTreasuryReceivedDebitsId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryReceivedDebitsId = (
   params: Params<
     t_GetTreasuryReceivedDebitsIdParamSchema,
@@ -17409,7 +15616,7 @@ export type GetTreasuryReceivedDebitsId = (
     t_GetTreasuryReceivedDebitsIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryReceivedDebitsIdResponder,
+  respond: (typeof getTreasuryReceivedDebitsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17438,9 +15645,6 @@ const getTreasuryTransactionEntries = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryTransactionEntriesResponder =
-  (typeof getTreasuryTransactionEntries)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryTransactionEntries = (
   params: Params<
     void,
@@ -17448,7 +15652,7 @@ export type GetTreasuryTransactionEntries = (
     t_GetTreasuryTransactionEntriesBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryTransactionEntriesResponder,
+  respond: (typeof getTreasuryTransactionEntries)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17472,9 +15676,6 @@ const getTreasuryTransactionEntriesId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryTransactionEntriesIdResponder =
-  (typeof getTreasuryTransactionEntriesId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryTransactionEntriesId = (
   params: Params<
     t_GetTreasuryTransactionEntriesIdParamSchema,
@@ -17482,7 +15683,7 @@ export type GetTreasuryTransactionEntriesId = (
     t_GetTreasuryTransactionEntriesIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryTransactionEntriesIdResponder,
+  respond: (typeof getTreasuryTransactionEntriesId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17508,9 +15709,6 @@ const getTreasuryTransactions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryTransactionsResponder =
-  (typeof getTreasuryTransactions)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryTransactions = (
   params: Params<
     void,
@@ -17518,7 +15716,7 @@ export type GetTreasuryTransactions = (
     t_GetTreasuryTransactionsBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryTransactionsResponder,
+  respond: (typeof getTreasuryTransactions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17540,9 +15738,6 @@ const getTreasuryTransactionsId = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTreasuryTransactionsIdResponder =
-  (typeof getTreasuryTransactionsId)["responder"] & KoaRuntimeResponder
-
 export type GetTreasuryTransactionsId = (
   params: Params<
     t_GetTreasuryTransactionsIdParamSchema,
@@ -17550,7 +15745,7 @@ export type GetTreasuryTransactionsId = (
     t_GetTreasuryTransactionsIdBodySchema | undefined,
     void
   >,
-  respond: GetTreasuryTransactionsIdResponder,
+  respond: (typeof getTreasuryTransactionsId)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17576,9 +15771,6 @@ const getWebhookEndpoints = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetWebhookEndpointsResponder = (typeof getWebhookEndpoints)["responder"] &
-  KoaRuntimeResponder
-
 export type GetWebhookEndpoints = (
   params: Params<
     void,
@@ -17586,7 +15778,7 @@ export type GetWebhookEndpoints = (
     t_GetWebhookEndpointsBodySchema | undefined,
     void
   >,
-  respond: GetWebhookEndpointsResponder,
+  respond: (typeof getWebhookEndpoints)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17608,12 +15800,9 @@ const postWebhookEndpoints = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostWebhookEndpointsResponder =
-  (typeof postWebhookEndpoints)["responder"] & KoaRuntimeResponder
-
 export type PostWebhookEndpoints = (
   params: Params<void, void, t_PostWebhookEndpointsBodySchema, void>,
-  respond: PostWebhookEndpointsResponder,
+  respond: (typeof postWebhookEndpoints)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17627,10 +15816,6 @@ const deleteWebhookEndpointsWebhookEndpoint = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteWebhookEndpointsWebhookEndpointResponder =
-  (typeof deleteWebhookEndpointsWebhookEndpoint)["responder"] &
-    KoaRuntimeResponder
-
 export type DeleteWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_DeleteWebhookEndpointsWebhookEndpointParamSchema,
@@ -17638,7 +15823,7 @@ export type DeleteWebhookEndpointsWebhookEndpoint = (
     t_DeleteWebhookEndpointsWebhookEndpointBodySchema | undefined,
     void
   >,
-  respond: DeleteWebhookEndpointsWebhookEndpointResponder,
+  respond: (typeof deleteWebhookEndpointsWebhookEndpoint)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17652,9 +15837,6 @@ const getWebhookEndpointsWebhookEndpoint = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetWebhookEndpointsWebhookEndpointResponder =
-  (typeof getWebhookEndpointsWebhookEndpoint)["responder"] & KoaRuntimeResponder
-
 export type GetWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_GetWebhookEndpointsWebhookEndpointParamSchema,
@@ -17662,7 +15844,7 @@ export type GetWebhookEndpointsWebhookEndpoint = (
     t_GetWebhookEndpointsWebhookEndpointBodySchema | undefined,
     void
   >,
-  respond: GetWebhookEndpointsWebhookEndpointResponder,
+  respond: (typeof getWebhookEndpointsWebhookEndpoint)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -17676,10 +15858,6 @@ const postWebhookEndpointsWebhookEndpoint = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostWebhookEndpointsWebhookEndpointResponder =
-  (typeof postWebhookEndpointsWebhookEndpoint)["responder"] &
-    KoaRuntimeResponder
-
 export type PostWebhookEndpointsWebhookEndpoint = (
   params: Params<
     t_PostWebhookEndpointsWebhookEndpointParamSchema,
@@ -17687,7 +15865,7 @@ export type PostWebhookEndpointsWebhookEndpoint = (
     t_PostWebhookEndpointsWebhookEndpointBodySchema | undefined,
     void
   >,
-  respond: PostWebhookEndpointsWebhookEndpointResponder,
+  respond: (typeof postWebhookEndpointsWebhookEndpoint)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

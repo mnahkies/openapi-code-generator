@@ -29,7 +29,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -48,12 +47,9 @@ const getTodoLists = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTodoListsResponder = (typeof getTodoLists)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTodoLists = (
   params: Params<void, t_GetTodoListsQuerySchema, void, void>,
-  respond: GetTodoListsResponder,
+  respond: (typeof getTodoLists)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_TodoList[]>>
 
@@ -64,12 +60,9 @@ const getTodoListById = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTodoListByIdResponder = (typeof getTodoListById)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTodoListById = (
   params: Params<t_GetTodoListByIdParamSchema, void, void, void>,
-  respond: GetTodoListByIdResponder,
+  respond: (typeof getTodoListById)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -85,9 +78,6 @@ const updateTodoListById = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UpdateTodoListByIdResponder = (typeof updateTodoListById)["responder"] &
-  KoaRuntimeResponder
-
 export type UpdateTodoListById = (
   params: Params<
     t_UpdateTodoListByIdParamSchema,
@@ -95,7 +85,7 @@ export type UpdateTodoListById = (
     t_UpdateTodoListByIdBodySchema,
     void
   >,
-  respond: UpdateTodoListByIdResponder,
+  respond: (typeof updateTodoListById)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -111,12 +101,9 @@ const deleteTodoListById = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteTodoListByIdResponder = (typeof deleteTodoListById)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteTodoListById = (
   params: Params<t_DeleteTodoListByIdParamSchema, void, void, void>,
-  respond: DeleteTodoListByIdResponder,
+  respond: (typeof deleteTodoListById)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -146,12 +133,9 @@ const getTodoListItems = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetTodoListItemsResponder = (typeof getTodoListItems)["responder"] &
-  KoaRuntimeResponder
-
 export type GetTodoListItems = (
   params: Params<t_GetTodoListItemsParamSchema, void, void, void>,
-  respond: GetTodoListItemsResponder,
+  respond: (typeof getTodoListItems)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -178,9 +162,6 @@ const createTodoListItem = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreateTodoListItemResponder = (typeof createTodoListItem)["responder"] &
-  KoaRuntimeResponder
-
 export type CreateTodoListItem = (
   params: Params<
     t_CreateTodoListItemParamSchema,
@@ -188,7 +169,7 @@ export type CreateTodoListItem = (
     t_CreateTodoListItemBodySchema,
     void
   >,
-  respond: CreateTodoListItemResponder,
+  respond: (typeof createTodoListItem)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 
@@ -197,12 +178,9 @@ const listAttachments = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListAttachmentsResponder = (typeof listAttachments)["responder"] &
-  KoaRuntimeResponder
-
 export type ListAttachments = (
   params: Params<void, void, void, void>,
-  respond: ListAttachmentsResponder,
+  respond: (typeof listAttachments)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_UnknownObject[]>>
 
@@ -211,12 +189,9 @@ const uploadAttachment = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UploadAttachmentResponder = (typeof uploadAttachment)["responder"] &
-  KoaRuntimeResponder
-
 export type UploadAttachment = (
   params: Params<void, void, t_UploadAttachmentBodySchema, void>,
-  respond: UploadAttachmentResponder,
+  respond: (typeof uploadAttachment)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<202, void>>
 

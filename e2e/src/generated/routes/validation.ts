@@ -15,7 +15,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -29,9 +28,6 @@ const getValidationNumbersRandomNumber = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetValidationNumbersRandomNumberResponder =
-  (typeof getValidationNumbersRandomNumber)["responder"] & KoaRuntimeResponder
-
 export type GetValidationNumbersRandomNumber = (
   params: Params<
     void,
@@ -39,7 +35,7 @@ export type GetValidationNumbersRandomNumber = (
     void,
     void
   >,
-  respond: GetValidationNumbersRandomNumberResponder,
+  respond: (typeof getValidationNumbersRandomNumber)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_RandomNumber>>
 
@@ -48,12 +44,9 @@ const postValidationEnums = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type PostValidationEnumsResponder = (typeof postValidationEnums)["responder"] &
-  KoaRuntimeResponder
-
 export type PostValidationEnums = (
   params: Params<void, void, t_PostValidationEnumsBodySchema, void>,
-  respond: PostValidationEnumsResponder,
+  respond: (typeof postValidationEnums)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<200, t_Enumerations>>
 
@@ -62,12 +55,9 @@ const getResponsesEmpty = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetResponsesEmptyResponder = (typeof getResponsesEmpty)["responder"] &
-  KoaRuntimeResponder
-
 export type GetResponsesEmpty = (
   params: Params<void, void, void, void>,
-  respond: GetResponsesEmptyResponder,
+  respond: (typeof getResponsesEmpty)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<204, void>>
 

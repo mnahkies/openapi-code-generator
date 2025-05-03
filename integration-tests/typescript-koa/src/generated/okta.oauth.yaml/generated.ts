@@ -115,7 +115,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -132,9 +131,6 @@ const getWellKnownOpenIdConfiguration = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetWellKnownOpenIdConfigurationResponder =
-  (typeof getWellKnownOpenIdConfiguration)["responder"] & KoaRuntimeResponder
-
 export type GetWellKnownOpenIdConfiguration = (
   params: Params<
     void,
@@ -142,7 +138,7 @@ export type GetWellKnownOpenIdConfiguration = (
     void,
     void
   >,
-  respond: GetWellKnownOpenIdConfigurationResponder,
+  respond: (typeof getWellKnownOpenIdConfiguration)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -155,11 +151,9 @@ const authorize = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type AuthorizeResponder = (typeof authorize)["responder"] & KoaRuntimeResponder
-
 export type Authorize = (
   params: Params<void, t_AuthorizeQuerySchema, void, void>,
-  respond: AuthorizeResponder,
+  respond: (typeof authorize)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
@@ -168,12 +162,9 @@ const authorizeWithPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type AuthorizeWithPostResponder = (typeof authorizeWithPost)["responder"] &
-  KoaRuntimeResponder
-
 export type AuthorizeWithPost = (
   params: Params<void, void, t_AuthorizeWithPostBodySchema, void>,
-  respond: AuthorizeWithPostResponder,
+  respond: (typeof authorizeWithPost)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
@@ -187,12 +178,9 @@ const bcAuthorize = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type BcAuthorizeResponder = (typeof bcAuthorize)["responder"] &
-  KoaRuntimeResponder
-
 export type BcAuthorize = (
   params: Params<void, void, t_BcAuthorizeBodySchema, void>,
-  respond: BcAuthorizeResponder,
+  respond: (typeof bcAuthorize)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -211,11 +199,9 @@ const challenge = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ChallengeResponder = (typeof challenge)["responder"] & KoaRuntimeResponder
-
 export type Challenge = (
   params: Params<void, void, t_ChallengeBodySchema, void>,
-  respond: ChallengeResponder,
+  respond: (typeof challenge)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -233,12 +219,9 @@ const listClients = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ListClientsResponder = (typeof listClients)["responder"] &
-  KoaRuntimeResponder
-
 export type ListClients = (
   params: Params<void, t_ListClientsQuerySchema, void, void>,
-  respond: ListClientsResponder,
+  respond: (typeof listClients)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -255,12 +238,9 @@ const createClient = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type CreateClientResponder = (typeof createClient)["responder"] &
-  KoaRuntimeResponder
-
 export type CreateClient = (
   params: Params<void, void, t_CreateClientBodySchema, void>,
-  respond: CreateClientResponder,
+  respond: (typeof createClient)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -278,11 +258,9 @@ const getClient = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetClientResponder = (typeof getClient)["responder"] & KoaRuntimeResponder
-
 export type GetClient = (
   params: Params<t_GetClientParamSchema, void, void, void>,
-  respond: GetClientResponder,
+  respond: (typeof getClient)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -301,9 +279,6 @@ const replaceClient = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ReplaceClientResponder = (typeof replaceClient)["responder"] &
-  KoaRuntimeResponder
-
 export type ReplaceClient = (
   params: Params<
     t_ReplaceClientParamSchema,
@@ -311,7 +286,7 @@ export type ReplaceClient = (
     t_ReplaceClientBodySchema,
     void
   >,
-  respond: ReplaceClientResponder,
+  respond: (typeof replaceClient)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -330,12 +305,9 @@ const deleteClient = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeleteClientResponder = (typeof deleteClient)["responder"] &
-  KoaRuntimeResponder
-
 export type DeleteClient = (
   params: Params<t_DeleteClientParamSchema, void, void, void>,
-  respond: DeleteClientResponder,
+  respond: (typeof deleteClient)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -353,12 +325,9 @@ const generateNewClientSecret = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GenerateNewClientSecretResponder =
-  (typeof generateNewClientSecret)["responder"] & KoaRuntimeResponder
-
 export type GenerateNewClientSecret = (
   params: Params<t_GenerateNewClientSecretParamSchema, void, void, void>,
-  respond: GenerateNewClientSecretResponder,
+  respond: (typeof generateNewClientSecret)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -376,12 +345,9 @@ const deviceAuthorize = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeviceAuthorizeResponder = (typeof deviceAuthorize)["responder"] &
-  KoaRuntimeResponder
-
 export type DeviceAuthorize = (
   params: Params<void, void, t_DeviceAuthorizeBodySchema, void>,
-  respond: DeviceAuthorizeResponder,
+  respond: (typeof deviceAuthorize)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -399,12 +365,9 @@ const globalTokenRevocation = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GlobalTokenRevocationResponder =
-  (typeof globalTokenRevocation)["responder"] & KoaRuntimeResponder
-
 export type GlobalTokenRevocation = (
   params: Params<void, void, t_GlobalTokenRevocationBodySchema, void>,
-  respond: GlobalTokenRevocationResponder,
+  respond: (typeof globalTokenRevocation)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -422,12 +385,9 @@ const introspect = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type IntrospectResponder = (typeof introspect)["responder"] &
-  KoaRuntimeResponder
-
 export type Introspect = (
   params: Params<void, void, t_IntrospectBodySchema, void>,
-  respond: IntrospectResponder,
+  respond: (typeof introspect)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -443,11 +403,9 @@ const oauthKeys = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type OauthKeysResponder = (typeof oauthKeys)["responder"] & KoaRuntimeResponder
-
 export type OauthKeys = (
   params: Params<void, t_OauthKeysQuerySchema, void, void>,
-  respond: OauthKeysResponder,
+  respond: (typeof oauthKeys)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -461,11 +419,9 @@ const logout = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type LogoutResponder = (typeof logout)["responder"] & KoaRuntimeResponder
-
 export type Logout = (
   params: Params<void, t_LogoutQuerySchema, void, void>,
-  respond: LogoutResponder,
+  respond: (typeof logout)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
@@ -477,12 +433,9 @@ const logoutWithPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type LogoutWithPostResponder = (typeof logoutWithPost)["responder"] &
-  KoaRuntimeResponder
-
 export type LogoutWithPost = (
   params: Params<void, void, t_LogoutWithPostBodySchema, void>,
-  respond: LogoutWithPostResponder,
+  respond: (typeof logoutWithPost)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
@@ -497,12 +450,9 @@ const oobAuthenticate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type OobAuthenticateResponder = (typeof oobAuthenticate)["responder"] &
-  KoaRuntimeResponder
-
 export type OobAuthenticate = (
   params: Params<void, void, t_OobAuthenticateBodySchema, void>,
-  respond: OobAuthenticateResponder,
+  respond: (typeof oobAuthenticate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -519,12 +469,9 @@ const parOptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ParOptionsResponder = (typeof parOptions)["responder"] &
-  KoaRuntimeResponder
-
 export type ParOptions = (
   params: Params<void, void, void, t_ParOptionsHeaderSchema>,
-  respond: ParOptionsResponder,
+  respond: (typeof parOptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<429, t_Error>
@@ -539,11 +486,9 @@ const par = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ParResponder = (typeof par)["responder"] & KoaRuntimeResponder
-
 export type Par = (
   params: Params<void, void, t_ParBodySchema, void>,
-  respond: ParResponder,
+  respond: (typeof par)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -562,11 +507,9 @@ const revoke = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type RevokeResponder = (typeof revoke)["responder"] & KoaRuntimeResponder
-
 export type Revoke = (
   params: Params<void, void, t_RevokeBodySchema, void>,
-  respond: RevokeResponder,
+  respond: (typeof revoke)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -582,12 +525,9 @@ const tokenOptions = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type TokenOptionsResponder = (typeof tokenOptions)["responder"] &
-  KoaRuntimeResponder
-
 export type TokenOptions = (
   params: Params<void, void, void, t_TokenOptionsHeaderSchema>,
-  respond: TokenOptionsResponder,
+  respond: (typeof tokenOptions)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<429, t_Error>
@@ -601,11 +541,9 @@ const token = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type TokenResponder = (typeof token)["responder"] & KoaRuntimeResponder
-
 export type Token = (
   params: Params<void, void, t_TokenBodySchema, void>,
-  respond: TokenResponder,
+  respond: (typeof token)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -623,11 +561,9 @@ const userinfo = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UserinfoResponder = (typeof userinfo)["responder"] & KoaRuntimeResponder
-
 export type Userinfo = (
   params: Params<void, void, void, void>,
-  respond: UserinfoResponder,
+  respond: (typeof userinfo)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -644,10 +580,6 @@ const getWellKnownOAuthConfigurationCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetWellKnownOAuthConfigurationCustomAsResponder =
-  (typeof getWellKnownOAuthConfigurationCustomAs)["responder"] &
-    KoaRuntimeResponder
-
 export type GetWellKnownOAuthConfigurationCustomAs = (
   params: Params<
     t_GetWellKnownOAuthConfigurationCustomAsParamSchema,
@@ -655,7 +587,7 @@ export type GetWellKnownOAuthConfigurationCustomAs = (
     void,
     void
   >,
-  respond: GetWellKnownOAuthConfigurationCustomAsResponder,
+  respond: (typeof getWellKnownOAuthConfigurationCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -671,10 +603,6 @@ const getWellKnownOpenIdConfigurationCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetWellKnownOpenIdConfigurationCustomAsResponder =
-  (typeof getWellKnownOpenIdConfigurationCustomAs)["responder"] &
-    KoaRuntimeResponder
-
 export type GetWellKnownOpenIdConfigurationCustomAs = (
   params: Params<
     t_GetWellKnownOpenIdConfigurationCustomAsParamSchema,
@@ -682,7 +610,7 @@ export type GetWellKnownOpenIdConfigurationCustomAs = (
     void,
     void
   >,
-  respond: GetWellKnownOpenIdConfigurationCustomAsResponder,
+  respond: (typeof getWellKnownOpenIdConfigurationCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -696,9 +624,6 @@ const authorizeCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type AuthorizeCustomAsResponder = (typeof authorizeCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type AuthorizeCustomAs = (
   params: Params<
     t_AuthorizeCustomAsParamSchema,
@@ -706,7 +631,7 @@ export type AuthorizeCustomAs = (
     void,
     void
   >,
-  respond: AuthorizeCustomAsResponder,
+  respond: (typeof authorizeCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
@@ -715,9 +640,6 @@ const authorizeCustomAsWithPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type AuthorizeCustomAsWithPostResponder =
-  (typeof authorizeCustomAsWithPost)["responder"] & KoaRuntimeResponder
-
 export type AuthorizeCustomAsWithPost = (
   params: Params<
     t_AuthorizeCustomAsWithPostParamSchema,
@@ -725,7 +647,7 @@ export type AuthorizeCustomAsWithPost = (
     t_AuthorizeCustomAsWithPostBodySchema,
     void
   >,
-  respond: AuthorizeCustomAsWithPostResponder,
+  respond: (typeof authorizeCustomAsWithPost)["responder"],
   ctx: RouterContext,
 ) => Promise<KoaRuntimeResponse<unknown> | Response<429, t_Error>>
 
@@ -739,9 +661,6 @@ const bcAuthorizeCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type BcAuthorizeCustomAsResponder = (typeof bcAuthorizeCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type BcAuthorizeCustomAs = (
   params: Params<
     t_BcAuthorizeCustomAsParamSchema,
@@ -749,7 +668,7 @@ export type BcAuthorizeCustomAs = (
     t_BcAuthorizeCustomAsBodySchema,
     void
   >,
-  respond: BcAuthorizeCustomAsResponder,
+  respond: (typeof bcAuthorizeCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -768,9 +687,6 @@ const challengeCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ChallengeCustomAsResponder = (typeof challengeCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type ChallengeCustomAs = (
   params: Params<
     t_ChallengeCustomAsParamSchema,
@@ -778,7 +694,7 @@ export type ChallengeCustomAs = (
     t_ChallengeCustomAsBodySchema,
     void
   >,
-  respond: ChallengeCustomAsResponder,
+  respond: (typeof challengeCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -797,9 +713,6 @@ const deviceAuthorizeCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeviceAuthorizeCustomAsResponder =
-  (typeof deviceAuthorizeCustomAs)["responder"] & KoaRuntimeResponder
-
 export type DeviceAuthorizeCustomAs = (
   params: Params<
     t_DeviceAuthorizeCustomAsParamSchema,
@@ -807,7 +720,7 @@ export type DeviceAuthorizeCustomAs = (
     t_DeviceAuthorizeCustomAsBodySchema,
     void
   >,
-  respond: DeviceAuthorizeCustomAsResponder,
+  respond: (typeof deviceAuthorizeCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -825,9 +738,6 @@ const introspectCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type IntrospectCustomAsResponder = (typeof introspectCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type IntrospectCustomAs = (
   params: Params<
     t_IntrospectCustomAsParamSchema,
@@ -835,7 +745,7 @@ export type IntrospectCustomAs = (
     t_IntrospectCustomAsBodySchema,
     void
   >,
-  respond: IntrospectCustomAsResponder,
+  respond: (typeof introspectCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -851,12 +761,9 @@ const oauthKeysCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type OauthKeysCustomAsResponder = (typeof oauthKeysCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type OauthKeysCustomAs = (
   params: Params<t_OauthKeysCustomAsParamSchema, void, void, void>,
-  respond: OauthKeysCustomAsResponder,
+  respond: (typeof oauthKeysCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -870,9 +777,6 @@ const logoutCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type LogoutCustomAsResponder = (typeof logoutCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type LogoutCustomAs = (
   params: Params<
     t_LogoutCustomAsParamSchema,
@@ -880,7 +784,7 @@ export type LogoutCustomAs = (
     void,
     void
   >,
-  respond: LogoutCustomAsResponder,
+  respond: (typeof logoutCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
@@ -892,9 +796,6 @@ const logoutCustomAsWithPost = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type LogoutCustomAsWithPostResponder =
-  (typeof logoutCustomAsWithPost)["responder"] & KoaRuntimeResponder
-
 export type LogoutCustomAsWithPost = (
   params: Params<
     t_LogoutCustomAsWithPostParamSchema,
@@ -902,7 +803,7 @@ export type LogoutCustomAsWithPost = (
     t_LogoutCustomAsWithPostBodySchema,
     void
   >,
-  respond: LogoutCustomAsWithPostResponder,
+  respond: (typeof logoutCustomAsWithPost)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<200, void> | Response<429, t_Error>
@@ -917,9 +818,6 @@ const oobAuthenticateCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type OobAuthenticateCustomAsResponder =
-  (typeof oobAuthenticateCustomAs)["responder"] & KoaRuntimeResponder
-
 export type OobAuthenticateCustomAs = (
   params: Params<
     t_OobAuthenticateCustomAsParamSchema,
@@ -927,7 +825,7 @@ export type OobAuthenticateCustomAs = (
     t_OobAuthenticateCustomAsBodySchema,
     void
   >,
-  respond: OobAuthenticateCustomAsResponder,
+  respond: (typeof oobAuthenticateCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -944,9 +842,6 @@ const parOptionsCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ParOptionsCustomAsResponder = (typeof parOptionsCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type ParOptionsCustomAs = (
   params: Params<
     t_ParOptionsCustomAsParamSchema,
@@ -954,7 +849,7 @@ export type ParOptionsCustomAs = (
     void,
     t_ParOptionsCustomAsHeaderSchema
   >,
-  respond: ParOptionsCustomAsResponder,
+  respond: (typeof parOptionsCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<429, t_Error>
@@ -969,12 +864,9 @@ const parCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ParCustomAsResponder = (typeof parCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type ParCustomAs = (
   params: Params<t_ParCustomAsParamSchema, void, t_ParCustomAsBodySchema, void>,
-  respond: ParCustomAsResponder,
+  respond: (typeof parCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -993,9 +885,6 @@ const revokeCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type RevokeCustomAsResponder = (typeof revokeCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type RevokeCustomAs = (
   params: Params<
     t_RevokeCustomAsParamSchema,
@@ -1003,7 +892,7 @@ export type RevokeCustomAs = (
     t_RevokeCustomAsBodySchema,
     void
   >,
-  respond: RevokeCustomAsResponder,
+  respond: (typeof revokeCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1019,9 +908,6 @@ const tokenOptionsCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type TokenOptionsCustomAsResponder =
-  (typeof tokenOptionsCustomAs)["responder"] & KoaRuntimeResponder
-
 export type TokenOptionsCustomAs = (
   params: Params<
     t_TokenOptionsCustomAsParamSchema,
@@ -1029,7 +915,7 @@ export type TokenOptionsCustomAs = (
     void,
     t_TokenOptionsCustomAsHeaderSchema
   >,
-  respond: TokenOptionsCustomAsResponder,
+  respond: (typeof tokenOptionsCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   KoaRuntimeResponse<unknown> | Response<204, void> | Response<429, t_Error>
@@ -1043,9 +929,6 @@ const tokenCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type TokenCustomAsResponder = (typeof tokenCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type TokenCustomAs = (
   params: Params<
     t_TokenCustomAsParamSchema,
@@ -1053,7 +936,7 @@ export type TokenCustomAs = (
     t_TokenCustomAsBodySchema,
     void
   >,
-  respond: TokenCustomAsResponder,
+  respond: (typeof tokenCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -1071,12 +954,9 @@ const userinfoCustomAs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type UserinfoCustomAsResponder = (typeof userinfoCustomAs)["responder"] &
-  KoaRuntimeResponder
-
 export type UserinfoCustomAs = (
   params: Params<t_UserinfoCustomAsParamSchema, void, void, void>,
-  respond: UserinfoCustomAsResponder,
+  respond: (typeof userinfoCustomAs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

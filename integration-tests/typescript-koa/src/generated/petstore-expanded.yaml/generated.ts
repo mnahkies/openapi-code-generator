@@ -17,7 +17,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -35,11 +34,9 @@ const findPets = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type FindPetsResponder = (typeof findPets)["responder"] & KoaRuntimeResponder
-
 export type FindPets = (
   params: Params<void, t_FindPetsQuerySchema, void, void>,
-  respond: FindPetsResponder,
+  respond: (typeof findPets)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -53,11 +50,9 @@ const addPet = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type AddPetResponder = (typeof addPet)["responder"] & KoaRuntimeResponder
-
 export type AddPet = (
   params: Params<void, void, t_AddPetBodySchema, void>,
-  respond: AddPetResponder,
+  respond: (typeof addPet)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -71,12 +66,9 @@ const findPetById = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type FindPetByIdResponder = (typeof findPetById)["responder"] &
-  KoaRuntimeResponder
-
 export type FindPetById = (
   params: Params<t_FindPetByIdParamSchema, void, void, void>,
-  respond: FindPetByIdResponder,
+  respond: (typeof findPetById)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -90,11 +82,9 @@ const deletePet = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type DeletePetResponder = (typeof deletePet)["responder"] & KoaRuntimeResponder
-
 export type DeletePet = (
   params: Params<t_DeletePetParamSchema, void, void, void>,
-  respond: DeletePetResponder,
+  respond: (typeof deletePet)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

@@ -45,7 +45,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -65,12 +64,9 @@ const operationsList = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type OperationsListResponder = (typeof operationsList)["responder"] &
-  KoaRuntimeResponder
-
 export type OperationsList = (
   params: Params<void, t_OperationsListQuerySchema, void, void>,
-  respond: OperationsListResponder,
+  respond: (typeof operationsList)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -86,9 +82,6 @@ const employeesGet = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesGetResponder = (typeof employeesGet)["responder"] &
-  KoaRuntimeResponder
-
 export type EmployeesGet = (
   params: Params<
     t_EmployeesGetParamSchema,
@@ -96,7 +89,7 @@ export type EmployeesGet = (
     void,
     void
   >,
-  respond: EmployeesGetResponder,
+  respond: (typeof employeesGet)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -113,9 +106,6 @@ const employeesCreateOrUpdate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesCreateOrUpdateResponder =
-  (typeof employeesCreateOrUpdate)["responder"] & KoaRuntimeResponder
-
 export type EmployeesCreateOrUpdate = (
   params: Params<
     t_EmployeesCreateOrUpdateParamSchema,
@@ -123,7 +113,7 @@ export type EmployeesCreateOrUpdate = (
     t_EmployeesCreateOrUpdateBodySchema,
     void
   >,
-  respond: EmployeesCreateOrUpdateResponder,
+  respond: (typeof employeesCreateOrUpdate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -140,9 +130,6 @@ const employeesUpdate = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesUpdateResponder = (typeof employeesUpdate)["responder"] &
-  KoaRuntimeResponder
-
 export type EmployeesUpdate = (
   params: Params<
     t_EmployeesUpdateParamSchema,
@@ -150,7 +137,7 @@ export type EmployeesUpdate = (
     t_EmployeesUpdateBodySchema,
     void
   >,
-  respond: EmployeesUpdateResponder,
+  respond: (typeof employeesUpdate)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -167,9 +154,6 @@ const employeesDelete = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesDeleteResponder = (typeof employeesDelete)["responder"] &
-  KoaRuntimeResponder
-
 export type EmployeesDelete = (
   params: Params<
     t_EmployeesDeleteParamSchema,
@@ -177,7 +161,7 @@ export type EmployeesDelete = (
     void,
     void
   >,
-  respond: EmployeesDeleteResponder,
+  respond: (typeof employeesDelete)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -195,9 +179,6 @@ const employeesCheckExistence = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesCheckExistenceResponder =
-  (typeof employeesCheckExistence)["responder"] & KoaRuntimeResponder
-
 export type EmployeesCheckExistence = (
   params: Params<
     t_EmployeesCheckExistenceParamSchema,
@@ -205,7 +186,7 @@ export type EmployeesCheckExistence = (
     void,
     void
   >,
-  respond: EmployeesCheckExistenceResponder,
+  respond: (typeof employeesCheckExistence)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -222,9 +203,6 @@ const employeesListByResourceGroup = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesListByResourceGroupResponder =
-  (typeof employeesListByResourceGroup)["responder"] & KoaRuntimeResponder
-
 export type EmployeesListByResourceGroup = (
   params: Params<
     t_EmployeesListByResourceGroupParamSchema,
@@ -232,7 +210,7 @@ export type EmployeesListByResourceGroup = (
     void,
     void
   >,
-  respond: EmployeesListByResourceGroupResponder,
+  respond: (typeof employeesListByResourceGroup)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -248,9 +226,6 @@ const employeesListBySubscription = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesListBySubscriptionResponder =
-  (typeof employeesListBySubscription)["responder"] & KoaRuntimeResponder
-
 export type EmployeesListBySubscription = (
   params: Params<
     t_EmployeesListBySubscriptionParamSchema,
@@ -258,7 +233,7 @@ export type EmployeesListBySubscription = (
     void,
     void
   >,
-  respond: EmployeesListBySubscriptionResponder,
+  respond: (typeof employeesListBySubscription)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -274,9 +249,6 @@ const employeesMove = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type EmployeesMoveResponder = (typeof employeesMove)["responder"] &
-  KoaRuntimeResponder
-
 export type EmployeesMove = (
   params: Params<
     t_EmployeesMoveParamSchema,
@@ -284,7 +256,7 @@ export type EmployeesMove = (
     t_EmployeesMoveBodySchema,
     void
   >,
-  respond: EmployeesMoveResponder,
+  respond: (typeof employeesMove)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>

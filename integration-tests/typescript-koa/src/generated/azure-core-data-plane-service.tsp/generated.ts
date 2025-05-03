@@ -102,7 +102,6 @@ import {
   RequestInputType,
 } from "@nahkies/typescript-koa-runtime/errors"
 import {
-  KoaRuntimeResponder,
   KoaRuntimeResponse,
   Params,
   Response,
@@ -124,9 +123,6 @@ const getServiceStatus = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type GetServiceStatusResponder = (typeof getServiceStatus)["responder"] &
-  KoaRuntimeResponder
-
 export type GetServiceStatus = (
   params: Params<
     void,
@@ -134,7 +130,7 @@ export type GetServiceStatus = (
     void,
     t_GetServiceStatusHeaderSchema
   >,
-  respond: GetServiceStatusResponder,
+  respond: (typeof getServiceStatus)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -183,10 +179,6 @@ const widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus = b(
   }),
 )
 
-type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder =
-  (typeof widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus)["responder"] &
-    KoaRuntimeResponder
-
 export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus =
   (
     params: Params<
@@ -195,7 +187,7 @@ export type WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus
       void,
       void
     >,
-    respond: WidgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatusResponder,
+    respond: (typeof widgetsGetWidgetOperationStatusWidgetsGetWidgetDeleteOperationStatus)["responder"],
     ctx: RouterContext,
   ) => Promise<
     | KoaRuntimeResponse<unknown>
@@ -225,9 +217,6 @@ const widgetsCreateOrUpdateWidget = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsCreateOrUpdateWidgetResponder =
-  (typeof widgetsCreateOrUpdateWidget)["responder"] & KoaRuntimeResponder
-
 export type WidgetsCreateOrUpdateWidget = (
   params: Params<
     t_WidgetsCreateOrUpdateWidgetParamSchema,
@@ -235,7 +224,7 @@ export type WidgetsCreateOrUpdateWidget = (
     t_WidgetsCreateOrUpdateWidgetBodySchema,
     t_WidgetsCreateOrUpdateWidgetHeaderSchema
   >,
-  respond: WidgetsCreateOrUpdateWidgetResponder,
+  respond: (typeof widgetsCreateOrUpdateWidget)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -252,9 +241,6 @@ const widgetsGetWidget = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsGetWidgetResponder = (typeof widgetsGetWidget)["responder"] &
-  KoaRuntimeResponder
-
 export type WidgetsGetWidget = (
   params: Params<
     t_WidgetsGetWidgetParamSchema,
@@ -262,7 +248,7 @@ export type WidgetsGetWidget = (
     void,
     t_WidgetsGetWidgetHeaderSchema
   >,
-  respond: WidgetsGetWidgetResponder,
+  respond: (typeof widgetsGetWidget)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -288,9 +274,6 @@ const widgetsDeleteWidget = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsDeleteWidgetResponder = (typeof widgetsDeleteWidget)["responder"] &
-  KoaRuntimeResponder
-
 export type WidgetsDeleteWidget = (
   params: Params<
     t_WidgetsDeleteWidgetParamSchema,
@@ -298,7 +281,7 @@ export type WidgetsDeleteWidget = (
     void,
     t_WidgetsDeleteWidgetHeaderSchema
   >,
-  respond: WidgetsDeleteWidgetResponder,
+  respond: (typeof widgetsDeleteWidget)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -321,9 +304,6 @@ const widgetsListWidgets = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsListWidgetsResponder = (typeof widgetsListWidgets)["responder"] &
-  KoaRuntimeResponder
-
 export type WidgetsListWidgets = (
   params: Params<
     void,
@@ -331,7 +311,7 @@ export type WidgetsListWidgets = (
     void,
     t_WidgetsListWidgetsHeaderSchema
   >,
-  respond: WidgetsListWidgetsResponder,
+  respond: (typeof widgetsListWidgets)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -347,9 +327,6 @@ const widgetsGetAnalytics = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsGetAnalyticsResponder = (typeof widgetsGetAnalytics)["responder"] &
-  KoaRuntimeResponder
-
 export type WidgetsGetAnalytics = (
   params: Params<
     t_WidgetsGetAnalyticsParamSchema,
@@ -357,7 +334,7 @@ export type WidgetsGetAnalytics = (
     void,
     t_WidgetsGetAnalyticsHeaderSchema
   >,
-  respond: WidgetsGetAnalyticsResponder,
+  respond: (typeof widgetsGetAnalytics)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -374,9 +351,6 @@ const widgetsUpdateAnalytics = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsUpdateAnalyticsResponder =
-  (typeof widgetsUpdateAnalytics)["responder"] & KoaRuntimeResponder
-
 export type WidgetsUpdateAnalytics = (
   params: Params<
     t_WidgetsUpdateAnalyticsParamSchema,
@@ -384,7 +358,7 @@ export type WidgetsUpdateAnalytics = (
     t_WidgetsUpdateAnalyticsBodySchema,
     t_WidgetsUpdateAnalyticsHeaderSchema
   >,
-  respond: WidgetsUpdateAnalyticsResponder,
+  respond: (typeof widgetsUpdateAnalytics)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -413,9 +387,6 @@ const widgetsGetRepairStatus = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsGetRepairStatusResponder =
-  (typeof widgetsGetRepairStatus)["responder"] & KoaRuntimeResponder
-
 export type WidgetsGetRepairStatus = (
   params: Params<
     t_WidgetsGetRepairStatusParamSchema,
@@ -423,7 +394,7 @@ export type WidgetsGetRepairStatus = (
     void,
     void
   >,
-  respond: WidgetsGetRepairStatusResponder,
+  respond: (typeof widgetsGetRepairStatus)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -473,9 +444,6 @@ const widgetsScheduleRepairs = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetsScheduleRepairsResponder =
-  (typeof widgetsScheduleRepairs)["responder"] & KoaRuntimeResponder
-
 export type WidgetsScheduleRepairs = (
   params: Params<
     t_WidgetsScheduleRepairsParamSchema,
@@ -483,7 +451,7 @@ export type WidgetsScheduleRepairs = (
     t_WidgetsScheduleRepairsBodySchema,
     t_WidgetsScheduleRepairsHeaderSchema
   >,
-  respond: WidgetsScheduleRepairsResponder,
+  respond: (typeof widgetsScheduleRepairs)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -525,10 +493,6 @@ const widgetPartsGetWidgetPartOperationStatus = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsGetWidgetPartOperationStatusResponder =
-  (typeof widgetPartsGetWidgetPartOperationStatus)["responder"] &
-    KoaRuntimeResponder
-
 export type WidgetPartsGetWidgetPartOperationStatus = (
   params: Params<
     t_WidgetPartsGetWidgetPartOperationStatusParamSchema,
@@ -536,7 +500,7 @@ export type WidgetPartsGetWidgetPartOperationStatus = (
     void,
     void
   >,
-  respond: WidgetPartsGetWidgetPartOperationStatusResponder,
+  respond: (typeof widgetPartsGetWidgetPartOperationStatus)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -560,9 +524,6 @@ const widgetPartsCreateWidgetPart = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsCreateWidgetPartResponder =
-  (typeof widgetPartsCreateWidgetPart)["responder"] & KoaRuntimeResponder
-
 export type WidgetPartsCreateWidgetPart = (
   params: Params<
     t_WidgetPartsCreateWidgetPartParamSchema,
@@ -570,7 +531,7 @@ export type WidgetPartsCreateWidgetPart = (
     t_WidgetPartsCreateWidgetPartBodySchema,
     t_WidgetPartsCreateWidgetPartHeaderSchema
   >,
-  respond: WidgetPartsCreateWidgetPartResponder,
+  respond: (typeof widgetPartsCreateWidgetPart)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -586,9 +547,6 @@ const widgetPartsListWidgetParts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsListWidgetPartsResponder =
-  (typeof widgetPartsListWidgetParts)["responder"] & KoaRuntimeResponder
-
 export type WidgetPartsListWidgetParts = (
   params: Params<
     t_WidgetPartsListWidgetPartsParamSchema,
@@ -596,7 +554,7 @@ export type WidgetPartsListWidgetParts = (
     void,
     t_WidgetPartsListWidgetPartsHeaderSchema
   >,
-  respond: WidgetPartsListWidgetPartsResponder,
+  respond: (typeof widgetPartsListWidgetParts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -612,9 +570,6 @@ const widgetPartsGetWidgetPart = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsGetWidgetPartResponder =
-  (typeof widgetPartsGetWidgetPart)["responder"] & KoaRuntimeResponder
-
 export type WidgetPartsGetWidgetPart = (
   params: Params<
     t_WidgetPartsGetWidgetPartParamSchema,
@@ -622,7 +577,7 @@ export type WidgetPartsGetWidgetPart = (
     void,
     t_WidgetPartsGetWidgetPartHeaderSchema
   >,
-  respond: WidgetPartsGetWidgetPartResponder,
+  respond: (typeof widgetPartsGetWidgetPart)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -638,9 +593,6 @@ const widgetPartsDeleteWidgetPart = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsDeleteWidgetPartResponder =
-  (typeof widgetPartsDeleteWidgetPart)["responder"] & KoaRuntimeResponder
-
 export type WidgetPartsDeleteWidgetPart = (
   params: Params<
     t_WidgetPartsDeleteWidgetPartParamSchema,
@@ -648,7 +600,7 @@ export type WidgetPartsDeleteWidgetPart = (
     void,
     t_WidgetPartsDeleteWidgetPartHeaderSchema
   >,
-  respond: WidgetPartsDeleteWidgetPartResponder,
+  respond: (typeof widgetPartsDeleteWidgetPart)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -674,9 +626,6 @@ const widgetPartsReorderParts = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type WidgetPartsReorderPartsResponder =
-  (typeof widgetPartsReorderParts)["responder"] & KoaRuntimeResponder
-
 export type WidgetPartsReorderParts = (
   params: Params<
     t_WidgetPartsReorderPartsParamSchema,
@@ -684,7 +633,7 @@ export type WidgetPartsReorderParts = (
     t_WidgetPartsReorderPartsBodySchema,
     t_WidgetPartsReorderPartsHeaderSchema
   >,
-  respond: WidgetPartsReorderPartsResponder,
+  respond: (typeof widgetPartsReorderParts)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -719,10 +668,6 @@ const manufacturersGetManufacturerOperationStatus = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ManufacturersGetManufacturerOperationStatusResponder =
-  (typeof manufacturersGetManufacturerOperationStatus)["responder"] &
-    KoaRuntimeResponder
-
 export type ManufacturersGetManufacturerOperationStatus = (
   params: Params<
     t_ManufacturersGetManufacturerOperationStatusParamSchema,
@@ -730,7 +675,7 @@ export type ManufacturersGetManufacturerOperationStatus = (
     void,
     void
   >,
-  respond: ManufacturersGetManufacturerOperationStatusResponder,
+  respond: (typeof manufacturersGetManufacturerOperationStatus)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -755,10 +700,6 @@ const manufacturersCreateOrReplaceManufacturer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ManufacturersCreateOrReplaceManufacturerResponder =
-  (typeof manufacturersCreateOrReplaceManufacturer)["responder"] &
-    KoaRuntimeResponder
-
 export type ManufacturersCreateOrReplaceManufacturer = (
   params: Params<
     t_ManufacturersCreateOrReplaceManufacturerParamSchema,
@@ -766,7 +707,7 @@ export type ManufacturersCreateOrReplaceManufacturer = (
     t_ManufacturersCreateOrReplaceManufacturerBodySchema,
     t_ManufacturersCreateOrReplaceManufacturerHeaderSchema
   >,
-  respond: ManufacturersCreateOrReplaceManufacturerResponder,
+  respond: (typeof manufacturersCreateOrReplaceManufacturer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -783,9 +724,6 @@ const manufacturersGetManufacturer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ManufacturersGetManufacturerResponder =
-  (typeof manufacturersGetManufacturer)["responder"] & KoaRuntimeResponder
-
 export type ManufacturersGetManufacturer = (
   params: Params<
     t_ManufacturersGetManufacturerParamSchema,
@@ -793,7 +731,7 @@ export type ManufacturersGetManufacturer = (
     void,
     t_ManufacturersGetManufacturerHeaderSchema
   >,
-  respond: ManufacturersGetManufacturerResponder,
+  respond: (typeof manufacturersGetManufacturer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -819,9 +757,6 @@ const manufacturersDeleteManufacturer = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ManufacturersDeleteManufacturerResponder =
-  (typeof manufacturersDeleteManufacturer)["responder"] & KoaRuntimeResponder
-
 export type ManufacturersDeleteManufacturer = (
   params: Params<
     t_ManufacturersDeleteManufacturerParamSchema,
@@ -829,7 +764,7 @@ export type ManufacturersDeleteManufacturer = (
     void,
     t_ManufacturersDeleteManufacturerHeaderSchema
   >,
-  respond: ManufacturersDeleteManufacturerResponder,
+  respond: (typeof manufacturersDeleteManufacturer)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
@@ -852,9 +787,6 @@ const manufacturersListManufacturers = b((r) => ({
   withStatus: r.withStatus,
 }))
 
-type ManufacturersListManufacturersResponder =
-  (typeof manufacturersListManufacturers)["responder"] & KoaRuntimeResponder
-
 export type ManufacturersListManufacturers = (
   params: Params<
     void,
@@ -862,7 +794,7 @@ export type ManufacturersListManufacturers = (
     void,
     t_ManufacturersListManufacturersHeaderSchema
   >,
-  respond: ManufacturersListManufacturersResponder,
+  respond: (typeof manufacturersListManufacturers)["responder"],
   ctx: RouterContext,
 ) => Promise<
   | KoaRuntimeResponse<unknown>
