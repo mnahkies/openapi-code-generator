@@ -53,6 +53,66 @@ export class KoaRuntimeResponse<Type> {
   }
 }
 
+export type ResponderBuilder = {
+  [key in `with${StatusCode}`]: <T>() => KoaRuntimeResponse<T>
+} & {
+  withStatus(status: StatusCode): KoaRuntimeResponse<unknown>
+  withStatusCode1xx<T>(status: StatusCode1xx): KoaRuntimeResponse<T>
+  withStatusCode2xx<T>(status: StatusCode2xx): KoaRuntimeResponse<T>
+  withStatusCode3xx<T>(status: StatusCode3xx): KoaRuntimeResponse<T>
+  withStatusCode4xx<T>(status: StatusCode4xx): KoaRuntimeResponse<T>
+  withStatusCode5xx<T>(status: StatusCode5xx): KoaRuntimeResponse<T>
+  withDefault<T>(status: StatusCode): KoaRuntimeResponse<T>
+}
+
+function isValidStatusCode(status: unknown): status is StatusCode {
+  if (typeof status !== "number") {
+    return false
+  }
+  return !(status < 100 || status > 599)
+}
+
+export const r: ResponderBuilder = new Proxy({} as ResponderBuilder, {
+  get(_, prop: string) {
+    const exactMatch = /^with(\d{3})$/.exec(prop)
+
+    if (exactMatch?.[1]) {
+      const status = Number(exactMatch[1])
+
+      if (!isValidStatusCode(status)) {
+        throw new Error(`Status ${status} is not a valid status code`)
+      }
+
+      return <T>() => new KoaRuntimeResponse<T>(status)
+    }
+
+    const groupMatch = /^withStatusCode([1-5]xx)$/.exec(prop)
+    if (groupMatch?.[1]) {
+      const range = groupMatch[1]
+
+      return <T>(status: StatusCode) => {
+        const expectedHundreds = Number(range[0])
+        if (Math.floor(status / 100) !== expectedHundreds) {
+          throw new Error(
+            `Status ${status} is not a valid ${range} status code`,
+          )
+        }
+        return new KoaRuntimeResponse<T>(status)
+      }
+    }
+
+    if (prop === "withDefault") {
+      return <T>(status: StatusCode) => new KoaRuntimeResponse<T>(status)
+    }
+
+    if (prop === "withStatus") {
+      return (status: StatusCode) => new KoaRuntimeResponse<unknown>(status)
+    }
+
+    throw new Error(`Unknown responder method: ${prop}`)
+  },
+})
+
 export type KoaRuntimeResponder<
   Status extends StatusCode = StatusCode,
   // biome-ignore lint/suspicious/noExplicitAny: <explanation>
