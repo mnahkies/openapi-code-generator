@@ -1,5 +1,11 @@
 import {describe, expect} from "@jest/globals"
-import {intersect, object, objectProperty, union} from "./type-utils"
+import {
+  constStatement,
+  intersect,
+  object,
+  objectProperty,
+  union,
+} from "./type-utils"
 
 describe("typescript/common/type-utils", () => {
   describe("union", () => {
@@ -122,6 +128,34 @@ describe("typescript/common/type-utils", () => {
       const actual = object(property, "")
 
       expect(actual).toBe('{\n"foo": string\n}')
+    })
+
+    it("returns an object with multiple properties", () => {
+      const property1 = objectProperty({
+        name: "foo",
+        type: "string",
+        isReadonly: false,
+        isRequired: true,
+      })
+
+      const property2 = objectProperty({
+        name: "bar",
+        type: "number",
+        isReadonly: false,
+        isRequired: false,
+      })
+
+      const actual = object(property1, property2)
+
+      expect(actual).toBe('{\n"foo": string,\n"bar"?: number\n}')
+    })
+  })
+
+  describe("constStatement", () => {
+    it("returns a const statement ", () => {
+      const actual = constStatement("MY_CONST", "z.number()")
+
+      expect(actual).toBe("const MY_CONST = z.number()")
     })
   })
 })
