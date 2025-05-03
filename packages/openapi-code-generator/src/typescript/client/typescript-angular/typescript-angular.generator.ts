@@ -1,11 +1,12 @@
-import {titleCase} from "../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
-import {ImportBuilder} from "../common/import-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
+import {titleCase} from "../../../core/utils"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
+import {ImportBuilder} from "../../common/import-builder"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../../common/type-builder"
+import {AngularModuleBuilder} from "./angular-module-builder"
+import {AngularServiceBuilder} from "./angular-service-builder"
 
-export async function generateTypescriptFetch(
+export async function generateTypescriptAngular(
   config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
   const {input, emitter, allowAny} = config
@@ -25,12 +26,13 @@ export async function generateTypescriptFetch(
 
   const imports = new ImportBuilder()
 
-  const filename = "client.ts"
   const exportName = titleCase(input.name())
+  const serviceExportName = `${exportName}Service`
+  const moduleExportName = `${exportName}Module`
 
-  const client = new TypescriptFetchClientBuilder(
-    filename,
-    exportName,
+  const client = new AngularServiceBuilder(
+    "client.service.ts",
+    serviceExportName,
     input,
     imports,
     rootTypeBuilder.withImports(imports),
@@ -43,7 +45,12 @@ export async function generateTypescriptFetch(
 
   input.allOperations().map((it) => client.add(it))
 
+  const module = new AngularModuleBuilder("api.module.ts", moduleExportName)
+
+  module.provides(`./${client.filename}`).add(client.exportName)
+
   await emitter.emitGenerationResult([
+    module.toCompilationUnit(),
     client.toCompilationUnit(),
     rootTypeBuilder.toCompilationUnit(),
     rootSchemaBuilder.toCompilationUnit(),

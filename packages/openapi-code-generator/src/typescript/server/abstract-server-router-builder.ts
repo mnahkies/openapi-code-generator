@@ -1,10 +1,10 @@
 import type {Input} from "../../core/input"
 import type {IROperation} from "../../core/openapi-types-normalized"
-import {CompilationUnit, type ICompilable} from "./compilation-units"
-import type {ImportBuilder} from "./import-builder"
-import type {SchemaBuilder} from "./schema-builders/schema-builder"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
+import type {ImportBuilder} from "../common/import-builder"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../common/type-builder"
 import {ServerOperationBuilder} from "./server-operation-builder"
-import type {TypeBuilder} from "./type-builder"
 
 export abstract class AbstractServerRouterBuilder implements ICompilable {
   private readonly statements: string[] = []

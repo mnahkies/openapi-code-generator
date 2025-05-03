@@ -1,12 +1,11 @@
-import {titleCase} from "../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
-import {ImportBuilder} from "../common/import-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {AngularModuleBuilder} from "./angular-module-builder"
-import {AngularServiceBuilder} from "./angular-service-builder"
+import {titleCase} from "../../../core/utils"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
+import {ImportBuilder} from "../../common/import-builder"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../../common/type-builder"
+import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"
 
-export async function generateTypescriptAngular(
+export async function generateTypescriptAxios(
   config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
   const {input, emitter, allowAny} = config
@@ -17,6 +16,7 @@ export async function generateTypescriptAngular(
     config.compilerOptions,
     {allowAny},
   )
+
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
@@ -26,13 +26,12 @@ export async function generateTypescriptAngular(
 
   const imports = new ImportBuilder()
 
+  const filename = "client.ts"
   const exportName = titleCase(input.name())
-  const serviceExportName = `${exportName}Service`
-  const moduleExportName = `${exportName}Module`
 
-  const client = new AngularServiceBuilder(
-    "client.service.ts",
-    serviceExportName,
+  const client = new TypescriptAxiosClientBuilder(
+    filename,
+    exportName,
     input,
     imports,
     rootTypeBuilder.withImports(imports),
@@ -45,12 +44,7 @@ export async function generateTypescriptAngular(
 
   input.allOperations().map((it) => client.add(it))
 
-  const module = new AngularModuleBuilder("api.module.ts", moduleExportName)
-
-  module.provides(`./${client.filename}`).add(client.exportName)
-
   await emitter.emitGenerationResult([
-    module.toCompilationUnit(),
     client.toCompilationUnit(),
     rootTypeBuilder.toCompilationUnit(),
     rootSchemaBuilder.toCompilationUnit(),

@@ -1,8 +1,11 @@
-import {TypescriptClientBuilder} from "../common/client-builder"
-import type {ClientOperationBuilder} from "../common/client-operation-builder"
-import type {ImportBuilder} from "../common/import-builder"
-import {union} from "../common/type-utils"
-import {buildMethod, routeToTemplateString} from "../common/typescript-common"
+import type {ImportBuilder} from "../../common/import-builder"
+import {union} from "../../common/type-utils"
+import {
+  buildMethod,
+  routeToTemplateString,
+} from "../../common/typescript-common"
+import {TypescriptClientBuilder} from "../client-builder"
+import type {ClientOperationBuilder} from "../client-operation-builder"
 
 export class AngularServiceBuilder extends TypescriptClientBuilder {
   protected buildImports(imports: ImportBuilder): void {

@@ -5,14 +5,14 @@ import type {
   MaybeIRModel,
 } from "../../core/openapi-types-normalized"
 import {camelCase, isDefined} from "../../core/utils"
-import type {SchemaBuilder} from "./schema-builders/schema-builder"
-import type {TypeBuilder} from "./type-builder"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../common/type-builder"
 import {
   type MethodParameterDefinition,
   combineParams,
   requestBodyAsParameter,
   statusStringToType,
-} from "./typescript-common"
+} from "../common/typescript-common"
 
 export type ClientOperationResponseSchemas = {
   specific: {

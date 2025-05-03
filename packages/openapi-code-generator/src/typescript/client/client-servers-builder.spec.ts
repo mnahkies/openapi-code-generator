@@ -1,8 +1,8 @@
 import {describe, expect, it} from "@jest/globals"
 import type {IROperation, IRServer} from "../../core/openapi-types-normalized"
+import {ImportBuilder} from "../common/import-builder"
+import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome"
 import {ClientServersBuilder} from "./client-servers-builder"
-import {ImportBuilder} from "./import-builder"
-import {TypescriptFormatterBiome} from "./typescript-formatter.biome"
 
 type TestResult = {
   output: string

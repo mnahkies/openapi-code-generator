@@ -1,24 +1,24 @@
 // biome-ignore lint/style/useNodejsImportProtocol: keep webpack happy
 import path from "path"
-import type {Input} from "../../core/input"
-import {isDefined, normalizeFilename, titleCase} from "../../core/utils"
+import type {Input} from "../../../core/input"
+import {isDefined, normalizeFilename, titleCase} from "../../../core/utils"
 import type {
   OpenapiTypescriptGeneratorConfig,
   ServerImplementationMethod,
-} from "../../templates.types"
-import {AbstractServerRouterBuilder} from "../common/abstract-server-router-builder"
-import {CompilationUnit, type ICompilable} from "../common/compilation-units"
-import {ImportBuilder} from "../common/import-builder"
-import {JoiBuilder} from "../common/schema-builders/joi-schema-builder"
+} from "../../../templates.types"
+import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
+import {ImportBuilder} from "../../common/import-builder"
+import {JoiBuilder} from "../../common/schema-builders/joi-schema-builder"
 import {
   type SchemaBuilder,
   schemaBuilderFactory,
-} from "../common/schema-builders/schema-builder"
-import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
-import type {ServerOperationBuilder} from "../common/server-operation-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {constStatement, intersect, object} from "../common/type-utils"
-import {buildExport} from "../common/typescript-common"
+} from "../../common/schema-builders/schema-builder"
+import {ZodBuilder} from "../../common/schema-builders/zod-schema-builder"
+import {TypeBuilder} from "../../common/type-builder"
+import {constStatement, intersect, object} from "../../common/type-utils"
+import {buildExport} from "../../common/typescript-common"
+import {AbstractServerRouterBuilder} from "../abstract-server-router-builder"
+import type {ServerOperationBuilder} from "../server-operation-builder"
 
 export type ServerSymbols = {
   implPropName: string

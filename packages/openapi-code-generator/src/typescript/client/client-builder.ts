@@ -1,12 +1,12 @@
 import type {Input} from "../../core/input"
 import type {IROperation} from "../../core/openapi-types-normalized"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
+import type {ImportBuilder} from "../common/import-builder"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../common/type-builder"
+import {union} from "../common/type-utils"
 import {ClientOperationBuilder} from "./client-operation-builder"
 import {ClientServersBuilder} from "./client-servers-builder"
-import {CompilationUnit, type ICompilable} from "./compilation-units"
-import type {ImportBuilder} from "./import-builder"
-import type {SchemaBuilder} from "./schema-builders/schema-builder"
-import type {TypeBuilder} from "./type-builder"
-import {union} from "./type-utils"
 
 export abstract class TypescriptClientBuilder implements ICompilable {
   private readonly operations: string[] = []

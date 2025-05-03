@@ -5,11 +5,14 @@ import type {
   IRParameter,
 } from "../../core/openapi-types-normalized"
 import {upperFirst} from "../../core/utils"
-import type {ServerSymbols} from "../typescript-koa/typescript-koa.generator"
-import type {SchemaBuilder} from "./schema-builders/schema-builder"
-import type {TypeBuilder} from "./type-builder"
-import {intersect, object} from "./type-utils"
-import {requestBodyAsParameter, statusStringToType} from "./typescript-common"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../common/type-builder"
+import {intersect, object} from "../common/type-utils"
+import {
+  requestBodyAsParameter,
+  statusStringToType,
+} from "../common/typescript-common"
+import type {ServerSymbols} from "./typescript-koa/typescript-koa.generator"
 
 export function reduceParamsToOpenApiSchema(
   parameters: IRParameter[],

@@ -1,10 +1,10 @@
 import {describe, expect, it} from "@jest/globals"
-import type {ServerImplementationMethod} from "../../templates.types"
-import {unitTestInput} from "../../test/input.test-utils"
-import {ImportBuilder} from "../common/import-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {TypescriptFormatterBiome} from "../common/typescript-formatter.biome"
+import type {ServerImplementationMethod} from "../../../templates.types"
+import {unitTestInput} from "../../../test/input.test-utils"
+import {ImportBuilder} from "../../common/import-builder"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../../common/type-builder"
+import {TypescriptFormatterBiome} from "../../common/typescript-formatter.biome"
 import {KoaServerRouterBuilder} from "./typescript-koa.generator"
 
 describe("typescript/typescript-koa", () => {

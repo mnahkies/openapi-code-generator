@@ -1,5 +1,5 @@
-import {CompilationUnit, type ICompilable} from "../common/compilation-units"
-import {ImportBuilder} from "../common/import-builder"
+import {CompilationUnit, type ICompilable} from "../../common/compilation-units"
+import {ImportBuilder} from "../../common/import-builder"
 
 export class AngularModuleBuilder implements ICompilable {
   private readonly tsImports: ImportBuilder
