@@ -25,10 +25,10 @@
     "test": "jest"
   },
   "devDependencies": {
-    "@azure-tools/typespec-autorest": "^0.53.0",
-    "@azure-tools/typespec-azure-core": "^0.53.0",
-    "@azure-tools/typespec-azure-resource-manager": "^0.53.0",
-    "@azure-tools/typespec-client-generator-core": "^0.53.1",
+    "@azure-tools/typespec-autorest": "^0.55.0",
+    "@azure-tools/typespec-azure-core": "^0.55.0",
+    "@azure-tools/typespec-azure-resource-manager": "^0.55.0",
+    "@azure-tools/typespec-client-generator-core": "^0.55.0",
     "@types/js-yaml": "^4.0.9",
     "@types/lodash": "^4.17.16",
     "@types/prettier": "^3.0.0",
@@ -36,9 +36,9 @@
     "@typespec/http": "^0.67.0",
     "@typespec/openapi": "^0.67.0",
     "@typespec/openapi3": "^0.67.0",
-    "@typespec/rest": "^0.67.1",
-    "@typespec/versioning": "^0.67.1",
-    "@typespec/xml": "^0.67.1"
+    "@typespec/rest": "^0.69.0",
+    "@typespec/versioning": "^0.69.0",
+    "@typespec/xml": "^0.69.0"
   },
   "dependencies": {
     "@biomejs/biome": "1.9.4",
@@ -62,7 +62,7 @@
     "@typespec/http": "^0.67.0",
     "@typespec/openapi": "^0.67.0",
     "@typespec/openapi3": "^0.67.0",
-    "@typespec/versioning": "^0.67.1"
+    "@typespec/versioning": "^0.69.0"
   },
   "peerDependenciesMeta": {
     "@typespec/compiler": {

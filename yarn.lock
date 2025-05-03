@@ -459,69 +459,69 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-autorest@npm:^0.53.0":
-  version: 0.53.0
-  resolution: "@azure-tools/typespec-autorest@npm:0.53.0"
+"@azure-tools/typespec-autorest@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@azure-tools/typespec-autorest@npm:0.55.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ^0.53.0
-    "@azure-tools/typespec-azure-resource-manager": ^0.53.0
-    "@azure-tools/typespec-client-generator-core": ^0.53.0
-    "@typespec/compiler": ^0.67.0
-    "@typespec/http": ^0.67.0
-    "@typespec/openapi": ^0.67.0
-    "@typespec/rest": ^0.67.0
-    "@typespec/versioning": ^0.67.0
-  checksum: 10/2a6eab64d380726b57bb0f4a2157808f7850b38d8c7167b2b70e81b7a919ba6dcf97e3d8c53b1da7f1e45ee5f5b687e7578392119ba743df2acb304974996782
+    "@azure-tools/typespec-azure-core": ^0.55.0
+    "@azure-tools/typespec-azure-resource-manager": ^0.55.0
+    "@azure-tools/typespec-client-generator-core": ^0.55.0
+    "@typespec/compiler": ^1.0.0-rc.1
+    "@typespec/http": ^1.0.0-rc.1
+    "@typespec/openapi": ^1.0.0-rc.1
+    "@typespec/rest": ^0.69.0
+    "@typespec/versioning": ^0.69.0
+  checksum: 10/fdf75a4b84daeaaa7d1b34791267531512d01fe8e6cf148bad4bd53c6171a3d9ef3858946bff5bb1b7c2f8c9d3baf3a6a388ef6aabb9be26ed2c25760dd8b6e9
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-core@npm:^0.53.0":
-  version: 0.53.0
-  resolution: "@azure-tools/typespec-azure-core@npm:0.53.0"
+"@azure-tools/typespec-azure-core@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@azure-tools/typespec-azure-core@npm:0.55.0"
   peerDependencies:
-    "@typespec/compiler": ^0.67.0
-    "@typespec/http": ^0.67.0
-    "@typespec/rest": ^0.67.0
-  checksum: 10/5351febf316dda6620cd63c0cd3bb66b1c7b553ebaee3e6ec3726c206f6e0827f44ea9890bb7d26bd9b87b41cda0fb475f21a0959e1133b6394e75d826bec87d
+    "@typespec/compiler": ^1.0.0-rc.1
+    "@typespec/http": ^1.0.0-rc.1
+    "@typespec/rest": ^0.69.0
+  checksum: 10/915ee1e23a5b2d03720321808c95c94dd677a7f5017ea8b758fc96f509dd307380fc40eb7f26e6832417df1b6a647a00e001c91bd06284050f812fb171e554af
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-azure-resource-manager@npm:^0.53.0":
-  version: 0.53.0
-  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.53.0"
+"@azure-tools/typespec-azure-resource-manager@npm:^0.55.0":
+  version: 0.55.0
+  resolution: "@azure-tools/typespec-azure-resource-manager@npm:0.55.0"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ^0.53.0
-    "@typespec/compiler": ^0.67.0
-    "@typespec/http": ^0.67.0
-    "@typespec/openapi": ^0.67.0
-    "@typespec/rest": ^0.67.0
-    "@typespec/versioning": ^0.67.0
-  checksum: 10/ab91ecd959340ef260b28074ec0bc81e05b0db74dd12c8ab72341f48cca91e37a517d05e4f4a925e56e46b0f3bf9e9b94114ba9bf4b533069fe615bc7c6a5453
+    "@azure-tools/typespec-azure-core": ^0.55.0
+    "@typespec/compiler": ^1.0.0-rc.1
+    "@typespec/http": ^1.0.0-rc.1
+    "@typespec/openapi": ^1.0.0-rc.1
+    "@typespec/rest": ^0.69.0
+    "@typespec/versioning": ^0.69.0
+  checksum: 10/ac35d1ef32e24983eb0d4435f027834899fae67f9c9414d633cc2ed5fd3db4395c49ac659693e9529653ddc366202e462dd4f2f73c88eb63eb4c4ac48f2440f7
   languageName: node
   linkType: hard
 
-"@azure-tools/typespec-client-generator-core@npm:^0.53.1":
-  version: 0.53.1
-  resolution: "@azure-tools/typespec-client-generator-core@npm:0.53.1"
+"@azure-tools/typespec-client-generator-core@npm:^0.55.0":
+  version: 0.55.1
+  resolution: "@azure-tools/typespec-client-generator-core@npm:0.55.1"
   dependencies:
     change-case: "npm:~5.4.4"
     pluralize: "npm:^8.0.0"
     yaml: "npm:~2.7.0"
   peerDependencies:
-    "@azure-tools/typespec-azure-core": ^0.53.0
-    "@typespec/compiler": ^0.67.0
-    "@typespec/events": ^0.67.0
-    "@typespec/http": ^0.67.0
-    "@typespec/openapi": ^0.67.0
-    "@typespec/rest": ^0.67.0
-    "@typespec/sse": ^0.67.0
-    "@typespec/streams": ^0.67.0
-    "@typespec/versioning": ^0.67.0
-    "@typespec/xml": ^0.67.0
-  checksum: 10/30aee63624dc45080a22ebef13bf6a9b8fd68ae8d7e9930f4b89abf066214291d3b69e2e1fc9518faed1e955ecfa0074f31509b411f6d02e16140b104e2a0de6
+    "@azure-tools/typespec-azure-core": ^0.55.0
+    "@typespec/compiler": ^1.0.0-rc.1
+    "@typespec/events": ^0.69.0
+    "@typespec/http": ^1.0.0-rc.1
+    "@typespec/openapi": ^1.0.0-rc.1
+    "@typespec/rest": ^0.69.0
+    "@typespec/sse": ^0.69.0
+    "@typespec/streams": ^0.69.0
+    "@typespec/versioning": ^0.69.0
+    "@typespec/xml": ^0.69.0
+  checksum: 10/27acee376a2f924bf312a51ed4f3ee2f6741240a0982b7d4a6ef04895b86c379ed7d98e2ec69339aed04deaf2bed8d03eea14ae082d8070a39aa598404854d1c
   languageName: node
   linkType: hard
 
@@ -3744,10 +3744,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@nahkies/openapi-code-generator@workspace:packages/openapi-code-generator"
   dependencies:
-    "@azure-tools/typespec-autorest": "npm:^0.53.0"
-    "@azure-tools/typespec-azure-core": "npm:^0.53.0"
-    "@azure-tools/typespec-azure-resource-manager": "npm:^0.53.0"
-    "@azure-tools/typespec-client-generator-core": "npm:^0.53.1"
+    "@azure-tools/typespec-autorest": "npm:^0.55.0"
+    "@azure-tools/typespec-azure-core": "npm:^0.55.0"
+    "@azure-tools/typespec-azure-resource-manager": "npm:^0.55.0"
+    "@azure-tools/typespec-client-generator-core": "npm:^0.55.0"
     "@biomejs/biome": "npm:1.9.4"
     "@biomejs/js-api": "npm:0.7.1"
     "@biomejs/wasm-nodejs": "npm:1.9.4"
@@ -3759,9 +3759,9 @@ __metadata:
     "@typespec/http": "npm:^0.67.0"
     "@typespec/openapi": "npm:^0.67.0"
     "@typespec/openapi3": "npm:^0.67.0"
-    "@typespec/rest": "npm:^0.67.1"
-    "@typespec/versioning": "npm:^0.67.1"
-    "@typespec/xml": "npm:^0.67.1"
+    "@typespec/rest": "npm:^0.69.0"
+    "@typespec/versioning": "npm:^0.69.0"
+    "@typespec/xml": "npm:^0.69.0"
     ajv: "npm:^8.17.1"
     ajv-draft-04: "npm:^1.0.0"
     ajv-formats: "npm:^3.0.1"
@@ -3778,7 +3778,7 @@ __metadata:
     "@typespec/http": ^0.67.0
     "@typespec/openapi": ^0.67.0
     "@typespec/openapi3": ^0.67.0
-    "@typespec/versioning": ^0.67.1
+    "@typespec/versioning": ^0.69.0
   peerDependenciesMeta:
     "@typespec/compiler":
       optional: true
@@ -3834,7 +3834,7 @@ __metadata:
     "@types/koa__router": "npm:^12.0.4"
     jest: "npm:^30.0.0-alpha.6"
     joi: "npm:^17.13.3"
-    koa: "npm:^2.16.1"
+    koa: "npm:^3.0.0"
     koa-body: "npm:^6.0.1"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.24.3"
@@ -3842,7 +3842,7 @@ __metadata:
     "@koa/cors": ^5.0.0
     "@koa/router": ^13.0.0
     joi: ^17.1.1
-    koa: ^2.14.1
+    koa: ^3.0.0
     koa-body: ^6.0.1
     zod: ^3.20.6
   languageName: unknown
@@ -6833,31 +6833,31 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@typespec/rest@npm:^0.67.1":
-  version: 0.67.1
-  resolution: "@typespec/rest@npm:0.67.1"
+"@typespec/rest@npm:^0.69.0":
+  version: 0.69.0
+  resolution: "@typespec/rest@npm:0.69.0"
   peerDependencies:
-    "@typespec/compiler": ^0.67.1
-    "@typespec/http": ^0.67.1
-  checksum: 10/19ae69fbf0d06266a80bb4c2c1f549539a81fa6940d626cbb5b414cb42b022ccdc43f717ec7724a5c80172962a5699014603f7acc8c7ce766e957691b1b09659
+    "@typespec/compiler": ^1.0.0-rc.1
+    "@typespec/http": ^1.0.0-rc.1
+  checksum: 10/731132cb5c6daffc7f6e0746a0793569d5fe7bb974a60a58b9f0b66927effcccf1327a657c936a97fa394c3f9f23c48ff8f247ed43b2918354ace721f2424ae3
   languageName: node
   linkType: hard
 
-"@typespec/versioning@npm:^0.67.1":
-  version: 0.67.1
-  resolution: "@typespec/versioning@npm:0.67.1"
+"@typespec/versioning@npm:^0.69.0":
+  version: 0.69.0
+  resolution: "@typespec/versioning@npm:0.69.0"
   peerDependencies:
-    "@typespec/compiler": ^0.67.1
-  checksum: 10/dd070cc9f39576fd8911dbb40c10c9768c12b8181a5af62e21f0dfc51f3382c5d8d7a0ba1c1ed602915dfa0b0b4d4d83d6cc8e3539c0f30e45022d8a5860a693
+    "@typespec/compiler": ^1.0.0-rc.1
+  checksum: 10/f29955c70a0c20a05821ecda26e5b1c3cdce7046737f5839b5e0cc93124f2971ac90e2aa60cd335544aa014694be9aca6bf90987598d24d6f32b53d7424228a3
   languageName: node
   linkType: hard
 
-"@typespec/xml@npm:^0.67.1":
-  version: 0.67.1
-  resolution: "@typespec/xml@npm:0.67.1"
+"@typespec/xml@npm:^0.69.0":
+  version: 0.69.0
+  resolution: "@typespec/xml@npm:0.69.0"
   peerDependencies:
-    "@typespec/compiler": ^0.67.1
-  checksum: 10/6fd9ff5be2fbfb451d34b69b55807e0d8007a9876d8b235f2408cf1ed3e68604c2d6b1bd65095c7e6474a830c31f9ba803b980129ea4e5e2fbcd862531db244b
+    "@typespec/compiler": ^1.0.0-rc.1
+  checksum: 10/22a98af82c807285edc6f47aa3bfcab03b08a49b2d79713cf8822d008c5814ef93cc4eb78705d550f618c0852bc07c41d58b0779988a613b880e0b6ba81ad38d
   languageName: node
   linkType: hard
 
@@ -8781,7 +8781,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"content-type@npm:^1.0.4, content-type@npm:~1.0.4, content-type@npm:~1.0.5":
+"content-type@npm:^1.0.4, content-type@npm:^1.0.5, content-type@npm:~1.0.4, content-type@npm:~1.0.5":
   version: 1.0.5
   resolution: "content-type@npm:1.0.5"
   checksum: 10/585847d98dc7fb8035c02ae2cb76c7a9bd7b25f84c447e5ed55c45c2175e83617c8813871b4ee22f368126af6b2b167df655829007b21aa10302873ea9c62662
@@ -8916,7 +8916,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cookies@npm:~0.9.0":
+"cookies@npm:~0.9.1":
   version: 0.9.1
   resolution: "cookies@npm:0.9.1"
   dependencies:
@@ -9744,7 +9744,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"depd@npm:2.0.0, depd@npm:^2.0.0, depd@npm:~2.0.0":
+"depd@npm:2.0.0, depd@npm:~2.0.0":
   version: 2.0.0
   resolution: "depd@npm:2.0.0"
   checksum: 10/c0c8ff36079ce5ada64f46cc9d6fd47ebcf38241105b6e0c98f412e8ad91f084bcf906ff644cc3a4bd876ca27a62accb8b0fff72ea6ed1a414b89d8506f4a5ca
@@ -10031,7 +10031,7 @@ __metadata:
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     jest: "npm:^30.0.0-alpha.6"
-    koa: "npm:^2.16.1"
+    koa: "npm:^3.0.0"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.24.3"
   languageName: unknown
@@ -10133,17 +10133,17 @@ __metadata:
   languageName: node
   linkType: hard
 
-"encodeurl@npm:^1.0.2, encodeurl@npm:~1.0.2":
-  version: 1.0.2
-  resolution: "encodeurl@npm:1.0.2"
-  checksum: 10/e50e3d508cdd9c4565ba72d2012e65038e5d71bdc9198cb125beb6237b5b1ade6c0d343998da9e170fb2eae52c1bed37d4d6d98a46ea423a0cddbed5ac3f780c
-  languageName: node
-  linkType: hard
-
-"encodeurl@npm:~2.0.0":
+"encodeurl@npm:^2.0.0, encodeurl@npm:~2.0.0":
   version: 2.0.0
   resolution: "encodeurl@npm:2.0.0"
   checksum: 10/abf5cd51b78082cf8af7be6785813c33b6df2068ce5191a40ca8b1afe6a86f9230af9a9ce694a5ce4665955e5c1120871826df9c128a642e09c58d592e2807fe
+  languageName: node
+  linkType: hard
+
+"encodeurl@npm:~1.0.2":
+  version: 1.0.2
+  resolution: "encodeurl@npm:1.0.2"
+  checksum: 10/e50e3d508cdd9c4565ba72d2012e65038e5d71bdc9198cb125beb6237b5b1ade6c0d343998da9e170fb2eae52c1bed37d4d6d98a46ea423a0cddbed5ac3f780c
   languageName: node
   linkType: hard
 
@@ -12149,19 +12149,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-errors@npm:^1.6.3, http-errors@npm:~1.8.0":
-  version: 1.8.1
-  resolution: "http-errors@npm:1.8.1"
-  dependencies:
-    depd: "npm:~1.1.2"
-    inherits: "npm:2.0.4"
-    setprototypeof: "npm:1.2.0"
-    statuses: "npm:>= 1.5.0 < 2"
-    toidentifier: "npm:1.0.1"
-  checksum: 10/76fc491bd8df2251e21978e080d5dae20d9736cfb29bb72b5b76ec1bcebb1c14f0f58a3a128dd89288934379d2173cfb0421c571d54103e93dd65ef6243d64d8
-  languageName: node
-  linkType: hard
-
 "http-errors@npm:~1.6.2":
   version: 1.6.3
   resolution: "http-errors@npm:1.6.3"
@@ -12171,6 +12158,19 @@ __metadata:
     setprototypeof: "npm:1.1.0"
     statuses: "npm:>= 1.4.0 < 2"
   checksum: 10/e48732657ea0b4a09853d2696a584fa59fa2a8c1ba692af7af3137b5491a997d7f9723f824e7e08eb6a87098532c09ce066966ddf0f9f3dd30905e52301acadb
+  languageName: node
+  linkType: hard
+
+"http-errors@npm:~1.8.0":
+  version: 1.8.1
+  resolution: "http-errors@npm:1.8.1"
+  dependencies:
+    depd: "npm:~1.1.2"
+    inherits: "npm:2.0.4"
+    setprototypeof: "npm:1.2.0"
+    statuses: "npm:>= 1.5.0 < 2"
+    toidentifier: "npm:1.0.1"
+  checksum: 10/76fc491bd8df2251e21978e080d5dae20d9736cfb29bb72b5b76ec1bcebb1c14f0f58a3a128dd89288934379d2173cfb0421c571d54103e93dd65ef6243d64d8
   languageName: node
   linkType: hard
 
@@ -13114,10 +13114,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"jasmine-core@npm:~5.6.0":
-  version: 5.6.0
-  resolution: "jasmine-core@npm:5.6.0"
-  checksum: 10/0171a28634c6d9667278a628483bc9c6a075512078e74d208ae9172525e108d386621915449b30abe008d1bd86568a7f057cfc170be2286da5e21c4d5f2eba8e
+"jasmine-core@npm:~5.7.0":
+  version: 5.7.1
+  resolution: "jasmine-core@npm:5.7.1"
+  checksum: 10/ce61bd518354fd775e99d43243db1eaeeab3089705bcadeef31ee3c675fdac77f7eafbc68911d9900f1d4d7d85bf16fd9d4d917776454085b8f55410657dbe8f
   languageName: node
   linkType: hard
 
@@ -13949,44 +13949,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"koa-convert@npm:^2.0.0":
-  version: 2.0.0
-  resolution: "koa-convert@npm:2.0.0"
-  dependencies:
-    co: "npm:^4.6.0"
-    koa-compose: "npm:^4.1.0"
-  checksum: 10/7385b3391995f59c1312142e110d5dff677f9850dbfbcf387cd36a7b0af03b5d26e82b811eb9bb008b4f3e661cdab1f8817596e46b1929da2cf6e97a2f7456ed
-  languageName: node
-  linkType: hard
-
-"koa@npm:^2.16.1":
-  version: 2.16.1
-  resolution: "koa@npm:2.16.1"
+"koa@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "koa@npm:3.0.0"
   dependencies:
     accepts: "npm:^1.3.5"
     cache-content-type: "npm:^1.0.0"
     content-disposition: "npm:~0.5.2"
     content-type: "npm:^1.0.4"
-    cookies: "npm:~0.9.0"
+    cookies: "npm:~0.9.1"
     debug: "npm:^4.3.2"
     delegates: "npm:^1.0.0"
-    depd: "npm:^2.0.0"
     destroy: "npm:^1.0.4"
-    encodeurl: "npm:^1.0.2"
+    encodeurl: "npm:^2.0.0"
     escape-html: "npm:^1.0.3"
     fresh: "npm:~0.5.2"
     http-assert: "npm:^1.3.0"
-    http-errors: "npm:^1.6.3"
-    is-generator-function: "npm:^1.0.7"
+    http-errors: "npm:^2.0.0"
     koa-compose: "npm:^4.1.0"
-    koa-convert: "npm:^2.0.0"
     on-finished: "npm:^2.3.0"
-    only: "npm:~0.0.2"
     parseurl: "npm:^1.3.2"
-    statuses: "npm:^1.5.0"
-    type-is: "npm:^1.6.16"
+    statuses: "npm:^2.0.1"
+    type-is: "npm:^2.0.1"
     vary: "npm:^1.1.2"
-  checksum: 10/f33b95227e48bffd3a682996e6cf72c4ae2992671529c6c914b76d28172219c9cbd8201b16cc028dc25fafc8f1dc9391a6e7e045740a10ee7d89a5631031a974
+  checksum: 10/212c84c40a0e6c9455751efc6cece53b8fe1e0f69dba36ba8c6261988a93f9ebce6b4e84427a201fbc98159f31dc1e496e5e6c70e58d7738c817763700366a5e
   languageName: node
   linkType: hard
 
@@ -15013,6 +14999,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"media-typer@npm:^1.1.0":
+  version: 1.1.0
+  resolution: "media-typer@npm:1.1.0"
+  checksum: 10/a58dd60804df73c672942a7253ccc06815612326dc1c0827984b1a21704466d7cde351394f47649e56cf7415e6ee2e26e000e81b51b3eebb5a93540e8bf93cbd
+  languageName: node
+  linkType: hard
+
 "memfs@npm:^4.6.0":
   version: 4.17.0
   resolution: "memfs@npm:4.17.0"
@@ -15600,7 +15593,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mime-db@npm:>= 1.43.0 < 2":
+"mime-db@npm:>= 1.43.0 < 2, mime-db@npm:^1.54.0":
   version: 1.54.0
   resolution: "mime-db@npm:1.54.0"
   checksum: 10/9e7834be3d66ae7f10eaa69215732c6d389692b194f876198dca79b2b90cbf96688d9d5d05ef7987b20f749b769b11c01766564264ea5f919c88b32a29011311
@@ -15613,6 +15606,15 @@ __metadata:
   dependencies:
     mime-db: "npm:1.52.0"
   checksum: 10/89aa9651b67644035de2784a6e665fc685d79aba61857e02b9c8758da874a754aed4a9aced9265f5ed1171fd934331e5516b84a7f0218031b6fa0270eca1e51a
+  languageName: node
+  linkType: hard
+
+"mime-types@npm:^3.0.0":
+  version: 3.0.1
+  resolution: "mime-types@npm:3.0.1"
+  dependencies:
+    mime-db: "npm:^1.54.0"
+  checksum: 10/fa1d3a928363723a8046c346d87bf85d35014dae4285ad70a3ff92bd35957992b3094f8417973cfe677330916c6ef30885109624f1fb3b1e61a78af509dba120
   languageName: node
   linkType: hard
 
@@ -16933,13 +16935,6 @@ __metadata:
     regex: "npm:^6.0.1"
     regex-recursion: "npm:^6.0.2"
   checksum: 10/e832f72a79847230f80bb9c4cf4fe7717a5ae1394668c8d91e0d0ccba45a1ec4a9a88a39fcd0714adfc63fa8a40cbb404cc796ecf2a7824a6e1ccac3a56b581b
-  languageName: node
-  linkType: hard
-
-"only@npm:~0.0.2":
-  version: 0.0.2
-  resolution: "only@npm:0.0.2"
-  checksum: 10/e2ad03e486534dc6bfb983393be83125a4669052b4a19a353eb00475b46971fb238a18223f2b609fe0d1bcb61ff8373964ccac64d05cbf970865299f655ed0ba
   languageName: node
   linkType: hard
 
@@ -19953,14 +19948,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"statuses@npm:2.0.1":
+"statuses@npm:2.0.1, statuses@npm:^2.0.1":
   version: 2.0.1
   resolution: "statuses@npm:2.0.1"
   checksum: 10/18c7623fdb8f646fb213ca4051be4df7efb3484d4ab662937ca6fbef7ced9b9e12842709872eb3020cc3504b93bde88935c9f6417489627a7786f24f8031cbcb
   languageName: node
   linkType: hard
 
-"statuses@npm:>= 1.4.0 < 2, statuses@npm:>= 1.5.0 < 2, statuses@npm:^1.5.0, statuses@npm:~1.5.0":
+"statuses@npm:>= 1.4.0 < 2, statuses@npm:>= 1.5.0 < 2, statuses@npm:~1.5.0":
   version: 1.5.0
   resolution: "statuses@npm:1.5.0"
   checksum: 10/c469b9519de16a4bb19600205cffb39ee471a5f17b82589757ca7bd40a8d92ebb6ed9f98b5a540c5d302ccbc78f15dc03cc0280dd6e00df1335568a5d5758a5c
@@ -20742,6 +20737,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"type-is@npm:^2.0.1":
+  version: 2.0.1
+  resolution: "type-is@npm:2.0.1"
+  dependencies:
+    content-type: "npm:^1.0.5"
+    media-typer: "npm:^1.1.0"
+    mime-types: "npm:^3.0.0"
+  checksum: 10/bacdb23c872dacb7bd40fbd9095e6b2fca2895eedbb689160c05534d7d4810a7f4b3fd1ae87e96133c505958f6d602967a68db5ff577b85dd6be76eaa75d58af
+  languageName: node
+  linkType: hard
+
 "typed-assert@npm:^1.0.8":
   version: 1.0.9
   resolution: "typed-assert@npm:1.0.9"
@@ -20772,7 +20778,7 @@ __metadata:
     "@angular/platform-browser-dynamic": "npm:^19.2.7"
     "@angular/router": "npm:^19.2.7"
     "@types/jasmine": "npm:~5.1.7"
-    jasmine-core: "npm:~5.6.0"
+    jasmine-core: "npm:~5.7.0"
     karma: "npm:~6.4.4"
     karma-chrome-launcher: "npm:~3.2.0"
     karma-coverage: "npm:~2.2.1"
@@ -20817,7 +20823,7 @@ __metadata:
     "@types/koa": "npm:^2.15.0"
     "@types/koa__router": "npm:^12.0.4"
     joi: "npm:^17.13.3"
-    koa: "npm:^2.16.1"
+    koa: "npm:^3.0.0"
     typescript: "npm:~5.8.3"
     zod: "npm:^3.24.3"
   languageName: unknown
