@@ -21,7 +21,7 @@ import {
   KoaRuntimeResponse,
   Params,
   Response,
-  StatusCode,
+  r,
 } from "@nahkies/typescript-koa-runtime/server"
 import {
   parseRequestInput,
@@ -29,9 +29,18 @@ import {
 } from "@nahkies/typescript-koa-runtime/zod"
 import { z } from "zod"
 
-export type GetHeadersUndeclaredResponder = {
-  with200(): KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>
-} & KoaRuntimeResponder
+const getHeadersUndeclaredResponder = {
+  with200: r.with200<t_getHeadersUndeclaredJson200Response>,
+  withStatus: r.withStatus,
+}
+
+type GetHeadersUndeclaredResponder = typeof getHeadersUndeclaredResponder &
+  KoaRuntimeResponder
+
+const getHeadersUndeclaredResponseValidator = responseValidationFactory(
+  [["200", s_getHeadersUndeclaredJson200Response]],
+  undefined,
+)
 
 export type GetHeadersUndeclared = (
   params: Params<void, void, void, void>,
@@ -42,9 +51,18 @@ export type GetHeadersUndeclared = (
   | Response<200, t_getHeadersUndeclaredJson200Response>
 >
 
-export type GetHeadersRequestResponder = {
-  with200(): KoaRuntimeResponse<t_getHeadersRequestJson200Response>
-} & KoaRuntimeResponder
+const getHeadersRequestResponder = {
+  with200: r.with200<t_getHeadersRequestJson200Response>,
+  withStatus: r.withStatus,
+}
+
+type GetHeadersRequestResponder = typeof getHeadersRequestResponder &
+  KoaRuntimeResponder
+
+const getHeadersRequestResponseValidator = responseValidationFactory(
+  [["200", s_getHeadersRequestJson200Response]],
+  undefined,
+)
 
 export type GetHeadersRequest = (
   params: Params<void, void, void, t_GetHeadersRequestHeaderSchema>,
@@ -65,11 +83,6 @@ export function createRequestHeadersRouter(
 ): KoaRouter {
   const router = new KoaRouter()
 
-  const getHeadersUndeclaredResponseValidator = responseValidationFactory(
-    [["200", s_getHeadersUndeclaredJson200Response]],
-    undefined,
-  )
-
   router.get(
     "getHeadersUndeclared",
     "/headers/undeclared",
@@ -81,19 +94,8 @@ export function createRequestHeadersRouter(
         headers: undefined,
       }
 
-      const responder = {
-        with200() {
-          return new KoaRuntimeResponse<t_getHeadersUndeclaredJson200Response>(
-            200,
-          )
-        },
-        withStatus(status: StatusCode) {
-          return new KoaRuntimeResponse(status)
-        },
-      }
-
       const response = await implementation
-        .getHeadersUndeclared(input, responder, ctx)
+        .getHeadersUndeclared(input, getHeadersUndeclaredResponder, ctx)
         .catch((err) => {
           throw KoaRuntimeError.HandlerError(err)
         })
@@ -113,11 +115,6 @@ export function createRequestHeadersRouter(
     authorization: z.string().optional(),
   })
 
-  const getHeadersRequestResponseValidator = responseValidationFactory(
-    [["200", s_getHeadersRequestJson200Response]],
-    undefined,
-  )
-
   router.get("getHeadersRequest", "/headers/request", async (ctx, next) => {
     const input = {
       params: undefined,
@@ -130,17 +127,8 @@ export function createRequestHeadersRouter(
       ),
     }
 
-    const responder = {
-      with200() {
-        return new KoaRuntimeResponse<t_getHeadersRequestJson200Response>(200)
-      },
-      withStatus(status: StatusCode) {
-        return new KoaRuntimeResponse(status)
-      },
-    }
-
     const response = await implementation
-      .getHeadersRequest(input, responder, ctx)
+      .getHeadersRequest(input, getHeadersRequestResponder, ctx)
       .catch((err) => {
         throw KoaRuntimeError.HandlerError(err)
       })
