@@ -22,7 +22,7 @@ import type {ServerOperationBuilder} from "../server-operation-builder"
 
 export type ServerSymbols = {
   implPropName: string
-  typeName: string
+  implTypeName: string
   responderName: string
   paramSchema: string
   querySchema: string
@@ -120,7 +120,7 @@ export class KoaServerRouterBuilder extends AbstractServerRouterBuilder {
           kind: "type",
         }),
         buildExport({
-          name: symbols.typeName,
+          name: symbols.implTypeName,
           value: `(
                     params: ${params.type},
                     respond: ${symbols.responderName},
@@ -168,7 +168,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
   private operationSymbolNames(operationId: string): ServerSymbols {
     return {
       implPropName: operationId,
-      typeName: titleCase(operationId),
+      implTypeName: titleCase(operationId),
       responderName: `${titleCase(operationId)}Responder`,
       paramSchema: `${operationId}ParamSchema`,
       querySchema: `${operationId}QuerySchema`,
@@ -187,7 +187,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
           value: object(
             this.operationTypes
               .map((it) => this.operationSymbolNames(it.operationId))
-              .map((it) => `${it.implPropName}: ${it.typeName}`)
+              .map((it) => `${it.implPropName}: ${it.implTypeName}`)
               .join(","),
           ),
           kind: this.implementationMethod,
@@ -200,7 +200,7 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
           value: object(
             this.operationTypes
               .map((it) => this.operationSymbolNames(it.operationId))
-              .map((it) => `abstract ${it.implPropName}: ${it.typeName}`)
+              .map((it) => `abstract ${it.implPropName}: ${it.implTypeName}`)
               .join("\n"),
           ),
           kind: "abstract-class",
@@ -254,7 +254,6 @@ export class KoaServerBuilder implements ICompilable {
     private readonly input: Input,
     private readonly imports: ImportBuilder = new ImportBuilder(),
   ) {
-    // todo: unsure why, but adding an export at `.` of index.ts doesn't work properly
     this.imports
       .from("@nahkies/typescript-koa-runtime/server")
       .add(
@@ -272,11 +271,9 @@ export class KoaServerBuilder implements ICompilable {
   }
 
   toString(): string {
-    const {name} = this
-
     return `
       export async function bootstrap(config: ServerConfig) {
-        // ${name}
+        // ${this.name}
         return startServer(config)
       }
     `

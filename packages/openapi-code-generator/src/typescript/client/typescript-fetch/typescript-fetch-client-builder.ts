@@ -6,10 +6,10 @@ import {
   asyncMethod,
   routeToTemplateString,
 } from "../../common/typescript-common"
-import {TypescriptClientBuilder} from "../client-builder"
+import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
-export class TypescriptFetchClientBuilder extends TypescriptClientBuilder {
+export class TypescriptFetchClientBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-fetch-runtime/main")

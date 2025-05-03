@@ -8,7 +8,7 @@ import {union} from "../common/type-utils"
 import {ClientOperationBuilder} from "./client-operation-builder"
 import {ClientServersBuilder} from "./client-servers-builder"
 
-export abstract class TypescriptClientBuilder implements ICompilable {
+export abstract class AbstractClientBuilder implements ICompilable {
   private readonly operations: string[] = []
 
   protected readonly clientServersBuilder: ClientServersBuilder

@@ -4,10 +4,10 @@ import {
   buildMethod,
   routeToTemplateString,
 } from "../../common/typescript-common"
-import {TypescriptClientBuilder} from "../client-builder"
+import {AbstractClientBuilder} from "../abstract-client-builder"
 import type {ClientOperationBuilder} from "../client-operation-builder"
 
-export class AngularServiceBuilder extends TypescriptClientBuilder {
+export class AngularServiceBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports.from("@angular/core").add("Injectable")
 
