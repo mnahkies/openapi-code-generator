@@ -18,7 +18,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     public readonly exportName: string,
     protected readonly input: Input,
     protected readonly imports: ImportBuilder,
-    protected readonly models: TypeBuilder,
+    protected readonly types: TypeBuilder,
     protected readonly schemaBuilder: SchemaBuilder,
     protected readonly config: {
       enableRuntimeResponseValidation: boolean
@@ -43,7 +43,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   add(operation: IROperation): void {
     const builder = new ClientOperationBuilder(
       operation,
-      this.models,
+      this.types,
       this.schemaBuilder,
     )
     this.clientServersBuilder.addOperation(operation)
