@@ -7,6 +7,8 @@ import {ServerOperationBuilder} from "./server-operation-builder"
 import type {TypeBuilder} from "./type-builder"
 
 export abstract class AbstractServerRouterBuilder implements ICompilable {
+  private readonly statements: string[] = []
+
   protected constructor(
     public readonly filename: string,
     public readonly name: string,
@@ -25,17 +27,21 @@ export abstract class AbstractServerRouterBuilder implements ICompilable {
       this.types,
       this.schemaBuilder,
     )
-    this.buildOperation(builder)
+    const result = this.buildOperation(builder)
+    this.statements.push(result)
   }
 
   protected abstract buildImports(): void
 
-  protected abstract buildOperation(builder: ServerOperationBuilder): void
+  protected abstract buildOperation(builder: ServerOperationBuilder): string
 
-  protected abstract buildRouter(routerName: string): string
+  protected abstract buildRouter(
+    routerName: string,
+    statements: string[],
+  ): string
 
   toString(): string {
-    return this.buildRouter(this.name)
+    return this.buildRouter(this.name, this.statements)
   }
 
   toCompilationUnit(): CompilationUnit {

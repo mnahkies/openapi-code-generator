@@ -17,7 +17,7 @@ import {
 import {ZodBuilder} from "../common/schema-builders/zod-schema-builder"
 import type {ServerOperationBuilder} from "../common/server-operation-builder"
 import {TypeBuilder} from "../common/type-builder"
-import {intersect, object} from "../common/type-utils"
+import {constStatement, intersect, object} from "../common/type-utils"
 import {buildExport} from "../common/typescript-common"
 
 export type ServerSymbols = {
@@ -32,7 +32,6 @@ export type ServerSymbols = {
 }
 
 export class KoaServerRouterBuilder extends AbstractServerRouterBuilder {
-  private readonly statements: string[] = []
   private readonly operationTypes: {
     operationId: string
     statements: string[]
@@ -86,30 +85,26 @@ export class KoaServerRouterBuilder extends AbstractServerRouterBuilder {
     }
   }
 
-  private addParameterSchemaStatement(symbolName: string, schema: string) {
-    this.statements.push(`const ${symbolName} = ${schema}`)
-  }
+  protected buildOperation(builder: ServerOperationBuilder): string {
+    const statements: string[] = []
 
-  protected buildOperation(builder: ServerOperationBuilder): void {
     const symbols = this.operationSymbolNames(builder.operationId)
     const params = builder.parameters(symbols)
 
     if (params.path.schema) {
-      this.addParameterSchemaStatement(symbols.paramSchema, params.path.schema)
+      statements.push(constStatement(symbols.paramSchema, params.path.schema))
     }
     if (params.query.schema) {
-      this.addParameterSchemaStatement(symbols.querySchema, params.query.schema)
+      statements.push(constStatement(symbols.querySchema, params.query.schema))
     }
     if (params.header.schema) {
-      this.addParameterSchemaStatement(
-        symbols.requestHeaderSchema,
-        params.header.schema,
+      statements.push(
+        constStatement(symbols.requestHeaderSchema, params.header.schema),
       )
     }
     if (params.body.schema) {
-      this.addParameterSchemaStatement(
-        symbols.requestBodySchema,
-        params.body.schema,
+      statements.push(
+        constStatement(symbols.requestBodySchema, params.body.schema),
       )
     }
 
@@ -144,7 +139,7 @@ export class KoaServerRouterBuilder extends AbstractServerRouterBuilder {
       ],
     })
 
-    this.statements.push(`
+    statements.push(`
 const ${symbols.responseBodyValidator} = ${builder.responseValidator()}
 
 router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builder.route)}', async (ctx, next) => {
@@ -166,6 +161,8 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
    ctx.status = status
    return next();
 })`)
+
+    return statements.join("\n\n")
   }
 
   private operationSymbolNames(operationId: string): ServerSymbols {
@@ -218,7 +215,10 @@ router.${builder.method.toLowerCase()}('${symbols.implPropName}','${route(builde
     }
   }
 
-  protected buildRouter(routerName: string): string {
+  protected buildRouter(
+    routerName: string,
+    routerStatements: string[],
+  ): string {
     const moduleName = titleCase(routerName)
     const implementationExportName = `${moduleName}Implementation`
     const createRouterExportName = `create${moduleName}Router`
@@ -231,7 +231,7 @@ ${this.implementationExport(implementationExportName)}
 export function ${createRouterExportName}(implementation: ${implementationExportName}): KoaRouter {
   const router = new KoaRouter()
 
-  ${this.statements.join("\n\n")}
+  ${routerStatements.join("\n\n")}
 
   return router
 }
