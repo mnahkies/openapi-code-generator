@@ -1,10 +1,13 @@
-import {TypescriptClientBuilder} from "../common/client-builder"
-import type {ClientOperationBuilder} from "../common/client-operation-builder"
-import type {ImportBuilder} from "../common/import-builder"
-import {union} from "../common/type-utils"
-import {buildMethod, routeToTemplateString} from "../common/typescript-common"
+import type {ImportBuilder} from "../../common/import-builder"
+import {union} from "../../common/type-utils"
+import {
+  buildMethod,
+  routeToTemplateString,
+} from "../../common/typescript-common"
+import {AbstractClientBuilder} from "../abstract-client-builder"
+import type {ClientOperationBuilder} from "../client-operation-builder"
 
-export class AngularServiceBuilder extends TypescriptClientBuilder {
+export class AngularServiceBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports.from("@angular/core").add("Injectable")
 

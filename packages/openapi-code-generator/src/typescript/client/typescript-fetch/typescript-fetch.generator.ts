@@ -1,11 +1,11 @@
-import {titleCase} from "../../core/utils"
-import type {OpenapiTypescriptGeneratorConfig} from "../../templates.types"
-import {ImportBuilder} from "../common/import-builder"
-import {schemaBuilderFactory} from "../common/schema-builders/schema-builder"
-import {TypeBuilder} from "../common/type-builder"
-import {TypescriptAxiosClientBuilder} from "./typescript-axios-client-builder"
+import {titleCase} from "../../../core/utils"
+import type {OpenapiTypescriptGeneratorConfig} from "../../../templates.types"
+import {ImportBuilder} from "../../common/import-builder"
+import {schemaBuilderFactory} from "../../common/schema-builders/schema-builder"
+import {TypeBuilder} from "../../common/type-builder"
+import {TypescriptFetchClientBuilder} from "./typescript-fetch-client-builder"
 
-export async function generateTypescriptAxios(
+export async function generateTypescriptFetch(
   config: OpenapiTypescriptGeneratorConfig,
 ): Promise<void> {
   const {input, emitter, allowAny} = config
@@ -16,7 +16,6 @@ export async function generateTypescriptAxios(
     config.compilerOptions,
     {allowAny},
   )
-
   const rootSchemaBuilder = await schemaBuilderFactory(
     "./schemas.ts",
     input,
@@ -29,7 +28,7 @@ export async function generateTypescriptAxios(
   const filename = "client.ts"
   const exportName = titleCase(input.name())
 
-  const client = new TypescriptAxiosClientBuilder(
+  const client = new TypescriptFetchClientBuilder(
     filename,
     exportName,
     input,

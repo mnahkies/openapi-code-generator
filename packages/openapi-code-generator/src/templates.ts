@@ -1,8 +1,8 @@
 import type {OpenapiGenerator} from "./templates.types"
-import {generateTypescriptAngular} from "./typescript/typescript-angular/typescript-angular.generator"
-import {generateTypescriptAxios} from "./typescript/typescript-axios/typescript-axios.generator"
-import {generateTypescriptFetch} from "./typescript/typescript-fetch/typescript-fetch.generator"
-import {generateTypescriptKoa} from "./typescript/typescript-koa/typescript-koa.generator"
+import {generateTypescriptAngular} from "./typescript/client/typescript-angular/typescript-angular.generator"
+import {generateTypescriptAxios} from "./typescript/client/typescript-axios/typescript-axios.generator"
+import {generateTypescriptFetch} from "./typescript/client/typescript-fetch/typescript-fetch.generator"
+import {generateTypescriptKoa} from "./typescript/server/typescript-koa/typescript-koa.generator"
 
 export const templates = {
   "typescript-fetch": {

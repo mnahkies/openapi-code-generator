@@ -1,10 +1,13 @@
-import {TypescriptClientBuilder} from "../common/client-builder"
-import type {ClientOperationBuilder} from "../common/client-operation-builder"
-import type {ImportBuilder} from "../common/import-builder"
-import {union} from "../common/type-utils"
-import {asyncMethod, routeToTemplateString} from "../common/typescript-common"
+import type {ImportBuilder} from "../../common/import-builder"
+import {union} from "../../common/type-utils"
+import {
+  asyncMethod,
+  routeToTemplateString,
+} from "../../common/typescript-common"
+import {AbstractClientBuilder} from "../abstract-client-builder"
+import type {ClientOperationBuilder} from "../client-operation-builder"
 
-export class TypescriptAxiosClientBuilder extends TypescriptClientBuilder {
+export class TypescriptAxiosClientBuilder extends AbstractClientBuilder {
   protected buildImports(imports: ImportBuilder): void {
     imports
       .from("@nahkies/typescript-axios-runtime/main")

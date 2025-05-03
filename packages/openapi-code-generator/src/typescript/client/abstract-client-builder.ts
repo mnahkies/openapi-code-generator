@@ -1,14 +1,14 @@
 import type {Input} from "../../core/input"
 import type {IROperation} from "../../core/openapi-types-normalized"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
+import type {ImportBuilder} from "../common/import-builder"
+import type {SchemaBuilder} from "../common/schema-builders/schema-builder"
+import type {TypeBuilder} from "../common/type-builder"
+import {union} from "../common/type-utils"
 import {ClientOperationBuilder} from "./client-operation-builder"
 import {ClientServersBuilder} from "./client-servers-builder"
-import {CompilationUnit, type ICompilable} from "./compilation-units"
-import type {ImportBuilder} from "./import-builder"
-import type {SchemaBuilder} from "./schema-builders/schema-builder"
-import type {TypeBuilder} from "./type-builder"
-import {quotedStringLiteral, union} from "./type-utils"
 
-export abstract class TypescriptClientBuilder implements ICompilable {
+export abstract class AbstractClientBuilder implements ICompilable {
   private readonly operations: string[] = []
 
   protected readonly clientServersBuilder: ClientServersBuilder
@@ -18,7 +18,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
     public readonly exportName: string,
     protected readonly input: Input,
     protected readonly imports: ImportBuilder,
-    protected readonly models: TypeBuilder,
+    protected readonly types: TypeBuilder,
     protected readonly schemaBuilder: SchemaBuilder,
     protected readonly config: {
       enableRuntimeResponseValidation: boolean
@@ -43,7 +43,7 @@ export abstract class TypescriptClientBuilder implements ICompilable {
   add(operation: IROperation): void {
     const builder = new ClientOperationBuilder(
       operation,
-      this.models,
+      this.types,
       this.schemaBuilder,
     )
     this.clientServersBuilder.addOperation(operation)

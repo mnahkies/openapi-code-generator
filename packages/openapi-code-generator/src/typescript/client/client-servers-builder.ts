@@ -3,9 +3,9 @@ import type {
   IRServer,
   IRServerVariable,
 } from "../../core/openapi-types-normalized"
-import {CompilationUnit, type ICompilable} from "./compilation-units"
-import type {ImportBuilder} from "./import-builder"
-import {quotedStringLiteral, union} from "./type-utils"
+import {CompilationUnit, type ICompilable} from "../common/compilation-units"
+import type {ImportBuilder} from "../common/import-builder"
+import {quotedStringLiteral, union} from "../common/type-utils"
 
 export class ClientServersBuilder implements ICompilable {
   readonly operations: Pick<IROperation, "operationId" | "servers">[] = []

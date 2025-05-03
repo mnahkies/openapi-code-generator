@@ -76,8 +76,11 @@ export const object = wrap((properties: MaybeString[]): string => {
     return ""
   }
 
-  return `{\n${definedProperties.join("\n")}\n}`
+  return `{\n${definedProperties.join(",\n")}\n}`
 })
+
+export const constStatement = (name: string, value: string): string =>
+  `const ${name} = ${value}`
 
 export const array = (type: string): string => `(${type})[]`
 
